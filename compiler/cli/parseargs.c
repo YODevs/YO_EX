@@ -17,11 +17,11 @@ void parse_args(int argc_i, char *argval[])
 
  if(strcmp(args,BUILD)== 0)
  {
-
+     
  }else
  {
-  //Command not found.
- cli_command_error(args);
+     //Command not found.
+     cli_command_error(args);
  }
 
  return;
