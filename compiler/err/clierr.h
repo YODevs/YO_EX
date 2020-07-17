@@ -9,3 +9,4 @@
 
 
 extern void cli_command_error(char command[]);
+extern void cli_source_notfound_error(char fileaddress[]);

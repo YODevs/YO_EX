@@ -15,3 +15,11 @@ extern void cli_command_error(char command[])
     set_error("Argument Error",caption,exitfproc);
     free(caption);
 }
+
+extern void cli_source_notfound_error(char fileaddress[])
+{
+    char caption[300] = "";
+    snprintf(caption, sizeof(caption)  , "'%s' - source not found .",fileaddress );
+    set_error("Lexer Error",caption,exitfproc);
+    free(caption);
+}
