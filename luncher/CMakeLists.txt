@@ -3,4 +3,4 @@ project(Luncher C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(Luncher main.c cli/cli.c cli/cli.h)
+add_executable(Luncher main.c cli/cli.c cli/cli.h err/ncerror.c err/ncerror.h)
