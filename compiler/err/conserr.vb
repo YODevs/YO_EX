@@ -1,6 +1,7 @@
 ﻿Public Class conserr
     Enum errortype
         DIRNOTFOUND
+        YOFILENOTFOUND
     End Enum
 
     Enum errorpriority
@@ -29,5 +30,6 @@
 
     Public Shared Sub init_error_struct()
         set_new_error(errortype.DIRNOTFOUND, errorpriority.STOP, "Directory not found", "Folder containing '.yo' files not found.")
+        set_new_error(errortype.YOFILENOTFOUND, errorpriority.STOP, "YO File not found", "Project files [.yo] not found.")
     End Sub
 End Class
