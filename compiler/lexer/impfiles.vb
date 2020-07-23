@@ -5,7 +5,9 @@ Public Class impfiles
         If Directory.Exists(dir) Then
             Dim files As New ArrayList
             If get_yo_files(dir, files) Then
-
+                For index = 0 To files.Count - 1
+                    Dim lex As New lexer(files(index).ToString)
+                Next
             Else
                 Return
             End If
