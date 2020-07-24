@@ -1,10 +1,10 @@
 ﻿Public Class tokenhared
     Public Shared operatorToken() As Object = {"=", "&", "+", "-", "*", ":", "/", "%", "|", ">", "<", ","}
     Public Shared conditionToken() As Object = {"==", "<>", ">>", "<<", ">=", "<="}
-    Public _token As Dictionary(Of token, String)
-    Public _tokenSym As New Dictionary(Of token, String)
+    Private Shared _token As Dictionary(Of token, String)
+    Private Shared _tokenSym As New Dictionary(Of token, String)
 
-    Public Sub Init()
+    Friend Shared Sub init()
         _token = New Dictionary(Of token, String)()
         _token.Add(token.TO, "to")
         _token.Add(token.IF, "if")
@@ -46,7 +46,7 @@
         _tokenSym.Add(token.[AND], "&")
         _tokenSym.Add(token.LKO, ">")
         _tokenSym.Add(token.RKO, "<")
-        _tokenSym.Add(token.Equals, "=")
+        _tokenSym.Add(token.EQUALS, "=")
         _tokenSym.Add(token.CMA, ",")
         _tokenSym.Add(token.BLOCKOPEN, "{")
         _tokenSym.Add(token.BLOCKEND, "}")
