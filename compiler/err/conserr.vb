@@ -3,6 +3,7 @@
         DIRNOTFOUND
         YOFILENOTFOUND
         TYPEERRORNUMERIC
+        RUNTIMEERROR
     End Enum
 
     Enum errorpriority
@@ -33,5 +34,6 @@
         set_new_error(errortype.DIRNOTFOUND, errorpriority.STOP, "Directory not found", "Folder containing '.yo' files not found.")
         set_new_error(errortype.YOFILENOTFOUND, errorpriority.STOP, "YO file not found", "Project files [.yo] not found.")
         set_new_error(errortype.TYPEERRORNUMERIC, errorpriority.STOP, "Unknown numeric format", "Unknown numeric format found during code analysis.")
+        set_new_error(errortype.RUNTIMEERROR, errorpriority.STOP, "Runtime error", "An unknown error occurred while running.")
     End Sub
 End Class
