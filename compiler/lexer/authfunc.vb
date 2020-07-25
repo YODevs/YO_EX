@@ -8,7 +8,7 @@ Public Class authfunc
             If line <= splsource.Length - 1 Then
                 Return splsource(line)
             Else
-                'Error...
+                dserr.new_error(conserr.errortype.RUNTIMEERROR, "There is no line credit.")
             End If
         Else
             dserr.new_error(conserr.errortype.YOFILENOTFOUND, "path => " & path)
@@ -22,7 +22,7 @@ Public Class authfunc
         Dim startindexof As Integer = code.IndexOf(errtoken)
         Dim excreviewer As String = Space(startindexof)
         For index = 0 To errtoken.Length - 1
-            excreviewer &= conrex.CURSORERR
+            excreviewer &= conrex.CURSORERR 
         Next
         Return code & vbCr & excreviewer
     End Function
