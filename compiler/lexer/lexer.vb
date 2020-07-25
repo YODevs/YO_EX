@@ -41,7 +41,7 @@ Public Class lexer
         Dim linec As String = String.Empty
         Dim linecinf As New targetinf
         linecinf.lstart = 0
-        linecinf.line = 0
+        linecinf.line = -1
         For index = 0 To fsourcelen
             getch = fsource(index)
             If linecinf.lstart = -1 AndAlso getch <> conrex.SPACE Then
@@ -56,8 +56,8 @@ Public Class lexer
                 Case Chr(10)
                     linecinf.lend = index - 1
                     linecinf.length = linec.Length
-                    linecinf.line += 1
                     check_token(linecinf, linec)
+                    linecinf.line += 1
                 Case Chr(13)
                     Continue For
                 Case Else
@@ -72,12 +72,12 @@ Public Class lexer
 
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String)
         rd_token = tokenhared.token.UNDEFINED
-        rev_numeric(linec)
+        rev_numeric(linec, linecinf)
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
 
-    Private Function rev_numeric(value As String) As Boolean
+    Private Function rev_numeric(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         If IsNumeric(value) Then
             rd_token = tokenhared.token.TYPE_INT
             If value.ToString.Contains(conrex.DOT) Then
@@ -86,7 +86,7 @@ Public Class lexer
                     Return True
                 Else
                     rd_token = tokenhared.token.UNDEFINED
-                    MsgBox("ERROR")
+                    dserr.new_error(conserr.errortype.TYPEERRORNUMERIC, authfunc.get_line_error(sfile, linecinf, value), "3.14 / 54.545_152")
                 End If
             End If
             Return True
@@ -94,5 +94,4 @@ Public Class lexer
 
         Return False
     End Function
-
 End Class
