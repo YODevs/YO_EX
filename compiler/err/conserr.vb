@@ -2,6 +2,7 @@
     Enum errortype
         DIRNOTFOUND
         YOFILENOTFOUND
+        TYPEERRORNUMERIC
     End Enum
 
     Enum errorpriority
@@ -30,6 +31,7 @@
 
     Public Shared Sub init_error_struct()
         set_new_error(errortype.DIRNOTFOUND, errorpriority.STOP, "Directory not found", "Folder containing '.yo' files not found.")
-        set_new_error(errortype.YOFILENOTFOUND, errorpriority.STOP, "YO File not found", "Project files [.yo] not found.")
+        set_new_error(errortype.YOFILENOTFOUND, errorpriority.STOP, "YO file not found", "Project files [.yo] not found.")
+        set_new_error(errortype.TYPEERRORNUMERIC, errorpriority.STOP, "Unknown numeric format", "Unknown numeric format found during code analysis.")
     End Sub
 End Class
