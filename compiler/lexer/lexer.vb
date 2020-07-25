@@ -5,13 +5,14 @@ Public Class lexer
     Structure targetinf
         Dim length As Integer
         Dim lstart, lend As Integer
+        Dim line As Integer
     End Structure
     Public Sub New(file As String)
         fsource = import_source(file)
         sfile = file
     End Sub
 
-
+    Private rd_token As tokenhared.token
     Private ReadOnly fsource As String
     Public ReadOnly Property source() As String
         Get
@@ -40,6 +41,7 @@ Public Class lexer
         Dim linec As String = String.Empty
         Dim linecinf As New targetinf
         linecinf.lstart = 0
+        linecinf.line = 0
         For index = 0 To fsourcelen
             getch = fsource(index)
             If linecinf.lstart = -1 AndAlso getch <> conrex.SPACE Then
@@ -54,6 +56,7 @@ Public Class lexer
                 Case Chr(10)
                     linecinf.lend = index - 1
                     linecinf.length = linec.Length
+                    linecinf.line += 1
                     check_token(linecinf, linec)
                 Case Chr(13)
                     Continue For
@@ -68,10 +71,28 @@ Public Class lexer
     End Sub
 
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String)
+        rd_token = tokenhared.token.UNDEFINED
+        rev_numeric(linec)
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
 
+    Private Function rev_numeric(value As String) As Boolean
+        If IsNumeric(value) Then
+            rd_token = tokenhared.token.TYPE_INT
+            If value.ToString.Contains(conrex.DOT) Then
+                If value(value.Length - 1) <> conrex.DOT AndAlso value.Count(Function(nindex) nindex = conrex.DOT) = 1 Then
+                    rd_token = tokenhared.token.TYPE_FLOAT
+                    Return True
+                Else
+                    rd_token = tokenhared.token.UNDEFINED
+                    MsgBox("ERROR")
+                End If
+            End If
+            Return True
+        End If
 
+        Return False
+    End Function
 
 End Class
