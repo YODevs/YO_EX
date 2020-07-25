@@ -7,6 +7,7 @@ Public Class impfiles
             If get_yo_files(dir, files) Then
                 For index = 0 To files.Count - 1
                     Dim lex As New lexer(files(index).ToString)
+                    lex.lexme()
                 Next
             Else
                 Return
