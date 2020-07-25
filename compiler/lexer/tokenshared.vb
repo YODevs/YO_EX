@@ -128,5 +128,8 @@
         BLOCKOPEN = 43
         BLOCKEND = 44
         EQUALS = 45
+        TYPE_BOOL = 46
+        TYPE_INT = 47
+        TYPE_FLOAT = 48
     End Enum
 End Class
