@@ -15,7 +15,7 @@
         Console.ForegroundColor = ConsoleColor.Gray
         Console.Write(err.text & vbCrLf)
         Console.ForegroundColor = ConsoleColor.Red
-        Console.Write("More Detials : ")
+        Console.WriteLine("*** More Detials ***")
         Console.ForegroundColor = ConsoleColor.Gray
         Console.WriteLine(description)
 
