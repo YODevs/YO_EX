@@ -80,7 +80,7 @@ Public Class lexer
     Private Function rev_numeric(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         If IsNumeric(value) Then
             rd_token = tokenhared.token.TYPE_INT
-            If value.ToString.Contains(conrex.DOT) Then
+            If value.Contains(conrex.DOT) Then
                 If value(value.Length - 1) <> conrex.DOT AndAlso value.Count(Function(nindex) nindex = conrex.DOT) = 1 Then
                     rd_token = tokenhared.token.TYPE_FLOAT
                     Return True
@@ -91,7 +91,6 @@ Public Class lexer
             End If
             Return True
         End If
-
         Return False
     End Function
 End Class
