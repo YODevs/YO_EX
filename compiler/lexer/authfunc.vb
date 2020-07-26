@@ -22,8 +22,21 @@ Public Class authfunc
         Dim startindexof As Integer = code.IndexOf(errtoken)
         Dim excreviewer As String = Space(startindexof)
         For index = 0 To errtoken.Length - 1
-            excreviewer &= conrex.CURSORERR 
+            excreviewer &= conrex.CURSORERR
         Next
         Return code & vbCr & excreviewer
+    End Function
+
+    Public Shared Function check_identifier_vaild(value As String) As Boolean
+        If IsNumeric(value(0)) Then Return False
+        For index = 0 To value.Length - 1
+            Dim getasciicode As Integer = Asc(value(index))
+            If getasciicode >= 97 AndAlso getasciicode <= 122 Or getasciicode = 95 Then
+                Continue For
+            Else
+                Return False
+            End If
+        Next
+        Return True
     End Function
 End Class
