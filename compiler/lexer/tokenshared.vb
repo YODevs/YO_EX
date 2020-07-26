@@ -72,7 +72,7 @@
         Next
         Return token.UNDEFINED
     End Function
-    Public Function check_keyword(target As String) As Integer
+    Public Shared Function check_keyword(target As String) As Integer
         target = target.ToLower
         For Each pair As KeyValuePair(Of token, String) In _token
             If pair.Value = target Then
@@ -131,5 +131,6 @@
         TYPE_BOOL = 46
         TYPE_INT = 47
         TYPE_FLOAT = 48
+        IDENTIFIER = 49
     End Enum
 End Class
