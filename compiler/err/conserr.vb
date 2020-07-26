@@ -4,6 +4,7 @@
         YOFILENOTFOUND
         TYPEERRORNUMERIC
         RUNTIMEERROR
+        IDENTIFIERUNKNOWN
     End Enum
 
     Enum errorpriority
@@ -35,5 +36,8 @@
         set_new_error(errortype.YOFILENOTFOUND, errorpriority.STOP, "YO file not found", "Project files [.yo] not found.")
         set_new_error(errortype.TYPEERRORNUMERIC, errorpriority.STOP, "Unknown numeric format", "Unknown numeric format found during code analysis.")
         set_new_error(errortype.RUNTIMEERROR, errorpriority.STOP, "Runtime error", "An unknown error occurred while running.")
+        set_new_error(errortype.IDENTIFIERUNKNOWN, errorpriority.STOP, "Identifier unknown", "Identifier validation is ambiguous.
+An identifier can contain numbers, letters, and '_'.
+An identifier cannot start with a number.")
     End Sub
 End Class
