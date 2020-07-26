@@ -71,11 +71,40 @@ Public Class lexer
     End Sub
 
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String)
+        If linec.Trim = conrex.NULL Then
+            linecinf.lstart = -1
+            linec = conrex.NULL
+            Return
+        End If
+
         rd_token = tokenhared.token.UNDEFINED
-        rev_numeric(linec, linecinf)
+        Select Case True
+            Case rev_keywords(linec, linecinf)
+
+            Case rev_numeric(linec, linecinf)
+
+        End Select
+
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
+
+    Private Function rev_keywords(ByRef value As String, ByRef linecinf As targetinf) As Boolean
+        value = value.ToLower
+        rd_token = tokenhared.check_keyword(value)
+        If rd_token = tokenhared.token.UNDEFINED Then
+            If authfunc.check_identifier_vaild(value) Then
+                rd_token = tokenhared.token.IDENTIFIER
+                Return True
+            Else
+                rd_token = tokenhared.token.UNDEFINED
+                dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, authfunc.get_line_error(sfile, linecinf, value), "name / mycity2 / get_name")
+                Return False
+            End If
+        End If
+
+        Return True
+    End Function
 
     Private Function rev_numeric(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         If IsNumeric(value) Then
