@@ -132,5 +132,6 @@
         TYPE_INT = 47
         TYPE_FLOAT = 48
         IDENTIFIER = 49
+        FUNCTIONIDENTIFIER = 50
     End Enum
 End Class
