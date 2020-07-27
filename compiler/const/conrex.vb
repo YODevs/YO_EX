@@ -7,6 +7,8 @@
     Public Const SPACE As Char = " "
     Public Const DOT As Char = "."
     Public Const CURSORERR As Char = "^"
+    Public Const PRSTART As Char = "("
+    Public Const PREND As Char = ")"
     Enum exitcode
         SUCCESS
         [ERROR]
