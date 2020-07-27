@@ -79,15 +79,36 @@ Public Class lexer
 
         rd_token = tokenhared.token.UNDEFINED
         Select Case True
+
+            Case rev_func(linec, linecinf)
+
             Case rev_keywords(linec, linecinf)
 
             Case rev_numeric(linec, linecinf)
 
         End Select
 
+        If rd_token = tokenhared.token.UNDEFINED Then
+            '    dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, authfunc.get_line_error(sfile, linecinf, linec), "")
+        End If
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
+
+    Private Function rev_func(ByRef value As String, ByRef linecinf As targetinf) As Boolean
+        If value.Contains(conrex.PRSTART) = False Then Return False
+        value = value.ToLower
+        Dim funcio As String = value.Remove(value.IndexOf(conrex.PRSTART))
+        If authfunc.check_identifier_vaild(funcio) Then
+            rd_token = tokenhared.token.FUNCTIONIDENTIFIER
+            Return True
+        Else
+            rd_token = tokenhared.token.UNDEFINED
+            dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, authfunc.get_line_error(sfile, linecinf, funcio), "sayhello('Hello World') / get_name()")
+            Return False
+        End If
+        Return True
+    End Function
 
     Private Function rev_keywords(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         value = value.ToLower
