@@ -1,4 +1,8 @@
 ﻿Public Class tknformat
+
+    Structure _importdll
+        Dim name As String
+    End Structure
     Structure _class
         Dim name As String
         Dim methods() As _method
