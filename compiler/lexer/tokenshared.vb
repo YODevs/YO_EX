@@ -1,8 +1,8 @@
 ﻿Public Class tokenhared
-    Public Shared operatorToken() As Object = {"=", "&", "+", "-", "*", ":", "/", "%", "|", ">", "<", ","}
+    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", ":", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}"}
     Public Shared conditionToken() As Object = {"==", "<>", ">>", "<<", ">=", "<="}
     Private Shared _token As Dictionary(Of token, String)
-    Private Shared _tokenSym As New Dictionary(Of token, String)
+    Private Shared _tokensym As New Dictionary(Of token, String)
 
     Friend Shared Sub init()
         _token = New Dictionary(Of token, String)()
@@ -22,50 +22,50 @@
         _token.Add(token.CASE, "case")
         _token.Add(token.RETURN, "return")
 
-        _tokenSym.Add(token.ASSIDB, ":=")
-        _tokenSym.Add(token.R2KO, "<<")
-        _tokenSym.Add(token.L2KO, ">>")
-        _tokenSym.Add(token.CONDEQ, "==")
-        _tokenSym.Add(token.LKOEQ, ">=")
-        _tokenSym.Add(token.RKOEQ, "<=")
-        _tokenSym.Add(token.ANDLOGIC, "&&")
-        _tokenSym.Add(token.ORLOGIC, "||")
-        _tokenSym.Add(token.LRNA, "<>")
-        _tokenSym.Add(token.PLUSMA, "++")
-        _tokenSym.Add(token.MINUSMA, "--")
-        _tokenSym.Add(token.PLUSEQ, "+=")
-        _tokenSym.Add(token.MINUSEQ, "-=")
-        _tokenSym.Add(token.SLASHEQ, "/=")
-        _tokenSym.Add(token.REMINDEQ, "%=")
-        _tokenSym.Add(token.ASTERISKEQ, "*=")
-        _tokenSym.Add(token.ANDEQ, "&=")
-        _tokenSym.Add(token.ASTERISK, "*")
-        _tokenSym.Add(token.SLASH, "/")
-        _tokenSym.Add(token.PLUS, "+")
-        _tokenSym.Add(token.MINUS, "-")
-        _tokenSym.Add(token.[AND], "&")
-        _tokenSym.Add(token.LKO, ">")
-        _tokenSym.Add(token.RKO, "<")
-        _tokenSym.Add(token.EQUALS, "=")
-        _tokenSym.Add(token.CMA, ",")
-        _tokenSym.Add(token.BLOCKOPEN, "{")
-        _tokenSym.Add(token.BLOCKEND, "}")
-
+        _tokensym.Add(token.ASSIDB, ":=")
+        _tokensym.Add(token.R2KO, "<<")
+        _tokensym.Add(token.L2KO, ">>")
+        _tokensym.Add(token.CONDEQ, "==")
+        _tokensym.Add(token.LKOEQ, ">=")
+        _tokensym.Add(token.RKOEQ, "<=")
+        _tokensym.Add(token.ANDLOGIC, "&&")
+        _tokensym.Add(token.ORLOGIC, "||")
+        _tokensym.Add(token.LRNA, "<>")
+        _tokensym.Add(token.PLUSMA, "++")
+        _tokensym.Add(token.MINUSMA, "--")
+        _tokensym.Add(token.PLUSEQ, "+=")
+        _tokensym.Add(token.MINUSEQ, "-=")
+        _tokensym.Add(token.SLASHEQ, "/=")
+        _tokensym.Add(token.REMINDEQ, "%=")
+        _tokensym.Add(token.ASTERISKEQ, "*=")
+        _tokensym.Add(token.ANDEQ, "&=")
+        _tokensym.Add(token.ASTERISK, "*")
+        _tokensym.Add(token.SLASH, "/")
+        _tokensym.Add(token.PLUS, "+")
+        _tokensym.Add(token.MINUS, "-")
+        _tokensym.Add(token.[AND], "&")
+        _tokensym.Add(token.LKO, ">")
+        _tokensym.Add(token.RKO, "<")
+        _tokensym.Add(token.EQUALS, "=")
+        _tokensym.Add(token.CMA, ",")
+        _tokensym.Add(token.BLOCKOPEN, "{")
+        _tokensym.Add(token.BLOCKEND, "}")
+        _tokensym.Add(token.PRSTART, "(")
+        _tokensym.Add(token.PREND, ")")
     End Sub
 
 
-    Public Function checkOPR(target As String) As Boolean
-        For Each pair As KeyValuePair(Of token, String) In _tokenSym
-            If target = [Enum].GetName(GetType(tokenhared.token), pair.Key) Then
+    Public Shared Function check_opt(getch As Char) As Boolean
+        For index = 0 To tokenopt.Length - 1
+            If tokenopt(index) = getch Then
                 Return True
             End If
         Next
         Return False
     End Function
 
-    Public Function checksym(target As String) As Integer
-        target = target.ToLower
-        For Each pair As KeyValuePair(Of token, String) In _tokenSym
+    Public Shared Function check_sym(target As String) As Integer
+        For Each pair As KeyValuePair(Of token, String) In _tokensym
             If pair.Value = target Then
                 Return pair.Key
             End If
@@ -133,5 +133,7 @@
         TYPE_FLOAT = 48
         IDENTIFIER = 49
         FUNCTIONIDENTIFIER = 50
+        PRSTART = 51
+        PREND = 52
     End Enum
 End Class
