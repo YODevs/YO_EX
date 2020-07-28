@@ -48,12 +48,32 @@ Public Class lexer
                 linecinf.lstart = index
             End If
 
-            Select Case getch
-                Case conrex.SPACE
+            If tokenhared.check_opt(getch) Then
+                If linec = conrex.NULL Then
+                    linecinf.lend = index - 1
+                    linecinf.length = 1
+                    linec = getch
+                    check_token(linecinf, linec)
+                    Continue For
+                Else
                     linecinf.lend = index - 1
                     linecinf.length = linec.Length
-                    check_token(linecinf, linec)
+                End If
+                check_token(linecinf, linec)
+                linec = getch
+                check_token(linecinf, linec)
+                Continue For
+            End If
+
+            Select Case getch
                 Case Chr(10)
+                    If linec = conrex.NULL Then
+                        MsgBox("HH" & linec)
+                        linecinf.lstart = -1
+                        linec = conrex.NULL
+                        linecinf.line += 1
+                        Continue For
+                    End If
                     linecinf.lend = index - 1
                     linecinf.length = linec.Length
                     check_token(linecinf, linec)
@@ -71,6 +91,7 @@ Public Class lexer
     End Sub
 
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String)
+        MsgBox(linec)
         If linec.Trim = conrex.NULL Then
             linecinf.lstart = -1
             linec = conrex.NULL
@@ -78,13 +99,16 @@ Public Class lexer
         End If
 
         rd_token = tokenhared.token.UNDEFINED
+
         Select Case True
 
-            Case rev_func(linec, linecinf)
+            Case rev_sym(linec, linecinf)
 
-            Case rev_keywords(linec, linecinf)
+          '  Case rev_func(linec, linecinf)
 
             Case rev_numeric(linec, linecinf)
+
+            Case rev_keywords(linec, linecinf)
 
         End Select
 
@@ -95,6 +119,15 @@ Public Class lexer
         linec = conrex.NULL
     End Sub
 
+    Private Function rev_sym(ByRef value As String, ByRef linecinf As targetinf) As Boolean
+        If value.Length > 2 Then Return False
+        rd_token = tokenhared.check_sym(value)
+        If rd_token = tokenhared.token.UNDEFINED Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
     Private Function rev_func(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         If value.Contains(conrex.PRSTART) = False Then Return False
         value = value.ToLower
@@ -126,7 +159,6 @@ Public Class lexer
 
         Return True
     End Function
-
     Private Function rev_numeric(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         If IsNumeric(value) Then
             rd_token = tokenhared.token.TYPE_INT
@@ -142,5 +174,13 @@ Public Class lexer
             Return True
         End If
         Return False
+    End Function
+
+    Public Function nextchar(index As Integer) As Char
+        If fsource.Length - 1 > index Then
+            Return fsource(index + 1)
+        Else
+            Return Nothing
+        End If
     End Function
 End Class
