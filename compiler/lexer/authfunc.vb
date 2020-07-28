@@ -39,4 +39,17 @@ Public Class authfunc
         Next
         Return True
     End Function
+
+    Public Shared Function check_sym_lex(value As String) As Boolean
+        value = value.ToLower
+        For index = 0 To value.Length - 1
+            Dim getasciicode As Integer = Asc(value(index))
+            If getasciicode >= 97 AndAlso getasciicode <= 122 Or getasciicode = 95 Then
+                Return False
+            Else
+                Continue For
+            End If
+        Next
+        Return True
+    End Function
 End Class
