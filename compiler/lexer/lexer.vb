@@ -56,11 +56,21 @@ Public Class lexer
 
             If chstatusaction = targetaction.NOOPERATION AndAlso check_target_action(getch, index, chstatusaction) Then
                 slinegrab = String.Empty
+                linecinf.lstart = index
             End If
             If chstatusaction <> targetaction.NOOPERATION Then
                 Select Case chstatusaction
                     Case targetaction.SINGLECOMMENTLOADER
                         get_single_comment(getch, slinegrab, chstatusaction, (fsourcelen = index))
+                        Continue For
+                    Case targetaction.COSTRINGLOADER
+                        If get_co_string(getch, slinegrab, chstatusaction, (fsourcelen = index)) Then
+                            linecinf.lend = index - 1
+                            linecinf.length = slinegrab.Length
+                            linec = slinegrab
+                            check_token(linecinf, linec)
+                            slinegrab = conrex.NULL
+                        End If
                         Continue For
                 End Select
             End If
@@ -112,6 +122,18 @@ Public Class lexer
         Next
     End Sub
 
+    Private Function get_co_string(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
+        If slinegrab.StartsWith(conrex.COSTR) AndAlso getch = conrex.COSTR Then
+            chstatus = targetaction.NOOPERATION
+            slinegrab &= getch
+            Return True
+        Else
+            'Error ...
+        End If
+        slinegrab &= getch
+        Return False
+    End Function
+
     Private Sub get_single_comment(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
         slinegrab &= getch
         If Chr(13) = getch Or Chr(10) = getch Or lastchar = True Then
@@ -130,6 +152,8 @@ Public Class lexer
         rd_token = tokenhared.token.UNDEFINED
 
         Select Case True
+
+            Case rev_co_string(linec)
 
             Case rev_sym(linec, linecinf)
 
@@ -205,6 +229,14 @@ Public Class lexer
         Return False
     End Function
 
+    Private Function rev_co_string(ByRef value As String) As Boolean
+        If value.StartsWith(conrex.COSTR) AndAlso value.EndsWith(conrex.COSTR) Then
+            rd_token = tokenhared.token.TYPE_CO_STR
+            Return True
+        End If
+        Return False
+    End Function
+
     Public Function check_target_action(getch As Char, index As Integer, ByRef chstatus As lexer.targetaction) As Boolean
         Select Case getch
             Case "#"
@@ -212,6 +244,9 @@ Public Class lexer
                     chstatus = targetaction.SINGLECOMMENTLOADER
                     Return True
                 End If
+            Case conrex.COSTR
+                chstatus = targetaction.COSTRINGLOADER
+                Return True
         End Select
         chstatus = targetaction.NOOPERATION
         Return False
