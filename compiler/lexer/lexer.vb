@@ -2,6 +2,13 @@
 
 Public Class lexer
 
+    Enum targetaction
+        NOOPERATION
+        COSTRINGLOADER ' example : 'hello world !'
+        DUCOSTRINGLOADER ' example : "hello world ! #nl"
+        SINGLECOMMENTLOADER ' example : #>this is a comment
+        MULTILINECOMMENTLOADER ' example #-This a comment -#
+    End Enum
     Structure targetinf
         Dim length As Integer
         Dim lstart, lend As Integer
@@ -39,14 +46,30 @@ Public Class lexer
         Dim fsourcelen As Integer = fsource.Length - 1
         Dim getch As Char = conrex.NULL
         Dim linec As String = String.Empty
+        Dim slinegrab As String = String.Empty
         Dim linecinf As New targetinf
+        Dim chstatusaction As targetaction = targetaction.NOOPERATION
         linecinf.lstart = 0
         linecinf.line = -1
         For index = 0 To fsourcelen
             getch = fsource(index)
+
+            If chstatusaction = targetaction.NOOPERATION AndAlso check_target_action(getch, index, chstatusaction) Then
+                slinegrab = String.Empty
+            End If
+            If chstatusaction <> targetaction.NOOPERATION Then
+                Select Case chstatusaction
+                    Case targetaction.SINGLECOMMENTLOADER
+                        get_single_comment(getch, slinegrab, chstatusaction, (fsourcelen = index))
+                        Continue For
+                End Select
+            End If
+
             If linecinf.lstart = -1 AndAlso getch <> conrex.SPACE Then
                 linecinf.lstart = index
             End If
+
+
 
             If tokenhared.check_opt(getch) Then
                 If linec = conrex.NULL Then
@@ -68,7 +91,6 @@ Public Class lexer
             Select Case getch
                 Case Chr(10)
                     If linec = conrex.NULL Then
-                        MsgBox("HH" & linec)
                         linecinf.lstart = -1
                         linec = conrex.NULL
                         linecinf.line += 1
@@ -90,8 +112,15 @@ Public Class lexer
         Next
     End Sub
 
+    Private Sub get_single_comment(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
+        slinegrab &= getch
+        If Chr(13) = getch Or Chr(10) = getch Or lastchar = True Then
+            chstatus = targetaction.NOOPERATION
+            slinegrab = String.Empty
+        End If
+    End Sub
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String)
-        MsgBox(linec)
+        MsgBox("Output : " & linec)
         If linec.Trim = conrex.NULL Then
             linecinf.lstart = -1
             linec = conrex.NULL
@@ -176,6 +205,17 @@ Public Class lexer
         Return False
     End Function
 
+    Public Function check_target_action(getch As Char, index As Integer, ByRef chstatus As lexer.targetaction) As Boolean
+        Select Case getch
+            Case "#"
+                If nextchar(index) = ">" Then
+                    chstatus = targetaction.SINGLECOMMENTLOADER
+                    Return True
+                End If
+        End Select
+        chstatus = targetaction.NOOPERATION
+        Return False
+    End Function
     Public Function nextchar(index As Integer) As Char
         If fsource.Length - 1 > index Then
             Return fsource(index + 1)
