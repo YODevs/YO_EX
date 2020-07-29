@@ -9,6 +9,8 @@
     Public Const CURSORERR As Char = "^"
     Public Const PRSTART As Char = "("
     Public Const PREND As Char = ")"
+    Public Const COSTR As Char = "'"
+    Public Const DUSTR As Char = """"
     Enum exitcode
         SUCCESS
         [ERROR]
