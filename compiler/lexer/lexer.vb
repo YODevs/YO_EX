@@ -72,6 +72,15 @@ Public Class lexer
                             slinegrab = conrex.NULL
                         End If
                         Continue For
+                    Case targetaction.DUCOSTRINGLOADER
+                        If get_du_string(getch, slinegrab, chstatusaction, (fsourcelen = index)) Then
+                            linecinf.lend = index - 1
+                            linecinf.length = slinegrab.Length
+                            linec = slinegrab
+                            check_token(linecinf, linec)
+                            slinegrab = conrex.NULL
+                        End If
+                        Continue For
                 End Select
             End If
 
@@ -134,6 +143,18 @@ Public Class lexer
         Return False
     End Function
 
+    Private Function get_du_string(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
+        If slinegrab.StartsWith(conrex.DUSTR) AndAlso getch = conrex.DUSTR Then
+            chstatus = targetaction.NOOPERATION
+            slinegrab &= getch
+            Return True
+        Else
+            'Error ...
+        End If
+        slinegrab &= getch
+        Return False
+    End Function
+
     Private Sub get_single_comment(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
         slinegrab &= getch
         If Chr(13) = getch Or Chr(10) = getch Or lastchar = True Then
@@ -154,6 +175,8 @@ Public Class lexer
         Select Case True
 
             Case rev_co_string(linec)
+
+            Case rev_du_string(linec)
 
             Case rev_sym(linec, linecinf)
 
@@ -237,6 +260,14 @@ Public Class lexer
         Return False
     End Function
 
+    Private Function rev_du_string(ByRef value As String) As Boolean
+        If value.StartsWith(conrex.DUSTR) AndAlso value.EndsWith(conrex.DUSTR) Then
+            rd_token = tokenhared.token.TYPE_DU_STR
+            Return True
+        End If
+        Return False
+    End Function
+
     Public Function check_target_action(getch As Char, index As Integer, ByRef chstatus As lexer.targetaction) As Boolean
         Select Case getch
             Case "#"
@@ -246,6 +277,9 @@ Public Class lexer
                 End If
             Case conrex.COSTR
                 chstatus = targetaction.COSTRINGLOADER
+                Return True
+            Case conrex.DUSTR
+                chstatus = targetaction.DUCOSTRINGLOADER
                 Return True
         End Select
         chstatus = targetaction.NOOPERATION
