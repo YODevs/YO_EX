@@ -135,5 +135,6 @@
         FUNCTIONIDENTIFIER = 50
         PRSTART = 51
         PREND = 52
+        TYPE_CO_STR = 53
     End Enum
 End Class
