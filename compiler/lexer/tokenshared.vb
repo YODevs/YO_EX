@@ -136,5 +136,6 @@
         PRSTART = 51
         PREND = 52
         TYPE_CO_STR = 53
+        TYPE_DU_STR = 54
     End Enum
 End Class
