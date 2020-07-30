@@ -63,6 +63,9 @@ Public Class lexer
                     Case targetaction.SINGLECOMMENTLOADER
                         get_single_comment(getch, slinegrab, chstatusaction, (fsourcelen = index))
                         Continue For
+                    Case targetaction.MULTILINECOMMENTLOADER
+                        get_multiline_comment(index, getch, slinegrab, chstatusaction, (fsourcelen = index))
+                        Continue For
                     Case targetaction.COSTRINGLOADER
                         If get_co_string(getch, slinegrab, chstatusaction, (fsourcelen = index)) Then
                             linecinf.lend = index - 1
@@ -159,6 +162,15 @@ Public Class lexer
         slinegrab &= getch
         If Chr(13) = getch Or Chr(10) = getch Or lastchar = True Then
             chstatus = targetaction.NOOPERATION
+            slinegrab = String.Empty
+        End If
+    End Sub
+
+    Private Sub get_multiline_comment(index As Integer, getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
+        slinegrab &= getch
+        If pervchar(index) = "-" And getch = "#" Or lastchar = True Then
+            chstatus = targetaction.NOOPERATION
+            MsgBox(slinegrab)
             slinegrab = String.Empty
         End If
     End Sub
@@ -259,7 +271,6 @@ Public Class lexer
         End If
         Return False
     End Function
-
     Private Function rev_du_string(ByRef value As String) As Boolean
         If value.StartsWith(conrex.DUSTR) AndAlso value.EndsWith(conrex.DUSTR) Then
             rd_token = tokenhared.token.TYPE_DU_STR
@@ -267,27 +278,38 @@ Public Class lexer
         End If
         Return False
     End Function
-
     Public Function check_target_action(getch As Char, index As Integer, ByRef chstatus As lexer.targetaction) As Boolean
         Select Case getch
             Case "#"
-                If nextchar(index) = ">" Then
-                    chstatus = targetaction.SINGLECOMMENTLOADER
-                    Return True
-                End If
+                Select Case nextchar(index)
+                    Case ">"
+                        chstatus = targetaction.SINGLECOMMENTLOADER
+                        Return True
+                    Case "-"
+                        chstatus = targetaction.MULTILINECOMMENTLOADER
+                        Return True
+                End Select
             Case conrex.COSTR
                 chstatus = targetaction.COSTRINGLOADER
-                Return True
-            Case conrex.DUSTR
-                chstatus = targetaction.DUCOSTRINGLOADER
-                Return True
-        End Select
-        chstatus = targetaction.NOOPERATION
+                        Return True
+                    Case conrex.DUSTR
+                        chstatus = targetaction.DUCOSTRINGLOADER
+                        Return True
+                End Select
+                chstatus = targetaction.NOOPERATION
         Return False
     End Function
     Public Function nextchar(index As Integer) As Char
         If fsource.Length - 1 > index Then
             Return fsource(index + 1)
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Public Function pervchar(index As Integer) As Char
+        If fsource.Length - 1 > index AndAlso index - 1 > 0 Then
+            Return fsource(index - 1)
         Else
             Return Nothing
         End If
