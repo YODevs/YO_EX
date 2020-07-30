@@ -5,6 +5,8 @@
         TYPEERRORNUMERIC
         RUNTIMEERROR
         IDENTIFIERUNKNOWN
+        STRINGDUENDWITH
+        STRINGCOENDWITH
     End Enum
 
     Enum errorpriority
@@ -39,5 +41,7 @@
         set_new_error(errortype.IDENTIFIERUNKNOWN, errorpriority.STOP, "Identifier unknown", "Identifier validation is ambiguous.
 An identifier can contain numbers, letters, and '_'.
 An identifier cannot start with a number.")
+        set_new_error(errortype.STRINGDUENDWITH, errorpriority.STOP, "String constant error", "String constants must end with a double quote ("").")
+        set_new_error(errortype.STRINGCOENDWITH, errorpriority.STOP, "String constant error", "String constants must end with a single quote (').")
     End Sub
 End Class
