@@ -1,0 +1,4 @@
+﻿#-Hello ...
+This is a multiline comment.
+Another line ...-#
+print "Hello World!" #> single line comment
