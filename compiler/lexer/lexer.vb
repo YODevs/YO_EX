@@ -50,7 +50,7 @@ Public Class lexer
         Dim linecinf As New targetinf
         Dim chstatusaction As targetaction = targetaction.NOOPERATION
         linecinf.lstart = 0
-        linecinf.line = -1
+        linecinf.line = 1
         For index = 0 To fsourcelen
             getch = fsource(index)
 
@@ -62,29 +62,29 @@ Public Class lexer
                 Select Case chstatusaction
                     Case targetaction.SINGLECOMMENTLOADER
                         get_single_comment(getch, slinegrab, chstatusaction, (fsourcelen = index))
-                        Continue For
                     Case targetaction.MULTILINECOMMENTLOADER
                         get_multiline_comment(index, getch, slinegrab, chstatusaction, (fsourcelen = index))
-                        Continue For
                     Case targetaction.COSTRINGLOADER
-                        If get_co_string(getch, slinegrab, chstatusaction, (fsourcelen = index)) Then
+                        If get_co_string(getch, linecinf, slinegrab, chstatusaction, (fsourcelen = index)) Then
                             linecinf.lend = index - 1
                             linecinf.length = slinegrab.Length
                             linec = slinegrab
                             check_token(linecinf, linec)
                             slinegrab = conrex.NULL
                         End If
-                        Continue For
                     Case targetaction.DUCOSTRINGLOADER
-                        If get_du_string(getch, slinegrab, chstatusaction, (fsourcelen = index)) Then
+                        If get_du_string(getch, linecinf, slinegrab, chstatusaction, (fsourcelen = index)) Then
                             linecinf.lend = index - 1
                             linecinf.length = slinegrab.Length
                             linec = slinegrab
                             check_token(linecinf, linec)
                             slinegrab = conrex.NULL
                         End If
-                        Continue For
                 End Select
+                If Chr(10) = getch Then
+                    linecinf.line += 1
+                End If
+                Continue For
             End If
 
             If linecinf.lstart = -1 AndAlso getch <> conrex.SPACE Then
@@ -134,25 +134,27 @@ Public Class lexer
         Next
     End Sub
 
-    Private Function get_co_string(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
+    Private Function get_co_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
         If slinegrab.StartsWith(conrex.COSTR) AndAlso getch = conrex.COSTR Then
             chstatus = targetaction.NOOPERATION
             slinegrab &= getch
             Return True
-        Else
-            'Error ...
+        ElseIf lastchar Then
+            slinegrab &= getch
+            dserr.new_error(conserr.errortype.STRINGCOENDWITH, "error in line : " & linecinf.line & " -> " & slinegrab, "print 'Hello World!'")
         End If
         slinegrab &= getch
         Return False
     End Function
 
-    Private Function get_du_string(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
+    Private Function get_du_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
         If slinegrab.StartsWith(conrex.DUSTR) AndAlso getch = conrex.DUSTR Then
             chstatus = targetaction.NOOPERATION
             slinegrab &= getch
             Return True
-        Else
-            'Error ...
+        ElseIf lastchar Then
+            slinegrab &= getch
+            dserr.new_error(conserr.errortype.STRINGDUENDWITH, "error in line : " & linecinf.line & " -> " & slinegrab, "print ""Hello World!""")
         End If
         slinegrab &= getch
         Return False
@@ -170,7 +172,6 @@ Public Class lexer
         slinegrab &= getch
         If pervchar(index) = "-" And getch = "#" Or lastchar = True Then
             chstatus = targetaction.NOOPERATION
-            MsgBox(slinegrab)
             slinegrab = String.Empty
         End If
     End Sub
