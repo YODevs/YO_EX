@@ -5,6 +5,7 @@ Public Class authfunc
         If File.Exists(path) Then
             Dim fsource As String = File.ReadAllText(path)
             Dim splsource() As String = fsource.Split(Chr(10)).ToArray
+            line -= 2
             If line <= splsource.Length - 1 Then
                 Return splsource(line)
             Else
