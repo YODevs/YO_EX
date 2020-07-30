@@ -1,0 +1,14 @@
+﻿print 'Hello All'
+print 34
+print " How are you ? 
+
+
+#- Error : 
+================================================================================
+STRING CONSTANT ERROR : String constants must end with a double quote (").
+*** More Detials ***
+error in line : 3 -> " How are you ?
+
+             ***********************SNIPPT************************
+Example : print "Hello World!"
+================================================================================
