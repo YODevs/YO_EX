@@ -1,5 +1,5 @@
 ﻿Public Class tokenhared
-    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", ":", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}"}
+    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", ":", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}", "."}
     Public Shared conditionToken() As Object = {"==", "<>", ">>", "<<", ">=", "<="}
     Private Shared _token As Dictionary(Of token, String)
     Private Shared _tokensym As New Dictionary(Of token, String)
@@ -39,6 +39,7 @@
         _tokensym.Add(token.REMINDEQ, "%=")
         _tokensym.Add(token.ASTERISKEQ, "*=")
         _tokensym.Add(token.ANDEQ, "&=")
+        _tokensym.Add(token.DUTNQ, "::")
         _tokensym.Add(token.ASTERISK, "*")
         _tokensym.Add(token.SLASH, "/")
         _tokensym.Add(token.PLUS, "+")
@@ -52,6 +53,7 @@
         _tokensym.Add(token.BLOCKEND, "}")
         _tokensym.Add(token.PRSTART, "(")
         _tokensym.Add(token.PREND, ")")
+        _tokensym.Add(token.DOT, ".")
     End Sub
 
 
@@ -137,5 +139,7 @@
         PREND = 52
         TYPE_CO_STR = 53
         TYPE_DU_STR = 54
+        DOT = 55
+        DUTNQ = 56
     End Enum
 End Class
