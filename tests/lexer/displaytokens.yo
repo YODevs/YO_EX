@@ -1,0 +1,9 @@
+﻿print("Hello " & name)
+
+#-
+IDENTIFIER[49] ~> print
+PRSTART[51] ~> (
+TYPE_DU_STR[54] ~> "Hello "
+AND[39] ~> &
+IDENTIFIER[49] ~> name
+PREND[52] ~> )
