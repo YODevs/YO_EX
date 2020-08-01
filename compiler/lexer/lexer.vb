@@ -176,7 +176,7 @@ Public Class lexer
         End If
     End Sub
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String)
-        MsgBox("Output : " & linec)
+
         If linec.Trim = conrex.NULL Then
             linecinf.lstart = -1
             linec = conrex.NULL
@@ -204,6 +204,10 @@ Public Class lexer
         If rd_token = tokenhared.token.UNDEFINED Then
             '    dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, authfunc.get_line_error(sfile, linecinf, linec), "")
         End If
+
+        'print tokens
+        displaytokens(rd_token, linec)
+
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
@@ -315,4 +319,8 @@ Public Class lexer
             Return Nothing
         End If
     End Function
+
+    Public Sub displaytokens(token As tokenhared.token, value As String)
+        Console.WriteLine([Enum].GetName(GetType(tokenhared.token), token) & "[" & token & "]" & " ~> " & value)
+    End Sub
 End Class
