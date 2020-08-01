@@ -1,0 +1,17 @@
+func Main()
+{
+print("Hello World!")
+}
+
+
+#-
+FUNC[7] ~> func
+IDENTIFIER[49] ~> main
+PRSTART[51] ~> (
+PREND[52] ~> )
+BLOCKOPEN[43] ~> {
+IDENTIFIER[49] ~> print
+PRSTART[51] ~> (
+TYPE_DU_STR[54] ~> "Hello World!"
+PREND[52] ~> )
+BLOCKEND[44] ~> }
