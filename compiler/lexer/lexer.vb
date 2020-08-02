@@ -151,9 +151,15 @@ Public Class lexer
 
     Private Function get_du_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
         If slinegrab.StartsWith(conrex.DUSTR) AndAlso getch = conrex.DUSTR Then
-            chstatus = targetaction.NOOPERATION
-            slinegrab &= getch
-            Return True
+            If slinegrab(slinegrab.Length - 1) <> conrex.BKSLASH Then
+                chstatus = targetaction.NOOPERATION
+                slinegrab &= getch
+                Return True
+            Else
+                slinegrab = slinegrab.Remove(slinegrab.Length - 1)
+                slinegrab &= getch
+                Return False
+            End If
         ElseIf lastchar Then
             slinegrab &= getch
             dserr.new_error(conserr.errortype.STRINGDUENDWITH, linecinf.line, sfile, "error in line : " & linecinf.line & " -> " & slinegrab, "print ""Hello World!""")
