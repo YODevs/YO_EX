@@ -11,6 +11,7 @@
     Public Const PREND As Char = ")"
     Public Const COSTR As Char = "'"
     Public Const DUSTR As Char = """"
+    Public Const BKSLASH As Char = "\"
     Enum exitcode
         SUCCESS
         [ERROR]
