@@ -138,11 +138,17 @@ Public Class lexer
 
     Private Function get_co_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
         If slinegrab.StartsWith(conrex.COSTR) AndAlso getch = conrex.COSTR Then
-            chstatus = targetaction.NOOPERATION
-            slinegrab &= getch
-            Return True
+            If slinegrab(slinegrab.Length - 1) <> conrex.BKSLASH Then
+                chstatus = targetaction.NOOPERATION
+                slinegrab &= getch
+                Return True
+            Else
+                slinegrab = slinegrab.Remove(slinegrab.Length - 1)
+                slinegrab &= getch
+                Return False
+            End If
         ElseIf lastchar Then
-            slinegrab &= getch
+                slinegrab &= getch
             dserr.new_error(conserr.errortype.STRINGCOENDWITH, linecinf.line, sfile, "error in line : " & linecinf.line & " -> " & slinegrab, "print 'Hello World!'")
         End If
         slinegrab &= getch
