@@ -1,0 +1,19 @@
+#> Display source location & line ;
+func 1321()
+{
+print "Hello World!
+}
+
+
+#-
+================================================================================
+CRITICAL ERROR : Identifier expected.
+Source : E:\YO\displayerrorinfofile.yo - Line [2]
+*** More Detials ***
+func 1321()
+     ^^^^
+             ***********************SNIPPT************************
+Example :
+func main()
+{...}
+================================================================================
