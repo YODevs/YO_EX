@@ -7,6 +7,7 @@
         IDENTIFIERUNKNOWN
         STRINGDUENDWITH
         STRINGCOENDWITH
+        IDENTIFIEREXPECTED
     End Enum
 
     Enum errorpriority
@@ -43,5 +44,6 @@ An identifier can contain numbers, letters, and '_'.
 An identifier cannot start with a number.")
         set_new_error(errortype.STRINGDUENDWITH, errorpriority.STOP, "String constant error", "String constants must end with a double quote ("").")
         set_new_error(errortype.STRINGCOENDWITH, errorpriority.STOP, "String constant error", "String constants must end with a single quote (').")
+        set_new_error(errortype.IDENTIFIEREXPECTED, errorpriority.STOP, "Critical error", "Identifier expected.")
     End Sub
 End Class
