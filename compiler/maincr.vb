@@ -15,7 +15,7 @@
                 Return
             End If
         Catch ex As Exception
-            dserr.new_error(conserr.errortype.RUNTIMEERROR, ex.Message & vbCrLf & ex.StackTrace)
+            dserr.new_error(conserr.errortype.RUNTIMEERROR, -1, Nothing, ex.Message & vbCrLf & ex.StackTrace)
         End Try
     End Sub
 

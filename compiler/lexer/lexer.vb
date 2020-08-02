@@ -39,7 +39,7 @@ Public Class lexer
         If File.Exists(path) Then
             Return File.ReadAllText(path)
         Else
-            dserr.new_error(conserr.errortype.YOFILENOTFOUND, "path => " & Dir())
+            dserr.new_error(conserr.errortype.YOFILENOTFOUND, 0, sfile, "path => " & Dir())
         End If
         Return conrex.NULL
     End Function
@@ -143,7 +143,7 @@ Public Class lexer
             Return True
         ElseIf lastchar Then
             slinegrab &= getch
-            dserr.new_error(conserr.errortype.STRINGCOENDWITH, "error in line : " & linecinf.line & " -> " & slinegrab, "print 'Hello World!'")
+            dserr.new_error(conserr.errortype.STRINGCOENDWITH, linecinf.line, sfile, "error in line : " & linecinf.line & " -> " & slinegrab, "print 'Hello World!'")
         End If
         slinegrab &= getch
         Return False
@@ -156,7 +156,7 @@ Public Class lexer
             Return True
         ElseIf lastchar Then
             slinegrab &= getch
-            dserr.new_error(conserr.errortype.STRINGDUENDWITH, "error in line : " & linecinf.line & " -> " & slinegrab, "print ""Hello World!""")
+            dserr.new_error(conserr.errortype.STRINGDUENDWITH, linecinf.line, sfile, "error in line : " & linecinf.line & " -> " & slinegrab, "print ""Hello World!""")
         End If
         slinegrab &= getch
         Return False
@@ -250,7 +250,7 @@ Public Class lexer
                 Return True
             Else
                 rd_token = tokenhared.token.UNDEFINED
-                dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, authfunc.get_line_error(sfile, linecinf, value), "name / mycity2 / get_name")
+                dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, linecinf.line, sfile, authfunc.get_line_error(sfile, linecinf, value), "name / mycity2 / get_name")
                 Return False
             End If
         End If
@@ -266,7 +266,7 @@ Public Class lexer
                     Return True
                 Else
                     rd_token = tokenhared.token.UNDEFINED
-                    dserr.new_error(conserr.errortype.TYPEERRORNUMERIC, authfunc.get_line_error(sfile, linecinf, value), "3.14 / 54.545_152")
+                    dserr.new_error(conserr.errortype.TYPEERRORNUMERIC, linecinf.line, sfile, authfunc.get_line_error(sfile, linecinf, value), "3.14 / 54.545_152")
                 End If
             End If
             Return True

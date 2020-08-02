@@ -56,7 +56,7 @@
                     xmethods(i).name = value
                     funcstate = funcstatecursor.FUNCPARA
                 Else
-                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, authfunc.get_line_error(sourceloc, linecinf, value), "func main()
+                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func main()
 {...}")
                 End If
         End Select

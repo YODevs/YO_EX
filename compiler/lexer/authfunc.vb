@@ -9,10 +9,10 @@ Public Class authfunc
             If line <= splsource.Length - 1 Then
                 Return splsource(line)
             Else
-                dserr.new_error(conserr.errortype.RUNTIMEERROR, "There is no line credit.")
+                dserr.new_error(conserr.errortype.RUNTIMEERROR, -1, path, "There is no line credit.")
             End If
         Else
-            dserr.new_error(conserr.errortype.YOFILENOTFOUND, "path => " & path)
+            dserr.new_error(conserr.errortype.YOFILENOTFOUND, -1, path, "path => " & path)
             Return conrex.NULL
         End If
         Return conrex.NULL

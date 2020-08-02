@@ -13,14 +13,14 @@ Public Class impfiles
                 Return
             End If
         Else
-            dserr.new_error(conserr.errortype.DIRNOTFOUND, dir & " => dir not found.")
+            dserr.new_error(conserr.errortype.DIRNOTFOUND, -1, Nothing, dir & " => dir not found.")
         End If
     End Sub
 
     Friend Shared Function get_yo_files(dir As String, ByRef files As ArrayList) As Boolean
 
         If Directory.GetFiles(dir).Count = 0 Then
-            dserr.new_error(conserr.errortype.YOFILENOTFOUND, "path => " & dir)
+            dserr.new_error(conserr.errortype.YOFILENOTFOUND, -1, Nothing, "path => " & dir)
             Return False
         End If
 
@@ -35,7 +35,7 @@ Public Class impfiles
         'TODO : Check files in directory .
 
         If files.Count = 0 Then
-            dserr.new_error(conserr.errortype.YOFILENOTFOUND, "path => " & dir)
+            dserr.new_error(conserr.errortype.YOFILENOTFOUND, -1, Nothing, "path => " & dir)
             Return False
         End If
         Return True
