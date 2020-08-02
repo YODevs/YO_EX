@@ -17,8 +17,10 @@ Public Class lexer
     Public Sub New(file As String)
         fsource = import_source(file)
         sfile = file
+        fmtdata = New fmtshared(file)
     End Sub
 
+    Public fmtdata As fmtshared
     Private rd_token As tokenhared.token
     Private ReadOnly fsource As String
     Public ReadOnly Property source() As String
@@ -208,9 +210,12 @@ Public Class lexer
         'print tokens
         displaytokens(rd_token, linec)
 
+        fmtdata.imp_token(linec, rd_token, linecinf)
+
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
+
 
     Private Function rev_sym(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         If value.Length > 2 Then Return False
