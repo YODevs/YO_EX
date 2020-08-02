@@ -1,5 +1,5 @@
 ﻿Public Class dserr
-    Public Shared Sub new_error(errtype As conserr.errortype, Optional description As String = "Not specified", Optional example As String = "Not specified")
+    Public Shared Sub new_error(errtype As conserr.errortype, line As Integer, file As String, Optional description As String = "Not specified", Optional example As String = "Not specified")
         Dim indexerr As Int16 = errtype
         Dim err As conserr.errorstruct = conserr.err(indexerr)
         Dim indexspaceolor As ConsoleColor = Console.ForegroundColor
@@ -14,6 +14,17 @@
         Console.Write(err.title & " : ")
         Console.ForegroundColor = ConsoleColor.Gray
         Console.Write(err.text & vbCrLf)
+
+        Console.ForegroundColor = ConsoleColor.Red
+        Console.Write("Source : ")
+        Console.ForegroundColor = ConsoleColor.Gray
+        If file <> Nothing Then
+            If line = -1 Then
+                Console.WriteLine(file)
+            Else
+                Console.WriteLine(file & " - Line [" & line & "]")
+            End If
+        End If
         Console.ForegroundColor = ConsoleColor.Red
         Console.WriteLine("*** More Detials ***")
         Console.ForegroundColor = ConsoleColor.Gray
@@ -24,7 +35,7 @@
         Console.ForegroundColor = ConsoleColor.DarkRed
         Console.WriteLine(Space(indexspace) & "***********************SNIPPT************************" & Space(indexspace))
         Console.ForegroundColor = ConsoleColor.Green
-        Console.Write("Example : ")
+        Console.WriteLine("Example : ")
         Console.ForegroundColor = ConsoleColor.White
         Console.WriteLine(example)
 
