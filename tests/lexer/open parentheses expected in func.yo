@@ -1,0 +1,18 @@
+﻿func main 2()
+{
+print('Special characters testing "\'" ')
+}
+
+
+#-
+================================================================================
+CRITICAL ERROR : Method arguments must be enclosed in parentheses.
+Source : E:\YO\open parentheses expected in func.yo - Line [1]
+*** More Detials ***
+func main 2()
+          ^
+             ***********************SNIPPT************************
+Example :
+func main()
+{...}
+================================================================================
