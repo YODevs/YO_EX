@@ -25,6 +25,7 @@
             Return False
         ElseIf rd_token = tokenhared.token.BLOCKEND AndAlso blockinfo.istart = blockinfo.iend + 1 Then
             imp_token("</block>")
+            'Create a log , data file [xml output].
             coutputdata.write_data(blockinfo.datafmt)
             Return True
         End If
@@ -38,6 +39,10 @@
             Case tokenhared.token.TYPE_DU_STR
                 'TODO : FIX : XML INJECTION ...
                 imp_formatting_token("CUSTR", value, rd_token, linecinf)
+            Case tokenhared.token.TYPE_INT
+                imp_formatting_token("INTEGER", value, rd_token, linecinf)
+            Case tokenhared.token.TYPE_FLOAT
+                imp_formatting_token("FLOAT", value, rd_token, linecinf)
         End Select
 
         Return False
