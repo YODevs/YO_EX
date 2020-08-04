@@ -1,6 +1,7 @@
 ﻿Public Class fmtshared
     Public tknfmt As tknformat
     Private sourceloc As String
+    Dim bdyformatter As bodyformatter
     Dim state As statecursor
     Dim xmethods(0) As tknformat._method
     Dim funcstate As funcstatecursor
@@ -97,10 +98,15 @@
             Case funcstatecursor.FUNCSTBLOCK
                 If rd_token = tokenhared.token.BLOCKOPEN Then
                     funcstate = funcstatecursor.FUNCBODY
+                    bdyformatter = New bodyformatter("Func")
+                    bdyformatter.new_token_shared(value, rd_token, linecinf)
                 Else
                     dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
 {...}")
                 End If
+
+            Case funcstatecursor.FUNCBODY
+                bdyformatter.new_token_shared(value, rd_token, linecinf)
         End Select
 
     End Sub
