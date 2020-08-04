@@ -1,0 +1,17 @@
+﻿func main()
+
+print('Hello World !')
+}
+
+
+================================================================================
+CRITICAL ERROR : Expected '{' ,to start a block of code.
+Source : E:\YO\blockopen expected.yo - Line [3]
+*** More Detials ***
+print('Hello World !')
+^^^^^
+             ***********************SNIPPT************************
+Example :
+func get_data(id : i16)
+{...}
+================================================================================
