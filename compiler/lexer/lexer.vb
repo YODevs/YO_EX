@@ -106,6 +106,10 @@ Public Class lexer
                     linecinf.lend = index - 1
                     linecinf.length = linec.Length
                 End If
+                If getch = "." AndAlso IsNumeric(linec) Then
+                    linec &= getch
+                    Continue For
+                End If
                 check_token(linecinf, linec)
                 linec = getch
                 check_token(linecinf, linec)
