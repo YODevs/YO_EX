@@ -9,6 +9,7 @@
         STRINGCOENDWITH
         IDENTIFIEREXPECTED
         FUNCOPBRACKETEXPECTED
+        BLOCKOPENEXPECTED
     End Enum
 
     Enum errorpriority
@@ -47,5 +48,6 @@ An identifier cannot start with a number.")
         set_new_error(errortype.STRINGCOENDWITH, errorpriority.STOP, "String constant error", "String constants must end with a single quote (').")
         set_new_error(errortype.IDENTIFIEREXPECTED, errorpriority.STOP, "Critical error", "Identifier expected.")
         set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Method arguments must be enclosed in parentheses.")
+        set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Expected '{’ ,to start a block of code.")
     End Sub
 End Class
