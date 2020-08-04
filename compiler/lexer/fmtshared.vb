@@ -87,11 +87,20 @@
                         ElseIf rd_token = tokenhared.token.IDENTIFIER Then
                             xmethods(i).nopara = False
                             'TODO
+                            Return
                         Else
                             dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
 {...}")
                         End If
                 End Select
+
+            Case funcstatecursor.FUNCSTBLOCK
+                If rd_token = tokenhared.token.BLOCKOPEN Then
+                    funcstate = funcstatecursor.FUNCBODY
+                Else
+                    dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
+{...}")
+                End If
         End Select
 
     End Sub
