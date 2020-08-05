@@ -106,9 +106,19 @@
                 End If
 
             Case funcstatecursor.FUNCBODY
-                bdyformatter.new_token_shared(value, rd_token, linecinf)
+                If bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
+                    xmethods(i).bodyxmlfmt = bdyformatter.xmlresult
+                    _settingup()
+                End If
         End Select
 
+    End Sub
+
+
+    Public Sub _settingup()
+        state = statecursor.OUT
+        funcstate = funcstatecursor.OUT
+        parastate = funcparastate.WAITFORSTARTBRACKET
     End Sub
 
 End Class
