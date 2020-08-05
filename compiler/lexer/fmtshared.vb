@@ -98,7 +98,7 @@
             Case funcstatecursor.FUNCSTBLOCK
                 If rd_token = tokenhared.token.BLOCKOPEN Then
                     funcstate = funcstatecursor.FUNCBODY
-                    bdyformatter = New bodyformatter("Func")
+                    bdyformatter = New bodyformatter("Func", sourceloc)
                     bdyformatter.new_token_shared(value, rd_token, linecinf)
                 Else
                     dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
