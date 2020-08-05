@@ -13,6 +13,7 @@
         Dim returntype As String
         Dim nopara As Boolean
         Dim parameters() As _parameter
+        Dim bodyxmlfmt As String
     End Structure
 
     Structure _parameter
