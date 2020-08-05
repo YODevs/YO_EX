@@ -10,6 +10,7 @@
         IDENTIFIEREXPECTED
         FUNCOPBRACKETEXPECTED
         BLOCKOPENEXPECTED
+        SYNTAXERROR
     End Enum
 
     Enum errorpriority
@@ -49,5 +50,6 @@ An identifier cannot start with a number.")
         set_new_error(errortype.IDENTIFIEREXPECTED, errorpriority.STOP, "Critical error", "Identifier expected.")
         set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Method arguments must be enclosed in parentheses.")
         set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Expected '{’ ,to start a block of code.")
+        set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Syntax error.")
     End Sub
 End Class
