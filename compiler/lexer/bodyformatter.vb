@@ -5,13 +5,15 @@
         Dim iend As Integer
         Dim name As String
         Dim datafmt As String
+        Dim path As String
     End Structure
 
     Dim blockinfo As blockinf
-    Public Sub New(blockname As String)
+    Public Sub New(blockname As String, sourcelocation As String)
         blockinfo.name = blockname
         blockinfo.istart = 0
         blockinfo.iend = 0
+        blockinfo.path = sourcelocation
     End Sub
 
     Public Function new_token_shared(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf) As Boolean
@@ -43,6 +45,8 @@
                 imp_formatting_token("INTEGER", value, rd_token, linecinf)
             Case tokenhared.token.TYPE_FLOAT
                 imp_formatting_token("FLOAT", value, rd_token, linecinf)
+            Case Else
+                dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, blockinfo.path, authfunc.get_line_error(blockinfo.path, linecinf, value))
         End Select
 
         Return False
