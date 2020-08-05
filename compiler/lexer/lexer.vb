@@ -20,6 +20,7 @@ Public Class lexer
         fmtdata = New fmtshared(file)
     End Sub
 
+
     Public fmtdata As fmtshared
     Private rd_token As tokenhared.token
     Private ReadOnly fsource As String
@@ -44,7 +45,7 @@ Public Class lexer
         Return conrex.NULL
     End Function
 
-    Public Sub lexme()
+    Public Sub lexme(ByRef tknfmtclass As tknformat._class)
         Dim fsourcelen As Integer = fsource.Length - 1
         Dim getch As Char = conrex.NULL
         Dim linec As String = String.Empty
@@ -138,6 +139,8 @@ Public Class lexer
                 check_token(linecinf, linec)
             End If
         Next
+
+        tknfmtclass = fmtdata._to_organize()
     End Sub
 
     Private Function get_co_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
