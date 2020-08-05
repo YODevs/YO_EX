@@ -3,7 +3,8 @@
     Private sourceloc As String
     Dim bdyformatter As bodyformatter
     Dim state As statecursor
-    Dim xmethods(0) As tknformat._method
+    Public xclass(0) As tknformat._class
+    Public xmethods(0) As tknformat._method
     Dim funcstate As funcstatecursor
     Dim parastate As funcparastate
     Public Sub New(file As String)
@@ -13,6 +14,7 @@
         funcstate = funcstatecursor.OUT
         parastate = funcparastate.WAITFORSTARTBRACKET
         xmethods(0) = New tknformat._method
+        xclass(0) = New tknformat._class
     End Sub
 
     Enum statecursor
@@ -114,7 +116,11 @@
 
     End Sub
 
-
+    Public Function _to_organize() As tknformat._class
+        xclass(0).methods = xmethods
+        xclass(0).name = conrex.NULL
+        Return xclass(0)
+    End Function
     Public Sub _settingup()
         state = statecursor.OUT
         funcstate = funcstatecursor.OUT
