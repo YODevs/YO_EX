@@ -22,7 +22,7 @@
         End If
 
         If rd_token = tokenhared.token.BLOCKOPEN AndAlso blockinfo.istart = 0 Then
-            imp_token("<block>")
+            imp_token("<block path = '" & blockinfo.path & "'>")
             blockinfo.istart += 1
             Return False
         ElseIf rd_token = tokenhared.token.BLOCKEND AndAlso blockinfo.istart = blockinfo.iend + 1 Then
