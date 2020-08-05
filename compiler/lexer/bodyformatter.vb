@@ -9,6 +9,7 @@
     End Structure
 
     Dim blockinfo As blockinf
+    Public xmlresult As String = String.Empty
     Public Sub New(blockname As String, sourcelocation As String)
         blockinfo.name = blockname
         blockinfo.istart = 0
@@ -29,6 +30,7 @@
             imp_token("</block>")
             'Create a log , data file [xml output].
             coutputdata.write_data(blockinfo.datafmt)
+            xmlresult = blockinfo.datafmt
             Return True
         End If
 
