@@ -38,10 +38,10 @@
             Case tokenhared.token.IDENTIFIER
                 imp_formatting_token("IDENTIFIER", value, rd_token, linecinf)
             Case tokenhared.token.TYPE_CO_STR
-                'TODO : FIX : XML INJECTION ...
+                value = authfunc.bp_xml_injection(value)
                 imp_formatting_token("COSTR", value, rd_token, linecinf)
             Case tokenhared.token.TYPE_DU_STR
-                'TODO : FIX : XML INJECTION ...
+                value = authfunc.bp_xml_injection(value)
                 imp_formatting_token("CUSTR", value, rd_token, linecinf)
             Case tokenhared.token.TYPE_INT
                 imp_formatting_token("INTEGER", value, rd_token, linecinf)

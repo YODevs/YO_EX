@@ -53,4 +53,14 @@ Public Class authfunc
         Next
         Return True
     End Function
+
+    Public Shared Function bp_xml_injection(value As String) As String
+        For index = 0 To conrex.specificxmlchar.Length - 1
+            Dim getspecificchar As Char = conrex.specificxmlchar(index)
+            If value.Contains(getspecificchar) Then
+                value = value.Replace(getspecificchar, "#SPCH:" & conrex.specificrandomnumber & "-" & Asc(getspecificchar) & "#")
+            End If
+        Next
+        Return value
+    End Function
 End Class

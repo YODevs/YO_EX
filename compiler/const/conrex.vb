@@ -1,4 +1,7 @@
 ﻿Public Class conrex
+    Public Shared specificxmlchar() As Char = {">", "<", "'", """", "&"}
+    Private Shared rand As New Random
+    Public Shared specificrandomnumber As Integer = rand.Next(10000, 99999)
     Public Const TITLE As String = "[ YO Lang ]"
     Public Shared VER As String = My.Application.Info.Version.ToString
     Public Shared APPDIR As String = My.Application.Info.DirectoryPath
