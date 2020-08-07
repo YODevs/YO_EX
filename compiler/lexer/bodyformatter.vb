@@ -34,6 +34,11 @@
             Return True
         End If
 
+        If value.Length = 1 AndAlso tokenhared.check_opt(value) Or value = "::" Then
+            imp_formatting_token("OPT", value, rd_token, linecinf)
+            Return False
+        End If
+
         Select Case rd_token
             Case tokenhared.token.IDENTIFIER
                 imp_formatting_token("IDENTIFIER", value, rd_token, linecinf)
