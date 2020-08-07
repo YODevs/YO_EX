@@ -20,7 +20,7 @@ Public Class lexer
         fmtdata = New fmtshared(file)
     End Sub
 
-
+    Private qucheck As Boolean = False
     Public fmtdata As fmtshared
     Private rd_token As tokenhared.token
     Private ReadOnly fsource As String
@@ -35,7 +35,6 @@ Public Class lexer
             Return sfile
         End Get
     End Property
-
     Private Function import_source(path As String) As String
         If File.Exists(path) Then
             Return File.ReadAllText(path)
@@ -97,11 +96,12 @@ Public Class lexer
 
 
             If tokenhared.check_opt(getch) Then
+
                 If linec = conrex.NULL Then
                     linecinf.lend = index - 1
                     linecinf.length = 1
                     linec = getch
-                    check_token(linecinf, linec)
+                    check_token(linecinf, linec, index)
                     Continue For
                 Else
                     linecinf.lend = index - 1
@@ -111,9 +111,9 @@ Public Class lexer
                     linec &= getch
                     Continue For
                 End If
-                check_token(linecinf, linec)
+                check_token(linecinf, linec, index)
                 linec = getch
-                check_token(linecinf, linec)
+                check_token(linecinf, linec, index)
                 Continue For
             End If
 
@@ -127,7 +127,7 @@ Public Class lexer
                     End If
                     linecinf.lend = index - 1
                     linecinf.length = linec.Length
-                    check_token(linecinf, linec)
+                    check_token(linecinf, linec, index)
                     linecinf.line += 1
                 Case Chr(13)
                     Continue For
@@ -136,7 +136,7 @@ Public Class lexer
             End Select
 
             If fsourcelen = index Then
-                check_token(linecinf, linec)
+                check_token(linecinf, linec, index)
             End If
         Next
 
@@ -196,7 +196,7 @@ Public Class lexer
             slinegrab = String.Empty
         End If
     End Sub
-    Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String)
+    Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String, Optional index As Integer = -1)
 
         If linec.Trim = conrex.NULL Then
             linecinf.lstart = -1
@@ -205,6 +205,18 @@ Public Class lexer
         End If
 
         rd_token = tokenhared.token.UNDEFINED
+
+        If qucheck = False AndAlso linec = ":" AndAlso nextchar(index) = ":" Then
+            qucheck = True
+            linecinf.lstart = -1
+            linec = conrex.NULL
+            Return
+        ElseIf qucheck = True Then
+            linec &= ":"
+            linecinf.lstart -= 1
+            linecinf.length += 1
+            qucheck = False
+        End If
 
         Select Case True
 
