@@ -1,5 +1,5 @@
 ﻿Public Class tokenhared
-    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", ":", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}", "."}
+    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}", ".", ":"}
     Public Shared conditionToken() As Object = {"==", "<>", ">>", "<<", ">=", "<="}
     Private Shared _token As Dictionary(Of token, String)
     Private Shared _tokensym As New Dictionary(Of token, String)
