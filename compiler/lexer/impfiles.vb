@@ -4,12 +4,15 @@ Public Class impfiles
     Public Shared Sub import_directory(dir As String)
         If Directory.Exists(dir) Then
             Dim files As New ArrayList
+            Dim ilgen As ilgencode
             If get_yo_files(dir, files) Then
                 Dim tknfmtclass(files.Count - 1) As tknformat._class
                 For index = 0 To files.Count - 1
                     Dim lex As New lexer(files(index).ToString)
                     lex.lexme(tknfmtclass(index))
                 Next
+                ilgen = New ilgencode(tknfmtclass)
+                ilgen.codegenerator()
             Else
                 Return
             End If
