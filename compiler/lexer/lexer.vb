@@ -218,6 +218,12 @@ Public Class lexer
             qucheck = False
         End If
 
+        If linec.Length = 1 Then
+            linecinf.lstart = index
+            linecinf.lend = index + 1
+            linecinf.length = 1
+        End If
+
         Select Case True
 
             Case rev_co_string(linec)
