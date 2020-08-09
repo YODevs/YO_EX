@@ -141,6 +141,8 @@ Public Class lexer
         Next
 
         tknfmtclass = fmtdata._to_organize()
+        tknfmtclass.location = sfile
+        authfunc.set_name_token_format(tknfmtclass)
     End Sub
 
     Private Function get_co_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
