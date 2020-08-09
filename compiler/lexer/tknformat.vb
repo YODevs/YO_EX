@@ -5,6 +5,7 @@
     End Structure
     Structure _class
         Dim name As String
+        Dim location As String
         Dim methods() As _method
     End Structure
 
