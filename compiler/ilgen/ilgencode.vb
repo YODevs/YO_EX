@@ -12,7 +12,7 @@
         For index = 0 To classdt.Length - 1
             'Class Generate ...
             ilasm = New ilasmgen(ilcollection)
-
+            ilasm.gen(classdt(index))
         Next
     End Sub
 End Class
