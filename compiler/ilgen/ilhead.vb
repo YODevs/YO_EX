@@ -9,7 +9,8 @@
 
     Private Sub init(mdname As String)
         add_assembly_extern("mscorlib")
-        ilcollection.modulename = mdname
+        add_assembly_extern(mdname, False, "{.ver:1.0.0.0}")
+        set_module(mdname)
     End Sub
 
     Public Sub add_assembly_extern(name As String, Optional isextern As Boolean = True, Optional asmproperty As String = "{}")
@@ -24,5 +25,9 @@
             asmheader(iextern).name = ".assembly " & name
         End If
         asmheader(iextern).assemblyproperty = assemblylen
+    End Sub
+
+    Public Sub set_module(mdname As String)
+        ilcollection.modulename = mdname
     End Sub
 End Class
