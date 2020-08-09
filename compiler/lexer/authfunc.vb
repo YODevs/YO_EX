@@ -63,4 +63,13 @@ Public Class authfunc
         Next
         Return value
     End Function
+
+    Public Shared Sub set_name_token_format(ByRef tknfmtclass As tknformat._class)
+        Dim paradata As String = tknfmtclass.location
+        paradata = paradata.Remove(0, paradata.LastIndexOf("\") + 1)
+        paradata = paradata.Remove(paradata.LastIndexOf("."))
+
+        paradata = paradata.Replace(conrex.SPACE, "_")
+        tknfmtclass.name = paradata
+    End Sub
 End Class
