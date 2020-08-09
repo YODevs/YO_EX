@@ -9,7 +9,7 @@
 
     Private Sub init(mdname As String)
         add_assembly_extern("mscorlib")
-        add_assembly_extern(mdname, False, "{.ver:1.0.0.0}")
+        add_assembly_extern(mdname, False, "{.ver:1:0:0:0}")
         set_module(mdname)
     End Sub
 
