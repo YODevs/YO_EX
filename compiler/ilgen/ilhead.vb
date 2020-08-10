@@ -1,6 +1,6 @@
 ﻿Public Class ilhead
     Private ilcollection As ilformat.ildata
-    Private asmheader(0) As ilformat._ilassemblyextern
+    Public asmheader(0) As ilformat._ilassemblyextern
     Public Sub New(ilcol As ilformat.ildata, mdname As String)
         ilcollection = ilcol
         asmheader(0) = New ilformat._ilassemblyextern
