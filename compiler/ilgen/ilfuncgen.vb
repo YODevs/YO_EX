@@ -18,19 +18,19 @@
             If _ilmethodslen <> 0 Then
                 Array.Resize(_ilmethods, _ilmethodslen + 1)
             End If
-            func_ilforamtter(yoclassdt.methods(index), _ilmethodslen)
+            func_ilforamtter(yoclassdt.methods(index), imethod)
         Next
         Return _ilmethods
     End Function
 
 
-    Public Sub func_ilforamtter(yomethod As tknformat._method, _ilmethodslen As Integer)
+    Public Sub func_ilforamtter(yomethod As tknformat._method, ilmethodsindex As Integer)
         'Check name rules ...
         'Check uniq names
-        _ilmethods(_ilmethodslen).name = yomethod.name
+        _ilmethods(ilmethodsindex).name = yomethod.name
         If yomethod.name.ToLower = "main" Then
             If grabentrypoint = False Then
-                _ilmethods(_ilmethodslen).entrypoint = True
+                _ilmethods(ilmethodsindex).entrypoint = True
                 grabentrypoint = True
             Else
                 'When two entry points 
@@ -38,9 +38,10 @@
             End If
         End If
 
-        _ilmethods(_ilmethodslen).codes.Add("ldstr ""Hello From YOLang""")
-        _ilmethods(_ilmethodslen).codes.Add("Call Void [mscorlib]System.Console:WriteLine(String)")
-        _ilmethods(_ilmethodslen).codes.Add("ret")
+        _ilmethods(ilmethodsindex).codes = New ArrayList
+        _ilmethods(ilmethodsindex).codes.Add("ldstr ""Hello From YOLang""")
+        _ilmethods(ilmethodsindex).codes.Add("Call Void [mscorlib]System.Console:WriteLine(String)")
+        _ilmethods(ilmethodsindex).codes.Add("ret")
 
     End Sub
 End Class
