@@ -11,6 +11,8 @@
         Dim _ilresultcollection As New ilformat.resultildata
         _ilhead = New ilhead(ilcollection, yoclassdt.name)
         ilcollection.assemblyextern = _ilhead.asmheader
+        Array.Resize(ilcollection.assemblyextern, ilcollection.assemblyextern.Length - 1)
+
         'Public fields ...
         _ilfunc = New ilfuncgen(ilcollection, yoclassdt)
         ilcollection.ilmethod = _ilfunc.gen()
