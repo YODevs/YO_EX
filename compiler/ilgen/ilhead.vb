@@ -22,7 +22,7 @@
 
         asmheader(iextern).name = name
         asmheader(iextern).isextern = isextern
-        asmheader(iextern).assemblyproperty = assemblylen
+        asmheader(iextern).assemblyproperty = asmproperty
     End Sub
 
     Public Sub set_module(mdname As String)
