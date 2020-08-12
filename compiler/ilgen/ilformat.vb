@@ -25,6 +25,7 @@
 
     Public Structure _ilassemblyextern
         Dim name As String
+        Dim isextern As Boolean
         Dim assemblyproperty As String
     End Structure
     Public Sub New()
