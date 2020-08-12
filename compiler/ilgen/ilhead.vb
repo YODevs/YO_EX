@@ -19,11 +19,9 @@
         If assemblylen <> 0 Then
             Array.Resize(asmheader, assemblylen + 1)
         End If
-        If isextern Then
-            asmheader(iextern).name = ".assembly extern " & name
-        Else
-            asmheader(iextern).name = ".assembly " & name
-        End If
+
+        asmheader(iextern).name = name
+        asmheader(iextern).isextern = isextern
         asmheader(iextern).assemblyproperty = assemblylen
     End Sub
 
