@@ -15,7 +15,7 @@
     Public Structure _ilmethodcollection
         Dim name As String
         Dim accessible As _accessiblemethod
-        'ReturnType
+        Dim returntype As String
         'Parameters
         Dim entrypoint As Boolean
         Dim maxstack As Int16
