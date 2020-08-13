@@ -38,6 +38,8 @@
             End If
         End If
 
+        _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
+
         _ilmethods(ilmethodsindex).codes = New ArrayList
         _ilmethods(ilmethodsindex).codes.Add("ldstr ""Hello From YOLang""")
         _ilmethods(ilmethodsindex).codes.Add("Call Void [mscorlib]System.Console:WriteLine(String)")
