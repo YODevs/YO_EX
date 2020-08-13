@@ -20,6 +20,7 @@
             End If
             func_ilforamtter(yoclassdt.methods(index), imethod)
         Next
+        Array.Resize(_ilmethods, _ilmethods.Length - 1)
         Return _ilmethods
     End Function
 
