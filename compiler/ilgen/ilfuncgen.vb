@@ -44,7 +44,7 @@
 
         _ilmethods(ilmethodsindex).codes = New ArrayList
         _ilmethods(ilmethodsindex).codes.Add("ldstr ""Hello From YOLang""")
-        _ilmethods(ilmethodsindex).codes.Add("Call Void [mscorlib]System.Console:WriteLine(String)")
+        _ilmethods(ilmethodsindex).codes.Add("call void [mscorlib]System.Console::WriteLine(string)")
         _ilmethods(ilmethodsindex).codes.Add("ret")
 
     End Sub
