@@ -18,11 +18,13 @@
         Next
 
         imp_module("YO_Main")
+        newline()
 
         For index = 0 To ildt.ilmethod.Length - 1
             imp_func(ildt.ilmethod(index))
         Next
 
+        newline()
         add_en_block()
 
         Return source
@@ -38,7 +40,7 @@
         End If
 
         If funcdt.returntype = "[void]" Then
-            headfuncdt &= " void "
+            headfuncdt &= "void"
         Else
             'other types
         End If
@@ -69,6 +71,10 @@
     Public Sub add_en_block()
         add_il_code("}")
     End Sub
+
+    Public Sub newline()
+        add_il_code("")
+    End Sub
     Public Sub add_assembly(assemblydt As ilformat._ilassemblyextern)
         'check uniq assembly
         'check names
@@ -81,4 +87,5 @@
     Public Sub add_il_code(code As String)
         msilsource &= vbCrLf & code
     End Sub
+
 End Class
