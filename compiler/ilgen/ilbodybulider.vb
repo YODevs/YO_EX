@@ -17,9 +17,25 @@
             add_assembly(ildt.assemblyextern(index))
         Next
 
+        imp_module("YO_Main")
+
+        add_en_block()
+
         Return source
     End Function
 
+    Private Sub imp_module(name As String)
+        'check name
+        add_il_code(".class private auto ansi sealed " & name)
+        add_st_block()
+    End Sub
+
+    Public Sub add_st_block()
+        add_il_code("{")
+    End Sub
+    Public Sub add_en_block()
+        add_il_code("}")
+    End Sub
     Public Sub add_assembly(assemblydt As ilformat._ilassemblyextern)
         'check uniq assembly
         'check names
