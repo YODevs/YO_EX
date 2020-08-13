@@ -54,11 +54,17 @@
         If funcdt.entrypoint Then
             add_il_code(".entrypoint")
         End If
-        '... body
+
+        imp_body(funcdt)
 
         add_en_block()
     End Sub
 
+    Private Sub imp_body(funcdt As ilformat._ilmethodcollection)
+        For index = 0 To funcdt.codes.Count - 1
+            add_il_code(funcdt.codes(index))
+        Next
+    End Sub
     Private Sub imp_module(name As String)
         'check name
         add_il_code(".class private auto ansi sealed " & name)
