@@ -14,7 +14,7 @@
 
     Public Structure _ilmethodcollection
         Dim name As String
-        'Property
+        Dim accessible As _accessiblemethod
         'ReturnType
         'Parameters
         Dim entrypoint As Boolean
@@ -28,6 +28,11 @@
         Dim isextern As Boolean
         Dim assemblyproperty As String
     End Structure
+
+    Public Enum _accessiblemethod
+        [PUBLIC]
+        [PRIVATE]
+    End Enum
     Public Sub New()
 
     End Sub
