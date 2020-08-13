@@ -39,6 +39,7 @@
         End If
 
         _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
+        _ilmethods(ilmethodsindex).returntype = "[void]" 'yomethod.returntype
 
         _ilmethods(ilmethodsindex).codes = New ArrayList
         _ilmethods(ilmethodsindex).codes.Add("ldstr ""Hello From YOLang""")
