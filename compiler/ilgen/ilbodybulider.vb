@@ -19,10 +19,43 @@
 
         imp_module("YO_Main")
 
+        For index = 0 To ildt.ilmethod.Length - 1
+            imp_func(ildt.ilmethod(index))
+        Next
+
         add_en_block()
 
         Return source
     End Function
+
+
+    Public Sub imp_func(funcdt As ilformat._ilmethodcollection)
+        Dim headfuncdt As String = ".method static"
+        If funcdt.accessible = ilformat._accessiblemethod.PUBLIC Then
+            headfuncdt &= " public "
+        Else
+            headfuncdt &= " private "
+        End If
+
+        If funcdt.returntype = "[void]" Then
+            headfuncdt &= " void "
+        Else
+            'other types
+        End If
+
+        headfuncdt &= Space(1) & funcdt.name & "()"
+        headfuncdt &= " cil managed"
+
+        add_il_code(headfuncdt)
+        add_st_block()
+
+        If funcdt.entrypoint Then
+            add_il_code(".entrypoint")
+        End If
+        '... body
+
+        add_en_block()
+    End Sub
 
     Private Sub imp_module(name As String)
         'check name
