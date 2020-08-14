@@ -53,12 +53,12 @@
         End If
     End Sub
     Private Sub _rev_func(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
-        Dim i As Integer = xmethods.Length - 1
+        Static Dim i As Integer = 0
         Select Case funcstate
             Case funcstatecursor.OUT
                 If rd_token = tokenhared.token.FUNC Then
-                    If xmethods.Length <> 1 Then
-                        Array.Resize(xmethods, xmethods.Length)
+                    If i <> 0 Then
+                        Array.Resize(xmethods, i + 1)
                     End If
                     funcstate = funcstatecursor.FUNCNAME
                     state = statecursor.INFUNC
@@ -110,6 +110,7 @@
             Case funcstatecursor.FUNCBODY
                 If bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
                     xmethods(i).bodyxmlfmt = bdyformatter.xmlresult
+                    i += 1
                     _settingup()
                 End If
         End Select
