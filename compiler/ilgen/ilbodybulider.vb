@@ -21,6 +21,7 @@
         newline()
 
         For index = 0 To ildt.ilmethod.Length - 1
+            newline()
             imp_func(ildt.ilmethod(index))
         Next
 
