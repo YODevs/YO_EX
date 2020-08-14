@@ -19,7 +19,11 @@
             If resultdata.result Then
                 Dim bodybuilder As New ilbodybulider(resultdata.ilfmtdata)
                 bodybuilder.conv_to_msil()
+                Dim ilasmparameter As New ilasmparam
                 coutputdata.write_file_data("msil_source.il", bodybuilder.source)
+                ilasmparameter.add_file(My.Application.Info.DirectoryPath & "\msil_source.il")
+                Dim ilconv As New ilasmconv(ilasmparameter)
+                ilconv.compile()
             Else
                 'Somethings error ...
             End If
