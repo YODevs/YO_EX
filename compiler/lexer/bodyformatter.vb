@@ -53,6 +53,10 @@
             Case tokenhared.token.TYPE_FLOAT
                 imp_formatting_token("FLOAT", value, rd_token, linecinf)
             Case Else
+                If tokenhared.check_keyword(value) <> tokenhared.token.UNDEFINED Then
+                    imp_formatting_token([Enum].GetName(GetType(tokenhared.token), rd_token), value, rd_token, linecinf)
+                    Exit Select
+                End If
                 dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, blockinfo.path, authfunc.get_line_error(blockinfo.path, linecinf, value))
         End Select
 
