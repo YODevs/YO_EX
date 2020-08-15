@@ -1,10 +1,12 @@
-﻿Imports System.Text
+﻿Imports System.IO
+Imports System.Text
 
 Public Class ilasmconv
     Private ilasmoutputdata As StringBuilder
     Private ilasmparameter As ilasmparam
     Public Sub New(inputparam As ilasmparam)
         ilasmparameter = inputparam
+        init()
     End Sub
 
     Public Sub compile()
@@ -34,6 +36,7 @@ Public Class ilasmconv
     End Sub
 
     Private Sub init()
-
+        ilasmparameter.add_param("/NOLOGO")
+        ilasmparameter.add_param("/OPTIMIZE")
     End Sub
 End Class
