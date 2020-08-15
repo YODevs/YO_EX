@@ -21,6 +21,7 @@
         _token.Add(token.MATCH, "match")
         _token.Add(token.CASE, "case")
         _token.Add(token.RETURN, "return")
+        _token.Add(token.LET, "let")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -141,5 +142,6 @@
         TYPE_DU_STR = 54
         DOT = 55
         DUTNQ = 56
+        [LET] = 57
     End Enum
 End Class
