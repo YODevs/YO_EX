@@ -11,6 +11,7 @@
         FUNCOPBRACKETEXPECTED
         BLOCKOPENEXPECTED
         SYNTAXERROR
+        MISSINGESSENTIALFILES
     End Enum
 
     Enum errorpriority
@@ -51,5 +52,7 @@ An identifier cannot start with a number.")
         set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Method arguments must be enclosed in parentheses.")
         set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Expected '{’ ,to start a block of code.")
         set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Syntax error.")
+        set_new_error(errortype.MISSINGESSENTIALFILES, errorpriority.STOP, "Missing essential files", "Some software files were not found.
+You can reinstall the software or email us.")
     End Sub
 End Class
