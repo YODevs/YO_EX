@@ -42,10 +42,11 @@
         _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
         _ilmethods(ilmethodsindex).returntype = "[void]" 'yomethod.returntype
 
-        _ilmethods(ilmethodsindex).codes = New ArrayList
-        _ilmethods(ilmethodsindex).codes.Add("ldstr ""Hello From YOLang""")
-        _ilmethods(ilmethodsindex).codes.Add("call void [mscorlib]System.Console::WriteLine(string)")
+        Dim iltrans As New iltranscore(yomethod)
+        iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
+        ' _ilmethods(ilmethodsindex).codes = New ArrayList
+        '_ilmethods(ilmethodsindex).codes.Add("ldstr ""Hello From YOLang""")
+        '_ilmethods(ilmethodsindex).codes.Add("call void [mscorlib]System.Console::WriteLine(string)")
         _ilmethods(ilmethodsindex).codes.Add("ret")
-
     End Sub
 End Class
