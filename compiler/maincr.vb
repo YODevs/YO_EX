@@ -22,5 +22,11 @@
     Sub init_class_data()
         conserr.init_error_struct()
         tokenhared.init()
+        init_essential_files()
+    End Sub
+
+    Sub init_essential_files()
+        initessentialfiles.add_path(conrex.APPDIR & "\ilasm.exe")
+        initessentialfiles.add_path(conrex.APPDIR & "\fusion.dll")
     End Sub
 End Module
