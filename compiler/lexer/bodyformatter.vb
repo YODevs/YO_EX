@@ -18,6 +18,7 @@
     End Sub
 
     Public Function new_token_shared(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf) As Boolean
+        Static iline As Integer = linecinf.line
         If blockinfo.datafmt = conrex.NULL Then
             init_format()
         End If
@@ -32,6 +33,11 @@
             coutputdata.write_data(blockinfo.datafmt)
             xmlresult = blockinfo.datafmt
             Return True
+        End If
+
+        If linecinf.line <> iline Then
+            imp_token("<NEWLINE curline = '" & linecinf.line & "'></NEWLINE>")
+            iline = linecinf.line
         End If
 
         If value.Length = 1 AndAlso tokenhared.check_opt(value) Or value = "::" Then
