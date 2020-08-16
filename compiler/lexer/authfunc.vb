@@ -64,6 +64,17 @@ Public Class authfunc
         Return value
     End Function
 
+    Public Shared Function rev_xml_injection(value As String) As String
+        For index = 0 To conrex.specificxmlchar.Length - 1
+            Dim getspecificchar As Char = conrex.specificxmlchar(index)
+            Dim decspecific As String = "#SPCH:" & conrex.specificrandomnumber & "-" & Asc(getspecificchar) & "#"
+            If value.Contains("#SPCH:") Then
+                value = value.Replace(decspecific, getspecificchar)
+            End If
+        Next
+        Return value
+    End Function
+
     Public Shared Sub set_name_token_format(ByRef tknfmtclass As tknformat._class)
         Dim paradata As String = tknfmtclass.location
         paradata = paradata.Remove(0, paradata.LastIndexOf("\") + 1)
