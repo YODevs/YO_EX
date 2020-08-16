@@ -14,8 +14,10 @@
             Dim clinecodestruc() As xmlunpkd.linecodestruc
             clinecodestruc = xmldata.get_line_tokens
             For index = 0 To clinecodestruc.Length - 1
-
+                Console.Write(" " & clinecodestruc(index).value)
             Next
         End While
+
+        xmldata.close()
     End Sub
 End Class
