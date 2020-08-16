@@ -62,7 +62,7 @@ Public Class xmlunpkd
                         Return tokenstruct
                     End If
                 Case XmlNodeType.Text
-                    tokenstruct.value = xmlreader.Value
+                    tokenstruct.value = authfunc.rev_xml_injection(xmlreader.Value)
                     Exit While
             End Select
         End While
@@ -71,7 +71,7 @@ Public Class xmlunpkd
         Return tokenstruct
     End Function
 
-    Private Sub close()
+    Public Sub close()
         xmlreader.Close()
     End Sub
 End Class
