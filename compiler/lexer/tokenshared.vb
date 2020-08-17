@@ -84,6 +84,16 @@
         Next
         Return token.UNDEFINED
     End Function
+
+    Public Shared Function check_common_type(ByRef target As String) As Integer
+        Dim datatyperesult As mapstoredata.dataresult = initcommondatatype.cdtype.find(target.ToLower)
+        If datatyperesult.issuccessful Then
+            target = target.ToLower
+            Return token.COMMONDATATYPE
+        Else
+            Return token.UNDEFINED
+        End If
+    End Function
     Public Enum token
         UNDEFINED = 0
         COMMENT = 1
@@ -143,5 +153,6 @@
         DOT = 55
         DUTNQ = 56
         [LET] = 57
+        COMMONDATATYPE = 58
     End Enum
 End Class
