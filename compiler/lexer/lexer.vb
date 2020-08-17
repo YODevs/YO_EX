@@ -282,6 +282,12 @@ Public Class lexer
 
     Private Function rev_keywords(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         value = value.ToLower
+        If value.Length <= 4 Then
+            rd_token = tokenhared.check_common_type(value)
+            If rd_token <> tokenhared.token.UNDEFINED Then
+                Return True
+            End If
+        End If
         rd_token = tokenhared.check_keyword(value)
         If rd_token = tokenhared.token.UNDEFINED Then
             If authfunc.check_identifier_vaild(value) Then
