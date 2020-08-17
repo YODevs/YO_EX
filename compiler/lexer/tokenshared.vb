@@ -41,6 +41,7 @@
         _tokensym.Add(token.ASTERISKEQ, "*=")
         _tokensym.Add(token.ANDEQ, "&=")
         _tokensym.Add(token.DUTNQ, "::")
+        _tokensym.Add(token.ASSINQ, ":")
         _tokensym.Add(token.ASTERISK, "*")
         _tokensym.Add(token.SLASH, "/")
         _tokensym.Add(token.PLUS, "+")
@@ -154,5 +155,6 @@
         DUTNQ = 56
         [LET] = 57
         COMMONDATATYPE = 58
+        ASSINQ = 59
     End Enum
 End Class
