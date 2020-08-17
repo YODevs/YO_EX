@@ -13,11 +13,18 @@
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
             clinecodestruc = xmldata.get_line_tokens
-            For index = 0 To clinecodestruc.Length - 1
-                Console.Write(" " & clinecodestruc(index).value)
-            Next
+            rev_cline_code(clinecodestruc, _ilmethod)
         End While
 
         xmldata.close()
+    End Sub
+
+    Private Sub rev_cline_code(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+        If clinecodestruc.Length = 0 Then Return
+
+        Select Case clinecodestruc(0).tokenid
+            Case tokenhared.token.LET
+
+        End Select
     End Sub
 End Class
