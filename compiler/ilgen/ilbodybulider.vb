@@ -56,11 +56,26 @@
             add_il_code(".entrypoint")
         End If
 
+        If funcdt.locallinit(0).name <> conrex.NULL Then
+            imp_locals_init(funcdt)
+        End If
+
         imp_body(funcdt)
 
         add_en_block()
     End Sub
 
+    Private Sub imp_locals_init(funcdt As ilformat._ilmethodcollection)
+        add_il_code(".locals init(")
+        For index = 0 To funcdt.locallinit.Length - 1
+            If funcdt.locallinit.Length = index + 1 Then
+                add_il_code("[" & index & "] " & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name)
+            Else
+                add_il_code("[" & index & "] " & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name & " , ")
+            End If
+        Next
+        add_il_code(")")
+    End Sub
     Private Sub imp_body(funcdt As ilformat._ilmethodcollection)
         For index = 0 To funcdt.codes.Count - 1
             add_il_code(funcdt.codes(index))
