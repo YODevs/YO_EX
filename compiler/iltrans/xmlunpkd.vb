@@ -36,7 +36,7 @@ Public Class xmlunpkd
                 If index = 0 AndAlso xmlreader.EOF = False Then
                     Continue Do
                 End If
-                Array.Resize(clinecodestruct, clinecodestruct.Length)
+                Array.Resize(clinecodestruct, clinecodestruct.Length - 1)
                 Return clinecodestruct
             End If
             Array.Resize(clinecodestruct, clinecodestruct.Length + 1)
