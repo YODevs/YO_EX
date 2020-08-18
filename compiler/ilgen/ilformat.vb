@@ -27,7 +27,9 @@
     Public Structure _illocalinit
         Dim name As String
         Dim datatype As String
-        Dim defvalue As String
+        Dim iscommondatatype As Boolean
+        Dim hasdefaultvalue As Boolean
+        Dim clocalvalue() As xmlunpkd.linecodestruc
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
