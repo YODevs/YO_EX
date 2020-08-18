@@ -83,4 +83,9 @@ Public Class authfunc
         paradata = paradata.Replace(conrex.SPACE, "_")
         tknfmtclass.name = paradata
     End Sub
+
+    Public Shared Sub rem_fr_and_en(ByRef value As String)
+        value = value.Remove(0, 1)
+        value = value.Remove(value.Length - 1)
+    End Sub
 End Class
