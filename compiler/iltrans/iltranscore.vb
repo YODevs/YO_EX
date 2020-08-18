@@ -37,6 +37,10 @@
         Dim ilmethodlen As Integer = _illocalinit.Length
         Dim index As Integer = ilmethodlen - 1
         If ilmethodlen = 0 Then index = 0
+        If clinecodestruc.Length < 3 Then
+            dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(2).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "let name : str = ""Amin""")
+            Return
+        End If
         Array.Resize(_illocalinit, ilmethodlen + 1)
         If clinecodestruc(1).tokenid <> tokenhared.token.IDENTIFIER Then
             'IDENTIFIER EXPECTED
@@ -55,10 +59,35 @@
         If clinecodestruc(3).tokenid = tokenhared.token.COMMONDATATYPE Then
             _illocalinit(index).name = clinecodestruc(1).value.ToLower
             _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value.ToLower).result
+            _illocalinit(index).iscommondatatype = True
         Else
             'Check other type ...
+            _illocalinit(index).iscommondatatype = False
         End If
 
+        _illocalinit(index).hasdefaultvalue = False
+
+        If clinecodestruc.Length > 4 Then
+            If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
+                'DECLARING ERROR
+                dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value), "let name : str = ""Amin""")
+            End If
+
+            If clinecodestruc.Length > 4 Then
+                Dim crenvalue(clinecodestruc.Length - 6) As xmlunpkd.linecodestruc
+                Dim icren As Integer = 0
+                For clindex = 5 To clinecodestruc.Length - 1
+                    crenvalue(icren) = New xmlunpkd.linecodestruc
+                    crenvalue(icren) = clinecodestruc(clindex)
+                    icren += 1
+                Next
+                _illocalinit(index).clocalvalue = crenvalue
+                _illocalinit(index).hasdefaultvalue = True
+            Else
+                'let name : str =
+                dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected")
+            End If
+        End If
         'TODO : Check init value .
         localinit.add_local_init(clinecodestruc(1).value, clinecodestruc(3).value)
     End Sub
