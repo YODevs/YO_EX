@@ -62,16 +62,26 @@
 
         imp_body(funcdt)
 
+        add_il_code("ret")
+
         add_en_block()
     End Sub
 
-    Private Sub imp_locals_init(funcdt As ilformat._ilmethodcollection)
+    Private Sub imp_locals_init(ByRef funcdt As ilformat._ilmethodcollection)
         add_il_code(".locals init(")
         For index = 0 To funcdt.locallinit.Length - 1
             If funcdt.locallinit.Length = index + 1 Then
                 add_il_code("[" & index & "] " & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name)
             Else
                 add_il_code("[" & index & "] " & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name & " , ")
+            End If
+            If funcdt.locallinit(index).hasdefaultvalue Then
+                If funcdt.locallinit(index).iscommondatatype Then
+                    assignmentcommondatatype.set_value(funcdt, index)
+                Else
+                    'Other Type...
+                End If
+
             End If
         Next
         add_il_code(")")
