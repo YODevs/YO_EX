@@ -10,15 +10,27 @@
 
     Friend Shared Sub set_str_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
         If funcdt.locallinit(index).clocalvalue.Length = 1 Then
-            'let name : str = 'Amin'
-            If funcdt.locallinit(index).clocalvalue(0).tokenid = tokenhared.token.TYPE_CO_STR Then
-                cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-                'let message :str = "Hello.#nlWelcome to my app."
-            ElseIf funcdt.locallinit(index).clocalvalue(0).tokenid = tokenhared.token.TYPE_DU_STR Then
-                cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-            End If
+            Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
+                   'let name : str = 'Amin'
+                Case tokenhared.token.TYPE_CO_STR
+                    cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                    'let message :str = "Hello.#nlWelcome to my app."
+                Case tokenhared.token.TYPE_DU_STR
+                    cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                    'let value : str = NULL
+                Case tokenhared.token.NULL
+                    cil.push_null_reference(funcdt.codes)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    funcdt.codes.Add("ldloc user")
+                    funcdt.codes.Add("call void [mscorlib]System.Console::Write(string)")
+                    funcdt.codes.Add("ldloc fam")
+                    funcdt.codes.Add("call void [mscorlib]System.Console::Write(string)")
+            End Select
+
         End If
     End Sub
 End Class
