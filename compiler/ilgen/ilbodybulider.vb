@@ -60,10 +60,11 @@
             imp_locals_init(funcdt)
         End If
 
+        'Test Subroutine
+        imp_cil_code.import_test_code(funcdt)
+
         imp_body(funcdt)
-
         add_il_code("ret")
-
         add_en_block()
     End Sub
 
