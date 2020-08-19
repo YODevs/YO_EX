@@ -101,6 +101,9 @@ Public Class lexer
                     linecinf.lend = index - 1
                     linecinf.length = 1
                     linec = getch
+                    If linec = "-" AndAlso IsNumeric(nextchar(index)) Then
+                        Continue For
+                    End If
                     check_token(linecinf, linec, index)
                     Continue For
                 Else
@@ -299,7 +302,6 @@ Public Class lexer
                 Return False
             End If
         End If
-
         Return True
     End Function
     Private Function rev_numeric(ByRef value As String, ByRef linecinf As targetinf) As Boolean
