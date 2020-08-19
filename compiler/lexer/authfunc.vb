@@ -32,7 +32,7 @@ Public Class authfunc
         If IsNumeric(value(0)) Then Return False
         For index = 0 To value.Length - 1
             Dim getasciicode As Integer = Asc(value(index))
-            If getasciicode >= 97 AndAlso getasciicode <= 122 Or getasciicode = 95 Then
+            If getasciicode >= 97 AndAlso getasciicode <= 122 OrElse getasciicode = 95 OrElse getasciicode >= 48 AndAlso getasciicode <= 58 Then
                 Continue For
             Else
                 Return False
