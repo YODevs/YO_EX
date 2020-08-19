@@ -15,4 +15,12 @@
     Public Shared Sub set_stack_local(ByRef codes As ArrayList, name As String)
         codes.Add("stloc " & name)
     End Sub
+
+    ''' <summary>
+    ''' ldnull
+    ''' </summary>
+    ''' <param name="codes"></param>
+    Public Shared Sub push_null_reference(ByRef codes As ArrayList)
+        codes.Add("ldnull")
+    End Sub
 End Class
