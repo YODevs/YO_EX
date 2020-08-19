@@ -35,6 +35,14 @@
                 Case tokenhared.token.TYPE_FLOAT
                     cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
                     cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                Case tokenhared.token.TRUE
+                    cil.load_string(funcdt.codes, "True")
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                Case tokenhared.token.FALSE
+                    cil.load_string(funcdt.codes, "False")
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
             End Select
 
         End If
