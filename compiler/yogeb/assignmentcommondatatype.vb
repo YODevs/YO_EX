@@ -25,10 +25,11 @@
                 Case tokenhared.token.NULL
                     cil.push_null_reference(funcdt.codes)
                     cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-                    funcdt.codes.Add("ldloc user")
-                    funcdt.codes.Add("call void [mscorlib]System.Console::Write(string)")
-                    funcdt.codes.Add("ldloc fam")
-                    funcdt.codes.Add("call void [mscorlib]System.Console::Write(string)")
+
+                    'let val : str = 36000
+                Case tokenhared.token.TYPE_INT
+                    cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
             End Select
 
         End If
