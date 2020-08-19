@@ -22,6 +22,9 @@
         _token.Add(token.CASE, "case")
         _token.Add(token.RETURN, "return")
         _token.Add(token.LET, "let")
+        _token.Add(token.FALSE, "false")
+        _token.Add(token.TRUE, "true")
+
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -156,5 +159,7 @@
         [LET] = 57
         COMMONDATATYPE = 58
         ASSINQ = 59
+        [FALSE] = 60
+        [TRUE] = 61
     End Enum
 End Class
