@@ -1,4 +1,6 @@
 ﻿Public Class dserr
+
+    Friend Shared args As New ArrayList
     Public Shared Sub new_error(errtype As conserr.errortype, line As Integer, file As String, Optional description As String = "Not specified", Optional example As String = "Not specified")
         Dim indexerr As Int16 = errtype
         Dim err As conserr.errorstruct = conserr.err(indexerr)
@@ -8,6 +10,13 @@
         For index = 0 To Console.BufferWidth - 1
             hwall &= "="
         Next
+
+        If args.Count > 0 Then
+            For index = 0 To args.Count - 1
+                err.text = err.text.Replace("{" & index & "}", args(index))
+            Next
+            args.Clear()
+        End If
         Console.WriteLine()
         Console.Write(hwall)
         Console.ForegroundColor = ConsoleColor.Red
