@@ -36,6 +36,9 @@
     Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc)
         Dim ilmethodlen As Integer = _illocalinit.Length
         Dim index As Integer = ilmethodlen - 1
+        Dim ilinc As Integer = 2
+        Dim multideclare As Boolean = False
+        Dim mulitdclarelistinf As ArrayList
         If ilmethodlen = 0 Then index = 0
         If clinecodestruc.Length < 3 Then
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(2).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "let name : str = ""Amin""")
@@ -51,45 +54,82 @@
             'DECLARING ERROR
             dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "Choose another name.")
         End If
+
+        'Multi Declare types
+        If clinecodestruc(2).tokenid = tokenhared.token.CMA Then
+            mulitdclarelistinf = get_dt_names(clinecodestruc, ilinc)
+            multideclare = True
+        End If
+
         'Check ":" in let statements.
-        If clinecodestruc(2).tokenid <> tokenhared.token.ASSINQ Then
-            dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(2).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "let name : str = ""Amin""")
+        If clinecodestruc(ilinc).tokenid <> tokenhared.token.ASSINQ Then
+            dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value), "let name : str = ""Amin""")
         End If
 
-        If clinecodestruc(3).tokenid = tokenhared.token.COMMONDATATYPE Then
-            _illocalinit(index).name = clinecodestruc(1).value.ToLower
-            _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value.ToLower).result
-            _illocalinit(index).iscommondatatype = True
-        Else
-            'Check other type ...
-            _illocalinit(index).iscommondatatype = False
-        End If
-
-        _illocalinit(index).hasdefaultvalue = False
-
-        If clinecodestruc.Length > 4 Then
-            If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
-                'DECLARING ERROR
-                dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value), "let name : str = ""Amin""")
+        ilinc += 1
+        If multideclare Then
+#Region "Multi Declaring"
+            Array.Resize(_illocalinit, _illocalinit.Length + mulitdclarelistinf.Count - 1)
+            For iname = 0 To mulitdclarelistinf.Count - 1
+                If clinecodestruc(ilinc).tokenid = tokenhared.token.COMMONDATATYPE Then
+                    _illocalinit(index).name = mulitdclarelistinf(iname).ToLower
+                    _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(ilinc).value.ToLower).result
+                    _illocalinit(index).iscommondatatype = True
+                Else
+                    'Check other type ...
+                    _illocalinit(index).iscommondatatype = False
+                End If
+                _illocalinit(index).hasdefaultvalue = False
+                index += 1
+            Next
+            If clinecodestruc.Length <> ilinc + 1 Then
+                ilinc += 1
+                dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value), "let name , city , description : str")
             End If
+            Return
+#End Region
+        Else
+#Region "Single Declaring"
+
+            If clinecodestruc(ilinc).tokenid = tokenhared.token.COMMONDATATYPE Then
+                _illocalinit(index).name = clinecodestruc(1).value.ToLower
+                _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value.ToLower).result
+                _illocalinit(index).iscommondatatype = True
+            Else
+                'Check other type ...
+                _illocalinit(index).iscommondatatype = False
+            End If
+
+            _illocalinit(index).hasdefaultvalue = False
 
             If clinecodestruc.Length > 4 Then
-                Dim crenvalue(clinecodestruc.Length - 6) As xmlunpkd.linecodestruc
-                Dim icren As Integer = 0
-                For clindex = 5 To clinecodestruc.Length - 1
-                    crenvalue(icren) = New xmlunpkd.linecodestruc
-                    crenvalue(icren) = clinecodestruc(clindex)
-                    icren += 1
-                Next
-                _illocalinit(index).clocalvalue = crenvalue
-                _illocalinit(index).hasdefaultvalue = True
-            Else
-                'let name : str =
-                dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected")
+                If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
+                    'DECLARING ERROR
+                    dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value), "let name : str = ""Amin""")
+                End If
+
+                If clinecodestruc.Length > 4 Then
+                    Dim crenvalue(clinecodestruc.Length - 6) As xmlunpkd.linecodestruc
+                    Dim icren As Integer = 0
+                    For clindex = 5 To clinecodestruc.Length - 1
+                        crenvalue(icren) = New xmlunpkd.linecodestruc
+                        crenvalue(icren) = clinecodestruc(clindex)
+                        icren += 1
+                    Next
+                    _illocalinit(index).clocalvalue = crenvalue
+                    _illocalinit(index).hasdefaultvalue = True
+                Else
+                    'let name : str =
+                    dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected")
+                End If
             End If
+            'TODO : Check init value .
+            localinit.add_local_init(clinecodestruc(1).value, clinecodestruc(3).value)
+#End Region
+
         End If
-        'TODO : Check init value .
-        localinit.add_local_init(clinecodestruc(1).value, clinecodestruc(3).value)
+
+
     End Sub
 
     Public Function get_target_info(clinecodestruc As xmlunpkd.linecodestruc) As lexer.targetinf
@@ -99,5 +139,27 @@
         linecinf.length = clinecodestruc.ile
         linecinf.lend = clinecodestruc.ien
         Return linecinf
+    End Function
+
+    Public Function get_dt_names(clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer) As ArrayList
+        Dim waitforcma As Boolean = False
+        Dim dtnames As New ArrayList
+        For index = 1 To clinecodestruc.Length - 1
+            If waitforcma = False Then
+                dtnames.Add(clinecodestruc(index).value)
+                waitforcma = True
+            Else
+                'Check ":" in let statements.
+                If clinecodestruc(index).tokenid = tokenhared.token.ASSINQ Then
+                    ilinc = index
+                    Return dtnames
+                End If
+                waitforcma = False
+            End If
+        Next
+
+        'Check ":" in let statements.
+        dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(clinecodestruc.Length - 1).line, path, "':' is expected." & vbCrLf & authfunc.get_line_error(path, get_target_info(clinecodestruc(clinecodestruc.Length - 1)), clinecodestruc(clinecodestruc.Length - 1).value), "let name : str = ""Amin""")
+
     End Function
 End Class
