@@ -6,6 +6,8 @@ ldloc fam
 call void [mscorlib]System.Console::WriteLine(string)
 ldloc val
 call void [mscorlib]System.Console::WriteLine(string)
+ldloc pi
+call void [mscorlib]System.Console::WriteLine(string)
 "
     Friend Shared Sub import_test_code(ByRef funcdt As ilformat._ilmethodcollection)
         For Each cline In codestr.Split(vbCr)
