@@ -71,15 +71,20 @@
 #Region "Multi Declaring"
             Array.Resize(_illocalinit, _illocalinit.Length + mulitdclarelistinf.Count - 1)
             For iname = 0 To mulitdclarelistinf.Count - 1
+                If localinit.check_local_init(mulitdclarelistinf(iname)) Then
+                    'DECLARING ERROR
+                    dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), mulitdclarelistinf(iname)) & vbCrLf & "Choose another name.")
+                End If
                 If clinecodestruc(ilinc).tokenid = tokenhared.token.COMMONDATATYPE Then
-                    _illocalinit(index).name = mulitdclarelistinf(iname).ToLower
-                    _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(ilinc).value.ToLower).result
+                    _illocalinit(index).name = mulitdclarelistinf(iname)
+                    _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(ilinc).value).result
                     _illocalinit(index).iscommondatatype = True
                 Else
                     'Check other type ...
                     _illocalinit(index).iscommondatatype = False
                 End If
                 _illocalinit(index).hasdefaultvalue = False
+                localinit.add_local_init(mulitdclarelistinf(iname), clinecodestruc(ilinc).value)
                 index += 1
             Next
             If clinecodestruc.Length <> ilinc + 1 Then
@@ -92,8 +97,8 @@
 #Region "Single Declaring"
 
             If clinecodestruc(ilinc).tokenid = tokenhared.token.COMMONDATATYPE Then
-                _illocalinit(index).name = clinecodestruc(1).value.ToLower
-                _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value.ToLower).result
+                _illocalinit(index).name = clinecodestruc(1).value
+                _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value).result
                 _illocalinit(index).iscommondatatype = True
             Else
                 'Check other type ...
@@ -146,11 +151,16 @@
         Dim dtnames As New ArrayList
         For index = 1 To clinecodestruc.Length - 1
             If waitforcma = False Then
+                If clinecodestruc(index).tokenid <> tokenhared.token.IDENTIFIER Then
+                    'IDENTIFIER EXPECTED
+                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value), "let name : str = ""Amin""")
+                End If
+
                 dtnames.Add(clinecodestruc(index).value)
-                waitforcma = True
-            Else
-                'Check ":" in let statements.
-                If clinecodestruc(index).tokenid = tokenhared.token.ASSINQ Then
+                    waitforcma = True
+                Else
+                    'Check ":" in let statements.
+                    If clinecodestruc(index).tokenid = tokenhared.token.ASSINQ Then
                     ilinc = index
                     Return dtnames
                 End If
