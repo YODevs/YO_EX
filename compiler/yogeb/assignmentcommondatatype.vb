@@ -11,6 +11,14 @@
     Friend Shared Sub set_str_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
         If funcdt.locallinit(index).clocalvalue.Length = 1 Then
             Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
+
+                Case tokenhared.token.IDENTIFIER
+                    Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
+                    If check_locals_init(getclocalname, funcdt.locallinit) Then
+                        cil.load_local_variable(funcdt.codes, getclocalname)
+                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    End If
+
                    'let name : str = 'Amin'
                 Case tokenhared.token.TYPE_CO_STR
                     cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
@@ -43,8 +51,24 @@
                 Case tokenhared.token.FALSE
                     cil.load_string(funcdt.codes, "False")
                     cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                Case Else
+                    'Set dserr
             End Select
 
         End If
     End Sub
+
+    Friend Shared Function check_locals_init(nvar As String, varlocallist() As ilformat._illocalinit) As Boolean
+        'TODO : Check Global Identifiers.
+        'TODO : Check Equal Types.
+
+        For index = 0 To varlocallist.Length - 1
+            If varlocallist(index).name = nvar Then
+                Return True
+            End If
+        Next
+
+        'TODO : Set Error
+        Return False
+    End Function
 End Class
