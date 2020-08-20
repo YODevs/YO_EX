@@ -10,8 +10,8 @@
     End Function
 
     Public Sub add_local_init(name As String, datatype As String)
-        name = name.ToLower
-        datatype = datatype.ToLower
+        name = name
+        datatype = datatype
         datatypelocal.add(name, datatype)
     End Sub
 End Class
