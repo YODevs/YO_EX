@@ -25,4 +25,14 @@
     Public Shared Sub push_null_reference(ByRef codes As ArrayList)
         codes.Add("ldnull")
     End Sub
+
+    ''' <summary>
+    ''' ldloc [str]
+    ''' </summary>
+    ''' <param name="codes"></param>
+    ''' <param name="name"></param>
+    Public Shared Sub load_local_variable(ByRef codes As ArrayList, name As String)
+        codes.Add("ldloc " & name)
+    End Sub
+
 End Class
