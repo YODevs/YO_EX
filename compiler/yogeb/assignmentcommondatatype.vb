@@ -14,12 +14,12 @@
 
                 Case tokenhared.token.IDENTIFIER
                     Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
-                    If check_locals_init(getclocalname, funcdt.locallinit) Then
+                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit) Then
                         cil.load_local_variable(funcdt.codes, getclocalname)
                         cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
                     End If
 
-                   'let name : str = 'Amin'
+                    'let name : str = 'Amin'
                 Case tokenhared.token.TYPE_CO_STR
                     cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
                     cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
@@ -58,7 +58,7 @@
         End If
     End Sub
 
-    Friend Shared Function check_locals_init(nvar As String, varlocallist() As ilformat._illocalinit) As Boolean
+    Friend Shared Function check_locals_init(methodname As String, nvar As String, varlocallist() As ilformat._illocalinit) As Boolean
         'TODO : Check Global Identifiers.
         'TODO : Check Equal Types.
 
@@ -68,7 +68,8 @@
             End If
         Next
 
-        'TODO : Set Error
+        dserr.args.Add(nvar)
+        dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & methodname & " - Unknown identifier : " & nvar)
         Return False
     End Function
 End Class
