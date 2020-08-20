@@ -1,7 +1,7 @@
 ﻿Public Class ilbodybulider
 
     Public ildt As ilformat.ildata
-
+    Friend Shared path As String
     Private msilsource As String
     Public ReadOnly Property source() As String
         Get
