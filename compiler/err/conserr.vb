@@ -13,6 +13,7 @@
         SYNTAXERROR
         MISSINGESSENTIALFILES
         DECLARINGERROR
+        TYPENOTFOUND
     End Enum
 
     Enum errorpriority
@@ -56,5 +57,6 @@ An identifier cannot start with a number.")
         set_new_error(errortype.MISSINGESSENTIALFILES, errorpriority.STOP, "Missing essential files", "Some software files were not found.
 You can reinstall the software or email us.")
         set_new_error(errortype.DECLARINGERROR, errorpriority.STOP, "Declaring error", "This local variable is already declared in the current block.")
+        set_new_error(errortype.TYPENOTFOUND, errorpriority.STOP, "Identifier unknown", "'{0}' is not declared. It may be inaccessible due to its protection level.")
     End Sub
 End Class
