@@ -14,6 +14,7 @@
         MISSINGESSENTIALFILES
         DECLARINGERROR
         TYPENOTFOUND
+        ERRORINCONVERT
     End Enum
 
     Enum errorpriority
@@ -58,5 +59,7 @@ An identifier cannot start with a number.")
 You can reinstall the software or email us.")
         set_new_error(errortype.DECLARINGERROR, errorpriority.STOP, "Declaring error", "This local variable is already declared in the current block.")
         set_new_error(errortype.TYPENOTFOUND, errorpriority.STOP, "Identifier unknown", "'{0}' is not declared. It may be inaccessible due to its protection level.")
+        set_new_error(errortype.ERRORINCONVERT, errorpriority.STOP, "Assignment error", "Constant value '{0}' cannot be converted to a '{1}'.")
+
     End Sub
 End Class
