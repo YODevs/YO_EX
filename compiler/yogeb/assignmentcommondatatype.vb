@@ -87,9 +87,15 @@
 
                     'let val : bool = 1
                 Case tokenhared.token.TYPE_INT
-                    cil.push_int32_onto_stack(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-
+                    Dim boolboxinteger As Integer = funcdt.locallinit(index).clocalvalue(0).value
+                    If boolboxinteger = 1 Or boolboxinteger = 0 Then
+                        cil.push_int32_onto_stack(funcdt.codes, boolboxinteger)
+                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    Else
+                        dserr.args.Add(funcdt.locallinit(index).clocalvalue(0).value)
+                        dserr.args.Add("bool")
+                        dserr.new_error(conserr.errortype.ERRORINCONVERT, -1, ilbodybulider.path, "Method : " & funcdt.name & "  - bool var : " & funcdt.locallinit(index).name & " , Must use 0 [False] and 1 [True] in Boolean variables.", "let " & funcdt.locallinit(index).name & " : bool = 1")
+                    End If
                 Case Else
                     'Set dserr
             End Select
