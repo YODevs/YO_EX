@@ -5,6 +5,8 @@
         Select Case initcommondatatype.cdtype.findkey(datatype).result
             Case "str"
                 set_str_data(funcdt, index)
+            Case "bool"
+                set_bool_data(funcdt, index)
         End Select
     End Sub
 
@@ -51,6 +53,43 @@
                 Case tokenhared.token.FALSE
                     cil.load_string(funcdt.codes, "False")
                     cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                Case Else
+                    'Set dserr
+            End Select
+
+        End If
+    End Sub
+
+    Friend Shared Sub set_bool_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
+        If funcdt.locallinit(index).clocalvalue.Length = 1 Then
+            Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
+
+
+                Case tokenhared.token.TRUE
+                    cil.push_int32_onto_stack(funcdt.codes, 1)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                Case tokenhared.token.FALSE
+                    cil.push_int32_onto_stack(funcdt.codes, 0)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                Case tokenhared.token.IDENTIFIER
+                    Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
+                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit) Then
+                        cil.load_local_variable(funcdt.codes, getclocalname)
+                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    End If
+
+                    'let value : bool = NULL
+                Case tokenhared.token.NULL
+                    cil.push_null_reference(funcdt.codes)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                    'let val : bool = 1
+                Case tokenhared.token.TYPE_INT
+                    cil.push_int32_onto_stack(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
                 Case Else
                     'Set dserr
             End Select
