@@ -9,8 +9,58 @@
                 set_bool_data(funcdt, index)
             Case "char"
                 set_char_data(funcdt, index)
+            Case "i32"
+                set_i32_data(funcdt, index)
         End Select
     End Sub
+
+
+    Friend Shared Sub set_i32_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
+        If funcdt.locallinit(index).clocalvalue.Length = 1 Then
+            Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
+
+                Case tokenhared.token.IDENTIFIER
+                    Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
+                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
+                        cil.load_local_variable(funcdt.codes, getclocalname)
+                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    End If
+
+                    'let value : i32 = NULL
+                Case tokenhared.token.NULL
+                    cil.push_null_reference(funcdt.codes)
+                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+
+                    'let val : i32 = 36000
+                Case tokenhared.token.TYPE_INT
+                    If Int32.MaxValue >= funcdt.locallinit(index).clocalvalue(0).value AndAlso Int32.MinValue <= funcdt.locallinit(index).clocalvalue(0).value Then
+                        cil.push_int32_onto_stack(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
+                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    Else
+                        dserr.args.Add(funcdt.locallinit(index).clocalvalue(0).value)
+                        dserr.args.Add(Int32.MaxValue)
+                        dserr.args.Add(Int32.MinValue)
+                        dserr.new_error(conserr.errortype.CONSTANTNUMOUTOFRANGE, -1, ilbodybulider.path)
+                    End If
+
+                    'let pi : i32 = 3.14
+                Case tokenhared.token.TYPE_FLOAT
+                    If Int32.MaxValue >= funcdt.locallinit(index).clocalvalue(0).value AndAlso Int32.MinValue <= funcdt.locallinit(index).clocalvalue(0).value Then
+                        cil.push_int32_onto_stack(funcdt.codes, CInt(funcdt.locallinit(index).clocalvalue(0).value))
+                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    Else
+                        dserr.args.Add(funcdt.locallinit(index).clocalvalue(0).value)
+                    dserr.args.Add(Int32.MaxValue)
+                    dserr.args.Add(Int32.MinValue)
+                    dserr.new_error(conserr.errortype.CONSTANTNUMOUTOFRANGE, -1, ilbodybulider.path)
+                    End If
+        Case Else
+                    'Set dserr
+            End Select
+
+        End If
+    End Sub
+
 
     Friend Shared Sub set_str_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
         If funcdt.locallinit(index).clocalvalue.Length = 1 Then
