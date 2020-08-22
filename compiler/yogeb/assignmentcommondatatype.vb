@@ -18,7 +18,7 @@
 
                 Case tokenhared.token.IDENTIFIER
                     Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
-                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit) Then
+                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
                         cil.load_local_variable(funcdt.codes, getclocalname)
                         cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
                     End If
@@ -77,7 +77,7 @@
 
                 Case tokenhared.token.IDENTIFIER
                     Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
-                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit) Then
+                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
                         cil.load_local_variable(funcdt.codes, getclocalname)
                         cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
                     End If
@@ -127,7 +127,7 @@
                     End If
                 Case tokenhared.token.IDENTIFIER
                     Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
-                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit) Then
+                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
                         cil.load_local_variable(funcdt.codes, getclocalname)
                         cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
                     End If
@@ -144,13 +144,19 @@
         End If
     End Sub
 
-    Friend Shared Function check_locals_init(methodname As String, nvar As String, varlocallist() As ilformat._illocalinit) As Boolean
+    Friend Shared Function check_locals_init(methodname As String, nvar As String, varlocallist() As ilformat._illocalinit, datatype As String) As Boolean
         'TODO : Check Global Identifiers.
         'TODO : Check Equal Types.
 
         For index = 0 To varlocallist.Length - 1
             If varlocallist(index).name = nvar Then
-                Return True
+                If varlocallist(index).datatype = datatype Then
+                    Return True
+                Else
+                    dserr.args.Add(varlocallist(index).datatype)
+                    dserr.args.Add(datatype)
+                    dserr.new_error(conserr.errortype.EXPLICITCONVERSION, -1, ilbodybulider.path, "Method : " & methodname & " - identifier : " & nvar)
+                End If
             End If
         Next
 
