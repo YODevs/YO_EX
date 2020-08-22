@@ -41,10 +41,10 @@
     ''' <param name="codes"></param>
     ''' <param name="value"></param>
     Public Shared Sub push_int32_onto_stack(ByRef codes As ArrayList, value As Int32)
-        If value >= 0 AndAlso value < 10 Then
+        If value >= 0 AndAlso value < 9 Then
             codes.Add("ldc.i4." & value)
         Else
-            codes.Add("ldc.i4.s " & value)
+            codes.Add("ldc.i4 " & value)
         End If
     End Sub
 
