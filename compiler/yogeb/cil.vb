@@ -5,6 +5,7 @@
     ''' </summary>
     Public Shared Sub load_string(ByRef codes As ArrayList, value As String)
         If value.StartsWith(conrex.COSTR) OrElse value.StartsWith(conrex.DUSTR) Then
+            specificdustrcommand.reset_line_feed(value)
             If value.StartsWith(conrex.DUSTR) Then
                 specificdustrcommand.get_specific_dustr_command(value)
             Else

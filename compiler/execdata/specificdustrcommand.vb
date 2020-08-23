@@ -43,4 +43,10 @@ Public Class specificdustrcommand
         End If
     End Sub
 
+    Friend Shared Sub reset_line_feed(ByRef value As String)
+        value = value.Replace(vbCrLf, "\r\n")
+        value = value.Replace(vbCr, "\r")
+        value = value.Replace(vbLf, "\n")
+    End Sub
+
 End Class
