@@ -20,6 +20,7 @@ Public Class lexer
         fmtdata = New fmtshared(file)
     End Sub
 
+    Private strline As Integer = 0
     Private qucheck As Boolean = False
     Public fmtdata As fmtshared
     Private rd_token As tokenhared.token
@@ -59,6 +60,7 @@ Public Class lexer
             If chstatusaction = targetaction.NOOPERATION AndAlso check_target_action(getch, index, chstatusaction) Then
                 slinegrab = String.Empty
                 linecinf.lstart = index
+                strline = linecinf.line
             End If
             If chstatusaction <> targetaction.NOOPERATION Then
                 Select Case chstatusaction
@@ -71,7 +73,10 @@ Public Class lexer
                             linecinf.lend = index - 1
                             linecinf.length = slinegrab.Length
                             linec = slinegrab
+                            Dim afline As Integer = linecinf.line
+                            linecinf.line = strline
                             check_token(linecinf, linec)
+                            linecinf.line = afline
                             slinegrab = conrex.NULL
                         End If
                     Case targetaction.DUCOSTRINGLOADER
@@ -79,7 +84,10 @@ Public Class lexer
                             linecinf.lend = index - 1
                             linecinf.length = slinegrab.Length
                             linec = slinegrab
+                            Dim afline As Integer = linecinf.line
+                            linecinf.line = strline
                             check_token(linecinf, linec)
+                            linecinf.line = afline
                             slinegrab = conrex.NULL
                         End If
                 End Select
