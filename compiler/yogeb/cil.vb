@@ -4,8 +4,8 @@
     ''' ldstr [str]
     ''' </summary>
     Public Shared Sub load_string(ByRef codes As ArrayList, value As String)
-        'TODO : Check DU Or Co String .
         If value.StartsWith(conrex.COSTR) OrElse value.StartsWith(conrex.DUSTR) Then
+            If value.StartsWith(conrex.DUSTR) Then specificdustrcommand.get_specific_dustr_command(value)
             authfunc.rem_fr_and_en(value)
         End If
         codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
