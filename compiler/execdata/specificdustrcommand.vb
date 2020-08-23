@@ -8,6 +8,7 @@
     End Sub
 
     Friend Shared Sub get_specific_dustr_command(ByRef value As String)
+        rem_specific_cil_char(value)
         If value.Contains("#") Then
             For index = 0 To conrex.spdustrcommand.Length - 1
                 Dim resultspdustr As mapstoredata.dataresult = spdustr.find(conrex.spdustrcommand(index))
@@ -21,6 +22,12 @@
             Next
         Else
             Return
+        End If
+    End Sub
+
+    Friend Shared Sub rem_specific_cil_char(ByRef value As String)
+        If value.Contains("\") Then
+            value = value.Replace("\", "\\")
         End If
     End Sub
 
