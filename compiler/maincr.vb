@@ -24,6 +24,7 @@
         tokenhared.init()
         init_essential_files()
         initcommondatatype.init_common_data_type()
+        specificdustrcommand.init()
     End Sub
 
     Sub init_essential_files()
