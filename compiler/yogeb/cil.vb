@@ -5,7 +5,11 @@
     ''' </summary>
     Public Shared Sub load_string(ByRef codes As ArrayList, value As String)
         If value.StartsWith(conrex.COSTR) OrElse value.StartsWith(conrex.DUSTR) Then
-            If value.StartsWith(conrex.DUSTR) Then specificdustrcommand.get_specific_dustr_command(value)
+            If value.StartsWith(conrex.DUSTR) Then
+                specificdustrcommand.get_specific_dustr_command(value)
+            Else
+                specificdustrcommand.rem_specific_cil_char(value)
+            End If
             authfunc.rem_fr_and_en(value)
         End If
         codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
