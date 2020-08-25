@@ -1,5 +1,5 @@
 ﻿Public Class localinitdata
-    Private datatypelocal As mapstoredata
+    Friend datatypelocal As mapstoredata
     Public Sub New()
         datatypelocal = New mapstoredata
     End Sub
