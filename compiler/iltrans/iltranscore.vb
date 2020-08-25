@@ -34,13 +34,13 @@
 
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.IDENTIFIER
-                nv_st_identifier(clinecodestruc)
+                nv_st_identifier(clinecodestruc, _ilmethod)
             Case tokenhared.token.LET
                 nv_let(clinecodestruc)
         End Select
     End Sub
 
-    Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc)
+    Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         'TODO : Check Func Identifiers.
         Dim inline As Integer = 0
         Dim index As Integer = clinecodestruc.Length - 1
@@ -51,7 +51,28 @@
 
         Dim dtassign As identifierassignmentinfo = get_iden_names(clinecodestruc, inline)
 
+        Select Case tokenhared.check_sym(dtassign.optval)
+            Case tokenhared.token.ASSIDB
+                pv_iden_assidb(dtassign, clinecodestruc, inline, _ilmethod)
+        End Select
     End Sub
+
+    Private Sub pv_iden_assidb(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod)
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname)
+            If localvartype.issuccessful = False Then
+                'Set Error
+            End If
+
+            Select Case localvartype.result
+                Case "str"
+                    _ilmethod = optgen.assi_str(varname, clinecodestruc(ilinc))
+            End Select
+        Next
+    End Sub
+
 
     Friend Shared Function check_opt_assignment(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer, ByRef opt As String) As Boolean
         If clinecodestruc(index).tokenid = tokenhared.token.CMA Then Return False
@@ -91,7 +112,7 @@
             Else
                 'Check operators
                 If check_opt_assignment(clinecodestruc, index, optval) Then
-                    ilinc = index + 1
+                    ilinc = index + 2
                     resultassign.identifiers = dtnames
                     resultassign.optval = optval
                     Return resultassign
