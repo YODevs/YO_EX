@@ -45,7 +45,7 @@
     ''' </summary>
     ''' <param name="codes"></param>
     ''' <param name="value"></param>
-    Public Shared Sub push_int32_onto_stack(ByRef codes As ArrayList, value As Int32)
+    Public Shared Sub push_int32_onto_stack(ByRef codes As ArrayList, value As Decimal)
         If value >= 0 AndAlso value < 9 Then
             codes.Add("ldc.i4." & value)
         Else
@@ -53,4 +53,11 @@
         End If
     End Sub
 
+    ''' <summary>
+    '''     Convert to int64, pushing int64 on stack. 
+    ''' </summary>
+    ''' <param name="codes"></param>
+    Public Shared Sub conv_to_int64(ByRef codes As ArrayList)
+        codes.Add("conv.i8")
+    End Sub
 End Class
