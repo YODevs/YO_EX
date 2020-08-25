@@ -1,41 +1,53 @@
 ﻿Public Class assignmentcommondatatype
 
     Friend Shared Sub set_value(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
+        Static indinsert As Integer = 0
+        Dim prcodes As New ArrayList
         Dim datatype As String = funcdt.locallinit(index).datatype
         Select Case initcommondatatype.cdtype.findkey(datatype).result
             Case "str"
-                set_str_data(funcdt, index)
+                set_str_data(funcdt, index, prcodes)
             Case "bool"
-                set_bool_data(funcdt, index)
+                set_bool_data(funcdt, index, prcodes)
             Case "char"
-                set_char_data(funcdt, index)
+                set_char_data(funcdt, index, prcodes)
             Case "i32"
-                set_i32_data(funcdt, index)
+                set_i32_data(funcdt, index, prcodes)
         End Select
+
+        If index = 0 Then
+            indinsert = 0
+        End If
+        If prcodes.Count > 0 Then
+            For indloop = 0 To prcodes.Count - 1
+                funcdt.codes.Insert(indinsert, prcodes(indloop))
+                indinsert += 1
+            Next
+        End If
     End Sub
 
 
-    Friend Shared Sub set_i32_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
+    Friend Shared Sub set_i32_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, ByRef prcodes As ArrayList)
         If funcdt.locallinit(index).clocalvalue.Length = 1 Then
             Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
 
                 Case tokenhared.token.IDENTIFIER
                     Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
                     If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
-                        cil.load_local_variable(funcdt.codes, getclocalname)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.load_local_variable(prcodes, getclocalname)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     End If
 
                     'let value : i32 = NULL
                 Case tokenhared.token.NULL
-                    cil.push_null_reference(funcdt.codes)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    cil.push_null_reference(prcodes)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
 
                     'let val : i32 = 36000
                 Case tokenhared.token.TYPE_INT
                     If Int32.MaxValue >= funcdt.locallinit(index).clocalvalue(0).value AndAlso Int32.MinValue <= funcdt.locallinit(index).clocalvalue(0).value Then
-                        cil.push_int32_onto_stack(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.push_int32_onto_stack(prcodes, funcdt.locallinit(index).clocalvalue(0).value)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     Else
                         dserr.args.Add(funcdt.locallinit(index).clocalvalue(0).value)
                         dserr.args.Add(Int32.MaxValue)
@@ -46,65 +58,14 @@
                     'let pi : i32 = 3.14
                 Case tokenhared.token.TYPE_FLOAT
                     If Int32.MaxValue >= funcdt.locallinit(index).clocalvalue(0).value AndAlso Int32.MinValue <= funcdt.locallinit(index).clocalvalue(0).value Then
-                        cil.push_int32_onto_stack(funcdt.codes, CInt(funcdt.locallinit(index).clocalvalue(0).value))
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.push_int32_onto_stack(prcodes, CInt(funcdt.locallinit(index).clocalvalue(0).value))
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     Else
                         dserr.args.Add(funcdt.locallinit(index).clocalvalue(0).value)
-                    dserr.args.Add(Int32.MaxValue)
-                    dserr.args.Add(Int32.MinValue)
-                    dserr.new_error(conserr.errortype.CONSTANTNUMOUTOFRANGE, -1, ilbodybulider.path)
+                        dserr.args.Add(Int32.MaxValue)
+                        dserr.args.Add(Int32.MinValue)
+                        dserr.new_error(conserr.errortype.CONSTANTNUMOUTOFRANGE, -1, ilbodybulider.path)
                     End If
-        Case Else
-                    'Set dserr
-            End Select
-
-        End If
-    End Sub
-
-
-    Friend Shared Sub set_str_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
-        If funcdt.locallinit(index).clocalvalue.Length = 1 Then
-            Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
-
-                Case tokenhared.token.IDENTIFIER
-                    Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
-                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
-                        cil.load_local_variable(funcdt.codes, getclocalname)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-                    End If
-
-                    'let name : str = 'Amin'
-                Case tokenhared.token.TYPE_CO_STR
-                    cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-
-                    'let message :str = "Hello.#nlWelcome to my app."
-                Case tokenhared.token.TYPE_DU_STR
-                    cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-
-                    'let value : str = NULL
-                Case tokenhared.token.NULL
-                    cil.push_null_reference(funcdt.codes)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-
-                    'let val : str = 36000
-                Case tokenhared.token.TYPE_INT
-                    cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-
-                    'let pi : str = 3.14
-                Case tokenhared.token.TYPE_FLOAT
-                    cil.load_string(funcdt.codes, funcdt.locallinit(index).clocalvalue(0).value)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-
-                Case tokenhared.token.TRUE
-                    cil.load_string(funcdt.codes, "True")
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
-
-                Case tokenhared.token.FALSE
-                    cil.load_string(funcdt.codes, "False")
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
                 Case Else
                     'Set dserr
             End Select
@@ -112,37 +73,88 @@
         End If
     End Sub
 
-    Friend Shared Sub set_bool_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
+
+    Friend Shared Sub set_str_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, ByRef prcodes As ArrayList)
+        If funcdt.locallinit(index).clocalvalue.Length = 1 Then
+            Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
+
+                Case tokenhared.token.IDENTIFIER
+                    Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
+                    If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
+                        cil.load_local_variable(prcodes, getclocalname)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+                    End If
+
+                    'let name : str = 'Amin'
+                Case tokenhared.token.TYPE_CO_STR
+                    cil.load_string(prcodes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+
+                    'let message :str = "Hello.#nlWelcome to my app."
+                Case tokenhared.token.TYPE_DU_STR
+                    cil.load_string(prcodes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+
+                    'let value : str = NULL
+                Case tokenhared.token.NULL
+                    cil.push_null_reference(prcodes)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+
+                    'let val : str = 36000
+                Case tokenhared.token.TYPE_INT
+                    cil.load_string(prcodes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+
+                    'let pi : str = 3.14
+                Case tokenhared.token.TYPE_FLOAT
+                    cil.load_string(prcodes, funcdt.locallinit(index).clocalvalue(0).value)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+
+                Case tokenhared.token.TRUE
+                    cil.load_string(prcodes, "True")
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+
+                Case tokenhared.token.FALSE
+                    cil.load_string(prcodes, "False")
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
+                Case Else
+                    'Set dserr
+            End Select
+
+        End If
+    End Sub
+
+    Friend Shared Sub set_bool_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, ByRef prcodes As ArrayList)
         If funcdt.locallinit(index).clocalvalue.Length = 1 Then
             Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
 
 
                 Case tokenhared.token.TRUE
-                    cil.push_int32_onto_stack(funcdt.codes, 1)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    cil.push_int32_onto_stack(prcodes, 1)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
 
                 Case tokenhared.token.FALSE
-                    cil.push_int32_onto_stack(funcdt.codes, 0)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    cil.push_int32_onto_stack(prcodes, 0)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
 
                 Case tokenhared.token.IDENTIFIER
                     Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
                     If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
-                        cil.load_local_variable(funcdt.codes, getclocalname)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.load_local_variable(prcodes, getclocalname)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     End If
 
                     'let value : bool = NULL
                 Case tokenhared.token.NULL
-                    cil.push_null_reference(funcdt.codes)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    cil.push_null_reference(prcodes)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
 
                     'let val : bool = 1
                 Case tokenhared.token.TYPE_INT
                     Dim boolboxinteger As Integer = funcdt.locallinit(index).clocalvalue(0).value
                     If boolboxinteger = 1 Or boolboxinteger = 0 Then
-                        cil.push_int32_onto_stack(funcdt.codes, boolboxinteger)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.push_int32_onto_stack(prcodes, boolboxinteger)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     Else
                         dserr.args.Add(funcdt.locallinit(index).clocalvalue(0).value)
                         dserr.args.Add("bool")
@@ -155,37 +167,37 @@
         End If
     End Sub
 
-    Friend Shared Sub set_char_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
+    Friend Shared Sub set_char_data(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, ByRef prcodes As ArrayList)
         If funcdt.locallinit(index).clocalvalue.Length = 1 Then
             Select Case funcdt.locallinit(index).clocalvalue(0).tokenid
 
                 Case tokenhared.token.TYPE_DU_STR
                     If funcdt.locallinit(index).clocalvalue(0).value.Length >= 3 Then
-                        cil.push_int32_onto_stack(funcdt.codes, Asc(funcdt.locallinit(index).clocalvalue(0).value(1)))
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.push_int32_onto_stack(prcodes, Asc(funcdt.locallinit(index).clocalvalue(0).value(1)))
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     Else
-                        cil.push_null_reference(funcdt.codes)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.push_null_reference(prcodes)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     End If
                 Case tokenhared.token.TYPE_CO_STR
                     If funcdt.locallinit(index).clocalvalue(0).value.Length >= 3 Then
-                        cil.push_int32_onto_stack(funcdt.codes, Asc(funcdt.locallinit(index).clocalvalue(0).value(1)))
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.push_int32_onto_stack(prcodes, Asc(funcdt.locallinit(index).clocalvalue(0).value(1)))
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     Else
-                        cil.push_null_reference(funcdt.codes)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.push_null_reference(prcodes)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     End If
                 Case tokenhared.token.IDENTIFIER
                     Dim getclocalname As String = funcdt.locallinit(index).clocalvalue(0).value
                     If check_locals_init(funcdt.name, getclocalname, funcdt.locallinit, funcdt.locallinit(index).datatype) Then
-                        cil.load_local_variable(funcdt.codes, getclocalname)
-                        cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                        cil.load_local_variable(prcodes, getclocalname)
+                        cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     End If
 
                     'let value : char = NULL
                 Case tokenhared.token.NULL
-                    cil.push_null_reference(funcdt.codes)
-                    cil.set_stack_local(funcdt.codes, funcdt.locallinit(index).name)
+                    cil.push_null_reference(prcodes)
+                    cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
 
                 Case Else
                     'Set dserr
