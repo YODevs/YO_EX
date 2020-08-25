@@ -69,6 +69,15 @@
             Select Case localvartype.result
                 Case "str"
                     _ilmethod = optgen.assi_str(varname, clinecodestruc(ilinc))
+                Case "i128"
+                Case "i64"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int64")
+                Case "i32"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int32")
+                Case "i16"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int16")
+                Case "i8"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int8")
             End Select
         Next
     End Sub
