@@ -3,6 +3,11 @@
     Private methoddata As tknformat._method
     Private localinit As localinitdata
     Private path As String
+
+    Structure identifierassignmentinfo
+        Dim identifiers As ArrayList
+        Dim optval As String
+    End Structure
     Public Sub New(method As tknformat._method)
         methoddata = method
         localinit = New localinitdata
@@ -28,11 +33,79 @@
         If clinecodestruc.Length = 0 Then Return
 
         Select Case clinecodestruc(0).tokenid
+            Case tokenhared.token.IDENTIFIER
+                nv_st_identifier(clinecodestruc)
             Case tokenhared.token.LET
                 nv_let(clinecodestruc)
         End Select
     End Sub
 
+    Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc)
+        'TODO : Check Func Identifiers.
+        Dim inline As Integer = 0
+        Dim index As Integer = clinecodestruc.Length - 1
+        If clinecodestruc.Length < 3 Then
+            dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
+            Return
+        End If
+
+        Dim dtassign As identifierassignmentinfo = get_iden_names(clinecodestruc, inline)
+
+    End Sub
+
+    Friend Shared Function check_opt_assignment(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer, ByRef opt As String) As Boolean
+        If clinecodestruc(index).tokenid = tokenhared.token.CMA Then Return False
+
+        If clinecodestruc.Length > index + 1 Then
+            For indloop = 0 To tokenhared.tokenassign.Length - 1
+                Dim optval As String = String.Empty
+                optval = clinecodestruc(index).value
+                If tokenhared.tokenassign(indloop) = optval Then
+                    If clinecodestruc(index + 1).tokenid = tokenhared.token.EQUALS Then
+                        opt = optval & "="
+                        Return True
+                    Else
+                        'Set Error '=' not found.
+                    End If
+                End If
+            Next
+        Else
+            'Set Error 
+        End If
+        Return False
+    End Function
+    Public Function get_iden_names(clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer) As identifierassignmentinfo
+        Dim waitforcma As Boolean = False
+        Dim resultassign As New identifierassignmentinfo
+        Dim dtnames As New ArrayList
+        Dim optval As String = String.Empty
+        For index = 0 To clinecodestruc.Length - 1
+            If waitforcma = False Then
+                If clinecodestruc(index).tokenid <> tokenhared.token.IDENTIFIER Then
+                    'IDENTIFIER EXPECTED
+                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value), "let name : str = ""Amin""")
+                End If
+
+                dtnames.Add(clinecodestruc(index).value)
+                waitforcma = True
+            Else
+                'Check operators
+                If check_opt_assignment(clinecodestruc, index, optval) Then
+                    ilinc = index + 1
+                    resultassign.identifiers = dtnames
+                    resultassign.optval = optval
+                    Return resultassign
+                ElseIf clinecodestruc(index).tokenid = tokenhared.token.CMA Then
+                    waitforcma = False
+                End If
+            End If
+        Next
+
+        'Check ":" in let statements.
+        dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(clinecodestruc.Length - 1).line, path, "':' is expected." & vbCrLf & authfunc.get_line_error(path, get_target_info(clinecodestruc(clinecodestruc.Length - 1)), clinecodestruc(clinecodestruc.Length - 1).value), "let name : str = ""Amin""")
+
+        Return resultassign
+    End Function
     Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc)
         Dim ilmethodlen As Integer = _illocalinit.Length
         Dim index As Integer = ilmethodlen - 1
