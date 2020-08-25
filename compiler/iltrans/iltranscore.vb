@@ -23,7 +23,6 @@
             clinecodestruc = xmldata.get_line_tokens
             rev_cline_code(clinecodestruc, _ilmethod)
         End While
-
         Array.Resize(_illocalinit, _illocalinit.Length - 1)
         _ilmethod.locallinit = _illocalinit 'exc no local init
         xmldata.close()
@@ -37,6 +36,7 @@
                 nv_st_identifier(clinecodestruc, _ilmethod)
             Case tokenhared.token.LET
                 nv_let(clinecodestruc)
+                _ilmethod.locallinit = _illocalinit 'exc no local init
         End Select
     End Sub
 

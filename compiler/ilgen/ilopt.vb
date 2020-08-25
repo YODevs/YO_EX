@@ -11,6 +11,14 @@
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
+            Case tokenhared.token.IDENTIFIER
+                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, "string") Then
+                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
+                End If
+
+                    'let value : str = NULL
+            Case tokenhared.token.NULL
+                cil.push_null_reference(_ilmethod.codes)
         End Select
 
         cil.set_stack_local(_ilmethod.codes, varname)
