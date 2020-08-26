@@ -21,6 +21,9 @@
     Public Const COSTR As Char = "'"
     Public Const DUSTR As Char = """"
     Public Const BKSLASH As Char = "\"
+    Public Const BTRIG As Char = "<"
+    Public Const LTLEF As Char = ">"
+
     Enum exitcode
         SUCCESS
         [ERROR]
