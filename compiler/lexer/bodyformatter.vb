@@ -60,6 +60,9 @@
                 imp_formatting_token("FLOAT", value, rd_token, linecinf)
             Case tokenhared.token.COMMONDATATYPE
                 imp_formatting_token("CDTY", value, rd_token, linecinf)
+            Case tokenhared.token.CIL_BLOCK
+                value = authfunc.bp_xml_injection(value)
+                imp_formatting_token("CIL", value, rd_token, linecinf)
             Case Else
                 If tokenhared.check_keyword(value) <> tokenhared.token.UNDEFINED Then
                     imp_formatting_token([Enum].GetName(GetType(tokenhared.token), rd_token), value, rd_token, linecinf)

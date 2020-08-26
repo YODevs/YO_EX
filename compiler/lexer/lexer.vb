@@ -6,6 +6,7 @@ Public Class lexer
         NOOPERATION
         COSTRINGLOADER ' example : 'hello world !'
         DUCOSTRINGLOADER ' example : "hello world ! #nl"
+        CILCOMMANDSLOADER ' example : < codes >
         SINGLECOMMENTLOADER ' example : #>this is a comment
         MULTILINECOMMENTLOADER ' example #-This a comment -#
     End Enum
@@ -81,6 +82,17 @@ Public Class lexer
                         End If
                     Case targetaction.DUCOSTRINGLOADER
                         If get_du_string(getch, linecinf, slinegrab, chstatusaction, (fsourcelen = index)) Then
+                            linecinf.lend = index - 1
+                            linecinf.length = slinegrab.Length
+                            linec = slinegrab
+                            Dim afline As Integer = linecinf.line
+                            linecinf.line = strline
+                            check_token(linecinf, linec)
+                            linecinf.line = afline
+                            slinegrab = conrex.NULL
+                        End If
+                    Case targetaction.CILCOMMANDSLOADER
+                        If get_cil_commands(getch, linecinf, slinegrab, chstatusaction, (fsourcelen = index)) Then
                             linecinf.lend = index - 1
                             linecinf.length = slinegrab.Length
                             linec = slinegrab
@@ -194,6 +206,26 @@ Public Class lexer
         Return False
     End Function
 
+    Private Function get_cil_commands(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
+        Static Dim industrcode As Boolean = False
+
+        If industrcode = False AndAlso getch = conrex.DUSTR Then
+            industrcode = True
+        ElseIf industrcode = True AndAlso getch = conrex.DUSTR Then
+            industrcode = False
+        End If
+        If getch = conrex.LTLEF AndAlso industrcode = False Then
+            chstatus = targetaction.NOOPERATION
+            slinegrab &= getch
+            Return True
+        ElseIf lastchar Then
+            slinegrab &= getch
+            dserr.new_error(conserr.errortype.CILCOMMANDSENDWITH, linecinf.line, sfile, "error in line : " & linecinf.line & " -> " & slinegrab)
+        End If
+        slinegrab &= getch
+        Return False
+    End Function
+
     Private Sub get_single_comment(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
         slinegrab &= getch
         If Chr(13) = getch Or Chr(10) = getch Or lastchar = True Then
@@ -246,6 +278,7 @@ Public Class lexer
             Case rev_sym(linec, linecinf)
 
           '  Case rev_func(linec, linecinf)
+            Case rev_cil_code_block(linec)
 
             Case rev_numeric(linec, linecinf)
 
@@ -327,7 +360,13 @@ Public Class lexer
         End If
         Return False
     End Function
-
+    Private Function rev_cil_code_block(ByRef value As String) As Boolean
+        If value.StartsWith(conrex.BTRIG) AndAlso value.EndsWith(conrex.LTLEF) Then
+            rd_token = tokenhared.token.CIL_BLOCK
+            Return True
+        End If
+        Return False
+    End Function
     Private Function rev_co_string(ByRef value As String) As Boolean
         If value.StartsWith(conrex.COSTR) AndAlso value.EndsWith(conrex.COSTR) Then
             rd_token = tokenhared.token.TYPE_CO_STR
@@ -358,8 +397,11 @@ Public Class lexer
                         Return True
                     Case conrex.DUSTR
                         chstatus = targetaction.DUCOSTRINGLOADER
-                        Return True
-                End Select
+                Return True
+            Case conrex.BTRIG
+                chstatus = targetaction.CILCOMMANDSLOADER
+                Return True
+        End Select
                 chstatus = targetaction.NOOPERATION
         Return False
     End Function

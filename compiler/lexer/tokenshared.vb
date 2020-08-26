@@ -162,5 +162,6 @@
         ASSINQ = 59
         [FALSE] = 60
         [TRUE] = 61
+        CIL_BLOCK = 62
     End Enum
 End Class
