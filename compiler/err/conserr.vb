@@ -17,6 +17,7 @@
         ERRORINCONVERT
         EXPLICITCONVERSION
         CONSTANTNUMOUTOFRANGE
+        CILCOMMANDSENDWITH
     End Enum
 
     Enum errorpriority
@@ -64,5 +65,7 @@ You can reinstall the software or email us.")
         set_new_error(errortype.ERRORINCONVERT, errorpriority.STOP, "Assignment error", "Constant value '{0}' cannot be converted to a '{1}'.")
         set_new_error(errortype.EXPLICITCONVERSION, errorpriority.STOP, "Explicit conversion error", "Cannot implicitly convert type '{0}' to '{1}'.")
         set_new_error(errortype.CONSTANTNUMOUTOFRANGE, errorpriority.STOP, "Constant out of range", "'{0}' - The numeric constant is out of the data range. MAX = '{1}'  -   MIN = '{2}'")
+        set_new_error(errortype.CILCOMMANDSENDWITH, errorpriority.STOP, "Cil commands error", "CIL block codes must end with a (>).")
+
     End Sub
 End Class
