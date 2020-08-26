@@ -52,7 +52,7 @@
                 Next
             End If
         Else
-
+            dserr.new_error(conserr.errortype.CILCOMMANDSAUTH, clinecodestruc(0).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
         End If
     End Sub
     Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
