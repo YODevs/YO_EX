@@ -54,6 +54,14 @@
     End Sub
 
     ''' <summary>
+    ''' ldc.i8 [int64] Push int64 onto stack 
+    ''' </summary>
+    ''' <param name="codes"></param>
+    Public Shared Sub push_int64_onto_stack(ByRef codes As ArrayList, value As Object)
+        codes.Add("ldc.i8 " & value)
+    End Sub
+
+    ''' <summary>
     '''     Convert to int64, pushing int64 on stack. 
     ''' </summary>
     ''' <param name="codes"></param>
