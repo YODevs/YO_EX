@@ -37,9 +37,24 @@
             Case tokenhared.token.LET
                 nv_let(clinecodestruc)
                 _ilmethod.locallinit = _illocalinit 'exc no local init
+            Case tokenhared.token.CIL_BLOCK
+                nv_cil_commands(clinecodestruc, _ilmethod)
         End Select
     End Sub
 
+    Private Sub nv_cil_commands(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+        If clinecodestruc.Length = 1 Then
+            Dim ilcode As String = clinecodestruc(0).value
+            authfunc.rem_fr_and_en(ilcode)
+            If ilcode.Trim <> String.Empty Then
+                For Each illinecode In ilcode.Split(vbCr)
+                    _ilmethod.codes.Add(illinecode.Trim)
+                Next
+            End If
+        Else
+
+        End If
+    End Sub
     Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         'TODO : Check Func Identifiers.
         Dim inline As Integer = 0
@@ -70,6 +85,7 @@
                 Case "str"
                     _ilmethod = optgen.assi_str(varname, clinecodestruc(ilinc))
                 Case "i128"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "valuetype [mscorlib]System.Decimal")
                 Case "i64"
                     _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int64")
                 Case "i32"
@@ -78,6 +94,10 @@
                     _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int16")
                 Case "i8"
                     _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int8")
+                Case "ui64"
+                Case "ui32"
+                Case "ui16"
+                Case "ui8"
             End Select
         Next
     End Sub
