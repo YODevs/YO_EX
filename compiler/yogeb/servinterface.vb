@@ -9,4 +9,13 @@
             End If
         End If
     End Sub
+
+    Friend Shared Function is_i8(datatype As String) As Boolean
+        For index = 0 To compdt.i8cmtypes.Length - 1
+            If datatype = compdt.i8cmtypes(index) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
 End Class
