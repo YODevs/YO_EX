@@ -41,18 +41,19 @@
         End If
 
         If value.Length = 1 AndAlso tokenhared.check_opt(value) Or value = "::" Then
+            value = authfunc.bp_xml_injection(value)
             imp_formatting_token("OPT", value, rd_token, linecinf)
             Return False
         End If
+
+        value = authfunc.bp_xml_injection(value)
 
         Select Case rd_token
             Case tokenhared.token.IDENTIFIER
                 imp_formatting_token("IDENTIFIER", value, rd_token, linecinf)
             Case tokenhared.token.TYPE_CO_STR
-                value = authfunc.bp_xml_injection(value)
                 imp_formatting_token("COSTR", value, rd_token, linecinf)
             Case tokenhared.token.TYPE_DU_STR
-                value = authfunc.bp_xml_injection(value)
                 imp_formatting_token("CUSTR", value, rd_token, linecinf)
             Case tokenhared.token.TYPE_INT
                 imp_formatting_token("INTEGER", value, rd_token, linecinf)
@@ -61,7 +62,6 @@
             Case tokenhared.token.COMMONDATATYPE
                 imp_formatting_token("CDTY", value, rd_token, linecinf)
             Case tokenhared.token.CIL_BLOCK
-                value = authfunc.bp_xml_injection(value)
                 imp_formatting_token("CIL", value, rd_token, linecinf)
             Case Else
                 If tokenhared.check_keyword(value) <> tokenhared.token.UNDEFINED Then
