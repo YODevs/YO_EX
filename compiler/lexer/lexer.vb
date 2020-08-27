@@ -394,15 +394,17 @@ Public Class lexer
                 End Select
             Case conrex.COSTR
                 chstatus = targetaction.COSTRINGLOADER
-                        Return True
-                    Case conrex.DUSTR
-                        chstatus = targetaction.DUCOSTRINGLOADER
+                Return True
+            Case conrex.DUSTR
+                chstatus = targetaction.DUCOSTRINGLOADER
                 Return True
             Case conrex.BTRIG
-                chstatus = targetaction.CILCOMMANDSLOADER
-                Return True
+                If pervchar(index) = Chr(10) Then
+                    chstatus = targetaction.CILCOMMANDSLOADER
+                    Return True
+                End If
         End Select
-                chstatus = targetaction.NOOPERATION
+        chstatus = targetaction.NOOPERATION
         Return False
     End Function
     Public Function nextchar(index As Integer) As Char
