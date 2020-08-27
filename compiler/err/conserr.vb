@@ -19,6 +19,7 @@
         CONSTANTNUMOUTOFRANGE
         CILCOMMANDSENDWITH
         CILCOMMANDSAUTH
+        CILLAZYERROR
     End Enum
 
     Enum errorpriority
@@ -68,6 +69,7 @@ You can reinstall the software or email us.")
         set_new_error(errortype.CONSTANTNUMOUTOFRANGE, errorpriority.STOP, "Constant out of range", "'{0}' - The numeric constant is out of the data range. MAX = '{1}'  -   MIN = '{2}'")
         set_new_error(errortype.CILCOMMANDSENDWITH, errorpriority.STOP, "Cil commands error", "CIL block codes must end with a (>).")
         set_new_error(errortype.CILCOMMANDSAUTH, errorpriority.STOP, "Cil commands error", "CIL - Code block validation error.")
+        set_new_error(errortype.CILLAZYERROR, errorpriority.STOP, "Cil commands error", "Intermediate grammar for injection is not valid.")
 
     End Sub
 End Class
