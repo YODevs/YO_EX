@@ -25,6 +25,7 @@
         init_essential_files()
         initcommondatatype.init_common_data_type()
         specificdustrcommand.init()
+        ciltoken.init_cil_instruction()
     End Sub
 
     Sub init_essential_files()
