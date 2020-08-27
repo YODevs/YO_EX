@@ -47,8 +47,17 @@
             Dim ilcode As String = clinecodestruc(0).value
             authfunc.rem_fr_and_en(ilcode)
             If ilcode.Trim <> String.Empty Then
-                For Each illinecode In ilcode.Split(vbCr)
-                    _ilmethod.codes.Add(illinecode.Trim)
+                For Each illinecode In ilcode.Split(vbLf)
+                    illinecode = illinecode.Trim
+                    If illinecode <> Nothing Then
+                        Dim retresult As cillazychecker.resultlazycheck = cillazychecker.lazy_check(illinecode)
+                        MsgBox(illinecode & vbCrLf & retresult.errtext)
+                        If retresult.result Then
+                            _ilmethod.codes.Add(illinecode)
+                        Else
+                            dserr.new_error(conserr.errortype.CILLAZYERROR, clinecodestruc(0).line, path, retresult.errtext)
+                        End If
+                    End If
                 Next
             End If
         Else
@@ -280,10 +289,10 @@
                 End If
 
                 dtnames.Add(clinecodestruc(index).value)
-                    waitforcma = True
-                Else
-                    'Check ":" in let statements.
-                    If clinecodestruc(index).tokenid = tokenhared.token.ASSINQ Then
+                waitforcma = True
+            Else
+                'Check ":" in let statements.
+                If clinecodestruc(index).tokenid = tokenhared.token.ASSINQ Then
                     ilinc = index
                     Return dtnames
                 End If
