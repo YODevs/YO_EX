@@ -1,0 +1,12 @@
+func main()
+{
+let sayhello : str = "Hello #qu #[65]min #qu"
+<
+ldloc sayhello
+call void [mscorlib]System.Console::Write(string)
+>
+}
+
+
+#-
+Hello " Amin "
