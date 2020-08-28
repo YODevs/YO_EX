@@ -236,7 +236,7 @@ Public Class lexer
 
     Private Sub get_multiline_comment(index As Integer, getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
         slinegrab &= getch
-        If pervchar(index) = "-" And getch = "#" Or lastchar = True Then
+        If pervchar(index) = "-" AndAlso getch = "#" AndAlso slinegrab <> "#-#" Or lastchar = True Then
             chstatus = targetaction.NOOPERATION
             slinegrab = String.Empty
         End If
