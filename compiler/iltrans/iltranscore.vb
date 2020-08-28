@@ -51,7 +51,6 @@
                     illinecode = illinecode.Trim
                     If illinecode <> Nothing Then
                         Dim retresult As cillazychecker.resultlazycheck = cillazychecker.lazy_check(illinecode)
-                        MsgBox(illinecode & vbCrLf & retresult.errtext)
                         If retresult.result Then
                             _ilmethod.codes.Add(illinecode)
                         Else
@@ -295,13 +294,16 @@
                 If clinecodestruc(index).tokenid = tokenhared.token.ASSINQ Then
                     ilinc = index
                     Return dtnames
+                ElseIf clinecodestruc(index).tokenid = tokenhared.token.CMA Then
+                    waitforcma = False
+                Else
+                    dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, "',' is expected." & vbCrLf & authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value), "let name , city : str ")
                 End If
-                waitforcma = False
             End If
         Next
 
         'Check ":" in let statements.
         dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(clinecodestruc.Length - 1).line, path, "':' is expected." & vbCrLf & authfunc.get_line_error(path, get_target_info(clinecodestruc(clinecodestruc.Length - 1)), clinecodestruc(clinecodestruc.Length - 1).value), "let name : str = ""Amin""")
-
+        Return dtnames
     End Function
 End Class
