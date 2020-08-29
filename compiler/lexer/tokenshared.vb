@@ -163,5 +163,6 @@
         [FALSE] = 60
         [TRUE] = 61
         CIL_BLOCK = 62
+        COMPILERATTRIBUTE = 63
     End Enum
 End Class
