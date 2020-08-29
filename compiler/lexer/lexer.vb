@@ -8,7 +8,8 @@ Public Class lexer
         DUCOSTRINGLOADER ' example : "hello world ! #nl"
         CILCOMMANDSLOADER ' example : < codes >
         SINGLECOMMENTLOADER ' example : #>this is a comment
-        MULTILINECOMMENTLOADER ' example #-This a comment -#
+        MULTILINECOMMENTLOADER ' example : #-This a comment -#
+        COMPILERATTRIBUTELOADER ' example  : #[cfg::CIL(true)]
     End Enum
     Structure targetinf
         Dim length As Integer
@@ -19,11 +20,13 @@ Public Class lexer
         fsource = import_source(file)
         sfile = file
         fmtdata = New fmtshared(file)
+        attribute = New attr(file)
     End Sub
 
     Private strline As Integer = 0
     Private qucheck As Boolean = False
     Public fmtdata As fmtshared
+    Public attribute As attr
     Private rd_token As tokenhared.token
     Private ReadOnly fsource As String
     Public ReadOnly Property source() As String
@@ -93,6 +96,17 @@ Public Class lexer
                         End If
                     Case targetaction.CILCOMMANDSLOADER
                         If get_cil_commands(getch, linecinf, slinegrab, chstatusaction, (fsourcelen = index)) Then
+                            linecinf.lend = index - 1
+                            linecinf.length = slinegrab.Length
+                            linec = slinegrab
+                            Dim afline As Integer = linecinf.line
+                            linecinf.line = strline
+                            check_token(linecinf, linec)
+                            linecinf.line = afline
+                            slinegrab = conrex.NULL
+                        End If
+                    Case targetaction.COMPILERATTRIBUTELOADER
+                        If get_compiler_attribute(getch, slinegrab, chstatusaction) Then
                             linecinf.lend = index - 1
                             linecinf.length = slinegrab.Length
                             linec = slinegrab
@@ -226,6 +240,15 @@ Public Class lexer
         Return False
     End Function
 
+    Private Function get_compiler_attribute(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction) As Boolean
+        slinegrab &= getch
+        If getch = "]" Then
+            chstatus = targetaction.NOOPERATION
+            Return True
+        End If
+        Return False
+    End Function
+
     Private Sub get_single_comment(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
         slinegrab &= getch
         If Chr(13) = getch Or Chr(10) = getch Or lastchar = True Then
@@ -275,6 +298,8 @@ Public Class lexer
 
             Case rev_du_string(linec)
 
+            Case rev_compiler_attribute(linec)
+
             Case rev_sym(linec, linecinf)
 
           '  Case rev_func(linec, linecinf)
@@ -293,8 +318,11 @@ Public Class lexer
         'print tokens
         displaytokens(rd_token, linec)
 
-        fmtdata.imp_token(linec, rd_token, linecinf)
-
+        If rd_token <> tokenhared.token.COMPILERATTRIBUTE Then
+            fmtdata.imp_token(linec, rd_token, linecinf)
+        Else
+            attribute.parse_attribute(linec)
+        End If
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
@@ -367,6 +395,14 @@ Public Class lexer
         End If
         Return False
     End Function
+
+    Private Function rev_compiler_attribute(ByRef value As String) As Boolean
+        If value.StartsWith("#[") AndAlso value.EndsWith("]") Then
+            rd_token = tokenhared.token.COMPILERATTRIBUTE
+            Return True
+        End If
+        Return False
+    End Function
     Private Function rev_co_string(ByRef value As String) As Boolean
         If value.StartsWith(conrex.COSTR) AndAlso value.EndsWith(conrex.COSTR) Then
             rd_token = tokenhared.token.TYPE_CO_STR
@@ -390,6 +426,9 @@ Public Class lexer
                         Return True
                     Case "-"
                         chstatus = targetaction.MULTILINECOMMENTLOADER
+                        Return True
+                    Case "["
+                        chstatus = targetaction.COMPILERATTRIBUTELOADER
                         Return True
                 End Select
             Case conrex.COSTR
