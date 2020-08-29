@@ -12,6 +12,9 @@
             Return True
         Else
             'Set Error
+            dserr.args.Add("constant typing")
+            dserr.args.Add("bool")
+            dserr.new_error(conserr.errortype.EXPLICITCONVERSION, attr.lastlinecinf.line, path, authfunc.get_line_error(path, attr.lastlinecinf, yoattr.valueattribute))
         End If
         Return False
     End Function
