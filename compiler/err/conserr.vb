@@ -20,6 +20,9 @@
         CILCOMMANDSENDWITH
         CILCOMMANDSAUTH
         CILLAZYERROR
+        ATTRIBUTECLASSERROR
+        ATTRIBUTEPROPERTYERROR
+        ATTRIBUTESTRUCTERROR
     End Enum
 
     Enum errorpriority
@@ -70,6 +73,9 @@ You can reinstall the software or email us.")
         set_new_error(errortype.CILCOMMANDSENDWITH, errorpriority.STOP, "Cil commands error", "CIL block codes must end with a (>).")
         set_new_error(errortype.CILCOMMANDSAUTH, errorpriority.STOP, "Cil commands error", "CIL - Code block validation error.")
         set_new_error(errortype.CILLAZYERROR, errorpriority.STOP, "Cil commands error", "Intermediate grammar for injection is not valid.")
+        set_new_error(errortype.ATTRIBUTECLASSERROR, errorpriority.STOP, "Attribute error", " '{0}' - This collection was not found.")
+        set_new_error(errortype.ATTRIBUTEPROPERTYERROR, errorpriority.STOP, "Attribute error", " '{0}' - This property was not found.")
+        set_new_error(errortype.ATTRIBUTESTRUCTERROR, errorpriority.STOP, "Attribute error", "The structure of the attribute is unknown (note that the structure has no spaces and characters like ("") or (').")
 
     End Sub
 End Class
