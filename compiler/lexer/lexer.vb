@@ -321,7 +321,7 @@ Public Class lexer
         If rd_token <> tokenhared.token.COMPILERATTRIBUTE Then
             fmtdata.imp_token(linec, rd_token, linecinf)
         Else
-            attribute.parse_attribute(linec)
+            attribute.parse_attribute(linec, linecinf)
         End If
         linecinf.lstart = -1
         linec = conrex.NULL
