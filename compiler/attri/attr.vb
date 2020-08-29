@@ -1,7 +1,8 @@
 ﻿Imports System.Text.RegularExpressions
 
 Public Class attr
-
+    Friend Shared lastexperssion As String = String.Empty
+    Friend Shared lastlinecinf As lexer.targetinf
     Private attribute As yocaattribute.yoattribute
     Private cfgattr As yocaattribute.cfg
     Private path As String
@@ -12,12 +13,15 @@ Public Class attr
         setinattr.init(attribute)
     End Sub
 
-    Public Function parse_attribute(experssion As String) As yocaattribute.yoattribute
+    Public Function parse_attribute(experssion As String, linecinf As lexer.targetinf) As yocaattribute.yoattribute
+        lastexperssion = experssion
+        lastlinecinf = linecinf
         If Regex.IsMatch(experssion, "\#\[\w+::\w+\(.+\)\]") Then
             Dim resultattr As yocaattribute.resultattribute = get_properties(experssion)
             set_attribute(resultattr)
         Else
             'Set error
+            dserr.new_error(conserr.errortype.ATTRIBUTESTRUCTERROR, linecinf.line, path, authfunc.get_line_error(path, linecinf, lastexperssion), "#[cfg::CIL(true)]")
         End If
     End Function
 
@@ -44,6 +48,8 @@ Public Class attr
                 set_cfg_attribute(resultattr)
             Case Else
                 'Set Error
+                dserr.args.Add(resultattr.typeattribute)
+                dserr.new_error(conserr.errortype.ATTRIBUTECLASSERROR, lastlinecinf.line, path, authfunc.get_line_error(path, lastlinecinf, resultattr.typeattribute))
         End Select
     End Sub
 
@@ -53,6 +59,8 @@ Public Class attr
                 attribute._cfg._cilinject = setinattr.get_bool_val(resultattr, path)
             Case Else
                 'Set Error
+                dserr.args.Add(resultattr.fieldattribute)
+                dserr.new_error(conserr.errortype.ATTRIBUTEPROPERTYERROR, lastlinecinf.line, path, authfunc.get_line_error(path, lastlinecinf, resultattr.fieldattribute))
         End Select
     End Sub
 End Class
