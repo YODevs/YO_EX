@@ -1,0 +1,37 @@
+#[cfg::CIL(true)]
+
+func main()
+{
+let i , ii : i8
+<
+ldc.i4 4
+stloc.0 	//Upper limit of the Loop, total 5
+ldc.i4 0	//Initialize the Starting of loop
+stloc.1
+YOIL_Start:
+//Check if the Counter exceeds
+ldloc.1
+ldloc.0
+bgt YOIL_Exit		//
+
+ldloc.1
+call void [mscorlib]System.Console::WriteLine(int32)
+
+//Increase the Counter
+ldc.i4 1
+ldloc.1
+add
+stloc.1
+br YOIL_Start
+
+YOIL_Exit:
+>
+}
+
+
+#- Output :
+0
+1
+2
+3
+4
