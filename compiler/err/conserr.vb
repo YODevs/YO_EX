@@ -23,6 +23,7 @@
         ATTRIBUTECLASSERROR
         ATTRIBUTEPROPERTYERROR
         ATTRIBUTESTRUCTERROR
+        ATTRIBUTEDISABLED
     End Enum
 
     Enum errorpriority
@@ -76,6 +77,7 @@ You can reinstall the software or email us.")
         set_new_error(errortype.ATTRIBUTECLASSERROR, errorpriority.STOP, "Attribute error", " '{0}' - This collection was not found.")
         set_new_error(errortype.ATTRIBUTEPROPERTYERROR, errorpriority.STOP, "Attribute error", " '{0}' - This property was not found.")
         set_new_error(errortype.ATTRIBUTESTRUCTERROR, errorpriority.STOP, "Attribute error", "The structure of the attribute is unknown (note that the structure has no spaces and characters like ("") or (').")
+        set_new_error(errortype.ATTRIBUTEDISABLED, errorpriority.STOP, "Attribute error", "[{0}] - Access to this feature is disabled, enable it with feature {1} if needed.")
 
     End Sub
 End Class
