@@ -179,6 +179,7 @@ Public Class lexer
 
         tknfmtclass = fmtdata._to_organize()
         tknfmtclass.location = sfile
+        tknfmtclass.attribute = attribute.get_attribute()
         authfunc.set_name_token_format(tknfmtclass)
     End Sub
 

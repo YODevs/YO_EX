@@ -4,12 +4,10 @@ Public Class attr
     Friend Shared lastexperssion As String = String.Empty
     Friend Shared lastlinecinf As lexer.targetinf
     Private attribute As yocaattribute.yoattribute
-    Private cfgattr As yocaattribute.cfg
     Private path As String
     Public Sub New(path As String)
         Me.path = path
         attribute = New yocaattribute.yoattribute
-        cfgattr = New yocaattribute.cfg
         setinattr.init(attribute)
     End Sub
 
@@ -63,4 +61,8 @@ Public Class attr
                 dserr.new_error(conserr.errortype.ATTRIBUTEPROPERTYERROR, lastlinecinf.line, path, authfunc.get_line_error(path, lastlinecinf, resultattr.fieldattribute))
         End Select
     End Sub
+
+    Public Function get_attribute() As yocaattribute.yoattribute
+        Return attribute
+    End Function
 End Class

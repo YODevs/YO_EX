@@ -7,6 +7,7 @@
         Dim name As String
         Dim location As String
         Dim methods() As _method
+        Dim attribute As yocaattribute.yoattribute
     End Structure
 
     Structure _method
