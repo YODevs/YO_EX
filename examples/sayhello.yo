@@ -1,3 +1,6 @@
+#> Allow to use CIL injection.
+#[cfg::CIL(true)]
+
 func main()
 {
 let sayhello : str = "Hello #qu #[65]min #qu"
