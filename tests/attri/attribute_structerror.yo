@@ -1,0 +1,22 @@
+#[cfgs:CIL(true)]
+
+func main()
+{
+<
+ldstr "Hello from YO."
+call void [mscorlib]System.Console::Write(string)
+>
+}
+
+
+#-
+================================================================================
+ATTRIBUTE ERROR :  'cfgs' - This collection was not found.
+Source : E:\YO\YOCA\YOCA\bin\Release\myapp\myapp.yo - Line [1]
+*** More Detials ***
+#[cfgs::CIL(true)]
+  ^^^^
+             ***********************SNIPPT************************
+Example :
+Not specified
+================================================================================
