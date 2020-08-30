@@ -9,6 +9,11 @@
         retresult.result = True
         check_line(retresult, cline)
         If retresult.result = False Then Return retresult
+        If cline.Trim = Nothing Then Return retresult
+
+        If cline.Contains("//") Then
+            cline = cline.Remove(cline.IndexOf("//")).Trim
+        End If
 
         check_keyword(retresult, cline)
         If retresult.result = False Then Return retresult
@@ -19,6 +24,10 @@
     End Function
 
     Friend Shared Function check_keyword(ByRef retresult As resultlazycheck, cline As String) As Boolean
+        If cline.Trim = Nothing Then
+            retresult.result = True
+            Return True
+        End If
         Dim exckey() As String = cline.Split(Space(1))
         For index = 0 To ciltoken.cilinstruct.Length - 1
             If ciltoken.cilinstruct(index).keyword.ToLower = exckey(0).ToLower Then
@@ -43,7 +52,7 @@
     Friend Shared Sub check_line(ByRef retresult As resultlazycheck, ByRef cline As String)
         If cline.StartsWith("YOIL_") Then
             If cline.Contains(":") Then
-                cline = cline.Remove(0, cline.IndexOf(":")).Trim
+                cline = cline.Remove(0, cline.IndexOf(":") + 1).Trim
             Else
                 retresult.result = False
                 retresult.errtext = cline & " - The line tag is incorrect."
