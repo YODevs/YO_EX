@@ -5,10 +5,10 @@
     End Sub
 
     Public Shared Function get_bool_val(yoattr As yocaattribute.resultattribute, path As String) As Boolean
-        Dim experssion As String = yoattr.valueattribute.ToLower
-        If experssion = "0" OrElse experssion = "false" Then
+        Dim expression As String = yoattr.valueattribute.ToLower
+        If expression = "0" OrElse expression = "false" Then
             Return False
-        ElseIf experssion = "1" OrElse experssion = "true" Then
+        ElseIf expression = "1" OrElse expression = "true" Then
             Return True
         Else
             'Set Error

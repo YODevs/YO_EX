@@ -1,7 +1,7 @@
 ﻿Imports System.Text.RegularExpressions
 
 Public Class attr
-    Friend Shared lastexperssion As String = String.Empty
+    Friend Shared lastexpression As String = String.Empty
     Friend Shared lastlinecinf As lexer.targetinf
     Private attribute As yocaattribute.yoattribute
     Private path As String
@@ -11,30 +11,30 @@ Public Class attr
         setinattr.init(attribute)
     End Sub
 
-    Public Function parse_attribute(experssion As String, linecinf As lexer.targetinf) As yocaattribute.yoattribute
-        lastexperssion = experssion
+    Public Function parse_attribute(expression As String, linecinf As lexer.targetinf) As yocaattribute.yoattribute
+        lastexpression = expression
         lastlinecinf = linecinf
-        If Regex.IsMatch(experssion, "\#\[\w+::\w+\(.+\)\]") Then
-            Dim resultattr As yocaattribute.resultattribute = get_properties(experssion)
+        If Regex.IsMatch(expression, "\#\[\w+::\w+\(.+\)\]") Then
+            Dim resultattr As yocaattribute.resultattribute = get_properties(expression)
             set_attribute(resultattr)
         Else
             'Set error
-            dserr.new_error(conserr.errortype.ATTRIBUTESTRUCTERROR, linecinf.line, path, authfunc.get_line_error(path, linecinf, lastexperssion), "#[cfg::CIL(true)]")
+            dserr.new_error(conserr.errortype.ATTRIBUTESTRUCTERROR, linecinf.line, path, authfunc.get_line_error(path, linecinf, lastexpression), "#[cfg::CIL(true)]")
         End If
     End Function
 
-    Private Function get_properties(experssion As String) As yocaattribute.resultattribute
+    Private Function get_properties(expression As String) As yocaattribute.resultattribute
         Dim resultattr As New yocaattribute.resultattribute
-        experssion = experssion.Remove(0, 2)
-        Dim value As String = experssion.Remove(experssion.IndexOf("::"))
+        expression = expression.Remove(0, 2)
+        Dim value As String = expression.Remove(expression.IndexOf("::"))
         resultattr.typeattribute = value
-        experssion = experssion.Remove(0, experssion.IndexOf("::") + 2)
+        expression = expression.Remove(0, expression.IndexOf("::") + 2)
 
-        value = experssion.Remove(experssion.IndexOf("("))
+        value = expression.Remove(expression.IndexOf("("))
         resultattr.fieldattribute = value
-        experssion = experssion.Remove(0, experssion.IndexOf("(") + 1)
+        expression = expression.Remove(0, expression.IndexOf("(") + 1)
 
-        value = experssion.Remove(experssion.IndexOf(")"))
+        value = expression.Remove(expression.IndexOf(")"))
         resultattr.valueattribute = value
 
         Return resultattr
