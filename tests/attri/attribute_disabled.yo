@@ -1,0 +1,23 @@
+
+
+func main()
+{
+<
+ldstr "Hello from YO."
+call void [mscorlib]System.Console::Write(string)
+>
+}
+
+
+#-
+
+================================================================================
+ATTRIBUTE ERROR : [CIL Injection Code] - Access to this feature is disabled, ena
+ble it with feature #[cfg::CIL(true)] if needed.
+Source : E:\YO\YOCA\YOCA\bin\Release\myapp\myapp.yo - Line [5]
+*** More Detials ***
+
+             ***********************SNIPPT************************
+Example :
+#[cfg::CIL(true)]
+================================================================================
