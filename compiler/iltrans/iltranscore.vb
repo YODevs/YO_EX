@@ -43,6 +43,12 @@
     End Sub
 
     Private Sub nv_cil_commands(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+        If ilasmgen.classdata.attribute._cfg._cilinject = False Then
+            dserr.args.Add("CIL Injection Code")
+            dserr.args.Add("#[cfg::CIL(true)]")
+            dserr.new_error(conserr.errortype.ATTRIBUTEDISABLED, clinecodestruc(0).line, path, Nothing, "#[cfg::CIL(true)]")
+            Return
+        End If
         If clinecodestruc.Length = 1 Then
             Dim ilcode As String = clinecodestruc(0).value
             authfunc.rem_fr_and_en(ilcode)
@@ -60,7 +66,7 @@
                 Next
             End If
         Else
-            dserr.new_error(conserr.errortype.CILCOMMANDSAUTH, clinecodestruc(0).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+            dserr.new_error(conserr.errortype.CILCOMMANDSAUTH, clinecodestruc(0).line, path, Nothing)
         End If
     End Sub
     Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
