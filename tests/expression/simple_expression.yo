@@ -1,0 +1,16 @@
+#[cfg::CIL(true)]
+#> Default : optimize_expression is true
+#[cfg::optimize_expression(true)]
+
+func main()
+{
+let i : i32 = 0
+i := [ 76 + (191 / 5) ]
+<
+ldloc.0
+call void [mscorlib]System.Console::Write(int32)
+>
+}
+
+#-Output :
+114
