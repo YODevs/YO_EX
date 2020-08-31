@@ -4,6 +4,7 @@
     ''' </summary>
     Structure cfg
         Dim _cilinject As Boolean
+        Dim _optimize_expression As Boolean
     End Structure
 
     Structure yoattribute

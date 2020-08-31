@@ -2,6 +2,7 @@
 
     Public Shared Sub init(ByRef yoattr As yocaattribute.yoattribute)
         yoattr._cfg._cilinject = False
+        yoattr._cfg._optimize_expression = True
     End Sub
 
     Public Shared Function get_bool_val(yoattr As yocaattribute.resultattribute, path As String) As Boolean

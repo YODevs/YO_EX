@@ -55,6 +55,8 @@ Public Class attr
         Select Case resultattr.fieldattribute.ToLower
             Case "cil"
                 attribute._cfg._cilinject = setinattr.get_bool_val(resultattr, path)
+            Case "optimize_expression"
+                attribute._cfg._optimize_expression = setinattr.get_bool_val(resultattr, path)
             Case Else
                 'Set Error
                 dserr.args.Add(resultattr.fieldattribute)
