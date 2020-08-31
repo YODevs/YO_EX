@@ -5,6 +5,7 @@ Public Class lexer
     Enum targetaction
         NOOPERATION
         COSTRINGLOADER ' example : 'hello world !'
+        EXPRESSIONLOADER ' example : [5 * (6 + 2)]
         DUCOSTRINGLOADER ' example : "hello world ! #nl"
         CILCOMMANDSLOADER ' example : < codes >
         SINGLECOMMENTLOADER ' example : #>this is a comment
@@ -96,6 +97,17 @@ Public Class lexer
                         End If
                     Case targetaction.CILCOMMANDSLOADER
                         If get_cil_commands(getch, linecinf, slinegrab, chstatusaction, (fsourcelen = index)) Then
+                            linecinf.lend = index - 1
+                            linecinf.length = slinegrab.Length
+                            linec = slinegrab
+                            Dim afline As Integer = linecinf.line
+                            linecinf.line = strline
+                            check_token(linecinf, linec)
+                            linecinf.line = afline
+                            slinegrab = conrex.NULL
+                        End If
+                    Case targetaction.EXPRESSIONLOADER
+                        If get_expression(getch, slinegrab, chstatusaction) Then
                             linecinf.lend = index - 1
                             linecinf.length = slinegrab.Length
                             linec = slinegrab
@@ -250,6 +262,14 @@ Public Class lexer
         Return False
     End Function
 
+    Private Function get_expression(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction) As Boolean
+        slinegrab &= getch
+        If getch = "]" Then
+            chstatus = targetaction.NOOPERATION
+            Return True
+        End If
+        Return False
+    End Function
     Private Sub get_single_comment(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean)
         slinegrab &= getch
         If Chr(13) = getch Or Chr(10) = getch Or lastchar = True Then
@@ -300,6 +320,8 @@ Public Class lexer
             Case rev_du_string(linec)
 
             Case rev_compiler_attribute(linec)
+
+            Case rev_expression(linec)
 
             Case rev_sym(linec, linecinf)
 
@@ -404,6 +426,19 @@ Public Class lexer
         End If
         Return False
     End Function
+    Private Function rev_expression(ByRef value As String) As Boolean
+
+        If value.StartsWith("[") AndAlso value.EndsWith("]") Then
+            For index = 0 To compdt.expressionact.Length - 1
+                If value.Contains(compdt.expressionact(index)) Then
+                    rd_token = tokenhared.token.EXPRESSION
+                    Return True
+                End If
+            Next
+            Return False
+        End If
+        Return False
+    End Function
     Private Function rev_co_string(ByRef value As String) As Boolean
         If value.StartsWith(conrex.COSTR) AndAlso value.EndsWith(conrex.COSTR) Then
             rd_token = tokenhared.token.TYPE_CO_STR
@@ -432,6 +467,9 @@ Public Class lexer
                         chstatus = targetaction.COMPILERATTRIBUTELOADER
                         Return True
                 End Select
+            Case "["
+                chstatus = targetaction.EXPRESSIONLOADER
+                Return True
             Case conrex.COSTR
                 chstatus = targetaction.COSTRINGLOADER
                 Return True
