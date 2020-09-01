@@ -68,4 +68,12 @@
     Public Shared Sub conv_to_int64(ByRef codes As ArrayList)
         codes.Add("conv.i8")
     End Sub
+
+    ''' <summary>
+    ''' insert il code .
+    ''' </summary>
+    ''' <param name="codes"></param>
+    Public Shared Sub insert_il(ByRef codes As ArrayList, value As Object)
+        codes.Add(value)
+    End Sub
 End Class
