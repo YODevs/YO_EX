@@ -1,6 +1,6 @@
 ﻿Public Class conrex
     Public Shared yocommondatatype() As String = {"bool", "i8", "i16", "i32", "i64", "i128", "ui8", "ui16", "ui32", "u64", "str", "char", "f32", "f64", "obj"}
-    Public Shared msilcommondatatype() As String = {"bool", "int8", "int16", "int32", "int64", "valuetype [mscorlib]System.Decimal", "uint8", "uint16", "uint32", "uint64", "string", "char", "single", "double", "object"}
+    Public Shared msilcommondatatype() As String = {"bool", "int8", "int16", "int32", "int64", "valuetype [mscorlib]System.Decimal", "uint8", "uint16", "uint32", "uint64", "string", "char", "float32", "float64", "object"}
     Public Shared specificxmlchar() As Char = {">", "<", "'", """", "&"}
     Public Shared spdustrcommand() As String = {"#nl", "#bs", "#tb", "#lf", "#cr", "#qu", "#co"}
     Public Shared spdustrreact() As String = {"\r\n", Chr(8), Chr(9), "\n", "\r", "\""", "\'"}
