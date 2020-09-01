@@ -189,9 +189,12 @@ namespace Expr2CIL
 
         protected override void matchVar()
         {
-            string s = tokenValue.ToString();
-      //      il.Emit(OpCodes.Ldstr, s);
-        //    il.Emit(OpCodes.Call, typeof(Expr2CIL).GetMethod("GetVar", new Type[] { typeof(string) }));
+            string name = tokenValue.ToString();
+            if(this.datatype == "i32")
+            {
+                insertILCode("ldloc " + name);
+                insertILCode("conv.i8");
+            }
         }
 
         protected override void matchXor()
