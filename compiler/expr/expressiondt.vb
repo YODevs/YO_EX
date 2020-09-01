@@ -1,9 +1,12 @@
-﻿Public Class expressiondt
+﻿Imports Expr2CIL
+Public Class expressiondt
     Dim _ilmethod As ilformat._ilmethodcollection
     Dim _datatype As String
+    Dim _yocaexpr As Expr2CIL.Expr2CIL
     Public Sub New(ilmethod As ilformat._ilmethodcollection, datatype As String)
         Me._ilmethod = ilmethod
         Me._datatype = datatype
+        Me._yocaexpr = New Expr2CIL.Expr2CIL
     End Sub
 
     Public Function parse_expression_data(expression As String, convtoi8 As Boolean) As ilformat._ilmethodcollection
@@ -21,7 +24,10 @@
             End If
 
         Else
-
+            Dim genilcode As String = _yocaexpr.CompileMsil(expression, _datatype)
+            For Each linec In genilcode.Split(vbCrLf)
+                cil.insert_il(_ilmethod.codes, linec)
+            Next
         End If
         Return _ilmethod
     End Function
