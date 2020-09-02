@@ -55,4 +55,33 @@
 
         Return _ilmethod
     End Function
+
+    Public Function assi_float(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
+        Dim convtor8 As Boolean = False
+        If datatype = "f64" Then convtor8 = True
+
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_INT
+                servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convtor8)
+            Case tokenhared.token.TYPE_FLOAT
+                servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convtor8)
+            Case tokenhared.token.IDENTIFIER
+                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, datatype) Then
+                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
+                End If
+            'let value : str = NULL
+            Case tokenhared.token.NULL
+                cil.push_null_reference(_ilmethod.codes)
+            Case tokenhared.token.EXPRESSION
+                Dim expr As New expressiondt(_ilmethod, "f32")
+                _ilmethod = expr.parse_expression_data(clinecodestruc.value, convtor8)
+            Case Else
+                'Set Error 
+        End Select
+
+        cil.set_stack_local(_ilmethod.codes, varname)
+
+        Return _ilmethod
+    End Function
+
 End Class
