@@ -62,11 +62,36 @@
     End Sub
 
     ''' <summary>
-    '''     Convert to int64, pushing int64 on stack. 
+    ''' ldc.r4 [float32]
+    ''' </summary>
+    ''' <param name="codes"></param>
+    ''' <param name="value"></param>
+    Public Shared Sub push_float32_onto_stack(ByRef codes As ArrayList, value As Object)
+        codes.Add("ldc.r4 " & value)
+    End Sub
+
+    ''' <summary>
+    ''' ldc.r8 [float64]
+    ''' </summary>
+    ''' <param name="codes"></param>
+    ''' <param name="value"></param>
+    Public Shared Sub push_float64_onto_stack(ByRef codes As ArrayList, value As Object)
+        codes.Add("ldc.r8 " & value)
+    End Sub
+    ''' <summary>
+    '''Convert to int64, pushing int64 on stack. 
     ''' </summary>
     ''' <param name="codes"></param>
     Public Shared Sub conv_to_int64(ByRef codes As ArrayList)
         codes.Add("conv.i8")
+    End Sub
+
+    ''' <summary>
+    ''' conv.r8
+    ''' </summary>
+    ''' <param name="codes"></param>
+    Public Shared Sub conv_to_float64(ByRef codes As ArrayList)
+        codes.Add("conv.r8")
     End Sub
 
     ''' <summary>
