@@ -1,0 +1,17 @@
+{
+  "name": "language-yo",
+  "version": "0.0.1",
+  "description": "YO Programming language support in Atom.",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YODevs/language-yo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YODevs/language-yo/issues"
+  },
+  "license": "MIT"
+}

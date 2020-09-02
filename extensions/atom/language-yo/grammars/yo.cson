@@ -1,0 +1,201 @@
+scopeName: 'source.yo'
+name: 'YOLang'
+fileTypes: ['yo']
+comment: "YO Programming language support in Atom."
+
+patterns: [
+  {
+    match: "\\n"
+    name: "meta.ending-space"
+  }
+  {
+    include: "#round-brackets"
+  }
+  {
+    begin: "^(?=\\t)"
+    end: "(?=[^\\t])"
+    name: "meta.leading-space"
+    patterns: [
+      {
+        captures:
+          "1":
+            name: "meta.odd-tab.tabs"
+          "2":
+            name: "meta.even-tab.tabs"
+        match: "(\\t)(\\t)?"
+      }
+    ]
+  }
+  {
+    begin: "^(?= )"
+    end: "(?=[^ ])"
+    name: "meta.leading-space"
+    patterns: [
+      {
+        captures:
+          "1":
+            name: "meta.odd-tab.spaces"
+          "2":
+            name: "meta.even-tab.spaces"
+        match: "(  )(  )?"
+      }
+    ]
+  }
+  {
+    captures:
+      "1":
+        name: "storage.type.function.yo"
+      "2":
+        name: "entity.name.function.yo"
+      "3":
+        name: "punctuation.definition.parameters.yo"
+      "4":
+        name: "variable.parameter.function.yo"
+      "5":
+        name: "punctuation.definition.parameters.yo"
+    match: "^\\s*((?i:fuknc))\\s*(_[a-zA-Z_]\\w*)\\s*(\\()([^)]*)(\\)).*\\n?"
+    name: "meta.function.yo"
+  }
+  {
+    begin: "(^[ \\t]+)?(?=\#\>)"
+    beginCaptures:
+      "1":
+        name: "punctuation.whitespace.comment.leading.yo"
+    end: "(?!\\G)"
+    patterns: [
+      {
+        begin: "\#\>"
+        beginCaptures:
+          "0":
+            name: "punctuation.definition.comment.yo"
+        end: "\\n"
+        name: "comment.line.apostrophe.yo"
+      }
+    ]
+  }
+  {
+    begin: "(^[ \\t]+)?(?=\#\-)"
+    beginCaptures:
+      "1":
+        name: "punctuation.whitespace.comment.leading.yo"
+    end: "(?!\\G)"
+    patterns: [
+      {
+        begin: "\#\-"
+        beginCaptures:
+          "0":
+            name: "punctuation.definition.comment.yo"
+        end: "\-\#"
+        name: "comment.line.apostrophe.yo"
+      }
+    ]
+  }
+  {
+    match: "(?i:\\b(let|const|new|func|to|loop|break|continue)\\b)"
+    name: "keyword.control.yo"
+  }
+  {
+    captures:
+      "1":
+        name: "storage.type.yo"
+      "2":
+        name: "variable.other.bfeac.yo"
+      "3":
+        name: "meta.separator.comma.yo"
+    match: "(?i:(let)\\s*(?:(\\b[a-zA-Z_x7f-xff][a-zA-Z0-9_x7f-xff]*?\\b)\\s*(,?)))"
+    name: "variable.other.dim.yo"
+  }
+  {
+    match: "(?i:\\s*\\b(let|const|new|func|to|loop|break|continue)\\b\\s*)"
+    name: "storage.type.yo"
+  }
+  {
+    match: "(?i:\\s*\\b(str|bool|char|obj|i8|i16|i32|i64|i128|u8|u16|u32|u64)\\b\\s*)" # variable types
+    name: "storage.type.yo"
+  }
+  {
+    match: "(?i:\\b(Private|Public|Default|Static|Friend|Const)\\b)"
+    name: "storage.modifier.yo"
+  }
+  {
+    match: "(?i:\\s*\\b(False|Null|True)\\b)"
+    name: "constant.language.yo"
+  }
+  {
+    begin: "\""
+    beginCaptures:
+      "0":
+        name: "punctuation.definition.string.begin.yo"
+    end: "\""
+    endCaptures:
+      "0":
+        name: "punctuation.definition.string.end.yo"
+    name: "string.quoted.double.yo"
+    patterns: [
+      {
+        match: "\"\""
+        name: "constant.character.escape.apostrophe.yo"
+      }
+    ]
+  }
+
+    {
+      begin: "\'"
+      beginCaptures:
+        "0":
+          name: "punctuation.definition.string.begin.yo"
+      end: "\'"
+      endCaptures:
+        "0":
+          name: "punctuation.definition.string.end.yo"
+      name: "string.quoted.double.yo"
+      patterns: [
+        {
+          match: "\'\'"
+          name: "constant.character.escape.apostrophe.yo"
+        }
+      ]
+    }
+
+
+  {
+    match: "(?i:\\b(print)\\b)"
+    name: "support.function.yo"
+  }
+  {
+    match: "-?\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)\\b"
+    name: "constant.numeric.yo"
+  }
+  {
+    captures:
+      "1":
+        name: "entity.name.function.yo"
+    match: "(?i:(\\b[a-zA-Z_x7f-xff][a-zA-Z0-9_x7f-xff]*?\\b)(?=\\(\\)?))"
+    name: "support.function.yo"
+  }
+  {
+    match: "(?i:((?<=(\\+|=|-|\\&|\\\\|/|<|>|\\(|,))\\s*\\b([a-zA-Z_x7f-xff][a-zA-Z0-9_x7f-xff]*?)\\b(?!(\\(|\\.))|\\b([a-zA-Z_x7f-xff][a-zA-Z0-9_x7f-xff]*?)\\b(?=\\s*(\\+|=|:|-|\\&|\\\\|/|<|>|\\(|\\)))))"
+    name: "variable.other.yo"
+  }
+  {
+    match: "!|\\$|%|&|\\*|\\-\\-|\\-|\\+\\+|\\+|~|===|==|=|!=|!==|<=|>=|<<=|>>=|>>>=|<>|<|>|!|&&|\\|\\||\\?\\:|\\*=|/=|%=|\\+=|\\-=|:=|&=|\\^=|\\b(New|#Region|#End Region|#Const|#If|#ElseIf|#End If)\\b"
+    name: "keyword.operator.js"
+  }
+]
+repository:
+  "round-brackets":
+    begin: "\\("
+    beginCaptures:
+      "0":
+        name: "punctuation.section.round-brackets.begin.yo"
+    end: "\\)"
+    endCaptures:
+      "0":
+        name: "punctuation.section.round-brackets.end.yo"
+    name: "meta.round-brackets"
+    patterns: [
+      {
+        include: "source.yo"
+      }
+    ]
+scopeName: "source.yo"
