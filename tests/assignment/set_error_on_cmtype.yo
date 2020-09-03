@@ -1,0 +1,23 @@
+#[cfg::CIL(true)]
+
+func main()
+{
+let p : f64 = true
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(float64)
+>
+}
+
+#-Output :
+
+================================================================================
+ASSIGNMENT ERROR : 'true' - Cannot be assignment to [type] -> 'float64'.
+Source : E:\Release\myapp\myapp.yo - Line [6]
+*** More Detials ***
+let p : f64 = true
+              ^^^^
+             ***********************SNIPPT************************
+Example :
+Not specified
+================================================================================
