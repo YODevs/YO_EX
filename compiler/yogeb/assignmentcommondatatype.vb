@@ -2,6 +2,7 @@
 
     Friend Shared Sub set_value(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
         Static indinsert As Integer = 0
+        Dim indenditem As Integer = 0
         Dim prcodes As New ArrayList
         Dim datatype As String = funcdt.locallinit(index).datatype
         Select Case initcommondatatype.cdtype.findkey(datatype).result
@@ -13,7 +14,16 @@
                 set_char_data(funcdt, index, prcodes)
             Case "i32"
                 set_i32_data(funcdt, index, prcodes)
+            Case "f32"
+                Dim optgen As New ilopt(funcdt)
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float32")
+            Case "f64"
+                Dim optgen As New ilopt(funcdt)
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float64")
         End Select
+
 
         If index = 0 Then
             indinsert = 0
@@ -23,7 +33,24 @@
                 funcdt.codes.Insert(indinsert, prcodes(indloop))
                 indinsert += 1
             Next
+        ElseIf indenditem <> 0 Then
+            Dim indprcodesinsert As Integer = 0
+            For indloop = indenditem + 1 To funcdt.codes.Count - 1
+                prcodes.Insert(indprcodesinsert, funcdt.codes(indloop))
+                indprcodesinsert += 1
+            Next
+
+            Dim indremat As Integer = indenditem + 1
+            For indloop = indremat To funcdt.codes.Count - 1
+                funcdt.codes.RemoveAt(indremat)
+            Next
+
+            For indloop = 0 To prcodes.Count - 1
+                funcdt.codes.Insert(indinsert, prcodes(indloop))
+                indinsert += 1
+            Next
         End If
+
     End Sub
 
 
