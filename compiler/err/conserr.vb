@@ -24,6 +24,7 @@
         ATTRIBUTEPROPERTYERROR
         ATTRIBUTESTRUCTERROR
         ATTRIBUTEDISABLED
+        ASSIGNCONVERT
     End Enum
 
     Enum errorpriority
@@ -78,6 +79,7 @@ You can reinstall the software or email us.")
         set_new_error(errortype.ATTRIBUTEPROPERTYERROR, errorpriority.STOP, "Attribute error", " '{0}' - This property was not found.")
         set_new_error(errortype.ATTRIBUTESTRUCTERROR, errorpriority.STOP, "Attribute error", "The structure of the attribute is unknown (note that the structure has no spaces and characters like ("") or (').")
         set_new_error(errortype.ATTRIBUTEDISABLED, errorpriority.STOP, "Attribute error", "[{0}] - Access to this feature is disabled, enable it with feature {1} if needed.")
+        set_new_error(errortype.ASSIGNCONVERT, errorpriority.STOP, "Assignment error", "'{0}' - Cannot be assignment to [type] -> '{1}'.")
 
     End Sub
 End Class
