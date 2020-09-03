@@ -12,13 +12,10 @@
     End Sub
 
     Friend Shared Sub ldc_r_checker(ByRef codes As ArrayList, value As Object, Optional convtor8 As Boolean = False)
-        If value > Double.MaxValue Or value < Double.MinValue Then
+        If convtor8 Or value > Single.MaxValue Or value < Single.MinValue Then
             cil.push_float64_onto_stack(codes, CDbl(value))
         Else
             cil.push_float32_onto_stack(codes, CSng(value))
-            If convtor8 Then
-                cil.conv_to_float64(codes)
-            End If
         End If
     End Sub
 
