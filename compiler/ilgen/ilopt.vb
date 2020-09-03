@@ -22,6 +22,9 @@
 
             Case Else
                 'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add("string")
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
         cil.set_stack_local(_ilmethod.codes, varname)
@@ -49,6 +52,10 @@
                 _ilmethod = expr.parse_expression_data(clinecodestruc.value, convtoi8)
             Case Else
                 'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add(datatype)
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+
         End Select
 
         cil.set_stack_local(_ilmethod.codes, varname)
@@ -76,6 +83,9 @@
                 _ilmethod = expr.parse_expression_data(clinecodestruc.value, convtor8)
             Case Else
                 'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add(datatype)
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
         cil.set_stack_local(_ilmethod.codes, varname)
