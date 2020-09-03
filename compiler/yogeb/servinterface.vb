@@ -35,4 +35,13 @@
             Return
         End If
     End Sub
+
+    Friend Shared Function get_target_info(clinecodestruc As xmlunpkd.linecodestruc) As lexer.targetinf
+        Dim linecinf As New lexer.targetinf
+        linecinf.lstart = clinecodestruc.ist
+        linecinf.line = clinecodestruc.line
+        linecinf.length = clinecodestruc.ile
+        linecinf.lend = clinecodestruc.ien
+        Return linecinf
+    End Function
 End Class
