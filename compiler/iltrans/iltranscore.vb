@@ -114,9 +114,9 @@
                 Case "ui8"
 
                 Case "f32"
-                    _ilmethod = optgen.assi_float(varname, clinecodestruc(ilinc), "f32")
+                    _ilmethod = optgen.assi_float(varname, clinecodestruc(ilinc), "float32")
                 Case "f64"
-                    _ilmethod = optgen.assi_float(varname, clinecodestruc(ilinc), "f64")
+                    _ilmethod = optgen.assi_float(varname, clinecodestruc(ilinc), "float64")
             End Select
         Next
     End Sub

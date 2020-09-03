@@ -58,8 +58,7 @@
 
     Public Function assi_float(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
         Dim convtor8 As Boolean = False
-        If datatype = "f64" Then convtor8 = True
-
+        If datatype = "float64" Then convtor8 = True
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_INT
                 servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convtor8)
