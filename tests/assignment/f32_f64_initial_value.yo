@@ -1,0 +1,18 @@
+#[cfg::CIL(true)]
+
+func main()
+{
+let f : f32 = 5.6441121421242515
+let p : f64 = 5.6441121421242515
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(float32)
+
+ldloc.1
+call void [mscorlib]System.Console::WriteLine(float64)
+>
+}
+
+#-Output :
+5.644112
+5.64411214212425
