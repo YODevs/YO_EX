@@ -1,0 +1,25 @@
+#[cfg::CIL(true)]
+
+func main()
+{
+let result : i32 = 1
+let sd : f32 = 2.3
+let p : f64 = 1.2626222123
+result := [5 + 4 + resultw + sd + p ]
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(int32)
+>
+}
+
+#-Output :
+
+================================================================================
+IDENTIFIER UNKNOWN : 'resultw' is not declared. It may be inaccessible due to it
+s protection level.
+Source : *** More Detials ***
+Method : main - Unknown identifier : resultw
+             ***********************SNIPPT************************
+Example :
+Not specified
+================================================================================
