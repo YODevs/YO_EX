@@ -159,8 +159,6 @@ namespace Expr2CIL
                     else {
                         insertILCode("ldc.r8 " + Convert.ToDouble(this.tokenValue.Value));
                     }
-                    //   this.il.Emit(OpCodes.Ldc_R8, Convert.ToDouble(this.tokenValue.Value));
-                    //this.il.Emit(OpCodes.Box, typeof(Double));
                     break;
                 case VariantType.INT:
 
@@ -180,7 +178,6 @@ namespace Expr2CIL
                         insertILCode("ldc.r8 " + Convert.ToDouble(this.tokenValue.Value));
                     }
 
-                    // this.il.Emit(OpCodes.Ldc_R8, Convert.ToDouble(this.tokenValue.Value));
                     break;
                 default:
                     throw new Exception("Invalid TokenType");
@@ -190,11 +187,7 @@ namespace Expr2CIL
         protected override void matchVar()
         {
             string name = tokenValue.ToString();
-            if(this.datatype == "i32")
-            {
-                insertILCode("ldloc " + name);
-                insertILCode("conv.i8");
-            }
+                insertILCode(">" + name);
         }
 
         protected override void matchXor()
