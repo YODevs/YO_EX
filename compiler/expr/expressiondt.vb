@@ -25,13 +25,41 @@ Public Class expressiondt
 
         Else
             Dim genilcode As String = _yocaexpr.CompileMsil(expression, _datatype)
-            For Each linec In genilcode.Split(vbCrLf)
+            For Each linec In genilcode.Split(vbLf)
+                If linec.StartsWith(">") Then
+                    Dim varname As String = linec.Remove(0, 1)
+                    Dim getdatatype As String = String.Empty
+                    If assignmentcommondatatype.check_locals_create(varname, _ilmethod.locallinit, getdatatype) Then
+                        cil.load_local_variable(_ilmethod.codes, varname)
+                        conv_local_variable(getdatatype)
+                        Continue For
+                    Else
+                        'Set Error , Variable not founded.
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & varname)
+                    End If
+                End If
                 cil.insert_il(_ilmethod.codes, linec)
             Next
         End If
         Return _ilmethod
     End Function
 
+    Private Sub conv_local_variable(getdatatype As String)
+        Select Case _datatype
+            Case "i32"
+                conv_local_to_i32(getdatatype)
+        End Select
+    End Sub
+
+    Private Sub conv_local_to_i32(getdatatype As String)
+        Select Case getdatatype
+            Case "float32"
+                cil.conv_to_int32(_ilmethod.codes)
+            Case "float64"
+                cil.conv_to_int32(_ilmethod.codes)
+        End Select
+    End Sub
     Private Function check_simple_expression(expression As String) As Boolean
         For index = 0 To expression.Length - 1
             If expression(index) = conrex.SPACE Then
