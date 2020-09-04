@@ -1,0 +1,15 @@
+#[cfg::CIL(true)]
+
+func main()
+{
+let result : i32 = 1
+let sd : f32 = 2.3
+let p : f64 = 1.2626222123
+result := [5 + 4 + result + sd + p ]
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(int32)
+>
+}
+
+#-Output : 13
