@@ -253,4 +253,15 @@
         dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & methodname & " - Unknown identifier : " & nvar)
         Return False
     End Function
+
+    Friend Shared Function check_locals_create(nvar As String, varlocallist() As ilformat._illocalinit, Optional ByRef getdatatype As String = Nothing) As Boolean
+        For index = 0 To varlocallist.Length - 1
+            If varlocallist(index).name = nvar Then
+                getdatatype = varlocallist(index).datatype
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
 End Class
