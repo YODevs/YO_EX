@@ -87,6 +87,14 @@
     End Sub
 
     ''' <summary>
+    '''Convert to int32, pushing int32 on stack. 
+    ''' </summary>
+    ''' <param name="codes"></param>
+    Public Shared Sub conv_to_int32(ByRef codes As ArrayList)
+        codes.Add("conv.i4")
+    End Sub
+
+    ''' <summary>
     ''' conv.r8
     ''' </summary>
     ''' <param name="codes"></param>
@@ -99,6 +107,7 @@
     ''' </summary>
     ''' <param name="codes"></param>
     Public Shared Sub insert_il(ByRef codes As ArrayList, value As Object)
+        If value.ToString.Trim = Nothing Then Return
         codes.Add(value)
     End Sub
 End Class
