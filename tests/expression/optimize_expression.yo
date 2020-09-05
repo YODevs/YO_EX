@@ -1,0 +1,14 @@
+#[cfg::CIL(true)]
+#[cfg::optimize_expression(true)] #> Default is true
+func main()
+{
+let result : i32 = 1
+let sd : f32 = 2.3
+result := [(25 + 5) * sd ]
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(int32)
+>
+}
+
+#-Output : 30
