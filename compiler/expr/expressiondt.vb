@@ -25,9 +25,12 @@ Public Class expressiondt
 
         Else
             Dim genilcode As String = _yocaexpr.CompileMsil(expression, _datatype)
+            If ilasmgen.classdata.attribute._cfg._optimize_expression = True Then
+                genilcode = expressionopt.optimize_expression(genilcode)
+            End If
             For Each linec In genilcode.Split(vbLf)
                 If linec.StartsWith(">") Then
-                    Dim varname As String = linec.Remove(0, 1)
+                    Dim varname As String = linec.Remove(0, 1).Trim
                     Dim getdatatype As String = String.Empty
                     If assignmentcommondatatype.check_locals_create(varname, _ilmethod.locallinit, getdatatype) Then
                         cil.load_local_variable(_ilmethod.codes, varname)
