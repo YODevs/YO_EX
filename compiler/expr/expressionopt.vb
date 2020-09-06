@@ -14,6 +14,7 @@
     Private Shared gencode As String = String.Empty
     Private Shared loopopt As Boolean = True
     Friend Shared Function optimize_expression(genilcode As String) As String
+        reset_expr_static(True)
         While loopopt
             loopopt = False
             For Each linec In genilcode.Split(vbLf)
@@ -132,7 +133,11 @@
         reset_expr_static()
     End Sub
 
-    Private Shared Sub reset_expr_static()
+    Private Shared Sub reset_expr_static(Optional resetfields As Boolean = False)
         exprdt = Nothing
+        If resetfields Then
+            gencode = String.Empty
+            loopopt = True
+        End If
     End Sub
 End Class
