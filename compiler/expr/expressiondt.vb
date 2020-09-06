@@ -20,7 +20,8 @@ Public Class expressiondt
                 result = dt.Compute(expression, Nothing)
                 servinterface.ldc_i_checker(_ilmethod.codes, result, convtoi8)
             Else
-                'f32 , f64 ...
+                result = dt.Compute(expression, Nothing)
+                servinterface.ldc_r_checker(_ilmethod.codes, result, convtoi8)
             End If
 
         Else
@@ -58,7 +59,6 @@ Public Class expressiondt
     End Sub
 
     Private Sub conv_local_to_f32(getdatatype As String)
-        MsgBox(getdatatype)
         Select Case getdatatype
             Case "int32"
                 cil.conv_to_float32(_ilmethod.codes)
