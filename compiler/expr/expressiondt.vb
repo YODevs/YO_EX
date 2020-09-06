@@ -52,15 +52,26 @@ Public Class expressiondt
         Select Case _datatype
             Case "i32"
                 conv_local_to_i32(getdatatype)
+            Case "f32"
+                conv_local_to_f32(getdatatype)
         End Select
     End Sub
 
+    Private Sub conv_local_to_f32(getdatatype As String)
+        MsgBox(getdatatype)
+        Select Case getdatatype
+            Case "int32"
+                cil.conv_to_float32(_ilmethod.codes)
+            Case "int64"
+                cil.conv_to_float64(_ilmethod.codes)
+        End Select
+    End Sub
     Private Sub conv_local_to_i32(getdatatype As String)
         Select Case getdatatype
             Case "float32"
                 cil.conv_to_int32(_ilmethod.codes)
             Case "float64"
-                cil.conv_to_int32(_ilmethod.codes)
+                cil.conv_to_int64(_ilmethod.codes)
         End Select
     End Sub
     Private Function check_simple_expression(expression As String) As Boolean
