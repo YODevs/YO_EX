@@ -12,26 +12,36 @@
 
     Private Shared exprdt As New exprstaticdt
     Private Shared gencode As String = String.Empty
+    Private Shared loopopt As Boolean = True
     Friend Shared Function optimize_expression(genilcode As String) As String
-        For Each linec In genilcode.Split(vbLf)
-            linec = linec.Trim
-            If linec = Nothing Then Continue For
-            gencode &= vbCrLf & linec
-            If linec.StartsWith(">") Then
-                exprdt.frilcode = String.Empty
-                Continue For
-            End If
-
-            If is_action(linec) Then
-                If exprdt.computeexpr Then
-                    exprdt.action = linec
-                    compute()
+        While loopopt
+            loopopt = False
+            For Each linec In genilcode.Split(vbLf)
+                linec = linec.Trim
+                If linec = Nothing Then Continue For
+                gencode &= vbCrLf & linec
+                If linec.StartsWith(">") Then
+                    exprdt.frilcode = String.Empty
+                    Continue For
                 End If
-                reset_expr_static()
-            Else
-                check_expression(linec)
+
+                If is_action(linec) Then
+                    If exprdt.computeexpr Then
+                        exprdt.action = linec
+                        compute()
+                        loopopt = True
+                    End If
+                    reset_expr_static()
+                Else
+                    check_expression(linec)
+                End If
+            Next
+
+            If loopopt Then
+                genilcode = gencode
+                gencode = String.Empty
             End If
-        Next
+        End While
 
         Return gencode
     End Function
