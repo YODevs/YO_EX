@@ -102,6 +102,15 @@
         codes.Add("conv.r8")
     End Sub
 
+
+    ''' <summary>
+    ''' conv.r4
+    ''' </summary>
+    ''' <param name="codes"></param>
+    Public Shared Sub conv_to_float32(ByRef codes As ArrayList)
+        codes.Add("conv.r4")
+    End Sub
+
     ''' <summary>
     ''' insert il code .
     ''' </summary>
