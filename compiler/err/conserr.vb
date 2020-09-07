@@ -26,6 +26,7 @@
         ATTRIBUTEDISABLED
         ASSIGNCONVERT
         EXPRESSIONERROR
+        INTEGRALOVERFLOW
     End Enum
 
     Enum errorpriority
@@ -82,6 +83,7 @@ You can reinstall the software or email us.")
         set_new_error(errortype.ATTRIBUTEDISABLED, errorpriority.STOP, "Attribute error", "[{0}] - Access to this feature is disabled, enable it with feature {1} if needed.")
         set_new_error(errortype.ASSIGNCONVERT, errorpriority.STOP, "Assignment error", "'{0}' - Cannot be assignment to [type] -> '{1}'.")
         set_new_error(errortype.EXPRESSIONERROR, errorpriority.STOP, "Expression error", "{0}")
+        set_new_error(errortype.INTEGRALOVERFLOW, errorpriority.STOP, "Integral overflow error", "'{0}' , Integral constant is too large.(overflow)")
 
     End Sub
 End Class
