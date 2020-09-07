@@ -49,7 +49,12 @@
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
                 Dim expr As New expressiondt(_ilmethod, "i32")
-                _ilmethod = expr.parse_expression_data(clinecodestruc.value, convtoi8)
+                Try
+                    _ilmethod = expr.parse_expression_data(clinecodestruc.value, convtoi8)
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -80,7 +85,12 @@
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
                 Dim expr As New expressiondt(_ilmethod, "f32")
-                _ilmethod = expr.parse_expression_data(clinecodestruc.value, convtor8)
+                Try
+                    _ilmethod = expr.parse_expression_data(clinecodestruc.value, convtor8)
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
