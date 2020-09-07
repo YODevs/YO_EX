@@ -17,9 +17,11 @@
 
         'Public fields ...
         _ilfunc = New ilfuncgen(ilcollection, yoclassdt)
+        ilbodybulider.path = yoclassdt.location
         ilcollection.ilmethod = _ilfunc.gen()
         _ilresultcollection.ilfmtdata = ilcollection
         _ilresultcollection.result = True
+
         Return _ilresultcollection
     End Function
 End Class
