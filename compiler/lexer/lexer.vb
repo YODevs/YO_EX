@@ -397,6 +397,11 @@ Public Class lexer
     End Function
     Private Function rev_numeric(ByRef value As String, ByRef linecinf As targetinf) As Boolean
         If IsNumeric(value) Then
+            If authfunc.check_integral_overflow(CObj(value)) Then
+                rd_token = tokenhared.token.UNDEFINED
+                dserr.args.Add(value)
+                dserr.new_error(conserr.errortype.INTEGRALOVERFLOW, linecinf.line, sfile, authfunc.get_line_error(sfile, linecinf, value))
+            End If
             rd_token = tokenhared.token.TYPE_INT
             If value.Contains(conrex.DOT) Then
                 If value(value.Length - 1) <> conrex.DOT AndAlso value.Count(Function(nindex) nindex = conrex.DOT) = 1 Then
