@@ -88,4 +88,17 @@ Public Class authfunc
         value = value.Remove(0, 1)
         value = value.Remove(value.Length - 1)
     End Sub
+
+    ''' <summary>
+    ''' If return true : Overflow.
+    ''' </summary>
+    ''' <param name="value"></param>
+    ''' <returns></returns>
+    Public Shared Function check_integral_overflow(value As Object) As Boolean
+        If value.ToString.Length > 10 AndAlso CDec(value) > Int64.MaxValue Or CDec(value) < Int64.MinValue Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Class
