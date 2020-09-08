@@ -4,7 +4,7 @@
         rem_float(value)
         Select Case datatype
             Case "int32"
-                If value.ToString.Length > 12 AndAlso CDec(value) > Int32.MaxValue Or CDec(value) < Int32.MinValue Then
+                If CDec(value) > Int32.MaxValue Or CDec(value) < Int32.MinValue Then
                     cil.push_int64_onto_stack(codes, CDec(value))
                 Else
                     cil.push_int32_onto_stack(codes, CDec(value))
@@ -13,14 +13,14 @@
                     End If
                 End If
             Case "int16"
-                If value.ToString.Length > 7 AndAlso CDec(value) > Int16.MaxValue Or CDec(value) < Int16.MinValue Then
+                If CDec(value) > Int16.MaxValue Or CDec(value) < Int16.MinValue Then
                     dserr.args.Add(value)
                     dserr.new_error(conserr.errortype.INTEGRALOVERFLOW, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
                 Else
                     cil.push_int32_onto_stack(codes, CDec(value))
                 End If
             Case "int8"
-                If value.ToString.Length > 4 AndAlso CDec(value) > SByte.MaxValue Or CDec(value) < SByte.MinValue Then
+                If CDec(value) > SByte.MaxValue Or CDec(value) < SByte.MinValue Then
                     dserr.args.Add(value)
                     dserr.new_error(conserr.errortype.INTEGRALOVERFLOW, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
                 Else
