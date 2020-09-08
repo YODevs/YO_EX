@@ -1,0 +1,16 @@
+#[cfg::CIL(true)]
+func main()
+{
+let i : i16 = NULL
+let x : i16 = 20650
+i := [50 + x]
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(int32)
+ldloc.1
+call void [mscorlib]System.Console::WriteLine(int32)
+>
+}
+#- Output :
+20700
+20650
