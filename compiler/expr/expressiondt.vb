@@ -18,7 +18,7 @@ Public Class expressiondt
             Dim dt As New DataTable
             If _datatype = "i32" Then
                 result = dt.Compute(expression, Nothing)
-                servinterface.ldc_i_checker(_ilmethod.codes, result, convtoi8)
+                servinterface.ldc_i_checker(_ilmethod.codes, result, convtoi8, initcommondatatype.cdtype.find(Me._datatype).result)
             Else
                 result = dt.Compute(expression, Nothing)
                 servinterface.ldc_r_checker(_ilmethod.codes, result, convtoi8)
