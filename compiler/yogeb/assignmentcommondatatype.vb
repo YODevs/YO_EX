@@ -5,6 +5,8 @@
         Dim indenditem As Integer = 0
         Dim prcodes As New ArrayList
         Dim datatype As String = funcdt.locallinit(index).datatype
+        Dim optgen As New ilopt(funcdt)
+
         Select Case initcommondatatype.cdtype.findkey(datatype).result
             Case "str"
                 set_str_data(funcdt, index, prcodes)
@@ -14,12 +16,13 @@
                 set_char_data(funcdt, index, prcodes)
             Case "i32"
                 set_i32_data(funcdt, index, prcodes)
+            Case "i16"
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int16")
             Case "f32"
-                Dim optgen As New ilopt(funcdt)
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float32")
             Case "f64"
-                Dim optgen As New ilopt(funcdt)
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float64")
         End Select
