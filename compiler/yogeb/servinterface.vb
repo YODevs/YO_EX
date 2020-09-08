@@ -1,14 +1,27 @@
 ﻿Public Class servinterface
-    Friend Shared Sub ldc_i_checker(ByRef codes As ArrayList, value As Object, Optional convtoi8 As Boolean = False)
+    Friend Shared clinecodestruc As xmlunpkd.linecodestruc
+    Friend Shared Sub ldc_i_checker(ByRef codes As ArrayList, value As Object, Optional convtoi8 As Boolean = False, Optional datatype As String = "int32")
         rem_float(value)
-        If value.ToString.Length > 10 AndAlso CDec(value) > Int32.MaxValue Or CDec(value) < Int32.MinValue Then
-            cil.push_int64_onto_stack(codes, CDec(value))
-        Else
-            cil.push_int32_onto_stack(codes, CDec(value))
-            If convtoi8 Then
-                cil.conv_to_int64(codes)
-            End If
-        End If
+        Select Case datatype
+            Case "int32"
+                If value.ToString.Length > 12 AndAlso CDec(value) > Int32.MaxValue Or CDec(value) < Int32.MinValue Then
+                    cil.push_int64_onto_stack(codes, CDec(value))
+                Else
+                    cil.push_int32_onto_stack(codes, CDec(value))
+                    If convtoi8 Then
+                        cil.conv_to_int64(codes)
+                    End If
+                End If
+            Case "int16"
+                If value.ToString.Length > 7 AndAlso CDec(value) > Int16.MaxValue Or CDec(value) < Int16.MinValue Then
+                    dserr.args.Add(value)
+                    dserr.new_error(conserr.errortype.INTEGRALOVERFLOW, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+
+                Else
+                    cil.push_int32_onto_stack(codes, CDec(value))
+                End If
+        End Select
+
     End Sub
 
     Friend Shared Sub ldc_r_checker(ByRef codes As ArrayList, value As Object, Optional convtor8 As Boolean = False)
