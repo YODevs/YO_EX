@@ -48,6 +48,8 @@
     Public Shared Sub push_int32_onto_stack(ByRef codes As ArrayList, value As Decimal)
         If value >= 0 AndAlso value < 9 Then
             codes.Add("ldc.i4." & value)
+        ElseIf value >= -128 AndAlso value <= 127 Then
+            push_int32_sbyte_onto_stack(codes, value)
         Else
             codes.Add("ldc.i4 " & value)
         End If
@@ -61,6 +63,13 @@
         codes.Add("ldc.i8 " & value)
     End Sub
 
+    Public Shared Sub push_int32_sbyte_onto_stack(ByRef codes As ArrayList, value As Decimal)
+        If value >= -128 AndAlso value <= 127 Then
+            codes.Add("ldc.i4.s " & value)
+        Else
+            push_int32_onto_stack(codes, value)
+        End If
+    End Sub
     ''' <summary>
     ''' ldc.r4 [float32]
     ''' </summary>
