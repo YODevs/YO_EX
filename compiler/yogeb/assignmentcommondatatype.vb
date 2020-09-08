@@ -19,6 +19,9 @@
             Case "i16"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int16")
+            Case "i8"
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int8")
             Case "f32"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float32")
