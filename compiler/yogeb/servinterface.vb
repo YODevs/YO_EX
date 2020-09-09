@@ -26,6 +26,14 @@
                 Else
                     cil.push_int32_onto_stack(codes, CDec(value))
                 End If
+            Case "bool"
+                If CDec(value) <> 1 AndAlso CDec(value) <> 0 Then
+                    dserr.args.Add(value)
+                    dserr.args.Add("bool")
+                    dserr.new_error(conserr.errortype.ERRORINCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                Else
+                    cil.push_int32_onto_stack(codes, CDec(value))
+                End If
         End Select
 
     End Sub
