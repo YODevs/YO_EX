@@ -1,0 +1,22 @@
+#[cfg::CIL(true)]
+func main()
+{
+let isexist : bool = true
+let b2 : bool = false
+let b3 : bool = 0
+b2 := isexist
+isexist := 0
+b3 := NULL
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(bool)
+ldloc.1
+call void [mscorlib]System.Console::WriteLine(bool)
+ldloc.2
+call void [mscorlib]System.Console::WriteLine(bool)
+>
+}
+#- Output :
+False
+True
+False
