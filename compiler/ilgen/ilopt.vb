@@ -68,6 +68,35 @@
         Return _ilmethod
     End Function
 
+    Public Function assi_bool(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
+        Dim convtoi8 As Boolean = servinterface.is_i8(datatype)
+        servinterface.clinecodestruc = clinecodestruc
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TRUE
+                cil.push_int32_onto_stack(_ilmethod.codes, 1)
+            Case tokenhared.token.FALSE
+                cil.push_int32_onto_stack(_ilmethod.codes, 0)
+            Case tokenhared.token.IDENTIFIER
+                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, datatype) Then
+                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
+                End If
+            Case tokenhared.token.TYPE_INT
+                servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
+            'let value : str = NULL
+            Case tokenhared.token.NULL
+                cil.push_null_reference(_ilmethod.codes)
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add(datatype)
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
+
+        cil.set_stack_local(_ilmethod.codes, varname)
+
+        Return _ilmethod
+    End Function
+
     Public Function assi_float(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
         Dim convtor8 As Boolean = False
         If datatype = "float64" Then convtor8 = True
