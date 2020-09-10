@@ -206,7 +206,7 @@
 
                 Case tokenhared.token.TYPE_DU_STR
                     If funcdt.locallinit(index).clocalvalue(0).value.Length >= 3 Then
-                        cil.push_int32_onto_stack(prcodes, Asc(funcdt.locallinit(index).clocalvalue(0).value(1)))
+                        cil.push_int32_onto_stack(prcodes, AscW(funcdt.locallinit(index).clocalvalue(0).value(1)))
                         cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     Else
                         cil.push_null_reference(prcodes)
@@ -214,7 +214,7 @@
                     End If
                 Case tokenhared.token.TYPE_CO_STR
                     If funcdt.locallinit(index).clocalvalue(0).value.Length >= 3 Then
-                        cil.push_int32_onto_stack(prcodes, Asc(funcdt.locallinit(index).clocalvalue(0).value(1)))
+                        cil.push_int32_onto_stack(prcodes, AscW(funcdt.locallinit(index).clocalvalue(0).value(1)))
                         cil.set_stack_local(prcodes, funcdt.locallinit(index).name)
                     Else
                         cil.push_null_reference(prcodes)
