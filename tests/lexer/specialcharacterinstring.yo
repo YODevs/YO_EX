@@ -12,6 +12,6 @@ PREND[52] ~> )
 BLOCKOPEN[43] ~> {
 IDENTIFIER[49] ~> print
 PRSTART[51] ~> (
-TYPE_DU_STR[54] ~> "Special characters testing '\' "
+TYPE_DU_STR[54] ~> "Special characters testing '"' "
 PREND[52] ~> )
 BLOCKEND[44] ~> }
