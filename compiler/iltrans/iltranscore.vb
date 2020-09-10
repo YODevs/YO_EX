@@ -119,6 +119,8 @@
                     _ilmethod = optgen.assi_float(varname, clinecodestruc(ilinc), "float64")
                 Case "bool"
                     _ilmethod = optgen.assi_bool(varname, clinecodestruc(ilinc), "bool")
+                Case "char"
+                    _ilmethod = optgen.assi_char(varname, clinecodestruc(ilinc), "char")
             End Select
         Next
     End Sub
