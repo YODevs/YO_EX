@@ -6,7 +6,7 @@ print('Hello World !')
 
 ================================================================================
 CRITICAL ERROR : Expected '{' ,to start a block of code.
-Source : E:\YO\blockopen expected.yo - Line [3]
+Source : E:\YO\YOCA\YOCA\bin\Release\myapp\i.yo - Line [3]
 *** More Detials ***
 print('Hello World !')
 ^^^^^
