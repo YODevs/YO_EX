@@ -1,0 +1,25 @@
+#[cfg::CIL(true)]
+func main()
+{
+let ch1 : char = Null
+let ch2 : char = 'A'
+
+ch1 := ch2
+ch2 := 'world'
+
+<
+ldloc.0
+call void [mscorlib]System.Console::Write(char)
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(int32)
+
+ldloc.1
+call void [mscorlib]System.Console::Write(char)
+ldloc.1
+call void [mscorlib]System.Console::WriteLine(int32)
+
+>
+}
+#- Output :
+A65
+w119
