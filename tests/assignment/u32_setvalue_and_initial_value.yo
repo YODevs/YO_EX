@@ -1,0 +1,19 @@
+#[cfg::CIL(true)]
+func main()
+{
+let ui_32_1 : u32
+let ui_32_2 : u32 = 523
+let i : i32 = 27
+
+ui_32_1 := [ui_32_2 + 50 + i]
+
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(uint32)
+ldloc.1
+call void [mscorlib]System.Console::WriteLine(uint32)
+>
+}
+#- Output :
+600
+523
