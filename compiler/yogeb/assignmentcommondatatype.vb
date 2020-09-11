@@ -28,6 +28,9 @@
             Case "f64"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float64")
+            Case "u32"
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "uint32")
         End Select
 
 
