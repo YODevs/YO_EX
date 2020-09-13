@@ -56,6 +56,9 @@
             add_il_code(".entrypoint")
         End If
 
+        'Test import_locals_init()
+        'imp_cil_code.import_test_local_init(funcdt)
+
         If funcdt.locallinit(0).name <> conrex.NULL Then
             imp_locals_init(funcdt)
         End If
