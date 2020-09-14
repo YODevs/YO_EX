@@ -93,6 +93,7 @@
             Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname)
             If localvartype.issuccessful = False Then
                 'Set Error
+                dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
             End If
 
             Select Case localvartype.result
