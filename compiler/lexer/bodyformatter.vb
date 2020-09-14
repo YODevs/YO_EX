@@ -23,16 +23,26 @@
             init_format()
         End If
 
-        If rd_token = tokenhared.token.BLOCKOPEN AndAlso blockinfo.istart = 0 Then
-            imp_token("<block path = '" & blockinfo.path & "'>")
+        If rd_token = tokenhared.token.BLOCKOPEN Then
+            If blockinfo.istart = 0 Then
+                imp_token("<block path = '" & blockinfo.path & "'>")
+            Else
+                imp_token("<blockop  id= '" & blockinfo.istart + 1 & "'>")
+            End If
             blockinfo.istart += 1
             Return False
-        ElseIf rd_token = tokenhared.token.BLOCKEND AndAlso blockinfo.istart = blockinfo.iend + 1 Then
-            imp_token("</block>")
-            'Create a log , data file [xml output].
-            coutputdata.write_data(blockinfo.datafmt)
-            xmlresult = blockinfo.datafmt
-            Return True
+        ElseIf rd_token = tokenhared.token.BLOCKEND Then
+            If blockinfo.istart = blockinfo.iend + 1 Then
+                imp_token("</block>")
+                'Create a log , data file [xml output].
+                coutputdata.write_data(blockinfo.datafmt)
+                xmlresult = blockinfo.datafmt
+                Return True
+            Else
+                imp_token("</blockop>")
+                blockinfo.iend += 1
+                Return False
+            End If
         End If
 
         If linecinf.line <> iline Then
