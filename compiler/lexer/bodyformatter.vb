@@ -27,7 +27,7 @@
             If blockinfo.istart = 0 Then
                 imp_token("<block path = '" & blockinfo.path & "'>")
             Else
-                imp_token("<blockop  id= '" & blockinfo.istart + 1 & "'>")
+                imp_token("<blockop id = '" & blockinfo.istart & "'>")
             End If
             blockinfo.istart += 1
             Return False
