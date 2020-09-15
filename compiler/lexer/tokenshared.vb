@@ -165,5 +165,6 @@
         CIL_BLOCK = 62
         COMPILERATTRIBUTE = 63
         EXPRESSION = 64
+        BLOCKOP = 65
     End Enum
 End Class
