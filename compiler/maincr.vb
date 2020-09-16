@@ -26,6 +26,7 @@
         initcommondatatype.init_common_data_type()
         specificdustrcommand.init()
         ciltoken.init_cil_instruction()
+        initblockop.init_blockop_allow_list()
     End Sub
 
     Sub init_essential_files()
