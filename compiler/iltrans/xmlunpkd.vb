@@ -33,7 +33,13 @@ Public Class xmlunpkd
         Do
             clinecodestruct(index) = next_token(isnewline)
             If isnewline = True Or xmlreader.EOF Then
-                If index = 0 AndAlso xmlreader.EOF = False Then
+                If clinecodestruct(index).tokenid = tokenhared.token.BLOCKOP Then
+                    If initblockop.check_blockop_allow(clinecodestruct(0).tokenid) AndAlso clinecodestruct(0).tokenid <> tokenhared.token.BLOCKOP Then
+                        Return clinecodestruct
+                    Else
+                        dserr.new_error(conserr.errortype.INVALIDCODEBLOCK, clinecodestruct(0).line, path, authfunc.get_line_error(path, servinterface.get_target_info(clinecodestruct(0)), clinecodestruct(0).value))
+                    End If
+                ElseIf index = 0 AndAlso xmlreader.EOF = False Then
                     Continue Do
                 End If
                 Array.Resize(clinecodestruct, clinecodestruct.Length - 1)
@@ -49,7 +55,11 @@ Public Class xmlunpkd
         While xmlreader.Read()
             Select Case xmlreader.NodeType
                 Case XmlNodeType.Element
-                    If xmlreader.Name <> "NEWLINE" Then
+                    If xmlreader.Name = "blockop" Then
+                        get_blockop(xmlreader, tokenstruct)
+                        isnewline = True
+                        Return tokenstruct
+                    ElseIf xmlreader.Name <> "NEWLINE" Then
                         tokenstruct.name = xmlreader.Name
                         tokenstruct.line = xmlreader.GetAttribute("line")
                         tokenstruct.tokenid = xmlreader.GetAttribute("id")
@@ -70,6 +80,15 @@ Public Class xmlunpkd
         isnewline = False
         Return tokenstruct
     End Function
+
+    Private Sub get_blockop(xmlr As XmlReader, ByRef tokenstruct As linecodestruc)
+        tokenstruct.name = xmlr.Name
+        tokenstruct.value = xmlr.ReadInnerXml()
+        tokenstruct.tokenid = tokenhared.token.BLOCKOP
+        tokenstruct.ien = 0
+        tokenstruct.ist = 0
+        tokenstruct.ile = 0
+    End Sub
 
     Public Sub close()
         xmlreader.Close()
