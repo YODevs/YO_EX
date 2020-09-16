@@ -20,7 +20,7 @@
         path = xmldata.path
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
-            clinecodestruc = xmldata.get_line_tokens
+            clinecodestruc = xmldata.get_line_tokens()
             rev_cline_code(clinecodestruc, _ilmethod)
         End While
         Array.Resize(_illocalinit, _illocalinit.Length - 1)
@@ -39,6 +39,10 @@
                 _ilmethod.locallinit = _illocalinit 'exc no local init
             Case tokenhared.token.CIL_BLOCK
                 nv_cil_commands(clinecodestruc, _ilmethod)
+            Case tokenhared.token.TO
+
+            Case Else
+                'Set error
         End Select
     End Sub
 
