@@ -1,9 +1,9 @@
 ﻿Public Class illocalsinit
 
-    Friend Shared Sub set_local_init(ByRef funcdt As ilformat._ilmethodcollection, locinit As ilformat._illocalinit)
+    Friend Shared Sub set_local_init(ByRef localinit() As ilformat._illocalinit, locinit As ilformat._illocalinit)
         'Check local init name
-        Dim funcdtlen As Integer = funcdt.locallinit.Length
-        Array.Resize(funcdt.locallinit, funcdtlen + 1)
-        funcdt.locallinit(funcdtlen) = locinit
+        Dim localinitlen As Integer = localinit.Length
+        Array.Resize(localinit, localinitlen + 1)
+        localinit(localinitlen - 1) = locinit
     End Sub
 End Class
