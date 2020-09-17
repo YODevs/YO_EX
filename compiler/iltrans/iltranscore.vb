@@ -40,7 +40,8 @@
             Case tokenhared.token.CIL_BLOCK
                 nv_cil_commands(clinecodestruc, _ilmethod)
             Case tokenhared.token.TO
-
+                Dim toit As New toiter(_ilmethod)
+                _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit)
             Case Else
                 'Set error
         End Select
