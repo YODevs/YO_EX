@@ -15,6 +15,6 @@
         locinit.iscommondatatype = True
         Array.Resize(locinit.clocalvalue, 1)
         locinit.clocalvalue(0).value = 0
-        illocalsinit.set_local_init(funcdt, locinit)
+        illocalsinit.set_local_init(funcdt.locallinit, locinit)
     End Sub
 End Class
