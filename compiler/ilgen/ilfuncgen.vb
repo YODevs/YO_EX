@@ -18,6 +18,7 @@
             If _ilmethodslen <> 0 Then
                 Array.Resize(_ilmethods, _ilmethodslen + 1)
             End If
+            lngen.init_lines()
             func_ilforamtter(yoclassdt.methods(index), imethod)
         Next
         Array.Resize(_ilmethods, _ilmethods.Length - 1)
