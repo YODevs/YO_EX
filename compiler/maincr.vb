@@ -27,6 +27,7 @@
         specificdustrcommand.init()
         ciltoken.init_cil_instruction()
         initblockop.init_blockop_allow_list()
+        syntaxloader.init_syntax_loader()
     End Sub
 
     Sub init_essential_files()
