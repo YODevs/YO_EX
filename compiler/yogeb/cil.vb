@@ -128,4 +128,18 @@
         If value.ToString.Trim = Nothing Then Return
         codes.Add(value)
     End Sub
+
+    Public Shared Sub ceq(ByRef codes As ArrayList)
+        codes.Add("ceq")
+    End Sub
+
+    Public Shared Sub add(ByRef codes As ArrayList)
+        codes.Add("add")
+    End Sub
+    Public Shared Sub branch_if_false(ByRef codes As ArrayList, label As Object)
+        codes.Add("brfalse " & label)
+    End Sub
+    Public Shared Sub branch_if_true(ByRef codes As ArrayList, label As Object)
+        codes.Add("brtrue " & label)
+    End Sub
 End Class
