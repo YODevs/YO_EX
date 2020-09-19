@@ -5,9 +5,9 @@
     Public Shared Function get_line_prop(perfix As String) As String
         Dim rand As New Random
         While True
-            Dim linename As String = "YOIL_" & perfix & "_" & rand.Next(10000, 100000) & ":"
+            Dim linename As String = "YOIL_" & perfix & "_" & rand.Next(10000, 100000)
             For index = 0 To lines.Count - 1
-                If lines(index) = lines Then
+                If lines(index) = linename Then
                     Continue While
                 End If
             Next
@@ -17,11 +17,16 @@
         Return 0
     End Function
 
-    Public Shared Sub set_label(perfix As String, ByRef codes As ArrayList)
+    Public Shared Function set_label(perfix As String, ByRef codes As ArrayList) As String
         Dim labelname As String = get_line_prop(perfix)
-        cil.insert_il(codes, labelname)
-    End Sub
+        cil.insert_il(codes, labelname & ":")
+        Return labelname
+    End Function
 
+    Public Shared Sub set_direct_label(label As String, ByRef codes As ArrayList)
+        label &= ":"
+        cil.insert_il(codes, label)
+    End Sub
     Public Shared Function get_flag() As String
         Dim flag As String = compdt.flagperfix & flags.Count
         flags.Add(flag)
