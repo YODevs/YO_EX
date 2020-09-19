@@ -11,7 +11,7 @@
         Dim example As String
     End Structure
 
-    Private Shared syntploader() As syntaxtypesloader
+    Friend Shared syntploader() As syntaxtypesloader
 
     Private Shared Sub set_syntax_loader(statetype As statements, statename As String, exptokenslist As ArrayList, Optional example As String = Nothing)
         Static Dim indexarray As Int16 = 0
@@ -34,7 +34,7 @@
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.TO)
         add_token(exptokenslist, tokenhared.token.PRSTART)
-        add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER)
+        add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER, tokenhared.token.EXPRESSION)
         add_token(exptokenslist, tokenhared.token.PREND)
         add_token(exptokenslist, tokenhared.token.BLOCKOP)
 
@@ -45,14 +45,14 @@
 
     Private Shared Sub add_token(ByRef exptokenslist As ArrayList, ParamArray ByVal tkn() As tokenhared.token)
         If tkn.Length = 1 Then
-            exptokenslist.Add(tkn)
+            exptokenslist.Add(tkn(0))
         Else
             Dim tkns As String = String.Empty
             For index = 0 To tkn.Length - 1
                 If tkns = String.Empty Then
                     tkns = tkn(index)
                 Else
-                    tkns &= conrex.DOT & tkn(index)
+                    tkns &= conrex.CMA & tkn(index)
                 End If
             Next
             exptokenslist.Add(tkns)
