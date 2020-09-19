@@ -5,6 +5,7 @@
     End Sub
 
     Public Function set_to_iter(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit) As ilformat._ilmethodcollection
+        syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.TOITER)
         'Create a flag variable for [TO] iter
         set_flag_loop(_illocalinit, clinecodestruc)
         'Create & Set label for [TO] body
