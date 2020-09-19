@@ -23,6 +23,7 @@
     Public Const BKSLASH As Char = "\"
     Public Const BTRIG As Char = "<"
     Public Const LTLEF As Char = ">"
+    Public Const CMA As Char = ","
 
     Enum exitcode
         SUCCESS
