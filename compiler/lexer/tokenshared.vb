@@ -90,6 +90,21 @@
         Return token.UNDEFINED
     End Function
 
+    Public Shared Function tokenid_to_value(tknkey As token) As String
+        For Each pair As KeyValuePair(Of token, String) In _token
+            If pair.Key = tknkey Then
+                Return pair.Value
+            End If
+        Next
+
+        For Each pair As KeyValuePair(Of token, String) In _tokensym
+            If pair.Key = tknkey Then
+                Return pair.Value
+            End If
+        Next
+        Return "NP"
+    End Function
+
     Public Shared Function check_common_type(ByRef target As String) As Integer
         Dim datatyperesult As mapstoredata.dataresult = initcommondatatype.cdtype.find(target.ToLower)
         If datatyperesult.issuccessful Then
