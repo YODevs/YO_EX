@@ -35,9 +35,6 @@
             clinecodestruc = xmldata.get_line_tokens()
             rev_cline_code(clinecodestruc, _ilmethod)
         End While
-        For index = 0 To _illocalinit.Length - 1
-            MsgBox(index & "-" & _illocalinit(index).name)
-        Next
         If (_illocalinit(_illocalinit.Length - 1).name = Nothing) Then
             Array.Resize(_illocalinit, _illocalinit.Length - 1)
         End If
