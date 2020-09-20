@@ -3,7 +3,7 @@
     Private methoddata As tknformat._method
     Private localinit As localinitdata
     Private path As String
-
+    Private bodyxmlformat As String
     Structure identifierassignmentinfo
         Dim identifiers As ArrayList
         Dim optval As String
@@ -13,11 +13,22 @@
         localinit = New localinitdata
     End Sub
 
-    Public Sub gen_transpile_code(ByRef _ilmethod As ilformat._ilmethodcollection)
-        _ilmethod.codes = New ArrayList
-        _ilmethod.line = New ArrayList
-        Dim xmldata As New xmlunpkd(methoddata.bodyxmlfmt)
-        path = xmldata.path
+    Public Sub New(path As String, bodyxmlfmt As String)
+        Me.path = path
+        Me.bodyxmlformat = bodyxmlfmt
+        localinit = New localinitdata
+    End Sub
+
+    Public Sub gen_transpile_code(ByRef _ilmethod As ilformat._ilmethodcollection, Optional invokebymainproc As Boolean = True)
+        Dim xmldata As xmlunpkd
+        If invokebymainproc Then
+            _ilmethod.codes = New ArrayList
+            _ilmethod.line = New ArrayList
+            xmldata = New xmlunpkd(methoddata.bodyxmlfmt)
+            path = xmldata.path
+        Else
+            xmldata = New xmlunpkd(bodyxmlformat, False)
+        End If
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
             clinecodestruc = xmldata.get_line_tokens()
