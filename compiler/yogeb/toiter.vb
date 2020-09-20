@@ -19,7 +19,9 @@
         bodybranchlabel = lngen.set_label("tobody", _ilmethod.codes)
 
         'Test constant code ... for body
-        imp_cil_code.import_test_code2(_ilmethod)
+        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(4).value)
+        iltrans.gen_transpile_code(_ilmethod, False)
+        'imp_cil_code.import_test_code2(_ilmethod)
 
         'Increase counter +1
         increase_counter()
