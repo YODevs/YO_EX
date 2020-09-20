@@ -13,10 +13,11 @@
         localinit = New localinitdata
     End Sub
 
-    Public Sub New(path As String, bodyxmlfmt As String)
+    Public Sub New(path As String, bodyxmlfmt As String, injillocalinit() As ilformat._illocalinit, injlocalinit As localinitdata)
         Me.path = path
         Me.bodyxmlformat = bodyxmlfmt
-        localinit = New localinitdata
+        localinit = injlocalinit
+        _illocalinit = injillocalinit
     End Sub
 
     Public Sub gen_transpile_code(ByRef _ilmethod As ilformat._ilmethodcollection, Optional invokebymainproc As Boolean = True)
@@ -34,7 +35,12 @@
             clinecodestruc = xmldata.get_line_tokens()
             rev_cline_code(clinecodestruc, _ilmethod)
         End While
-        Array.Resize(_illocalinit, _illocalinit.Length - 1)
+        For index = 0 To _illocalinit.Length - 1
+            MsgBox(index & "-" & _illocalinit(index).name)
+        Next
+        If (_illocalinit(_illocalinit.Length - 1).name = Nothing) Then
+            Array.Resize(_illocalinit, _illocalinit.Length - 1)
+        End If
         _ilmethod.locallinit = _illocalinit 'exc no local init
         xmldata.close()
     End Sub
@@ -52,7 +58,7 @@
                 nv_cil_commands(clinecodestruc, _ilmethod)
             Case tokenhared.token.TO
                 Dim toit As New toiter(_ilmethod)
-                _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit)
+                _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit, localinit)
             Case Else
                 'Set error
         End Select

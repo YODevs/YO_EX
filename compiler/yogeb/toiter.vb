@@ -5,7 +5,7 @@
         Me._ilmethod = ilmethod
     End Sub
 
-    Public Function set_to_iter(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit) As ilformat._ilmethodcollection
+    Public Function set_to_iter(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata) As ilformat._ilmethodcollection
         'Check syntax
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.TOITER)
         'Create a flag variable for [TO] iter
@@ -19,8 +19,9 @@
         bodybranchlabel = lngen.set_label("tobody", _ilmethod.codes)
 
         'Test constant code ... for body
-        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(4).value)
+        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(4).value, _illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
+        _illocalinit = _ilmethod.locallinit
         'imp_cil_code.import_test_code2(_ilmethod)
 
         'Increase counter +1
