@@ -13,7 +13,11 @@ Public Class xmlunpkd
         Dim line As Integer
         Dim ist, ien, ile As Integer
     End Structure
-    Public Sub New(xmlfmt As String)
+
+    Public Sub New(xmlfmt As String, Optional ismainproc As Boolean = True)
+        If ismainproc = False Then
+            set_header(xmlfmt, ilbodybulider.path)
+        End If
         bodyxmlfmt = xmlfmt
         Dim xmlrdoptions As New XmlReaderSettings
         xmlrdoptions.IgnoreComments = True
@@ -26,6 +30,10 @@ Public Class xmlunpkd
         path = xmlreader.GetAttribute("path")
     End Sub
 
+    Public Sub set_header(ByRef xmlfmt As String, path As String)
+        xmlfmt = "<?xml version='1.0' encoding='UTF-8' ?><block path = '" & path & "'>
+" & xmlfmt & "</block>"
+    End Sub
     Public Function get_line_tokens() As linecodestruc()
         Dim clinecodestruct(0) As linecodestruc
         Dim isnewline As Boolean = False
