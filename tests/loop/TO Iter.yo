@@ -1,0 +1,15 @@
+#[cfg::CIL(true)]
+func main()
+{
+let index : i32 = 5
+
+to(index){
+<
+ldstr "*"
+call void [mscorlib]System.Console::Write(string)
+>
+}
+
+}
+
+#-Output : *****
