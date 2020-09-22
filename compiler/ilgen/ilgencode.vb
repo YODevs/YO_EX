@@ -17,7 +17,7 @@
             ilasm = New ilasmgen(ilcollection)
             Dim resultdata As ilformat.resultildata = ilasm.gen(classdt(index))
             If resultdata.result Then
-                Dim bodybuilder As New ilbodybulider(resultdata.ilfmtdata)
+                Dim bodybuilder As New ilbodybulider(resultdata.ilfmtdata, classdt(index).attribute)
                 ilbodybulider.path = classdt(index).location
                 bodybuilder.conv_to_msil()
                 Dim ilasmparameter As New ilasmparam
