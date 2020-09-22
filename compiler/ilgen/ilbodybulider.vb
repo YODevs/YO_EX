@@ -2,14 +2,16 @@
 
     Public ildt As ilformat.ildata
     Friend Shared path As String
+    Friend Shared attribute As yocaattribute.yoattribute
     Private msilsource As String
     Public ReadOnly Property source() As String
         Get
             Return msilsource
         End Get
     End Property
-    Public Sub New(ilclassdata As ilformat.ildata)
+    Public Sub New(ilclassdata As ilformat.ildata, attr As yocaattribute.yoattribute)
         ildt = ilclassdata
+        attribute = attr
     End Sub
 
     Public Function conv_to_msil() As String
@@ -17,7 +19,11 @@
             add_assembly(ildt.assemblyextern(index))
         Next
 
-        imp_module("YO_Main")
+        If attribute._app._classname <> Nothing Then
+            imp_module(attribute._app._classname)
+        Else
+            imp_module(compdt.yomainclass)
+        End If
         newline()
 
         For index = 0 To ildt.ilmethod.Length - 1
@@ -58,7 +64,6 @@
 
         'Test import_locals_init()
         'imp_cil_code.import_test_local_init(funcdt)
-
         If funcdt.locallinit.Length > 0 Then
             imp_locals_init(funcdt)
         End If
