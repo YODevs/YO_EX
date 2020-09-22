@@ -44,10 +44,23 @@ Public Class attr
         Select Case resultattr.typeattribute.ToLower
             Case "cfg"
                 set_cfg_attribute(resultattr)
+            Case "app"
+                set_app_attribute(resultattr)
             Case Else
                 'Set Error
                 dserr.args.Add(resultattr.typeattribute)
                 dserr.new_error(conserr.errortype.ATTRIBUTECLASSERROR, lastlinecinf.line, path, authfunc.get_line_error(path, lastlinecinf, resultattr.typeattribute))
+        End Select
+    End Sub
+
+    Private Sub set_app_attribute(resultattr As yocaattribute.resultattribute)
+        Select Case resultattr.fieldattribute.ToLower
+            Case "classname"
+                attribute._app._classname = setinattr.get_str_val(resultattr, path)
+            Case Else
+                'Set Error
+                dserr.args.Add(resultattr.fieldattribute)
+                dserr.new_error(conserr.errortype.ATTRIBUTEPROPERTYERROR, lastlinecinf.line, path, authfunc.get_line_error(path, lastlinecinf, resultattr.fieldattribute))
         End Select
     End Sub
 
