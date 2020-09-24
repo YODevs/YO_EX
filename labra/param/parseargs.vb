@@ -30,5 +30,7 @@
                 End If
             End If
         Next
+
+        execln.nv_check_command(parseresult)
     End Sub
 End Class
