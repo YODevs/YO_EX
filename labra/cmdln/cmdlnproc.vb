@@ -23,6 +23,15 @@
         Return
     End Sub
 
+    Public Shared Function check_master_key(command As String) As Int16
+        command = command.ToLower
+        For index = 0 To cmd.Length - 1
+            If cmd(index).command = command Then
+                Return index
+            End If
+        Next
+        Return -1
+    End Function
     Public Shared Sub init_command_struct()
         set_new_command(cmdtype.TEST, "test")
     End Sub
