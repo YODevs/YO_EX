@@ -19,11 +19,15 @@
         End If
 
         Dim cmdexeclninstance As New execln
-        CallByName(cmdexeclninstance, "rp_" & result.command, CallType.Method, result.args)
+        If cmdlnproc.cmd(getindex).withargs = False Then
+            CallByName(cmdexeclninstance, "rp_" & result.command, CallType.Method, Nothing)
+        Else
+            CallByName(cmdexeclninstance, "rp_" & result.command, CallType.Method, result.args)
+        End If
     End Sub
     Public Sub New()
     End Sub
-    Public Sub rp_test(args As ArrayList)
+    Public Sub rp_test()
         Dim peconsolecolor As Int16 = Console.ForegroundColor
         Console.ForegroundColor = System.ConsoleColor.DarkGreen
         Console.Write("Bravo !!!!! Google is ready to execute your commands.
@@ -31,4 +35,7 @@ You can type 'Help' to view commands.")
         Console.ForegroundColor = peconsolecolor
     End Sub
 
+    Public Sub rp_exit()
+        Environment.Exit(1)
+    End Sub
 End Class

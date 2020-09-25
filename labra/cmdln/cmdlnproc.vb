@@ -2,6 +2,7 @@
     Enum cmdtype
         [NEW]
         TEST
+        [EXIT]
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -34,5 +35,6 @@
     End Function
     Public Shared Sub init_command_struct()
         set_new_command(cmdtype.TEST, "test")
+        set_new_command(cmdtype.EXIT, "exit")
     End Sub
 End Class
