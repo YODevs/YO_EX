@@ -1,4 +1,6 @@
-﻿Public Class crproj
+﻿Imports System.IO
+
+Public Class crproj
 
     Public Structure _projstruct
         Dim assemblyname As String
@@ -19,7 +21,60 @@
     Public Sub init_project()
         proj.assemblyname = get_assembly_name()
         proj.typeproject = get_type_of_project()
+        create_prerequisites()
     End Sub
+
+    Private Sub create_prerequisites()
+        Try
+            Dim path As String = conrex.ENVCURDIR & "\" & proj.assemblyname
+            If Directory.Exists(path) Then
+                dserr.set_error("Create prerequisites", path & " - This path already exists.")
+                Return
+            End If
+            Directory.CreateDirectory(path)
+
+            Directory.CreateDirectory(path & "\target\debug")
+            Directory.CreateDirectory(path & "\target\release")
+            Directory.CreateDirectory(path & "\src")
+
+            File.WriteAllText(path & "\labra.yoda", get_labra_setting())
+
+            Console.Clear()
+            Dim peconsolecolor As Int16 = Console.ForegroundColor
+            Console.ForegroundColor = System.ConsoleColor.DarkGreen
+            Console.Write(proj.assemblyname & " - The project was created successfully.")
+            Console.ForegroundColor = peconsolecolor
+
+            Console.Write(vbLf & "# Select the next task: " & vbCr)
+            Select Case YOOrderList.YOList.ShowMenu("!['Show folder','Continue','Exit']")
+                Case "Show folder"
+                    Process.Start(path)
+                Case "Contiune"
+                    Return
+                Case "Exit"
+                    Environment.Exit(1)
+            End Select
+        Catch ex As Exception
+            dserr.set_error("Create prerequisites", ex.Message)
+        End Try
+    End Sub
+
+    Private Function get_labra_setting() As String
+        Dim key, value As ArrayList
+        key = New ArrayList
+        value = New ArrayList
+
+        key.Add("assemblyname")
+        value.Add(proj.assemblyname)
+
+        key.Add("path")
+        value.Add(conrex.ENVCURDIR & "\" & proj.assemblyname)
+
+        key.Add("outputtype")
+        value.Add(proj.typeproject)
+
+        Return yoda.WriteYODA_Map(key, value)
+    End Function
 
     Private Function get_assembly_name() As String
         Dim checkit As Boolean = True
@@ -59,7 +114,6 @@
             continueloop = False
         End If
     End Sub
-
     Private Function get_type_of_project() As String
         Console.Write(vbLf & "# Select project type:")
         Dim menudata As String = yoda.WriteYODA(typesitem)
