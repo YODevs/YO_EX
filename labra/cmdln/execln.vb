@@ -30,12 +30,17 @@
     Public Sub rp_test()
         Dim peconsolecolor As Int16 = Console.ForegroundColor
         Console.ForegroundColor = System.ConsoleColor.DarkGreen
-        Console.Write("Bravo !!!!! Google is ready to execute your commands.
+        Console.Write("Bravo !!!!! Labra is ready to execute your commands.
 You can type 'Help' to view commands.")
         Console.ForegroundColor = peconsolecolor
     End Sub
 
     Public Sub rp_exit()
         Environment.Exit(1)
+    End Sub
+
+    Public Sub rp_new()
+        Dim projcreator As New crproj()
+        projcreator.init_project()
     End Sub
 End Class
