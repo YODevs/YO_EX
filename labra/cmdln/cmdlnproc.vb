@@ -36,5 +36,6 @@
     Public Shared Sub init_command_struct()
         set_new_command(cmdtype.TEST, "test")
         set_new_command(cmdtype.EXIT, "exit")
+        set_new_command(cmdtype.NEW, "new")
     End Sub
 End Class
