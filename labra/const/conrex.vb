@@ -9,4 +9,13 @@
     Public Const SPACE As Char = " "
     Public Const DOT As Char = "."
     Public Const DUSTR As Char = """"
+    Public Const MAINDEFCODE As String = "
+#[app::classname(""MyApp"")]
+#[cfg::CIL(true)]
+
+func main()
+{
+
+}
+"
 End Class
