@@ -36,9 +36,10 @@ Public Class crproj
             Directory.CreateDirectory(path & "\target\debug")
             Directory.CreateDirectory(path & "\target\release")
             Directory.CreateDirectory(path & "\src")
+            File.WriteAllText(path & "\src\main.yo", conrex.MAINDEFCODE)
 
             File.WriteAllText(path & "\labra.yoda", get_labra_setting())
-
+            '            yoda.ReadYODA_Map(get_labra_setting())
             Console.Clear()
             Dim peconsolecolor As Int16 = Console.ForegroundColor
             Console.ForegroundColor = System.ConsoleColor.DarkGreen
@@ -73,7 +74,7 @@ Public Class crproj
         key.Add("outputtype")
         value.Add(proj.typeproject)
 
-        Return yoda.WriteYODA_Map(key, value)
+        Return yoda.WriteYODA_Map(key, value, True)
     End Function
 
     Private Function get_assembly_name() As String
