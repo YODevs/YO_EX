@@ -29,6 +29,7 @@
         INTEGRALOVERFLOW
         INVALIDCODEBLOCK
         EXPECTSYNTAX
+        PARAMCLIERROR
     End Enum
 
     Enum errorpriority
@@ -88,5 +89,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.INTEGRALOVERFLOW, errorpriority.STOP, "Integral overflow error", "'{0}' , Integral constant is too large.(overflow)")
         set_new_error(errortype.INVALIDCODEBLOCK, errorpriority.STOP, "Code block error", "Invalid code block , this block header could not be reached.")
         set_new_error(errortype.EXPECTSYNTAX, errorpriority.STOP, "Code block error", "In the {0} grammatical structure, '{1}' is expected.")
+        set_new_error(errortype.PARAMCLIERROR, errorpriority.IGNORE, "CLI error", "Invalid input")
     End Sub
 End Class
