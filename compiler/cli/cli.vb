@@ -20,6 +20,15 @@ Public Class cli
     Private Shared Sub display_init_command()
         Console.Write(constcli.maincohelp)
     End Sub
+
+    Public Shared Sub goto_cmdln(args() As String)
+        Console.Write(vbCrLf)
+        While True
+            interactioncmd.get_interaction(args)
+            parseargs.parse_data(args)
+        End While
+    End Sub
+
     <DllImport("kernel32.dll", SetLastError:=True)>
     Private Shared Function SetCurrentConsoleFontEx(ByVal ConsoleOutput As IntPtr, ByVal MaximumWindow As Boolean, ByRef ConsoleCurrentFontEx As CONSOLE_FONT_INFO_EX) As Int32
 
