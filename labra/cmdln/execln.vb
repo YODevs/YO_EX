@@ -43,4 +43,7 @@ You can type 'Help' to view commands.")
         Dim projcreator As New crproj()
         projcreator.init_project()
     End Sub
+    Public Sub rp_version()
+        Console.Write(conrex.VER)
+    End Sub
 End Class
