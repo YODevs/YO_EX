@@ -6,15 +6,15 @@
         Dim getindex As Int16 = cmdlnproc.check_master_key(result.command)
         If getindex = -1 Then
             'Set Error , command not found .
-            '        dserr.set_error("Command Error", "'" & result.command & "' - Command not found." & vbLf & "This command may be used in updated versions of Labra.")
+            dserr.new_error(conserr.errortype.PARAMCLIERROR, -1, Nothing, "'" & result.command & "' - Command not found." & vbLf & "This command may be used in updated versions of YO Compiler API(YOCA).")
             Return
         End If
 
         If cmdlnproc.cmd(getindex).withargs = False AndAlso result.args.Count > 0 Then
-            '       dserr.set_error("Parameter Error", "'" & result.command & "' - This command does not support any parameters, enter this command without entering a parameter.")
+            dserr.new_error(conserr.errortype.PARAMCLIERROR, -1, Nothing, "'" & result.command & "' - This command does not support any parameters, enter this command without entering a parameter.")
             Return
         ElseIf cmdlnproc.cmd(getindex).maxargs < result.args.Count Then
-            '      dserr.set_error("Parameter Error", "'" & result.command & "' - The number of parameters of this command is too much.")
+            dserr.new_error(conserr.errortype.PARAMCLIERROR, -1, Nothing, "'" & result.command & "' - The number of parameters of this command is too much.")
             Return
         End If
 
