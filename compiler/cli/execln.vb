@@ -39,7 +39,7 @@ You can type 'Help' to view commands.")
         Environment.Exit(1)
     End Sub
 
-    Public Sub rp_new()
-
+    Public Sub rp_version()
+        Console.Write(conrex.VER)
     End Sub
 End Class
