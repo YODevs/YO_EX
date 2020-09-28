@@ -1,5 +1,5 @@
 ﻿Module maincr
-    Const BYPASSFLOW As Boolean = True
+    Const BYPASSFLOW As Boolean = False
     Sub main(ByVal argsval() As String)
         Try
             init_class_data()
@@ -9,10 +9,14 @@
                 Console.ReadLine()
                 Return
             End If
+
             If argsval.Length = 0 Then
                 cli.init_cli(True)
+                cli.goto_cmdln(argsval)
                 Console.ReadLine()
                 Return
+            Else
+                parseargs.parse_data(argsval)
             End If
         Catch ex As Exception
             dserr.new_error(conserr.errortype.RUNTIMEERROR, -1, Nothing, ex.Message & vbCrLf & ex.StackTrace)
@@ -20,6 +24,7 @@
     End Sub
 
     Sub init_class_data()
+        cmdlnproc.init_command_struct()
         conserr.init_error_struct()
         tokenhared.init()
         init_essential_files()
