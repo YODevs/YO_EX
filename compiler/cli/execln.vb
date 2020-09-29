@@ -42,4 +42,9 @@ You can type 'Help' to view commands.")
     Public Sub rp_version()
         Console.Write(conrex.VER)
     End Sub
+
+    Public Sub rp_build()
+        Dim projflow As New cprojflow()
+        projflow.start_project_flow()
+    End Sub
 End Class
