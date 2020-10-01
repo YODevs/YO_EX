@@ -16,6 +16,7 @@
                 Console.ReadLine()
                 Return
             Else
+                cli.init_cli(False)
                 parseargs.parse_data(argsval)
             End If
         Catch ex As Exception
