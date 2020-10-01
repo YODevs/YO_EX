@@ -13,7 +13,7 @@ Public Class cprojdt
         projmapdt.import_collection(labradt.keys, labradt.values)
     End Sub
 
-    Public Function get_val(key As String) As String
+    Public Shared Function get_val(key As String) As String
         Dim resultmapstore As mapstoredata.dataresult = projmapdt.find(key)
         If resultmapstore.issuccessful Then
             Return resultmapstore.result
