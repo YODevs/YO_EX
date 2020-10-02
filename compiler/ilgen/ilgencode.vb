@@ -35,11 +35,13 @@ Public Class ilgencode
     Private Sub write_il()
         Dim ilasmparameter As New ilasmparam
         coutputdata.write_file_data("msil_source.il", source)
-        Dim path As String = conrex.ENVCURDIR & "\" & cprojdt.get_val("assemblyname") & ".il"
+        Dim path As String = cilcomp.get_il_loca()
         File.WriteAllText(path, source)
         ilasmparameter.add_file(path)
+        ilasmparameter.add_param("/OUTPUT", cilcomp.get_output_loca())
         Dim ilconv As New ilasmconv(ilasmparameter)
         ilconv.compile()
+        cilcomp.set_options()
     End Sub
     Private Sub import_il_gen_code(codes As String)
         source &= codes & vbCrLf & vbCrLf
