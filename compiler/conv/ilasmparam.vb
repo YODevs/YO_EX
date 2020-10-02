@@ -9,7 +9,7 @@
         paramlist &= argument & Space(1)
     End Sub
     Public Sub add_param(argument As String, value As String)
-        paramlist &= argument & ":" & value & Space(1)
+        paramlist &= argument & "=" & value & Space(1)
     End Sub
 
     Public Sub add_file(path As String)
