@@ -9,8 +9,10 @@
 
     Private Sub init(mdname As String)
         add_assembly_extern("mscorlib")
-        add_assembly_extern(mdname, False, "{.ver 1:0:0:0}")
-        set_module(mdname)
+        If mdname = "main" Then
+            add_assembly_extern(cprojdt.get_val("assemblyname"), False, "{.ver 1:0:0:0}")
+            set_module(mdname)
+        End If
     End Sub
 
     Public Sub add_assembly_extern(name As String, Optional isextern As Boolean = True, Optional asmproperty As String = "{}")
