@@ -28,7 +28,7 @@
         cil.insert_il(codes, label)
     End Sub
     Public Shared Function get_flag() As String
-        Dim flag As String = compdt.flagperfix & flags.Count
+        Dim flag As String = compdt.FLAGPERFIX & flags.Count
         flags.Add(flag)
         Return flag
     End Function
