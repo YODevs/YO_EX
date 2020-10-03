@@ -27,7 +27,7 @@ Public Class ilasmconv
         ilasmproc.Start()
         ilasmproc.BeginOutputReadLine()
         ilasmproc.WaitForExit()
-        Console.WriteLine(ilasmoutputdata.ToString())
+        If compdt.DISPLAYILASMOUTPUT Then Console.WriteLine(ilasmoutputdata.ToString())
         coutputdata.write_file_data("conv_info.txt", ilasmoutputdata.ToString())
     End Sub
 
