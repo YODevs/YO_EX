@@ -22,6 +22,7 @@ Public Class lexer
         sfile = file
         fmtdata = New fmtshared(file)
         attribute = New attr(file)
+        procresult.rp_lex_file(file)
     End Sub
 
     Private strline As Integer = 0
@@ -193,6 +194,8 @@ Public Class lexer
         tknfmtclass.location = sfile
         tknfmtclass.attribute = attribute.get_attribute()
         authfunc.set_name_token_format(tknfmtclass)
+
+        procresult.rs_lex_file(True)
     End Sub
 
     Private Function get_co_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
@@ -339,7 +342,7 @@ Public Class lexer
         End If
 
         'print tokens
-        displaytokens(rd_token, linec)
+        If compdt.DISPLAYTOKENWLEX Then displaytokens(rd_token, linec)
 
         If rd_token <> tokenhared.token.COMPILERATTRIBUTE Then
             fmtdata.imp_token(linec, rd_token, linecinf)
