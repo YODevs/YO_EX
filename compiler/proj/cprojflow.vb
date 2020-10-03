@@ -14,14 +14,17 @@ Public Class cprojflow
     End Sub
 
     Private Sub check_prerequisites()
+        procresult.rp_init("Preparation & analysis of 'Labra.yoda'")
         If File.Exists(conrex.ENVCURDIR & "\labra.yoda") = False Then
             'set error
         End If
         load_cproj_data()
+        procresult.rs_set_result(True)
+        procresult.rp_init("Check the path of project files")
         If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("sourcepath")) = False Then
             'set error
         End If
-
+        procresult.rs_set_result(True)
         impfiles.import_directory(conrex.ENVCURDIR & cproj.get_val("sourcepath"))
     End Sub
 

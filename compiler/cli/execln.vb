@@ -44,6 +44,7 @@ You can type 'Help' to view commands.")
     End Sub
 
     Public Sub rp_build()
+        procresult.set_state("init")
         Dim projflow As New cprojflow()
         projflow.start_project_flow()
     End Sub
