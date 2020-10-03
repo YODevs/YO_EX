@@ -195,7 +195,7 @@ Public Class lexer
         tknfmtclass.attribute = attribute.get_attribute()
         authfunc.set_name_token_format(tknfmtclass)
 
-        procresult.rs_lex_file(True)
+        procresult.rs_proc_data(True)
     End Sub
 
     Private Function get_co_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
