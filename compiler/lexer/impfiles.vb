@@ -7,6 +7,7 @@ Public Class impfiles
             Dim ilgen As ilgencode
             If get_yo_files(dir, files) Then
                 Dim tknfmtclass(files.Count - 1) As tknformat._class
+                procresult.set_state("lex")
                 For index = 0 To files.Count - 1
                     Dim lex As New lexer(files(index).ToString)
                     lex.lexme(tknfmtclass(index))
