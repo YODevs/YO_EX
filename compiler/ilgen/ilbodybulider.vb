@@ -22,7 +22,7 @@
         If attribute._app._classname <> Nothing Then
             imp_module(attribute._app._classname)
         Else
-            imp_module(compdt.yomainclass)
+            imp_module(compdt.YOMAINCLASS)
         End If
         newline()
 
