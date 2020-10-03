@@ -2,6 +2,7 @@
 
     Friend Shared args As New ArrayList
     Public Shared Sub new_error(errtype As conserr.errortype, line As Integer, file As String, Optional description As String = "Not specified", Optional example As String = "Not specified")
+        procresult.rs_set_result(False)
         Dim indexerr As Int16 = errtype
         Dim err As conserr.errorstruct = conserr.err(indexerr)
         Dim indexspaceolor As ConsoleColor = Console.ForegroundColor
