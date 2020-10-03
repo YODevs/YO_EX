@@ -17,12 +17,14 @@ Public Class ilgencode
         For index = 0 To classdt.Length - 1
             'Class Generate ...
             'Single File ;
+            procresult.rp_gen(classdt(index).location & " - " & classdt(index).methods.Length & " func ")
             ilasm = New ilasmgen(ilcollection)
             Dim resultdata As ilformat.resultildata = ilasm.gen(classdt(index))
             If resultdata.result Then
                 Dim bodybuilder As New ilbodybulider(resultdata.ilfmtdata, classdt(index).attribute)
                 ilbodybulider.path = classdt(index).location
                 bodybuilder.conv_to_msil()
+                procresult.rs_set_result(True)
                 import_il_gen_code(bodybuilder.source)
             Else
                 'Somethings error ...

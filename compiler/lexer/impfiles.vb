@@ -12,6 +12,7 @@ Public Class impfiles
                     Dim lex As New lexer(files(index).ToString)
                     lex.lexme(tknfmtclass(index))
                 Next
+                procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
                 ilgen.codegenerator()
             Else
