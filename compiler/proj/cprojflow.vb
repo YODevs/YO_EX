@@ -18,11 +18,11 @@ Public Class cprojflow
             'set error
         End If
         load_cproj_data()
-        If Directory.Exists(conrex.ENVCURDIR & "\" & cproj.get_val("sourcepath")) = False Then
+        If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("sourcepath")) = False Then
             'set error
         End If
 
-        impfiles.import_directory(conrex.ENVCURDIR & "\" & cproj.get_val("sourcepath"))
+        impfiles.import_directory(conrex.ENVCURDIR & cproj.get_val("sourcepath"))
     End Sub
 
     Private Sub load_cproj_data()
