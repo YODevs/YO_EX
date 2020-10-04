@@ -35,6 +35,8 @@ Public Class ilgencode
     End Sub
 
     Private Sub write_il()
+        procresult.set_state("asm")
+        procresult.rp_asm("Preparation of prerequisites and parameters")
         Dim ilasmparameter As New ilasmparam
         coutputdata.write_file_data("msil_source.il", source)
         Dim path As String = cilcomp.get_il_loca()
@@ -42,6 +44,8 @@ Public Class ilgencode
         ilasmparameter.add_file(path)
         ilasmparameter.add_param("/OUTPUT", cilcomp.get_output_loca())
         Dim ilconv As New ilasmconv(ilasmparameter)
+        procresult.rs_set_result(True)
+        procresult.rp_asm("Assembler process & Linker")
         ilconv.compile()
         cilcomp.set_options()
     End Sub
