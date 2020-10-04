@@ -12,6 +12,9 @@
         Console.Write(vbTab & "Gen ->" & value.Replace(conrex.ENVCURDIR, conrex.NULL))
     End Sub
 
+    Friend Shared Sub rp_asm(value As String)
+        Console.Write(vbTab & "Asm ->" & value)
+    End Sub
     Friend Shared Sub rs_proc_data(result As Boolean)
         Console.Write(" :: ")
         Dim ciden As Int16 = Console.ForegroundColor
@@ -47,6 +50,8 @@
                 Console.WriteLine("-Lexical Analyzer")
             Case "gen"
                 Console.WriteLine("-Intermediate Code Generation")
+            Case "asm"
+                Console.WriteLine("-Assembly Code Generation")
         End Select
         state = newstate
     End Sub
@@ -58,6 +63,8 @@
             Case "init"
                 rs_proc_data(result)
             Case "gen"
+                rs_proc_data(result, "[DONE]", "[FAILED]")
+            Case "asm"
                 rs_proc_data(result, "[DONE]", "[FAILED]")
         End Select
     End Sub
