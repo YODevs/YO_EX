@@ -43,9 +43,9 @@ Public Class ilgencode
         File.WriteAllText(path, source)
         ilasmparameter.add_file(path)
         ilasmparameter.add_param("/OUTPUT", cilcomp.get_output_loca())
-        Dim ilconv As New ilasmconv(ilasmparameter)
+        Dim ilconv As New ilasmconv(ilasmparameter, path)
         procresult.rs_set_result(True)
-        procresult.rp_asm("Assembler process & Linker")
+        procresult.rp_asm("Assembly process & Linker")
         ilconv.compile()
         cilcomp.set_options()
     End Sub
