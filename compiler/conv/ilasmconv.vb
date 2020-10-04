@@ -29,6 +29,27 @@ Public Class ilasmconv
         ilasmproc.WaitForExit()
         If compdt.DISPLAYILASMOUTPUT Then Console.WriteLine(ilasmoutputdata.ToString())
         coutputdata.write_file_data("conv_info.txt", ilasmoutputdata.ToString())
+
+
+        If ilasmoutputdata.ToString.Contains("Operation completed successfully") Then
+            procresult.rs_set_result(True)
+            Console.WriteLine("-The overall result")
+            Dim ciden As Int16 = Console.ForegroundColor
+            Console.ForegroundColor = ConsoleColor.DarkGreen
+            Console.WriteLine(vbTab & "***** Operation completed successfully *****")
+            Console.ForegroundColor = ciden
+        ElseIf ilasmoutputdata.ToString.Contains("***** FAILURE *****") Then
+            procresult.rs_set_result(False)
+            Console.WriteLine("-The overall result")
+            Dim ciden As Int16 = Console.ForegroundColor
+            Console.ForegroundColor = ConsoleColor.DarkRed
+            Console.WriteLine(vbTab & "***** FAILURE *****")
+            Console.ForegroundColor = ciden
+            Dim iloutput As String = ilasmoutputdata.ToString().Trim
+            iloutput = iloutput.Remove(0, iloutput.IndexOf(vbLf)).Trim
+            iloutput = iloutput.Remove(iloutput.IndexOf("***** FAILURE *****")).Trim
+            Console.WriteLine(iloutput)
+        End If
     End Sub
 
     Private Sub ilasmoutputhandler(sender As Object, e As DataReceivedEventArgs)
