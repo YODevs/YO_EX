@@ -48,4 +48,16 @@ You can type 'Help' to view commands.")
         Dim projflow As New cprojflow()
         projflow.start_project_flow()
     End Sub
+    Public Sub rp_run()
+        rp_build()
+        If ilasmconv.result Then
+            Console.WriteLine("Launching and running compiled output [" & compdt.RUNCMDDELAY & "ms] ...")
+            Threading.Thread.Sleep(compdt.RUNCMDDELAY)
+            Dim appproc As New Process
+            With appproc
+                .StartInfo = New ProcessStartInfo(cilcomp.get_output_loca())
+                .Start()
+            End With
+        End If
+    End Sub
 End Class
