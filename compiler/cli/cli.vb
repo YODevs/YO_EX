@@ -12,7 +12,7 @@ Public Class cli
         consolefontinfo.FontWeight = 700
         consolefontinfo.FaceName = "Consolas"
         SetCurrentConsoleFontEx(GetStdHandle(StdHandle.OutputHandle), True, consolefontinfo)
-        Console.BufferHeight = 70
+        Console.BufferHeight = 170
         Console.Title = conrex.TITLE
         If displayinitcommand Then display_init_command()
     End Sub
