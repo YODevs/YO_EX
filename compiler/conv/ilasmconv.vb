@@ -2,6 +2,7 @@
 Imports System.Text
 
 Public Class ilasmconv
+    Public Shared result As Boolean
     Private ilasmoutputdata As StringBuilder
     Private ilasmparameter As ilasmparam
     Private path As String
@@ -41,6 +42,7 @@ Public Class ilasmconv
             Console.ForegroundColor = ConsoleColor.DarkGreen
             Console.WriteLine(vbTab & "***** Operation completed successfully *****")
             Console.ForegroundColor = ciden
+            result = True
         ElseIf ilasmoutputdata.ToString.Contains("***** FAILURE *****") Then
             procresult.rs_set_result(False)
             Console.WriteLine("-The overall result")
@@ -50,6 +52,7 @@ Public Class ilasmconv
             Console.ForegroundColor = ciden
             Dim iloutput As String = get_standard_error(ilasmproc.StandardError)
             Console.WriteLine(iloutput)
+            result = False
         End If
     End Sub
 
