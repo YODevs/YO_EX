@@ -4,6 +4,7 @@
         [EXIT]
         VERSION
         BUILD
+        RUN
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -39,5 +40,6 @@
         set_new_command(cmdtype.EXIT, "exit")
         set_new_command(cmdtype.VERSION, "version")
         set_new_command(cmdtype.BUILD, "build", False)
+        set_new_command(cmdtype.RUN, "run", False)
     End Sub
 End Class
