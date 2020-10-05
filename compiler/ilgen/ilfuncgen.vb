@@ -30,13 +30,10 @@
         'Check name rules ...
         'Check uniq names
         _ilmethods(ilmethodsindex).name = yomethod.name
-        If yomethod.name.ToLower = "main" Then
+        If yomethod.name.ToLower = "main" And check_entry_point_by_file(yoclassdt.location) Then
             If grabentrypoint = False Then
                 _ilmethods(ilmethodsindex).entrypoint = True
                 grabentrypoint = True
-            Else
-                'When two entry points 
-                'set error
             End If
         End If
 
@@ -50,4 +47,12 @@
         '_ilmethods(ilmethodsindex).codes.Add("call void [mscorlib]System.Console::WriteLine(string)")
         ' _ilmethods(ilmethodsindex).codes.Add("ret")
     End Sub
+
+    Private Function check_entry_point_by_file(location As String) As Boolean
+        location = location.Remove(0, location.LastIndexOf("\") + 1)
+        If location.ToLower = "main.yo" Then
+            Return True
+        End If
+        Return False
+    End Function
 End Class
