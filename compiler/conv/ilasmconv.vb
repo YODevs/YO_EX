@@ -51,11 +51,28 @@ Public Class ilasmconv
             Console.WriteLine(vbTab & "***** FAILURE *****")
             Console.ForegroundColor = ciden
             Dim iloutput As String = get_standard_error(ilasmproc.StandardError)
-            Console.WriteLine(iloutput)
+            If iloutput = String.Empty Then
+                iloutput = get_error_info(ilasmoutputdata.ToString())
+                Console.WriteLine(iloutput)
+            Else
+                Console.WriteLine(iloutput)
+            End If
             result = False
         End If
     End Sub
 
+    Private Function get_error_info(output As String) As String
+        Dim errgrab As String = String.Empty
+        For Each tline In output.Split(vbLf)
+            If tline.Trim = Nothing Then Continue For
+            For index = 0 To compdt.errcap.Length - 1
+                If tline.Contains(compdt.errcap(index)) Then
+                    errgrab &= vbLf & tline
+                End If
+            Next
+        Next
+        Return errgrab.Trim
+    End Function
     Private Sub ilasmoutputhandler(sender As Object, e As DataReceivedEventArgs)
         ilasmoutputdata.AppendLine(e.Data)
     End Sub
