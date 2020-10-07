@@ -1,6 +1,6 @@
 ﻿Public Class assignmentcommondatatype
 
-    Friend Shared Sub set_value(ByRef funcdt As ilformat._ilmethodcollection, index As Integer)
+    Friend Shared Sub set_value(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, Optional loadatfirst As Boolean = True)
         Static indinsert As Integer = 0
         Dim indenditem As Integer = 0
         Dim prcodes As New ArrayList
@@ -33,30 +33,36 @@
                 funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "uint32")
         End Select
 
+        If loadatfirst Then
 
-        If index = 0 Then
-            indinsert = 0
-        End If
-        If prcodes.Count > 0 Then
+            If index = 0 Then
+                indinsert = 0
+            End If
+            If prcodes.Count > 0 Then
+                For indloop = 0 To prcodes.Count - 1
+                    funcdt.codes.Insert(indinsert, prcodes(indloop))
+                    indinsert += 1
+                Next
+            ElseIf indenditem <> 0 Then
+                Dim indprcodesinsert As Integer = 0
+                For indloop = indenditem + 1 To funcdt.codes.Count - 1
+                    prcodes.Insert(indprcodesinsert, funcdt.codes(indloop))
+                    indprcodesinsert += 1
+                Next
+
+                Dim indremat As Integer = indenditem + 1
+                For indloop = indremat To funcdt.codes.Count - 1
+                    funcdt.codes.RemoveAt(indremat)
+                Next
+
+                For indloop = 0 To prcodes.Count - 1
+                    funcdt.codes.Insert(indinsert, prcodes(indloop))
+                    indinsert += 1
+                Next
+            End If
+        Else
             For indloop = 0 To prcodes.Count - 1
-                funcdt.codes.Insert(indinsert, prcodes(indloop))
-                indinsert += 1
-            Next
-        ElseIf indenditem <> 0 Then
-            Dim indprcodesinsert As Integer = 0
-            For indloop = indenditem + 1 To funcdt.codes.Count - 1
-                prcodes.Insert(indprcodesinsert, funcdt.codes(indloop))
-                indprcodesinsert += 1
-            Next
-
-            Dim indremat As Integer = indenditem + 1
-            For indloop = indremat To funcdt.codes.Count - 1
-                funcdt.codes.RemoveAt(indremat)
-            Next
-
-            For indloop = 0 To prcodes.Count - 1
-                funcdt.codes.Insert(indinsert, prcodes(indloop))
-                indinsert += 1
+                funcdt.codes.Add(prcodes(indloop))
             Next
         End If
 
