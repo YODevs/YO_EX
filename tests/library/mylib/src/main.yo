@@ -1,0 +1,10 @@
+#[app::classname("myfirstlib")]
+#[cfg::CIL(true)]
+
+func say_hello()
+{
+<
+ldstr "Hello World !"
+call void [mscorlib]System.Console::Write(string)
+>
+}
