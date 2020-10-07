@@ -80,6 +80,9 @@ Public Class ilasmconv
     Private Sub init()
         ilasmparameter.add_param("/NOLOGO")
         ilasmparameter.add_param("/OPTIMIZE")
+        If cprojdt.get_val("outputtype").ToLower = "library" Then
+            ilasmparameter.add_param("/DLL")
+        End If
     End Sub
 
     Private Function get_standard_error(ptrstderr As StreamReader) As String
