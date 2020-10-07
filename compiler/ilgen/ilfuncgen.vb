@@ -30,7 +30,7 @@
         'Check name rules ...
         'Check uniq names
         _ilmethods(ilmethodsindex).name = yomethod.name
-        If yomethod.name.ToLower = "main" And check_entry_point_by_file(yoclassdt.location) Then
+        If yomethod.name.ToLower = "main" AndAlso check_entry_point_by_file(yoclassdt.location) AndAlso cprojdt.get_val("outputtype").ToLower <> "library" Then
             If grabentrypoint = False Then
                 _ilmethods(ilmethodsindex).entrypoint = True
                 grabentrypoint = True
