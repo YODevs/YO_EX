@@ -86,7 +86,7 @@
             End If
             If funcdt.locallinit(index).hasdefaultvalue Then
                 If funcdt.locallinit(index).iscommondatatype Then
-                    assignmentcommondatatype.set_value(funcdt, index)
+                    '    assignmentcommondatatype.set_value(funcdt, index)
                 Else
                     'Other Type...
                 End If
