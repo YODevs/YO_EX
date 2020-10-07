@@ -49,8 +49,12 @@
             Case tokenhared.token.IDENTIFIER
                 nv_st_identifier(clinecodestruc, _ilmethod)
             Case tokenhared.token.LET
-                nv_let(clinecodestruc)
+                Dim assignprocess As Boolean = False
+                nv_let(clinecodestruc, assignprocess)
                 _ilmethod.locallinit = _illocalinit 'exc no local init
+                If assignprocess Then
+                    assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 2, False)
+                End If
             Case tokenhared.token.CIL_BLOCK
                 nv_cil_commands(clinecodestruc, _ilmethod)
             Case tokenhared.token.TO
@@ -200,7 +204,7 @@
 
         Return resultassign
     End Function
-    Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc)
+    Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc, ByRef assignprocess As Boolean)
         Dim ilmethodlen As Integer = _illocalinit.Length
         Dim index As Integer = ilmethodlen - 1
         Dim ilinc As Integer = 2
@@ -290,6 +294,7 @@
                     Next
                     _illocalinit(index).clocalvalue = crenvalue
                     _illocalinit(index).hasdefaultvalue = True
+                    assignprocess = True
                 Else
                     'let name : str =
                     dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected")
