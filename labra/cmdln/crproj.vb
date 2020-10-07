@@ -5,6 +5,7 @@ Public Class crproj
     Public Structure _projstruct
         Dim assemblyname As String
         Dim typeproject As String
+        Dim srcpath As String
     End Structure
 
     Dim yoda As YODA.YODA_Format
@@ -73,6 +74,9 @@ Public Class crproj
 
         key.Add("outputtype")
         value.Add(proj.typeproject)
+
+        key.Add("sourcepath")
+        value.Add("\src")
 
         Return yoda.WriteYODA_Map(key, value, True)
     End Function
