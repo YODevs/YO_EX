@@ -4,6 +4,7 @@
         TEST
         [EXIT]
         VERSION
+        ADD
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -39,5 +40,6 @@
         set_new_command(cmdtype.EXIT, "exit")
         set_new_command(cmdtype.NEW, "new")
         set_new_command(cmdtype.VERSION, "version")
+        set_new_command(cmdtype.ADD, "add")
     End Sub
 End Class
