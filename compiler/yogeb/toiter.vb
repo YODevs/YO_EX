@@ -63,6 +63,8 @@
         locinit.clocalvalue(0).value = 0
         counterflag = locinit.name
         illocalsinit.set_local_init(_illocalinit, locinit)
+        cil.push_int32_onto_stack(_ilmethod.codes, 0)
+        cil.set_stack_local(_ilmethod.codes, counterflag)
 
         locinit = New ilformat._illocalinit
         locinit.name = lngen.get_flag
