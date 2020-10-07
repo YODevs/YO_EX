@@ -102,7 +102,7 @@
     End Sub
     Private Sub imp_module(name As String)
         'check name
-        add_il_code(".class private auto ansi sealed " & name)
+        add_il_code(".class public auto ansi sealed " & name)
         add_st_block()
     End Sub
 
