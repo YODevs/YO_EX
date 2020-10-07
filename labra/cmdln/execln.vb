@@ -46,4 +46,17 @@ You can type 'Help' to view commands.")
     Public Sub rp_version()
         Console.Write(conrex.VER)
     End Sub
+
+    Public Sub rp_add()
+        Console.Write(vbLf & "# Select an item: " & vbCr)
+        Select Case YOOrderList.YOList.ShowMenu("!['Class File [.yo]','New Folder','Custom File']")
+            Case "New Folder"
+
+            Case "Class File [.yo]"
+
+            Case "Custom File"
+
+        End Select
+    End Sub
+
 End Class
