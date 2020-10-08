@@ -63,7 +63,11 @@ You can type 'Help' to view commands.")
                         dserr.set_error("New item error", path & " - This route already exists.")
                     End If
                 Case "Class File [.yo]"
-
+                    Console.Write(vbLf & "# Enter a new file name: ")
+                    Dim path As String = conrex.ENVCURDIR & "\" & Console.ReadLine()
+                    If path.ToLower.EndsWith(conrex.YOFORMAT) = False Then path &= conrex.YOFORMAT
+                    File.WriteAllText(path, String.Empty)
+                    Console.Write("Empty file created successfully.")
                 Case "Custom File"
                     Console.Write(vbLf & "# Enter a new file name with extension [ex:file.txt]: ")
                     Dim path As String = conrex.ENVCURDIR & "\" & Console.ReadLine()
