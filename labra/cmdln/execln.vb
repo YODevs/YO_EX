@@ -1,4 +1,6 @@
-﻿Public Class execln
+﻿Imports System.IO
+
+Public Class execln
     Friend Shared Sub nv_check_command(result As parseargs._parseresult)
         If result.command = Nothing Or result.command = conrex.SPACE Then
             Return
@@ -48,15 +50,26 @@ You can type 'Help' to view commands.")
     End Sub
 
     Public Sub rp_add()
-        Console.Write(vbLf & "# Select an item: " & vbCr)
-        Select Case YOOrderList.YOList.ShowMenu("!['Class File [.yo]','New Folder','Custom File']")
-            Case "New Folder"
+        Try
+            Console.Write(vbLf & "# Select an item: " & vbCr)
+            Select Case YOOrderList.YOList.ShowMenu("!['Class File [.yo]','New Folder','Custom File']")
+                Case "New Folder"
+                    Console.Write(vbLf & "# Enter a new folder name or route: ")
+                    Dim path As String = conrex.ENVCURDIR & "\" & Console.ReadLine()
+                    If Directory.Exists(path) = False Then
+                        Directory.CreateDirectory(path)
+                        Console.Write("Folder created successfully.")
+                    Else
+                        dserr.set_error("New item error", path & " - This route already exists.")
+                    End If
+                Case "Class File [.yo]"
 
-            Case "Class File [.yo]"
+                Case "Custom File"
 
-            Case "Custom File"
-
-        End Select
+            End Select
+        Catch ex As Exception
+            dserr.set_error("New item error", ex.Message)
+        End Try
     End Sub
 
 End Class
