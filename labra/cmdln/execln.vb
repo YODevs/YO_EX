@@ -65,7 +65,10 @@ You can type 'Help' to view commands.")
                 Case "Class File [.yo]"
 
                 Case "Custom File"
-
+                    Console.Write(vbLf & "# Enter a new file name with extension [ex:file.txt]: ")
+                    Dim path As String = conrex.ENVCURDIR & "\" & Console.ReadLine()
+                    File.WriteAllText(path, String.Empty)
+                    Console.Write("Empty file created successfully.")
             End Select
         Catch ex As Exception
             dserr.set_error("New item error", ex.Message)
