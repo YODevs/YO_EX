@@ -142,4 +142,8 @@
     Public Shared Sub branch_if_true(ByRef codes As ArrayList, label As Object)
         codes.Add("brtrue " & label)
     End Sub
+
+    Public Shared Sub branch_to_target(ByRef codes As ArrayList, label As Object)
+        codes.Add("br " & label)
+    End Sub
 End Class
