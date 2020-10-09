@@ -25,6 +25,8 @@
     Public Const BTRIG As Char = "<"
     Public Const LTLEF As Char = ">"
     Public Const CMA As Char = ","
+    Public Const DLR As Char = "$"
+
 
     Enum exitcode
         SUCCESS
