@@ -2,6 +2,7 @@
     Private _illocalinit(0) As ilformat._illocalinit
     Private methoddata As tknformat._method
     Private localinit As localinitdata
+    Private jmp As jmp
     Private path As String
     Private bodyxmlformat As String
     Structure identifierassignmentinfo
@@ -30,6 +31,7 @@
         Else
             xmldata = New xmlunpkd(bodyxmlformat, False)
         End If
+        jmp = New jmp(path)
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
             clinecodestruc = xmldata.get_line_tokens()
@@ -60,6 +62,10 @@
             Case tokenhared.token.TO
                 Dim toit As New toiter(_ilmethod)
                 _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.LABELJMP
+                jmp.set_label(clinecodestruc, _ilmethod)
+            Case tokenhared.token.JMP
+                jmp.jmp_statement(clinecodestruc, _ilmethod)
             Case Else
                 'Set error
         End Select
