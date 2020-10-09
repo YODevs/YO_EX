@@ -1,9 +1,9 @@
 ﻿Public Class lngen
     Private Shared lines As ArrayList
     Private Shared flags As ArrayList
+    Private Shared rand As New Random
 
     Public Shared Function get_line_prop(perfix As String) As String
-        Dim rand As New Random
         While True
             Dim linename As String = "YOIL_" & perfix & "_" & rand.Next(10000, 100000)
             For index = 0 To lines.Count - 1
