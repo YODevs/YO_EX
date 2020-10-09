@@ -30,6 +30,7 @@
         INVALIDCODEBLOCK
         EXPECTSYNTAX
         PARAMCLIERROR
+        JMPERROR
     End Enum
 
     Enum errorpriority
@@ -90,5 +91,7 @@ You can reinstall the software or email us.")
         set_new_error(errortype.INVALIDCODEBLOCK, errorpriority.STOP, "Code block error", "Invalid code block , this block header could not be reached.")
         set_new_error(errortype.EXPECTSYNTAX, errorpriority.STOP, "Code block error", "In the {0} grammatical structure, '{1}' is expected.")
         set_new_error(errortype.PARAMCLIERROR, errorpriority.IGNORE, "CLI error", "Invalid input")
+        set_new_error(errortype.JMPERROR, errorpriority.STOP, "Jump statement error", "An error occurred in the Jump Statement.")
+
     End Sub
 End Class
