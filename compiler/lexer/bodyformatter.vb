@@ -75,6 +75,8 @@
                 imp_formatting_token("EXPR", value, rd_token, linecinf)
             Case tokenhared.token.CIL_BLOCK
                 imp_formatting_token("CIL", value, rd_token, linecinf)
+            Case tokenhared.token.LABELJMP
+                imp_formatting_token("JMP", value, rd_token, linecinf)
             Case Else
                 If tokenhared.check_keyword(value) <> tokenhared.token.UNDEFINED Then
                     imp_formatting_token([Enum].GetName(GetType(tokenhared.token), rd_token), value, rd_token, linecinf)
