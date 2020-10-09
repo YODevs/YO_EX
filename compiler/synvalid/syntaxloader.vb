@@ -2,6 +2,8 @@
 
     Enum statements
         TOITER
+        LABELJMP
+        JMP
     End Enum
 
     Structure syntaxtypesloader
@@ -28,6 +30,10 @@
     Public Shared Sub init_syntax_loader()
         'TO Iter
         st_to()
+        'Set Label , Jump Statement
+        st_labeljmp()
+        'Set JMP Statement
+        st_jmp()
     End Sub
 
     Private Shared Sub st_to()
@@ -41,6 +47,35 @@
         set_syntax_loader(statements.TOITER, "TO Statement", exptokenslist, "to(5){
 ...
 }")
+    End Sub
+
+    Private Shared Sub st_jmp()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.JMP)
+        add_token(exptokenslist, tokenhared.token.LABELJMP)
+        set_syntax_loader(statements.JMP, "Label Statement", exptokenslist, "$start:
+
+#>code 1 ...
+#>code 2 ...
+#>code 3 ...
+
+
+jmp $start
+")
+    End Sub
+    Private Shared Sub st_labeljmp()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.LABELJMP)
+        add_token(exptokenslist, tokenhared.token.ASSINQ)
+        set_syntax_loader(statements.LABELJMP, "Label Statement", exptokenslist, "$start:
+
+#>code 1 ...
+#>code 2 ...
+#>code 3 ...
+
+
+jmp $start
+")
     End Sub
 
     Private Shared Sub add_token(ByRef exptokenslist As ArrayList, ParamArray ByVal tkn() As tokenhared.token)
