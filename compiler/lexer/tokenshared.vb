@@ -25,6 +25,7 @@
         _token.Add(token.LET, "let")
         _token.Add(token.FALSE, "false")
         _token.Add(token.TRUE, "true")
+        _token.Add(token.JMP, "jmp")
 
 
         _tokensym.Add(token.ASSIDB, ":=")
@@ -181,5 +182,7 @@
         COMPILERATTRIBUTE = 63
         EXPRESSION = 64
         BLOCKOP = 65
+        LABELJMP = 66
+        JMP = 67
     End Enum
 End Class
