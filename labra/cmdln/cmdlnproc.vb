@@ -41,5 +41,6 @@
         set_new_command(cmdtype.NEW, "new")
         set_new_command(cmdtype.VERSION, "version")
         set_new_command(cmdtype.ADD, "add")
+        set_new_command(cmdtype.ADD, "edit", True, 1)
     End Sub
 End Class
