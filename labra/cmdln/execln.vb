@@ -79,4 +79,66 @@ You can type 'Help' to view commands.")
         End Try
     End Sub
 
+    Public Sub rp_edit(args As ArrayList)
+        Dim propertyname As String = String.Empty
+        Dim propertyvalue As String = String.Empty
+        Dim propertyindex As Integer = -1
+        Dim yodadata As String = String.Empty
+        If args.Count > 0 Then
+            propertyname = args(0).ToString
+        End If
+
+        If File.Exists(conrex.ENVCURDIR & "\labra.yoda") = False Then
+            dserr.set_error("Edit Command Error", conrex.ENVCURDIR & "\labra.yoda" & " - Labra file not found.")
+            Return
+        End If
+
+        yodadata = File.ReadAllText(conrex.ENVCURDIR & "\labra.yoda")
+        Dim yoda As New YODA.YODA_Format
+        Dim yodaf As YODA.YODA_Format.YODAMapFormat = yoda.ReadYODA_Map(yodadata)
+
+        If propertyname = String.Empty Then
+            Console.Write(vbLf & "# Select a property :")
+            propertyname = YOOrderList.YOList.ShowMenu(yoda.WriteYODA(yodaf.keys))
+        End If
+
+        For index = 0 To yodaf.keys.Count - 1
+            If yodaf.keys(index).ToString = propertyname Then
+                propertyvalue = yodaf.values(index)
+                propertyindex = index
+                Exit For
+            End If
+        Next
+
+        If propertyindex = -1 Then
+            dserr.set_error("Edit Command Error", propertyname & " - Property not found.")
+            Return
+        Else
+            Console.WriteLine(vbCrLf & propertyname & " -> " & propertyvalue)
+            Console.Write("New value : ")
+            propertyvalue = Console.ReadLine()
+        End If
+
+        yodaf.values.Insert(propertyindex + 1, propertyvalue)
+        yodaf.values.RemoveAt(propertyindex)
+
+        File.WriteAllText(conrex.ENVCURDIR & "\labra.yoda", yoda.WriteYODA_Map(yodaf.keys, yodaf.values))
+
+        Dim peconsolecolor As Int16 = Console.ForegroundColor
+        Console.ForegroundColor = System.ConsoleColor.DarkGreen
+        Console.Write(vbLf & "Property changed successfully.")
+        Console.ForegroundColor = peconsolecolor
+
+        Console.Write(vbLf & "# Select the next task: " & vbCr)
+        Select Case YOOrderList.YOList.ShowMenu("!['Show folder','edit','Continue','Exit']")
+            Case "Show folder"
+                Process.Start(conrex.ENVCURDIR)
+            Case "edit"
+                rp_edit(args)
+            Case "Contiune"
+                Return
+            Case "Exit"
+                Environment.Exit(1)
+        End Select
+    End Sub
 End Class
