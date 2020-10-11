@@ -1,0 +1,14 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+
+func main()
+{
+
+$start:
+<
+call string [mscorlib]System.Console::ReadLine()
+call void [mscorlib]System.Console::WriteLine(string)
+>
+jmp $start
+
+}
