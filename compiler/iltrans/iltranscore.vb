@@ -12,6 +12,7 @@
     Public Sub New(method As tknformat._method)
         methoddata = method
         localinit = New localinitdata
+        stjmper.init()
     End Sub
 
     Public Sub New(path As String, bodyxmlfmt As String, injillocalinit() As ilformat._illocalinit, injlocalinit As localinitdata)
@@ -32,6 +33,7 @@
             xmldata = New xmlunpkd(bodyxmlformat, False)
         End If
         jmp = New jmp(path)
+        stjmper.reset_method(path)
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
             clinecodestruc = xmldata.get_line_tokens()
@@ -66,6 +68,8 @@
                 jmp.set_label(clinecodestruc, _ilmethod)
             Case tokenhared.token.JMP
                 jmp.jmp_statement(clinecodestruc, _ilmethod)
+            Case tokenhared.token.CONTINUE
+                stjmper.continue_jmper(clinecodestruc, _ilmethod)
             Case Else
                 'Set error
         End Select
