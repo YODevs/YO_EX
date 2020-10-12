@@ -4,6 +4,7 @@
         TOITER
         LABELJMP
         JMP
+        [CONTINUE]
     End Enum
 
     Structure syntaxtypesloader
@@ -34,8 +35,17 @@
         st_labeljmp()
         'Set JMP Statement
         st_jmp()
+        'Set Continue Statement
+        st_continue()
     End Sub
 
+    Private Shared Sub st_continue()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.CONTINUE)
+        add_token(exptokenslist, tokenhared.token.TO)
+
+        set_syntax_loader(statements.CONTINUE, "Continue Statement", exptokenslist)
+    End Sub
     Private Shared Sub st_to()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.TO)
