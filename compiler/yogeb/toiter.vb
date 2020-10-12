@@ -1,6 +1,6 @@
 ﻿Public Class toiter
     Private _ilmethod As ilformat._ilmethodcollection
-    Private counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel As String
+    Private counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -11,6 +11,11 @@
         'Create a flag variable for [TO] iter
         set_flag_loop(_illocalinit, clinecodestruc)
         endbranchlabel = lngen.get_line_prop("toexit")
+
+        increasebranchlabel = lngen.get_line_prop("toincr")
+
+        'Set up Continue , Break statement
+        stjmper.set_new_jmper(tokenhared.token.TO, endbranchlabel, increasebranchlabel)
 
         'Create & Set lebel for [TO] header
         headerbranchlabel = lngen.set_label("toheader", _ilmethod.codes)
@@ -36,10 +41,11 @@
         'Set exit TO label 
         lngen.set_direct_label(endbranchlabel, _ilmethod.codes)
 
+        stjmper.reset_jmper(tokenhared.token.TO)
         Return _ilmethod
     End Function
-
     Private Sub increase_counter()
+        lngen.set_direct_label(increasebranchlabel, _ilmethod.codes)
         cil.load_local_variable(_ilmethod.codes, counterflag)
         cil.push_int32_onto_stack(_ilmethod.codes, 1)
         cil.add(_ilmethod.codes)
