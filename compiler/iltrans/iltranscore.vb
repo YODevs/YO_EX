@@ -70,6 +70,8 @@
                 jmp.jmp_statement(clinecodestruc, _ilmethod)
             Case tokenhared.token.CONTINUE
                 stjmper.continue_jmper(clinecodestruc, _ilmethod)
+            Case tokenhared.token.BREAK
+                stjmper.break_jmper(clinecodestruc, _ilmethod)
             Case Else
                 'Set error
         End Select
