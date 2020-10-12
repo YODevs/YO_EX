@@ -5,6 +5,7 @@
         LABELJMP
         JMP
         [CONTINUE]
+        BREAK
     End Enum
 
     Structure syntaxtypesloader
@@ -37,6 +38,8 @@
         st_jmp()
         'Set Continue Statement
         st_continue()
+        'Set Break Statement
+        st_break()
     End Sub
 
     Private Shared Sub st_continue()
@@ -45,6 +48,13 @@
         add_token(exptokenslist, tokenhared.token.TO)
 
         set_syntax_loader(statements.CONTINUE, "Continue Statement", exptokenslist)
+    End Sub
+    Private Shared Sub st_break()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.BREAK)
+        add_token(exptokenslist, tokenhared.token.TO)
+
+        set_syntax_loader(statements.BREAK, "Break Statement", exptokenslist)
     End Sub
     Private Shared Sub st_to()
         Dim exptokenslist As New ArrayList
