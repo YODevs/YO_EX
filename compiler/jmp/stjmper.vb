@@ -30,9 +30,18 @@
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.CONTINUE)
         Dim getindex As Integer = find_statement(clinecodestruc(1).tokenid)
         If getindex = -1 Then
-            dserr.new_error(conserr.errortype.CONTINUERROR, clinecodestruc(0).line, path, "Continue statement not within a loop." & vbCrLf & authfunc.get_line_error(path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+            dserr.new_error(conserr.errortype.CONTINUEERROR, clinecodestruc(0).line, path, "Continue statement not within a loop." & vbCrLf & authfunc.get_line_error(path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
         End If
         cil.branch_to_target(_ilmethod.codes, jmpslist(getindex).startblockln)
+    End Sub
+
+    Public Shared Sub break_jmper(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+        syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.BREAK)
+        Dim getindex As Integer = find_statement(clinecodestruc(1).tokenid)
+        If getindex = -1 Then
+            dserr.new_error(conserr.errortype.BREAKERROR, clinecodestruc(0).line, path, "Break statement not within a loop." & vbCrLf & authfunc.get_line_error(path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+        End If
+        cil.branch_to_target(_ilmethod.codes, jmpslist(getindex).endblockln)
     End Sub
 
     Public Shared Sub reset_jmper(tokenid As tokenhared.token)
