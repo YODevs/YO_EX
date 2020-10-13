@@ -9,4 +9,6 @@
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
     Friend Const DISPLAYTOKENWLEX As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
+    Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
+pop"
 End Class
