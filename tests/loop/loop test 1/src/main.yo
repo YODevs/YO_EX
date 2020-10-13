@@ -1,0 +1,23 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+
+func main()
+{
+let i : i32 = 0
+to(5)
+{
+loop{
+i := [i + 1]
+<
+ldloc.0
+call void [mscorlib]System.Console::WriteLine(int32)
+>
+break loop
+}
+}
+
+<
+call string [mscorlib]System.Console::ReadLine()
+pop
+>
+}
