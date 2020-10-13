@@ -3,7 +3,7 @@
     Friend Shared expressionact() As String = {"+", "-", "/", "*"}
     Friend Shared expressionactopt() As String = {"add", "sub", "div", "mul"}
     Friend Shared errcap() As String = {"Error:", "error code="}
-    Friend Shared blockopallow() As tokenhared.token = {tokenhared.token.TO}
+    Friend Shared blockopallow() As tokenhared.token = {tokenhared.token.TO, tokenhared.token.LOOP}
     Friend Const FLAGPERFIX As String = "YO_Flag_"
     Friend Const YOMAINCLASS As String = "YO_Main"
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
