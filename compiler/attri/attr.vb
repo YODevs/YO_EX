@@ -11,7 +11,7 @@ Public Class attr
         setinattr.init(attribute)
     End Sub
 
-    Public Function parse_attribute(expression As String, linecinf As lexer.targetinf) As yocaattribute.yoattribute
+    Public Sub parse_attribute(expression As String, linecinf As lexer.targetinf)
         lastexpression = expression
         lastlinecinf = linecinf
         If Regex.IsMatch(expression, "\#\[\w+::\w+\(.+\)\]") Then
@@ -21,7 +21,7 @@ Public Class attr
             'Set error
             dserr.new_error(conserr.errortype.ATTRIBUTESTRUCTERROR, linecinf.line, path, authfunc.get_line_error(path, linecinf, lastexpression), "#[cfg::CIL(true)]")
         End If
-    End Function
+    End Sub
 
     Private Function get_properties(expression As String) As yocaattribute.resultattribute
         Dim resultattr As New yocaattribute.resultattribute
@@ -57,6 +57,8 @@ Public Class attr
         Select Case resultattr.fieldattribute.ToLower
             Case "classname"
                 attribute._app._classname = setinattr.get_str_val(resultattr, path)
+            Case "wait"
+                attribute._app._wait = setinattr.get_bool_val(resultattr, path)
             Case Else
                 'Set Error
                 dserr.args.Add(resultattr.fieldattribute)
