@@ -36,10 +36,10 @@
         stjmper.reset_method(path)
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
-            clinecodestruc = xmldata.get_line_tokens()
-            rev_cline_code(clinecodestruc, _ilmethod)
+                clinecodestruc = xmldata.get_line_tokens()
+                rev_cline_code(clinecodestruc, _ilmethod)
         End While
-        If (_illocalinit(_illocalinit.Length - 1).name = Nothing) Then
+        If (_illocalinit.Length > 0 AndAlso _illocalinit(_illocalinit.Length - 1).name = Nothing) Then
             Array.Resize(_illocalinit, _illocalinit.Length - 1)
         End If
         _ilmethod.locallinit = _illocalinit 'exc no local init
@@ -64,6 +64,9 @@
             Case tokenhared.token.TO
                 Dim toit As New toiter(_ilmethod)
                 _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.LOOP
+                Dim infinityloop As New infloop(_ilmethod)
+                _ilmethod = infinityloop.set_infinity_loop(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.LABELJMP
                 jmp.set_label(clinecodestruc, _ilmethod)
             Case tokenhared.token.JMP
