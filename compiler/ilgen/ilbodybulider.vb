@@ -72,6 +72,11 @@
         imp_cil_code.import_test_code(funcdt)
 
         imp_body(funcdt)
+
+        If funcdt.entrypoint AndAlso attribute._app._wait Then
+            set_wait_attribute()
+        End If
+
         add_il_code("ret")
         add_en_block()
     End Sub
@@ -129,4 +134,7 @@
         msilsource &= vbCrLf & code
     End Sub
 
+    Public Sub set_wait_attribute()
+        add_il_code(compdt.WAITILCODE)
+    End Sub
 End Class
