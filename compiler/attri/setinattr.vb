@@ -4,7 +4,8 @@
         yoattr._cfg._cilinject = False
         yoattr._cfg._optimize_expression = True
 
-        yoattr._app._classname = compdt.yomainclass
+        yoattr._app._classname = compdt.YOMAINCLASS
+        yoattr._app._wait = False
     End Sub
 
     Public Shared Function get_bool_val(yoattr As yocaattribute.resultattribute, path As String) As Boolean
