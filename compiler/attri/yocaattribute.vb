@@ -9,6 +9,7 @@
 
     Structure app
         Dim _classname As String
+        Dim _wait As Boolean
     End Structure
     Structure yoattribute
         Dim _cfg As cfg
