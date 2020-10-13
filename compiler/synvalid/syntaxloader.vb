@@ -6,6 +6,7 @@
         JMP
         [CONTINUE]
         BREAK
+        [LOOP]
     End Enum
 
     Structure syntaxtypesloader
@@ -40,21 +41,32 @@
         st_continue()
         'Set Break Statement
         st_break()
+        'Inifinity Loop
+        st_loop()
     End Sub
 
     Private Shared Sub st_continue()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.CONTINUE)
-        add_token(exptokenslist, tokenhared.token.TO)
+        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP)
 
         set_syntax_loader(statements.CONTINUE, "Continue Statement", exptokenslist)
     End Sub
     Private Shared Sub st_break()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.BREAK)
-        add_token(exptokenslist, tokenhared.token.TO)
+        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP)
 
         set_syntax_loader(statements.BREAK, "Break Statement", exptokenslist)
+    End Sub
+    Private Shared Sub st_loop()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.LOOP)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+
+        set_syntax_loader(statements.LOOP, "Loop Statement", exptokenslist, "loop{
+...
+}")
     End Sub
     Private Shared Sub st_to()
         Dim exptokenslist As New ArrayList
