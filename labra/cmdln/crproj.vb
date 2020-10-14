@@ -69,9 +69,6 @@ Public Class crproj
         key.Add("assemblyname")
         value.Add(proj.assemblyname)
 
-        key.Add("path")
-        value.Add(conrex.ENVCURDIR & "\" & proj.assemblyname)
-
         key.Add("outputtype")
         value.Add(proj.typeproject)
 
