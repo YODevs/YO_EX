@@ -37,6 +37,8 @@ Public Class crproj
             Directory.CreateDirectory(path & "\target\debug")
             Directory.CreateDirectory(path & "\target\release")
             Directory.CreateDirectory(path & "\src")
+            Directory.CreateDirectory(path & "\assets")
+
             File.WriteAllText(path & "\src\main.yo", conrex.MAINDEFCODE)
 
             File.WriteAllText(path & "\labra.yoda", get_labra_setting())
@@ -74,6 +76,9 @@ Public Class crproj
 
         key.Add("sourcepath")
         value.Add("\src")
+
+        key.Add("assetspath")
+        value.Add("\assets")
 
         Return yoda.WriteYODA_Map(key, value, True)
     End Function
