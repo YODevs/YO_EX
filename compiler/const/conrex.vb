@@ -13,6 +13,7 @@
     Public Shared APPDIR As String = My.Application.Info.DirectoryPath
     Public Shared ENVCURDIR As String = Environment.CurrentDirectory
     Public Const YOFORMAT As String = ".yo"
+    Public Const DNLIBFORMAT As String = ".dll"
     Public Const NULL As String = Nothing
     Public Const SPACE As Char = " "
     Public Const DOT As Char = "."
