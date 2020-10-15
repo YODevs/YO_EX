@@ -24,7 +24,15 @@ Public Class cprojflow
         If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("sourcepath")) = False Then
             'set error
         End If
+
+        If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("assetspath")) = False Then
+            'set error
+        End If
+
         procresult.rs_set_result(True)
+
+        libreg.init_libraries(conrex.ENVCURDIR & cproj.get_val("assetspath"))
+
         impfiles.import_directory(conrex.ENVCURDIR & cproj.get_val("sourcepath"))
     End Sub
 
