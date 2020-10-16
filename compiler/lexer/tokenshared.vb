@@ -26,7 +26,7 @@
         _token.Add(token.FALSE, "false")
         _token.Add(token.TRUE, "true")
         _token.Add(token.JMP, "jmp")
-
+        _token.Add(token.EXTERN, "extern")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -184,5 +184,6 @@
         BLOCKOP = 65
         LABELJMP = 66
         JMP = 67
+        EXTERN = 68
     End Enum
 End Class
