@@ -8,6 +8,7 @@ Public Class libreg
     Friend Shared _externinf() As _extern_info
     Public Structure _extern_info
         Dim name As String
+        Dim asmname As String
         Dim fullname As String
         Dim msnamespace As String
         Dim location As String
@@ -36,8 +37,10 @@ Public Class libreg
         Static Dim indexarray As Int16 = 0
         For Each asmtype In asm.GetTypes()
             Array.Resize(_externinf, indexarray + 1)
+            externinfindex.add(asmtype.Name, indexarray)
             _externinf(indexarray) = New _extern_info
             _externinf(indexarray).name = asmtype.Name
+            _externinf(indexarray).asmname = asm.GetName.Name
             _externinf(indexarray).fullname = asmtype.FullName
             _externinf(indexarray).msnamespace = asmtype.Namespace
             _externinf(indexarray).location = asm.Location
