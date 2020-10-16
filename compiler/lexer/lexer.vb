@@ -193,6 +193,7 @@ Public Class lexer
         tknfmtclass = fmtdata._to_organize()
         tknfmtclass.location = sfile
         tknfmtclass.attribute = attribute.get_attribute()
+        tknfmtclass.externlist = fmtdata.externlist
         authfunc.set_name_token_format(tknfmtclass)
 
         procresult.rs_proc_data(True)
