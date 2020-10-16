@@ -7,6 +7,7 @@
     Public xmethods(0) As tknformat._method
     Dim funcstate As funcstatecursor
     Dim parastate As funcparastate
+    Public externlist As ArrayList
     Public Sub New(file As String)
         tknfmt = New tknformat
         sourceloc = file
@@ -15,6 +16,7 @@
         parastate = funcparastate.WAITFORSTARTBRACKET
         xmethods(0) = New tknformat._method
         xclass(0) = New tknformat._class
+        externlist = New ArrayList
     End Sub
 
     Enum statecursor
@@ -46,11 +48,24 @@
             Select Case rd_token
                 Case tokenhared.token.FUNC
                     _rev_func(value, rd_token, linecinf)
+                Case tokenhared.token.EXTERN
+                    state = statecursor.INIMPORTS
             End Select
 
         ElseIf state = statecursor.INFUNC Then
             _rev_func(value, rd_token, linecinf)
+        ElseIf state = statecursor.INIMPORTS Then
+            _rev_extern(value, rd_token, linecinf)
         End If
+    End Sub
+
+    Private Sub _rev_extern(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
+        If rd_token = tokenhared.token.IDENTIFIER Then
+            externlist.Add(value)
+        Else
+            dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "extern mylib")
+        End If
+        state = statecursor.OUT
     End Sub
     Private Sub _rev_func(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         Static Dim i As Integer = 0
