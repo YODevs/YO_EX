@@ -8,6 +8,7 @@
         Dim location As String
         Dim methods() As _method
         Dim attribute As yocaattribute.yoattribute
+        Dim externlist As ArrayList
     End Structure
 
     Structure _method
