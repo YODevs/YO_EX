@@ -33,6 +33,7 @@
         JMPERROR
         CONTINUEERROR
         BREAKERROR
+        PROJECTSTRUCTERROR
     End Enum
 
     Enum errorpriority
@@ -96,5 +97,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.JMPERROR, errorpriority.STOP, "Jump statement error", "An error occurred in the Jump Statement.")
         set_new_error(errortype.CONTINUEERROR, errorpriority.STOP, "Continue statement error", "An error occurred in the Continue Statement.")
         set_new_error(errortype.BREAKERROR, errorpriority.STOP, "Break statement error", "An error occurred in the Break Statement.")
+        set_new_error(errortype.PROJECTSTRUCTERROR, errorpriority.STOP, "Project structure error", "'{0}' path not found.")
     End Sub
 End Class
