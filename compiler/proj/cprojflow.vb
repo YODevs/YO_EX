@@ -22,11 +22,13 @@ Public Class cprojflow
         procresult.rs_set_result(True)
         procresult.rp_init("Check the path of project files")
         If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("sourcepath")) = False Then
-            'set error
+            dserr.args.Add("\src")
+            dserr.new_error(conserr.errortype.PROJECTSTRUCTERROR, -1, Nothing)
         End If
 
         If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("assetspath")) = False Then
-            'set error
+            dserr.args.Add("\assets")
+            dserr.new_error(conserr.errortype.PROJECTSTRUCTERROR, -1, Nothing)
         End If
 
         procresult.rs_set_result(True)
