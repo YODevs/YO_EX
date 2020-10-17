@@ -37,7 +37,6 @@ Public Class libreg
         Static Dim indexarray As Int16 = 0
         For Each asmtype In asm.GetTypes()
             Array.Resize(_externinf, indexarray + 1)
-            externinfindex.add(asmtype.Name, indexarray)
             _externinf(indexarray) = New _extern_info
             _externinf(indexarray).name = asmtype.Name
             _externinf(indexarray).asmname = asm.GetName.Name
