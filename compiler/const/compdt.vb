@@ -8,6 +8,7 @@
     Friend Const YOMAINCLASS As String = "YO_Main"
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
     Friend Const DISPLAYTOKENWLEX As Boolean = False
+    Friend Const DISPLAYSTACKTRACE As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
