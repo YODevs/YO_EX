@@ -20,7 +20,11 @@
                 parseargs.parse_data(argsval)
             End If
         Catch ex As Exception
-            dserr.new_error(conserr.errortype.RUNTIMEERROR, -1, Nothing, ex.Message & vbCrLf & ex.StackTrace)
+            If compdt.DISPLAYSTACKTRACE Then
+                dserr.new_error(conserr.errortype.RUNTIMEERROR, -1, Nothing, ex.Message & vbCrLf & ex.StackTrace)
+            Else
+                dserr.new_error(conserr.errortype.RUNTIMEERROR, -1, Nothing, ex.Message)
+            End If
         End Try
     End Sub
 
