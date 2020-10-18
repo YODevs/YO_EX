@@ -4,6 +4,7 @@
         yoattr._cfg._cilinject = False
         yoattr._cfg._optimize_expression = True
 
+        yoattr._app._namespace = Nothing
         yoattr._app._classname = compdt.YOMAINCLASS
         yoattr._app._wait = False
     End Sub
