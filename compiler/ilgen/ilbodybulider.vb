@@ -107,7 +107,11 @@
     End Sub
     Private Sub imp_module(name As String)
         'check name
-        add_il_code(".class public auto ansi sealed " & name)
+        If attribute._app._namespace <> String.Empty Then
+            add_il_code(".class public auto ansi sealed " & attribute._app._namespace & conrex.DOT & name)
+        Else
+            add_il_code(".class public auto ansi sealed " & name)
+        End If
         add_st_block()
     End Sub
 
