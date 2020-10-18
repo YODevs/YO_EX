@@ -8,6 +8,7 @@
     End Structure
 
     Structure app
+        Dim _namespace As String
         Dim _classname As String
         Dim _wait As Boolean
     End Structure
