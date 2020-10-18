@@ -63,7 +63,7 @@ Public Class lexer
         For index = 0 To fsourcelen
             getch = fsource(index)
 
-            If chstatusaction = targetaction.NOOPERATION AndAlso check_target_action(getch, index, chstatusaction) Then
+            If chstatusaction = targetaction.NOOPERATION AndAlso check_target_action(getch, index, chstatusaction, linecinf.line) Then
                 slinegrab = String.Empty
                 linecinf.lstart = index
                 strline = linecinf.line
@@ -466,7 +466,7 @@ Public Class lexer
         End If
         Return False
     End Function
-    Public Function check_target_action(getch As Char, index As Integer, ByRef chstatus As lexer.targetaction) As Boolean
+    Public Function check_target_action(getch As Char, index As Integer, ByRef chstatus As lexer.targetaction, line As Integer) As Boolean
         Select Case getch
             Case "#"
                 Select Case nextchar(index)
@@ -490,9 +490,12 @@ Public Class lexer
                 chstatus = targetaction.DUCOSTRINGLOADER
                 Return True
             Case conrex.BTRIG
-                If pervchar(index) = Chr(10) Then
+                Dim getline As String = authfunc.get_line_code(sfile, line + 1).Trim
+                If getline.StartsWith(conrex.BTRIG) Then
                     chstatus = targetaction.CILCOMMANDSLOADER
                     Return True
+                Else
+                    Return False
                 End If
         End Select
         chstatus = targetaction.NOOPERATION
