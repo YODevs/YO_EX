@@ -1,0 +1,11 @@
+#[app::namespace("ClassTest")]
+#[app::classname("Class4")]
+#[cfg::CIL(true)]
+
+func print()
+{
+<
+ldstr "Test 4 ..."
+call void [mscorlib]System.Console::WriteLine(string)
+>
+}

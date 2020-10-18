@@ -1,0 +1,11 @@
+#[app::namespace("MainCore")]
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+
+func main()
+{
+<
+  ldstr "Hello World !"
+  call void [mscorlib]System.Console::WriteLine(string)
+>
+}
