@@ -6,24 +6,36 @@
         Dim keys As ArrayList
         Dim values As ArrayList
     End Structure
-    Public Function WriteYODA(items As ArrayList) As String
+    Public Function WriteYODA(items As ArrayList, Optional compress As Boolean = True) As String
         Dim countOfItems As Integer = items.Count - 1
         If countOfItems = -1 Then Return "![]"
         Dim YODA_Format As String = "!["
         Dim item As String = String.Empty
+        If compress = False Then
+            YODA_Format &= vbCrLf
+        End If
         For index = 0 To countOfItems
             item = items(index)
             Replace_Unique_Char(item)
             If index <> countOfItems Then
-                YODA_Format &= """" & item & ""","
+                If compress Then
+                    YODA_Format &= """" & item & ""","
+                Else
+                    YODA_Format &= """" & item & """   ," & vbCrLf
+                End If
             Else
-                YODA_Format &= """" & item & """]"
+                If compress Then
+                    YODA_Format &= """" & item & """]"
+                Else
+                    YODA_Format &= """" & item & """" & vbCrLf & "]"
+                End If
+
             End If
         Next
         Return YODA_Format
     End Function
 
-    Public Function WriteYODA_Map(keys As ArrayList, values As ArrayList) As String
+    Public Function WriteYODA_Map(keys As ArrayList, values As ArrayList, Optional compress As Boolean = True) As String
         Dim countOfItems As Integer = keys.Count - 1
         If countOfItems = -1 Then Return "![]"
         If keys.Count <> values.Count Then Throw New Exception("The keys and values are not equal.")
@@ -31,15 +43,27 @@
         Dim key As String = String.Empty
         Dim value As String = String.Empty
 
+        If compress = False Then
+            YODA_Format &= vbCrLf
+        End If
+
         For index = 0 To countOfItems
             key = keys(index)
             value = values(index)
             Replace_Unique_Char(key)
             Replace_Unique_Char(value)
             If index <> countOfItems Then
-                YODA_Format &= """" & key & """=""" & value & ""","
+                If compress Then
+                    YODA_Format &= """" & key & """=""" & value & ""","
+                Else
+                    YODA_Format &= """" & key & """   =   """ & value & """   ," & vbCrLf
+                End If
             Else
-                YODA_Format &= """" & key & """=""" & value & """]"
+                If compress Then
+                    YODA_Format &= """" & key & """=""" & value & """]"
+                Else
+                    YODA_Format &= """" & key & """   =   """ & value & """   " & vbCrLf & "]"
+                End If
             End If
         Next
         Return YODA_Format
@@ -109,6 +133,9 @@
                 End If
             End If
             item &= YODA_F(index)
+            If item.StartsWith(cotStarter) = False Then
+                item = item.Trim
+            End If
             If item.Length > 1 AndAlso item.StartsWith(cotStarter) AndAlso item.EndsWith(cotStarter) Then
                 item = item.Remove(0, 1)
                 item = item.Remove(item.Length - 1)
@@ -156,11 +183,13 @@
                 End If
             End If
             item &= YODA_F(index)
+            If item.StartsWith(cotStarter) = False Then
+                item = item.Trim
+            End If
             If item.Length > 1 AndAlso item.StartsWith(cotStarter) AndAlso item.EndsWith(cotStarter) Then
                 item = item.Remove(0, 1)
                 item = item.Remove(item.Length - 1)
                 Return_Unique_Char(item)
-
                 If setKeys Then
                     items.keys.Add(item)
                     setKeys = False
@@ -172,7 +201,6 @@
                 nextItem = True
             End If
         Next
-
         If items.keys.Count <> items.values.Count Then Throw New Exception("The keys and values are not equal.")
         Return items
     End Function
