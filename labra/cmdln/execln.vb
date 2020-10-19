@@ -122,7 +122,7 @@ You can type 'Help' to view commands.")
         yodaf.values.Insert(propertyindex + 1, propertyvalue)
         yodaf.values.RemoveAt(propertyindex)
 
-        File.WriteAllText(conrex.ENVCURDIR & "\labra.yoda", yoda.WriteYODA_Map(yodaf.keys, yodaf.values))
+        File.WriteAllText(conrex.ENVCURDIR & "\labra.yoda", yoda.WriteYODA_Map(yodaf.keys, yodaf.values, False))
 
         Dim peconsolecolor As Int16 = Console.ForegroundColor
         Console.ForegroundColor = System.ConsoleColor.DarkGreen

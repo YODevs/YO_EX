@@ -42,7 +42,6 @@ Public Class crproj
             File.WriteAllText(path & "\src\main.yo", conrex.MAINDEFCODE)
 
             File.WriteAllText(path & "\labra.yoda", get_labra_setting())
-            '            yoda.ReadYODA_Map(get_labra_setting())
             Console.Clear()
             Dim peconsolecolor As Int16 = Console.ForegroundColor
             Console.ForegroundColor = System.ConsoleColor.DarkGreen
@@ -80,7 +79,7 @@ Public Class crproj
         key.Add("assetspath")
         value.Add("\assets")
 
-        Return yoda.WriteYODA_Map(key, value, True)
+        Return yoda.WriteYODA_Map(key, value, False)
     End Function
 
     Private Function get_assembly_name() As String
