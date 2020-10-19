@@ -76,7 +76,7 @@
             Case tokenhared.token.BREAK
                 stjmper.break_jmper(clinecodestruc, _ilmethod)
             Case Else
-                'Set error
+                dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(0).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
         End Select
     End Sub
 
