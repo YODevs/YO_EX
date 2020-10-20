@@ -1,4 +1,5 @@
 ﻿Public Class execln
+    Friend Shared argstorelist As liststoredata
     Friend Shared Sub nv_check_command(result As parseargs._parseresult)
         If result.command = Nothing Or result.command = conrex.SPACE Then
             Return
@@ -18,6 +19,7 @@
             Return
         End If
 
+        argstorelist = New liststoredata
         Dim cmdexeclninstance As New execln
         If cmdlnproc.cmd(getindex).withargs = False Then
             CallByName(cmdexeclninstance, "rp_" & result.command, CallType.Method, Nothing)
@@ -43,13 +45,15 @@ You can type 'Help' to view commands.")
         Console.Write(conrex.VER)
     End Sub
 
-    Public Sub rp_build()
+    Public Sub rp_build(args As ArrayList)
         procresult.set_state("init")
+        argstorelist.import_collection(args)
         Dim projflow As New cprojflow()
         projflow.start_project_flow()
+        If argstorelist.find(compdt.PARAM_IMPASSETS) Then impassets.copy_assets()
     End Sub
-    Public Sub rp_run()
-        rp_build()
+    Public Sub rp_run(args As ArrayList)
+        rp_build(args)
         If ilasmconv.result Then
             Console.WriteLine("Launching and running compiled output [" & compdt.RUNCMDDELAY & "ms] ...")
             Threading.Thread.Sleep(compdt.RUNCMDDELAY)
