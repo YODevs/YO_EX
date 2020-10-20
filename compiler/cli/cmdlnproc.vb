@@ -39,7 +39,7 @@
         set_new_command(cmdtype.TEST, "test")
         set_new_command(cmdtype.EXIT, "exit")
         set_new_command(cmdtype.VERSION, "version")
-        set_new_command(cmdtype.BUILD, "build", False)
-        set_new_command(cmdtype.RUN, "run", False)
+        set_new_command(cmdtype.BUILD, "build", True, 1)
+        set_new_command(cmdtype.RUN, "run", True, 1)
     End Sub
 End Class
