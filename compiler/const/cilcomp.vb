@@ -5,6 +5,11 @@ Public Class cilcomp
     Friend Shared ext As String = ".exe"
     Private Shared prnum As Int16 = 562
     Private Shared optilfile As String = String.Empty
+
+    Friend Shared Function get_assets_loca() As String
+        Dim loca As String = conrex.ENVCURDIR & cprojdt.get_val("assetspath") & "\"
+        Return loca
+    End Function
     Friend Shared Function get_il_loca() As String
         Dim getrandom As New Random
         check_route()
@@ -27,6 +32,12 @@ Public Class cilcomp
         Return loca
     End Function
 
+    Friend Shared Function get_output_loca_without_extension() As String
+        set_extension_loca()
+        Dim loca As String = optilfile
+        loca = loca.Remove(loca.LastIndexOf("\"))
+        Return loca
+    End Function
     Friend Shared Sub check_route()
         If Directory.Exists(conrex.ENVCURDIR & "\target\debug") = False Then
             Directory.CreateDirectory(conrex.ENVCURDIR & "\target\debug")
