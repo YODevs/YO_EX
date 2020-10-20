@@ -12,4 +12,5 @@
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
+    Friend Const PARAM_IMPASSETS As String = "--import_assets"
 End Class
