@@ -38,7 +38,7 @@ Public Class cprojflow
         impfiles.import_directory(conrex.ENVCURDIR & cproj.get_val("sourcepath"))
     End Sub
 
-    Private Sub load_cproj_data()
+    Public Sub load_cproj_data()
         Dim getlabrasetting As String = File.ReadAllText(conrex.ENVCURDIR & "\labra.yoda")
         Dim labradt As YODA_Format.YODAMapFormat = yodagen.ReadYODA_Map(getlabrasetting)
         cproj = New cprojdt(labradt)
