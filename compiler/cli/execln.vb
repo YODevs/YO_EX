@@ -44,7 +44,12 @@ You can type 'Help' to view commands.")
     Public Sub rp_version()
         Console.Write(conrex.VER)
     End Sub
-
+    Public Sub rp_import()
+        Dim projflow As New cprojflow()
+        projflow.load_cproj_data()
+        cilcomp.get_il_loca()
+        impassets.copy_assets()
+    End Sub
     Public Sub rp_build(args As ArrayList)
         procresult.set_state("init")
         argstorelist.import_collection(args)
