@@ -55,7 +55,7 @@ You can type 'Help' to view commands.")
         argstorelist.import_collection(args)
         Dim projflow As New cprojflow()
         projflow.start_project_flow()
-        If argstorelist.find(compdt.PARAM_IMPASSETS) Then impassets.copy_assets()
+        If argstorelist.find(compdt.PARAM_IMPASSETS, True) Then impassets.copy_assets()
     End Sub
     Public Sub rp_run(args As ArrayList)
         rp_build(args)
