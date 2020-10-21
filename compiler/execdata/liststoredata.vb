@@ -16,7 +16,10 @@
         items.Add(value)
     End Sub
 
-    Public Function find(value As String) As Boolean
+    Public Function find(value As String, Optional toloweritem As Boolean = False) As Boolean
+        If toloweritem Then
+            Return find_tolower_item(value)
+        End If
         Dim endpoint As Integer = items.Count - 1
         Dim result As New dataresult
         result.issuccessful = False
@@ -28,6 +31,18 @@
         Return False
     End Function
 
+    Private Function find_tolower_item(value As String) As Boolean
+        Dim endpoint As Integer = items.Count - 1
+        Dim result As New dataresult
+        result.issuccessful = False
+        value = value.ToLower
+        For index = 0 To endpoint
+            If items(index).ToString.ToLower = value Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
     Public Function contains_item(value As String) As dataresult
         Dim endpoint As Integer = items.Count - 1
         Dim result As New dataresult
