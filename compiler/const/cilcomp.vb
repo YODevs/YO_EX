@@ -33,7 +33,6 @@ Public Class cilcomp
     End Function
 
     Friend Shared Function get_output_loca_without_extension() As String
-        set_extension_loca()
         Dim loca As String = optilfile
         loca = loca.Remove(loca.LastIndexOf("\"))
         Return loca
