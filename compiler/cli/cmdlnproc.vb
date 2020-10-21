@@ -5,6 +5,7 @@
         VERSION
         BUILD
         RUN
+        IMPORT
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -41,5 +42,6 @@
         set_new_command(cmdtype.VERSION, "version")
         set_new_command(cmdtype.BUILD, "build", True, 1)
         set_new_command(cmdtype.RUN, "run", True, 1)
+        set_new_command(cmdtype.IMPORT, "import")
     End Sub
 End Class
