@@ -18,7 +18,7 @@ Public Class cilcomp
             prnum = getrandom.Next(0, 30000)
             loca &= "release\" & prnum & cprojdt.get_val("assemblyname") & ".il"
         Else
-            '...
+            loca &= "debug\" & prnum & cprojdt.get_val("assemblyname") & ".il"
         End If
         optilfile = loca
         Return loca
