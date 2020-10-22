@@ -40,8 +40,8 @@
         set_new_command(cmdtype.TEST, "test")
         set_new_command(cmdtype.EXIT, "exit")
         set_new_command(cmdtype.VERSION, "version")
-        set_new_command(cmdtype.BUILD, "build", True, 1)
-        set_new_command(cmdtype.RUN, "run", True, 1)
+        set_new_command(cmdtype.BUILD, "build", True, 2)
+        set_new_command(cmdtype.RUN, "run", True, 2)
         set_new_command(cmdtype.IMPORT, "import")
     End Sub
 End Class
