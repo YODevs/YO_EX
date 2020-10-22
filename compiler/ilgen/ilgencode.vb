@@ -38,6 +38,7 @@ Public Class ilgencode
         procresult.set_state("asm")
         procresult.rp_asm("Preparation of prerequisites and parameters")
         Dim ilasmparameter As New ilasmparam
+        check_debug_state(ilasmparameter)
         coutputdata.write_file_data("msil_source.il", source)
         Dim path As String = cilcomp.get_il_loca()
         File.WriteAllText(path, source)
@@ -51,5 +52,18 @@ Public Class ilgencode
     End Sub
     Private Sub import_il_gen_code(codes As String)
         source &= codes & vbCrLf & vbCrLf
+    End Sub
+
+    Private Sub check_debug_state(ByRef ilasmparameter As ilasmparam)
+        If execln.argstorelist.find(compdt.PARAM_DEBUG, True) Then
+            cilcomp.debug = True
+            ilasmparameter.add_param("/DEBUG")
+        ElseIf execln.argstorelist.find(compdt.PARAM_DEBUG_IMPL, True) Then
+            cilcomp.debug = True
+            ilasmparameter.add_param("/DEBUG", "IMPL")
+        ElseIf execln.argstorelist.find(compdt.PARAM_DEBUG_OPT, True) Then
+            cilcomp.debug = True
+            ilasmparameter.add_param("/DEBUG", "OPT")
+        End If
     End Sub
 End Class
