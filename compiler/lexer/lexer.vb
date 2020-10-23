@@ -329,7 +329,6 @@ Public Class lexer
 
             Case rev_sym(linec, linecinf)
 
-          '  Case rev_func(linec, linecinf)
             Case rev_cil_code_block(linec)
 
             Case rev_numeric(linec, linecinf)
@@ -380,7 +379,6 @@ Public Class lexer
     End Function
 
     Private Function rev_keywords(ByRef value As String, ByRef linecinf As targetinf) As Boolean
-
         If value.StartsWith(conrex.DLR) Then
             rd_token = tokenhared.token.LABELJMP
             Return True
