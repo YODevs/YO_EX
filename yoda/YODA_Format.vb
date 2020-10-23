@@ -1,5 +1,14 @@
 ﻿Public Class YODA_Format
 
+#Region "const"
+    Private Const YODA_EMP As String = "![]"
+    Private Const DBCOT As String = """"
+    Private Const SGCOT As String = "'"
+    Private Const SPACE As String = " "
+    Private Const CMA As String = ","
+    Private Const ST_YODA As String = "!["
+    Private Const EN_YODA As String = "]"
+#End Region
     Public Sub New()
     End Sub
     Public Structure YODAMapFormat
@@ -8,8 +17,8 @@
     End Structure
     Public Function WriteYODA(items As ArrayList, Optional compress As Boolean = True) As String
         Dim countOfItems As Integer = items.Count - 1
-        If countOfItems = -1 Then Return "![]"
-        Dim YODA_Format As String = "!["
+        If countOfItems = -1 Then Return YODA_EMP
+        Dim YODA_Format As String = ST_YODA
         Dim item As String = String.Empty
         If compress = False Then
             YODA_Format &= vbCrLf
@@ -19,15 +28,15 @@
             Replace_Unique_Char(item)
             If index <> countOfItems Then
                 If compress Then
-                    YODA_Format &= """" & item & ""","
+                    YODA_Format &= DBCOT & item & DBCOT & CMA
                 Else
-                    YODA_Format &= """" & item & """   ," & vbCrLf
+                    YODA_Format &= DBCOT & item & """   ," & vbCrLf
                 End If
             Else
                 If compress Then
-                    YODA_Format &= """" & item & """]"
+                    YODA_Format &= DBCOT & item & DBCOT & EN_YODA
                 Else
-                    YODA_Format &= """" & item & """" & vbCrLf & "]"
+                    YODA_Format &= DBCOT & item & DBCOT & vbCrLf & EN_YODA
                 End If
 
             End If
@@ -37,7 +46,7 @@
 
     Public Function WriteYODA_Map(keys As ArrayList, values As ArrayList, Optional compress As Boolean = True) As String
         Dim countOfItems As Integer = keys.Count - 1
-        If countOfItems = -1 Then Return "![]"
+        If countOfItems = -1 Then Return YODA_EMP
         If keys.Count <> values.Count Then Throw New Exception("The keys and values are not equal.")
         Dim YODA_Format As String = "!!["
         Dim key As String = String.Empty
@@ -54,15 +63,15 @@
             Replace_Unique_Char(value)
             If index <> countOfItems Then
                 If compress Then
-                    YODA_Format &= """" & key & """=""" & value & ""","
+                    YODA_Format &= DBCOT & key & """=""" & value & DBCOT & CMA
                 Else
-                    YODA_Format &= """" & key & """   =   """ & value & """   ," & vbCrLf
+                    YODA_Format &= DBCOT & key & """   =   """ & value & """   ," & vbCrLf
                 End If
             Else
                 If compress Then
-                    YODA_Format &= """" & key & """=""" & value & """]"
+                    YODA_Format &= DBCOT & key & """=""" & value & DBCOT & EN_YODA
                 Else
-                    YODA_Format &= """" & key & """   =   """ & value & """   " & vbCrLf & "]"
+                    YODA_Format &= DBCOT & key & """   =   """ & value & """   " & vbCrLf & EN_YODA
                 End If
             End If
         Next
@@ -72,7 +81,7 @@
 
     Public Function WriteYODA_Map(items As ArrayList) As String
         Dim countOfItems As Integer = items.Count - 1
-        If countOfItems = -1 Then Return "![]"
+        If countOfItems = -1 Then Return YODA_EMP
         If items.Count Mod 2 <> 0 Then Throw New Exception("The keys and values are not equal.")
         Dim YODA_Format As String = "!!["
         Dim key As String = String.Empty
@@ -84,9 +93,9 @@
             Replace_Unique_Char(key)
             Replace_Unique_Char(value)
             If index + 1 <> countOfItems Then
-                YODA_Format &= """" & key & """=""" & value & ""","
+                YODA_Format &= DBCOT & key & """=""" & value & DBCOT & CMA
             Else
-                YODA_Format &= """" & key & """=""" & value & """]"
+                YODA_Format &= DBCOT & key & """=""" & value & DBCOT & EN_YODA
             End If
         Next
         Return YODA_Format
@@ -94,28 +103,28 @@
     End Function
 
     Private Sub Replace_Unique_Char(ByRef obj As String)
-        obj = obj.Replace("'", "&apos;")
-        obj = obj.Replace("""", "&quot;")
+        obj = obj.Replace(SGCOT, "&apos;")
+        obj = obj.Replace(DBCOT, "&quot;")
     End Sub
     Private Sub Return_Unique_Char(ByRef obj As String)
-        obj = obj.Replace("&apos;", "'")
-        obj = obj.Replace("&quot;", """")
+        obj = obj.Replace("&apos;", SGCOT)
+        obj = obj.Replace("&quot;", DBCOT)
     End Sub
 
     Public Function ReadYODA(YODA_F As String) As ArrayList
         YODA_F = YODA_F.Trim
         Dim item As String = String.Empty
         Dim items As New ArrayList
-        If YODA_F = String.Empty Or YODA_F = "![]" Then
+        If YODA_F = String.Empty Or YODA_F = YODA_EMP Then
             Return items
-        ElseIf YODA_F.StartsWith("![") = False Or YODA_F.EndsWith("]") = False Then
+        ElseIf YODA_F.StartsWith(ST_YODA) = False Or YODA_F.EndsWith(EN_YODA) = False Then
             Throw New Exception("The format of data markup is unclear.")
         End If
         YODA_F = YODA_F.Remove(0, 2)
         YODA_F = YODA_F.Remove(YODA_F.Length - 1).Trim
         Dim cotStarter As Char = YODA_F(0)
 
-        If cotStarter <> "'" And cotStarter <> """" Then
+        If cotStarter <> SGCOT And cotStarter <> DBCOT Then
             Throw New Exception(cotStarter & " - Starter is incomprehensible, start with a string quotation.")
         End If
 
@@ -123,9 +132,9 @@
         Dim nextItem As Boolean = False
         For index = 0 To lenOfYODA
             If nextItem Then
-                If YODA_F(index) = " " Then
+                If YODA_F(index) = SPACE Then
                     Continue For
-                ElseIf YODA_F(index) = "," Then
+                ElseIf YODA_F(index) = CMA Then
                     nextItem = False
                     Continue For
                 Else
@@ -157,14 +166,14 @@
         items.values = New ArrayList
         If YODA_F = String.Empty Or YODA_F = "!![]" Then
             Return items
-        ElseIf YODA_F.StartsWith("!![") = False Or YODA_F.EndsWith("]") = False Then
+        ElseIf YODA_F.StartsWith("!![") = False Or YODA_F.EndsWith(EN_YODA) = False Then
             Throw New Exception("The format of data markup is unclear.")
         End If
         YODA_F = YODA_F.Remove(0, 3)
         YODA_F = YODA_F.Remove(YODA_F.Length - 1).Trim
         Dim cotStarter As Char = YODA_F(0)
 
-        If cotStarter <> "'" And cotStarter <> """" Then
+        If cotStarter <> SGCOT And cotStarter <> DBCOT Then
             Throw New Exception(cotStarter & " - Starter is incomprehensible, start with a string quotation.")
         End If
 
@@ -173,9 +182,9 @@
         Dim setKeys As Boolean = True
         For index = 0 To lenOfYODA
             If nextItem Then
-                If YODA_F(index) = " " Then
+                If YODA_F(index) = SPACE Then
                     Continue For
-                ElseIf YODA_F(index) = "," Or YODA_F(index) = "=" Then
+                ElseIf YODA_F(index) = CMA Or YODA_F(index) = "=" Then
                     nextItem = False
                     Continue For
                 Else
