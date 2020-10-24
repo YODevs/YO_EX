@@ -121,11 +121,34 @@
         Select Case tokenhared.check_sym(dtassign.optval)
             Case tokenhared.token.ASSIDB
                 pv_iden_assidb(dtassign, clinecodestruc, inline, _ilmethod)
+            Case tokenhared.token.ANDEQ
+                pv_iden_andeq(dtassign, clinecodestruc, inline, _ilmethod)
             Case Else
-                dserr.new_error(conserr.errortype.OPERATORUNKNOWN, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value))
+                dserr.args.Add(dtassign.optval)
+                dserr.new_error(conserr.errortype.OPERATORUNKNOWN, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), dtassign.optval))
         End Select
     End Sub
 
+    Private Sub pv_iden_andeq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod)
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname)
+            If localvartype.issuccessful = False Then
+                'Set Error
+                dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+            End If
+
+            Select Case localvartype.result
+                Case "str"
+                    _ilmethod = optgen.assiandeq(varname, clinecodestruc(ilinc))
+                Case Else
+                    dserr.args.Add(varname & " -> " & localvartype.result)
+                    dserr.args.Add("str")
+                    dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+            End Select
+        Next
+    End Sub
     Private Sub pv_iden_assidb(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
         Dim optgen As New ilopt(_ilmethod)
         For index = 0 To dtassign.identifiers.Count - 1
