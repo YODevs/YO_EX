@@ -121,6 +121,8 @@
         Select Case tokenhared.check_sym(dtassign.optval)
             Case tokenhared.token.ASSIDB
                 pv_iden_assidb(dtassign, clinecodestruc, inline, _ilmethod)
+            Case Else
+                dserr.new_error(conserr.errortype.OPERATORUNKNOWN, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value))
         End Select
     End Sub
 
