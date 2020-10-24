@@ -146,4 +146,8 @@
     Public Shared Sub branch_to_target(ByRef codes As ArrayList, label As Object)
         codes.Add("br " & label)
     End Sub
+
+    Public Shared Sub concat_simple(ByRef codes As ArrayList)
+        codes.Add("call string [mscorlib]System.String::Concat(string, string)")
+    End Sub
 End Class
