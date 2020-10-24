@@ -34,6 +34,7 @@
         CONTINUEERROR
         BREAKERROR
         PROJECTSTRUCTERROR
+        OPERATORUNKNOWN
     End Enum
 
     Enum errorpriority
@@ -98,5 +99,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.CONTINUEERROR, errorpriority.STOP, "Continue statement error", "An error occurred in the Continue Statement.")
         set_new_error(errortype.BREAKERROR, errorpriority.STOP, "Break statement error", "An error occurred in the Break Statement.")
         set_new_error(errortype.PROJECTSTRUCTERROR, errorpriority.STOP, "Project structure error", "'{0}' path not found.")
+        set_new_error(errortype.OPERATORUNKNOWN, errorpriority.STOP, "Operator unknown", "'{0}' Could not be identified as an operator")
     End Sub
 End Class
