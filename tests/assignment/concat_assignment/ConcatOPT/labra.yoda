@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "ConcatOPT"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

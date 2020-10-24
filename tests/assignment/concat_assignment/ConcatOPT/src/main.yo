@@ -1,0 +1,17 @@
+
+#[app::classname("ConcatOPT_Class")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+let message : str = NULL
+let name : str = "Nima"
+message := "Hello "
+message &= name
+message &= "#nlWelcome to my app."
+<
+ldloc message
+call void [mscorlib]System.Console::Write(string)
+>
+}
