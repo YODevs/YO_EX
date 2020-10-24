@@ -5,6 +5,31 @@
         Me._ilmethod = ilmethod
     End Sub
 
+    Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        cil.load_local_variable(_ilmethod.codes, varname)
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_DU_STR
+                cil.load_string(_ilmethod.codes, clinecodestruc.value)
+            Case tokenhared.token.TYPE_CO_STR
+                cil.load_string(_ilmethod.codes, clinecodestruc.value)
+            Case tokenhared.token.IDENTIFIER
+                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, "string") Then
+                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
+                End If
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add("string")
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
+
+        cil.concat_simple(_ilmethod.codes)
+        cil.set_stack_local(_ilmethod.codes, varname)
+
+        Return _ilmethod
+    End Function
+
+
     Public Function assi_str(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
