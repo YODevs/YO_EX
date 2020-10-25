@@ -173,6 +173,7 @@
                 Case "i8"
                     _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int8")
                 Case "u64"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "uint64")
                 Case "u32"
                     _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "uint32")
                 Case "u16"
