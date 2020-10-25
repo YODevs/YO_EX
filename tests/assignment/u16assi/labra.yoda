@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "u16assi"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

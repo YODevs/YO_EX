@@ -1,0 +1,12 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+let age : u16 = 25
+<
+ldloc age
+call void [mscorlib]System.Console::Write(int32)
+>
+}
