@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "u8assi"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
