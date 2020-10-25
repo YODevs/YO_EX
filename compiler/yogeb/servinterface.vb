@@ -26,6 +26,23 @@
                 Else
                     cil.push_int32_onto_stack(codes, CDec(value))
                 End If
+
+            Case "uint8"
+                If CDec(value) < 0 Then
+                    dserr.args.Add(value)
+                    dserr.args.Add("u8")
+                    dserr.new_error(conserr.errortype.ERRORINCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End If
+                If CDec(value) > Byte.MaxValue Then
+                    dserr.args.Add(value)
+                    dserr.args.Add("u8")
+                    dserr.new_error(conserr.errortype.ERRORINCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                Else
+                    cil.push_int32_onto_stack(codes, CDec(value))
+                    If convtoi8 Then
+                        cil.conv_to_int64(codes)
+                    End If
+                End If
             Case "uint32"
                 If CDec(value) < 0 Then
                     dserr.args.Add(value)
