@@ -1,0 +1,13 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+let x : u64 = NULL
+x := [(5000 + 25100) * 10]
+<
+ldloc x
+call void [mscorlib]System.Console::Write(int64)
+>
+}
