@@ -7,6 +7,8 @@
         [CONTINUE]
         BREAK
         [LOOP]
+        [TRY]
+        [CATCH]
     End Enum
 
     Structure syntaxtypesloader
@@ -43,8 +45,31 @@
         st_break()
         'Inifinity Loop
         st_loop()
+        'Try Block
+        st_try()
+        'Catch Block
+        st_catch()
     End Sub
 
+    Private Shared Sub st_try()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.TRY)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+
+        set_syntax_loader(statements.TRY, "Try Statement", exptokenslist, "try{
+...
+}")
+    End Sub
+
+    Private Shared Sub st_catch()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.CATCH)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+
+        set_syntax_loader(statements.TRY, "Try Statement", exptokenslist, "try{
+...
+}")
+    End Sub
     Private Shared Sub st_continue()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.CONTINUE)
@@ -68,6 +93,7 @@
 ...
 }")
     End Sub
+
     Private Shared Sub st_to()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.TO)
