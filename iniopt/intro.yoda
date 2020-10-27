@@ -1,0 +1,48 @@
+!![
+"build" = "Compile a project and build an output (.dll, .exe, etc.).
+Usage : yoca build <options>
+*** Options ***
+--debug
+Disable JIT optimization, create PDB file, use sequence points from PDB.
+--debug_impl
+Disable JIT optimization, create PDB file, use implicit sequence points.
+--debug_opt
+Enable JIT optimization, create PDB file, use implicit sequence points.
+--import_assets
+Copy dependencies and assets from the assets folder to the output.
+--display_token
+Display and print tokens while analyzing source code (lexical analysis).
+*** Hints ***
+The Build command must be called next to labra.yoda file by the Command Prompt."
+,
+"run" = "Compile a project and execute it.
+Usage : yoca run <options>
+*** Options ***
+--debug
+Disable JIT optimization, create PDB file, use sequence points from PDB.
+--debug_impl
+Disable JIT optimization, create PDB file, use implicit sequence points.
+--debug_opt
+Enable JIT optimization, create PDB file, use implicit sequence points.
+--import_assets
+Copy dependencies and assets from the assets folder to the output.
+--display_token
+Display and print tokens while analyzing source code (lexical analysis).
+*** Hints ***
+The Run command must be called next to labra.yoda file by the Command Prompt."
+,
+"version" = "Print yoca compiler version.
+Usage : yoca version"
+,
+"test" = "Preliminary test to find out compiler performance.
+Usage : yoca test"
+,
+"exit" = "Close processes and exit the compiler.
+Usage : yoca exit"
+,
+"clean" = "Delete all files and folders in the output path (\target\release).
+Usage : yoca clean"
+,
+"import" = "Copy all dependencies into the assets folder next to the compiled output.
+Usage : yoca import"
+]
