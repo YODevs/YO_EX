@@ -57,6 +57,9 @@ You can type 'Help' to view commands.")
         cprojclean.clean_project()
     End Sub
 
+    Public Sub rp_help()
+        introcmd.show_intro()
+    End Sub
     Public Sub rp_build(args As ArrayList)
         procresult.set_state("init")
         argstorelist.import_collection(args)
