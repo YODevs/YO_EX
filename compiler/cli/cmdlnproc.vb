@@ -41,8 +41,8 @@
         set_new_command(cmdtype.TEST, "test")
         set_new_command(cmdtype.EXIT, "exit")
         set_new_command(cmdtype.VERSION, "version")
-        set_new_command(cmdtype.BUILD, "build", True, 2)
-        set_new_command(cmdtype.RUN, "run", True, 2)
+        set_new_command(cmdtype.BUILD, "build", True, 3)
+        set_new_command(cmdtype.RUN, "run", True, 3)
         set_new_command(cmdtype.IMPORT, "import")
         set_new_command(cmdtype.CLEAN, "clean")
     End Sub
