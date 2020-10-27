@@ -36,6 +36,11 @@
             End If
         End If
         Console.ForegroundColor = ConsoleColor.Red
+        Console.Write("Error Code : ")
+        Console.ForegroundColor = ConsoleColor.Gray
+        Console.WriteLine("[Err-{0}-{1}]", errtype, indexerr)
+
+        Console.ForegroundColor = ConsoleColor.Red
         Console.WriteLine("*** More Detials ***")
         Console.ForegroundColor = ConsoleColor.Gray
         Console.WriteLine(description)
