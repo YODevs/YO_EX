@@ -132,7 +132,7 @@
         Dim nextItem As Boolean = False
         For index = 0 To lenOfYODA
             If nextItem Then
-                If YODA_F(index) = SPACE Then
+                If YODA_F(index) = SPACE OrElse YODA_F(index) = vbCrLf OrElse YODA_F(index) = vbCr OrElse YODA_F(index) = vbLf Then
                     Continue For
                 ElseIf YODA_F(index) = CMA Then
                     nextItem = False
@@ -182,7 +182,7 @@
         Dim setKeys As Boolean = True
         For index = 0 To lenOfYODA
             If nextItem Then
-                If YODA_F(index) = SPACE Then
+                If YODA_F(index) = SPACE OrElse YODA_F(index) = vbCrLf OrElse YODA_F(index) = vbCr OrElse YODA_F(index) = vbLf Then
                     Continue For
                 ElseIf YODA_F(index) = CMA Or YODA_F(index) = "=" Then
                     nextItem = False
