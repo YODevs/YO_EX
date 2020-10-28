@@ -41,7 +41,11 @@
         If getindex = -1 Then
             dserr.new_error(conserr.errortype.BREAKERROR, clinecodestruc(0).line, path, "Break statement not within a loop." & vbCrLf & authfunc.get_line_error(path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
         End If
-        cil.branch_to_target(_ilmethod.codes, jmpslist(getindex).endblockln)
+        If clinecodestruc(1).tokenid = tokenhared.token.TRY Then
+            cil.leave(_ilmethod.codes, jmpslist(getindex).endblockln)
+        Else
+            cil.branch_to_target(_ilmethod.codes, jmpslist(getindex).endblockln)
+        End If
     End Sub
 
     Public Shared Sub reset_jmper(tokenid As tokenhared.token)
