@@ -21,6 +21,8 @@
         set_condition()
         lngen.set_direct_label(endbranchlabel, _ilmethod.codes)
 
+        stjmper.reset_jmper(tokenhared.token.LOOP)
+
         Return _ilmethod
     End Function
 
