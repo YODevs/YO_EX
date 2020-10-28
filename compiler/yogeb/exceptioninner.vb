@@ -1,18 +1,18 @@
 ﻿Public Class exceptioninner
     Friend Shared leavebrachlabel As New ArrayList
     Private _ilmethod As ilformat._ilmethodcollection
-    Private endbranchlabel, bodybranchlabel As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
 
     Public Function set_try_block(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata) As ilformat._ilmethodcollection
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.TRY)
+        Dim leavelbl As String = set_leave_branch()
         cil.insert_il(_ilmethod.codes, ".try{")
         Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(1).value, _illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
         _illocalinit = _ilmethod.locallinit
-        cil.leave(_ilmethod.codes, set_leave_branch())
+        cil.leave(_ilmethod.codes, leavelbl)
         cil.insert_il(_ilmethod.codes, "}")
         Return _ilmethod
     End Function
@@ -20,6 +20,7 @@
     Private Function set_leave_branch()
         Dim cline As String = lngen.get_line_prop("leavebr")
         leavebrachlabel.Add(cline)
+        stjmper.set_new_jmper(tokenhared.token.TRY, cline, Nothing)
         Return cline
     End Function
 
@@ -40,6 +41,7 @@ Before starting the Catch block, be sure to write the try block.")
         cil.leave(_ilmethod.codes, leavebr)
         cil.insert_il(_ilmethod.codes, "}")
         lngen.set_direct_label(leavebr, _ilmethod.codes)
+        stjmper.reset_jmper(tokenhared.token.TRY)
         Return _ilmethod
     End Function
 End Class
