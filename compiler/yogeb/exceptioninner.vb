@@ -26,6 +26,7 @@
 
     Public Function set_catch_block(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata) As ilformat._ilmethodcollection
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.CATCH)
+        set_flag_exception(_illocalinit, clinecodestruc)
         cil.insert_il(_ilmethod.codes, "catch [mscorlib]System.Exception {")
         Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(1).value, _illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
@@ -44,4 +45,13 @@ Before starting the Catch block, be sure to write the try block.")
         stjmper.reset_jmper(tokenhared.token.TRY)
         Return _ilmethod
     End Function
+
+    Private Sub set_flag_exception(ByRef _illocalinit() As ilformat._illocalinit, clinecodestruc() As xmlunpkd.linecodestruc)
+        Dim locinit As New ilformat._illocalinit
+        locinit.name = lngen.get_flag
+        locinit.datatype = "System.Exception"
+        locinit.hasdefaultvalue = False
+        locinit.iscommondatatype = False
+        illocalsinit.set_local_init(_illocalinit, locinit)
+    End Sub
 End Class
