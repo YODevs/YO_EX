@@ -4,6 +4,10 @@
         'Check local init name
         Dim localinitlen As Integer = localinit.Length
         Array.Resize(localinit, localinitlen + 1)
-        localinit(localinitlen - 1) = locinit
+        If localinit(localinitlen - 1).name = String.Empty Then
+            localinit(localinitlen - 1) = locinit
+        Else
+            localinit(localinitlen) = locinit
+        End If
     End Sub
 End Class
