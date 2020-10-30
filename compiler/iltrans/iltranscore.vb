@@ -73,6 +73,9 @@
             Case tokenhared.token.CATCH
                 Dim trysys As New exceptioninner(_ilmethod)
                 _ilmethod = trysys.set_catch_block(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.ERR
+                Dim trysys As New exceptioninner(_ilmethod)
+                _ilmethod = trysys.set_err(clinecodestruc)
             Case tokenhared.token.LABELJMP
                 jmp.set_label(clinecodestruc, _ilmethod)
             Case tokenhared.token.JMP
