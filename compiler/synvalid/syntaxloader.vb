@@ -9,6 +9,7 @@
         [LOOP]
         [TRY]
         [CATCH]
+        ERR
     End Enum
 
     Structure syntaxtypesloader
@@ -49,6 +50,15 @@
         st_try()
         'Catch Block
         st_catch()
+        'Err Statement
+        st_err()
+    End Sub
+
+    Private Shared Sub st_err()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.ERR)
+        add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR)
+        set_syntax_loader(statements.ERR, "Err Statement", exptokenslist, "err 'Error : Attempted to divide by zero.'")
     End Sub
 
     Private Shared Sub st_try()
