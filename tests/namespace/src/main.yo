@@ -4,8 +4,8 @@
 
 func main()
 {
-<
-  ldstr "Hello World !"
+ <
+  ldstr "Hello World !>"
   call void [mscorlib]System.Console::WriteLine(string)
->
+ >
 }
