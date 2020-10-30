@@ -1,0 +1,26 @@
+
+#[app::classname("MyApp")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+let result : i32 = 50
+let num : i32 = 0
+try
+{
+result := [ result / num]
+}
+catch
+{
+  <
+ldstr "Error : "
+call void [mscorlib]System.Console::Write(string)
+stloc.2
+ldloc.2
+callvirt instance string [mscorlib]System.Exception::get_Message()
+call void [mscorlib]System.Console::Write(string)
+  >
+}
+
+}
