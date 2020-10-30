@@ -1,0 +1,24 @@
+
+#[app::classname("ErrTest")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+try
+{
+err "Error : Attempted to divide by zero."
+}
+catch
+{
+<
+stloc YO_Flag_0
+ldloc YO_Flag_0
+callvirt instance string [mscorlib]System.Exception::get_Message()
+call void [mscorlib]System.Console::Write(string)
+>
+}
+}
+
+#-Result :
+Error : Attempted to divide by zero.

@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "errtest"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
