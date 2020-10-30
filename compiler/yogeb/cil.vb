@@ -157,4 +157,14 @@
     Public Shared Sub leave(ByRef codes As ArrayList, label As Object)
         codes.Add("leave " & label)
     End Sub
+    ''' <summary>
+    ''' Throw Simple ex : err statement
+    ''' </summary>
+    ''' <param name="codes"></param>
+    ''' <param name="exceptiontext"></param>
+    Public Shared Sub throw_simple(ByRef codes As ArrayList, exceptiontext As Object)
+        load_string(codes, exceptiontext)
+        codes.Add("newobj instance void [mscorlib]System.Exception::.ctor(string)")
+        codes.Add("throw")
+    End Sub
 End Class
