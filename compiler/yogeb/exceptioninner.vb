@@ -1,4 +1,6 @@
-﻿Public Class exceptioninner
+﻿Imports YOCA
+
+Public Class exceptioninner
     Friend Shared leavebrachlabel As New ArrayList
     Private _ilmethod As ilformat._ilmethodcollection
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
@@ -54,4 +56,10 @@ Before starting the Catch block, be sure to write the try block.")
         locinit.iscommondatatype = False
         illocalsinit.set_local_init(_illocalinit, locinit)
     End Sub
+
+    Friend Function set_err(clinecodestruc() As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.ERR)
+        cil.throw_simple(_ilmethod.codes, clinecodestruc(1).value)
+        Return _ilmethod
+    End Function
 End Class
