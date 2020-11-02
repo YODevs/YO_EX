@@ -11,7 +11,10 @@
     Public Function gen(yoclassdt As tknformat._class) As ilformat.resultildata
         Dim _ilresultcollection As New ilformat.resultildata
         classdata = yoclassdt
-        _ilhead = New ilhead(ilcollection, yoclassdt.name)
+        _ilhead = New ilhead(ilcollection, yoclassdt)
+        For index = 0 To classdata.externlist.Count - 1
+            _ilhead.add_assembly_extern(yoclassdt.externlist(index))
+        Next
         ilcollection.assemblyextern = _ilhead.asmheader
         Array.Resize(ilcollection.assemblyextern, ilcollection.assemblyextern.Length - 1)
 
