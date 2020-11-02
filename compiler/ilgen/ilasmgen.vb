@@ -13,7 +13,11 @@
         classdata = yoclassdt
         _ilhead = New ilhead(ilcollection, yoclassdt)
         For index = 0 To classdata.externlist.Count - 1
-            _ilhead.add_assembly_extern(yoclassdt.externlist(index))
+            If libserv.find_extern_name(yoclassdt.externlist(index)) Then
+                _ilhead.add_assembly_extern(yoclassdt.externlist(index))
+            Else
+                dserr.new_error(conserr.errortype.ASMERROR, -1, Nothing, "'" & yoclassdt.externlist(index) & "' Assembly not found.")
+            End If
         Next
         ilcollection.assemblyextern = _ilhead.asmheader
         Array.Resize(ilcollection.assemblyextern, ilcollection.assemblyextern.Length - 1)
