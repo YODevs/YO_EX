@@ -109,7 +109,7 @@ patterns: [
     name: "variable.other.dim.yo"
   }
   {
-    match: "(?i:\\s*\\b(let|const|new|func|to|loop|break|continue|jmp|try|catch)\\b\\s*)"
+    match: "(?i:\\s*\\b(let|const|new|func|to|loop|break|continue|jmp|try|catch|extern)\\b\\s*)"
     name: "storage.type.yo"
   }
   {
