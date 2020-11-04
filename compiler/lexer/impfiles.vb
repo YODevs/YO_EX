@@ -11,6 +11,7 @@ Public Class impfiles
                 For index = 0 To files.Count - 1
                     Dim lex As New lexer(files(index).ToString)
                     lex.lexme(tknfmtclass(index))
+                    funcdtproc.import_method(tknfmtclass(index))
                 Next
                 procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
