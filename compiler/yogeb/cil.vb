@@ -167,4 +167,53 @@
         codes.Add("newobj instance void [mscorlib]System.Exception::.ctor(string)")
         codes.Add("throw")
     End Sub
+
+    Public Shared Sub call_method(ByRef codes As ArrayList, returntype As String, asmextern As String, classprop As String, methodname As String, paramtypes As ArrayList)
+        Dim code As String = "call "
+        If returntype = Nothing Then
+            code &= "void"
+        Else
+            code &= returntype
+        End If
+        code &= conrex.SPACE
+        code &= String.Format("[{0}]{1}::{2}", asmextern, classprop, methodname)
+        If IsNothing(paramtypes) OrElse paramtypes.Count > 0 Then
+            code &= "()"
+        Else
+            code &= conrex.PRSTART
+            For index = 0 To paramtypes.Count - 1
+                If index = paramtypes.Count - 1 Then
+                    code &= paramtypes(index) & conrex.PREND
+                Else
+                    code &= paramtypes(index) & conrex.CMA
+                End If
+            Next
+        End If
+        codes.Add(code)
+    End Sub
+
+    Public Shared Sub call_intern_method(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList)
+        Dim code As String = "call "
+        If returntype = Nothing Then
+            code &= "void"
+        Else
+            code &= returntype
+        End If
+        code &= conrex.SPACE
+        code &= String.Format("{0}::{1}", classprop, methodname)
+        If IsNothing(paramtypes) OrElse paramtypes.Count > 0 Then
+            code &= "()"
+        Else
+            code &= conrex.PRSTART
+            For index = 0 To paramtypes.Count - 1
+                If index = paramtypes.Count - 1 Then
+                    code &= paramtypes(index) & conrex.PREND
+                Else
+                    code &= paramtypes(index) & conrex.CMA
+                End If
+            Next
+        End If
+        codes.Add(code)
+    End Sub
+
 End Class
