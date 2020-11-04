@@ -118,8 +118,14 @@
     End Sub
     Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         'TODO : Check Func Identifiers.
+        coutputdata.print_token(clinecodestruc)
         Dim inline As Integer = 0
         Dim index As Integer = clinecodestruc.Length - 1
+        Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(clinecodestruc)
+        If funcresult.funcvalid Then
+            funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
+            Return
+        End If
         If clinecodestruc.Length < 3 Then
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
             Return
