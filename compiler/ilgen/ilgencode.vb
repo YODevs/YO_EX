@@ -19,6 +19,7 @@ Public Class ilgencode
             'Single File ;
             procresult.rp_gen(classdt(index).location & " - " & classdt(index).methods.Length & " func ")
             ilasm = New ilasmgen(ilcollection)
+            funcste.attribute = classdt(index).attribute
             Dim resultdata As ilformat.resultildata = ilasm.gen(classdt(index))
             If resultdata.result Then
                 Dim bodybuilder As New ilbodybulider(resultdata.ilfmtdata, classdt(index).attribute)
