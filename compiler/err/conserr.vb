@@ -37,6 +37,7 @@
         OPERATORUNKNOWN
         ASMERROR
         EXPECTEDERROR
+        METHODERROR
     End Enum
 
     Enum errorpriority
@@ -104,5 +105,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.OPERATORUNKNOWN, errorpriority.STOP, "Operator unknown", "'{0}' Could not be identified as an operator")
         set_new_error(errortype.ASMERROR, errorpriority.STOP, "Assembly error", "An error occurred in the assembly resources.")
         set_new_error(errortype.EXPECTEDERROR, errorpriority.STOP, "Syntax error", "'{0}' expected.")
+        set_new_error(errortype.METHODERROR, errorpriority.STOP, "Method error", "{0}")
     End Sub
 End Class
