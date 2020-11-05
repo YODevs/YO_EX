@@ -116,6 +116,26 @@
         Return False
     End Function
 
+    Friend Shared Function is_common_data_type(datatype As String, ByRef cildatatype As String) As Boolean
+        datatype = datatype.ToLower
+        For index = 0 To conrex.yocommondatatype.Length - 1
+            If datatype = conrex.yocommondatatype(index) Then
+                cildatatype = conrex.msilcommondatatype(index)
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
+    Friend Shared Function is_cil_common_data_type(datatype As String) As Boolean
+        For index = 0 To conrex.msilcommondatatype.Length - 1
+            If datatype = conrex.msilcommondatatype(index) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     Friend Shared Sub rem_float(ByRef value As Object)
         If value.ToString.Contains(conrex.DOT) Then
             Dim expr As String = value
