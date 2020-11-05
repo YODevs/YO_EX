@@ -136,6 +136,9 @@
     Public Shared Sub add(ByRef codes As ArrayList)
         codes.Add("add")
     End Sub
+    Public Shared Sub pop(ByRef codes As ArrayList)
+        codes.Add("pop")
+    End Sub
     Public Shared Sub branch_if_false(ByRef codes As ArrayList, label As Object)
         codes.Add("brfalse " & label)
     End Sub
