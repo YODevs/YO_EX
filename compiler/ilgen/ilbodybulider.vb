@@ -46,10 +46,14 @@
             headfuncdt &= " private "
         End If
 
-        If funcdt.returntype = "[void]" Then
+        If funcdt.returntype = "void" Or funcdt.returntype = Nothing Then
             headfuncdt &= "void"
         Else
-            'other types
+            If servinterface.is_cil_common_data_type(funcdt.returntype) Then
+                headfuncdt &= funcdt.returntype
+            Else
+                'other types
+            End If
         End If
 
         headfuncdt &= Space(1) & funcdt.name & "()"
