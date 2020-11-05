@@ -31,6 +31,7 @@
         FUNCINTRO
         FUNCNAME
         FUNCPARA
+        FUNCRETURNTYPE
         FUNCSTBLOCK
         FUNCBODY
         FUNCENBLOCK
@@ -100,7 +101,7 @@
                         End If
                     Case funcparastate.WAITFORNEWPARAMETER
                         If rd_token = tokenhared.token.PREND Then
-                            funcstate = funcstatecursor.FUNCSTBLOCK 'TODO : Return Type
+                            funcstate = funcstatecursor.FUNCSTBLOCK
                             Return
                         ElseIf rd_token = tokenhared.token.IDENTIFIER Then
                             xmethods(i).nopara = False
@@ -112,11 +113,26 @@
                         End If
                 End Select
 
+            Case funcstatecursor.FUNCRETURNTYPE
+                Dim cildatatype As String = String.Empty
+                If rd_token <> tokenhared.token.IDENTIFIER AndAlso rd_token <> tokenhared.token.COMMONDATATYPE Then
+                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16) :: i32
+{...}")
+                End If
+                If servinterface.is_common_data_type(value, cildatatype) Then
+                    'Common Data Type
+                    xmethods(i).returntype = cildatatype
+                Else
+                    'Else Types ...
+                End If
+                funcstate = funcstatecursor.FUNCSTBLOCK
             Case funcstatecursor.FUNCSTBLOCK
                 If rd_token = tokenhared.token.BLOCKOPEN Then
                     funcstate = funcstatecursor.FUNCBODY
                     bdyformatter = New bodyformatter("Func", sourceloc)
                     bdyformatter.new_token_shared(value, rd_token, linecinf)
+                ElseIf rd_token = tokenhared.token.DUTNQ AndAlso xmethods(i).returntype = String.Empty Then
+                    funcstate = funcstatecursor.FUNCRETURNTYPE
                 Else
                     dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
 {...}")
