@@ -38,7 +38,7 @@
         End If
 
         _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
-        _ilmethods(ilmethodsindex).returntype = "[void]" 'yomethod.returntype
+        _ilmethods(ilmethodsindex).returntype = yomethod.returntype
 
         Dim iltrans As New iltranscore(yomethod)
         iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
