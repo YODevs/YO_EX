@@ -117,8 +117,8 @@
         End If
     End Sub
     Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
-        'TODO : Check Func Identifiers.
-        coutputdata.print_token(clinecodestruc)
+        'Print Tokens by xmlunpkd.linecodestruc
+        '  coutputdata.print_token(clinecodestruc)
         Dim inline As Integer = 0
         Dim index As Integer = clinecodestruc.Length - 1
         Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(clinecodestruc)
