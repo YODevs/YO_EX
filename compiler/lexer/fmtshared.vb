@@ -7,6 +7,7 @@
     Public xmethods(0) As tknformat._method
     Dim funcstate As funcstatecursor
     Dim parastate As funcparastate
+    Dim paraitemstate As funcparaitemstate
     Public externlist As ArrayList
     Public Sub New(file As String)
         tknfmt = New tknformat
@@ -39,10 +40,14 @@
 
     Enum funcparastate
         WAITFORSTARTBRACKET
+        WAITFORNEWPARAMETER
+    End Enum
+
+    Enum funcparaitemstate
         WAITFORIDENTIFIER
         WAITFORASSIGNMENTOPERATOR
         WAITFORPARAMETERTYPE
-        WAITFORNEWPARAMETER
+        WAITFORSPLITTER
     End Enum
     Public Sub imp_token(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         If state = statecursor.OUT Then
@@ -77,6 +82,7 @@
                         Array.Resize(xmethods, i + 1)
                     End If
                     funcstate = funcstatecursor.FUNCNAME
+                    paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
                     state = statecursor.INFUNC
                     Return
                 End If
@@ -103,13 +109,9 @@
                         If rd_token = tokenhared.token.PREND Then
                             funcstate = funcstatecursor.FUNCSTBLOCK
                             Return
-                        ElseIf rd_token = tokenhared.token.IDENTIFIER Then
-                            xmethods(i).nopara = False
-                            'TODO
-                            Return
                         Else
-                            dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
-{...}")
+                            get_parameters(value, rd_token, linecinf, i)
+                            Return
                         End If
                 End Select
 
@@ -131,7 +133,7 @@
                     funcstate = funcstatecursor.FUNCBODY
                     bdyformatter = New bodyformatter("Func", sourceloc)
                     bdyformatter.new_token_shared(value, rd_token, linecinf)
-                ElseIf rd_token = tokenhared.token.DUTNQ AndAlso xmethods(i).returntype = String.Empty Then
+                ElseIf rd_token = tokenhared.token.ASSINQ AndAlso xmethods(i).returntype = String.Empty Then
                     funcstate = funcstatecursor.FUNCRETURNTYPE
                 Else
                     dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
@@ -148,6 +150,40 @@
 
     End Sub
 
+    Private Sub get_parameters(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf, i As Integer)
+        Static Dim arindex As Integer = 0
+        Select Case paraitemstate
+            Case funcparaitemstate.WAITFORIDENTIFIER
+                paraitemstate = funcparaitemstate.WAITFORASSIGNMENTOPERATOR
+                If IsNothing(xmethods(i).parameters) Then
+                    arindex = 0
+                    Array.Resize(xmethods(i).parameters, 1)
+                Else
+                    arindex = xmethods(i).parameters.Length
+                    Array.Resize(xmethods(i).parameters, xmethods(i).parameters.Length + 1)
+                End If
+                xmethods(i).parameters(arindex).name = value
+            Case funcparaitemstate.WAITFORASSIGNMENTOPERATOR
+                If rd_token = tokenhared.token.ASSINQ Then
+                    paraitemstate = funcparaitemstate.WAITFORPARAMETERTYPE
+                Else
+                    dserr.args.Add(value)
+                    dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use the ':' operator." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
+{...}")
+                End If
+            Case funcparaitemstate.WAITFORPARAMETERTYPE
+                paraitemstate = funcparaitemstate.WAITFORSPLITTER
+                xmethods(i).parameters(arindex).ptype = value
+            Case funcparaitemstate.WAITFORSPLITTER
+                If rd_token = tokenhared.token.CMA Then
+                    paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
+                Else
+                    dserr.args.Add(value)
+                    dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use ','" & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16 , msg : str)
+{...}")
+                End If
+        End Select
+    End Sub
     Public Function _to_organize() As tknformat._class
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
@@ -157,6 +193,7 @@
         state = statecursor.OUT
         funcstate = funcstatecursor.OUT
         parastate = funcparastate.WAITFORSTARTBRACKET
+        paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
     End Sub
 
 End Class
