@@ -22,7 +22,7 @@
         Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
         Dim getdatatype As String = methodinfo.returntype
         cil.call_intern_method(_ilmethod.codes, getdatatype, attribute._app._classname, funcresult.clmethod, Nothing)
-        If leftassign AndAlso getdatatype <> Nothing OrElse getdatatype <> "void" Then
+        If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
     End Sub
