@@ -40,6 +40,7 @@
         _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
 
+        set_parameter(yomethod, ilmethodsindex)
         Dim iltrans As New iltranscore(yomethod)
         iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
         ' _ilmethods(ilmethodsindex).codes = New ArrayList
@@ -48,6 +49,15 @@
         ' _ilmethods(ilmethodsindex).codes.Add("ret")
     End Sub
 
+    Private Sub set_parameter(yomethod As tknformat._method, ilmethodsindex As Integer)
+        If IsNothing(yomethod.parameters) Then Return
+        For index = 0 To yomethod.parameters.Length - 1
+            Array.Resize(_ilmethods(ilmethodsindex).parameter, index + 1)
+            _ilmethods(ilmethodsindex).parameter(index).name = yomethod.parameters(index).name
+            _ilmethods(ilmethodsindex).parameter(index).datatype = yomethod.parameters(index).ptype
+            _ilmethods(ilmethodsindex).parameter(index).ispointer = yomethod.parameters(index).byreference
+        Next
+    End Sub
     Private Function check_entry_point_by_file(location As String) As Boolean
         location = location.Remove(0, location.LastIndexOf("\") + 1)
         If location.ToLower = "main.yo" Then
