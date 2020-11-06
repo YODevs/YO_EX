@@ -56,10 +56,15 @@
             End If
         End If
 
-        headfuncdt &= Space(1) & funcdt.name & "()"
-        headfuncdt &= " cil managed"
-
-        add_il_code(headfuncdt)
+        headfuncdt &= Space(1) & funcdt.name
+        If IsNothing(funcdt.parameter) Then
+            headfuncdt &= "()"
+            add_il_code(headfuncdt)
+        Else
+            add_il_code(headfuncdt)
+            imp_parameter(funcdt)
+        End If
+        add_inline_code(" cil managed")
         add_st_block()
 
         If funcdt.entrypoint Then
@@ -85,6 +90,27 @@
         add_en_block()
     End Sub
 
+    Private Sub imp_parameter(funcdt As ilformat._ilmethodcollection)
+        add_inline_code("(")
+        newline()
+        For index = 0 To funcdt.parameter.Length - 1
+            Dim cildatatype As String = String.Empty
+            If servinterface.is_common_data_type(funcdt.parameter(index).datatype, cildatatype) Then
+                add_inline_code(cildatatype)
+            Else
+                'Other Types ...
+            End If
+
+            add_inline_code(conrex.SPACE)
+            add_inline_code(funcdt.parameter(index).name)
+
+            If funcdt.parameter.Length - 1 <> index Then
+                add_inline_code(conrex.CMA)
+                newline()
+            End If
+        Next
+        add_il_code(")")
+    End Sub
     Private Sub imp_locals_init(ByRef funcdt As ilformat._ilmethodcollection)
         add_il_code(".locals init(")
         For index = 0 To funcdt.locallinit.Length - 1
@@ -148,7 +174,9 @@
     Public Sub add_il_code(code As String)
         msilsource &= vbCrLf & code
     End Sub
-
+    Public Sub add_inline_code(code As String)
+        msilsource &= code
+    End Sub
     Public Sub set_wait_attribute()
         add_il_code(compdt.WAITILCODE)
     End Sub
