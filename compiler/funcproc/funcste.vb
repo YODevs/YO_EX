@@ -21,30 +21,37 @@
         End If
 
         Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
+        Dim paramtype As ArrayList
         If IsNothing(methodinfo.parameters) = False Then
             ' Print Tokens :
             '  coutputdata.print_token(clinecodestruc)
-            load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult)
+            load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
         End If
         Dim getdatatype As String = methodinfo.returntype
-        cil.call_intern_method(_ilmethod.codes, getdatatype, attribute._app._classname, funcresult.clmethod, Nothing)
+        cil.call_intern_method(_ilmethod.codes, getdatatype, attribute._app._classname, funcresult.clmethod, paramtype)
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
     End Sub
 
-    Private Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild)
+    Private Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList)
         Dim cargcodestruc() As xmlunpkd.linecodestruc = get_argument_list(clinecodestruc)
         If IsNothing(cargcodestruc) Or cargcodestruc.Length <> methodinfo.parameters.Length Then
-            'Set error 
             'TODO : PARAMARRAY
             dserr.args.Add("Argument Not specified For parameter")
             dserr.new_error(conserr.errortype.ARGUMENTERROR, clinecodestruc(clinecodestruc.Length - 1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(clinecodestruc.Length - 1)), clinecodestruc(clinecodestruc.Length - 1).value))
             Return
         End If
 
-        For Index = 0 To methodinfo.parameters.Length - 1
-            MsgBox(methodinfo.parameters(Index).ptype & vbCrLf & cargcodestruc(Index).name & " - " & cargcodestruc(Index).value)
+        paramtypes = New ArrayList
+        For index = 0 To methodinfo.parameters.Length - 1
+            Dim getcildatatype As String = methodinfo.parameters(index).ptype
+            If servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
+                paramtypes.Add(getcildatatype)
+            Else
+                'Other Types...
+            End If
+            MsgBox(methodinfo.parameters(index).ptype & vbCrLf & getcildatatype & vbCrLf & cargcodestruc(index).name & " - " & cargcodestruc(index).value)
         Next
     End Sub
 
