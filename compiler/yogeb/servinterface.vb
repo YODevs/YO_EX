@@ -152,4 +152,13 @@
         linecinf.lend = clinecodestruc.ien
         Return linecinf
     End Function
+
+    Friend Shared Function check_argument_token(tokenid As tokenhared.token) As Boolean
+        For index = 0 To compdt.argumentallow.Length - 1
+            If tokenid = compdt.argumentallow(index) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
 End Class
