@@ -22,7 +22,8 @@
 
         Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
         If IsNothing(methodinfo.parameters) = False Then
-            coutputdata.print_token(clinecodestruc)
+            ' Print Tokens :
+            '  coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult)
         End If
         Dim getdatatype As String = methodinfo.returntype
@@ -34,50 +35,65 @@
 
     Private Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild)
         Dim cargcodestruc() As xmlunpkd.linecodestruc = get_argument_list(clinecodestruc)
-        If cargcodestruc.Length <> methodinfo.parameters.Length Then
+        If IsNothing(cargcodestruc) Or cargcodestruc.Length <> methodinfo.parameters.Length Then
             'Set error 
             'TODO : PARAMARRAY
-            MsgBox("Error Len : " & clinecodestruc.Length & "-" & methodinfo.parameters.Length)
+            dserr.args.Add("Argument Not specified For parameter")
+            dserr.new_error(conserr.errortype.ARGUMENTERROR, clinecodestruc(clinecodestruc.Length - 1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(clinecodestruc.Length - 1)), clinecodestruc(clinecodestruc.Length - 1).value))
             Return
         End If
 
         For Index = 0 To methodinfo.parameters.Length - 1
-            MsgBox(methodinfo.parameters(Index).ptype & vbCrLf & clinecodestruc(Index).name & " - " & clinecodestruc(Index).value)
+            MsgBox(methodinfo.parameters(Index).ptype & vbCrLf & cargcodestruc(Index).name & " - " & cargcodestruc(Index).value)
         Next
     End Sub
 
     Private Shared Function get_argument_list(clinecodestruc() As xmlunpkd.linecodestruc) As xmlunpkd.linecodestruc()
-        Dim cargcodestruc(0) As xmlunpkd.linecodestruc
+        Dim cargcodestruc() As xmlunpkd.linecodestruc
         Dim icarg As Integer = 0
         Dim stateparam As Boolean = False
         For index = 0 To clinecodestruc.Length - 1
             If stateparam = False AndAlso clinecodestruc(index).tokenid = tokenhared.token.PRSTART Then
                 stateparam = True
                 Continue For
+            ElseIf stateparam = True AndAlso clinecodestruc(index).tokenid = tokenhared.token.PREND Then
+                Return cargcodestruc
             ElseIf stateparam = False Then
                 Continue For
             Else
-                If IsNothing(cargcodestruc) Then
-                    cargcodestruc(icarg) = New xmlunpkd.linecodestruc
-                Else
-                    icarg = cargcodestruc.Length
+                Dim cargprtester As xmlunpkd.linecodestruc
+                If define_carg_store(clinecodestruc(index), cargprtester) Then
+                    If IsNothing(cargcodestruc) = False Then
+                        icarg = cargcodestruc.Length
+                    End If
                     Array.Resize(cargcodestruc, icarg + 1)
-                    cargcodestruc(icarg) = New xmlunpkd.linecodestruc
+                    cargcodestruc(icarg) = cargprtester
                 End If
-                define_carg_store(clinecodestruc(index), cargcodestruc(icarg))
             End If
         Next
         Return cargcodestruc
     End Function
 
     Private Shared fscmawait As Boolean = False
-    Private Shared Sub define_carg_store(clinecodestruc As xmlunpkd.linecodestruc, ByRef cargcodestruc As xmlunpkd.linecodestruc)
+    Private Shared Function define_carg_store(clinecodestruc As xmlunpkd.linecodestruc, ByRef cargcodestruc As xmlunpkd.linecodestruc) As Boolean
         If fscmawait Then
             If clinecodestruc.tokenid = tokenhared.token.CMA Then
-
+                fscmawait = False
+                Return False
+            Else
+                dserr.args.Add(conrex.CMA)
+                dserr.new_error(conserr.errortype.EXPECTEDERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
             End If
         Else
-
+            If servinterface.check_argument_token(clinecodestruc.tokenid) Then
+                cargcodestruc = clinecodestruc
+                fscmawait = True
+                Return True
+            Else
+                dserr.args.Add("'" & clinecodestruc.value & "' Cannot be identified as a parameter.")
+                dserr.new_error(conserr.errortype.ARGUMENTERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+            End If
         End If
-    End Sub
+        Return False
+    End Function
 End Class
