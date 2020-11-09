@@ -204,7 +204,7 @@
         End If
         code &= conrex.SPACE
         code &= String.Format("{0}::{1}", classprop, methodname)
-        If IsNothing(paramtypes) OrElse paramtypes.Count > 0 Then
+        If IsNothing(paramtypes) OrElse paramtypes.Count = 0 Then
             code &= "()"
         Else
             code &= conrex.PRSTART
