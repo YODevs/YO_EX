@@ -20,7 +20,7 @@
         values.Add(value)
     End Sub
 
-    Public Function find(key As String, Optional tolowersearch As Boolean = False) As dataresult
+    Public Function find(key As String, Optional tolowersearch As Boolean = False, Optional ByRef getkey As String = Nothing) As dataresult
         Dim endpoint As Integer = keys.Count - 1
         Dim result As New dataresult
         result.issuccessful = False
@@ -30,6 +30,7 @@
                 If keys.Item(index).ToString.ToLower = key Then
                     result.result = values(index)
                     result.issuccessful = True
+                    getkey = keys.Item(index).ToString
                     Return result
                 End If
             Next
@@ -38,6 +39,7 @@
                 If keys.Item(index) = key Then
                     result.result = values(index)
                     result.issuccessful = True
+                    getkey = keys.Item(index).ToString
                     Return result
                 End If
             Next
@@ -45,7 +47,7 @@
         Return result
     End Function
 
-    Public Function findkey(value As String, Optional tolowersearch As Boolean = False) As dataresult
+    Public Function findkey(value As String, Optional tolowersearch As Boolean = False, Optional ByRef getvalue As String = Nothing) As dataresult
         Dim endpoint As Integer = keys.Count - 1
         Dim result As New dataresult
         result.issuccessful = False
@@ -55,6 +57,7 @@
                 If values.Item(index).ToString.ToLower = value Then
                     result.result = keys(index)
                     result.issuccessful = True
+                    getvalue = values.Item(index).ToString
                     Return result
                 End If
             Next
@@ -63,6 +66,7 @@
                 If values.Item(index) = value Then
                     result.result = keys(index)
                     result.issuccessful = True
+                    getvalue = values.Item(index).ToString
                     Return result
                 End If
             Next
