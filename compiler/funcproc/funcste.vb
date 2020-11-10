@@ -51,10 +51,15 @@
             Else
                 'Other Types...
             End If
-            MsgBox(methodinfo.parameters(index).ptype & vbCrLf & getcildatatype & vbCrLf & cargcodestruc(index).name & " - " & cargcodestruc(index).value)
         Next
+
+        set_stack_space(_ilmethod, paramtypes, cargcodestruc)
     End Sub
 
+    Private Shared Sub set_stack_space(ByRef _ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc())
+        Dim ldlc As New illdloc(_ilmethod)
+        _ilmethod = ldlc.load_in_stack(paramtypes, cargcodestruc)
+    End Sub
     Private Shared Function get_argument_list(clinecodestruc() As xmlunpkd.linecodestruc) As xmlunpkd.linecodestruc()
         Dim cargcodestruc() As xmlunpkd.linecodestruc
         Dim icarg As Integer = 0
