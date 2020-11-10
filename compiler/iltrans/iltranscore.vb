@@ -148,7 +148,7 @@
         Dim optgen As New ilopt(_ilmethod)
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname)
+            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
             If localvartype.issuccessful = False Then
                 'Set Error
                 dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
@@ -168,7 +168,7 @@
         Dim optgen As New ilopt(_ilmethod)
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname)
+            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
             If localvartype.issuccessful = False Then
                 'Set Error
                 dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
