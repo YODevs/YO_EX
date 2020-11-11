@@ -37,42 +37,59 @@
     End Function
 
     Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
-        Dim nvartolower As String = nvar.ToLower
         If IsNothing(_ilmethod.locallinit) = False Then
-            For index = 0 To _ilmethod.locallinit.Length - 1
-                If _ilmethod.locallinit(index).name.ToLower = nvartolower Then
-                    If _ilmethod.locallinit(index).datatype = datatype Then
-                        cil.load_local_variable(_ilmethod.codes, nvar)
-                        Return True
-                    Else
-                        'Type Error !
-                        Return False
-                    End If
-                End If
-            Next
+            If ld_local(cargcodestruc.value, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
-
         If IsNothing(_ilmethod.parameter) = False Then
-            For index = 0 To _ilmethod.parameter.Length - 1
-                If _ilmethod.parameter(index).name.ToLower = nvartolower Then
-                    Dim getcildatatype As String = String.Empty
-                    If servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, getcildatatype) = False Then
-                        getcildatatype = _ilmethod.parameter(index).datatype
-                    End If
-
-                    If datatype = getcildatatype Then
-                        cil.load_argument(_ilmethod.codes, nvar)
-                        Return True
-                    Else
-                        'Type Error !
-                        Return False
-                        End If
-                    End If
-            Next
+            If ld_argument(cargcodestruc.value, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
-        'Set Error !
+
+        dserr.args.Add(nvar)
+        dserr.new_error(conserr.errortype.TYPENOTFOUND, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & nvar & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
+
         Return False
     End Function
+
+    Friend Shared Function ld_local(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        Dim nvartolower As String = nvar.ToLower
+        For index = 0 To _ilmethod.locallinit.Length - 1
+            If _ilmethod.locallinit(index).name.ToLower = nvartolower Then
+                If _ilmethod.locallinit(index).datatype = datatype Then
+                    cil.load_local_variable(_ilmethod.codes, nvar)
+                    Return True
+                Else
+                    dserr.args.Add(_ilmethod.locallinit(index).datatype)
+                    dserr.args.Add(datatype)
+                    dserr.new_error(conserr.errortype.EXPLICITCONVERSION, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - identifier : " & nvar & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
+                    Return False
+                End If
+            End If
+        Next
+        Return False
+    End Function
+    Friend Shared Function ld_argument(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        Dim nvartolower As String = nvar.ToLower
+        For index = 0 To _ilmethod.parameter.Length - 1
+            If _ilmethod.parameter(index).name.ToLower = nvartolower Then
+                Dim getcildatatype As String = String.Empty
+                If servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, getcildatatype) = False Then
+                    getcildatatype = _ilmethod.parameter(index).datatype
+                End If
+
+                If datatype = getcildatatype Then
+                    cil.load_argument(_ilmethod.codes, nvar)
+                    Return True
+                Else
+                    dserr.args.Add(_ilmethod.locallinit(index).datatype)
+                    dserr.args.Add(datatype)
+                    dserr.new_error(conserr.errortype.EXPLICITCONVERSION, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - identifier : " & nvar & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
+                    Return False
+                End If
+            End If
+        Next
+        Return False
+    End Function
+
     Private Sub ldstr(cargcodestruc As xmlunpkd.linecodestruc)
         Select Case cargcodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
