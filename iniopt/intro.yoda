@@ -12,6 +12,8 @@ Enable JIT optimization, create PDB file, use implicit sequence points.
 Copy dependencies and assets from the assets folder to the output.
 --display_token
 Display and print tokens while analyzing source code (lexical analysis).
+--stack_trace
+View and track details of compiler problems at runtime.
 *** Hints ***
 The Build command must be called next to labra.yoda file by the Command Prompt."
 ,
@@ -28,6 +30,8 @@ Enable JIT optimization, create PDB file, use implicit sequence points.
 Copy dependencies and assets from the assets folder to the output.
 --display_token
 Display and print tokens while analyzing source code (lexical analysis).
+--stack_trace
+View and track details of compiler problems at runtime.
 *** Hints ***
 The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
