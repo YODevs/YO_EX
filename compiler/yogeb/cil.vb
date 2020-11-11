@@ -41,6 +41,15 @@
     End Sub
 
     ''' <summary>
+    ''' ldarg [str]
+    ''' </summary>
+    ''' <param name="codes"></param>
+    ''' <param name="name"></param>
+    Public Shared Sub load_argument(ByRef codes As ArrayList, name As String)
+        codes.Add("ldarg " & name)
+    End Sub
+
+    ''' <summary>
     ''' ldc.i4.s[int32] Push int32 onto stack 
     ''' </summary>
     ''' <param name="codes"></param>
