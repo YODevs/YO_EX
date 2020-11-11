@@ -36,6 +36,43 @@
         Return _ilmethod
     End Function
 
+    Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        Dim nvartolower As String = nvar.ToLower
+        If IsNothing(_ilmethod.locallinit) = False Then
+            For index = 0 To _ilmethod.locallinit.Length - 1
+                If _ilmethod.locallinit(index).name.ToLower = nvartolower Then
+                    If _ilmethod.locallinit(index).datatype = datatype Then
+                        cil.load_local_variable(_ilmethod.codes, nvar)
+                        Return True
+                    Else
+                        'Type Error !
+                        Return False
+                    End If
+                End If
+            Next
+        End If
+
+        If IsNothing(_ilmethod.parameter) = False Then
+            For index = 0 To _ilmethod.parameter.Length - 1
+                If _ilmethod.parameter(index).name.ToLower = nvartolower Then
+                    Dim getcildatatype As String = String.Empty
+                    If servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, getcildatatype) = False Then
+                        getcildatatype = _ilmethod.parameter(index).datatype
+                    End If
+
+                    If datatype = getcildatatype Then
+                        cil.load_argument(_ilmethod.codes, nvar)
+                        Return True
+                    Else
+                        'Type Error !
+                        Return False
+                        End If
+                    End If
+            Next
+        End If
+        'Set Error !
+        Return False
+    End Function
     Private Sub ldstr(cargcodestruc As xmlunpkd.linecodestruc)
         Select Case cargcodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
@@ -43,6 +80,8 @@
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod.codes, cargcodestruc.value)
             Case tokenhared.token.IDENTIFIER
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, "string")
+                Return
                 If assignmentcommondatatype.check_locals_init(_ilmethod.name, cargcodestruc.value, _ilmethod.locallinit, "string") Then
                     cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
                 End If
