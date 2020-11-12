@@ -98,10 +98,6 @@
                 cil.load_string(_ilmethod.codes, cargcodestruc.value)
             Case tokenhared.token.IDENTIFIER
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, "string")
-                Return
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, cargcodestruc.value, _ilmethod.locallinit, "string") Then
-                    cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
-                End If
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
@@ -121,10 +117,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_i_checker(_ilmethod.codes, cargcodestruc.value, convtoi8, datatype)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, cargcodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
-                End If
-            'let value : str = NULL
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
@@ -152,10 +145,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_r_checker(_ilmethod.codes, cargcodestruc.value, convtor8)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, cargcodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
-                End If
-            'let value : str = NULL
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
@@ -193,10 +183,7 @@
                     cil.push_null_reference(_ilmethod.codes)
                 End If
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, cargcodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
-                End If
-                'let value : str = NULL
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
@@ -220,8 +207,7 @@
                     cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
                 End If
             Case tokenhared.token.TYPE_INT
-                servinterface.ldc_i_checker(_ilmethod.codes, cargcodestruc.value, convtoi8, datatype)
-            'let value : str = NULL
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
