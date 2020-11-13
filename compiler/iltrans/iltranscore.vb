@@ -12,6 +12,7 @@
     Public Sub New(method As tknformat._method)
         methoddata = method
         localinit = New localinitdata
+        localinit.import_parameter(method)
         stjmper.init()
     End Sub
 
