@@ -10,7 +10,7 @@
         Select Case initcommondatatype.cdtype.findkey(datatype).result
             Case "str"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "string")
+                funcdt = optgen.assi_str(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0))
             Case "bool"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_bool(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "bool")
