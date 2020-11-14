@@ -151,8 +151,12 @@
             Dim varname As String = dtassign.identifiers(index)
             Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
             If localvartype.issuccessful = False Then
-                'Set Error
-                dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
+                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                Else
+                    dserr.args.Add(varname)
+                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                End If
             End If
 
             Select Case localvartype.result
@@ -171,8 +175,13 @@
             Dim varname As String = dtassign.identifiers(index)
             Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
             If localvartype.issuccessful = False Then
-                'Set Error
-                dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
+                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                Else
+                    'Set Error
+                    dserr.args.Add(varname)
+                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                End If
             End If
 
             Select Case localvartype.result
