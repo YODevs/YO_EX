@@ -52,8 +52,10 @@
 
     Friend Shared Function ld_local(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         Dim nvartolower As String = nvar.ToLower
+        Dim pnvar As String = String.Empty
         For index = 0 To _ilmethod.locallinit.Length - 1
-            If _ilmethod.locallinit(index).name.ToLower = nvartolower Then
+            pnvar = _ilmethod.locallinit(index).name
+            If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 If _ilmethod.locallinit(index).datatype = datatype Then
                     cil.load_local_variable(_ilmethod.codes, nvar)
                     Return True
@@ -69,8 +71,10 @@
     End Function
     Friend Shared Function ld_argument(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         Dim nvartolower As String = nvar.ToLower
+        Dim pnvar As String = String.Empty
         For index = 0 To _ilmethod.parameter.Length - 1
-            If _ilmethod.parameter(index).name.ToLower = nvartolower Then
+            pnvar = _ilmethod.parameter(index).name
+            If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 Dim getcildatatype As String = String.Empty
                 If servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, getcildatatype) = False Then
                     getcildatatype = _ilmethod.parameter(index).datatype
