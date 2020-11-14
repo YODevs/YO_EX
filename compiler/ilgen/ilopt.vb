@@ -6,7 +6,7 @@
     End Sub
 
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
-        cil.load_local_variable(_ilmethod.codes, varname)
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, "string")
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
@@ -22,7 +22,7 @@
         End Select
 
         cil.concat_simple(_ilmethod.codes)
-        cil.set_stack_local(_ilmethod.codes, varname)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, "string")
 
         Return _ilmethod
     End Function
@@ -46,7 +46,7 @@
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
-        cil.set_stack_local(_ilmethod.codes, varname)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, "string")
 
         Return _ilmethod
     End Function
@@ -80,7 +80,7 @@
 
         End Select
 
-        cil.set_stack_local(_ilmethod.codes, varname)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, datatype)
 
         Return _ilmethod
     End Function
@@ -107,7 +107,7 @@
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
-        cil.set_stack_local(_ilmethod.codes, varname)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, datatype)
 
         Return _ilmethod
     End Function
@@ -142,7 +142,7 @@
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
-        cil.set_stack_local(_ilmethod.codes, varname)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, datatype)
 
         Return _ilmethod
     End Function
@@ -174,7 +174,7 @@
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
-        cil.set_stack_local(_ilmethod.codes, varname)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, datatype)
 
         Return _ilmethod
     End Function
