@@ -9,13 +9,17 @@
 
         Select Case initcommondatatype.cdtype.findkey(datatype).result
             Case "str"
-                set_str_data(funcdt, index, prcodes)
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "string")
             Case "bool"
-                set_bool_data(funcdt, index, prcodes)
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_bool(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "bool")
             Case "char"
-                set_char_data(funcdt, index, prcodes)
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_char(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "char")
             Case "i32"
-                set_i32_data(funcdt, index, prcodes)
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int32")
             Case "i16"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int16")
