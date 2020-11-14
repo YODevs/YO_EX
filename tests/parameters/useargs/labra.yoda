@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "useargs"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

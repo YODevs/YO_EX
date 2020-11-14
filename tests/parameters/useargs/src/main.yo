@@ -1,0 +1,17 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+#[app::wait(true)]
+
+func main()
+{
+  print_message("Hello " , "Elly")
+}
+
+func print_message(msg : str , name : str)
+{
+  msg &= name
+  <
+  ldarg msg
+  call void [mscorlib]System.Console::Write(string)
+  >
+}
