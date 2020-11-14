@@ -13,9 +13,7 @@
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, "string") Then
-                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
-                End If
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, "string")
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -37,14 +35,10 @@
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, "string") Then
-                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
-                End If
-
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, "string")
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
-
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -66,9 +60,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
-                End If
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -102,9 +94,7 @@
             Case tokenhared.token.FALSE
                 cil.push_int32_onto_stack(_ilmethod.codes, 0)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
-                End If
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
             Case tokenhared.token.TYPE_INT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             'let value : str = NULL
@@ -141,9 +131,7 @@
                     cil.push_null_reference(_ilmethod.codes)
                 End If
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
-                End If
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
                 'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -167,9 +155,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convtor8)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, clinecodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, clinecodestruc.value)
-                End If
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
