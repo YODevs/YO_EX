@@ -23,6 +23,14 @@
         codes.Add("stloc " & name)
     End Sub
 
+
+    ''' <summary>
+    ''' starg [str]
+    ''' </summary>
+    Public Shared Sub set_stack_argument(ByRef codes As ArrayList, name As String)
+        codes.Add("starg " & name)
+    End Sub
+
     ''' <summary>
     ''' ldnull
     ''' </summary>
