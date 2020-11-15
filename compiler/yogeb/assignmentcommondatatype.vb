@@ -5,7 +5,7 @@
         Dim indenditem As Integer = 0
         Dim prcodes As New ArrayList
         Dim datatype As String = funcdt.locallinit(index).datatype
-        Dim optgen As New ilopt(funcdt)
+        Dim optgen As New ilopt(funcdt, servinterface.get_contain_clinecodestruc(funcdt.locallinit(index).clocalvalue, 0))
 
         Select Case initcommondatatype.cdtype.findkey(datatype).result
             Case "str"
