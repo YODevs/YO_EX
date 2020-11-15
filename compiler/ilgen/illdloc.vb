@@ -57,6 +57,14 @@
         Return _ilmethod
     End Function
     Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        If IsNothing(ilopt.rlinecodestruc) = False Then
+            Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(ilopt.rlinecodestruc)
+            If funcresult.funcvalid Then
+                funcste.invoke_method(ilopt.rlinecodestruc, _ilmethod, funcresult, False)
+                Return True
+            End If
+        End If
+
         If IsNothing(_ilmethod.locallinit) = False Then
             If ld_local(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
