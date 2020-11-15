@@ -36,6 +36,26 @@
         Return _ilmethod
     End Function
 
+    Public Function load_single_in_stack(datatype As String, cargcodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        Select Case datatype
+            Case "string"
+                ldstr(cargcodestruc)
+            Case check_integer_type(datatype)
+                ldint(cargcodestruc, datatype)
+            Case "float32"
+                ldflt(cargcodestruc, datatype)
+            Case "float64"
+                ldflt(cargcodestruc, datatype)
+            Case "char"
+                ldchr(cargcodestruc, datatype)
+            Case "bool"
+                ldbool(cargcodestruc, datatype)
+            Case Else
+                'Other Types
+        End Select
+
+        Return _ilmethod
+    End Function
     Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         If IsNothing(_ilmethod.locallinit) = False Then
             If ld_local(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
