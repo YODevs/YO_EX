@@ -79,14 +79,14 @@
 
         'Test Subroutine
         imp_cil_code.import_test_code(funcdt)
-
-        imp_body(funcdt)
+        Dim impretopt As Boolean = True
+        imp_body(funcdt, impretopt)
 
         If funcdt.entrypoint AndAlso attribute._app._wait Then
             set_wait_attribute()
         End If
 
-        add_il_code("ret")
+        If impretopt Then add_il_code("ret")
         add_en_block()
     End Sub
 
@@ -137,9 +137,17 @@
         Next
         add_il_code(")")
     End Sub
-    Private Sub imp_body(funcdt As ilformat._ilmethodcollection)
+    Private Sub imp_body(funcdt As ilformat._ilmethodcollection, ByRef impretopt As Boolean)
+        Dim linecode As String = String.Empty
         For index = 0 To funcdt.codes.Count - 1
-            add_il_code(funcdt.codes(index))
+            linecode = funcdt.codes(index).ToString.Trim
+            If linecode = conrex.NULL Then Continue For
+            If linecode = "ret" Then
+                impretopt = False
+            Else
+                impretopt = True
+            End If
+            add_il_code(linecode)
         Next
     End Sub
     Private Sub imp_module(name As String)
