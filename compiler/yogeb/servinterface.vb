@@ -153,6 +153,14 @@
         Return linecinf
     End Function
 
+    Friend Shared Function get_contain_clinecodestruc(clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer) As xmlunpkd.linecodestruc()
+        Dim rclinecodestruc(clinecodestruc.Length - ilinc - 1) As xmlunpkd.linecodestruc
+        For index = ilinc To clinecodestruc.Length - 1
+            rclinecodestruc(index - ilinc) = clinecodestruc(index)
+        Next
+        Return rclinecodestruc
+    End Function
+
     Friend Shared Function check_argument_token(tokenid As tokenhared.token) As Boolean
         For index = 0 To compdt.argumentallow.Length - 1
             If tokenid = compdt.argumentallow(index) Then
