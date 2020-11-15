@@ -10,6 +10,7 @@
         [TRY]
         [CATCH]
         ERR
+        RET
     End Enum
 
     Structure syntaxtypesloader
@@ -52,6 +53,16 @@
         st_catch()
         'Err Statement
         st_err()
+        'Return Statement
+        st_ret()
+    End Sub
+
+    Private Shared Sub st_ret()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.RETURN)
+        add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
+tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
+        set_syntax_loader(statements.RET, "Retutn Statement", exptokenslist, "return [IDENTIFIER|STRING|INTEGER|...]")
     End Sub
 
     Private Shared Sub st_err()
