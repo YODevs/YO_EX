@@ -89,7 +89,7 @@
     End Sub
 
     Private Sub set_initial_value(varname As String, clinecodestruc As xmlunpkd.linecodestruc)
-        Dim optgen As New ilopt(_ilmethod)
+        Dim optgen As New ilopt(_ilmethod, Nothing)
         _ilmethod = optgen.assi_int(varname, clinecodestruc, "int32")
     End Sub
 End Class
