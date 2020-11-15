@@ -1,8 +1,10 @@
 ﻿Public Class ilopt
 
     Dim _ilmethod As ilformat._ilmethodcollection
-    Public Sub New(ilmethod As ilformat._ilmethodcollection)
+    Friend Shared rlinecodestruc As xmlunpkd.linecodestruc()
+    Public Sub New(ilmethod As ilformat._ilmethodcollection, linecodestruc As xmlunpkd.linecodestruc())
         Me._ilmethod = ilmethod
+        Me.rlinecodestruc = linecodestruc
     End Sub
 
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
