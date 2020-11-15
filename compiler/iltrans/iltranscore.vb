@@ -77,6 +77,8 @@
             Case tokenhared.token.ERR
                 Dim trysys As New exceptioninner(_ilmethod)
                 _ilmethod = trysys.set_err(clinecodestruc)
+            Case tokenhared.token.RETURN
+                ilret.ret_to_route(_ilmethod, clinecodestruc)
             Case tokenhared.token.LABELJMP
                 jmp.set_label(clinecodestruc, _ilmethod)
             Case tokenhared.token.JMP
