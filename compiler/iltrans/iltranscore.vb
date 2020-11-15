@@ -148,7 +148,7 @@
     End Sub
 
     Private Sub pv_iden_andeq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
-        Dim optgen As New ilopt(_ilmethod)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
             Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
@@ -172,7 +172,7 @@
         Next
     End Sub
     Private Sub pv_iden_assidb(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
-        Dim optgen As New ilopt(_ilmethod)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
             Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
@@ -218,7 +218,6 @@
             End Select
         Next
     End Sub
-
 
     Friend Shared Function check_opt_assignment(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer, ByRef opt As String) As Boolean
         If clinecodestruc(index).tokenid = tokenhared.token.CMA Then Return False
