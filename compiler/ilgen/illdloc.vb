@@ -56,11 +56,11 @@
 
         Return _ilmethod
     End Function
-    Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
-        If IsNothing(ilopt.rlinecodestruc) = False Then
-            Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(ilopt.rlinecodestruc)
+    Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, rlinecodestruc() As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        If IsNothing(rlinecodestruc) = False Then
+            Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(rlinecodestruc)
             If funcresult.funcvalid Then
-                funcste.invoke_method(ilopt.rlinecodestruc, _ilmethod, funcresult, False)
+                funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 Return True
             End If
         End If
@@ -128,7 +128,7 @@
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod.codes, cargcodestruc.value)
             Case tokenhared.token.IDENTIFIER
-                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, "string")
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, "string")
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
@@ -148,7 +148,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_i_checker(_ilmethod.codes, cargcodestruc.value, convtoi8, datatype)
             Case tokenhared.token.IDENTIFIER
-                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
@@ -176,7 +176,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_r_checker(_ilmethod.codes, cargcodestruc.value, convtor8)
             Case tokenhared.token.IDENTIFIER
-                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
@@ -214,7 +214,7 @@
                     cil.push_null_reference(_ilmethod.codes)
                 End If
             Case tokenhared.token.IDENTIFIER
-                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
@@ -238,7 +238,7 @@
                     cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
                 End If
             Case tokenhared.token.TYPE_INT
-                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, datatype)
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else

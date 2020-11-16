@@ -1,21 +1,21 @@
 ﻿Public Class ilopt
 
     Dim _ilmethod As ilformat._ilmethodcollection
-    Friend Shared rlinecodestruc As xmlunpkd.linecodestruc()
+    Dim rlinecodestruc As xmlunpkd.linecodestruc()
     Public Sub New(ilmethod As ilformat._ilmethodcollection, linecodestruc As xmlunpkd.linecodestruc())
         Me._ilmethod = ilmethod
         Me.rlinecodestruc = linecodestruc
     End Sub
 
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, "string")
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, "string")
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, "string")
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -37,7 +37,7 @@
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod.codes, clinecodestruc.value)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, "string")
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -62,7 +62,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -96,7 +96,7 @@
             Case tokenhared.token.FALSE
                 cil.push_int32_onto_stack(_ilmethod.codes, 0)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.TYPE_INT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             'let value : str = NULL
@@ -133,7 +133,7 @@
                     cil.push_null_reference(_ilmethod.codes)
                 End If
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
                 'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -157,7 +157,7 @@
             Case tokenhared.token.TYPE_FLOAT
                 servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convtor8)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, datatype)
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
