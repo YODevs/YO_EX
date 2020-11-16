@@ -1,6 +1,6 @@
 ﻿Public Class ilstvar
     Friend Shared Function st_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
-        If IsNothing(_ilmethod.locallinit) = False Then
+        If IsNothing(_ilmethod.locallinit) = False OrElse nvar.StartsWith(compdt.FLAGPERFIX) Then
             If st_local(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
         If IsNothing(_ilmethod.parameter) = False Then
@@ -16,6 +16,10 @@
     Friend Shared Function st_local(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         Dim nvartolower As String = nvar.ToLower
         Dim pnvar As String = String.Empty
+        If nvar.StartsWith(compdt.FLAGPERFIX) Then
+            cil.set_stack_local(_ilmethod.codes, nvar)
+            Return True
+        End If
         For index = 0 To _ilmethod.locallinit.Length - 1
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
