@@ -1,4 +1,6 @@
-﻿Public Class servinterface
+﻿Imports YOCA
+
+Public Class servinterface
     Friend Shared clinecodestruc As xmlunpkd.linecodestruc
     Friend Shared Sub ldc_i_checker(ByRef codes As ArrayList, value As Object, Optional convtoi8 As Boolean = False, Optional datatype As String = "int32")
         rem_float(value)
@@ -167,6 +169,22 @@
                 Return True
             End If
         Next
+        Return False
+    End Function
+
+    Friend Shared Function is_pointer(ilmethod As ilformat._ilmethodcollection, varname As String) As Boolean
+        If IsNothing(ilmethod.parameter) = False Then
+            varname = varname.ToLower
+            For index = 0 To ilmethod.parameter.Length - 1
+                If ilmethod.parameter(index).name.ToLower = varname Then
+                    If ilmethod.parameter(index).ispointer Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                End If
+            Next
+        End If
         Return False
     End Function
 End Class
