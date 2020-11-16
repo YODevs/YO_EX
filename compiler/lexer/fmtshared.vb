@@ -177,6 +177,10 @@
             Case funcparaitemstate.WAITFORSPLITTER
                 If rd_token = tokenhared.token.CMA Then
                     paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
+
+                    'Check is pointer
+                ElseIf rd_token = tokenhared.token.AND Then
+                    xmethods(i).parameters(arindex).byreference = True
                 Else
                     dserr.args.Add(value)
                     dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use ','" & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16 , msg : str)
