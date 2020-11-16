@@ -179,6 +179,9 @@
             If localvartype.issuccessful = False Then
                 If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
                     localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                    If servinterface.is_pointer(_ilmethod, varname) Then
+                        cil.load_argument(_ilmethod.codes, varname)
+                    End If
                 Else
                     'Set Error
                     dserr.args.Add(varname)
