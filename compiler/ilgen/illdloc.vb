@@ -65,7 +65,7 @@
             End If
         End If
 
-        If IsNothing(_ilmethod.locallinit) = False Then
+        If IsNothing(_ilmethod.locallinit) = False OrElse nvar.Contains(compdt.FLAGPERFIX) Then
             If ld_local(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
         If IsNothing(_ilmethod.parameter) = False Then
@@ -80,6 +80,10 @@
     Friend Shared Function ld_local(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         Dim nvartolower As String = nvar.ToLower
         Dim pnvar As String = String.Empty
+        If nvar.StartsWith(compdt.FLAGPERFIX) Then
+            cil.load_local_variable(_ilmethod.codes, nvar)
+            Return True
+        End If
         For index = 0 To _ilmethod.locallinit.Length - 1
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
