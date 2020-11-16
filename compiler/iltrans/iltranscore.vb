@@ -58,7 +58,7 @@
                 nv_let(clinecodestruc, assignprocess)
                 _ilmethod.locallinit = _illocalinit 'exc no local init
                 If assignprocess Then
-                    assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 2, False)
+                    assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
                 End If
             Case tokenhared.token.CIL_BLOCK
                 nv_cil_commands(clinecodestruc, _ilmethod)
@@ -274,7 +274,7 @@
     End Function
     Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc, ByRef assignprocess As Boolean)
         Dim ilmethodlen As Integer = _illocalinit.Length
-        Dim index As Integer = ilmethodlen - 1
+        Dim index As Integer = ilmethodlen
         Dim ilinc As Integer = 2
         Dim multideclare As Boolean = False
         Dim mulitdclarelistinf As ArrayList
@@ -373,8 +373,6 @@
 #End Region
 
         End If
-
-
     End Sub
 
     Public Function get_target_info(clinecodestruc As xmlunpkd.linecodestruc) As lexer.targetinf
