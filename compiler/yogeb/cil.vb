@@ -25,10 +25,31 @@
 
 
     ''' <summary>
+    ''' stind.ref
+    ''' </summary>
+    Public Shared Sub set_stack_pointer(ByRef codes As ArrayList)
+        codes.Add("stind.ref")
+    End Sub
+
+    ''' <summary>
     ''' starg [str]
     ''' </summary>
     Public Shared Sub set_stack_argument(ByRef codes As ArrayList, name As String)
         codes.Add("starg " & name)
+    End Sub
+
+    ''' <summary>
+    ''' ldind.ref
+    ''' </summary>
+    Public Shared Sub load_pointer(ByRef codes As ArrayList)
+        codes.Add("ldind.ref")
+    End Sub
+
+    ''' <summary>
+    ''' ldloca [str]
+    ''' </summary>
+    Public Shared Sub load_local_address(ByRef codes As ArrayList, name As String)
+        codes.Add("ldloca " & name)
     End Sub
 
     ''' <summary>
