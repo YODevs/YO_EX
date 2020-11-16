@@ -1,0 +1,26 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+#[app::wait(true)]
+
+func main()
+{
+  let message : str = NULL
+  message := concat("Hello ","World " , "!")
+  print(message)
+}
+
+func concat(val1 : str , val2 : str , val3 : str) : str
+{
+  let result : str = val1
+  result &= val2
+  result &= val3
+  return result
+}
+
+func print(message : str)
+{
+  <
+  ldarg message
+  call void [mscorlib]System.Console::Write(string)
+  >
+}
