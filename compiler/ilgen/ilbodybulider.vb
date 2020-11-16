@@ -113,18 +113,20 @@
     End Sub
     Private Sub imp_locals_init(ByRef funcdt As ilformat._ilmethodcollection)
         add_il_code(".locals init(")
+        Dim islot As Integer = 0
         For index = 0 To funcdt.locallinit.Length - 1
             Dim classref As String = String.Empty
             Dim dllref As String = String.Empty
+            If funcdt.locallinit(index).datatype = conrex.NULL Then Continue For
             If funcdt.locallinit(index).iscommondatatype = False Then
                 classref = "class "
                 dllref = "[mscorlib]"
             End If
 
             If funcdt.locallinit.Length = index + 1 Then
-                add_il_code("[" & index & "] " & classref & dllref & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name)
+                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name)
             Else
-                add_il_code("[" & index & "] " & classref & dllref & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name & " , ")
+                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name & " , ")
             End If
             If funcdt.locallinit(index).hasdefaultvalue Then
                 If funcdt.locallinit(index).iscommondatatype Then
@@ -134,6 +136,7 @@
                 End If
 
             End If
+            islot += 1
         Next
         add_il_code(")")
     End Sub
