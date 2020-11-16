@@ -96,6 +96,7 @@
         For index = 0 To funcdt.parameter.Length - 1
             Dim cildatatype As String = String.Empty
             If servinterface.is_common_data_type(funcdt.parameter(index).datatype, cildatatype) Then
+                If funcdt.parameter(index).ispointer Then cildatatype &= "&"
                 add_inline_code(cildatatype)
             Else
                 'Other Types ...
