@@ -8,6 +8,9 @@
     End Sub
 
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        If servinterface.is_pointer(_ilmethod, varname) Then
+            cil.load_argument(_ilmethod.codes, varname)
+        End If
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, "string")
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
