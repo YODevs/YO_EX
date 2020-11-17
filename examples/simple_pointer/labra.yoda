@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "simple_pointer"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

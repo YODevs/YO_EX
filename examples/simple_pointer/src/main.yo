@@ -1,0 +1,22 @@
+
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+#[app::wait(true)]
+
+func main()
+{
+  let message : str = NULL
+  repeat(message,"*",5)
+  <
+   ldloc message
+   call void [mscorlib]System.Console::Write(string)
+  >
+}
+
+func repeat(val : str& , ch : str , repindex : i32 )
+{
+  to(repindex)
+  {
+    val &= ch
+  }
+}
