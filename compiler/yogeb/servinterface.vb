@@ -5,6 +5,15 @@ Public Class servinterface
     Friend Shared Sub ldc_i_checker(ByRef codes As ArrayList, value As Object, Optional convtoi8 As Boolean = False, Optional datatype As String = "int32")
         rem_float(value)
         Select Case datatype
+            Case "int64"
+                If CDec(value) > Int32.MaxValue Or CDec(value) < Int32.MinValue Then
+                    cil.push_int64_onto_stack(codes, CDec(value))
+                Else
+                    cil.push_int32_onto_stack(codes, CDec(value))
+                    If convtoi8 Then
+                        cil.conv_to_int64(codes)
+                    End If
+                End If
             Case "int32"
                 If CDec(value) > Int32.MaxValue Or CDec(value) < Int32.MinValue Then
                     cil.push_int64_onto_stack(codes, CDec(value))
