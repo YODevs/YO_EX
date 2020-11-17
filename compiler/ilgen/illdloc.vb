@@ -1,5 +1,6 @@
 ﻿Public Class illdloc
     Public _ilmethod As ilformat._ilmethodcollection
+    Private Shared ldptr As Boolean = False
     Public Sub New(_ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = _ilmethod
     End Sub
@@ -14,20 +15,28 @@
     End Function
 
     Public Function load_in_stack(paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc()) As ilformat._ilmethodcollection
+        Dim getdatatype As String = conrex.NULL
         For index = 0 To cargcodestruc.Length - 1
-            Select Case paramtypes(index).ToString
+            getdatatype = paramtypes(index).ToString()
+            If getdatatype.EndsWith("&") Then
+                getdatatype = getdatatype.Remove(getdatatype.Length - 1)
+                ldptr = True
+            Else
+                ldptr = False
+            End If
+            Select Case getdatatype
                 Case "string"
                     ldstr(cargcodestruc(index))
-                Case check_integer_type(paramtypes(index).ToString)
-                    ldint(cargcodestruc(index), paramtypes(index).ToString)
+                Case check_integer_type(getdatatype)
+                    ldint(cargcodestruc(index), getdatatype)
                 Case "float32"
-                    ldflt(cargcodestruc(index), paramtypes(index).ToString)
+                    ldflt(cargcodestruc(index), getdatatype)
                 Case "float64"
-                    ldflt(cargcodestruc(index), paramtypes(index).ToString)
+                    ldflt(cargcodestruc(index), getdatatype)
                 Case "char"
-                    ldchr(cargcodestruc(index), paramtypes(index).ToString)
+                    ldchr(cargcodestruc(index), getdatatype)
                 Case "bool"
-                    ldbool(cargcodestruc(index), paramtypes(index).ToString)
+                    ldbool(cargcodestruc(index), getdatatype)
                 Case Else
                     'Other Types
             End Select
@@ -88,8 +97,13 @@
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 If _ilmethod.locallinit(index).datatype = datatype Then
-                    cil.load_local_variable(_ilmethod.codes, nvar)
-                    Return True
+                    If ldptr Then
+                        cil.load_local_address(_ilmethod.codes, nvar)
+                        Return True
+                    Else
+                        cil.load_local_variable(_ilmethod.codes, nvar)
+                        Return True
+                    End If
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
                     dserr.args.Add(datatype)
@@ -112,8 +126,16 @@
                 End If
 
                 If datatype = getcildatatype Then
-                    cil.load_argument(_ilmethod.codes, nvar)
-                    Return True
+                    If ldptr Then
+                        cil.load_local_address(_ilmethod.codes, nvar)
+                    ElseIf _ilmethod.parameter(index).ispointer Then
+                        cil.load_argument(_ilmethod.codes, nvar)
+                        cil.load_pointer(_ilmethod.codes)
+                        Return True
+                    Else
+                        cil.load_argument(_ilmethod.codes, nvar)
+                        Return True
+                    End If
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
                     dserr.args.Add(datatype)
