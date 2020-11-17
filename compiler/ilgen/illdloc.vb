@@ -5,7 +5,7 @@
         Me._ilmethod = _ilmethod
     End Sub
 
-    Private Function check_integer_type(datatype As String) As String
+    Friend Shared Function check_integer_type(datatype As String) As String
         For index = 0 To compdt.cilintegertypes.Length - 1
             If compdt.cilintegertypes(index) = datatype Then
                 Return datatype
@@ -14,6 +14,14 @@
         Return Nothing
     End Function
 
+    Friend Shared Function check_yo_integer_type(datatype As String) As String
+        For index = 0 To compdt.yointegertypes.Length - 1
+            If compdt.yointegertypes(index) = datatype Then
+                Return datatype
+            End If
+        Next
+        Return Nothing
+    End Function
     Public Function load_in_stack(paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc()) As ilformat._ilmethodcollection
         Dim getdatatype As String = conrex.NULL
         For index = 0 To cargcodestruc.Length - 1
