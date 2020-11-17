@@ -48,8 +48,13 @@
                 End If
 
                 If datatype = getcildatatype Then
-                    cil.set_stack_argument(_ilmethod.codes, nvar)
-                    Return True
+                    If _ilmethod.parameter(index).ispointer Then
+                        cil.set_stack_pointer(_ilmethod.codes)
+                        Return True
+                    Else
+                        cil.set_stack_argument(_ilmethod.codes, nvar)
+                        Return True
+                    End If
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
                     dserr.args.Add(datatype)
