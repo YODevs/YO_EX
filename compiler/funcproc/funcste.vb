@@ -47,6 +47,7 @@
         For index = 0 To methodinfo.parameters.Length - 1
             Dim getcildatatype As String = methodinfo.parameters(index).ptype
             If servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
+                If methodinfo.parameters(index).byreference Then getcildatatype &= "&"
                 paramtypes.Add(getcildatatype)
             Else
                 'Other Types...
