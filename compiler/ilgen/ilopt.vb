@@ -1,4 +1,6 @@
-﻿Public Class ilopt
+﻿Imports YOCA
+
+Public Class ilopt
 
     Dim _ilmethod As ilformat._ilmethodcollection
     Dim rlinecodestruc As xmlunpkd.linecodestruc()
@@ -7,6 +9,34 @@
         Me.rlinecodestruc = linecodestruc
     End Sub
 
+    Friend Function assiadd(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
+        Dim convi8 As Boolean = False
+        If datatype.ToLower = "i64" Then convi8 = True
+
+        If servinterface.is_pointer(_ilmethod, varname) Then
+            cil.load_argument(_ilmethod.codes, varname)
+        End If
+
+        servinterface.is_common_data_type(datatype, datatype)
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_INT
+                servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convi8, datatype)
+            Case tokenhared.token.IDENTIFIER
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add("i64/i32/i16/i8/...")
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
+
+        cil.add(_ilmethod.codes)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, datatype)
+
+        Return _ilmethod
+    End Function
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
@@ -183,5 +213,6 @@
 
         Return _ilmethod
     End Function
+
 
 End Class
