@@ -113,7 +113,7 @@ patterns: [
     name: "storage.type.yo"
   }
   {
-    match: "(?i:\\s*\\b(str|bool|char|obj|i8|i16|i32|i64|i128|u8|u16|u32|u64)\\b\\s*)" # variable types
+    match: "(?i:\\s*\\b(str|bool|char|obj|i8|i16|i32|i64|i128|u8|u16|u32|u64|f32|f64)\\b\\s*)" # variable types
     name: "storage.type.yo"
   }
   {
