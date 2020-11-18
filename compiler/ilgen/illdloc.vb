@@ -50,6 +50,7 @@
             End Select
         Next
 
+        ldptr = False
         Return _ilmethod
     End Function
 
@@ -136,6 +137,7 @@
                 If datatype = getcildatatype Then
                     If ldptr Then
                         cil.load_local_address(_ilmethod.codes, nvar)
+                        Return True
                     ElseIf _ilmethod.parameter(index).ispointer Then
                         cil.load_argument(_ilmethod.codes, nvar)
                         cil.load_pointer(_ilmethod.codes)
