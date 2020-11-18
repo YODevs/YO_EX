@@ -22,6 +22,16 @@
         Next
         Return Nothing
     End Function
+    Friend Shared Function check_yo_float_type(datatype As String) As String
+        Select Case datatype.ToLower
+            Case "f32"
+                Return "f32"
+            Case "f64"
+                Return "f64"
+            Case Else
+                Return Nothing
+        End Select
+    End Function
     Public Function load_in_stack(paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc()) As ilformat._ilmethodcollection
         Dim getdatatype As String = conrex.NULL
         For index = 0 To cargcodestruc.Length - 1
