@@ -20,6 +20,9 @@
             Case "i32"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int32")
+            Case "i64"
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int64")
             Case "i16"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int16")
