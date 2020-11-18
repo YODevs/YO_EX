@@ -166,6 +166,8 @@
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
                     _ilmethod = optgen.assiadd(varname, clinecodestruc(ilinc), localvartype.result)
+                Case illdloc.check_yo_float_type(localvartype.result)
+                    _ilmethod = optgen.assiadd(varname, clinecodestruc(ilinc), localvartype.result, True)
                 Case Else
                     dserr.args.Add(varname & " -> " & localvartype.result)
                     dserr.args.Add("i64/i32/i16/i8/...")
