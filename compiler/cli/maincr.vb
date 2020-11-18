@@ -34,6 +34,7 @@
         tokenhared.init()
         init_essential_files()
         initcommondatatype.init_common_data_type()
+        initcommondatatype.init_ptr_bind()
         specificdustrcommand.init()
         ciltoken.init_cil_instruction()
         initblockop.init_blockop_allow_list()
