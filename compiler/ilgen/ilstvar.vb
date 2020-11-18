@@ -49,7 +49,7 @@
 
                 If datatype = getcildatatype Then
                     If _ilmethod.parameter(index).ispointer Then
-                        cil.set_stack_pointer(_ilmethod.codes)
+                        cil.set_stack_pointer(_ilmethod.codes, datatype)
                         Return True
                     Else
                         cil.set_stack_argument(_ilmethod.codes, nvar)
