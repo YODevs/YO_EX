@@ -150,7 +150,7 @@
                         Return True
                     ElseIf _ilmethod.parameter(index).ispointer Then
                         cil.load_argument(_ilmethod.codes, nvar)
-                        cil.load_pointer(_ilmethod.codes)
+                        cil.load_pointer(_ilmethod.codes, datatype)
                         Return True
                     Else
                         cil.load_argument(_ilmethod.codes, nvar)
