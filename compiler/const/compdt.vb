@@ -5,6 +5,7 @@
     Friend Shared expressionact() As String = {"+", "-", "/", "*"}
     Friend Shared expressionactopt() As String = {"add", "sub", "div", "mul"}
     Friend Shared errcap() As String = {"Error:", "error code="}
+    Friend Shared ptrinddata As mapstoredata
     Friend Shared argumentallow() As tokenhared.token = {tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_BOOL, tokenhared.token.IDENTIFIER,
         tokenhared.token.EXPRESSION, tokenhared.token.NULL, tokenhared.token.TRUE, tokenhared.token.FALSE}
     Friend Shared blockopallow() As tokenhared.token = {tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY, tokenhared.token.CATCH}
