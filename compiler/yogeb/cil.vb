@@ -27,8 +27,13 @@
     ''' <summary>
     ''' stind.ref
     ''' </summary>
-    Public Shared Sub set_stack_pointer(ByRef codes As ArrayList)
-        codes.Add("stind.ref")
+    Public Shared Sub set_stack_pointer(ByRef codes As ArrayList, datatype As String)
+        Dim resultdata As mapstoredata.dataresult = compdt.ptrinddata.find(datatype, True)
+        If resultdata.issuccessful Then
+            codes.Add("stind." & resultdata.result)
+        Else
+            codes.Add("stind.ref")
+        End If
     End Sub
 
     ''' <summary>
@@ -41,8 +46,13 @@
     ''' <summary>
     ''' ldind.ref
     ''' </summary>
-    Public Shared Sub load_pointer(ByRef codes As ArrayList)
-        codes.Add("ldind.ref")
+    Public Shared Sub load_pointer(ByRef codes As ArrayList, datatype As String)
+        Dim resultdata As mapstoredata.dataresult = compdt.ptrinddata.find(datatype, True)
+        If resultdata.issuccessful Then
+            codes.Add("ldind." & resultdata.result)
+        Else
+            codes.Add("ldind.ref")
+        End If
     End Sub
 
     ''' <summary>
