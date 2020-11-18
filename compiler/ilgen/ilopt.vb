@@ -9,9 +9,11 @@ Public Class ilopt
         Me.rlinecodestruc = linecodestruc
     End Sub
 
-    Friend Function assiadd(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
+    Friend Function assiadd(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String, Optional isfloat As Boolean = False) As ilformat._ilmethodcollection
         Dim convi8 As Boolean = False
+        Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
+        If datatype.ToLower = "f64" Then convr8 = True
 
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
@@ -21,8 +23,18 @@ Public Class ilopt
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
 
         Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_FLOAT
+                If isfloat Then
+                    servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convr8)
+                Else
+                    servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convi8, datatype)
+                End If
             Case tokenhared.token.TYPE_INT
-                servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convi8, datatype)
+                If isfloat Then
+                    servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convr8)
+                Else
+                    servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convi8, datatype)
+                End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case Else
