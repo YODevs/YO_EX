@@ -1,0 +1,30 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+#[app::wait(true)]
+
+func main()
+{
+  let i : i64 = 5
+  let f : f32 = 32.5515
+  f += 21.23
+  set_int(i)
+  set_float(f)
+  <
+  ldloc i
+  call void [mscorlib]System.Console::WriteLine(int64)
+  ldloc f
+  call void [mscorlib]System.Console::WriteLine(float32)
+  >
+}
+
+func set_int(ia : i64&)
+{
+  let p : i64 = 10
+  ia += p
+  ia += 3
+}
+
+func set_float(fa : f32&)
+{
+  fa += 21.631
+}
