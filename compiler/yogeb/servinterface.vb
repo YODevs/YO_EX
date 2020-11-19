@@ -196,4 +196,27 @@ Public Class servinterface
         End If
         Return False
     End Function
+
+    Friend Shared Function is_variable(ilmethod As ilformat._ilmethodcollection, varname As String, ByRef getdatatype As String) As Boolean
+        varname = varname.ToLower
+
+        If IsNothing(ilmethod.parameter) = False Then
+            For index = 0 To ilmethod.parameter.Length - 1
+                If ilmethod.parameter(index).name.ToLower = varname Then
+                    getdatatype = ilmethod.parameter(index).datatype
+                    Return True
+                End If
+            Next
+        End If
+
+        If IsNothing(ilmethod.locallinit) = False Then
+            For index = 0 To ilmethod.locallinit.Length - 1
+                If ilmethod.locallinit(index).name.ToLower = varname Then
+                    getdatatype = ilmethod.locallinit(index).datatype
+                    Return True
+                End If
+            Next
+        End If
+        Return False
+    End Function
 End Class
