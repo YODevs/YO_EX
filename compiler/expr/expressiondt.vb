@@ -33,15 +33,17 @@ Public Class expressiondt
                 If linec.StartsWith(">") Then
                     Dim varname As String = linec.Remove(0, 1).Trim
                     Dim getdatatype As String = String.Empty
-                    If assignmentcommondatatype.check_locals_create(varname, _ilmethod.locallinit, getdatatype) Then
-                        cil.load_local_variable(_ilmethod.codes, varname)
+                    Dim getcildatatype As String = String.Empty
+                    If servinterface.is_variable(_ilmethod, varname, getdatatype) Then
+                        servinterface.is_common_data_type(getdatatype, getcildatatype)
+                        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, getcildatatype)
                         conv_local_variable(getdatatype)
                         Continue For
                     Else
                         'Set Error , Variable not founded.
                         dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & varname)
-                    End If
+                    dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & varname)
+                End If
                 End If
                 cil.insert_il(_ilmethod.codes, linec)
             Next
