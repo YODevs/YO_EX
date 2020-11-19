@@ -56,12 +56,16 @@
                     _rev_func(value, rd_token, linecinf)
                 Case tokenhared.token.EXTERN
                     state = statecursor.INIMPORTS
+                Case Else
+                    dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
             End Select
 
         ElseIf state = statecursor.INFUNC Then
             _rev_func(value, rd_token, linecinf)
         ElseIf state = statecursor.INIMPORTS Then
             _rev_extern(value, rd_token, linecinf)
+        Else
+            dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
         End If
     End Sub
 
