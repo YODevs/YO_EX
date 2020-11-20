@@ -42,8 +42,8 @@ Public Class expressiondt
                     Else
                         'Set Error , Variable not founded.
                         dserr.args.Add(varname)
-                    dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & varname)
-                End If
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & varname)
+                    End If
                 End If
                 cil.insert_il(_ilmethod.codes, linec)
             Next
