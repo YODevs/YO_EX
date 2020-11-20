@@ -184,6 +184,11 @@
     Public Shared Sub add(ByRef codes As ArrayList)
         codes.Add("add.ovf")
     End Sub
+    Public Shared Sub [sub](codes As ArrayList, Optional chovf As Boolean = False)
+        Dim lncode As String = "sub"
+        If chovf = True Then lncode &= ".ovf"
+        codes.Add(lncode)
+    End Sub
     Public Shared Sub pop(ByRef codes As ArrayList)
         codes.Add("pop")
     End Sub
