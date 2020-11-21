@@ -17,6 +17,7 @@
         Dim nopara As Boolean
         Dim parameters() As _parameter
         Dim bodyxmlfmt As String
+        Dim isexpr As Boolean
     End Structure
 
     Structure _parameter
