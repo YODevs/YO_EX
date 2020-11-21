@@ -22,6 +22,17 @@
         Next
         Return Nothing
     End Function
+
+    Friend Shared Function check_float_type(datatype As String) As String
+        Select Case datatype.ToLower
+            Case "float32"
+                Return "float32"
+            Case "float64"
+                Return "float64"
+            Case Else
+                Return Nothing
+        End Select
+    End Function
     Friend Shared Function check_yo_float_type(datatype As String) As String
         Select Case datatype.ToLower
             Case "f32"
