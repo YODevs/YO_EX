@@ -33,6 +33,8 @@
         FUNCNAME
         FUNCPARA
         FUNCRETURNTYPE
+        FUNCEXPRASSIGNMENT
+        FUNCEXPREQUEXPRESSION
         FUNCSTBLOCK
         FUNCBODY
         FUNCENBLOCK
@@ -54,6 +56,8 @@
             Select Case rd_token
                 Case tokenhared.token.FUNC
                     _rev_func(value, rd_token, linecinf)
+                Case tokenhared.token.EXPR
+                    _rev_func(value, rd_token, linecinf, True)
                 Case tokenhared.token.EXTERN
                     state = statecursor.INIMPORTS
                 Case Else
@@ -77,14 +81,15 @@
         End If
         state = statecursor.OUT
     End Sub
-    Private Sub _rev_func(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
+    Private Sub _rev_func(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf, Optional isexpr As Boolean = False)
         Static Dim i As Integer = 0
         Select Case funcstate
             Case funcstatecursor.OUT
-                If rd_token = tokenhared.token.FUNC Then
+                If rd_token = tokenhared.token.FUNC OrElse isexpr Then
                     If i <> 0 Then
                         Array.Resize(xmethods, i + 1)
                     End If
+                    xmethods(i).isexpr = isexpr
                     funcstate = funcstatecursor.FUNCNAME
                     paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
                     state = statecursor.INFUNC
@@ -122,26 +127,62 @@
             Case funcstatecursor.FUNCRETURNTYPE
                 Dim cildatatype As String = String.Empty
                 If rd_token <> tokenhared.token.IDENTIFIER AndAlso rd_token <> tokenhared.token.COMMONDATATYPE Then
-                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16) :: i32
+                    If xmethods(i).isexpr Then
+                        dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "expr kelvin(ct : i32) : i32 = [ct + 373]")
+                    Else
+                        dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16) :: i32
 {...}")
+                    End If
                 End If
+
                 If servinterface.is_common_data_type(value, cildatatype) Then
                     'Common Data Type
                     xmethods(i).returntype = cildatatype
                 Else
                     'Else Types ...
                 End If
-                funcstate = funcstatecursor.FUNCSTBLOCK
+                If xmethods(i).isexpr Then
+                    funcstate = funcstatecursor.FUNCEXPRASSIGNMENT
+                Else
+                    funcstate = funcstatecursor.FUNCSTBLOCK
+                End If
+
+                Return
+
+            Case funcstatecursor.FUNCEXPRASSIGNMENT
+                If rd_token = tokenhared.token.EQUALS Then
+                    funcstate = funcstatecursor.FUNCEXPREQUEXPRESSION
+                Else
+                    dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "expr kelvin(ct : i32) : i32 = [ct + 373]")
+                End If
+                Return
+            Case funcstatecursor.FUNCEXPREQUEXPRESSION
+                If rd_token = tokenhared.token.EXPRESSION Then
+                    bdyformatter = New bodyformatter("Func", sourceloc)
+                    bdyformatter.new_token_shared("{", tokenhared.token.BLOCKOPEN, linecinf)
+                    bdyformatter.new_token_shared(value, rd_token, linecinf)
+                    bdyformatter.new_token_shared("}", tokenhared.token.BLOCKEND, linecinf)
+                    xmethods(i).bodyxmlfmt = bdyformatter.xmlresult
+                    i += 1
+                    _settingup()
+                Else
+                    dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "expr kelvin(ct : i32) : i32 = [ct + 373]")
+                End If
+                Return
             Case funcstatecursor.FUNCSTBLOCK
-                If rd_token = tokenhared.token.BLOCKOPEN Then
+                If rd_token = tokenhared.token.BLOCKOPEN AndAlso xmethods(i).isexpr = False Then
                     funcstate = funcstatecursor.FUNCBODY
                     bdyformatter = New bodyformatter("Func", sourceloc)
                     bdyformatter.new_token_shared(value, rd_token, linecinf)
                 ElseIf rd_token = tokenhared.token.ASSINQ AndAlso xmethods(i).returntype = String.Empty Then
                     funcstate = funcstatecursor.FUNCRETURNTYPE
                 Else
-                    dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
+                    If xmethods(i).isexpr Then
+                        dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "expr kelvin(ct : i32) : i32 = [ct + 373]")
+                    Else
+                        dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "func get_data(id : i16)
 {...}")
+                    End If
                 End If
 
             Case funcstatecursor.FUNCBODY
