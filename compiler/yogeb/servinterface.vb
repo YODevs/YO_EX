@@ -138,6 +138,17 @@ Public Class servinterface
         Return False
     End Function
 
+    Friend Shared Function get_yo_common_data_type(datatype As String, ByRef yodatatype As String) As Boolean
+        datatype = datatype.ToLower
+        For index = 0 To conrex.yocommondatatype.Length - 1
+            If datatype = conrex.msilcommondatatype(index) Then
+                yodatatype = conrex.yocommondatatype(index)
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
     Friend Shared Function is_cil_common_data_type(datatype As String) As Boolean
         For index = 0 To conrex.msilcommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index) Then
