@@ -30,6 +30,7 @@
         _token.Add(token.TRY, "try")
         _token.Add(token.CATCH, "catch")
         _token.Add(token.ERR, "err")
+        _token.Add(token.EXPR, "expr")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -191,5 +192,6 @@
         [TRY] = 69
         [CATCH] = 70
         ERR = 71
+        EXPR = 72
     End Enum
 End Class
