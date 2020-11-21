@@ -88,10 +88,34 @@
             Case tokenhared.token.BREAK
                 stjmper.break_jmper(clinecodestruc, _ilmethod)
             Case Else
-                dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(0).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+                If clinecodestruc(0).tokenid = tokenhared.token.EXPRESSION AndAlso _ilmethod.isexpr Then
+                    nv_expr_method(clinecodestruc, _ilmethod)
+                Else
+                    dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(0).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+                End If
         End Select
     End Sub
 
+    Private Sub nv_expr_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim yodatatype As String = String.Empty
+        If illdloc.check_integer_type(_ilmethod.returntype) = _ilmethod.returntype Then
+            servinterface.get_yo_common_data_type(_ilmethod.returntype, yodatatype)
+        ElseIf illdloc.check_float_type(_ilmethod.returntype) = _ilmethod.returntype Then
+            servinterface.get_yo_common_data_type(_ilmethod.returntype, yodatatype)
+        Else
+            dserr.args.Add(_ilmethod.returntype & " - This data type is not allowed for the expr function ['" & _ilmethod.name & "']")
+            dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+        End If
+        Dim convtoi8 As Boolean = servinterface.is_i8(_ilmethod.returntype)
+
+        Dim expr As New expressiondt(_ilmethod, yodatatype)
+        Try
+            _ilmethod = expr.parse_expression_data(clinecodestruc(0).value, convtoi8)
+        Catch ex As Exception
+            dserr.args.Add(ex.Message)
+            dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+        End Try
+    End Sub
     Private Sub nv_cil_commands(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         If ilasmgen.classdata.attribute._cfg._cilinject = False Then
             dserr.args.Add("CIL Injection Code")
