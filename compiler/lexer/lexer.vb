@@ -338,7 +338,9 @@ Public Class lexer
         End Select
 
         If rd_token = tokenhared.token.UNDEFINED Then
-            '    dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, authfunc.get_line_error(sfile, linecinf, linec), "")
+            dserr.args.Add("Token not detected.")
+            dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sfile, authfunc.get_line_error(sfile, linecinf, linec))
+            Return
         End If
 
         'print tokens
