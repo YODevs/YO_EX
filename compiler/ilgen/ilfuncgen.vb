@@ -39,10 +39,13 @@
 
         _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
+        _ilmethods(ilmethodsindex).isexpr = yomethod.isexpr
+
 
         set_parameter(yomethod, ilmethodsindex)
         Dim iltrans As New iltranscore(yomethod)
         iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
+
         ' _ilmethods(ilmethodsindex).codes = New ArrayList
         '_ilmethods(ilmethodsindex).codes.Add("ldstr ""Hello From YOLang""")
         '_ilmethods(ilmethodsindex).codes.Add("call void [mscorlib]System.Console::WriteLine(string)")
