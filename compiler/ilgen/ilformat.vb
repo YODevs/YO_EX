@@ -22,6 +22,7 @@
         Dim maxstack As Int16
         Dim codes As ArrayList
         Dim line As ArrayList
+        Dim isexpr As Boolean
     End Structure
     Public Structure _ilparameter
         Dim name As String
