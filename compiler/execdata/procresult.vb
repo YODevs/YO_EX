@@ -1,21 +1,26 @@
 ﻿Public Class procresult
     Private Shared state As String = String.Empty
     Friend Shared Sub rp_lex_file(path As String)
+        If compdt.MUTEPROCESS Then Return
         Console.Write(vbTab & "Lex ->" & path.Replace(conrex.ENVCURDIR, conrex.NULL))
     End Sub
 
     Friend Shared Sub rp_init(value As String)
+        If compdt.MUTEPROCESS Then Return
         Console.Write(vbTab & "Init ->" & value)
     End Sub
 
     Friend Shared Sub rp_gen(value As String)
+        If compdt.MUTEPROCESS Then Return
         Console.Write(vbTab & "Gen ->" & value.Replace(conrex.ENVCURDIR, conrex.NULL))
     End Sub
 
     Friend Shared Sub rp_asm(value As String)
+        If compdt.MUTEPROCESS Then Return
         Console.Write(vbTab & "Asm ->" & value)
     End Sub
     Friend Shared Sub rs_proc_data(result As Boolean)
+        If compdt.MUTEPROCESS Then Return
         Console.Write(" :: ")
         Dim ciden As Int16 = Console.ForegroundColor
         If result Then
@@ -30,6 +35,7 @@
     End Sub
 
     Friend Shared Sub rs_proc_data(result As Boolean, truestring As String, falsestring As String)
+        If compdt.MUTEPROCESS Then Return
         Console.Write(" :: ")
         Dim ciden As Int16 = Console.ForegroundColor
         If result Then
@@ -43,6 +49,7 @@
         Console.ForegroundColor = ciden
     End Sub
     Friend Shared Sub set_state(newstate As String)
+        If compdt.MUTEPROCESS Then Return
         Select Case newstate
             Case "init"
                 Console.WriteLine("-Initialization & Process Preparation")
@@ -57,6 +64,7 @@
     End Sub
 
     Friend Shared Sub rs_set_result(result As Boolean)
+        If compdt.MUTEPROCESS Then Return
         Select Case state
             Case "lex"
                 rs_proc_data(result)
