@@ -36,13 +36,14 @@ Public Class ilasmconv
 
 
         If ilasmoutputdata.ToString.Contains("Operation completed successfully") Then
+            result = True
+            If compdt.MUTEPROCESS Then Return
             procresult.rs_set_result(True)
             Console.WriteLine("-The overall result")
             Dim ciden As Int16 = Console.ForegroundColor
             Console.ForegroundColor = ConsoleColor.DarkGreen
             Console.WriteLine(vbTab & "***** Operation completed successfully *****")
             Console.ForegroundColor = ciden
-            result = True
         ElseIf ilasmoutputdata.ToString.Contains("***** FAILURE *****") Then
             procresult.rs_set_result(False)
             Console.WriteLine("-The overall result")
