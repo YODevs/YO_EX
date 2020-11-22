@@ -61,8 +61,9 @@ You can type 'Help' to view commands.")
         introcmd.show_intro()
     End Sub
     Public Sub rp_build(args As ArrayList)
-        procresult.set_state("init")
         argstorelist.import_collection(args)
+        compdt.MUTEPROCESS = argstorelist.find(compdt.PARAM_MUTE_PROCESS, True)
+        procresult.set_state("init")
         compdt.DISPLAYTOKENWLEX = argstorelist.find(compdt.PARAM_DISPLAYTOKENLEX, True)
         compdt.DISPLAYSTACKTRACE = argstorelist.find(compdt.PARAM_DISPLAYSTACKTRACE, True)
         Dim projflow As New cprojflow()
@@ -72,7 +73,7 @@ You can type 'Help' to view commands.")
     Public Sub rp_run(args As ArrayList)
         rp_build(args)
         If ilasmconv.result Then
-            Console.WriteLine("Launching and running compiled output [" & compdt.RUNCMDDELAY & "ms] ...")
+            If compdt.MUTEPROCESS = False Then Console.WriteLine("Launching and running compiled output [" & compdt.RUNCMDDELAY & "ms] ...")
             Threading.Thread.Sleep(compdt.RUNCMDDELAY)
             Dim appproc As New Process
             With appproc
