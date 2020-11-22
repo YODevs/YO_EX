@@ -39,8 +39,8 @@
         Return -1
     End Function
     Public Shared Sub init_command_struct()
-        set_new_command(cmdtype.BUILD, "build", True, 4)
-        set_new_command(cmdtype.RUN, "run", True, 4)
+        set_new_command(cmdtype.BUILD, "build", True, 5)
+        set_new_command(cmdtype.RUN, "run", True, 5)
         set_new_command(cmdtype.IMPORT, "import")
         set_new_command(cmdtype.CLEAN, "clean")
         set_new_command(cmdtype.VERSION, "version")
