@@ -14,6 +14,7 @@
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
     Friend Shared DISPLAYTOKENWLEX As Boolean = False
     Friend Shared DISPLAYSTACKTRACE As Boolean = False
+    Friend Shared MUTEPROCESS As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
@@ -23,4 +24,5 @@ pop"
     Friend Const PARAM_DEBUG_OPT As String = "--debug_opt"
     Friend Const PARAM_DISPLAYTOKENLEX As String = "--display_token"
     Friend Const PARAM_DISPLAYSTACKTRACE As String = "--stack_trace"
+    Friend Const PARAM_MUTE_PROCESS As String = "--mute_process"
 End Class
