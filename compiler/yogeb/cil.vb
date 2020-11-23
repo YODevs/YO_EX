@@ -189,6 +189,11 @@
         If chovf = True Then lncode &= ".ovf"
         codes.Add(lncode)
     End Sub
+    Public Shared Sub mul(codes As ArrayList, Optional chovf As Boolean = False)
+        Dim lncode As String = "mul"
+        If chovf = True Then lncode &= ".ovf"
+        codes.Add(lncode)
+    End Sub
     Public Shared Sub pop(ByRef codes As ArrayList)
         codes.Add("pop")
     End Sub
