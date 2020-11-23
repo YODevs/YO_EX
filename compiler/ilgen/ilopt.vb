@@ -9,6 +9,47 @@ Public Class ilopt
         Me.rlinecodestruc = linecodestruc
     End Sub
 
+    Friend Function assimul(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String, Optional isfloat As Boolean = False) As ilformat._ilmethodcollection
+        Dim convi8 As Boolean = False
+        Dim convr8 As Boolean = False
+        If datatype.ToLower = "i64" Then convi8 = True
+        If datatype.ToLower = "f64" Then convr8 = True
+
+        If servinterface.is_pointer(_ilmethod, varname) Then
+            cil.load_argument(_ilmethod.codes, varname)
+        End If
+
+        servinterface.is_common_data_type(datatype, datatype)
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_FLOAT
+                If isfloat Then
+                    servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convr8)
+                Else
+                    servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convi8, datatype)
+                End If
+            Case tokenhared.token.TYPE_INT
+                If isfloat Then
+                    servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convr8)
+                Else
+                    servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convi8, datatype)
+                End If
+            Case tokenhared.token.IDENTIFIER
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add("i64/i32/i16/i8/...")
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
+
+        cil.mul(_ilmethod.codes, True)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, datatype)
+
+        Return _ilmethod
+    End Function
+
     Friend Function assisub(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String, Optional isfloat As Boolean = False) As ilformat._ilmethodcollection
         Dim convi8 As Boolean = False
         Dim convr8 As Boolean = False
