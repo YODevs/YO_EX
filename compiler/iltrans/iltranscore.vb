@@ -169,10 +169,39 @@
                 pv_iden_add(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.MINUSEQ
                 pv_iden_sub(dtassign, clinecodestruc, inline, _ilmethod)
+            Case tokenhared.token.ASTERISKEQ
+                pv_iden_mul(dtassign, clinecodestruc, inline, _ilmethod)
             Case Else
                 dserr.args.Add(dtassign.optval)
                 dserr.new_error(conserr.errortype.OPERATORUNKNOWN, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), dtassign.optval))
         End Select
+    End Sub
+
+    Private Sub pv_iden_mul(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
+            If localvartype.issuccessful = False Then
+                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
+                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                Else
+                    dserr.args.Add(varname)
+                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                End If
+            End If
+
+            Select Case localvartype.result
+                Case illdloc.check_yo_integer_type(localvartype.result)
+                    _ilmethod = optgen.assimul(varname, clinecodestruc(ilinc), localvartype.result)
+                Case illdloc.check_yo_float_type(localvartype.result)
+                    _ilmethod = optgen.assimul(varname, clinecodestruc(ilinc), localvartype.result, True)
+                Case Else
+                    dserr.args.Add(varname & " -> " & localvartype.result)
+                    dserr.args.Add("i64/i32/i16/i8/...")
+                    dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+            End Select
+        Next
     End Sub
 
     Private Sub pv_iden_sub(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
