@@ -7,6 +7,7 @@
         Dim name As String
         Dim location As String
         Dim methods() As _method
+        Dim fields() As _pubfield
         Dim attribute As yocaattribute.yoattribute
         Dim externlist As ArrayList
     End Structure
@@ -27,7 +28,10 @@
         Dim defvalue As String
     End Structure
     Structure _pubfield
-
+        Dim accesscontrol As String
+        Dim modifier As String
+        Dim name As String
+        Dim ptype As String
     End Structure
 
     Structure _inlcode
