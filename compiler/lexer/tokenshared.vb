@@ -31,6 +31,9 @@
         _token.Add(token.CATCH, "catch")
         _token.Add(token.ERR, "err")
         _token.Add(token.EXPR, "expr")
+        _token.Add(token.PUBLIC, "public")
+        _token.Add(token.PRIVATE, "private")
+        _token.Add(token.STATIC, "static")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -193,5 +196,8 @@
         [CATCH] = 70
         ERR = 71
         EXPR = 72
+        [PRIVATE] = 73
+        [PUBLIC] = 74
+        [STATIC] = 75
     End Enum
 End Class
