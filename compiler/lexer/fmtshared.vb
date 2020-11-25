@@ -5,24 +5,29 @@
     Dim state As statecursor
     Public xclass(0) As tknformat._class
     Public xmethods(0) As tknformat._method
+    Public xfield(0) As tknformat._pubfield
     Dim funcstate As funcstatecursor
     Dim parastate As funcparastate
     Dim paraitemstate As funcparaitemstate
+    Dim fieldstate As pbfieldstate
     Public externlist As ArrayList
     Public Sub New(file As String)
         tknfmt = New tknformat
         sourceloc = file
         state = statecursor.OUT
+        fieldstate = pbfieldstate.OUT
         funcstate = funcstatecursor.OUT
         parastate = funcparastate.WAITFORSTARTBRACKET
         xmethods(0) = New tknformat._method
         xclass(0) = New tknformat._class
+        xfield(0) = New tknformat._pubfield
         externlist = New ArrayList
     End Sub
 
     Enum statecursor
         INFUNC
         INIMPORTS
+        FIELDS
         OUT
     End Enum
 
@@ -51,6 +56,17 @@
         WAITFORPARAMETERTYPE
         WAITFORSPLITTER
     End Enum
+
+    Enum pbfieldstate
+        OUT
+        ACCESSCONTORL
+        MODIFIER
+        FIELDNAME
+        FIELDDTTPOPT
+        FIELDTYPE
+        EQOPT
+        FIELDVALUE
+    End Enum
     Public Sub imp_token(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         If state = statecursor.OUT Then
             Select Case rd_token
@@ -60,19 +76,72 @@
                     _rev_func(value, rd_token, linecinf, True)
                 Case tokenhared.token.EXTERN
                     state = statecursor.INIMPORTS
+                Case tokenhared.token.LET
+                    state = statecursor.FIELDS
+                    fieldstate = pbfieldstate.ACCESSCONTORL
                 Case Else
                     dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
             End Select
-
+            Return
         ElseIf state = statecursor.INFUNC Then
             _rev_func(value, rd_token, linecinf)
+        ElseIf state = statecursor.FIELDS Then
+            _rev_field(value, rd_token, linecinf)
         ElseIf state = statecursor.INIMPORTS Then
             _rev_extern(value, rd_token, linecinf)
         Else
             dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
         End If
     End Sub
+    Private Sub _rev_field(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
+        Static Dim i As Integer = 0
+        Select Case fieldstate
+            Case pbfieldstate.ACCESSCONTORL
+                If i <> 0 Then
+                    Array.Resize(xfield, i + 1)
+                End If
+                Select Case rd_token
+                    Case tokenhared.token.PUBLIC
+                        xfield(i).accesscontrol = "public"
+                    Case tokenhared.token.PRIVATE
+                        xfield(i).accesscontrol = "private"
+                    Case Else
+                        'Set Error
+                End Select
+                fieldstate = pbfieldstate.MODIFIER
+                Return
+            Case pbfieldstate.MODIFIER
+                Select Case rd_token
+                    Case tokenhared.token.STATIC
+                        xfield(i).modifier = "static"
+                    Case Else
+                        fieldstate = pbfieldstate.FIELDNAME
+                        _rev_field(value, rd_token, linecinf)
+                End Select
+                Return
+            Case pbfieldstate.FIELDNAME
+                If rd_token = tokenhared.token.IDENTIFIER Then
+                    xfield(i).name = value
+                    fieldstate = pbfieldstate.FIELDDTTPOPT
+                Else
+                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "let public static age : i32 = 51")
+                End If
+            Case pbfieldstate.FIELDDTTPOPT
+                If rd_token = tokenhared.token.ASSINQ Then
+                    fieldstate = pbfieldstate.FIELDTYPE
+                Else
+                    dserr.args.Add(value)
+                    dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use the ':' operator." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), "let public static age : i32 = 51")
+                End If
+            Case pbfieldstate.FIELDTYPE
+                xfield(i).ptype = value
 
+                fieldstate = pbfieldstate.OUT
+                state = statecursor.OUT
+                i += 1
+        End Select
+        Return
+    End Sub
     Private Sub _rev_extern(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         If rd_token = tokenhared.token.IDENTIFIER Then
             externlist.Add(value)
@@ -236,10 +305,12 @@
     Public Function _to_organize() As tknformat._class
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
+        xclass(0).fields = xfield
         Return xclass(0)
     End Function
     Public Sub _settingup()
         state = statecursor.OUT
+        fieldstate = pbfieldstate.OUT
         funcstate = funcstatecursor.OUT
         parastate = funcparastate.WAITFORSTARTBRACKET
         paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
