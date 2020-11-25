@@ -27,8 +27,20 @@
         ilbodybulider.path = yoclassdt.location
         ilcollection.ilmethod = _ilfunc.gen()
         _ilresultcollection.ilfmtdata = ilcollection
+        set_fields(yoclassdt, _ilresultcollection)
         _ilresultcollection.result = True
 
         Return _ilresultcollection
     End Function
+    Private Sub set_fields(yoclassdt As tknformat._class, ByRef _ilresultcollection As ilformat.resultildata)
+        If IsNothing(yoclassdt.fields) Then Return
+        For index = 0 To yoclassdt.fields.Length - 1
+            Array.Resize(_ilresultcollection.ilfmtdata.field, index + 1)
+            _ilresultcollection.ilfmtdata.field(index).name = yoclassdt.fields(index).name
+            _ilresultcollection.ilfmtdata.field(index).accesscontrol = yoclassdt.fields(index).accesscontrol
+            _ilresultcollection.ilfmtdata.field(index).modifier = yoclassdt.fields(index).modifier
+            _ilresultcollection.ilfmtdata.field(index).ptype = yoclassdt.fields(index).ptype
+            'Check Type ...
+        Next
+    End Sub
 End Class
