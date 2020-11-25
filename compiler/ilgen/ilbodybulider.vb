@@ -19,6 +19,8 @@
             add_assembly(ildt.assemblyextern(index))
         Next
 
+        imp_field()
+
         If attribute._app._classname <> Nothing Then
             imp_module(attribute._app._classname)
         Else
@@ -37,7 +39,18 @@
         Return source
     End Function
 
-
+    Public Sub imp_field()
+        If IsNothing(ildt.field) Then Return
+        newline()
+        Dim lcode As String = String.Empty
+        For index = 0 To ildt.field.Length - 1
+            servinterface.is_common_data_type(ildt.field(index).ptype, ildt.field(index).ptype)
+            lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & ildt.field(index).modifier &
+                conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
+            add_il_code(lcode)
+        Next
+        newline()
+    End Sub
     Public Sub imp_func(funcdt As ilformat._ilmethodcollection)
         Dim headfuncdt As String = ".method static"
         If funcdt.accessible = ilformat._accessiblemethod.PUBLIC Then
