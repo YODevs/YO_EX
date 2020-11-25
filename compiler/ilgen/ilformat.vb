@@ -8,8 +8,8 @@
         Dim ilmethod() As _ilmethodcollection
         Dim assemblyextern() As _ilassemblyextern
         Dim modulename As String
+        Dim field() As _pubfield
         'Assembly
-        'Global Fields
     End Structure
 
     Public Structure _ilmethodcollection
@@ -43,7 +43,12 @@
         Dim isextern As Boolean
         Dim assemblyproperty As String
     End Structure
-
+    Structure _pubfield
+        Dim accesscontrol As String
+        Dim modifier As String
+        Dim name As String
+        Dim ptype As String
+    End Structure
     Public Enum _accessiblemethod
         [PUBLIC]
         [PRIVATE]
