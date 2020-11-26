@@ -111,7 +111,7 @@ Public Class servinterface
     End Sub
 
     Friend Shared Sub ldc_r_checker(ByRef codes As ArrayList, value As Object, Optional convtor8 As Boolean = False)
-        If convtor8 Or value > Single.MaxValue Or value < Single.MinValue Then
+        If convtor8 OrElse value > Single.MaxValue OrElse value < Single.MinValue Then
             cil.push_float64_onto_stack(codes, CDbl(value))
         Else
             cil.push_float32_onto_stack(codes, CSng(value))
@@ -175,6 +175,16 @@ Public Class servinterface
         Return linecinf
     End Function
 
+    Friend Shared Function get_line_code_struct(linecinf As lexer.targetinf, value As String, tokenid As tokenhared.token) As xmlunpkd.linecodestruc
+        Dim clinecodestruc As New xmlunpkd.linecodestruc
+        clinecodestruc.ist = linecinf.lstart
+        clinecodestruc.line = linecinf.line
+        clinecodestruc.ile = linecinf.length
+        clinecodestruc.ien = linecinf.lend
+        clinecodestruc.tokenid = tokenid
+        clinecodestruc.value = value
+        Return clinecodestruc
+    End Function
     Friend Shared Function get_contain_clinecodestruc(clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer) As xmlunpkd.linecodestruc()
         Dim rclinecodestruc(clinecodestruc.Length - ilinc - 1) As xmlunpkd.linecodestruc
         For index = ilinc To clinecodestruc.Length - 1
