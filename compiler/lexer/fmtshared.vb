@@ -135,7 +135,20 @@
                 End If
             Case pbfieldstate.FIELDTYPE
                 xfield(i).ptype = value
-
+                fieldstate = pbfieldstate.EQOPT
+            Case pbfieldstate.EQOPT
+                If rd_token = tokenhared.token.EQUALS Then
+                    fieldstate = pbfieldstate.FIELDVALUE
+                Else
+                    fieldstate = pbfieldstate.OUT
+                    state = statecursor.OUT
+                    i += 1
+                    imp_token(value, rd_token, linecinf)
+                End If
+            Case pbfieldstate.FIELDVALUE
+                xfield(i).value = value
+                xfield(i).valuecinf = linecinf
+                xfield(i).valuetoken = rd_token
                 fieldstate = pbfieldstate.OUT
                 state = statecursor.OUT
                 i += 1
