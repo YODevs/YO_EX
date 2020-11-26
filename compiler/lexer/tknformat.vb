@@ -32,6 +32,9 @@
         Dim modifier As String
         Dim name As String
         Dim ptype As String
+        Dim value As String
+        Dim valuecinf As lexer.targetinf
+        Dim valuetoken As tokenhared.token
     End Structure
 
     Structure _inlcode
