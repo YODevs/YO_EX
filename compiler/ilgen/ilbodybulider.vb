@@ -28,6 +28,10 @@
         End If
         newline()
 
+        imp_ctor()
+
+        newline()
+
         For index = 0 To ildt.ilmethod.Length - 1
             newline()
             imp_func(ildt.ilmethod(index))
@@ -39,6 +43,25 @@
         Return source
     End Function
 
+    Public Sub imp_ctor()
+        If ildt.instancector.Count > 0 Then
+            add_il_code(".method public specialname rtspecialname instance void .ctor() cil managed ")
+            add_il_code("{")
+            For index = 0 To ildt.instancector.Count - 1
+                add_il_code(ildt.instancector(index))
+            Next
+            add_il_code("}")
+        End If
+
+        If ildt.staticctor.Count > 0 Then
+            add_il_code(".method public specialname rtspecialname static void .cctor() cil managed ")
+            add_il_code("{")
+            For index = 0 To ildt.staticctor.Count - 1
+                add_il_code(ildt.staticctor(index))
+            Next
+            add_il_code("}")
+        End If
+    End Sub
     Public Sub imp_field()
         If IsNothing(ildt.field) Then Return
         newline()
@@ -169,10 +192,14 @@
     End Sub
     Private Sub imp_module(name As String)
         'check name
+        Dim checkfieldinit As String = String.Empty
+        If ildt.instancector.Count > 0 OrElse ildt.staticctor.Count > 0 Then
+            checkfieldinit = " beforefieldinit "
+        End If
         If attribute._app._namespace <> String.Empty Then
-            add_il_code(".class public auto ansi sealed " & attribute._app._namespace & conrex.DOT & name)
+            add_il_code(".class public auto ansi sealed " & checkfieldinit & attribute._app._namespace & conrex.DOT & name)
         Else
-            add_il_code(".class public auto ansi sealed " & name)
+            add_il_code(".class public auto ansi sealed " & checkfieldinit & name)
         End If
         add_st_block()
     End Sub
