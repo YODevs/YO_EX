@@ -88,6 +88,13 @@
         codes.Add("ldarg " & name)
     End Sub
 
+    Public Shared Sub load_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        codes.Add("ldsfld " & ptype & " " & classname & "::" & name)
+    End Sub
+    Public Shared Sub load_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        codes.Add("ldfld " & ptype & " " & classname & "::" & name)
+    End Sub
+
     ''' <summary>
     ''' ldc.i4.s[int32] Push int32 onto stack 
     ''' </summary>
