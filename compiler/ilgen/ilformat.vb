@@ -9,6 +9,8 @@
         Dim assemblyextern() As _ilassemblyextern
         Dim modulename As String
         Dim field() As _pubfield
+        Dim staticctor As ArrayList
+        Dim instancector As ArrayList
         'Assembly
     End Structure
 
