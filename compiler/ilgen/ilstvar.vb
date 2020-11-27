@@ -6,7 +6,9 @@
         If IsNothing(_ilmethod.parameter) = False Then
             If st_argument(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
-
+        If IsNothing(ilasmgen.classdata.fields) = False Then
+            If st_field(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
+        End If
         dserr.args.Add(nvar)
         dserr.new_error(conserr.errortype.TYPENOTFOUND, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & nvar & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
 
