@@ -25,25 +25,25 @@
         'Public fields ...
         _ilfunc = New ilfuncgen(ilcollection, yoclassdt)
         ilbodybulider.path = yoclassdt.location
+        set_fields(yoclassdt, ilcollection)
+        localinitdata.import_fields(yoclassdt.fields)
         ilcollection.ilmethod = _ilfunc.gen()
         _ilresultcollection.ilfmtdata = ilcollection
-        set_fields(yoclassdt, _ilresultcollection)
         _ilresultcollection.result = True
-
         Return _ilresultcollection
     End Function
-    Private Sub set_fields(yoclassdt As tknformat._class, ByRef _ilresultcollection As ilformat.resultildata)
+    Private Sub set_fields(yoclassdt As tknformat._class, ByRef _ilcollection As ilformat.ildata)
         If IsNothing(yoclassdt.fields) Then Return
-        _ilresultcollection.ilfmtdata.staticctor = New ArrayList
-        _ilresultcollection.ilfmtdata.instancector = New ArrayList
+        _ilcollection.staticctor = New ArrayList
+        _ilcollection.instancector = New ArrayList
         For index = 0 To yoclassdt.fields.Length - 1
-            Array.Resize(_ilresultcollection.ilfmtdata.field, index + 1)
+            Array.Resize(_ilcollection.field, index + 1)
             Dim getdatatype As String = yoclassdt.fields(index).ptype
             servinterface.is_common_data_type(getdatatype, getdatatype)
-            _ilresultcollection.ilfmtdata.field(index).name = yoclassdt.fields(index).name
-            _ilresultcollection.ilfmtdata.field(index).accesscontrol = yoclassdt.fields(index).accesscontrol
-            _ilresultcollection.ilfmtdata.field(index).modifier = yoclassdt.fields(index).modifier
-            _ilresultcollection.ilfmtdata.field(index).ptype = getdatatype
+            _ilcollection.field(index).name = yoclassdt.fields(index).name
+            _ilcollection.field(index).accesscontrol = yoclassdt.fields(index).accesscontrol
+            _ilcollection.field(index).modifier = yoclassdt.fields(index).modifier
+            _ilcollection.field(index).ptype = getdatatype
             Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(yoclassdt.fields(index).valuecinf, yoclassdt.fields(index).value, yoclassdt.fields(index).valuetoken)
             If yoclassdt.fields(index).value <> String.Empty Then
                 Dim ctrfunc As New ilformat._ilmethodcollection
@@ -55,14 +55,14 @@
                 ldfield.load_single_in_stack(getdatatype, getlinecodestruct)
                 If yoclassdt.fields(index).modifier = "static" Then
                     For ictrcode = 0 To ctrfunc.codes.Count - 1
-                        _ilresultcollection.ilfmtdata.staticctor.Add(ctrfunc.codes(ictrcode))
+                        _ilcollection.staticctor.Add(ctrfunc.codes(ictrcode))
                     Next
-                    ilstvar.st_field(yoclassdt.fields(index).name, Nothing, getlinecodestruct, getdatatype, _ilresultcollection.ilfmtdata.staticctor)
+                    ilstvar.st_field(yoclassdt.fields(index).name, Nothing, getlinecodestruct, getdatatype, _ilcollection.staticctor)
                 Else
                     For ictrcode = 0 To ctrfunc.codes.Count - 1
-                        _ilresultcollection.ilfmtdata.instancector.Add(ctrfunc.codes(ictrcode))
+                        _ilcollection.instancector.Add(ctrfunc.codes(ictrcode))
                     Next
-                    ilstvar.st_field(yoclassdt.fields(index).name, Nothing, getlinecodestruct, getdatatype, _ilresultcollection.ilfmtdata.instancector)
+                    ilstvar.st_field(yoclassdt.fields(index).name, Nothing, getlinecodestruct, getdatatype, _ilcollection.instancector)
                 End If
             End If
             'Check Type ...
