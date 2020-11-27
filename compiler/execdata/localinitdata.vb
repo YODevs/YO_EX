@@ -1,6 +1,9 @@
-﻿Public Class localinitdata
+﻿Imports YOCA
+
+Public Class localinitdata
     Friend datatypelocal As mapstoredata
     Friend datatypeparameter As mapstoredata
+    Friend Shared fieldst As mapstoredata
     Public Sub New()
         datatypelocal = New mapstoredata
         datatypeparameter = New mapstoredata
@@ -24,5 +27,13 @@
                 add_parameter(method.parameters(index).name, method.parameters(index).ptype)
             Next
         End If
+    End Sub
+
+    Friend Shared Sub import_fields(fields() As tknformat._pubfield)
+        fieldst = New mapstoredata
+        If IsNothing(fields) Then Return
+        For index = 0 To fields.Length - 1
+            fieldst.add(fields(index).name, fields(index).ptype)
+        Next
     End Sub
 End Class
