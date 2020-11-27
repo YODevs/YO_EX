@@ -19,8 +19,6 @@
             add_assembly(ildt.assemblyextern(index))
         Next
 
-        imp_field()
-
         If attribute._app._classname <> Nothing Then
             imp_module(attribute._app._classname)
         Else
@@ -44,21 +42,26 @@
     End Function
 
     Public Sub imp_ctor()
-        If ildt.instancector.Count > 0 Then
+
+        If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
             add_il_code(".method public specialname rtspecialname instance void .ctor() cil managed ")
             add_il_code("{")
+            add_il_code("ldarg.0
+call instance void [mscorlib]System.Object::.ctor()")
             For index = 0 To ildt.instancector.Count - 1
                 add_il_code(ildt.instancector(index))
             Next
+            add_il_code("ret")
             add_il_code("}")
         End If
 
-        If ildt.staticctor.Count > 0 Then
+        If IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
             add_il_code(".method public specialname rtspecialname static void .cctor() cil managed ")
             add_il_code("{")
             For index = 0 To ildt.staticctor.Count - 1
                 add_il_code(ildt.staticctor(index))
             Next
+            add_il_code("ret")
             add_il_code("}")
         End If
     End Sub
@@ -193,15 +196,18 @@
     Private Sub imp_module(name As String)
         'check name
         Dim checkfieldinit As String = String.Empty
-        If ildt.instancector.Count > 0 OrElse ildt.staticctor.Count > 0 Then
+        If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
             checkfieldinit = " beforefieldinit "
         End If
+
         If attribute._app._namespace <> String.Empty Then
-            add_il_code(".class public auto ansi sealed " & checkfieldinit & attribute._app._namespace & conrex.DOT & name)
+            add_il_code(".class public auto ansi" & checkfieldinit & attribute._app._namespace & conrex.DOT & name)
         Else
-            add_il_code(".class public auto ansi sealed " & checkfieldinit & name)
+            add_il_code(".class public auto ansi" & checkfieldinit & name)
         End If
+        add_il_code("extends [mscorlib]System.Object")
         add_st_block()
+        imp_field()
     End Sub
 
     Public Sub add_st_block()
