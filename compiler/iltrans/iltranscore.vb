@@ -49,7 +49,7 @@
 
     Private Sub rev_cline_code(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         If clinecodestruc.Length = 0 Then Return
-
+        'coutputdata.print_token(clinecodestruc)
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.IDENTIFIER
                 nv_st_identifier(clinecodestruc, _ilmethod)
@@ -185,6 +185,8 @@
             If localvartype.issuccessful = False Then
                 If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
                     localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
+                    localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
                     dserr.args.Add(varname)
                     dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
@@ -212,6 +214,8 @@
             If localvartype.issuccessful = False Then
                 If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
                     localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
+                    localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
                     dserr.args.Add(varname)
                     dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
@@ -239,6 +243,8 @@
             If localvartype.issuccessful = False Then
                 If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
                     localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
+                    localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
                     dserr.args.Add(varname)
                     dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
@@ -266,6 +272,8 @@
             If localvartype.issuccessful = False Then
                 If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
                     localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
+                    localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
                     dserr.args.Add(varname)
                     dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
@@ -293,6 +301,8 @@
                     If servinterface.is_pointer(_ilmethod, varname) Then
                         cil.load_argument(_ilmethod.codes, varname)
                     End If
+                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
+                    localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
                     'Set Error
                     dserr.args.Add(varname)
