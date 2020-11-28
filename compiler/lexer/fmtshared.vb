@@ -318,7 +318,11 @@
     Public Function _to_organize() As tknformat._class
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
-        xclass(0).fields = xfield
+        If IsNothing(xfield) = False AndAlso xfield.Length = 1 AndAlso xfield(0).value = conrex.NULL Then
+            xclass(0).fields = Nothing
+        Else
+            xclass(0).fields = xfield
+        End If
         Return xclass(0)
     End Function
     Public Sub _settingup()
