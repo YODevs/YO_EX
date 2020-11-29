@@ -221,9 +221,9 @@
     Private Sub ldstr(cargcodestruc As xmlunpkd.linecodestruc)
         Select Case cargcodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
-                cil.load_string(_ilmethod.codes, cargcodestruc.value)
+                cil.load_string(_ilmethod, cargcodestruc.value, cargcodestruc)
             Case tokenhared.token.TYPE_CO_STR
-                cil.load_string(_ilmethod.codes, cargcodestruc.value)
+                cil.load_string(_ilmethod, cargcodestruc.value, cargcodestruc)
             Case tokenhared.token.IDENTIFIER
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, "string")
             Case tokenhared.token.NULL
