@@ -16,6 +16,23 @@
         codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
     End Sub
 
+    Public Shared Sub load_string(ByRef ilmethod As ilformat._ilmethodcollection, value As String, cargcodestruc As xmlunpkd.linecodestruc)
+        If value.StartsWith(conrex.COSTR) OrElse value.StartsWith(conrex.DUSTR) Then
+            specificdustrcommand.reset_line_feed(value)
+            If value.StartsWith(conrex.DUSTR) Then
+                specificdustrcommand.get_specific_dustr_command(value)
+                If fmtstrlit.action(ilmethod, value, cargcodestruc) Then
+
+                    Return
+                End If
+            Else
+                specificdustrcommand.rem_specific_cil_char(value)
+            End If
+            authfunc.rem_fr_and_en(value)
+        End If
+        ilmethod.codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
+    End Sub
+
     ''' <summary>
     ''' stloc [str]
     ''' </summary>
