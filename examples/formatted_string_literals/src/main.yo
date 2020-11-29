@@ -1,0 +1,18 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+#[app::wait(true)]
+
+func main()
+{
+  let _myname : str = "Havertz"
+  let _age : i8 = 23
+  print_message("My name is #{_myname} and im #{_age} old years !")
+}
+
+func print_message(val : str)
+{
+  <
+  ldarg.0
+  call void [mscorlib]System.Console::Write(string)
+  >
+}
