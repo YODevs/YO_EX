@@ -220,7 +220,6 @@ Public Class servinterface
 
     Friend Shared Function is_variable(ilmethod As ilformat._ilmethodcollection, varname As String, ByRef getdatatype As String) As Boolean
         varname = varname.ToLower
-
         If IsNothing(ilmethod.parameter) = False Then
             For index = 0 To ilmethod.parameter.Length - 1
                 If ilmethod.parameter(index).name.ToLower = varname Then
@@ -232,12 +231,22 @@ Public Class servinterface
 
         If IsNothing(ilmethod.locallinit) = False Then
             For index = 0 To ilmethod.locallinit.Length - 1
-                If ilmethod.locallinit(index).name.ToLower = varname Then
+                If ilmethod.locallinit(index).name <> conrex.NULL AndAlso ilmethod.locallinit(index).name.ToLower = varname Then
                     getdatatype = ilmethod.locallinit(index).datatype
                     Return True
                 End If
             Next
         End If
+
+        If IsNothing(ilasmgen.classdata.fields) = False Then
+            For index = 0 To ilasmgen.classdata.fields.Length - 1
+                If ilasmgen.classdata.fields(index).name.ToLower = varname Then
+                    getdatatype = ilasmgen.classdata.fields(index).ptype
+                    Return True
+                End If
+            Next
+        End If
+
         Return False
     End Function
 End Class
