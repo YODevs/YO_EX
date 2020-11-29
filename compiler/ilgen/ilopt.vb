@@ -138,9 +138,9 @@ Public Class ilopt
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, "string")
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
-                cil.load_string(_ilmethod.codes, clinecodestruc.value)
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.TYPE_CO_STR
-                cil.load_string(_ilmethod.codes, clinecodestruc.value)
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
             Case Else
@@ -160,9 +160,9 @@ Public Class ilopt
     Public Function assi_str(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
-                cil.load_string(_ilmethod.codes, clinecodestruc.value)
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.TYPE_CO_STR
-                cil.load_string(_ilmethod.codes, clinecodestruc.value)
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
             'let value : str = NULL
