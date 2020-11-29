@@ -195,7 +195,7 @@ call instance void [mscorlib]System.Object::.ctor()")
     End Sub
     Private Sub imp_module(name As String)
         'check name
-        Dim checkfieldinit As String = String.Empty
+        Dim checkfieldinit As String = conrex.SPACE
         If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
             checkfieldinit = " beforefieldinit "
         End If
