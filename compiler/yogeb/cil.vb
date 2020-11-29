@@ -104,6 +104,9 @@
     Public Shared Sub load_argument(ByRef codes As ArrayList, name As String)
         codes.Add("ldarg " & name)
     End Sub
+    Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
+        codes.Add("call string [mscorlib]System.Convert::ToString(" & ptype & ")")
+    End Sub
 
     Public Shared Sub load_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
         codes.Add("ldsfld " & ptype & " " & classname & "::" & name)
