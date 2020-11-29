@@ -107,7 +107,14 @@
     Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
         codes.Add("call string [mscorlib]System.Convert::ToString(" & ptype & ")")
     End Sub
-
+    Public Shared Sub concat(ByRef codes As ArrayList, ptype As String, paramcount As Integer)
+        Dim params As String = String.Empty
+        For index = 0 To paramcount
+            params &= ptype & conrex.CMA
+        Next
+        params = params.Remove(params.Length - 1)
+        codes.Add("call string [mscorlib]System.String::Concat(" & params & ")")
+    End Sub
     Public Shared Sub load_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
         codes.Add("ldsfld " & ptype & " " & classname & "::" & name)
     End Sub
