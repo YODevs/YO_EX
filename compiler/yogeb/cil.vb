@@ -235,6 +235,9 @@
         If chovf = True Then lncode &= ".ovf"
         codes.Add(lncode)
     End Sub
+    Public Shared Sub div(ByRef codes As ArrayList)
+        codes.Add("div")
+    End Sub
     Public Shared Sub pop(ByRef codes As ArrayList)
         codes.Add("pop")
     End Sub
