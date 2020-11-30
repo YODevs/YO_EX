@@ -1,0 +1,18 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+#[app::wait(true)]
+
+let public static message : str = "message ..."
+func main()
+{
+  message := "Hello World !"
+  print(message)
+}
+
+func print(nval : str)
+{
+  <
+  ldarg.0
+  call void [mscorlib]System.Console::Write(string)
+  >
+}

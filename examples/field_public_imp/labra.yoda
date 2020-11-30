@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "field_public_imp"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
