@@ -68,30 +68,31 @@
         FIELDVALUE
     End Enum
     Public Sub imp_token(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
-        If state = statecursor.OUT Then
-            Select Case rd_token
-                Case tokenhared.token.FUNC
-                    _rev_func(value, rd_token, linecinf)
-                Case tokenhared.token.EXPR
-                    _rev_func(value, rd_token, linecinf, True)
-                Case tokenhared.token.EXTERN
-                    state = statecursor.INIMPORTS
-                Case tokenhared.token.LET
-                    state = statecursor.FIELDS
-                    fieldstate = pbfieldstate.ACCESSCONTORL
-                Case Else
-                    dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
-            End Select
-            Return
-        ElseIf state = statecursor.INFUNC Then
-            _rev_func(value, rd_token, linecinf)
-        ElseIf state = statecursor.FIELDS Then
-            _rev_field(value, rd_token, linecinf)
-        ElseIf state = statecursor.INIMPORTS Then
-            _rev_extern(value, rd_token, linecinf)
-        Else
-            dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
-        End If
+        Select Case state
+            Case statecursor.OUT
+                Select Case rd_token
+                        Case tokenhared.token.FUNC
+                            _rev_func(value, rd_token, linecinf)
+                        Case tokenhared.token.EXPR
+                            _rev_func(value, rd_token, linecinf, True)
+                        Case tokenhared.token.EXTERN
+                            state = statecursor.INIMPORTS
+                        Case tokenhared.token.LET
+                            state = statecursor.FIELDS
+                            fieldstate = pbfieldstate.ACCESSCONTORL
+                        Case Else
+                            dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
+                    End Select
+                    Return
+            Case statecursor.INFUNC
+                _rev_func(value, rd_token, linecinf)
+            Case statecursor.FIELDS
+                _rev_field(value, rd_token, linecinf)
+            Case statecursor.INIMPORTS
+                _rev_extern(value, rd_token, linecinf)
+            Case Else
+                dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
+        End Select
     End Sub
     Private Sub _rev_field(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         Static Dim i As Integer = 0
