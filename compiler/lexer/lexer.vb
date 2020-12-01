@@ -141,8 +141,9 @@ Public Class lexer
             End If
 
 
-
-            If tokenhared.check_opt(getch) Then
+            If check_method(getch, linec, index) Then
+                Continue For
+            ElseIf tokenhared.check_opt(getch) Then
 
                 If linec = conrex.NULL Then
                     linecinf.lend = index - 1
@@ -198,6 +199,22 @@ Public Class lexer
 
         procresult.rs_proc_data(True)
     End Sub
+
+    Private Function check_method(getch As Char, ByRef slinegrab As String, index As Integer) As Boolean
+        If getch = ":" Then
+            If nextchar(index) = ":" OrElse pervchar(index) = ":" Then
+                slinegrab &= getch
+                Return True
+            Else
+                Return False
+            End If
+        ElseIf getch = "." AndAlso IsNumeric(slinegrab) = False Then
+            slinegrab &= getch
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
     Private Function get_co_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
         If slinegrab.StartsWith(conrex.COSTR) AndAlso getch = conrex.COSTR Then
