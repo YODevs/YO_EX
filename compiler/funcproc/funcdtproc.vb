@@ -20,8 +20,11 @@
         ' TODO : Fix Bug    reset_xml_data(classdt)
         reffunc(index).filename = classdt.name
         reffunc(index).methods = classdt.methods
-        reffunc(index).classname = classdt.attribute._app._classname
-        refrecord.add(classdt.attribute._app._classname, index)
+        If classdt.attribute._app._namespace <> conrex.NULL Then
+            reffunc(index).classname = classdt.attribute._app._namespace & conrex.DOT
+        End If
+        reffunc(index).classname &= classdt.attribute._app._classname
+        refrecord.add(reffunc(index).classname, index)
     End Sub
 
     Private Shared Sub reset_xml_data(ByRef classdt As tknformat._class)
