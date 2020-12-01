@@ -42,9 +42,11 @@
         Return -1
     End Function
 
-    Friend Shared Function get_index_class(classname As String) As Integer
-        Dim resultclassindex As mapstoredata.dataresult = refrecord.find(classname, True)
+    Friend Shared Function get_index_class(ByRef classname As String) As Integer
+        Dim classchename As String = String.Empty
+        Dim resultclassindex As mapstoredata.dataresult = refrecord.find(classname, True, classchename)
         If resultclassindex.issuccessful Then
+            classname = classchename
             Return resultclassindex.result
         Else
             Return -1
