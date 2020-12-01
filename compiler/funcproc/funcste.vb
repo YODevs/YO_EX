@@ -3,14 +3,16 @@
     Friend Shared Sub invoke_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, funcresult As funcvalid._resultfuncvaild, Optional leftassign As Boolean = True)
         fscmawait = False
         If funcresult.callintern Then
-            inv_internal_method(clinecodestruc, _ilmethod, funcresult, leftassign)
+            inv_internal_method(clinecodestruc, _ilmethod, funcresult.exclass, funcresult, leftassign)
+        Else
+            Throw New NotImplementedException
         End If
     End Sub
 
-    Friend Shared Sub inv_internal_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
-        Dim classindex As Integer = funcdtproc.get_index_class(attribute._app._classname)
+    Friend Shared Sub inv_internal_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
+        Dim classindex As Integer = funcdtproc.get_index_class(classname)
         If classindex = -1 Then
-            dserr.args.Add("Class " & attribute._app._classname & " not found.")
+            dserr.args.Add("Class " & classname & " not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
         End If
@@ -28,7 +30,7 @@
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
         End If
         Dim getdatatype As String = methodinfo.returntype
-        cil.call_intern_method(_ilmethod.codes, getdatatype, attribute._app._classname, funcresult.clmethod, paramtype)
+        cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype)
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
