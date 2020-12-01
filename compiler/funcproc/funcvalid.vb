@@ -38,13 +38,31 @@
             Else
                 resultvalid.funcvalid = True
                 resultvalid.callintern = True
-                resultvalid.clmethod = clinecodestruc(0).value
+                set_func_vaild(clinecodestruc, resultvalid)
                 Return True
             End If
-        End If
+            End If
         Return False
     End Function
 
+    Private Shared Sub set_func_vaild(clinecodestruc() As xmlunpkd.linecodestruc, ByRef resultvalid As _resultfuncvaild)
+        If resultvalid.callintern Then
+            If clinecodestruc(0).value.Contains("::") Then
+                Dim nsname As String = clinecodestruc(0).value
+                Dim nmethod As String = nsname.Remove(0, nsname.IndexOf("::") + 2)
+                nsname = nsname.Remove(nsname.IndexOf("::"))
+                'Check exist class & method
+                resultvalid.exclass = nsname
+                resultvalid.clmethod = nmethod
+            Else
+                resultvalid.clmethod = clinecodestruc(0).value
+                resultvalid.exclass = ilasmgen.classdata.attribute._app._classname
+            End If
+        Else
+            'DLL / Static Libs
+            Throw New NotImplementedException
+        End If
+    End Sub
     Private Shared Sub set_expect_error(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer, expectcode As String)
         dserr.args.Add(expectcode)
         dserr.new_error(conserr.errortype.EXPECTEDERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
