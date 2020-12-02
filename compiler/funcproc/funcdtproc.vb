@@ -33,7 +33,7 @@
             classdt.methods(indexmethod).bodyxmlfmt = String.Empty
         Next
     End Sub
-    Friend Shared Function get_index_method(ByRef funcname As String, classindex As String) As Integer
+    Friend Shared Function get_index_method(ByRef funcname As String, classindex As Integer) As Integer
         If IsNothing(reffunc(classindex).methods) Then Return -1
         funcname = funcname.ToLower
         For index = 0 To reffunc(classindex).methods.Length - 1
