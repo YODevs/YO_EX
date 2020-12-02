@@ -24,10 +24,25 @@
 
         If check_intern_method(clinecodestruc, resultvaild) Then
             Return resultvaild
+        ElseIf check_extern_method(clinecodestruc, resultvaild) Then
+            Return resultvaild
         End If
         Return resultvaild
     End Function
+    Friend Shared Function check_extern_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef resultvalid As _resultfuncvaild) As Boolean
+        If clinecodestruc(0).tokenid = tokenhared.token.IDENTIFIER AndAlso
+                clinecodestruc(1).tokenid = tokenhared.token.PRSTART Then
 
+            If clinecodestruc(clinecodestruc.Length - 1).tokenid <> tokenhared.token.PREND Then
+                set_expect_error(clinecodestruc, clinecodestruc.Length - 1, ")")
+                Return False
+            Else
+                resultvalid.callintern = False
+                set_func_vaild(clinecodestruc, resultvalid)
+            End If
+        End If
+        Return False
+    End Function
     Friend Shared Function check_intern_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef resultvalid As _resultfuncvaild) As Boolean
         If clinecodestruc(0).tokenid = tokenhared.token.IDENTIFIER AndAlso
                 clinecodestruc(1).tokenid = tokenhared.token.PRSTART Then
@@ -39,9 +54,19 @@
                 resultvalid.funcvalid = True
                 resultvalid.callintern = True
                 set_func_vaild(clinecodestruc, resultvalid)
-                Return True
+                Dim classindex As Integer = funcdtproc.get_index_class(resultvalid.exclass)
+                If classindex <> -1 Then
+                    resultvalid.funcvalid = True
+                    resultvalid.callintern = True
+                    Return True
+                Else
+                    resultvalid.funcvalid = False
+                    resultvalid.callintern = False
+                    Return False
+                End If
+
             End If
-            End If
+        End If
         Return False
     End Function
 
@@ -58,9 +83,20 @@
                 resultvalid.clmethod = clinecodestruc(0).value
                 resultvalid.exclass = ilasmgen.classdata.attribute._app._classname
             End If
+            Return
         Else
-            'DLL / Static Libs
-            Throw New NotImplementedException
+            If clinecodestruc(0).value.Contains("::") Then
+                Dim nsname As String = clinecodestruc(0).value
+                Dim nmethod As String = nsname.Remove(0, nsname.IndexOf("::") + 2)
+                nsname = nsname.Remove(nsname.IndexOf("::"))
+                resultvalid.exclass = nsname
+                resultvalid.clmethod = nmethod
+                resultvalid.asmextern = "mscorlib"
+                resultvalid.funcvalid = True
+            Else
+                resultvalid.funcvalid = False
+                set_expect_error(clinecodestruc, 0, "::")
+            End If
         End If
     End Sub
     Private Shared Sub set_expect_error(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer, expectcode As String)
