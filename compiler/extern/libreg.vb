@@ -4,6 +4,8 @@ Imports System.Reflection
 Public Class libreg
     Public Shared files As New ArrayList
     Friend Shared assemblymap As mapstoredata
+    Friend Shared externtypes As mapstoredata
+    Friend Shared types()() As Type
     Friend Shared assetspath As String
     Friend Shared _externinf() As _extern_info
     Public Structure _extern_info
@@ -19,8 +21,11 @@ Public Class libreg
         procresult.rp_init("Check the dependencies of the '\assets' path")
         assetspath = path
         assemblymap = New mapstoredata
+        externtypes = New mapstoredata
         get_dll_list(path, files, True)
         get_dll_info()
+        ' extract_dt_info([Assembly].Load("mscorlib"))
+        extract_dt_info_to_map([Assembly].Load("mscorlib"))
         procresult.rs_set_result(True)
     End Sub
 
@@ -28,9 +33,30 @@ Public Class libreg
         Dim asm As [Assembly]
         For index = 0 To files.Count - 1
             asm = [Assembly].LoadFile(files(index).ToString)
-            extract_dt_info(asm)
+            'extract_dt_info(asm)
+            extract_dt_info_to_map(asm)
         Next
     End Sub
+
+    Private Shared Sub extract_dt_info_to_map(asm As Assembly)
+        assemblymap.add(asm.GetName.Name, asm.Location)
+        Static Dim indexarray As Int16 = 0
+        Array.Resize(types, indexarray + 1)
+        Dim index As Integer = 0
+        For Each asmtype In asm.GetTypes()
+            Array.Resize(types(indexarray), index + 1)
+            Dim nsname As String = String.Empty
+            If asmtype.Namespace <> conrex.NULL Then
+                nsname = asmtype.Namespace & conrex.DOT
+            End If
+            nsname &= asmtype.Name
+            externtypes.add(nsname, indexarray & conrex.CMA & index)
+            types(indexarray)(index) = asmtype
+            index += 1
+        Next
+        indexarray += 1
+    End Sub
+
 
     Private Shared Sub extract_dt_info(asm As Assembly)
         assemblymap.add(asm.GetName.Name, asm.Location)
@@ -38,7 +64,10 @@ Public Class libreg
         For Each asmtype In asm.GetTypes()
             Array.Resize(_externinf, indexarray + 1)
             _externinf(indexarray) = New _extern_info
-            _externinf(indexarray).name = asmtype.Name
+            If asmtype.Namespace <> conrex.NULL Then
+                _externinf(indexarray).name = asmtype.Namespace & conrex.DOT
+            End If
+            _externinf(indexarray).name &= asmtype.Name
             _externinf(indexarray).asmname = asm.GetName.Name
             _externinf(indexarray).fullname = asmtype.FullName
             _externinf(indexarray).msnamespace = asmtype.Namespace
