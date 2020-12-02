@@ -5,7 +5,35 @@
         If funcresult.callintern Then
             inv_internal_method(clinecodestruc, _ilmethod, funcresult.exclass, funcresult, leftassign)
         Else
-            Throw New NotImplementedException
+            inv_external_method(clinecodestruc, _ilmethod, funcresult.exclass, funcresult, leftassign)
+        End If
+    End Sub
+
+    Friend Shared Sub inv_external_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
+        Dim classindex, namespaceindex As Integer
+        If libserv.get_extern_index_class(classname, namespaceindex, classindex) = -1 Then
+            dserr.args.Add("Class " & classname & " not found.")
+            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+            Return
+        End If
+
+        Dim methodindex As Integer = libserv.get_extern_index_method(funcresult.clmethod, namespaceindex, classindex)
+        If methodindex = -1 Then
+            dserr.args.Add("Method " & funcresult.clmethod & "(...) not found.")
+            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+        End If
+        MsgBox("OK")
+        Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
+        Dim paramtype As ArrayList
+        If IsNothing(methodinfo.parameters) = False Then
+            ' Print Tokens :
+            '  coutputdata.print_token(clinecodestruc)
+            load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
+        End If
+        Dim getdatatype As String = methodinfo.returntype
+        cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
+        If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
+            cil.pop(_ilmethod.codes)
         End If
     End Sub
 
