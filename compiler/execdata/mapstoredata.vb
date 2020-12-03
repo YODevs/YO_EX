@@ -20,6 +20,15 @@
         values.Add(value)
     End Sub
 
+    Public Function get_index(index As Integer, Optional ByRef getkey As String = Nothing) As dataresult
+        Dim result As New dataresult
+        result.issuccessful = False
+        If index >= keys.Count Then Return result
+        result.result = values(index).ToString
+        getkey = keys(index).ToString
+        result.issuccessful = True
+        Return result
+    End Function
     Public Function find(key As String, Optional tolowersearch As Boolean = False, Optional ByRef getkey As String = Nothing) As dataresult
         Dim endpoint As Integer = keys.Count - 1
         Dim result As New dataresult
