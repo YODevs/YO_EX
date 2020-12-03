@@ -17,18 +17,21 @@
             Return
         End If
 
-        Dim methodindex As Integer = libserv.get_extern_index_method(funcresult.clmethod, namespaceindex, classindex)
+        funcresult.asmextern = libserv.get_extern_assembly(namespaceindex)
+        Dim methodinfo As New tknformat._method
+        Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo)
         If methodindex = -1 Then
             dserr.args.Add("Method " & funcresult.clmethod & "(...) not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
         End If
-        MsgBox("OK")
-        Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
+
         Dim paramtype As ArrayList
+        Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
+        libserv.cargldr = Nothing
         If IsNothing(methodinfo.parameters) = False Then
             ' Print Tokens :
             '  coutputdata.print_token(clinecodestruc)
-            load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
+            load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype, cargcodestruc)
         End If
         Dim getdatatype As String = methodinfo.returntype
         cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
@@ -64,8 +67,9 @@
         End If
     End Sub
 
-    Private Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList)
-        Dim cargcodestruc() As xmlunpkd.linecodestruc = get_argument_list(clinecodestruc)
+    Private Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList, Optional cargcodestruc() As xmlunpkd.linecodestruc = Nothing)
+        If IsNothing(cargcodestruc) Then cargcodestruc = get_argument_list(clinecodestruc)
+
         If IsNothing(cargcodestruc) Or cargcodestruc.Length <> methodinfo.parameters.Length Then
             'TODO : PARAMARRAY
             dserr.args.Add("Argument Not specified For parameter")
@@ -75,15 +79,14 @@
 
         paramtypes = New ArrayList
         For index = 0 To methodinfo.parameters.Length - 1
-            Dim getcildatatype As String = methodinfo.parameters(index).ptype
-            If servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
+            Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
+            If methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
                 If methodinfo.parameters(index).byreference Then getcildatatype &= "&"
                 paramtypes.Add(getcildatatype)
             Else
                 'Other Types...
             End If
         Next
-
         set_stack_space(_ilmethod, paramtypes, cargcodestruc)
     End Sub
 
