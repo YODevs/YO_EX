@@ -331,9 +331,7 @@
             Case tokenhared.token.FALSE
                 cil.push_int32_onto_stack(_ilmethod.codes, 0)
             Case tokenhared.token.IDENTIFIER
-                If assignmentcommondatatype.check_locals_init(_ilmethod.name, cargcodestruc.value, _ilmethod.locallinit, datatype) Then
-                    cil.load_local_variable(_ilmethod.codes, cargcodestruc.value)
-                End If
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.TYPE_INT
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
