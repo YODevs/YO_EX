@@ -91,7 +91,7 @@
                 nsname = nsname.Remove(nsname.IndexOf("::"))
                 resultvalid.exclass = nsname
                 resultvalid.clmethod = nmethod
-                resultvalid.asmextern = "mscorlib"
+                resultvalid.asmextern = conrex.NULL
                 resultvalid.funcvalid = True
             Else
                 resultvalid.funcvalid = False
