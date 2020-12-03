@@ -48,6 +48,8 @@ Public Class libserv
         If IsNothing(cargcodestruc) = False Then cargcodelen = cargcodestruc.Length
         If cargcodelen <> method.GetParameters.Length Then
             Return False
+        ElseIf method.GetParameters.Length = 0 AndAlso cargcodelen = 0 Then
+            Return True
         End If
 
         Dim paramtypes As New ArrayList
@@ -65,7 +67,7 @@ Public Class libserv
         If method.ReturnType.Name = "Void" Then
             methodinfo.returntype = "void"
         Else
-            methodinfo.returntype = method.ReturnType.Name
+            methodinfo.returntype = servinterface.vb_to_cil_common_data_type(method.ReturnType.Name)
         End If
 
         For index = 0 To method.GetParameters().Length - 1
