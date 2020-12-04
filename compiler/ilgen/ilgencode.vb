@@ -23,7 +23,7 @@ Public Class ilgencode
             ilasm = New ilasmgen(ilcollection)
             funcste.attribute = classdt(index).attribute
             Dim resultdata As ilformat.resultildata = ilasm.gen(classdt(index))
-            If resultdata.result Then
+            If resultdata.result AndAlso compdt.CHECKSYNANDSEM = False Then
                 Dim bodybuilder As New ilbodybulider(resultdata.ilfmtdata, classdt(index).attribute)
                 ilbodybulider.path = classdt(index).location
                 bodybuilder.conv_to_msil()
@@ -33,8 +33,7 @@ Public Class ilgencode
                 'Somethings error ...
             End If
         Next
-
-        write_il()
+        If compdt.CHECKSYNANDSEM = False Then write_il()
     End Sub
 
     Private Sub write_il()
