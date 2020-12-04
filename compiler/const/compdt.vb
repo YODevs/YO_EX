@@ -14,6 +14,7 @@
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
     Friend Shared DISPLAYTOKENWLEX As Boolean = False
     Friend Shared DISPLAYSTACKTRACE As Boolean = False
+    Friend Shared CHECKSYNANDSEM As Boolean = False
     Friend Shared MUTEPROCESS As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
