@@ -30,10 +30,6 @@ Public Class libserv
         cargldr = Nothing
         For Each method In libreg.types(namespaceindex)(classindex).GetMethods()
             If method.Name.ToLower = funcnametolower AndAlso check_overloading(_ilmethod, method, cargcodestruc) Then
-                '      Dim sd As String = ""
-                '     For index = 0 To method.GetParameters.Length - 1
-                '    sd &= vbCrLf & method.GetParameters(index).ParameterType.Name
-                'Next
                 funcname = method.Name
                 get_method_info(method, methodinfo)
                 Return 1
@@ -44,6 +40,7 @@ Public Class libserv
 
     Friend Shared cargldr() As xmlunpkd.linecodestruc = Nothing
     Private Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, method As MethodInfo, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
+        'TODO : Check Return-Type
         Dim cargcodelen As Integer = 0
         If IsNothing(cargcodestruc) = False Then cargcodelen = cargcodestruc.Length
         If cargcodelen <> method.GetParameters.Length Then
