@@ -1,0 +1,11 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+  let _getkelvin : f32 = celsius_to_kelvin(25)
+  System.Console::WriteLine("25 C = #{_getkelvin} K")
+}
+
+expr celsius_to_kelvin(c : f32) : f32 = [c + 273.15]

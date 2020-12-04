@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "simple_expression"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
