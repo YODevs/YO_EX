@@ -1,0 +1,10 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+  System.Console::Write("Enter your name : ")
+  let name : str = System.Console::ReadLine()
+  System.Console::Write("Hello #{name}")
+}

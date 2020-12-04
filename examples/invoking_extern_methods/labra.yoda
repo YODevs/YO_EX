@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "invoking_extern_methods"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
