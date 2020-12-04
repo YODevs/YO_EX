@@ -1,0 +1,9 @@
+#[app::classname("MyApp")]
+#[cfg::CIL(true)]
+#[app::wait(true)]
+
+func main()
+{
+  let result : i32 = myexpr.matheq::sum(5,6)
+  System.Console::Write("5 + 6 = #{result}")
+}

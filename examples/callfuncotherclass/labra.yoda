@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "callfuncotherclass"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
