@@ -60,9 +60,18 @@ You can type 'Help' to view commands.")
     Public Sub rp_help()
         introcmd.show_intro()
     End Sub
-    Public Sub rp_build(args As ArrayList)
+
+    Public Sub rp_check(args As ArrayList)
+        compdt.CHECKSYNANDSEM = True
+        rp_build(args, True)
+    End Sub
+    Public Sub rp_build(args As ArrayList, Optional ismuteprocess As Boolean = False)
         argstorelist.import_collection(args)
-        compdt.MUTEPROCESS = argstorelist.find(compdt.PARAM_MUTE_PROCESS, True)
+        If ismuteprocess = True Then
+            compdt.MUTEPROCESS = True
+        Else
+            compdt.MUTEPROCESS = argstorelist.find(compdt.PARAM_MUTE_PROCESS, True)
+        End If
         procresult.set_state("init")
         compdt.DISPLAYTOKENWLEX = argstorelist.find(compdt.PARAM_DISPLAYTOKENLEX, True)
         compdt.DISPLAYSTACKTRACE = argstorelist.find(compdt.PARAM_DISPLAYSTACKTRACE, True)
