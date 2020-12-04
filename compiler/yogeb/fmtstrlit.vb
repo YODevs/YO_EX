@@ -19,9 +19,9 @@ Public Class fmtstrlit
             Next
             If value <> conrex.NULL Then
                 load_string(ilmethod, value, cargcodestruc, True)
-                paramcount += 1
+                If paramcount = 1 Then paramcount = 2
                 set_concat(ilmethod)
-            ElseIf paramcount <> 0 Then
+            ElseIf paramcount <> 1 Then
                 set_concat(ilmethod)
             End If
             Return True
@@ -30,8 +30,8 @@ Public Class fmtstrlit
     End Function
 
     Private Shared Sub set_concat(ByRef ilmethod As ilformat._ilmethodcollection)
-        cil.concat(ilmethod.codes, "string", paramcount - 1)
-        paramcount = 0
+        cil.concat(ilmethod.codes, "string", paramcount)
+        paramcount = 1
     End Sub
     Private Shared Sub load_identifier(ByRef ilmethod As ilformat._ilmethodcollection, varname As String, cargcodestruc As xmlunpkd.linecodestruc)
         Dim getdatatype As String = String.Empty

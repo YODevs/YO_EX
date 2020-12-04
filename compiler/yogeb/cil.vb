@@ -109,7 +109,7 @@
     End Sub
     Public Shared Sub concat(ByRef codes As ArrayList, ptype As String, paramcount As Integer)
         Dim params As String = String.Empty
-        For index = 0 To paramcount
+        For index = 1 To paramcount
             params &= ptype & conrex.CMA
         Next
         params = params.Remove(params.Length - 1)
