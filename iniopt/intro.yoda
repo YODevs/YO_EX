@@ -14,6 +14,8 @@ Copy dependencies and assets from the assets folder to the output.
 Display and print tokens while analyzing source code (lexical analysis).
 --stack_trace
 View and track details of compiler problems at runtime.
+--mute_process
+Hide all logs and do not show the process when compiling.
 *** Hints ***
 The Build command must be called next to labra.yoda file by the Command Prompt."
 ,
@@ -32,6 +34,28 @@ Copy dependencies and assets from the assets folder to the output.
 Display and print tokens while analyzing source code (lexical analysis).
 --stack_trace
 View and track details of compiler problems at runtime.
+--mute_process
+Hide all logs and do not show the process when compiling.
+*** Hints ***
+The Run command must be called next to labra.yoda file by the Command Prompt."
+,
+"check" = "checks the project for syntax and semantic.
+Usage : yoca check <options>
+*** Options ***
+--debug
+Disable JIT optimization, create PDB file, use sequence points from PDB.
+--debug_impl
+Disable JIT optimization, create PDB file, use implicit sequence points.
+--debug_opt
+Enable JIT optimization, create PDB file, use implicit sequence points.
+--import_assets
+Copy dependencies and assets from the assets folder to the output.
+--display_token
+Display and print tokens while analyzing source code (lexical analysis).
+--stack_trace
+View and track details of compiler problems at runtime.
+--mute_process
+Hide all logs and do not show the process when compiling.
 *** Hints ***
 The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
