@@ -29,6 +29,7 @@ Public Class expressiondt
             If ilasmgen.classdata.attribute._cfg._optimize_expression = True Then
                 genilcode = expressionopt.optimize_expression(genilcode)
             End If
+
             For Each linec In genilcode.Split(vbLf)
                 If linec.StartsWith(">") Then
                     Dim varname As String = linec.Remove(0, 1).Trim
@@ -36,8 +37,9 @@ Public Class expressiondt
                     Dim getcildatatype As String = String.Empty
                     If servinterface.is_variable(_ilmethod, varname, getdatatype) Then
                         servinterface.is_common_data_type(getdatatype, getcildatatype)
+                        If getcildatatype = String.Empty Then getcildatatype = getdatatype
                         illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, getcildatatype)
-                        conv_local_variable(getdatatype)
+                        conv_local_variable(getcildatatype)
                         Continue For
                     Else
                         'Set Error , Variable not founded.
