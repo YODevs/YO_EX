@@ -11,6 +11,8 @@
         [CATCH]
         ERR
         RET
+        MATCH
+        [CASE]
     End Enum
 
     Structure syntaxtypesloader
@@ -55,6 +57,48 @@
         st_err()
         'Return Statement
         st_ret()
+        'Match Statement
+        st_match()
+        'Case Statement
+        st_case()
+    End Sub
+
+    Private Shared Sub st_case()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.MATCH)
+        add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
+tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+        set_syntax_loader(statements.CASE, "Case Statement", exptokenslist, "match(inf)
+  {
+    case 'start'  {
+      System.Console::WriteLine('Starting service...')
+    }
+
+    case 'stop'  {
+    System.Console::WriteLine('Stopping service...')
+    }
+  }")
+    End Sub
+
+    Private Shared Sub st_match()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.MATCH)
+        add_token(exptokenslist, tokenhared.token.PRSTART)
+        add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
+tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
+        add_token(exptokenslist, tokenhared.token.PREND)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+        set_syntax_loader(statements.MATCH, "Match Statement", exptokenslist, "match(inf)
+  {
+    case 'start'  {
+      System.Console::WriteLine('Starting service...')
+    }
+
+    case 'stop'  {
+    System.Console::WriteLine('Stopping service...')
+    }
+  }")
     End Sub
 
     Private Shared Sub st_ret()
@@ -62,7 +106,7 @@
         add_token(exptokenslist, tokenhared.token.RETURN)
         add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
 tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
-        set_syntax_loader(statements.RET, "Retutn Statement", exptokenslist, "return [IDENTIFIER|STRING|INTEGER|...]")
+        set_syntax_loader(statements.RET, "Return Statement", exptokenslist, "return [IDENTIFIER|STRING|INTEGER|...]")
     End Sub
 
     Private Shared Sub st_err()
