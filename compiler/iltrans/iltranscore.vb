@@ -49,7 +49,7 @@
 
     Private Sub rev_cline_code(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         If clinecodestruc.Length = 0 Then Return
-        'coutputdata.print_token(clinecodestruc)
+        ' coutputdata.print_token(clinecodestruc)
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.IDENTIFIER
                 nv_st_identifier(clinecodestruc, _ilmethod)
@@ -65,6 +65,9 @@
             Case tokenhared.token.TO
                 Dim toit As New toiter(_ilmethod)
                 _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.MATCH
+                Dim matchclass As New matchst(_ilmethod)
+                _ilmethod = matchclass.set_match_st(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.LOOP
                 Dim infinityloop As New infloop(_ilmethod)
                 _ilmethod = infinityloop.set_infinity_loop(clinecodestruc, _illocalinit, localinit)
