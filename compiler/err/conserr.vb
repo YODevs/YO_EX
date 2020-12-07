@@ -39,6 +39,7 @@
         EXPECTEDERROR
         METHODERROR
         ARGUMENTERROR
+        CLASSVAILDERROR
     End Enum
 
     Enum errorpriority
@@ -108,5 +109,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.EXPECTEDERROR, errorpriority.STOP, "Syntax error", "'{0}' expected.")
         set_new_error(errortype.METHODERROR, errorpriority.STOP, "Method error", "{0}")
         set_new_error(errortype.ARGUMENTERROR, errorpriority.STOP, "Argument error", "{0}")
+        set_new_error(errortype.CLASSVAILDERROR, errorpriority.STOP, "Class validation error", "'{0}' , This class has already been created.")
     End Sub
 End Class
