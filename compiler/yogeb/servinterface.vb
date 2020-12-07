@@ -258,4 +258,19 @@ Public Class servinterface
 
         Return False
     End Function
+
+    Friend Shared classlist As New ArrayList
+    Friend Shared Sub check_class_vaild(attr As yocaattribute.yoattribute, location As String)
+        Dim getclassname As String = attr._app._classname.ToLower
+        If attr._app._namespace <> conrex.NULL Then
+            getclassname = attr._app._namespace.ToLower & conrex.DOT & getclassname
+        End If
+        For index = 0 To classlist.Count - 1
+            If classlist(index) = getclassname Then
+                dserr.args.Add(attr._app._classname)
+                dserr.new_error(conserr.errortype.CLASSVAILDERROR, -1, location, "Specify a new name for your class or put it in a new namespace.", "#[app::classname(""yourclass"")]")
+            End If
+        Next
+        classlist.Add(getclassname)
+    End Sub
 End Class
