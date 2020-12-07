@@ -11,6 +11,7 @@ Public Class impfiles
                 For index = 0 To files.Count - 1
                     Dim lex As New lexer(files(index).ToString)
                     lex.lexme(tknfmtclass(index))
+                    servinterface.check_class_vaild(tknfmtclass(index).attribute, tknfmtclass(index).location)
                     funcdtproc.import_method(tknfmtclass(index))
                 Next
                 procresult.set_state("gen")
