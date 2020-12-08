@@ -58,8 +58,14 @@ Public Class ilasmconv
             Else
                 Console.WriteLine(iloutput)
             End If
+
+            If iloutput.Contains("error code=") Then
+                Dim win32exc As New win32exceptions(iloutput)
+                win32exc.get_description()
+            End If
+
             result = False
-        End If
+            End If
     End Sub
 
     Private Function get_error_info(output As String) As String
