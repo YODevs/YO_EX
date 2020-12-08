@@ -45,5 +45,6 @@
         initessentialfiles.add_path(conrex.APPDIR & "\ilasm.exe")
         initessentialfiles.add_path(conrex.APPDIR & "\fusion.dll")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\intro.yoda")
+        initessentialfiles.add_path(conrex.APPDIR & "\iniopt\win32exceptions.yoda")
     End Sub
 End Module
