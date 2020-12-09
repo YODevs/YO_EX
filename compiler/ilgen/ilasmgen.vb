@@ -44,6 +44,7 @@
             _ilcollection.field(index).accesscontrol = yoclassdt.fields(index).accesscontrol
             _ilcollection.field(index).modifier = yoclassdt.fields(index).modifier
             _ilcollection.field(index).ptype = getdatatype
+            _ilcollection.field(index).isliteral = yoclassdt.fields(index).isconstant
             Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(yoclassdt.fields(index).valuecinf, yoclassdt.fields(index).value, yoclassdt.fields(index).valuetoken)
             If yoclassdt.fields(index).value <> String.Empty Then
                 Dim ctrfunc As New ilformat._ilmethodcollection
