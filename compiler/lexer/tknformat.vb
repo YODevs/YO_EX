@@ -28,6 +28,7 @@
         Dim defvalue As String
     End Structure
     Structure _pubfield
+        Dim isconstant As Boolean
         Dim accesscontrol As String
         Dim modifier As String
         Dim name As String
