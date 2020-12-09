@@ -9,6 +9,7 @@
     Dim funcstate As funcstatecursor
     Dim parastate As funcparastate
     Dim paraitemstate As funcparaitemstate
+    Dim fieldtypest As fieldtypestate
     Dim fieldstate As pbfieldstate
     Public externlist As ArrayList
     Public Sub New(file As String)
@@ -24,6 +25,10 @@
         externlist = New ArrayList
     End Sub
 
+    Enum fieldtypestate
+        [LET]
+        [CONST]
+    End Enum
     Enum statecursor
         INFUNC
         INIMPORTS
@@ -78,9 +83,14 @@
                         Case tokenhared.token.EXTERN
                             state = statecursor.INIMPORTS
                         Case tokenhared.token.LET
-                            state = statecursor.FIELDS
-                            fieldstate = pbfieldstate.ACCESSCONTORL
-                        Case Else
+                        state = statecursor.FIELDS
+                        fieldstate = pbfieldstate.ACCESSCONTORL
+                        fieldtypest = fieldtypestate.LET
+                    Case tokenhared.token.CONST
+                        state = statecursor.FIELDS
+                        fieldstate = pbfieldstate.ACCESSCONTORL
+                        fieldtypest = fieldtypestate.CONST
+                    Case Else
                             dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
                     End Select
                     Return
@@ -110,6 +120,11 @@
                         'Set Error
                 End Select
                 fieldstate = pbfieldstate.MODIFIER
+                If fieldtypest = fieldtypestate.CONST Then
+                    xfield(i).isconstant = True
+                Else
+                    xfield(i).isconstant = False
+                End If
                 Return
             Case pbfieldstate.MODIFIER
                 Select Case rd_token
