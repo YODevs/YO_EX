@@ -46,6 +46,7 @@
         Dim assemblyproperty As String
     End Structure
     Structure _pubfield
+        Dim isliteral As Boolean
         Dim accesscontrol As String
         Dim modifier As String
         Dim name As String
