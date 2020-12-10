@@ -36,6 +36,7 @@ Public Class fmtstrlit
     Private Shared Sub load_identifier(ByRef ilmethod As ilformat._ilmethodcollection, varname As String, cargcodestruc As xmlunpkd.linecodestruc)
         Dim getdatatype As String = String.Empty
         If servinterface.is_variable(ilmethod, varname, getdatatype) Then
+            servinterface.is_common_data_type(getdatatype, getdatatype)
             illdloc.ld_identifier(varname, ilmethod, cargcodestruc, Nothing, getdatatype)
             If servinterface.is_cil_common_data_type(getdatatype) Then
                 conv_to_string(ilmethod, getdatatype)
