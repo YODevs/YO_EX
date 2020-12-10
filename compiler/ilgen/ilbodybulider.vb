@@ -70,9 +70,16 @@ call instance void [mscorlib]System.Object::.ctor()")
         newline()
         Dim lcode As String = String.Empty
         For index = 0 To ildt.field.Length - 1
-            servinterface.is_common_data_type(ildt.field(index).ptype, ildt.field(index).ptype)
-            lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & ildt.field(index).modifier &
-                conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
+            If ildt.field(index).isliteral Then
+                lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & "static literal" &
+                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
+                lcode &= " = " & ildt.field(index).ptype & "(" & ildt.field(index).value & ")"
+            Else
+
+                servinterface.is_common_data_type(ildt.field(index).ptype, ildt.field(index).ptype)
+                lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & ildt.field(index).modifier &
+                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
+            End If
             add_il_code(lcode)
         Next
         newline()
