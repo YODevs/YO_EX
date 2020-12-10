@@ -47,6 +47,12 @@
             _ilcollection.field(index).isliteral = yoclassdt.fields(index).isconstant
             Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(yoclassdt.fields(index).valuecinf, yoclassdt.fields(index).value, yoclassdt.fields(index).valuetoken)
             If yoclassdt.fields(index).value <> String.Empty Then
+                If _ilcollection.field(index).isliteral Then
+                    _ilcollection.field(index).value = yoclassdt.fields(index).value
+                    _ilcollection.field(index).valuecinf = yoclassdt.fields(index).valuecinf
+                    _ilcollection.field(index).valuetoken = yoclassdt.fields(index).valuetoken
+                    Continue For
+                End If
                 Dim ctrfunc As New ilformat._ilmethodcollection
                 ctrfunc.entrypoint = False
                 ctrfunc.isexpr = False
@@ -65,6 +71,8 @@
                     Next
                     ilstvar.st_field(yoclassdt.fields(index).name, Nothing, getlinecodestruct, getdatatype, _ilcollection.instancector)
                 End If
+            ElseIf _ilcollection.field(index).isliteral Then
+                dserr.new_error(conserr.errortype.CONSTANTVALERROR, -1, yoclassdt.location, "[Identifier] -> " & yoclassdt.fields(index).name)
             End If
             'Check Type ...
         Next
