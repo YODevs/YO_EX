@@ -156,6 +156,8 @@
                 If rd_token = tokenhared.token.EQUALS Then
                     fieldstate = pbfieldstate.FIELDVALUE
                 Else
+                    xfield(i).value = String.Empty
+                    xfield(i).valuecinf = Nothing
                     fieldstate = pbfieldstate.OUT
                     state = statecursor.OUT
                     i += 1
@@ -334,7 +336,7 @@
     Public Function _to_organize() As tknformat._class
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
-        If IsNothing(xfield) = False AndAlso xfield.Length = 1 AndAlso xfield(0).value = conrex.NULL Then
+        If IsNothing(xfield) = False AndAlso xfield.Length = 1 AndAlso xfield(0).name = conrex.NULL Then
             xclass(0).fields = Nothing
         Else
             xclass(0).fields = xfield
