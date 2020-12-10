@@ -51,7 +51,7 @@ Public Class fmtstrlit
             End If
         Else
             'Set warning
-            load_string(ilmethod, "#[" & varname & "]", cargcodestruc)
+            load_string(ilmethod, "#{" & varname & "}", cargcodestruc)
         End If
     End Sub
 
