@@ -3,6 +3,7 @@
         Dim classname As String
         Dim filename As String
         Dim methods() As tknformat._method
+        Dim fields() As tknformat._pubfield
     End Structure
 
     Friend Shared reffunc() As _referfuncdata
@@ -19,6 +20,7 @@
         End If
         ' TODO : Fix Bug    reset_xml_data(classdt)
         reffunc(index).filename = classdt.name
+        reffunc(index).fields = classdt.fields
         reffunc(index).methods = classdt.methods
         If classdt.attribute._app._namespace <> conrex.NULL Then
             reffunc(index).classname = classdt.attribute._app._namespace & conrex.DOT
@@ -58,5 +60,20 @@
 
     Friend Shared Function get_method_info(classindex As Integer, methodindex As Integer) As tknformat._method
         Return reffunc(classindex).methods(methodindex)
+    End Function
+
+    Friend Shared Function get_index_field(ByRef identifier As String, classindex As Integer) As Integer
+        If IsNothing(reffunc(classindex).fields) Then Return -1
+        identifier = identifier.ToLower
+        For index = 0 To reffunc(classindex).fields.Length - 1
+            If reffunc(classindex).fields(index).name.ToLower = identifier Then
+                identifier = reffunc(classindex).fields(index).name
+                Return index
+            End If
+        Next
+        Return -1
+    End Function
+    Friend Shared Function get_field_info(classindex As Integer, fieldindex As Integer) As tknformat._pubfield
+        Return reffunc(classindex).fields(fieldindex)
     End Function
 End Class
