@@ -117,7 +117,11 @@
         If nvar.Contains("::") Then
             Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(cargcodestruc)
             If hresult.identvalid = True Then
-                If ld_field_global(hresult, _ilmethod, cargcodestruc, datatype) Then Return True
+                If hresult.callintern = True Then
+                    If ld_field_global(hresult, _ilmethod, cargcodestruc, datatype) Then Return True
+                Else
+                    'extern fields
+                End If
             End If
         End If
 
@@ -129,7 +133,6 @@
     Friend Shared Function ld_field_global(hresult As identvalid._resultidentcvaild, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String, Optional ByRef nactorcode As ArrayList = Nothing) As Boolean
         Dim nvar As String = hresult.clident
         Dim fieldindex As Integer = funcdtproc.get_index_field(nvar, hresult.classindex)
-        MsgBox(fieldindex)
         If fieldindex = -1 Then
             dserr.args.Add("Identifier '" & hresult.clident & "' was not found in class " & hresult.exclass)
             dserr.new_error(conserr.errortype.FIELDERROR, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
