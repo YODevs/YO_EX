@@ -80,6 +80,9 @@
                 servinterface.is_common_data_type(pdatatype, pdatatype)
                 If pdatatype = datatype Then
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
+                    If ilasmgen.classdata.attribute._app._namespace <> conrex.NULL Then
+                        classname = ilasmgen.classdata.attribute._app._namespace & conrex.DOT & classname
+                    End If
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).modifier = "static" Then
                             cil.set_static_field(nactorcode, pnvar, pdatatype, classname)
