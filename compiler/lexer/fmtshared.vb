@@ -117,7 +117,8 @@
                     Case tokenhared.token.PRIVATE
                         xfield(i).accesscontrol = "private"
                     Case Else
-                        'Set Error
+                        dserr.args.Add(value)
+                        dserr.new_error(conserr.errortype.BADACCESSCONTROL, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public / private / ...")
                 End Select
                 fieldstate = pbfieldstate.MODIFIER
                 If fieldtypest = fieldtypestate.CONST Then
