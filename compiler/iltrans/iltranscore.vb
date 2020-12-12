@@ -148,7 +148,7 @@
     End Sub
     Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         'Print Tokens by xmlunpkd.linecodestruc
-        '  coutputdata.print_token(clinecodestruc)
+        'coutputdata.print_token(clinecodestruc)
         Dim inline As Integer = 0
         Dim index As Integer = clinecodestruc.Length - 1
         Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(clinecodestruc)
@@ -160,7 +160,6 @@
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
             Return
         End If
-
         Dim dtassign As identifierassignmentinfo = get_iden_names(clinecodestruc, inline)
 
         Select Case tokenhared.check_sym(dtassign.optval)
@@ -193,8 +192,13 @@
                 ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
                     localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
-                    dserr.args.Add(varname)
-                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    Dim hfield As tknformat._pubfield
+                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                        localvartype.result = hfield.ptype
+                    Else
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    End If
                 End If
             End If
 
@@ -222,8 +226,13 @@
                 ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
                     localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
-                    dserr.args.Add(varname)
-                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    Dim hfield As tknformat._pubfield
+                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                        localvartype.result = hfield.ptype
+                    Else
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    End If
                 End If
             End If
 
@@ -251,8 +260,13 @@
                 ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
                     localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
-                    dserr.args.Add(varname)
-                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    Dim hfield As tknformat._pubfield
+                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                        localvartype.result = hfield.ptype
+                    Else
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    End If
                 End If
             End If
 
@@ -280,8 +294,13 @@
                 ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
                     localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
-                    dserr.args.Add(varname)
-                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    Dim hfield As tknformat._pubfield
+                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                        localvartype.result = hfield.ptype
+                    Else
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    End If
                 End If
             End If
 
@@ -309,8 +328,13 @@
                 ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
                     localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
-                    dserr.args.Add(varname)
-                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    Dim hfield As tknformat._pubfield
+                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                        localvartype.result = hfield.ptype
+                    Else
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    End If
                 End If
             End If
 
@@ -338,11 +362,16 @@
                 ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
                     localvartype = localinitdata.fieldst.find(varname, True, varname)
                 Else
-                    'Set Error
-                    dserr.args.Add(varname)
-                    dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    Dim hfield As tknformat._pubfield
+                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                        localvartype.result = hfield.ptype
+                    Else
+                        'Set Error
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    End If
                 End If
-            End If
+                End If
 
             Select Case localvartype.result
                 Case "str"
