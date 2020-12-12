@@ -259,6 +259,25 @@ Public Class servinterface
         Return False
     End Function
 
+    Friend Shared Function get_identifier_gb(varname As String, cargcodestruc As xmlunpkd.linecodestruc, ByRef getfield As tknformat._pubfield) As Boolean
+        If varname.Contains("::") Then
+            Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(cargcodestruc)
+            If hresult.identvalid = True Then
+                Dim getfieldindex As Integer = -1
+                If hresult.callintern = True Then
+                    getfieldindex = funcdtproc.get_index_field(hresult.clident, hresult.classindex)
+                Else
+                    'extern fields
+                End If
+                If getfieldindex <> -1 Then
+                    getfield = funcdtproc.get_field_info(hresult.classindex, getfieldindex)
+                    Return True
+                End If
+            End If
+        End If
+
+        Return False
+    End Function
     Friend Shared classlist As New ArrayList
     Friend Shared Sub check_class_vaild(attr As yocaattribute.yoattribute, location As String)
         Dim getclassname As String = attr._app._classname.ToLower
