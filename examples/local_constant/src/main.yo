@@ -1,0 +1,9 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+#[cfg::CIL(true)]
+
+func main()
+{
+  const pi : f32 = 3.14
+  System.Console::Write(pi)
+}

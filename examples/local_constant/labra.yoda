@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "local_constant"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
