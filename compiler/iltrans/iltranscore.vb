@@ -60,6 +60,15 @@
                 If assignprocess Then
                     assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
                 End If
+            Case tokenhared.token.CONST
+                Dim assignprocess As Boolean = False
+                nv_let(clinecodestruc, assignprocess, True)
+                _ilmethod.locallinit = _illocalinit 'exc no local init
+                If assignprocess Then
+                    assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
+                Else
+                    dserr.new_error(conserr.errortype.CONSTANTVALERROR, clinecodestruc(0).line, path, Nothing, "const name : str = ""RUZES""")
+                End If
             Case tokenhared.token.CIL_BLOCK
                 nv_cil_commands(clinecodestruc, _ilmethod)
             Case tokenhared.token.TO
@@ -459,7 +468,7 @@
 
         Return resultassign
     End Function
-    Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc, ByRef assignprocess As Boolean)
+    Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc, ByRef assignprocess As Boolean, Optional isconst As Boolean = False)
         Dim ilmethodlen As Integer = _illocalinit.Length
         Dim index As Integer = ilmethodlen
         Dim ilinc As Integer = 2
@@ -505,6 +514,7 @@
                     _illocalinit(index).name = mulitdclarelistinf(iname)
                     _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(ilinc).value).result
                     _illocalinit(index).iscommondatatype = True
+                    _illocalinit(index).isconstant = isconst
                 Else
                     'Check other type ...
                     _illocalinit(index).iscommondatatype = False
@@ -526,11 +536,11 @@
                 _illocalinit(index).name = clinecodestruc(1).value
                 _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value).result
                 _illocalinit(index).iscommondatatype = True
+                _illocalinit(index).isconstant = isconst
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
             End If
-
             _illocalinit(index).hasdefaultvalue = False
 
             If clinecodestruc.Length > 4 Then
