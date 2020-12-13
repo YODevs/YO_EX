@@ -43,6 +43,7 @@
         CONSTANTVALERROR
         FIELDERROR
         BADACCESSCONTROL
+        CONSTANTASSIGNMENTERROR
     End Enum
 
     Enum errorpriority
@@ -115,6 +116,7 @@ You can reinstall the software or email us.")
         set_new_error(errortype.CLASSVAILDERROR, errorpriority.STOP, "Class validation error", "'{0}' , This class has already been created.")
         set_new_error(errortype.CONSTANTVALERROR, errorpriority.STOP, "Constant error", "Constants must have a value.")
         set_new_error(errortype.FIELDERROR, errorpriority.STOP, "Field error", "{0}")
-        set_new_error(errortype.BADACCESSCONTROL, errorpriority.STOP, "Access control error", "'{0}' cannot be identified as an access control.")
+        set_new_error(errortype.BADACCESSCONTROL, errorpriority.STOP, "Access control error", "'{0}' , cannot be identified as an access control.")
+        set_new_error(errortype.CONSTANTASSIGNMENTERROR, errorpriority.STOP, "Constant error", "'{0}' , Constant cannot be the target of an assignment.")
     End Sub
 End Class
