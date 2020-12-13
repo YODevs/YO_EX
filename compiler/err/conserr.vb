@@ -44,6 +44,7 @@
         FIELDERROR
         BADACCESSCONTROL
         CONSTANTASSIGNMENTERROR
+        RETURNERROR
     End Enum
 
     Enum errorpriority
@@ -118,5 +119,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.FIELDERROR, errorpriority.STOP, "Field error", "{0}")
         set_new_error(errortype.BADACCESSCONTROL, errorpriority.STOP, "Access control error", "'{0}' , cannot be identified as an access control.")
         set_new_error(errortype.CONSTANTASSIGNMENTERROR, errorpriority.STOP, "Constant error", "'{0}' , Constant cannot be the target of an assignment.")
+        set_new_error(errortype.RETURNERROR, errorpriority.STOP, "Return error", "The 'Return' command requires a value of type '{0}' to return.")
     End Sub
 End Class
