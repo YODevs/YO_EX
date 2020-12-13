@@ -1,4 +1,6 @@
-﻿Public Class ilstvar
+﻿Imports YOCA
+
+Public Class ilstvar
     Friend Shared Function st_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         If IsNothing(_ilmethod.locallinit) = False OrElse nvar.StartsWith(compdt.FLAGPERFIX) Then
             If st_local(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
@@ -40,6 +42,7 @@
         For index = 0 To _ilmethod.locallinit.Length - 1
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
+                check_isconst(_ilmethod.locallinit(index), cargcodestruc)
                 If _ilmethod.locallinit(index).datatype = datatype Then
                     cil.set_stack_local(_ilmethod.codes, nvar)
                     Return True
@@ -53,6 +56,18 @@
         Next
         Return False
     End Function
+
+    Private Shared Sub check_isconst(ByRef illocalinit As ilformat._illocalinit, cargcodestruc As xmlunpkd.linecodestruc)
+        If illocalinit.isconstant Then
+            If illocalinit.frinit = True Then
+                dserr.args.Add(illocalinit.name)
+                dserr.new_error(conserr.errortype.CONSTANTASSIGNMENTERROR, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
+            Else
+                illocalinit.frinit = True
+            End If
+        End If
+    End Sub
+
     Friend Shared Function st_argument(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         Dim nvartolower As String = nvar.ToLower
         Dim pnvar As String = String.Empty
