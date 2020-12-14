@@ -1,4 +1,6 @@
-﻿Public Class funcste
+﻿Imports YOCA
+
+Public Class funcste
     Friend Shared attribute As yocaattribute.yoattribute
     Friend Shared Sub invoke_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, funcresult As funcvalid._resultfuncvaild, Optional leftassign As Boolean = True)
         fscmawait = False
@@ -16,8 +18,8 @@
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
         End If
-
         funcresult.asmextern = libserv.get_extern_assembly(namespaceindex)
+
         Dim methodinfo As New tknformat._method
         Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo)
         If methodindex = -1 Then
@@ -28,6 +30,7 @@
         Dim paramtype As ArrayList
         Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
         libserv.cargldr = Nothing
+
         If IsNothing(methodinfo.parameters) = False Then
             ' Print Tokens :
             '  coutputdata.print_token(clinecodestruc)
@@ -77,6 +80,7 @@
             Return
         End If
 
+        check_expression_method(clinecodestruc, methodinfo)
         paramtypes = New ArrayList
         For index = 0 To methodinfo.parameters.Length - 1
             Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
@@ -88,6 +92,17 @@
             End If
         Next
         set_stack_space(_ilmethod, paramtypes, cargcodestruc)
+    End Sub
+
+    Private Shared Sub check_expression_method(clinecodestruc() As xmlunpkd.linecodestruc, methodinfo As tknformat._method)
+        If methodinfo.isexpr Then
+            For index = 0 To clinecodestruc.Length - 1
+                If clinecodestruc(index).tokenid = tokenhared.token.NULL OrElse clinecodestruc(index).tokenid = tokenhared.token.TYPE_CO_STR OrElse clinecodestruc(index).tokenid = tokenhared.token.TYPE_DU_STR Then
+                    dserr.args.Add(clinecodestruc(index).value)
+                    dserr.new_error(conserr.errortype.EXPRMETHODERROR, clinecodestruc(index).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
+                End If
+            Next
+        End If
     End Sub
 
     Private Shared Sub set_stack_space(ByRef _ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc())
