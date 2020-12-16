@@ -65,7 +65,7 @@
 
     Private Shared Sub st_case()
         Dim exptokenslist As New ArrayList
-        add_token(exptokenslist, tokenhared.token.MATCH)
+        add_token(exptokenslist, tokenhared.token.CASE)
         add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
 tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
         add_token(exptokenslist, tokenhared.token.BLOCKOP)
