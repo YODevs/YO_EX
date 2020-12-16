@@ -13,6 +13,7 @@
         RET
         MATCH
         [CASE]
+        [DEFAULT]
     End Enum
 
     Structure syntaxtypesloader
@@ -61,6 +62,28 @@
         st_match()
         'Case Statement
         st_case()
+        'Default Statement
+        st_default()
+    End Sub
+
+    Private Shared Sub st_default()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.DEFAULT)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+        set_syntax_loader(statements.DEFAULT, "Case Statement", exptokenslist, "match(inf)
+  {
+    case 'start'  {
+      System.Console::WriteLine('Starting service...')
+    }
+
+    case 'stop'  {
+    System.Console::WriteLine('Stopping service...')
+    }
+
+default {
+    System.Console::WriteLine('Command not found')
+}
+  }")
     End Sub
 
     Private Shared Sub st_case()
