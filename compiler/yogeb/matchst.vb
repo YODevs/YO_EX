@@ -1,7 +1,9 @@
 ﻿Public Class matchst
     Private _ilmethod As ilformat._ilmethodcollection
     Private clinecondstruc As xmlunpkd.linecodestruc
-    Private counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel As String
+    Private scount As Integer = 0
+    Private conddtype As String
+    Private counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel, nextblocklabel As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -9,7 +11,10 @@
     Public Function set_match_st(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata) As ilformat._ilmethodcollection
         'Check syntax
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.MATCH)
+        endbranchlabel = lngen.get_line_prop(scount)
+        scount += 1
         clinecondstruc = clinecodestruc(2)
+        get_dt_proc(clinecondstruc, conddtype)
         Dim xmldata As xmlunpkd
         xmldata = New xmlunpkd(clinecodestruc(4).value, False)
         While xmldata.xmlreader.EOF = False
@@ -18,7 +23,7 @@
             If bodyclinecodestruc.Length = 0 Then Continue While
             rev_cline_code(bodyclinecodestruc, _illocalinit, localinit)
         End While
-        MsgBox(1)
+        lngen.set_direct_label(endbranchlabel, _ilmethod.codes)
         Return _ilmethod
     End Function
 
@@ -26,8 +31,10 @@
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.CASE
                 set_condition(clinecodestruc)
-                Return
                 set_case_st(clinecodestruc, _illocalinit, localinit)
+                cil.branch_to_target(_ilmethod.codes, endbranchlabel)
+                lngen.set_direct_label(nextblocklabel, _ilmethod.codes)
+
             Case Else
                 dserr.args.Add("match")
                 dserr.args.Add("case")
@@ -37,19 +44,48 @@
 
     Private Sub set_case_st(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.CASE)
-        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(4).value, _illocalinit, localinit)
+        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(2).value, _illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
         _illocalinit = _ilmethod.locallinit
     End Sub
 
+    Private Sub get_datatype(clinecodestruc As xmlunpkd.linecodestruc, ByRef getdatatype As String)
+        servinterface.is_variable(_ilmethod, clinecodestruc.value, getdatatype)
+        servinterface.is_common_data_type(getdatatype, getdatatype)
+    End Sub
     Private Sub set_condition(clinecodestruc() As xmlunpkd.linecodestruc)
+        Dim getcasedt As String = String.Empty
+        get_dt_proc(clinecodestruc(1), getcasedt)
         Dim illdloc As New illdloc(_ilmethod)
-        Select Case clinecodestruc(1).tokenid
+        'TODO : check data types and warning
+        _ilmethod = illdloc.load_single_in_stack(conddtype, clinecondstruc)
+        _ilmethod = illdloc.load_single_in_stack(getcasedt, clinecodestruc(1))
+        cil.ceq(_ilmethod.codes)
+        nextblocklabel = lngen.get_line_prop(scount)
+        cil.branch_if_false(_ilmethod.codes, nextblocklabel)
+        scount += 1
+    End Sub
+
+    Private Sub get_dt_proc(clinecodestruc As xmlunpkd.linecodestruc, ByRef datatype As String)
+        Select Case clinecodestruc.tokenid
             Case tokenhared.token.IDENTIFIER
+                get_datatype(clinecodestruc, datatype)
+            Case tokenhared.token.TYPE_CO_STR
+                datatype = "string"
+            Case tokenhared.token.TYPE_DU_STR
+                datatype = "string"
+            Case tokenhared.token.TYPE_BOOL
+                datatype = "bool"
+            Case tokenhared.token.TRUE
+                datatype = "bool"
+            Case tokenhared.token.FALSE
+                datatype = "bool"
+            Case tokenhared.token.TYPE_INT
+                datatype = "int32"
+            Case tokenhared.token.TYPE_FLOAT
+                datatype = "float32"
+            Case Else
 
         End Select
-        _ilmethod = illdloc.load_single_in_stack("string", clinecondstruc)
-        _ilmethod = illdloc.load_single_in_stack("string", clinecodestruc(1))
-        cil.ceq(_ilmethod.codes)
     End Sub
 End Class
