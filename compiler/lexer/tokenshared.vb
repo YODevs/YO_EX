@@ -34,6 +34,7 @@
         _token.Add(token.PUBLIC, "public")
         _token.Add(token.PRIVATE, "private")
         _token.Add(token.STATIC, "static")
+        _token.Add(token.DEFAULT, "default")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -199,5 +200,6 @@
         [PRIVATE] = 73
         [PUBLIC] = 74
         [STATIC] = 75
+        [DEFAULT] = 76
     End Enum
 End Class
