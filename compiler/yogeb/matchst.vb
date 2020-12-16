@@ -3,7 +3,8 @@
     Private clinecondstruc As xmlunpkd.linecodestruc
     Private scount As Integer = 0
     Private conddtype As String
-    Private counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel, nextblocklabel As String
+    Private endbranchlabel, nextblocklabel As String
+    Private issetdefaultblock As Boolean = False
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -28,13 +29,19 @@
     End Function
 
     Private Sub rev_cline_code(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
+        If issetdefaultblock Then
+            dserr.args.Add("'" & clinecodestruc(0).value & "' cannot follow a 'Default' in the same 'Match' statement.")
+            dserr.new_error(conserr.errortype.MATCHERROR, clinecodestruc(0).line, ilbodybulider.path)
+        End If
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.CASE
                 set_condition(clinecodestruc)
                 set_case_st(clinecodestruc, _illocalinit, localinit)
                 cil.branch_to_target(_ilmethod.codes, endbranchlabel)
                 lngen.set_direct_label(nextblocklabel, _ilmethod.codes)
-
+            Case tokenhared.token.DEFAULT
+                set_case_st(clinecodestruc, _illocalinit, localinit, True)
+                issetdefaultblock = True
             Case Else
                 dserr.args.Add("match")
                 dserr.args.Add("case")
@@ -42,9 +49,15 @@
         End Select
     End Sub
 
-    Private Sub set_case_st(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
-        syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.CASE)
-        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(2).value, _illocalinit, localinit)
+    Private Sub set_case_st(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata, Optional isdefaultblock As Boolean = False)
+        Dim index As Integer = 2
+        If isdefaultblock Then
+            syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.DEFAULT)
+            index = 1
+        Else
+            syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.CASE)
+        End If
+        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(index).value, _illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
         _illocalinit = _ilmethod.locallinit
     End Sub
