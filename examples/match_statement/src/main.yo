@@ -1,0 +1,25 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+
+func main()
+{
+  exec_logs("start")
+  System.Threading.Thread::Sleep(5000)
+  exec_logs("stops")
+}
+
+func exec_logs(inf : str)
+{
+  match(inf)
+  {
+    case "start"  {
+      System.Console::WriteLine("Starting service...")
+    }
+    case "stop"  {
+    System.Console::WriteLine("Stopping service...")
+    }
+    default {
+      System.Console::WriteLine("Command Not Found")
+    }
+  }
+}
