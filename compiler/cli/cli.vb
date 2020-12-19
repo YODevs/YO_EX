@@ -3,16 +3,18 @@
 Public Class cli
 
     Friend Shared Sub init_cli(displayinitcommand As Boolean)
-        'Change defualt font to Consolas font.
-        Dim consolefontinfo As CONSOLE_FONT_INFO_EX = New CONSOLE_FONT_INFO_EX()
-        consolefontinfo.cbSize = CUInt(Marshal.SizeOf(consolefontinfo))
-        consolefontinfo.nFont = 16
-        consolefontinfo.dwFontSize.X = 0
-        consolefontinfo.dwFontSize.Y = 16
-        consolefontinfo.FontWeight = 700
-        consolefontinfo.FaceName = "Consolas"
-        SetCurrentConsoleFontEx(GetStdHandle(StdHandle.OutputHandle), True, consolefontinfo)
-        Console.BufferHeight = 170
+        If Console.IsOutputRedirected = False Then
+            'Change defualt font to Consolas font.
+            Dim consolefontinfo As CONSOLE_FONT_INFO_EX = New CONSOLE_FONT_INFO_EX()
+            consolefontinfo.cbSize = CUInt(Marshal.SizeOf(consolefontinfo))
+            consolefontinfo.nFont = 16
+            consolefontinfo.dwFontSize.X = 0
+            consolefontinfo.dwFontSize.Y = 16
+            consolefontinfo.FontWeight = 700
+            consolefontinfo.FaceName = "Consolas"
+            SetCurrentConsoleFontEx(GetStdHandle(StdHandle.OutputHandle), True, consolefontinfo)
+            Console.BufferHeight = 170
+        End If
         Console.Title = conrex.TITLE
         If displayinitcommand Then display_init_command()
     End Sub

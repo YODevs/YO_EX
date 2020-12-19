@@ -8,7 +8,9 @@
         Dim indexspaceolor As ConsoleColor = Console.ForegroundColor
         Console.ForegroundColor = ConsoleColor.DarkRed
         Dim hwall As String = String.Empty
-        For index = 0 To Console.BufferWidth - 1
+        Dim consolebufferwidth As Integer = 80
+        If Console.IsOutputRedirected = False Then consolebufferwidth = Console.BufferWidth
+        For index = 0 To consolebufferwidth - 1
             hwall &= "="
         Next
 
@@ -45,7 +47,7 @@
         Console.ForegroundColor = ConsoleColor.Gray
         Console.WriteLine(description)
 
-        Dim indexspace As Int16 = (Console.BufferWidth - 54) / 2
+        Dim indexspace As Int16 = (consolebufferwidth - 54) / 2
 
         Console.ForegroundColor = ConsoleColor.DarkRed
         Console.WriteLine(Space(indexspace) & "***********************SNIPPT************************" & Space(indexspace))
