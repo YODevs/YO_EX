@@ -1,0 +1,100 @@
+#[app::classname("MyApp")]
+
+func main()
+{
+  exec_logs("start")
+  exec_logs("stop")
+  exec_logs("stops")
+  test4()
+  test5()
+  test6()
+  test7()
+}
+
+func exec_logs(inf : str)
+{
+  match(inf)
+  {
+    case "start"  {
+      System.Console::WriteLine("Starting service...")
+    }
+    case "stop"  {
+    System.Console::WriteLine("Stopping service...")
+    }
+    default {
+      System.Console::WriteLine("Command Not Found")
+    }
+  }
+}
+
+func test4()
+{
+  match(2.00)
+  {
+    case 2.00 {
+      System.Console::WriteLine("True")
+    }
+    default {
+        System.Console::WriteLine("False")
+
+    }
+  }
+}
+
+let private static name : str = "Ruzes"
+func test5()
+{
+  match(name)
+  {
+    case "ruzes" {
+      System.Console::WriteLine("False")
+    }
+    case "Ruzes" {
+      System.Console::WriteLine("OK")
+    }
+    default {
+        System.Console::WriteLine("False")
+    }
+  }
+}
+
+func test6()
+{
+  match(name)
+  {
+    case "ruzes" {
+      System.Console::WriteLine("False")
+    }
+    case name {
+      System.Console::WriteLine("OK")
+    }
+    default {
+        System.Console::WriteLine("False")
+    }
+  }
+}
+
+func test7()
+{
+  match(name)
+  {
+    case "ruzes" {
+      System.Console::WriteLine("False")
+    }
+    case "Hezar" {
+      System.Console::WriteLine("False")
+    }
+    default {
+      let eq : i32 = [5 + 6]
+      match(eq)
+      {
+        case 11 {
+          System.Console::WriteLine("True")
+        }
+        default {
+          System.Console::WriteLine("False")
+        }
+      }
+    }
+  }
+}
