@@ -537,9 +537,22 @@
                 _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value).result
                 _illocalinit(index).iscommondatatype = True
                 _illocalinit(index).isconstant = isconst
+                _illocalinit(index).ctor = False
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
+                _illocalinit(index).name = clinecodestruc(1).value
+                If clinecodestruc(3).tokenid = tokenhared.token.[NEW] Then
+                    If clinecodestruc.Length > 4 Then
+                        _illocalinit(index).datatype = clinecodestruc(4).value
+                        _illocalinit(index).ctor = True
+                    Else
+                        dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value),)
+                    End If
+                Else
+                    _illocalinit(index).ctor = False
+                    _illocalinit(index).datatype = clinecodestruc(3).value
+                End If
             End If
             _illocalinit(index).hasdefaultvalue = False
 
