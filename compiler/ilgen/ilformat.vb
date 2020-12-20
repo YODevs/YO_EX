@@ -41,6 +41,7 @@
         Dim clocalvalue() As xmlunpkd.linecodestruc
         Dim isconstant As Boolean
         Dim frinit As Boolean
+        Dim ctor As Boolean
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
