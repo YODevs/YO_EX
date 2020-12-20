@@ -77,6 +77,9 @@
             Case tokenhared.token.MATCH
                 Dim matchclass As New matchst(_ilmethod)
                 _ilmethod = matchclass.set_match_st(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.WHILE
+                Dim whileclass As New whilest(_ilmethod)
+                _ilmethod = whileclass.set_while_st(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.LOOP
                 Dim infinityloop As New infloop(_ilmethod)
                 _ilmethod = infinityloop.set_infinity_loop(clinecodestruc, _illocalinit, localinit)
