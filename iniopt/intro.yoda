@@ -59,6 +59,9 @@ Hide all logs and do not show the process when compiling.
 *** Hints ***
 The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
+"init" = "Preparation and installation of compiler prerequisites, including statistics, set environment variable, etc.
+Usage : yoca init"
+,
 "version" = "Print yoca compiler version.
 Usage : yoca version"
 ,
