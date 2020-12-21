@@ -60,7 +60,9 @@ You can type 'Help' to view commands.")
     Public Sub rp_help()
         introcmd.show_intro()
     End Sub
-
+    Public Sub rp_init()
+        initact.set_initial_process()
+    End Sub
     Public Sub rp_check(args As ArrayList)
         compdt.CHECKSYNANDSEM = True
         rp_build(args, True)
