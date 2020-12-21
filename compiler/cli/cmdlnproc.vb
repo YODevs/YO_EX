@@ -9,6 +9,7 @@
         CLEAN
         HELP
         CHECK
+        INIT
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -43,6 +44,7 @@
         set_new_command(cmdtype.BUILD, "build", True, 5)
         set_new_command(cmdtype.RUN, "run", True, 5)
         set_new_command(cmdtype.CHECK, "check", True, 5)
+        set_new_command(cmdtype.INIT, "init")
         set_new_command(cmdtype.IMPORT, "import")
         set_new_command(cmdtype.CLEAN, "clean")
         set_new_command(cmdtype.VERSION, "version")
