@@ -3,6 +3,7 @@
 Public Class condproc
 
     Dim sncond(0) As singlecondition
+    Dim branchinfo As branchtargetinfo
     Structure singlecondition
         Dim lvalue As xmlunpkd.linecodestruc
         Dim optcond As tokenhared.token
@@ -10,6 +11,9 @@ Public Class condproc
         Dim sepopt As tokenhared.token
     End Structure
 
+    Structure branchtargetinfo
+        Dim truebranch, falsebranch As String
+    End Structure
     Enum sepstate
         lval
         opt
@@ -51,16 +55,55 @@ Public Class condproc
         Return Nothing
     End Function
 
-    Public Sub New()
+    Public Sub New(branchinfo As branchtargetinfo)
         sncond(0) = New singlecondition
+        Me.branchinfo = branchinfo
     End Sub
 
     Public Sub set_condition(ByRef _ilmethod As ilformat._ilmethodcollection, condlinecodestruc As xmlunpkd.linecodestruc())
         coutputdata.print_token(condlinecodestruc)
         sep_condition(condlinecodestruc)
+        load_condition_ref(_ilmethod)
     End Sub
 
+    Private Sub load_condition_ref(ByRef _ilmethod As ilformat._ilmethodcollection)
+        For index = 0 To sncond.Length - 1
+            Dim ltype As String = String.Empty
+            Dim rtype As String = String.Empty
+            servinterface.get_dt_proc(_ilmethod, sncond(index).lvalue, ltype)
+            servinterface.get_dt_proc(_ilmethod, sncond(index).rvalue, rtype)
+            Dim illdloc As New illdloc(_ilmethod)
+            'TODO : check data types and warning
+            _ilmethod = illdloc.load_single_in_stack(ltype, sncond(index).lvalue)
+            _ilmethod = illdloc.load_single_in_stack(rtype, sncond(index).rvalue)
+            load_expression(_ilmethod, sncond(index), ltype, rtype)
+        Next
+    End Sub
 
+    Private Sub load_expression(ByRef _ilmethod As ilformat._ilmethodcollection, sncond As singlecondition, ltype As String, rtype As String)
+        Select Case sncond.optcond
+            Case tokenhared.token.CONDEQ    '==
+                cil.beq(_ilmethod.codes, branchinfo.truebranch)
+            Case tokenhared.token.LKOEQ     '>=
+                cil.bge(_ilmethod.codes, branchinfo.truebranch)
+            Case tokenhared.token.L2KO      '>>
+                cil.bgt(_ilmethod.codes, branchinfo.truebranch)
+            Case tokenhared.token.RKOEQ     '<=
+                cil.ble(_ilmethod.codes, branchinfo.truebranch)
+            Case tokenhared.token.R2KO      '<<
+                cil.blt(_ilmethod.codes, branchinfo.truebranch)
+            Case tokenhared.token.LRNA      '<>
+                If ltype = "string" AndAlso rtype = "string" Then
+                    Dim param As New ArrayList
+                    param.Add("string")
+                    param.Add("string")
+                    cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Inequality", param)
+                    cil.branch_if_true(_ilmethod.codes, branchinfo.truebranch)
+                Else
+                    cil.bne(_ilmethod.codes, branchinfo.truebranch)
+                End If
+        End Select
+    End Sub
     Private Sub sep_condition(condlinecodestruc As xmlunpkd.linecodestruc())
         Dim ibar As Integer = 0
         Dim opt As String = conrex.NULL
@@ -79,7 +122,7 @@ Public Class condproc
                         opt = conrex.NULL
                     End If
                 Case sepstate.rval
-                    sncond(ibar).lvalue = condlinecodestruc(index)
+                    sncond(ibar).rvalue = condlinecodestruc(index)
                     spstate = sepstate.sepopt
                 Case sepstate.sepopt
 
