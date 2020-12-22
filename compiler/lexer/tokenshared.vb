@@ -36,6 +36,8 @@
         _token.Add(token.STATIC, "static")
         _token.Add(token.DEFAULT, "default")
 
+        _tokensym.Add(token.CONDOR, "||")
+        _tokensym.Add(token.CONDAND, "&&")
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
         _tokensym.Add(token.L2KO, ">>")
@@ -201,5 +203,7 @@
         [PUBLIC] = 74
         [STATIC] = 75
         [DEFAULT] = 76
+        CONDOR = 77
+        CONDAND = 78
     End Enum
 End Class
