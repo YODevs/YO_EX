@@ -292,4 +292,32 @@ Public Class servinterface
         Next
         classlist.Add(getclassname)
     End Sub
+
+    Friend Shared Sub get_dt_proc(_ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, ByRef datatype As String)
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.IDENTIFIER
+                get_datatype(_ilmethod, clinecodestruc, datatype)
+            Case tokenhared.token.TYPE_CO_STR
+                datatype = "string"
+            Case tokenhared.token.TYPE_DU_STR
+                datatype = "string"
+            Case tokenhared.token.TYPE_BOOL
+                datatype = "bool"
+            Case tokenhared.token.TRUE
+                datatype = "bool"
+            Case tokenhared.token.FALSE
+                datatype = "bool"
+            Case tokenhared.token.TYPE_INT
+                datatype = "int32"
+            Case tokenhared.token.TYPE_FLOAT
+                datatype = "float32"
+            Case Else
+
+        End Select
+    End Sub
+
+    Friend Shared Sub get_datatype(_ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, ByRef getdatatype As String)
+        servinterface.is_variable(_ilmethod, clinecodestruc.value, getdatatype)
+        servinterface.is_common_data_type(getdatatype, getdatatype)
+    End Sub
 End Class
