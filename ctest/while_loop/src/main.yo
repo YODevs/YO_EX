@@ -1,0 +1,106 @@
+#[app::classname("MyApp")]
+
+func main()
+{
+  test1()
+  test2()
+  test3()
+  test4()
+  test5()
+  test6()
+  test7()
+  test8()
+}
+
+func test1()
+{
+  let val : str = "*"
+  while(val <> "******")
+  {
+    System.Console::WriteLine(val)
+    val &= "*"
+  }
+  System.Console::WriteLine("------------------")
+}
+
+func test2()
+{
+  let val : str = "*"
+  while(val == "*")
+  {
+    System.Console::WriteLine(val)
+    val &= "*"
+  }
+  System.Console::WriteLine("------------------")
+}
+
+func test3()
+{
+  let i : i32 = 0
+  while(i <= 3)
+  {
+    System.Console::WriteLine(i)
+    i += 1
+  }
+  System.Console::WriteLine("------------------")
+}
+
+func test4()
+{
+  let i : i32 = 0
+  while(i << 3)
+  {
+    System.Console::WriteLine(i)
+    i += 1
+  }
+  System.Console::WriteLine("------------------")
+}
+
+func test5()
+{
+  let i : i32 = 3
+  while(i >= 0)
+  {
+    System.Console::WriteLine(i)
+    i -= 1
+  }
+  System.Console::WriteLine("------------------")
+}
+
+func test6()
+{
+  let i : i32 = 3
+  while(i >> 0)
+  {
+    System.Console::WriteLine(i)
+    i -= 1
+  }
+  System.Console::WriteLine("------------------")
+}
+
+func test7()
+{
+  let i : i32 = 0
+  while(i <> 3)
+  {
+    System.Console::WriteLine(i)
+    i += 1
+  }
+  System.Console::WriteLine("------------------")
+}
+
+func test8()
+{
+  let i : i32 = 0
+  while(i <> 3)
+  {
+    let val : str = "*"
+    while(val <> "*****")
+    {
+      System.Console::WriteLine(val)
+      val &= "*"
+    }
+    i += 1
+  }
+  System.Console::WriteLine("------------------")
+}
