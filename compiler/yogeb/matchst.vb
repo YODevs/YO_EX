@@ -15,7 +15,7 @@
         endbranchlabel = lngen.get_line_prop(scount)
         scount += 1
         clinecondstruc = clinecodestruc(2)
-        get_dt_proc(clinecondstruc, conddtype)
+        servinterface.get_dt_proc(_ilmethod, clinecondstruc, conddtype)
         Dim xmldata As xmlunpkd
         xmldata = New xmlunpkd(clinecodestruc(4).value, False)
         While xmldata.xmlreader.EOF = False
@@ -62,13 +62,10 @@
         _illocalinit = _ilmethod.locallinit
     End Sub
 
-    Private Sub get_datatype(clinecodestruc As xmlunpkd.linecodestruc, ByRef getdatatype As String)
-        servinterface.is_variable(_ilmethod, clinecodestruc.value, getdatatype)
-        servinterface.is_common_data_type(getdatatype, getdatatype)
-    End Sub
+
     Private Sub set_condition(clinecodestruc() As xmlunpkd.linecodestruc)
         Dim getcasedt As String = String.Empty
-        get_dt_proc(clinecodestruc(1), getcasedt)
+        servinterface.get_dt_proc(_ilmethod, clinecodestruc(1), getcasedt)
         Dim illdloc As New illdloc(_ilmethod)
         'TODO : check data types and warning
         _ilmethod = illdloc.load_single_in_stack(conddtype, clinecondstruc)
@@ -79,26 +76,4 @@
         scount += 1
     End Sub
 
-    Private Sub get_dt_proc(clinecodestruc As xmlunpkd.linecodestruc, ByRef datatype As String)
-        Select Case clinecodestruc.tokenid
-            Case tokenhared.token.IDENTIFIER
-                get_datatype(clinecodestruc, datatype)
-            Case tokenhared.token.TYPE_CO_STR
-                datatype = "string"
-            Case tokenhared.token.TYPE_DU_STR
-                datatype = "string"
-            Case tokenhared.token.TYPE_BOOL
-                datatype = "bool"
-            Case tokenhared.token.TRUE
-                datatype = "bool"
-            Case tokenhared.token.FALSE
-                datatype = "bool"
-            Case tokenhared.token.TYPE_INT
-                datatype = "int32"
-            Case tokenhared.token.TYPE_FLOAT
-                datatype = "float32"
-            Case Else
-
-        End Select
-    End Sub
 End Class
