@@ -222,6 +222,25 @@
         codes.Add("ceq")
     End Sub
 
+    Public Shared Sub beq(ByRef codes As ArrayList, target As String)
+        codes.Add("beq " & target)
+    End Sub
+    Public Shared Sub bge(ByRef codes As ArrayList, target As String)
+        codes.Add("bge " & target)
+    End Sub
+    Public Shared Sub bgt(ByRef codes As ArrayList, target As String)
+        codes.Add("bgt " & target)
+    End Sub
+    Public Shared Sub ble(ByRef codes As ArrayList, target As String)
+        codes.Add("ble " & target)
+    End Sub
+    Public Shared Sub blt(ByRef codes As ArrayList, target As String)
+        codes.Add("blt " & target)
+    End Sub
+    Public Shared Sub bne(ByRef codes As ArrayList, target As String)
+        codes.Add("bne.un " & target)
+    End Sub
+
     Public Shared Sub add(ByRef codes As ArrayList)
         codes.Add("add.ovf")
     End Sub
@@ -285,7 +304,7 @@
         End If
         code &= conrex.SPACE
         code &= String.Format("[{0}]{1}::{2}", asmextern, classprop, methodname)
-        If IsNothing(paramtypes) OrElse paramtypes.Count > 0 Then
+        If IsNothing(paramtypes) OrElse paramtypes.Count = 0 Then
             code &= "()"
         Else
             code &= conrex.PRSTART
