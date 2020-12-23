@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "condition_action"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

@@ -1,0 +1,27 @@
+#[app::classname("MyApp")]
+func main()
+{
+  test1(0,3)
+  test2()
+}
+
+func test1(a : i32 , b : i32)
+{
+  while(a <> b && b >> a)
+  {
+    System.Console::WriteLine(a)
+    a += 1
+  }
+}
+
+func test2()
+{
+  let x : str = "*"
+  let i : i8 = 0
+  while( i << 5 || x == "******" && NULL == NULL)
+  {
+    System.Console::WriteLine(x)
+    x &= "*"
+    i += 1
+  }
+}
