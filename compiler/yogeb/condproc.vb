@@ -61,7 +61,7 @@ Public Class condproc
     End Sub
 
     Public Sub set_condition(ByRef _ilmethod As ilformat._ilmethodcollection, condlinecodestruc As xmlunpkd.linecodestruc())
-        coutputdata.print_token(condlinecodestruc)
+        'coutputdata.print_token(condlinecodestruc)
         sep_condition(condlinecodestruc)
         load_condition_ref(_ilmethod)
     End Sub
@@ -83,24 +83,80 @@ Public Class condproc
     Private Sub load_expression(ByRef _ilmethod As ilformat._ilmethodcollection, sncond As singlecondition, ltype As String, rtype As String)
         Select Case sncond.optcond
             Case tokenhared.token.CONDEQ    '==
-                cil.beq(_ilmethod.codes, branchinfo.truebranch)
+                Select Case sncond.sepopt
+                    Case tokenhared.token.ANDLOGIC
+                        If ltype = "string" AndAlso rtype = "string" Then
+                            Dim param As New ArrayList
+                            param.Add("string")
+                            param.Add("string")
+                            cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Inequality", param)
+                            cil.branch_if_true(_ilmethod.codes, branchinfo.falsebranch)
+                        Else
+                            cil.bne(_ilmethod.codes, branchinfo.falsebranch)
+                        End If
+                    Case tokenhared.token.ORLOGIC
+                        cil.beq(_ilmethod.codes, branchinfo.truebranch)
+                    Case tokenhared.token.UNDEFINED
+                        cil.beq(_ilmethod.codes, branchinfo.truebranch)
+                End Select
             Case tokenhared.token.LKOEQ     '>=
-                cil.bge(_ilmethod.codes, branchinfo.truebranch)
+                Select Case sncond.sepopt
+                    Case tokenhared.token.ANDLOGIC
+                        cil.blt(_ilmethod.codes, branchinfo.falsebranch)
+                    Case tokenhared.token.ORLOGIC
+                        cil.bge(_ilmethod.codes, branchinfo.truebranch)
+                    Case tokenhared.token.UNDEFINED
+                        cil.bge(_ilmethod.codes, branchinfo.truebranch)
+                End Select
             Case tokenhared.token.L2KO      '>>
-                cil.bgt(_ilmethod.codes, branchinfo.truebranch)
+                Select Case sncond.sepopt
+                    Case tokenhared.token.ANDLOGIC
+                        cil.ble(_ilmethod.codes, branchinfo.falsebranch)
+                    Case tokenhared.token.ORLOGIC
+                        cil.bgt(_ilmethod.codes, branchinfo.truebranch)
+                    Case tokenhared.token.UNDEFINED
+                        cil.bgt(_ilmethod.codes, branchinfo.truebranch)
+                End Select
             Case tokenhared.token.RKOEQ     '<=
-                cil.ble(_ilmethod.codes, branchinfo.truebranch)
+                Select Case sncond.sepopt
+                    Case tokenhared.token.ANDLOGIC
+                        cil.bgt(_ilmethod.codes, branchinfo.falsebranch)
+                    Case tokenhared.token.ORLOGIC
+                        cil.ble(_ilmethod.codes, branchinfo.truebranch)
+                    Case tokenhared.token.UNDEFINED
+                        cil.ble(_ilmethod.codes, branchinfo.truebranch)
+                End Select
             Case tokenhared.token.R2KO      '<<
-                cil.blt(_ilmethod.codes, branchinfo.truebranch)
+                Select Case sncond.sepopt
+                    Case tokenhared.token.ANDLOGIC
+                        cil.bge(_ilmethod.codes, branchinfo.falsebranch)
+                    Case tokenhared.token.ORLOGIC
+                        cil.blt(_ilmethod.codes, branchinfo.truebranch)
+                    Case tokenhared.token.UNDEFINED
+                        cil.blt(_ilmethod.codes, branchinfo.truebranch)
+                End Select
             Case tokenhared.token.LRNA      '<>
                 If ltype = "string" AndAlso rtype = "string" Then
                     Dim param As New ArrayList
                     param.Add("string")
                     param.Add("string")
-                    cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Inequality", param)
-                    cil.branch_if_true(_ilmethod.codes, branchinfo.truebranch)
+                    If sncond.sepopt = tokenhared.token.ANDLOGIC Then
+                        cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Equality", param)
+                        cil.branch_if_true(_ilmethod.codes, branchinfo.falsebranch)
+                    Else
+                        cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Inequality", param)
+                        cil.branch_if_true(_ilmethod.codes, branchinfo.truebranch)
+                    End If
+
                 Else
-                    cil.bne(_ilmethod.codes, branchinfo.truebranch)
+                    Select Case sncond.sepopt
+                        Case tokenhared.token.ANDLOGIC
+                            cil.beq(_ilmethod.codes, branchinfo.falsebranch)
+                        Case tokenhared.token.ORLOGIC
+                            cil.bne(_ilmethod.codes, branchinfo.truebranch)
+                        Case tokenhared.token.UNDEFINED
+                            cil.bne(_ilmethod.codes, branchinfo.truebranch)
+                    End Select
                 End If
         End Select
     End Sub
@@ -115,7 +171,7 @@ Public Class condproc
             Select Case spstate
                 Case sepstate.lval
                     sncond(ibar).lvalue = condlinecodestruc(index)
-                    sncond(ibar).optcond = tokenhared.token.UNDEFINED
+                    sncond(ibar).sepopt = tokenhared.token.UNDEFINED
                     spstate = sepstate.opt
                 Case sepstate.opt
                     opt &= condlinecodestruc(index).value
@@ -133,15 +189,15 @@ Public Class condproc
                         Select Case sepopt
                             Case "&&"
                                 sncond(ibar).sepopt = tokenhared.token.ANDLOGIC
-                                sepopt = conrex.NULL
-                                spstate = sepstate.lval
                             Case "||"
                                 sncond(ibar).sepopt = tokenhared.token.ORLOGIC
-                                spstate = sepstate.lval
-                                sepopt = conrex.NULL
                             Case Else
                                 dserr.new_error(conserr.errortype.SYNTAXERROR, condlinecodestruc(index).line, ilbodybulider.path, "Expression expected , '" & sepopt & "' The operator could not be identified." & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(condlinecodestruc(index)), condlinecodestruc(index).value), "Use '||' or '&&'")
                         End Select
+                        Array.Resize(sncond, sncond.Length + 1)
+                        ibar += 1
+                        sepopt = conrex.NULL
+                        spstate = sepstate.lval
                     End If
             End Select
         Next
