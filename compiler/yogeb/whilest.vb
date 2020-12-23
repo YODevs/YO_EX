@@ -18,6 +18,7 @@ Public Class whilest
 
         Dim cdproc As New condproc(nbranch)
         cdproc.set_condition(_ilmethod, condlinecodestruc)
+        lngen.set_direct_label(nbranch.falsebranch, _ilmethod.codes)
         Return _ilmethod
     End Function
 
