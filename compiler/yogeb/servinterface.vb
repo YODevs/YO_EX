@@ -233,6 +233,7 @@ Public Class servinterface
             For index = 0 To ilmethod.parameter.Length - 1
                 If ilmethod.parameter(index).name.ToLower = varname Then
                     getdatatype = ilmethod.parameter(index).datatype
+                    is_common_data_type(getdatatype, getdatatype)
                     Return True
                 End If
             Next
