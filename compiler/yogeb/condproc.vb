@@ -106,13 +106,16 @@ Public Class condproc
     End Sub
     Private Sub sep_condition(condlinecodestruc As xmlunpkd.linecodestruc())
         Dim ibar As Integer = 0
-        Dim opt As String = conrex.NULL
+        Dim opt, sepopt As String
+        opt = conrex.NULL
+        sepopt = conrex.NULL
         Dim spstate As New sepstate
         spstate = sepstate.lval
         For index = 0 To condlinecodestruc.Length - 1
             Select Case spstate
                 Case sepstate.lval
                     sncond(ibar).lvalue = condlinecodestruc(index)
+                    sncond(ibar).optcond = tokenhared.token.UNDEFINED
                     spstate = sepstate.opt
                 Case sepstate.opt
                     opt &= condlinecodestruc(index).value
@@ -125,9 +128,27 @@ Public Class condproc
                     sncond(ibar).rvalue = condlinecodestruc(index)
                     spstate = sepstate.sepopt
                 Case sepstate.sepopt
-
+                    sepopt &= condlinecodestruc(index).value
+                    If sepopt.Length >= 2 Then
+                        Select Case sepopt
+                            Case "&&"
+                                sncond(ibar).sepopt = tokenhared.token.ANDLOGIC
+                                sepopt = conrex.NULL
+                                spstate = sepstate.lval
+                            Case "||"
+                                sncond(ibar).sepopt = tokenhared.token.ORLOGIC
+                                spstate = sepstate.lval
+                                sepopt = conrex.NULL
+                            Case Else
+                                dserr.new_error(conserr.errortype.SYNTAXERROR, condlinecodestruc(index).line, ilbodybulider.path, "Expression expected , '" & sepopt & "' The operator could not be identified." & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(condlinecodestruc(index)), condlinecodestruc(index).value), "Use '||' or '&&'")
+                        End Select
+                    End If
             End Select
         Next
+
+        If sepopt <> conrex.NULL Then
+            dserr.new_error(conserr.errortype.SYNTAXERROR, condlinecodestruc(condlinecodestruc.Length - 1).line, ilbodybulider.path, "Expression expected , '" & sepopt & "' The operator could not be identified." & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(condlinecodestruc(condlinecodestruc.Length - 1)), sepopt), "Use '||' or '&&'")
+        End If
     End Sub
 
     Private Sub get_condition_opt(ByRef optcond As tokenhared.token, optval As String, linecodestruc As xmlunpkd.linecodestruc)
