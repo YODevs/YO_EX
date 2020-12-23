@@ -36,8 +36,6 @@
         _token.Add(token.STATIC, "static")
         _token.Add(token.DEFAULT, "default")
 
-        _tokensym.Add(token.CONDOR, "||")
-        _tokensym.Add(token.CONDAND, "&&")
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
         _tokensym.Add(token.L2KO, ">>")
@@ -62,6 +60,7 @@
         _tokensym.Add(token.PLUS, "+")
         _tokensym.Add(token.MINUS, "-")
         _tokensym.Add(token.[AND], "&")
+        _tokensym.Add(token.OR, "|")
         _tokensym.Add(token.LKO, ">")
         _tokensym.Add(token.RKO, "<")
         _tokensym.Add(token.EQUALS, "=")
@@ -205,5 +204,6 @@
         [DEFAULT] = 76
         CONDOR = 77
         CONDAND = 78
+        [OR] = 79
     End Enum
 End Class
