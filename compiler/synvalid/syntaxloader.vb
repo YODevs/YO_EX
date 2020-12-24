@@ -161,14 +161,14 @@ tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, toke
     Private Shared Sub st_continue()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.CONTINUE)
-        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP)
+        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.WHILE)
 
         set_syntax_loader(statements.CONTINUE, "Continue Statement", exptokenslist)
     End Sub
     Private Shared Sub st_break()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.BREAK)
-        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY)
+        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY, tokenhared.token.WHILE)
 
         set_syntax_loader(statements.BREAK, "Break Statement", exptokenslist)
     End Sub
