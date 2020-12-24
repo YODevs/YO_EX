@@ -24,6 +24,7 @@ Public Class whilest
 
     Private Sub set_while_body(whilenblock As xmlunpkd.linecodestruc, nbranch As condproc.branchtargetinfo, ByRef illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
         getbrcond = lngen.get_line_prop("op_while")
+        stjmper.set_new_jmper(tokenhared.token.WHILE, nbranch.falsebranch, getbrcond)
         cil.branch_to_target(_ilmethod.codes, getbrcond)
         lngen.set_direct_label(nbranch.truebranch, _ilmethod.codes)
         Dim iltrans As New iltranscore(ilbodybulider.path, whilenblock.value, illocalinit, localinit)
