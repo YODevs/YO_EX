@@ -168,7 +168,7 @@ tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, toke
     Private Shared Sub st_break()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.BREAK)
-        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY, tokenhared.token.WHILE)
+        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY, tokenhared.token.WHILE, tokenhared.token.MATCH)
 
         set_syntax_loader(statements.BREAK, "Break Statement", exptokenslist)
     End Sub
