@@ -13,6 +13,7 @@
         'Check syntax
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.MATCH)
         endbranchlabel = lngen.get_line_prop(scount)
+        stjmper.set_new_jmper(tokenhared.token.MATCH, endbranchlabel, Nothing)
         scount += 1
         clinecondstruc = clinecodestruc(2)
         servinterface.get_dt_proc(_ilmethod, clinecondstruc, conddtype)
