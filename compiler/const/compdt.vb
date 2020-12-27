@@ -19,7 +19,7 @@
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
-    Friend Const YOFORMATTEDSTRBYREGEX As String = "#{\w+}"
+    Friend Const YOFORMATTEDSTRBYREGEX As String = "#{.+}"
 
     Friend Const PARAM_IMPASSETS As String = "--import_assets"
     Friend Const PARAM_DEBUG As String = "--debug"
