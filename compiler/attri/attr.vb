@@ -61,6 +61,8 @@ Public Class attr
                 attribute._app._classname = setinattr.get_str_val(resultattr, path)
             Case "wait"
                 attribute._app._wait = setinattr.get_bool_val(resultattr, path)
+            Case "issealed"
+                attribute._app._issealed = setinattr.get_bool_val(resultattr, path)
             Case Else
                 'Set Error
                 dserr.args.Add(resultattr.fieldattribute)
