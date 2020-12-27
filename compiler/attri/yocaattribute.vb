@@ -11,6 +11,7 @@
         Dim _namespace As String
         Dim _classname As String
         Dim _wait As Boolean
+        Dim _issealed As Boolean
     End Structure
     Structure yoattribute
         Dim _cfg As cfg
