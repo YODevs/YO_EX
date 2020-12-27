@@ -7,6 +7,7 @@
         yoattr._app._namespace = Nothing
         yoattr._app._classname = compdt.YOMAINCLASS
         yoattr._app._wait = False
+        yoattr._app._issealed = False
     End Sub
 
     Public Shared Function get_bool_val(yoattr As yocaattribute.resultattribute, path As String) As Boolean
