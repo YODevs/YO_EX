@@ -207,10 +207,14 @@ call instance void [mscorlib]System.Object::.ctor()")
             checkfieldinit = " beforefieldinit "
         End If
 
+        Dim heri As String = conrex.NULL
+        If attribute._app._issealed Then
+            heri = " sealed "
+        End If
         If attribute._app._namespace <> String.Empty Then
-            add_il_code(".class public auto ansi" & checkfieldinit & attribute._app._namespace & conrex.DOT & name)
+            add_il_code(".class public auto ansi" & heri & checkfieldinit & attribute._app._namespace & conrex.DOT & name)
         Else
-            add_il_code(".class public auto ansi" & checkfieldinit & name)
+            add_il_code(".class public auto ansi" & heri & checkfieldinit & name)
         End If
         add_il_code("extends [mscorlib]System.Object")
         add_st_block()
