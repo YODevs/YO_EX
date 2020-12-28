@@ -22,6 +22,7 @@ Public Class funcste
 
         Dim methodinfo As New tknformat._method
         Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo)
+
         If methodindex = -1 Then
             dserr.args.Add("Method " & funcresult.clmethod & "(...) not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
