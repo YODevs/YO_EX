@@ -50,7 +50,7 @@ Public Class fmtstrlit
                 dserr.new_error(conserr.errortype.EXPLICITCONVERSION, cargcodestruc.line, ilbodybulider.path, "Method : " & ilmethod.name & " - identifier : " & varname & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
             End If
         Else
-            dswar.new_warning("Formatted String Literal", "'" & varname & "'  was identified as a variable in the string but has not been previously defined in this scope.")
+            dswar.set_warning("Formatted String Literal", "'" & varname & "'  was identified as a variable in the string but has not been previously defined in this scope.", ilbodybulider.path, cargcodestruc.line)
             load_string(ilmethod, "#{" & varname & "}", cargcodestruc)
         End If
     End Sub
