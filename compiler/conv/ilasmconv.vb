@@ -65,7 +65,8 @@ Public Class ilasmconv
             End If
 
             result = False
-            End If
+        End If
+        dswar.show_warning()
     End Sub
 
     Private Function get_error_info(output As String) As String
