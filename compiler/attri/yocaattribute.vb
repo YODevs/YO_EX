@@ -5,6 +5,7 @@
     Structure cfg
         Dim _cilinject As Boolean
         Dim _optimize_expression As Boolean
+        Dim _disable_warnings As Boolean
     End Structure
 
     Structure app
