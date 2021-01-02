@@ -76,6 +76,8 @@ Public Class attr
                 attribute._cfg._cilinject = setinattr.get_bool_val(resultattr, path)
             Case "optimize_expression"
                 attribute._cfg._optimize_expression = setinattr.get_bool_val(resultattr, path)
+            Case "disable_warnings"
+                attribute._cfg._disable_warnings = setinattr.get_bool_val(resultattr, path)
             Case Else
                 'Set Error
                 dserr.args.Add(resultattr.fieldattribute)
