@@ -9,6 +9,7 @@
 
     Private Shared war() As warstruct
     Friend Shared Sub set_warning(title As String, description As String, Optional file As String = conrex.NULL, Optional line As String = conrex.NULL)
+        If ilgencode.attribute._cfg._disable_warnings = True Then Return
         Static Dim indexarray As Int16 = 0
         Array.Resize(war, indexarray + 1)
         war(indexarray) = New warstruct
@@ -21,7 +22,7 @@
     End Sub
 
     Friend Shared Sub show_warning()
-        If war.Length = 0 Then Return
+        If IsNothing(war) OrElse war.Length = 0 Then Return
         Console.Write("-Warnings")
         For index = 0 To war.Length - 1
             Console.ForegroundColor = ConsoleColor.DarkYellow
