@@ -2,6 +2,7 @@
 
 Public Class ilgencode
 
+    Friend Shared attribute As yocaattribute.yoattribute
     Dim classdt() As tknformat._class
     Dim ilcollection As ilformat.ildata
     Dim ilasm As ilasmgen
@@ -20,6 +21,7 @@ Public Class ilgencode
             Dim getcfield As Integer = 0
             If IsNothing(classdt(index).fields) = False Then getcfield = classdt(index).fields.Length
             procresult.rp_gen(classdt(index).location & " - " & classdt(index).methods.Length & " func(s) , " & getcfield & " field(s)")
+            attribute = classdt(index).attribute
             ilasm = New ilasmgen(ilcollection)
             funcste.attribute = classdt(index).attribute
             Dim resultdata As ilformat.resultildata = ilasm.gen(classdt(index))
