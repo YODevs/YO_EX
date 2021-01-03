@@ -22,6 +22,7 @@
     End Sub
 
     Friend Shared Sub show_warning()
+        If compdt.DISABLEWARNINGS Then Return
         If IsNothing(war) OrElse war.Length = 0 Then Return
         Console.Write("-Warnings")
         For index = 0 To war.Length - 1
