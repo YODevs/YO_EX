@@ -71,6 +71,9 @@
                 End If
             Case tokenhared.token.CIL_BLOCK
                 nv_cil_commands(clinecodestruc, _ilmethod)
+            Case tokenhared.token.IF
+                Dim cond As New ifcond(_ilmethod)
+                _ilmethod = cond.set_if_statement(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.TO
                 Dim toit As New toiter(_ilmethod)
                 _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit, localinit)
