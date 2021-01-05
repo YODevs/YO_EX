@@ -26,6 +26,7 @@
             rev_cline_code(bodyclinecodestruc, _illocalinit, localinit)
         End While
         lngen.set_direct_label(endbranchlabel, _ilmethod.codes)
+        stjmper.reset_jmper(tokenhared.token.MATCH)
         Return _ilmethod
     End Function
 
