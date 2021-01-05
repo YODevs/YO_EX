@@ -31,5 +31,6 @@ Public Class whilest
         iltrans.gen_transpile_code(_ilmethod, False)
         illocalinit = _ilmethod.locallinit
         lngen.set_direct_label(getbrcond, _ilmethod.codes)
+        stjmper.reset_jmper(tokenhared.token.WHILE)
     End Sub
 End Class
