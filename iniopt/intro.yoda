@@ -16,6 +16,8 @@ Display and print tokens while analyzing source code (lexical analysis).
 View and track details of compiler problems at runtime.
 --mute_process
 Hide all logs and do not show the process when compiling.
+--disable_warnings
+Hide all compiler warnings and notifications.
 *** Hints ***
 The Build command must be called next to labra.yoda file by the Command Prompt."
 ,
@@ -36,6 +38,8 @@ Display and print tokens while analyzing source code (lexical analysis).
 View and track details of compiler problems at runtime.
 --mute_process
 Hide all logs and do not show the process when compiling.
+--disable_warnings
+Hide all compiler warnings and notifications.
 *** Hints ***
 The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
