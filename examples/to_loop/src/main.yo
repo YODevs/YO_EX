@@ -1,0 +1,9 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+func main()
+{
+  to(5)
+  {
+    System.Console::Write("*")
+  }
+}
