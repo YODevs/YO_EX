@@ -60,13 +60,13 @@ Public Class condproc
         Me.branchinfo = branchinfo
     End Sub
 
-    Public Sub set_condition(ByRef _ilmethod As ilformat._ilmethodcollection, condlinecodestruc As xmlunpkd.linecodestruc())
+    Public Sub set_condition(ByRef _ilmethod As ilformat._ilmethodcollection, condlinecodestruc As xmlunpkd.linecodestruc(), Optional deftruebr As Boolean = True)
         'coutputdata.print_token(condlinecodestruc)
         sep_condition(condlinecodestruc)
-        load_condition_ref(_ilmethod)
+        load_condition_ref(_ilmethod, deftruebr)
     End Sub
 
-    Private Sub load_condition_ref(ByRef _ilmethod As ilformat._ilmethodcollection)
+    Private Sub load_condition_ref(ByRef _ilmethod As ilformat._ilmethodcollection, deftruebr As Boolean)
         For index = 0 To sncond.Length - 1
             Dim ltype As String = String.Empty
             Dim rtype As String = String.Empty
@@ -76,11 +76,11 @@ Public Class condproc
             'TODO : check data types and warning
             _ilmethod = illdloc.load_single_in_stack(ltype, sncond(index).lvalue)
             _ilmethod = illdloc.load_single_in_stack(rtype, sncond(index).rvalue)
-            load_expression(_ilmethod, sncond(index), ltype, rtype)
+            load_expression(_ilmethod, sncond(index), ltype, rtype, deftruebr)
         Next
     End Sub
 
-    Private Sub load_expression(ByRef _ilmethod As ilformat._ilmethodcollection, sncond As singlecondition, ltype As String, rtype As String)
+    Private Sub load_expression(ByRef _ilmethod As ilformat._ilmethodcollection, sncond As singlecondition, ltype As String, rtype As String, deftruebr As Boolean)
         Select Case sncond.optcond
             Case tokenhared.token.CONDEQ    '==
                 Select Case sncond.sepopt
@@ -97,7 +97,11 @@ Public Class condproc
                     Case tokenhared.token.ORLOGIC
                         cil.beq(_ilmethod.codes, branchinfo.truebranch)
                     Case tokenhared.token.UNDEFINED
-                        cil.beq(_ilmethod.codes, branchinfo.truebranch)
+                        If deftruebr Then
+                            cil.beq(_ilmethod.codes, branchinfo.truebranch)
+                        Else
+                            cil.bne(_ilmethod.codes, branchinfo.falsebranch)
+                        End If
                 End Select
             Case tokenhared.token.LKOEQ     '>=
                 Select Case sncond.sepopt
@@ -106,7 +110,11 @@ Public Class condproc
                     Case tokenhared.token.ORLOGIC
                         cil.bge(_ilmethod.codes, branchinfo.truebranch)
                     Case tokenhared.token.UNDEFINED
-                        cil.bge(_ilmethod.codes, branchinfo.truebranch)
+                        If deftruebr Then
+                            cil.bge(_ilmethod.codes, branchinfo.truebranch)
+                        Else
+                            cil.blt(_ilmethod.codes, branchinfo.falsebranch)
+                        End If
                 End Select
             Case tokenhared.token.L2KO      '>>
                 Select Case sncond.sepopt
@@ -115,7 +123,11 @@ Public Class condproc
                     Case tokenhared.token.ORLOGIC
                         cil.bgt(_ilmethod.codes, branchinfo.truebranch)
                     Case tokenhared.token.UNDEFINED
-                        cil.bgt(_ilmethod.codes, branchinfo.truebranch)
+                        If deftruebr Then
+                            cil.bgt(_ilmethod.codes, branchinfo.truebranch)
+                        Else
+                            cil.ble(_ilmethod.codes, branchinfo.falsebranch)
+                        End If
                 End Select
             Case tokenhared.token.RKOEQ     '<=
                 Select Case sncond.sepopt
@@ -124,7 +136,11 @@ Public Class condproc
                     Case tokenhared.token.ORLOGIC
                         cil.ble(_ilmethod.codes, branchinfo.truebranch)
                     Case tokenhared.token.UNDEFINED
-                        cil.ble(_ilmethod.codes, branchinfo.truebranch)
+                        If deftruebr Then
+                            cil.ble(_ilmethod.codes, branchinfo.truebranch)
+                        Else
+                            cil.bgt(_ilmethod.codes, branchinfo.falsebranch)
+                        End If
                 End Select
             Case tokenhared.token.R2KO      '<<
                 Select Case sncond.sepopt
@@ -133,7 +149,11 @@ Public Class condproc
                     Case tokenhared.token.ORLOGIC
                         cil.blt(_ilmethod.codes, branchinfo.truebranch)
                     Case tokenhared.token.UNDEFINED
-                        cil.blt(_ilmethod.codes, branchinfo.truebranch)
+                        If deftruebr Then
+                            cil.blt(_ilmethod.codes, branchinfo.truebranch)
+                        Else
+                            cil.bge(_ilmethod.codes, branchinfo.falsebranch)
+                        End If
                 End Select
             Case tokenhared.token.LRNA      '<>
                 If ltype = "string" AndAlso rtype = "string" Then
@@ -155,7 +175,11 @@ Public Class condproc
                         Case tokenhared.token.ORLOGIC
                             cil.bne(_ilmethod.codes, branchinfo.truebranch)
                         Case tokenhared.token.UNDEFINED
-                            cil.bne(_ilmethod.codes, branchinfo.truebranch)
+                            If deftruebr Then
+                                cil.bne(_ilmethod.codes, branchinfo.truebranch)
+                            Else
+                                cil.beq(_ilmethod.codes, branchinfo.falsebranch)
+                            End If
                     End Select
                 End If
         End Select
