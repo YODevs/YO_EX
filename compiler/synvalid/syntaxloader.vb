@@ -14,6 +14,7 @@
         MATCH
         [CASE]
         [DEFAULT]
+        [ELSE]
     End Enum
 
     Structure syntaxtypesloader
@@ -64,6 +65,21 @@
         st_case()
         'Default Statement
         st_default()
+        'Else Statement
+        st_else()
+    End Sub
+
+    Private Shared Sub st_else()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.ELSE)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+        set_syntax_loader(statements.ELSE, "Else Statement", exptokenslist, "let temp : i32 = 20
+  if(temp >> 24)
+  {
+    System.Console::Write('WARM')
+  }else{
+    System.Console::Write('COOL')
+  }")
     End Sub
 
     Private Shared Sub st_default()
