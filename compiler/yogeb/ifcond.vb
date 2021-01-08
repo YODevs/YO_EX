@@ -1,4 +1,6 @@
-﻿Public Class ifcond
+﻿Imports YOCA
+
+Public Class ifcond
     Friend Shared leavebrachlabel As New ArrayList
     Private _ilmethod As ilformat._ilmethodcollection
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
@@ -12,7 +14,7 @@
         nbranch.truebranch = lngen.get_line_prop("st_if")
         nbranch.falsebranch = lngen.get_line_prop("en_if")
         Dim cdproc As New condproc(nbranch)
-        cdproc.set_condition(_ilmethod, condlinecodestruc)
+        cdproc.set_condition(_ilmethod, condlinecodestruc, False)
         set_if_body(ifenblock, nbranch, _illocalinit, localinit)
         Return _ilmethod
     End Function
@@ -27,5 +29,11 @@
         lngen.set_direct_label(nbranch.falsebranch, _ilmethod.codes)
     End Sub
 
-
+    Public Function set_else_statement(clinecodestruc() As xmlunpkd.linecodestruc, ByRef illocalinit() As ilformat._illocalinit, localinit As localinitdata) As ilformat._ilmethodcollection
+        syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.ELSE)
+        Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(1).value, illocalinit, localinit)
+        iltrans.gen_transpile_code(_ilmethod, False)
+        illocalinit = _ilmethod.locallinit
+        Return _ilmethod
+    End Function
 End Class
