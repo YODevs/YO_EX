@@ -3,6 +3,7 @@
 Public Class ifcond
     Friend Shared leavebrachlabel As New ArrayList
     Private _ilmethod As ilformat._ilmethodcollection
+    Private enblbranch As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -13,6 +14,8 @@ Public Class ifcond
         Dim nbranch As New condproc.branchtargetinfo
         nbranch.truebranch = lngen.get_line_prop("st_if")
         nbranch.falsebranch = lngen.get_line_prop("en_if")
+        enblbranch = lngen.get_line_prop("enbl_if")
+        leavebrachlabel.Add(enblbranch)
         Dim cdproc As New condproc(nbranch)
         cdproc.set_condition(_ilmethod, condlinecodestruc, False)
         set_if_body(ifenblock, nbranch, _illocalinit, localinit)
@@ -25,6 +28,7 @@ Public Class ifcond
         Dim iltrans As New iltranscore(ilbodybulider.path, ifenblock.value, illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
         illocalinit = _ilmethod.locallinit
+        cil.branch_to_target(_ilmethod.codes, enblbranch)
         '   stjmper.reset_jmper(tokenhared.token.IF )
         lngen.set_direct_label(nbranch.falsebranch, _ilmethod.codes)
     End Sub
@@ -35,5 +39,9 @@ Public Class ifcond
         iltrans.gen_transpile_code(_ilmethod, False)
         illocalinit = _ilmethod.locallinit
         Return _ilmethod
+    End Function
+
+    Friend Function set_elseif_statement(clinecodestruc() As xmlunpkd.linecodestruc, illocalinit() As ilformat._illocalinit, localinit As localinitdata) As ilformat._ilmethodcollection
+
     End Function
 End Class
