@@ -74,6 +74,9 @@
             Case tokenhared.token.IF
                 Dim cond As New ifcond(_ilmethod)
                 _ilmethod = cond.set_if_statement(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.ELSEIF
+                Dim cond As New ifcond(_ilmethod)
+                _ilmethod = cond.set_elseif_statement(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.ELSE
                 Dim cond As New ifcond(_ilmethod)
                 _ilmethod = cond.set_else_statement(clinecodestruc, _illocalinit, localinit)
