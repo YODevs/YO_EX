@@ -1,0 +1,66 @@
+#[app::classname("MyApp")]
+
+func main()
+{
+  test1()
+  test2()
+  test3("BMW")
+  test3("FORD")
+  test4()
+  test5()
+  test6()
+}
+
+func test1()
+{
+  let i : i32 = 25
+  ul( i << 20)
+  {
+    System.Console::WriteLine("OK !")
+  }
+}
+
+func test2()
+{
+  let i : i32 = 25
+  ul( i >> 20)
+  {
+    System.Console::WriteLine("--!!!")
+  }
+}
+
+func test3(car : str)
+{
+  ul(car == "BMW")
+  {
+    System.Console::WriteLine(car)
+  }
+}
+
+func test4()
+{
+  let act : bool = true
+  ul( 1 == 1 && act == true)
+  {
+    System.Console::WriteLine("--!!!!")
+  }
+}
+
+func test5()
+{
+  let act : bool = true
+  ul( "S" == "S" && act == false)
+  {
+    System.Console::WriteLine("OK")
+  }
+}
+
+func test6()
+{
+  let act : bool = true
+  ul( "S" == "S" && act == false || true == true)
+  {
+    System.Console::WriteLine("--!!!!!")
+  }
+  System.Console::WriteLine(".")
+}
