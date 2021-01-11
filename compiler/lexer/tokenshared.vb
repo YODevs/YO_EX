@@ -35,6 +35,7 @@
         _token.Add(token.PRIVATE, "private")
         _token.Add(token.STATIC, "static")
         _token.Add(token.DEFAULT, "default")
+        _token.Add(token.UL, "ul")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -205,5 +206,6 @@
         CONDOR = 77
         CONDAND = 78
         [OR] = 79
+        UL = 80
     End Enum
 End Class
