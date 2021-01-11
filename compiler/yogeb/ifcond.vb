@@ -41,6 +41,17 @@ Public Class ifcond
         Return _ilmethod
     End Function
 
+    Friend Shared Sub check_oth_tokens(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+        If leavebrachlabel.Count = 0 Then Return
+        Select Case clinecodestruc(0).tokenid
+            Case tokenhared.token.IF
+            Case tokenhared.token.ELSEIF
+            Case tokenhared.token.ELSE
+            Case Else
+
+        End Select
+    End Sub
+
     Friend Function set_elseif_statement(clinecodestruc() As xmlunpkd.linecodestruc, illocalinit() As ilformat._illocalinit, localinit As localinitdata) As ilformat._ilmethodcollection
 
     End Function
