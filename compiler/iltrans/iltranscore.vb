@@ -50,6 +50,9 @@
     Private Sub rev_cline_code(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         If clinecodestruc.Length = 0 Then Return
         ' coutputdata.print_token(clinecodestruc)
+        If ifcond.leavebrachlabel.Count > 0 Then
+            ifcond.check_oth_tokens(clinecodestruc, _ilmethod)
+        End If
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.IDENTIFIER
                 nv_st_identifier(clinecodestruc, _ilmethod)
@@ -80,6 +83,9 @@
             Case tokenhared.token.ELSE
                 Dim cond As New ifcond(_ilmethod)
                 _ilmethod = cond.set_else_statement(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.UL
+                Dim cond As New ulcond(_ilmethod)
+                _ilmethod = cond.set_ul_statement(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.TO
                 Dim toit As New toiter(_ilmethod)
                 _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit, localinit)
