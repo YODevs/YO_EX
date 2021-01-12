@@ -20,12 +20,12 @@ Public Class ulcond
     End Function
 
     Private Sub set_ul_body(ifenblock As xmlunpkd.linecodestruc, nbranch As condproc.branchtargetinfo, ByRef illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
-        '  stjmper.set_new_jmper(tokenhared.token.if, nbranch.falsebranch, Nothing )
+        stjmper.set_new_jmper(tokenhared.token.UL, nbranch.truebranch, Nothing)
         lngen.set_direct_label(nbranch.falsebranch, _ilmethod.codes)
         Dim iltrans As New iltranscore(ilbodybulider.path, ifenblock.value, illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
         illocalinit = _ilmethod.locallinit
-        '   stjmper.reset_jmper(tokenhared.token.IF )
+        stjmper.reset_jmper(tokenhared.token.UL)
         lngen.set_direct_label(nbranch.truebranch, _ilmethod.codes)
     End Sub
 End Class
