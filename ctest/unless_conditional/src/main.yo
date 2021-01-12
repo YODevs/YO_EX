@@ -9,6 +9,7 @@ func main()
   test4()
   test5()
   test6()
+  test7()
 }
 
 func test1()
@@ -63,4 +64,15 @@ func test6()
     System.Console::WriteLine("--!!!!!")
   }
   System.Console::WriteLine(".")
+}
+
+func test7()
+{
+  ul(true == false)
+  {
+    System.Console::WriteLine("STBR")
+    break ul
+    System.Console::WriteLine("!!")
+  }
+  System.Console::WriteLine("CLEND")
 }
