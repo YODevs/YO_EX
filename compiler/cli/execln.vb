@@ -85,13 +85,21 @@ You can type 'Help' to view commands.")
     Public Sub rp_run(args As ArrayList)
         rp_build(args)
         If ilasmconv.result Then
-            If compdt.MUTEPROCESS = False Then Console.WriteLine("Launching and running compiled output [" & compdt.RUNCMDDELAY & "ms] ...")
+            compdt.EXECTIME = argstorelist.find(compdt.PARAM_DISPLAY_EXEC_TIME, True)
+            If compdt.EXECTIME = False AndAlso compdt.MUTEPROCESS = False Then Console.WriteLine("Launching and running compiled output [" & compdt.RUNCMDDELAY & "ms] ...")
             Threading.Thread.Sleep(compdt.RUNCMDDELAY)
             Dim appproc As New Process
             With appproc
                 .StartInfo = New ProcessStartInfo(cilcomp.get_output_loca())
                 .Start()
+                .WaitForExit()
             End With
+            If compdt.EXECTIME Then exec_time(appproc)
         End If
+    End Sub
+
+    Private Sub exec_time(appproc As Process)
+        Dim tsp As TimeSpan = appproc.ExitTime.Subtract(appproc.StartTime)
+        Console.WriteLine("Time measured ( + process call delay ) : {0} ", tsp.ToString)
     End Sub
 End Class
