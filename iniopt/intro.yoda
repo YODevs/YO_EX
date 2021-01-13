@@ -32,6 +32,8 @@ Disable JIT optimization, create PDB file, use implicit sequence points.
 Enable JIT optimization, create PDB file, use implicit sequence points.
 --import_assets
 Copy dependencies and assets from the assets folder to the output.
+--execution_time
+Measuring the execution time of the called process.
 --display_token
 Display and print tokens while analyzing source code (lexical analysis).
 --stack_trace
