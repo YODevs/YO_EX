@@ -209,5 +209,6 @@
         [OR] = 79
         UL = 80
         [FOR] = 81
+        RANGE = 82
     End Enum
 End Class
