@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text.RegularExpressions
 
 Public Class lexer
 
@@ -228,7 +229,7 @@ Public Class lexer
                 Return False
             End If
         ElseIf lastchar Then
-                slinegrab &= getch
+            slinegrab &= getch
             dserr.new_error(conserr.errortype.STRINGCOENDWITH, linecinf.line, sfile, "error in line : " & linecinf.line & " -> " & slinegrab, "print 'Hello World!'")
         End If
         slinegrab &= getch
@@ -457,7 +458,6 @@ Public Class lexer
         Return False
     End Function
     Private Function rev_expression(ByRef value As String) As Boolean
-
         If value.StartsWith("[") AndAlso value.EndsWith("]") Then
             For index = 0 To compdt.expressionact.Length - 1
                 If value.Contains(compdt.expressionact(index)) Then
@@ -465,7 +465,17 @@ Public Class lexer
                     Return True
                 End If
             Next
+            If rev_range(value) Then
+                rd_token = tokenhared.token.RANGE
+                Return True
+            End If
             Return False
+        End If
+        Return False
+    End Function
+    Private Function rev_range(value As String) As Boolean
+        If value.Contains(conrex.DBDOT) Then
+            Return Regex.IsMatch(value, compdt.RANGEFMT)
         End If
         Return False
     End Function
