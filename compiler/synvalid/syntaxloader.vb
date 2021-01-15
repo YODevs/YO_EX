@@ -15,6 +15,7 @@
         [CASE]
         [DEFAULT]
         [ELSE]
+        [FOR]
     End Enum
 
     Structure syntaxtypesloader
@@ -67,8 +68,22 @@
         st_default()
         'Else Statement
         st_else()
+        'For Statement
+        st_for()
     End Sub
 
+    Private Shared Sub st_for()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.FOR)
+        add_token(exptokenslist, tokenhared.token.PRSTART)
+        add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER, tokenhared.token.EXPRESSION, tokenhared.token.RANGE)
+        add_token(exptokenslist, tokenhared.token.PREND)
+        add_token(exptokenslist, tokenhared.token.BLOCKOP)
+        set_syntax_loader(statements.FOR, "For Statement", exptokenslist, "for(n in [0..10])
+  {
+    System.Console::WriteLine(n)
+  }")
+    End Sub
     Private Shared Sub st_else()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.ELSE)
