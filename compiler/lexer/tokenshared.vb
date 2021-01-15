@@ -36,6 +36,7 @@
         _token.Add(token.STATIC, "static")
         _token.Add(token.DEFAULT, "default")
         _token.Add(token.UL, "ul")
+        _token.Add(token.FOR, "for")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -207,5 +208,6 @@
         CONDAND = 78
         [OR] = 79
         UL = 80
+        [FOR] = 81
     End Enum
 End Class
