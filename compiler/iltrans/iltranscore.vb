@@ -86,6 +86,9 @@
             Case tokenhared.token.UL
                 Dim cond As New ulcond(_ilmethod)
                 _ilmethod = cond.set_ul_statement(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.FOR
+                Dim forlp As New forloop(_ilmethod)
+                _ilmethod = forlp.set_for_st(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.TO
                 Dim toit As New toiter(_ilmethod)
                 _ilmethod = toit.set_to_iter(clinecodestruc, _illocalinit, localinit)
