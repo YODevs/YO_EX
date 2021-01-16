@@ -76,6 +76,8 @@
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.FOR)
         add_token(exptokenslist, tokenhared.token.PRSTART)
+        add_token(exptokenslist, tokenhared.token.IDENTIFIER)
+        add_token(exptokenslist, tokenhared.token.IN)
         add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER, tokenhared.token.EXPRESSION, tokenhared.token.RANGE)
         add_token(exptokenslist, tokenhared.token.PREND)
         add_token(exptokenslist, tokenhared.token.BLOCKOP)
