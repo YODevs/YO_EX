@@ -8,6 +8,7 @@
     Private loopvarcodestruc As xmlunpkd.linecodestruc
     Private looprangecodestruc As xmlunpkd.linecodestruc
     Private rnginf As rangeserv.ranginf
+    Private userange As Boolean = False
 
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
@@ -17,7 +18,15 @@
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.FOR)
         loopvar = clinecodestruc(2).value
         loopvarcodestruc = clinecodestruc(2)
-        rnginf = rangeserv.get_range_info(clinecodestruc(4))
+        If clinecodestruc(4).tokenid = tokenhared.token.RANGE Then
+            userange = True
+            rnginf = rangeserv.get_range_info(clinecodestruc(4))
+        Else
+            rnginf.startpoint = 0
+            rnginf.endpoint = clinecodestruc(4).value
+            rnginf.ignorelastpoint = False
+            rnginf.stepsc = 1
+        End If
         looprangecodestruc = clinecodestruc(4)
         set_flag_loop(illocalinit)
         getbrcond = lngen.get_line_prop("cond_for_")
@@ -63,7 +72,11 @@
         envarloop.ile = envarloop.value.Length
         envarloop.ien = envarloop.value.Length
         ldloc.load_single_in_stack("int32", envarloop)
-        cil.ble(_ilmethod.codes, getbrhead)
+        If userange Then
+            cil.blt(_ilmethod.codes, getbrhead)
+        Else
+            cil.ble(_ilmethod.codes, getbrhead)
+        End If
     End Sub
     Private Sub set_flag_loop(ByRef _illocalinit() As ilformat._illocalinit)
         Dim locinit As New ilformat._illocalinit
