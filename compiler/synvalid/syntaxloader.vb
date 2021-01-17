@@ -78,7 +78,7 @@
         add_token(exptokenslist, tokenhared.token.PRSTART)
         add_token(exptokenslist, tokenhared.token.IDENTIFIER)
         add_token(exptokenslist, tokenhared.token.IN)
-        add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER, tokenhared.token.EXPRESSION, tokenhared.token.RANGE)
+        add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER, tokenhared.token.RANGE)
         add_token(exptokenslist, tokenhared.token.PREND)
         add_token(exptokenslist, tokenhared.token.BLOCKOP)
         set_syntax_loader(statements.FOR, "For Statement", exptokenslist, "for(n in [0..10])
