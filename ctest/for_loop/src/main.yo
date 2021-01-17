@@ -1,0 +1,53 @@
+#[app::classname("MyApp")]
+func main()
+{
+  test1()
+  test2(5)
+  test3()
+  test4(3)
+}
+
+
+func test1()
+{
+  for(n in [0..3])
+  {
+    System.Console::WriteLine(n)
+  }
+  #-
+  0
+  1
+  2
+  -#
+}
+
+
+func test2(last:i32)
+{
+  for(n in [0..last])
+  {
+    System.Console::WriteLine("N -> #{n}")
+  }
+}
+
+func test3()
+{
+  for(i in 3)
+  {
+    System.Console::WriteLine("I -> #{i}")
+  }
+  #-
+  0
+  1
+  2
+  3
+  -#
+}
+
+func test4(last:i32)
+{
+  for(i in last)
+  {
+    System.Console::Write("#{i}")
+  }
+}
