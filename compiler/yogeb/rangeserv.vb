@@ -4,6 +4,7 @@
         Dim startpoint As Object
         Dim endpoint As Object
         Dim stepsc As Integer
+        Dim ignorelastpoint As Boolean
     End Structure
     Public Shared Function get_range_info(rangestring As xmlunpkd.linecodestruc) As ranginf
         If rangestring.tokenid <> tokenhared.token.RANGE Then Return Nothing
@@ -13,6 +14,7 @@
         rninf.stepsc = 1
         rninf.startpoint = rvalue.Remove(rvalue.IndexOf(conrex.DBDOT))
         rninf.endpoint = rvalue.Remove(0, rvalue.IndexOf(conrex.DBDOT) + 2)
+        rninf.ignorelastpoint = True ' [0..5] , [0..=5]
         Return rninf
     End Function
 End Class
