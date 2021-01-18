@@ -3,6 +3,7 @@
     Private _ilmethod As ilformat._ilmethodcollection
     Private getbrcond As String = String.Empty
     Private getbrhead As String = String.Empty
+    Private getbrstep As String = String.Empty
     Private getbrexit As String = String.Empty
     Private loopvar As String = String.Empty
     Private loopvarcodestruc As xmlunpkd.linecodestruc
@@ -30,6 +31,7 @@
         looprangecodestruc = clinecodestruc(4)
         set_flag_loop(illocalinit)
         getbrcond = lngen.get_line_prop("cond_for_")
+        getbrstep = lngen.get_line_prop("step_for_")
         getbrhead = lngen.get_line_prop("head_for_")
         getbrexit = lngen.get_line_prop("exit_for_")
         cil.branch_to_target(_ilmethod.codes, getbrcond)
@@ -39,7 +41,7 @@
 
     Private Sub set_body_loop(bodycodestruc As xmlunpkd.linecodestruc, ByRef illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
         lngen.set_direct_label(getbrhead, _ilmethod.codes)
-        localinit.add_local_init("n", "i32")
+        stjmper.set_new_jmper(tokenhared.token.FOR, getbrexit, getbrstep)
         _ilmethod.locallinit = illocalinit
         Dim iltrans As New iltranscore(ilbodybulider.path, bodycodestruc.value, illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
@@ -48,9 +50,11 @@
         lngen.set_direct_label(getbrcond, _ilmethod.codes)
         set_condition()
         lngen.set_direct_label(getbrexit, _ilmethod.codes)
+        stjmper.reset_jmper(tokenhared.token.FOR)
     End Sub
 
     Private Sub set_step_loop()
+        lngen.set_direct_label(getbrstep, _ilmethod.codes)
         cil.load_local_variable(_ilmethod.codes, loopvar)
         cil.push_int32_onto_stack(_ilmethod.codes, rnginf.stepsc)
         cil.add(_ilmethod.codes)
