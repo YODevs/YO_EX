@@ -1,10 +1,13 @@
 #[app::classname("MyApp")]
+
 func main()
 {
   test1()
   test2(5)
   test3()
   test4(3)
+  test5()
+  test6()
 }
 
 
@@ -48,6 +51,28 @@ func test4(last:i32)
 {
   for(i in last)
   {
+    System.Console::Write("#{i}")
+  }
+}
+
+func test5()
+{
+  System.Console::WriteLine()
+  for(i in 2)
+  {
+    System.Console::WriteLine("#{i}")
+    continue for
+    System.Console::Write("#{i}")
+  }
+}
+
+func test6()
+{
+  System.Console::WriteLine()
+  for(i in 2)
+  {
+    System.Console::WriteLine("#{i}")
+    break for
     System.Console::Write("#{i}")
   }
 }
