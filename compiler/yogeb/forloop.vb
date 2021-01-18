@@ -87,12 +87,23 @@
         locinit.name = loopvar
         'default common data type for 'FOR' loop
         locinit.datatype = "int32"
-        locinit.hasdefaultvalue = True
+        locinit.hasdefaultvalue = False
         locinit.iscommondatatype = True
         Array.Resize(locinit.clocalvalue, 1)
-        locinit.clocalvalue(0).value = 0
         illocalsinit.set_local_init(_illocalinit, locinit)
-        cil.push_int32_onto_stack(_ilmethod.codes, 0)
+        If IsNumeric(rnginf.startpoint) Then
+            cil.push_int32_onto_stack(_ilmethod.codes, rnginf.startpoint)
+        Else
+            Dim ldloc As New illdloc(_ilmethod)
+            Dim stvarloop As New xmlunpkd.linecodestruc
+            stvarloop.value = rnginf.startpoint
+            stvarloop.tokenid = tokenhared.token.IDENTIFIER
+            stvarloop.line = looprangecodestruc.line
+            stvarloop.ist = 0
+            stvarloop.ile = looprangecodestruc.value.IndexOf("..")
+            stvarloop.ien = looprangecodestruc.value.IndexOf("..")
+            ldloc.load_single_in_stack("int32", stvarloop)
+        End If
         cil.set_stack_local(_ilmethod.codes, loopvar)
     End Sub
 
