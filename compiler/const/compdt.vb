@@ -12,6 +12,7 @@
     Friend Const FLAGPERFIX As String = "YO_Flag_"
     Friend Const YOMAINCLASS As String = "YO_Main"
     Friend Const RANGEFMT As String = "\[\s*\w+\.\.\w+\s*\]"
+    Friend Const ATTRIBUTEFMT As String = "\#\[\w+::\w+\(.+\)\]"
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
     Friend Shared DISPLAYTOKENWLEX As Boolean = False
     Friend Shared DISPLAYSTACKTRACE As Boolean = False
