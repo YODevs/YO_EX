@@ -1,6 +1,25 @@
-﻿Public Class ciltoken
+﻿''' <summary>
+''' <en>
+''' 
+''' </en>
+''' 
+''' <fa>
+''' در این کلاس لیستی از دستورات و خاصیت دستورات میانی مایکروسافت نگهداری می شود
+''' </fa>
+''' </summary>
+Public Class ciltoken
 
     Public Shared cilinstruct() As cilinstruction
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' مقدار اول : دستور زبان میانی
+    ''' مقدار دوم : آیا دستور پارامتر را پشتیبانی می کند
+    ''' مقدار سوم : دیتاتایپ دستور میانی به توافق دیتاتایپ های معمول یولنگ
+    ''' </fa>
+    ''' </summary>
     Structure cilinstruction
         Dim keyword As String
         Dim hasparam As Boolean
@@ -18,6 +37,15 @@
         Return
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' 
+    ''' <fa>
+    ''' آماده سازی و استور کردن دستورات CIL
+    ''' </fa>
+    ''' </summary>
     Friend Shared Sub init_cil_instruction()
         set_cil_instruct("add")
         set_cil_instruct("add.ovf")
