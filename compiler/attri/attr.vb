@@ -1,10 +1,25 @@
-﻿Imports System.Text.RegularExpressions
+﻿
+Imports System.Text.RegularExpressions
 
+''' <summary>
+''' <fa>
+''' این کلاس برای اعتبارسنجی و تشخیص اتربیوت ها در کامپایلر استفاده می شود .
+''' </fa>
+''' 
+''' <en>
+''' 
+''' </en>
+''' </summary>
 Public Class attr
+
+    '//////////////////////////Fields///////////////////////////////
     Friend Shared lastexpression As String = String.Empty
     Friend Shared lastlinecinf As lexer.targetinf
     Private attribute As yocaattribute.yoattribute
-    Private path As String
+    Private path As String = String.Empty
+    '///////////////////////////////////////////////////////////////
+
+#Region "Methods"
     Public Sub New(path As String)
         Me.path = path
         attribute = New yocaattribute.yoattribute
@@ -14,7 +29,7 @@ Public Class attr
     Public Sub parse_attribute(expression As String, linecinf As lexer.targetinf)
         lastexpression = expression
         lastlinecinf = linecinf
-        If Regex.IsMatch(expression, "\#\[\w+::\w+\(.+\)\]") Then
+        If Regex.IsMatch(expression, compdt.ATTRIBUTEFMT) Then
             Dim resultattr As yocaattribute.resultattribute = get_properties(expression)
             set_attribute(resultattr)
         Else
@@ -40,6 +55,15 @@ Public Class attr
         Return resultattr
     End Function
 
+    ''' <summary>
+    ''' <fa>
+    ''' مقدار دهی یک اتربیوت با استفاده از شناسایی ریشه اتربیوت
+    ''' </fa>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' </summary>
+    ''' <param name="resultattr"></param>
     Public Sub set_attribute(resultattr As yocaattribute.resultattribute)
         Select Case resultattr.typeattribute.ToLower
             Case "cfg"
@@ -88,4 +112,6 @@ Public Class attr
     Public Function get_attribute() As yocaattribute.yoattribute
         Return attribute
     End Function
+#End Region
+
 End Class
