@@ -1,5 +1,22 @@
-﻿Public Class setinattr
+﻿''' <summary>
+''' <en>
+''' 
+''' </en>
+''' <fa>
+''' این کلاس برای مقدار دهی اولیه برای اتربیوت ها و تبدیل مقدار آن ها به واحد خواسته شده دارد.
+''' </fa>
+''' </summary>
+Public Class setinattr
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' مقدار دهی اولیه تمام خواص و ویژگی های تعریف شده برای کامپایلر
+    ''' </fa>
+    ''' </summary>
+    ''' <param name="yoattr"></param>
     Public Shared Sub init(ByRef yoattr As yocaattribute.yoattribute)
         yoattr._cfg._cilinject = False
         yoattr._cfg._optimize_expression = True
@@ -11,6 +28,19 @@
         yoattr._app._issealed = False
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' بررسی و اعتبارسنجی مقدار یک اتربیوت به عنوان داده بولی
+    ''' در صورتی که اعتبارسنجی ناموفق بود مقدار برگشتی False است .
+    ''' در مقادیر بولی 0 و 1 نیز می توان استفاده کرد.
+    ''' </fa>
+    ''' </summary>
+    ''' <param name="yoattr"></param>
+    ''' <param name="path"></param>
+    ''' <returns></returns>
     Public Shared Function get_bool_val(yoattr As yocaattribute.resultattribute, path As String) As Boolean
         Dim expression As String = yoattr.valueattribute.ToLower
         If expression = "0" OrElse expression = "false" Then
@@ -23,9 +53,22 @@
             dserr.args.Add("bool")
             dserr.new_error(conserr.errortype.EXPLICITCONVERSION, attr.lastlinecinf.line, path, authfunc.get_line_error(path, attr.lastlinecinf, yoattr.valueattribute))
         End If
+
         Return False
     End Function
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' بررسی و اعتبارسنجی مقدار یک اتربیوت به عنوان رشته
+    ''' در صورتی که اعتبارسنجی ناموفق بود مقدار برگشتی False است .
+    ''' </fa>
+    ''' </summary>
+    ''' <param name="yoattr"></param>
+    ''' <param name="path"></param>
+    ''' <returns></returns>
     Public Shared Function get_str_val(yoattr As yocaattribute.resultattribute, path As String) As String
         Dim expression As String = yoattr.valueattribute
         If expression.StartsWith(conrex.COSTR) AndAlso expression.EndsWith(conrex.COSTR) Then
@@ -40,6 +83,7 @@
             dserr.args.Add("str")
             dserr.new_error(conserr.errortype.EXPLICITCONVERSION, attr.lastlinecinf.line, path, authfunc.get_line_error(path, attr.lastlinecinf, yoattr.valueattribute))
         End If
+
         Return False
     End Function
 
