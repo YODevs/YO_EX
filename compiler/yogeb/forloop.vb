@@ -77,7 +77,11 @@
         envarloop.ien = envarloop.value.Length
         ldloc.load_single_in_stack("int32", envarloop)
         If userange Then
-            cil.blt(_ilmethod.codes, getbrhead)
+            If rnginf.ignorelastpoint Then
+                cil.blt(_ilmethod.codes, getbrhead)
+            Else
+                cil.ble(_ilmethod.codes, getbrhead)
+            End If
         Else
             cil.ble(_ilmethod.codes, getbrhead)
         End If
