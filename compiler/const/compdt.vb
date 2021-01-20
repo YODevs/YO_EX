@@ -11,7 +11,7 @@
     Friend Shared blockopallow() As tokenhared.token = {tokenhared.token.FOR, tokenhared.token.UL, tokenhared.token.ELSE, tokenhared.token.IF, tokenhared.token.WHILE, tokenhared.token.DEFAULT, tokenhared.token.CASE, tokenhared.token.MATCH, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY, tokenhared.token.CATCH}
     Friend Const FLAGPERFIX As String = "YO_Flag_"
     Friend Const YOMAINCLASS As String = "YO_Main"
-    Friend Const RANGEFMT As String = "\[\s*\w+\.\.\w+\s*\]"
+    Friend Const RANGEFMT As String = "\[\s*\w+\.\.\=?\w+\s*\]"
     Friend Const ATTRIBUTEFMT As String = "\#\[\w+::\w+\(.+\)\]"
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
     Friend Shared DISPLAYTOKENWLEX As Boolean = False
