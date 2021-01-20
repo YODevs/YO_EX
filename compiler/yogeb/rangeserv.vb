@@ -14,7 +14,12 @@
         rninf.stepsc = 1
         rninf.startpoint = rvalue.Remove(rvalue.IndexOf(conrex.DBDOT))
         rninf.endpoint = rvalue.Remove(0, rvalue.IndexOf(conrex.DBDOT) + 2)
-        rninf.ignorelastpoint = True ' [0..5] , [0..=5]
+        If rninf.endpoint.ToString.StartsWith(conrex.EQU) Then
+            rninf.endpoint = rninf.endpoint.ToString.Remove(0, 1)
+            rninf.ignorelastpoint = False ' [0..=5]
+        Else
+            rninf.ignorelastpoint = True ' [0..5]
+        End If
         Return rninf
     End Function
 End Class
