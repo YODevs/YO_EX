@@ -3,7 +3,7 @@
     Structure ranginf
         Dim startpoint As Object
         Dim endpoint As Object
-        Dim stepsc As Integer
+        Dim stepsc As Object
         Dim ignorelastpoint As Boolean
     End Structure
     Public Shared Function get_range_info(rangestring As xmlunpkd.linecodestruc) As ranginf
@@ -19,6 +19,10 @@
             rninf.ignorelastpoint = False ' [0..=5]
         Else
             rninf.ignorelastpoint = True ' [0..5]
+        End If
+        If rninf.endpoint.ToString.Contains(";") Then
+            rninf.stepsc = rninf.endpoint.ToString.Remove(0, rninf.endpoint.ToString.IndexOf(";") + 1)
+            rninf.endpoint = rninf.endpoint.ToString.Remove(rninf.endpoint.ToString.IndexOf(";"))
         End If
         Return rninf
     End Function
