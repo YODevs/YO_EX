@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-''' In this class, a list of commands and feature of Microsoft CIL commands is kept.
+''' In this class, a list of commands and feature of Microsoft CIL commands is kept
 ''' </en>
 ''' 
 ''' <fa>

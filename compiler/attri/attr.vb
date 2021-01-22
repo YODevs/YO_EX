@@ -6,7 +6,7 @@ Imports System.Text.RegularExpressions
 ''' این کلاس برای اعتبارسنجی و تشخیص اتربیوت ها در کامپایلر استفاده می شود .
 ''' </fa>
 ''' <en>
-''' This class in the compiler is used for validating and identifying the attributes.
+''' This class in the compiler is used for validating and identifying the attributes
 ''' </en>
 ''' </summary>
 Public Class attr
