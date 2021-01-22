@@ -56,7 +56,19 @@
     Private Sub set_step_loop()
         lngen.set_direct_label(getbrstep, _ilmethod.codes)
         cil.load_local_variable(_ilmethod.codes, loopvar)
-        cil.push_int32_onto_stack(_ilmethod.codes, rnginf.stepsc)
+        If IsNumeric(rnginf.stepsc) Then
+            cil.push_int32_onto_stack(_ilmethod.codes, rnginf.stepsc)
+        Else
+            Dim stadderloop As New xmlunpkd.linecodestruc
+            stadderloop.value = rnginf.stepsc
+            stadderloop.tokenid = tokenhared.token.IDENTIFIER
+            stadderloop.line = looprangecodestruc.line
+            stadderloop.ist = looprangecodestruc.value.IndexOf(";") + 1
+            stadderloop.ile = stadderloop.value.Length
+            stadderloop.ien = stadderloop.value.Length
+            Dim ldloc As New illdloc(_ilmethod)
+            ldloc.load_single_in_stack("int32", stadderloop)
+        End If
         cil.add(_ilmethod.codes)
         cil.set_stack_local(_ilmethod.codes, loopvar)
     End Sub
