@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-''' 
+''' In this class, a list of commands and feature of Microsoft CIL commands is kept.
 ''' </en>
 ''' 
 ''' <fa>
@@ -12,7 +12,9 @@ Public Class ciltoken
     Public Shared cilinstruct() As cilinstruction
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' First value: CIL commands
+	'''	Second value: Does it supoort parameter command?
+	'''	Third value: CIL's datatype equal to YOlang's common datatypes
     ''' </en>
     ''' <fa>
     ''' مقدار اول : دستور زبان میانی
@@ -39,7 +41,7 @@ Public Class ciltoken
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Preparing and storing CIL commands
     ''' </en>
     ''' 
     ''' <fa>

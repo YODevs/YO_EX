@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-''' 
+''' This class is for initial assignment of attributes and converting their value to desired unit
 ''' </en>
 ''' <fa>
 ''' این کلاس برای مقدار دهی اولیه برای اتربیوت ها و تبدیل مقدار آن ها به واحد خواسته شده دارد.
@@ -10,7 +10,7 @@ Public Class setinattr
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Initial assignment of all defined features for compiler
     ''' </en>
     ''' <fa>
     ''' مقدار دهی اولیه تمام خواص و ویژگی های تعریف شده برای کامپایلر
@@ -30,7 +30,9 @@ Public Class setinattr
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Reviewing and validating value of an attribute as Boolean datatype.
+	'''	If validation failed, returned value will be FALSE.
+	'''	In boolean datatype, 0 & 1 can also be used.
     ''' </en>
     ''' <fa>
     ''' بررسی و اعتبارسنجی مقدار یک اتربیوت به عنوان داده بولی
@@ -59,7 +61,8 @@ Public Class setinattr
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Reviewing and validating value of an attribute as Integer.
+	'''	If validation failed, returned value will be FALSE.
     ''' </en>
     ''' <fa>
     ''' بررسی و اعتبارسنجی مقدار یک اتربیوت به عنوان رشته
