@@ -1,0 +1,40 @@
+#[app::classname("MyApp")]
+
+func main()
+{
+ test1()
+ test2(3) #> 0 , 3 , 6 , 9
+ test2(5) #> 0 , 5 , 10
+ test2(10) #> 0 , 10
+ test2(20) #> 0
+ #>test3(-2)
+}
+
+
+func test1()
+{
+  for(i in [0..10;2])
+  {
+    System.Console::Write(i)
+  }
+  System.Console::WriteLine()
+  #>0,2,4,6,8
+}
+
+func test2(step:i32)
+{
+  for(i in [0..=10;step])
+  {
+    System.Console::Write(i)
+  }
+  System.Console::WriteLine()
+}
+
+func test3(step:i32)
+{
+  for(i in [10..0;step])
+  {
+    System.Console::Write(i)
+  }
+  System.Console::WriteLine()
+}
