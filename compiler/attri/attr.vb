@@ -5,9 +5,8 @@ Imports System.Text.RegularExpressions
 ''' <fa>
 ''' این کلاس برای اعتبارسنجی و تشخیص اتربیوت ها در کامپایلر استفاده می شود .
 ''' </fa>
-''' 
 ''' <en>
-''' 
+''' This class in the compiler is used for validating and identifying the attributes.
 ''' </en>
 ''' </summary>
 Public Class attr
@@ -60,7 +59,7 @@ Public Class attr
     ''' مقدار دهی یک اتربیوت با استفاده از شناسایی ریشه اتربیوت
     ''' </fa>
     ''' <en>
-    ''' 
+    ''' Assignment of an attribute by identifying root of attribute
     ''' </en>
     ''' </summary>
     ''' <param name="resultattr"></param>
