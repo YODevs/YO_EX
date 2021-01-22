@@ -45,9 +45,9 @@ Public Class yocaattribute
     ''' <summary>
     ''' <en>
     ''' cfg:
-	'''	its subset as features which while compiling will help compiler to customize the applicaiton according to programmer's desire.
-	'''	app:
-	'''	This feature, will deal with application's features such as class.
+	''' its subset as features which while compiling will help compiler to customize the applicaiton according to programmer's desire.
+	''' app:
+	''' This feature, will deal with application's features such as class.
     ''' </en>
     ''' 
     ''' <fa>

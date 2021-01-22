@@ -13,8 +13,8 @@ Public Class ciltoken
     ''' <summary>
     ''' <en>
     ''' First value: CIL commands
-	'''	Second value: Does it supoort parameter command?
-	'''	Third value: CIL's datatype equal to YOlang's common datatypes
+	''' Second value: Does it supoort parameter command?
+	''' Third value: CIL's datatype equal to YOlang's common datatypes
     ''' </en>
     ''' <fa>
     ''' مقدار اول : دستور زبان میانی
