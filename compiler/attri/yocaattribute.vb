@@ -11,7 +11,7 @@ Public Class yocaattribute
     ''' Configure options for compiler.
     ''' </summary>
     Structure cfg
-        'EN : Allows injecting Microsoft CIL codes into YOLang codes.
+        'EN : Allows injecting Microsoft CIL codes into YOLang codes
         'FA : اجازه تزریق کد های میانی مایکروسافت در کد های یولنگ را میدهد
         Dim _cilinject As Boolean
 
@@ -37,7 +37,7 @@ Public Class yocaattribute
         'FA : در صورت مقداردهی ، نرم افزار در آخر پروسه خود منتظر یک اینتر از سوی کاربر می ماند و سپس بسته می شود
         Dim _wait As Boolean
 
-        'EN : With this feature a class can be sealed. In other words, it won't be printed.
+        'EN : With this feature a class can be sealed. In other words, it won't be printed
         'FA : با این خاصیت می توان یک کلاس را مهر و موم یا به اصطلاح از پرنت شدن آن جلوگیری کنیم
         Dim _issealed As Boolean
     End Structure
@@ -45,9 +45,9 @@ Public Class yocaattribute
     ''' <summary>
     ''' <en>
     ''' cfg:
-	''' its subset as features which while compiling will help compiler to customize the applicaiton according to programmer's desire.
+	''' its subset as features which while compiling will help compiler to customize the applicaiton according to programmer's desire
 	''' app:
-	''' This feature, will deal with application's features such as class.
+	''' This feature, will deal with application's features such as class
     ''' </en>
     ''' 
     ''' <fa>

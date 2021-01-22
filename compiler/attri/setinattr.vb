@@ -30,9 +30,9 @@ Public Class setinattr
 
     ''' <summary>
     ''' <en>
-    ''' Reviewing and validating value of an attribute as Boolean datatype.
-	''' If validation failed, returned value will be FALSE.
-	''' In boolean datatype, 0 & 1 can also be used.
+    ''' Reviewing and validating value of an attribute as Boolean datatype
+	''' If validation failed, returned value will be FALSE
+	''' In boolean datatype, 0 & 1 can also be used
     ''' </en>
     ''' <fa>
     ''' بررسی و اعتبارسنجی مقدار یک اتربیوت به عنوان داده بولی
@@ -61,8 +61,8 @@ Public Class setinattr
 
     ''' <summary>
     ''' <en>
-    ''' Reviewing and validating value of an attribute as Integer.
-	''' If validation failed, returned value will be FALSE.
+    ''' Reviewing and validating value of an attribute as Integer
+	''' If validation failed, returned value will be FALSE
     ''' </en>
     ''' <fa>
     ''' بررسی و اعتبارسنجی مقدار یک اتربیوت به عنوان رشته
