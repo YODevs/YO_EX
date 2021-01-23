@@ -9,6 +9,8 @@
     Public Const SPACE As Char = " "
     Public Const DOT As Char = "."
     Public Const DUSTR As Char = """"
+    Public Const BATCHFILESTR As String = "yoca run
+pause"
     Public Const MAINDEFCODE As String = "#[app::classname(""MyApp"")]
 #[app::wait(true)]
 #[cfg::CIL(true)]
