@@ -6,6 +6,7 @@ Public Class crproj
         Dim assemblyname As String
         Dim typeproject As String
         Dim srcpath As String
+        Dim createbatchfile As Boolean
     End Structure
 
     Dim yoda As YODA.YODA_Format
@@ -22,6 +23,7 @@ Public Class crproj
     Public Sub init_project()
         proj.assemblyname = get_assembly_name()
         proj.typeproject = get_type_of_project()
+        proj.createbatchfile = set_batch_file()
         create_prerequisites()
     End Sub
 
@@ -42,6 +44,7 @@ Public Class crproj
             File.WriteAllText(path & "\src\main.yo", conrex.MAINDEFCODE)
 
             File.WriteAllText(path & "\labra.yoda", get_labra_setting())
+            If proj.createbatchfile Then File.WriteAllText(path & "\build & run.bat", conrex.BATCHFILESTR)
             Console.Clear()
             Dim peconsolecolor As Int16 = Console.ForegroundColor
             Console.ForegroundColor = System.ConsoleColor.DarkGreen
@@ -126,5 +129,17 @@ Public Class crproj
         Dim tproj As String = YOOrderList.YOList.ShowMenu(menudata)
         tproj = tproj.Remove(tproj.IndexOf("[")).Trim.ToLower
         Return tproj
+    End Function
+
+    Private Function set_batch_file() As Boolean
+        Console.Write(vbLf & "# Need a bash file to compile and run fast?[y/N] > ")
+        Select Case Console.ReadKey.KeyChar.ToString.ToLower
+            Case "y"
+                Console.Write(vbLf)
+                Return True
+            Case Else
+                Console.Write(vbLf)
+                Return False
+        End Select
     End Function
 End Class
