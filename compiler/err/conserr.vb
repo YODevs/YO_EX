@@ -47,6 +47,7 @@
         RETURNERROR
         EXPRMETHODERROR
         MATCHERROR
+        UNDEFINEDPARAM
     End Enum
 
     Enum errorpriority
@@ -124,5 +125,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.RETURNERROR, errorpriority.STOP, "Return error", "The 'Return' command requires a value of type '{0}' to return.")
         set_new_error(errortype.EXPRMETHODERROR, errorpriority.STOP, "Expression method error", "'{0}' , Argument are not allowed for an expr method.")
         set_new_error(errortype.MATCHERROR, errorpriority.STOP, "Match error", "{0}")
+        set_new_error(errortype.UNDEFINEDPARAM, errorpriority.STOP, "CIL error", "Undefined input parameters.")
     End Sub
 End Class
