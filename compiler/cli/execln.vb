@@ -1,4 +1,6 @@
-﻿Public Class execln
+﻿Imports System.Text.RegularExpressions
+
+Public Class execln
     Friend Shared argstorelist As liststoredata
     Friend Shared Sub nv_check_command(result As parseargs._parseresult)
         If result.command = Nothing Or result.command = conrex.SPACE Then
@@ -24,10 +26,39 @@
         If cmdlnproc.cmd(getindex).withargs = False Then
             CallByName(cmdexeclninstance, "rp_" & result.command, CallType.Method, Nothing)
         Else
+            check_parameters(result)
             CallByName(cmdexeclninstance, "rp_" & result.command, CallType.Method, result.args)
         End If
     End Sub
     Public Sub New()
+    End Sub
+    Friend Shared Sub check_parameters(result As parseargs._parseresult)
+        Dim yodaf As New YODA.YODA_Format()
+        Dim yodamap As YODA.YODA_Format.YODAMapFormat = yodaf.ReadYODA_Map(FileIO.FileSystem.ReadAllText(conrex.APPDIR & "\iniopt\param.yoda"))
+        Dim cmapstore As New mapstoredata()
+        cmapstore.import_collection(yodamap.keys, yodamap.values)
+        Dim cresult As mapstoredata.dataresult = cmapstore.find(result.command, True)
+        If cresult.issuccessful Then
+            Dim params() As String
+            params = Regex.Split(cresult.result, conrex.CMA)
+            For argindex = 0 To result.args.Count - 1
+                Dim vaildparam As Boolean = False
+                Dim inputparam As String = result.args(argindex)
+                inputparam = inputparam.Remove(0, 2).ToLower
+                For index = 0 To params.Length - 1
+                    If inputparam = params(index) Then
+                        vaildparam = True
+                        Exit For
+                    End If
+                Next
+                If vaildparam Then
+                    Continue For
+                Else
+                    dserr.new_error(conserr.errortype.UNDEFINEDPARAM, -1, Nothing,
+                                    String.Format("The '{0}' parameter is not defined for the '{1}' command.", result.args(argindex), result.command), "Supported parameters for this command include: " & cresult.result)
+                End If
+            Next
+        End If
     End Sub
     Public Sub rp_test()
         Dim peconsolecolor As Int16 = Console.ForegroundColor
