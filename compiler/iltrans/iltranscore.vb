@@ -120,6 +120,8 @@
                 stjmper.continue_jmper(clinecodestruc, _ilmethod)
             Case tokenhared.token.BREAK
                 stjmper.break_jmper(clinecodestruc, _ilmethod)
+            Case tokenhared.token.REPEAT
+                stjmper.repeat_jmper(clinecodestruc, _ilmethod)
             Case Else
                 If clinecodestruc(0).tokenid = tokenhared.token.EXPRESSION AndAlso _ilmethod.isexpr Then
                     nv_expr_method(clinecodestruc, _ilmethod)
