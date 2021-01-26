@@ -1,6 +1,6 @@
 ﻿Public Class toiter
     Private _ilmethod As ilformat._ilmethodcollection
-    Private counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel As String
+    Private headln, counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -13,9 +13,9 @@
         endbranchlabel = lngen.get_line_prop("toexit")
 
         increasebranchlabel = lngen.get_line_prop("toincr")
-
+        headln = lngen.get_line_prop("tohead")
         'Set up Continue , Break statement
-        stjmper.set_new_jmper(tokenhared.token.TO, endbranchlabel, increasebranchlabel)
+        stjmper.set_new_jmper(tokenhared.token.TO, endbranchlabel, increasebranchlabel, headln)
 
         'Create & Set lebel for [TO] header
         headerbranchlabel = lngen.set_label("toheader", _ilmethod.codes)
@@ -25,7 +25,7 @@
 
         'Create & Set label for [TO] body
         bodybranchlabel = lngen.set_label("tobody", _ilmethod.codes)
-
+        lngen.set_direct_label(headln, _ilmethod.codes)
         'Test constant code ... for body
         Dim iltrans As New iltranscore(ilbodybulider.path, clinecodestruc(4).value, _illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
