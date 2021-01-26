@@ -38,6 +38,7 @@
         _token.Add(token.UL, "ul")
         _token.Add(token.FOR, "for")
         _token.Add(token.IN, "in")
+        _token.Add(token.REPEAT, "repeat")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -212,5 +213,6 @@
         [FOR] = 81
         RANGE = 82
         [IN] = 83
+        REPEAT = 84
     End Enum
 End Class
