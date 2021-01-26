@@ -41,7 +41,7 @@
 
     Private Sub set_body_loop(bodycodestruc As xmlunpkd.linecodestruc, ByRef illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
         lngen.set_direct_label(getbrhead, _ilmethod.codes)
-        stjmper.set_new_jmper(tokenhared.token.FOR, getbrexit, getbrstep)
+        stjmper.set_new_jmper(tokenhared.token.FOR, getbrexit, getbrstep, getbrhead)
         _ilmethod.locallinit = illocalinit
         Dim iltrans As New iltranscore(ilbodybulider.path, bodycodestruc.value, illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
