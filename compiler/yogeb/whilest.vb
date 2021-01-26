@@ -3,6 +3,7 @@
 Public Class whilest
     Private _ilmethod As ilformat._ilmethodcollection
     Private getbrcond As String = String.Empty
+    Private headln As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -13,7 +14,7 @@ Public Class whilest
         Dim nbranch As New condproc.branchtargetinfo
         nbranch.truebranch = lngen.get_line_prop("st_wh")
         nbranch.falsebranch = lngen.get_line_prop("en_wh")
-
+        headln = lngen.get_line_prop("head_wh")
         set_while_body(whilenblock, nbranch, illocalinit, localinit)
 
         Dim cdproc As New condproc(nbranch)
@@ -24,9 +25,10 @@ Public Class whilest
 
     Private Sub set_while_body(whilenblock As xmlunpkd.linecodestruc, nbranch As condproc.branchtargetinfo, ByRef illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
         getbrcond = lngen.get_line_prop("op_while")
-        stjmper.set_new_jmper(tokenhared.token.WHILE, nbranch.falsebranch, getbrcond)
+        stjmper.set_new_jmper(tokenhared.token.WHILE, nbranch.falsebranch, getbrcond, headln)
         cil.branch_to_target(_ilmethod.codes, getbrcond)
         lngen.set_direct_label(nbranch.truebranch, _ilmethod.codes)
+        lngen.set_direct_label(headln, _ilmethod.codes)
         Dim iltrans As New iltranscore(ilbodybulider.path, whilenblock.value, illocalinit, localinit)
         iltrans.gen_transpile_code(_ilmethod, False)
         illocalinit = _ilmethod.locallinit
