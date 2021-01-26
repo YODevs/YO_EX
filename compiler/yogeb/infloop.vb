@@ -9,7 +9,6 @@
         syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.LOOP)
         endbranchlabel = lngen.get_line_prop("loopexit")
         bodybranchlabel = lngen.get_line_prop("loopbody")
-
         set_jmper()
 
         lngen.set_direct_label(bodybranchlabel, _ilmethod.codes)
@@ -31,6 +30,6 @@
     End Sub
 
     Private Sub set_jmper()
-        stjmper.set_new_jmper(tokenhared.token.LOOP, endbranchlabel, bodybranchlabel)
+        stjmper.set_new_jmper(tokenhared.token.LOOP, endbranchlabel, bodybranchlabel, bodybranchlabel)
     End Sub
 End Class
