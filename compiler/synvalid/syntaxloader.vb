@@ -16,6 +16,7 @@
         [DEFAULT]
         [ELSE]
         [FOR]
+        REPEAT
     End Enum
 
     Structure syntaxtypesloader
@@ -70,6 +71,15 @@
         st_else()
         'For Statement
         st_for()
+        'Repeat Statement
+        st_repeat()
+    End Sub
+
+    Private Shared Sub st_repeat()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.REPEAT)
+        add_token(exptokenslist, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.WHILE, tokenhared.token.FOR, tokenhared.token.UL)
+        set_syntax_loader(statements.REPEAT, "Repeat Statement", exptokenslist)
     End Sub
 
     Private Shared Sub st_for()
