@@ -7,6 +7,7 @@
         Dim tokenid As tokenhared.token
         Dim endblockln As String
         Dim startblockln As String
+        Dim headblockln As String
     End Structure
     Friend Shared Sub reset_method(filepath As String)
         path = filepath
@@ -16,14 +17,23 @@
         jmpslist = Nothing
         indexarray = 0
     End Sub
-    Public Shared Sub set_new_jmper(tokenid As tokenhared.token, endblockln As String, startblockln As String)
+    Public Shared Sub set_new_jmper(tokenid As tokenhared.token, endblockln As String, startblockln As String, Optional headblockln As String = conrex.NULL)
         Array.Resize(jmpslist, indexarray + 1)
         jmpslist(indexarray) = New stjmperlist
         jmpslist(indexarray).tokenid = tokenid
         jmpslist(indexarray).endblockln = endblockln
         jmpslist(indexarray).startblockln = startblockln
+        jmpslist(indexarray).headblockln = headblockln
         indexarray += 1
         Return
+    End Sub
+    Public Shared Sub repeat_jmper(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+        syntaxchecker.check_statement(clinecodestruc, syntaxloader.statements.REPEAT)
+        Dim getindex As Integer = find_statement(clinecodestruc(1).tokenid)
+        If getindex = -1 Then
+            dserr.new_error(conserr.errortype.CONTINUEERROR, clinecodestruc(0).line, path, "Repeat statement not within a loop." & vbCrLf & authfunc.get_line_error(path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+        End If
+        cil.branch_to_target(_ilmethod.codes, jmpslist(getindex).headblockln)
     End Sub
 
     Public Shared Sub continue_jmper(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
