@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "to_loop"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

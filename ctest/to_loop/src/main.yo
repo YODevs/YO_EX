@@ -1,0 +1,40 @@
+#[app::classname("MyApp")]
+
+func main()
+{
+  test1()
+  test2(10)
+  test3()
+}
+
+func test1()
+{
+  to(5)
+  {
+    System.Console::Write("*")
+  }
+  System.Console::WriteLine()
+}
+
+
+func test2(i:i32)
+{
+  to(i)
+  {
+    System.Console::Write("*")
+  }
+  System.Console::WriteLine()
+}
+
+func test3()
+{
+  to(3)
+  {
+    System.Console::Write("*")
+    to(3){
+      System.Console::Write("#")
+    }
+    System.Console::WriteLine()
+  }
+  System.Console::WriteLine()
+}
