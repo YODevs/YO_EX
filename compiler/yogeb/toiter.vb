@@ -1,6 +1,6 @@
 ﻿Public Class toiter
     Private _ilmethod As ilformat._ilmethodcollection
-    Private headln, counterflag, lastcounterflag, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel As String
+    Private headln, counterflag, lastcounterflag, conditionbranchlabel, headerbranchlabel, endbranchlabel, bodybranchlabel, increasebranchlabel As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -11,7 +11,7 @@
         'Create a flag variable for [TO] iter
         set_flag_loop(_illocalinit, clinecodestruc)
         endbranchlabel = lngen.get_line_prop("toexit")
-
+        conditionbranchlabel = lngen.get_line_prop("tocond")
         increasebranchlabel = lngen.get_line_prop("toincr")
         headln = lngen.get_line_prop("tohead")
         'Set up Continue , Break statement
@@ -20,8 +20,7 @@
         'Create & Set lebel for [TO] header
         headerbranchlabel = lngen.set_label("toheader", _ilmethod.codes)
 
-        'Set condition of loops.
-        set_condition_identifier()
+        cil.branch_to_target(_ilmethod.codes, conditionbranchlabel)
 
         'Create & Set label for [TO] body
         bodybranchlabel = lngen.set_label("tobody", _ilmethod.codes)
@@ -52,6 +51,7 @@
         cil.set_stack_local(_ilmethod.codes, counterflag)
     End Sub
     Private Sub set_condition_identifier(Optional footercondition As Boolean = False)
+        lngen.set_direct_label(conditionbranchlabel, _ilmethod.codes)
         cil.load_local_variable(_ilmethod.codes, counterflag)
         cil.load_local_variable(_ilmethod.codes, lastcounterflag)
         cil.ceq(_ilmethod.codes)
