@@ -4,6 +4,14 @@
         Dim result As Boolean
         Dim errtext As String
     End Structure
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' بررسی توکن ها و ساختار کد های CIL به صورت Lazy mode
+    ''' </fa>
+    ''' </summary>
     Friend Shared Function lazy_check(cline As String) As resultlazycheck
         Dim retresult As New resultlazycheck
         retresult.result = True
@@ -23,6 +31,15 @@
         Return retresult
     End Function
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' بررسی توکن ها و دستورات زبان میانی مایکروسافت
+    ''' </fa>
+    ''' </summary>
+    ''' <returns></returns>
     Friend Shared Function check_keyword(ByRef retresult As resultlazycheck, cline As String) As Boolean
         If cline.Trim = Nothing Then
             retresult.result = True
@@ -49,10 +66,19 @@
 
     End Function
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' بررسی لیبل های کد میانی مایکروسافت
+    ''' لیبل ها CIL باید با YOIL_ شروع شوند
+    ''' </fa>
+    ''' </summary>
     Friend Shared Sub check_line(ByRef retresult As resultlazycheck, ByRef cline As String)
-        If cline.StartsWith("YOIL_") Then
-            If cline.Contains(":") Then
-                cline = cline.Remove(0, cline.IndexOf(":") + 1).Trim
+        If cline.StartsWith(compdt.YOILLABEL) Then
+            If cline.Contains(conrex.CLN) Then
+                cline = cline.Remove(0, cline.IndexOf(conrex.CLN) + 1).Trim
             Else
                 retresult.result = False
                 retresult.errtext = cline & " - The line tag is incorrect."
