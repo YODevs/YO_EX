@@ -1,7 +1,23 @@
 ﻿Imports System.Runtime.InteropServices
 
+''' <summary>
+''' <en>
+''' 
+''' </en>
+''' <fa>
+''' تغییرات ظاهری از جمله فونت و سایز ها و انتظار برای دستورات جدید در این کلاس انجام می گیرد
+''' </fa>
+''' </summary>
 Public Class cli
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' تغییرات ظاهری از جمله فونت و دیگر خاصیت های کنسول در این تابع انجام می گیرد.
+    ''' </fa>
+    ''' </summary>
     Friend Shared Sub init_cli(displayinitcommand As Boolean)
         If Console.IsOutputRedirected = False Then
             'Change defualt font to Consolas font.
