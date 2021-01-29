@@ -1,6 +1,14 @@
 ﻿Imports System.IO
 Imports System.Text
 
+''' <summary>
+''' <en>
+''' 
+''' </en>
+''' <fa>
+''' این کلاس برای هندل کردن و کامپایل نهایی کد های میانی مایکروسافت است.
+''' </fa>
+''' </summary>
 Public Class ilasmconv
     Public Shared result As Boolean
     Private ilasmoutputdata As StringBuilder
@@ -69,6 +77,16 @@ Public Class ilasmconv
         dswar.show_warning()
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' پاکسازی و مرتب کردن خطاها و هشدارهای حین کامپایل در MSIL
+    ''' </fa>
+    ''' </summary>
+    ''' <param name="output"></param>
+    ''' <returns></returns>
     Private Function get_error_info(output As String) As String
         Dim errgrab As String = String.Empty
         For Each tline In output.Split(vbLf)
@@ -85,6 +103,12 @@ Public Class ilasmconv
         ilasmoutputdata.AppendLine(e.Data)
     End Sub
 
+    ''' <summary>
+    ''' <en></en>
+    ''' <fa>
+    ''' آماده سازی پارامتر ها و پیشفرض ها برای کامپایل
+    ''' </fa>
+    ''' </summary>
     Private Sub init()
         ilasmparameter.add_param("/NOLOGO")
         ilasmparameter.add_param("/OPTIMIZE")
@@ -93,6 +117,16 @@ Public Class ilasmconv
         End If
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    ''' 
+    ''' </en>
+    ''' <fa>
+    ''' دریافت خطاهای MSIL.exe حین کامپایل پروژه
+    ''' </fa>
+    ''' </summary>
+    ''' <param name="ptrstderr"></param>
+    ''' <returns></returns>
     Private Function get_standard_error(ptrstderr As StreamReader) As String
         Dim errtext As String = String.Empty
         While True
