@@ -58,14 +58,14 @@
                 nv_st_identifier(clinecodestruc, _ilmethod)
             Case tokenhared.token.LET
                 Dim assignprocess As Boolean = False
-                nv_let(clinecodestruc, assignprocess)
+                nv_let(_ilmethod, clinecodestruc, assignprocess)
                 _ilmethod.locallinit = _illocalinit 'exc no local init
                 If assignprocess Then
                     assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
                 End If
             Case tokenhared.token.CONST
                 Dim assignprocess As Boolean = False
-                nv_let(clinecodestruc, assignprocess, True)
+                nv_let(_ilmethod, clinecodestruc, assignprocess, True)
                 _ilmethod.locallinit = _illocalinit 'exc no local init
                 If assignprocess Then
                     assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
@@ -491,7 +491,7 @@
 
         Return resultassign
     End Function
-    Private Sub nv_let(clinecodestruc() As xmlunpkd.linecodestruc, ByRef assignprocess As Boolean, Optional isconst As Boolean = False)
+    Private Sub nv_let(ByRef ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc, ByRef assignprocess As Boolean, Optional isconst As Boolean = False)
         Dim ilmethodlen As Integer = _illocalinit.Length
         Dim index As Integer = ilmethodlen
         Dim ilinc As Integer = 2
@@ -569,15 +569,16 @@
                     If clinecodestruc.Length > 4 Then
                         _illocalinit(index).datatype = clinecodestruc(4).value
                         _illocalinit(index).ctor = True
-                        localinit.add_local_init(clinecodestruc(1).value, clinecodestruc(4).value)
+                        Dim ctor As New ilctor(ilmethod)
+                        ctor.set_new_ctor(index, clinecodestruc, _illocalinit, localinit)
                     Else
                         dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value),)
                     End If
                 Else
                     _illocalinit(index).ctor = False
                     _illocalinit(index).datatype = clinecodestruc(3).value
-                    localinit.add_local_init(clinecodestruc(1).value, clinecodestruc(3).value)
                 End If
+                localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
                 Return
             End If
             _illocalinit(index).hasdefaultvalue = False
