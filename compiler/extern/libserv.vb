@@ -29,7 +29,7 @@ Public Class libserv
         Dim funcnametolower As String = funcname.ToLower
         cargldr = Nothing
         For Each method In libreg.types(namespaceindex)(classindex).GetMethods()
-            If method.Name.ToLower = funcnametolower AndAlso check_overloading(_ilmethod, method, cargcodestruc) Then
+            If method.Name.ToLower = funcnametolower AndAlso check_overloading(_ilmethod, method.GetParameters, cargcodestruc) Then
                 funcname = method.Name
                 get_method_info(method, methodinfo)
                 Return 1
@@ -37,21 +37,30 @@ Public Class libserv
         Next
         Return -1
     End Function
+    Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef methodinfo As tknformat._method) As Integer
+        cargldr = Nothing
+        For Each gconstructor In libreg.types(namespaceindex)(classindex).GetConstructors()
+            If check_overloading(_ilmethod, gconstructor.GetParameters, cargcodestruc) Then
+                ' get_method_info(method, methodinfo)
+                Return 1
+            End If
+        Next
+        Return -1
+    End Function
 
     Friend Shared cargldr() As xmlunpkd.linecodestruc = Nothing
-    Private Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, method As MethodInfo, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
+    Private Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, gparameters() As ParameterInfo, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
         'TODO : Check Return-Type
         Dim cargcodelen As Integer = 0
         If IsNothing(cargcodestruc) = False Then cargcodelen = cargcodestruc.Length
-        If cargcodelen <> method.GetParameters.Length Then
+        If cargcodelen <> gparameters.Length Then
             Return False
-        ElseIf method.GetParameters.Length = 0 AndAlso cargcodelen = 0 Then
+        ElseIf gparameters.Length = 0 AndAlso cargcodelen = 0 Then
             Return True
         End If
-
         Dim paramtypes As New ArrayList
-        For index = 0 To method.GetParameters.Length - 1
-            paramtypes.Add(servinterface.vb_to_cil_common_data_type(method.GetParameters(index).ParameterType.Name))
+        For index = 0 To gparameters.Length - 1
+            paramtypes.Add(servinterface.vb_to_cil_common_data_type(gparameters(index).ParameterType.Name))
         Next
 
         cargldr = cargcodestruc
