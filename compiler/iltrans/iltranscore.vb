@@ -569,8 +569,6 @@
                     If clinecodestruc.Length > 4 Then
                         _illocalinit(index).datatype = clinecodestruc(4).value
                         _illocalinit(index).ctor = True
-                        Dim ctor As New ilctor(ilmethod)
-                        ctor.set_new_ctor(index, clinecodestruc, _illocalinit, localinit)
                     Else
                         dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value),)
                     End If
@@ -578,6 +576,8 @@
                     _illocalinit(index).ctor = False
                     _illocalinit(index).datatype = clinecodestruc(3).value
                 End If
+                Dim ctor As New ilctor(ilmethod)
+                ilmethod = ctor.set_new_ctor(index, clinecodestruc, _illocalinit, localinit)
                 localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
                 Return
             End If
