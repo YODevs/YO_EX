@@ -321,4 +321,16 @@ Public Class servinterface
         servinterface.is_variable(_ilmethod, clinecodestruc.value, getdatatype)
         servinterface.is_common_data_type(getdatatype, getdatatype)
     End Sub
+
+    Friend Shared Function trim_line_code_struc(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer) As xmlunpkd.linecodestruc()
+        If clinecodestruc.Length < index Then Throw New IndexOutOfRangeException
+        Dim nretcodestruc() As xmlunpkd.linecodestruc
+        Dim indexarray As Int16 = 0
+        For stindex = index To clinecodestruc.Length - 1
+            Array.Resize(nretcodestruc, indexarray + 1)
+            nretcodestruc(indexarray) = clinecodestruc(stindex)
+            indexarray += 1
+        Next
+        Return nretcodestruc
+    End Function
 End Class
