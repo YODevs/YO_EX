@@ -26,13 +26,17 @@
         End If
         Dim glinecodestruc() As xmlunpkd.linecodestruc = servinterface.trim_line_code_struc(clinecodestruc, indclass)
         glinecodestruc(0).value &= "::.ctor"
-        coutputdata.print_token(glinecodestruc)
         Dim resultfunc As funcvalid._resultfuncvaild = funcvalid.get_func_valid(glinecodestruc)
         invoke_constructor(glinecodestruc, resultfunc, ctorinf)
     End Sub
 
     Private Sub invoke_constructor(glinecodestruc As xmlunpkd.linecodestruc(), resultfunc As funcvalid._resultfuncvaild, ctorinf As ctorinfo)
         resultfunc.asmextern = libserv.get_extern_assembly(ctorinf.namespaceindex)
-        MsgBox(resultfunc.asmextern)
+        Dim methodinfo As New tknformat._method
+        Dim methodindex As Integer = libserv.get_extern_index_constructor(_ilmethod, funcste.get_argument_list(glinecodestruc), ctorinf.namespaceindex, ctorinf.classindex, methodinfo)
+        If methodindex = -1 Then
+            dserr.args.Add("Method " & resultfunc.clmethod & "(...) not found.")
+            dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), glinecodestruc(0).value))
+        End If
     End Sub
 End Class
