@@ -110,7 +110,7 @@ Public Class funcste
         Dim ldlc As New illdloc(_ilmethod)
         _ilmethod = ldlc.load_in_stack(paramtypes, cargcodestruc)
     End Sub
-    Private Shared Function get_argument_list(clinecodestruc() As xmlunpkd.linecodestruc) As xmlunpkd.linecodestruc()
+    Friend Shared Function get_argument_list(clinecodestruc() As xmlunpkd.linecodestruc) As xmlunpkd.linecodestruc()
         Dim cargcodestruc() As xmlunpkd.linecodestruc
         Dim icarg As Integer = 0
         Dim stateparam As Boolean = False
