@@ -1,4 +1,5 @@
-﻿Imports YOCA
+﻿Imports System.Reflection
+Imports YOCA
 
 Public Class funcste
     Friend Shared attribute As yocaattribute.yoattribute
@@ -71,7 +72,7 @@ Public Class funcste
         End If
     End Sub
 
-    Private Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList, Optional cargcodestruc() As xmlunpkd.linecodestruc = Nothing)
+    Friend Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList, Optional cargcodestruc() As xmlunpkd.linecodestruc = Nothing)
         If IsNothing(cargcodestruc) Then cargcodestruc = get_argument_list(clinecodestruc)
 
         If IsNothing(cargcodestruc) OrElse cargcodestruc.Length <> methodinfo.parameters.Length Then
