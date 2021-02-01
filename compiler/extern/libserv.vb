@@ -37,11 +37,11 @@ Public Class libserv
         Next
         Return -1
     End Function
-    Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef methodinfo As tknformat._method) As Integer
+    Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef ctorinfo As ConstructorInfo) As Integer
         cargldr = Nothing
         For Each gconstructor In libreg.types(namespaceindex)(classindex).GetConstructors()
             If check_overloading(_ilmethod, gconstructor.GetParameters, cargcodestruc) Then
-                ' get_method_info(method, methodinfo)
+                ctorinfo = gconstructor
                 Return 1
             End If
         Next
