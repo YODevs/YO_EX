@@ -15,7 +15,7 @@ Public Class ilctor
         Dim ctorinf As New ctorinfo
         ctorinf.classname = _illocalinit(index).datatype
         ctorinf.objname = _illocalinit(index).name
-        If libserv.get_extern_index_class(ctorinf.classname, ctorinf.namespaceindex, ctorinf.classindex) = -1 Then
+        If libserv.get_extern_index_class(_ilmethod, ctorinf.classname, ctorinf.namespaceindex, ctorinf.classindex) = -1 Then
             dserr.args.Add("Class " & ctorinf.classname & " not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), ctorinf.classname))
         End If
