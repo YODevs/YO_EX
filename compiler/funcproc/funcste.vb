@@ -14,7 +14,7 @@ Public Class funcste
 
     Friend Shared Sub inv_external_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
         Dim classindex, namespaceindex As Integer
-        If libserv.get_extern_index_class(classname, namespaceindex, classindex) = -1 Then
+        If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex) = -1 Then
             dserr.args.Add("Class " & classname & " not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
