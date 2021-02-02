@@ -11,8 +11,21 @@ Public Class libserv
         libreg.assemblymap.get_index(indexasm, getextername)
         Return getextername
     End Function
-    Friend Shared Function get_extern_index_class(ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer) As Integer
+    Friend Shared Sub get_identifier_ns(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String)
+        If IsNothing(_ilmethod.locallinit) = False Then
+            For index = 0 To _ilmethod.locallinit.Length - 1
+                If _ilmethod.locallinit(index).name <> conrex.NULL AndAlso classname.ToLower = _ilmethod.locallinit(index).name.ToLower Then
+                    classname = _ilmethod.locallinit(index).datatype
+                    Return
+                End If
+            Next
+        End If
+    End Sub
+    Friend Shared Function get_extern_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer) As Integer
         Dim classchename As String = String.Empty
+        If IsNothing(_ilmethod.locallinit) = False Then
+            get_identifier_ns(_ilmethod, classname)
+        End If
         Dim resultclassindex As mapstoredata.dataresult = libreg.externtypes.find(classname, True, classchename)
         If resultclassindex.issuccessful Then
             classname = classchename
