@@ -6,7 +6,7 @@
     End Structure
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Checking tokens and structure of CIL codes in Lazy mode
     ''' </en>
     ''' <fa>
     ''' بررسی توکن ها و ساختار کد های CIL به صورت Lazy mode
@@ -33,7 +33,7 @@
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Checking tokens and commands of CIL
     ''' </en>
     ''' <fa>
     ''' بررسی توکن ها و دستورات زبان میانی مایکروسافت
@@ -68,7 +68,8 @@
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Checking CIL Labels
+	''' CIL Labels should be started by "YOIL_"
     ''' </en>
     ''' <fa>
     ''' بررسی لیبل های کد میانی مایکروسافت

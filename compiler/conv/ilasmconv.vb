@@ -3,7 +3,7 @@ Imports System.Text
 
 ''' <summary>
 ''' <en>
-''' 
+''' This class is for handling and final compile of CIL
 ''' </en>
 ''' <fa>
 ''' این کلاس برای هندل کردن و کامپایل نهایی کد های میانی مایکروسافت است.
@@ -79,7 +79,7 @@ Public Class ilasmconv
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Cleaning and sorting orders and warnings while compiling in MSIL
     ''' </en>
     ''' <fa>
     ''' پاکسازی و مرتب کردن خطاها و هشدارهای حین کامپایل در MSIL
@@ -104,7 +104,9 @@ Public Class ilasmconv
     End Sub
 
     ''' <summary>
-    ''' <en></en>
+    ''' <en>
+    ''' Preparing parameters and defaults for compile
+    ''' </en>
     ''' <fa>
     ''' آماده سازی پارامتر ها و پیشفرض ها برای کامپایل
     ''' </fa>
@@ -119,7 +121,7 @@ Public Class ilasmconv
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' Receive errors of MSIL.exe while compiling the project
     ''' </en>
     ''' <fa>
     ''' دریافت خطاهای MSIL.exe حین کامپایل پروژه

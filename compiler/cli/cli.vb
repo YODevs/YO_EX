@@ -2,7 +2,7 @@
 
 ''' <summary>
 ''' <en>
-''' 
+''' interface appearance changes such as font and sizes and waiting for new commands can be performed in this class.
 ''' </en>
 ''' <fa>
 ''' تغییرات ظاهری از جمله فونت و سایز ها و انتظار برای دستورات جدید در این کلاس انجام می گیرد
@@ -12,7 +12,7 @@ Public Class cli
 
     ''' <summary>
     ''' <en>
-    ''' 
+    ''' interface appearance changes such as font and other features of console can be performed in this function.
     ''' </en>
     ''' <fa>
     ''' تغییرات ظاهری از جمله فونت و دیگر خاصیت های کنسول در این تابع انجام می گیرد.
