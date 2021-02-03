@@ -39,15 +39,21 @@ Public Class libserv
         End If
     End Function
 
+    Friend Shared Sub get_return_type(methodname As String, namespaceindex As Integer, classindex As Integer, methodindex As Integer, ByRef greturntype As String, ByRef gexternassembly As String)
+        greturntype = libreg.types(namespaceindex)(classindex).GetMethods()(methodindex).ReturnType.ToString
+        gexternassembly = libreg.types(namespaceindex)(classindex).GetMethods()(methodindex).ReturnType.Assembly.GetName.Name
+    End Sub
     Friend Shared Function get_extern_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, namespaceindex As Integer, classindex As Integer, ByRef methodinfo As tknformat._method) As Integer
         Dim funcnametolower As String = funcname.ToLower
         cargldr = Nothing
+        Dim methodindex As Integer = 0
         For Each method In libreg.types(namespaceindex)(classindex).GetMethods()
             If method.Name.ToLower = funcnametolower AndAlso check_overloading(_ilmethod, method.GetParameters, cargcodestruc) Then
                 funcname = method.Name
                 get_method_info(method, methodinfo)
-                Return 1
+                Return methodindex
             End If
+            methodindex += 1
         Next
         Return -1
     End Function
