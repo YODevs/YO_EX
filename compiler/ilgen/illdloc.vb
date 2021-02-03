@@ -91,6 +91,7 @@
                 ldbool(cargcodestruc, datatype)
             Case Else
                 'Other Types
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
         End Select
 
         Return _ilmethod
