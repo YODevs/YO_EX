@@ -14,7 +14,8 @@ Public Class funcste
 
     Friend Shared Sub inv_external_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
         Dim classindex, namespaceindex As Integer
-        If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex) = -1 Then
+        Dim isvirtualmethod As Boolean = False
+        If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex, isvirtualmethod) = -1 Then
             dserr.args.Add("Class " & classname & " not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
@@ -29,6 +30,16 @@ Public Class funcste
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
         End If
 
+        If isvirtualmethod Then
+            Dim ldloc As New illdloc(_ilmethod)
+            Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
+            If gidentifier.value.Contains(conrex.DBCLN) Then
+                gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
+                gidentifier.ile = gidentifier.value.Length
+            End If
+            ldloc.load_single_in_stack(classname, gidentifier)
+        End If
+
         Dim paramtype As ArrayList
         Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
         libserv.cargldr = Nothing
@@ -39,7 +50,15 @@ Public Class funcste
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype, cargcodestruc)
         End If
         Dim getdatatype As String = methodinfo.returntype
-        cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
+        If isvirtualmethod Then
+            Dim gexternassembly As String = conrex.NULL
+            Dim greturntype As String = conrex.NULL
+            libserv.get_return_type(funcresult.clmethod, namespaceindex, classindex, methodindex, greturntype, gexternassembly)
+            Dim freturntype As String = String.Format("[{0}]{1}", gexternassembly, greturntype)
+            cil.call_virtual_method(_ilmethod.codes, freturntype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
+        Else
+                cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
+        End If
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
