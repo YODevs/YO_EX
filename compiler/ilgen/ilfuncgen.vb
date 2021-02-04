@@ -13,6 +13,7 @@
 
     Public Function gen() As ilformat._ilmethodcollection()
         For index = 0 To yoclassdt.methods.Length - 1
+            check_func_name(yoclassdt.methods, index)
             Dim _ilmethodslen As Integer = _ilmethods.Length
             Dim imethod As Int16 = _ilmethodslen - 1
             If _ilmethodslen <> 0 Then
@@ -63,4 +64,38 @@
         End If
         Return False
     End Function
+
+    Private Sub check_func_name(methods As tknformat._method(), index As Integer)
+        Dim seterr As Boolean = False
+        Dim crmethod As tknformat._method = methods(index)
+        For ime = 0 To methods.Length - 1
+            If ime <> index AndAlso crmethod.name = methods(ime).name Then
+                If IsNothing(crmethod.parameters) = False AndAlso IsNothing(methods(ime).parameters) = False Then
+                    If crmethod.parameters.Length = methods(ime).parameters.Length Then
+                        If check_rep_params(crmethod, methods(ime)) = False Then
+                            seterr = True
+                            Exit For
+                        End If
+                    End If
+                ElseIf IsNothing(crmethod.parameters) AndAlso IsNothing(methods(ime).parameters) Then
+                    seterr = True
+                    Exit For
+                End If
+            End If
+        Next
+
+        If seterr Then
+            dserr.args.Add(crmethod.name)
+            dserr.new_error(conserr.errortype.OVERLOADERROR, -1, ilbodybulider.path, "Define different signatures for the function.")
+        End If
+    End Sub
+    Private Function check_rep_params(fmethod As tknformat._method, nmethod As tknformat._method) As Boolean
+        For index = 0 To fmethod.parameters.Length - 1
+            If fmethod.parameters(index).ptype <> nmethod.parameters(index).ptype Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
 End Class
