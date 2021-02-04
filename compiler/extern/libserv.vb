@@ -45,17 +45,22 @@ Public Class libserv
     End Sub
     Friend Shared Function get_extern_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, namespaceindex As Integer, classindex As Integer, ByRef methodinfo As tknformat._method) As Integer
         Dim funcnametolower As String = funcname.ToLower
+        Dim retstate As Integer = -1
         cargldr = Nothing
         Dim methodindex As Integer = 0
         For Each method In libreg.types(namespaceindex)(classindex).GetMethods()
-            If method.Name.ToLower = funcnametolower AndAlso check_overloading(_ilmethod, method.GetParameters, cargcodestruc) Then
-                funcname = method.Name
-                get_method_info(method, methodinfo)
-                Return methodindex
+            If method.Name.ToLower = funcnametolower Then
+                If check_overloading(_ilmethod, method.GetParameters, cargcodestruc) Then
+                    funcname = method.Name
+                    get_method_info(method, methodinfo)
+                    Return methodindex
+                Else
+                    retstate = -2
+                End If
             End If
             methodindex += 1
         Next
-        Return -1
+        Return retstate
     End Function
     Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef ctorinfo As ConstructorInfo) As Integer
         cargldr = Nothing
