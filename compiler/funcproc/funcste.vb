@@ -75,7 +75,8 @@ Public Class funcste
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
         End If
-        Dim methodindex As Integer = funcdtproc.get_index_method(funcresult.clmethod, classindex)
+
+        Dim methodindex As Integer = funcdtproc.get_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, classindex)
         If methodindex = -1 Then
             dserr.args.Add("Method " & funcresult.clmethod & "(...) not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
@@ -88,6 +89,7 @@ Public Class funcste
             '  coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
         End If
+
         Dim getdatatype As String = methodinfo.returntype
         cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype)
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
@@ -138,6 +140,7 @@ Public Class funcste
         Dim cargcodestruc() As xmlunpkd.linecodestruc
         Dim icarg As Integer = 0
         Dim stateparam As Boolean = False
+        fscmawait = False
         For index = 0 To clinecodestruc.Length - 1
             If stateparam = False AndAlso clinecodestruc(index).tokenid = tokenhared.token.PRSTART Then
                 stateparam = True
