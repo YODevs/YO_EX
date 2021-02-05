@@ -1,0 +1,41 @@
+#[app::classname("MyApp")]
+
+func main()
+{
+ test()
+ test(true)
+ test('Hello !')
+ test(15)
+ test(15.6)
+ test(10.3,32)
+}
+
+func test()
+{
+  System.Console::WriteLine("Hello !")
+}
+
+func test(x : bool)
+{
+  System.Console::WriteLine("Boolean data is #{x}")
+}
+
+func test(i : i32)
+{
+  System.Console::WriteLine("Integer data is #{i}")
+}
+
+func test(x : str)
+{
+  System.Console::WriteLine("String data is #{x}")
+}
+
+func test(f : f32)
+{
+  System.Console::WriteLine("Float data is #{f}")
+}
+
+func test(f : f32 , i : i32)
+{
+  System.Console::WriteLine("#{f} , #{i}")
+}

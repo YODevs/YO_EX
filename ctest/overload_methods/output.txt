@@ -1,0 +1,6 @@
+Hello !
+Boolean data is True
+String data is Hello !
+Integer data is 15
+Float data is 15.6
+10.3 , 32
