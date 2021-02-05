@@ -35,18 +35,45 @@
             classdt.methods(indexmethod).bodyxmlfmt = String.Empty
         Next
     End Sub
-    Friend Shared Function get_index_method(ByRef funcname As String, classindex As Integer) As Integer
+    Friend Shared Function get_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
         If IsNothing(reffunc(classindex).methods) Then Return -1
         funcname = funcname.ToLower
         For index = 0 To reffunc(classindex).methods.Length - 1
             If reffunc(classindex).methods(index).name.ToLower = funcname Then
-                funcname = reffunc(classindex).methods(index).name
-                Return index
+                If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc) Then
+                    funcname = reffunc(classindex).methods(index).name
+                    Return index
+                End If
             End If
         Next
         Return -1
     End Function
 
+    Friend Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, _method As tknformat._method, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
+        'TODO : Check Return-Type
+        Dim cargcodelen As Integer = 0
+        Dim methodlen As Integer = 0
+
+        If IsNothing(_method.parameters) = False Then methodlen = _method.parameters.Length
+        If IsNothing(cargcodestruc) = False Then cargcodelen = cargcodestruc.Length
+
+        If cargcodelen <> methodlen Then
+            Return False
+        ElseIf methodlen = 0 AndAlso cargcodelen = 0 Then
+            Return True
+        End If
+
+        Dim paramtypes As New ArrayList
+        For index = 0 To _method.parameters.Length - 1
+            Dim ciltype As String = conrex.NULL
+            servinterface.is_common_data_type(_method.parameters(index).ptype, ciltype)
+            paramtypes.Add(ciltype)
+        Next
+
+
+        ' cargldr = cargcodestruc
+        Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc)
+    End Function
     Friend Shared Function get_index_class(ByRef classname As String) As Integer
         Dim classchename As String = String.Empty
         Dim resultclassindex As mapstoredata.dataresult = refrecord.find(classname, True, classchename)
