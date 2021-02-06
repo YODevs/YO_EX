@@ -10,7 +10,7 @@
     Private looprangecodestruc As xmlunpkd.linecodestruc
     Private rnginf As rangeserv.ranginf
     Private userange As Boolean = False
-
+    Private isreverseloop As Boolean = False
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = ilmethod
     End Sub
@@ -58,6 +58,9 @@
         cil.load_local_variable(_ilmethod.codes, loopvar)
         If IsNumeric(rnginf.stepsc) Then
             cil.push_int32_onto_stack(_ilmethod.codes, rnginf.stepsc)
+            If rnginf.stepsc < 0 Then
+                isreverseloop = True
+            End If
         Else
             Dim stadderloop As New xmlunpkd.linecodestruc
             stadderloop.value = rnginf.stepsc
@@ -89,13 +92,17 @@
         envarloop.ien = envarloop.value.Length
         ldloc.load_single_in_stack("int32", envarloop)
         If userange Then
-            If rnginf.ignorelastpoint Then
-                cil.blt(_ilmethod.codes, getbrhead)
+            If isreverseloop = False Then
+                If rnginf.ignorelastpoint Then
+                    cil.blt(_ilmethod.codes, getbrhead)
+                Else
+                    cil.ble(_ilmethod.codes, getbrhead)
+                End If
             Else
-                cil.ble(_ilmethod.codes, getbrhead)
+                cil.bge(_ilmethod.codes, getbrhead)
             End If
         Else
-            cil.ble(_ilmethod.codes, getbrhead)
+                cil.ble(_ilmethod.codes, getbrhead)
         End If
     End Sub
     Private Sub set_flag_loop(ByRef _illocalinit() As ilformat._illocalinit)
