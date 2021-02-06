@@ -8,8 +8,8 @@ func main()
   test4(3)
   test5()
   test6()
+  test7()
 }
-
 
 func test1()
 {
@@ -74,5 +74,13 @@ func test6()
     System.Console::WriteLine("#{i}")
     break for
     System.Console::Write("#{i}")
+  }
+}
+
+func test7()
+{
+  for(i in [6..0;-2])
+  {
+    System.Console::WriteLine("#{i}")
   }
 }
