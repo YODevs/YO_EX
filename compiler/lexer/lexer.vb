@@ -459,15 +459,18 @@ Public Class lexer
     End Function
     Private Function rev_expression(ByRef value As String) As Boolean
         If value.StartsWith("[") AndAlso value.EndsWith("]") Then
-            For index = 0 To compdt.expressionact.Length - 1
-                If value.Contains(compdt.expressionact(index)) Then
-                    rd_token = tokenhared.token.EXPRESSION
+            If value.Contains(conrex.DBDOT) = False Then
+                For index = 0 To compdt.expressionact.Length - 1
+                    If value.Contains(compdt.expressionact(index)) Then
+                        rd_token = tokenhared.token.EXPRESSION
+                        Return True
+                    End If
+                Next
+            Else
+                If rev_range(value) Then
+                    rd_token = tokenhared.token.RANGE
                     Return True
                 End If
-            Next
-            If rev_range(value) Then
-                rd_token = tokenhared.token.RANGE
-                Return True
             End If
             Return False
         End If
