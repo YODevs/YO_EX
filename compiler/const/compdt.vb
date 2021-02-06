@@ -12,7 +12,7 @@
     Friend Const FLAGPERFIX As String = "YO_Flag_"
     Friend Const YOMAINCLASS As String = "YO_Main"
     Friend Const YOILLABEL As String = "YOIL_"
-    Friend Const RANGEFMT As String = "\[\s*\w+\s*\.\.\=?\s*\w+\s*(\s*\;\s*\w+)?\s*\]"
+    Friend Const RANGEFMT As String = "\[\s*\w+\s*\.\.\=?\s*\w+\s*(\s*\;\s*\-?\w+)?\s*\]"
     Friend Const ATTRIBUTEFMT As String = "\#\[\w+::\w+\(.+\)\]"
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
     Friend Shared DISPLAYTOKENWLEX As Boolean = False
