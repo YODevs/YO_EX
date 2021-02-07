@@ -85,9 +85,15 @@
         lastcounterflag = locinit.name
         illocalsinit.set_local_init(_illocalinit, locinit)
         'Set initial value for [TO] flag
+        check_negative_val(clinecodestruc(2))
         set_initial_value(locinit.name, clinecodestruc(2))
     End Sub
 
+    Private Sub check_negative_val(linecodestruc As xmlunpkd.linecodestruc)
+        If linecodestruc.tokenid = tokenhared.token.TYPE_INT AndAlso linecodestruc.value < 0 Then
+            dswar.set_warning("Warning for infinite loops", "Due to the use of a negative number, the TO loop will continue indefinitely.", ilbodybulider.path, linecodestruc.line)
+        End If
+    End Sub
     Private Sub set_initial_value(varname As String, clinecodestruc As xmlunpkd.linecodestruc)
         Dim optgen As New ilopt(_ilmethod, Nothing)
         _ilmethod = optgen.assi_int(varname, clinecodestruc, "int32")
