@@ -10,6 +10,7 @@
         Dim fields() As _pubfield
         Dim attribute As yocaattribute.yoattribute
         Dim externlist As ArrayList
+        Dim includelist As ArrayList
     End Structure
 
     Structure _method
