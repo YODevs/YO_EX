@@ -11,7 +11,9 @@
     Dim paraitemstate As funcparaitemstate
     Dim fieldtypest As fieldtypestate
     Dim fieldstate As pbfieldstate
+    Dim incstate As includestate
     Public externlist As ArrayList
+    Public includelist As ArrayList
     Public Sub New(file As String)
         tknfmt = New tknformat
         sourceloc = file
@@ -23,6 +25,7 @@
         xclass(0) = New tknformat._class
         xfield(0) = New tknformat._pubfield
         externlist = New ArrayList
+        includelist = New ArrayList
     End Sub
 
     Enum fieldtypestate
@@ -33,9 +36,16 @@
         INFUNC
         INIMPORTS
         FIELDS
+        INCLUDES
         OUT
     End Enum
 
+    Enum includestate
+        OUT
+        INCLUDEINTRO
+        INCLUDEFILE
+        INCLUDESPLITTER
+    End Enum
     Enum funcstatecursor
         OUT
         ACCESSRESTR
@@ -76,13 +86,13 @@
         Select Case state
             Case statecursor.OUT
                 Select Case rd_token
-                        Case tokenhared.token.FUNC
-                            _rev_func(value, rd_token, linecinf)
-                        Case tokenhared.token.EXPR
-                            _rev_func(value, rd_token, linecinf, True)
-                        Case tokenhared.token.EXTERN
-                            state = statecursor.INIMPORTS
-                        Case tokenhared.token.LET
+                    Case tokenhared.token.FUNC
+                        _rev_func(value, rd_token, linecinf)
+                    Case tokenhared.token.EXPR
+                        _rev_func(value, rd_token, linecinf, True)
+                    Case tokenhared.token.EXTERN
+                        state = statecursor.INIMPORTS
+                    Case tokenhared.token.LET
                         state = statecursor.FIELDS
                         fieldstate = pbfieldstate.ACCESSCONTORL
                         fieldtypest = fieldtypestate.LET
@@ -90,18 +100,32 @@
                         state = statecursor.FIELDS
                         fieldstate = pbfieldstate.ACCESSCONTORL
                         fieldtypest = fieldtypestate.CONST
+                    Case tokenhared.token.INCLUDE
+                        state = statecursor.INCLUDES
+                        incstate = includestate.INCLUDEFILE
                     Case Else
-                            dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
-                    End Select
-                    Return
+                        dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
+                End Select
+                Return
             Case statecursor.INFUNC
                 _rev_func(value, rd_token, linecinf)
             Case statecursor.FIELDS
                 _rev_field(value, rd_token, linecinf)
             Case statecursor.INIMPORTS
                 _rev_extern(value, rd_token, linecinf)
+            Case statecursor.INCLUDES
+                _rev_include(value, rd_token, linecinf)
             Case Else
                 dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
+        End Select
+    End Sub
+
+    Private Sub _rev_include(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
+        Select Case incstate
+            Case includestate.INCLUDEFILE
+                incfile.set_new_include_source(includelist, value, rd_token, linecinf)
+                incstate = includestate.OUT
+                state = statecursor.OUT
         End Select
     End Sub
     Private Sub _rev_field(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
@@ -337,6 +361,7 @@
     Public Function _to_organize() As tknformat._class
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
+        xclass(0).includelist = includelist
         If IsNothing(xfield) = False AndAlso xfield.Length = 1 AndAlso xfield(0).name = conrex.NULL Then
             xclass(0).fields = Nothing
         Else
@@ -350,6 +375,7 @@
         funcstate = funcstatecursor.OUT
         parastate = funcparastate.WAITFORSTARTBRACKET
         paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
+        incstate = includestate.OUT
     End Sub
 
 End Class
