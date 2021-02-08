@@ -21,11 +21,13 @@ Public Class lexer
     Public Sub New(file As String)
         fsource = import_source(file)
         sfile = file
+        wfile = file
         fmtdata = New fmtshared(file)
         attribute = New attr(file)
         procresult.rp_lex_file(file)
     End Sub
 
+    Friend Shared wfile As String
     Private strline As Integer = 0
     Private qucheck As Boolean = False
     Public fmtdata As fmtshared
@@ -364,11 +366,13 @@ Public Class lexer
         'print tokens
         If compdt.DISPLAYTOKENWLEX Then displaytokens(rd_token, linec)
 
-        If rd_token <> tokenhared.token.COMPILERATTRIBUTE Then
-            fmtdata.imp_token(linec, rd_token, linecinf)
-        Else
-            attribute.parse_attribute(linec, linecinf)
-        End If
+        Select Case rd_token
+            Case tokenhared.token.COMPILERATTRIBUTE
+                attribute.parse_attribute(linec, linecinf)
+            Case Else
+                fmtdata.imp_token(linec, rd_token, linecinf)
+        End Select
+
         linecinf.lstart = -1
         linec = conrex.NULL
     End Sub
