@@ -16,6 +16,12 @@ Public Class incfile
             authfunc.rem_fr_and_en(value)
             Dim inc As New incstruct
             set_include_struct_data(inc, value)
+            check_route_repetition(inc)
+            If inc.replist = False Then
+                incspath.Add(inc.path)
+                incsname.Add(inc.name)
+            End If
+            includelist.Add(inc.path)
         Else
             dserr.args.Add("Unexpected Tokens Use the string to analyze the Include statement.")
             dserr.new_error(conserr.errortype.INCLUDEERROR, linecinf.line, lexer.wfile, Nothing, "include 'ystdio'")
@@ -30,9 +36,32 @@ Public Class incfile
             check_exist_include_file(inc.path)
         Else
             inc.name = value
+            get_path_include_file(inc)
         End If
     End Sub
 
+    Private Shared Sub check_route_repetition(ByRef inc As incstruct)
+        For index = 0 To incspath.Count - 1
+            If incspath(index).ToString.ToLower = inc.path.ToLower Then
+                inc.replist = True
+                Return
+            End If
+        Next
+        inc.replist = False
+        Return
+    End Sub
+    Private Shared Sub get_path_include_file(ByRef inc As incstruct)
+        If File.Exists(conrex.APPDIR & "\std\" & inc.name) Then
+            inc.path = conrex.APPDIR & "\std\" & inc.name
+            inc.isexist = True
+        ElseIf File.Exists(conrex.ENVCURDIR & cprojdt.get_val("assetspath") & conrex.BKSLASH & inc.name) Then
+            inc.path = conrex.ENVCURDIR & cprojdt.get_val("assetspath") & conrex.BKSLASH & inc.name
+            inc.isexist = True
+        Else
+            dserr.args.Add(String.Format("'{0}' This file does not exist in the specified paths.", inc.name))
+            dserr.new_error(conserr.errortype.INCLUDEERROR, linecodeinf.line, lexer.wfile, Nothing)
+        End If
+    End Sub
     Private Shared Sub check_exist_include_file(path As String)
         If File.Exists(path) = False Then
             dserr.args.Add(String.Format("'{0}' path not found.[include statement]", path))
