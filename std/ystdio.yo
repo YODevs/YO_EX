@@ -1,0 +1,16 @@
+#[app::classname("io")]
+
+func print(val:str) : void
+{
+  System.Console::Write(val)
+}
+
+func println(val:str) : void
+{
+  System.Console::WriteLine(val)
+}
+
+func wait() : void
+{
+  System.Console::ReadLine()
+}
