@@ -14,6 +14,7 @@ Public Class impfiles
                     servinterface.check_class_vaild(tknfmtclass(index).attribute, tknfmtclass(index).location)
                     funcdtproc.import_method(tknfmtclass(index))
                 Next
+                import_include_file(tknfmtclass)
                 procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
                 ilgen.codegenerator()
@@ -25,7 +26,17 @@ Public Class impfiles
         End If
     End Sub
 
-
+    Private Shared Sub import_include_file(ByRef tknfmtclass As tknformat._class())
+        If incfile.incspath.Count = 0 Then Return
+        Dim bfindex As Integer = tknfmtclass.Length
+        Array.Resize(tknfmtclass, tknfmtclass.Length + incfile.incspath.Count)
+        For index = 0 To incfile.incspath.Count - 1
+            Dim lex As New lexer(incfile.incspath(index).ToString)
+            lex.lexme(tknfmtclass(bfindex + index))
+            servinterface.check_class_vaild(tknfmtclass(bfindex + index).attribute, tknfmtclass(bfindex + index).location)
+            funcdtproc.import_method(tknfmtclass(bfindex + index))
+        Next
+    End Sub
     ''' <summary>
     ''' Simple get file [ just in master route ]
     ''' </summary>
