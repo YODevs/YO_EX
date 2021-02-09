@@ -1,0 +1,15 @@
+#[app::classname("stdtest")]
+#>#[app::wait(true)]
+
+include 'ystdio' #> load from \yo\std directory
+include 'mathlib' #>load from \assets
+
+func main()
+{
+  let val1 : i32 = 20
+  let val2 : i32 = 25
+  let getresult : i32 = NULL
+
+  getresult := math::sum(val1,val2)
+  io::print("#{val1} + #{val2} = #{getresult}")
+}

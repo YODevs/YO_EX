@@ -1,0 +1,7 @@
+#[app::classname("math")]
+
+func sum(val1 : i32 , val2 : i32) : i32
+{
+  let result : i32 = [val1 + val2]
+  return result
+}
