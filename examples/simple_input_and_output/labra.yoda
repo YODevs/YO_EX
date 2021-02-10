@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "std_lib"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

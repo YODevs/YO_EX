@@ -1,0 +1,11 @@
+#[app::classname("MyApp")]
+
+include 'ystdio'
+
+func main()
+{
+  io::print("Whats your name ? ")
+  let name : str = io::getln()
+  io::print("Hello #{name} !")
+  io::wait()
+}
