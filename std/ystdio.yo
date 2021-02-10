@@ -14,3 +14,9 @@ func wait() : void
 {
   System.Console::ReadLine()
 }
+
+func getln() : str
+{
+  let result : str = System.Console::ReadLine()
+  return result
+}
