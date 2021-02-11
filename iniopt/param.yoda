@@ -1,5 +1,5 @@
 !![
-"build" = "debug,debug_impl,debug_opt,import_assets,display_token,stack_trace,mute_process,disable_warnings"
+"build" = "debug,debug_impl,debug_opt,import_assets,display_token,stack_trace,mute_process,disable_warnings,app_container"
 ,
 "run"= "debug,debug_impl,debug_opt,import_assets,execution_time,display_token,stack_trace,mute_process,disable_warnings"
 ]
