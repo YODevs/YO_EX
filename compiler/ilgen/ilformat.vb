@@ -11,6 +11,7 @@
         Dim field() As _pubfield
         Dim staticctor As ArrayList
         Dim instancector As ArrayList
+        Dim setinitialization As Boolean
         'Assembly
     End Structure
 
