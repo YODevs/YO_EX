@@ -29,6 +29,7 @@
         localinitdata.import_fields(yoclassdt.fields)
         ilcollection.ilmethod = _ilfunc.gen()
         _ilresultcollection.ilfmtdata = ilcollection
+        _ilresultcollection.ilfmtdata.setinitialization = _ilfunc.setinitialization
         _ilresultcollection.result = True
         Return _ilresultcollection
     End Function
