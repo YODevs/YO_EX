@@ -221,7 +221,7 @@
                     Return
                 End If
             Case funcstatecursor.FUNCNAME
-                If rd_token = tokenhared.token.IDENTIFIER Then
+                If rd_token = tokenhared.token.IDENTIFIER OrElse rd_token = tokenhared.token.INIT Then
                     xmethods(i).name = value
                     funcstate = funcstatecursor.FUNCPARA
                 Else
