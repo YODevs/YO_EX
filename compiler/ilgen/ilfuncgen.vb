@@ -1,5 +1,6 @@
 ﻿Public Class ilfuncgen
 
+    Public setinitialization As Boolean = False
     Private grabentrypoint As Boolean = False
     Private ilcollection As ilformat.ildata
     Private yoclassdt As tknformat._class
@@ -31,6 +32,9 @@
         'Check name rules ...
         'Check uniq names
         _ilmethods(ilmethodsindex).name = yomethod.name
+        If yomethod.name = "init" Then
+            setinitialization = True
+        End If
         If yomethod.name.ToLower = "main" AndAlso check_entry_point_by_file(yoclassdt.location) AndAlso cprojdt.get_val("outputtype").ToLower <> "library" Then
             If grabentrypoint = False Then
                 _ilmethods(ilmethodsindex).entrypoint = True
