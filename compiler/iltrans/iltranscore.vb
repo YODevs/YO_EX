@@ -40,6 +40,10 @@
             clinecodestruc = xmldata.get_line_tokens()
             rev_cline_code(clinecodestruc, _ilmethod)
         End While
+        If ifcond.incond = True Then
+            Dim cond As New ifcond(_ilmethod)
+            _ilmethod = cond.set_condition_statement(_illocalinit, localinit)
+        End If
         If (_illocalinit.Length > 0 AndAlso _illocalinit(_illocalinit.Length - 1).name = Nothing) Then
             Array.Resize(_illocalinit, _illocalinit.Length - 1)
         End If
@@ -50,8 +54,9 @@
     Private Sub rev_cline_code(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
         If clinecodestruc.Length = 0 Then Return
         ' coutputdata.print_token(clinecodestruc)
-        If ifcond.leavebrachlabel.Count > 0 Then
-            ifcond.check_oth_tokens(clinecodestruc, _ilmethod)
+        If ifcond.incond = True AndAlso ifcond.check_cond_statement(clinecodestruc(0)) = False Then
+            Dim cond As New ifcond(_ilmethod)
+            _ilmethod = cond.set_condition_statement(_illocalinit, localinit)
         End If
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.IDENTIFIER
@@ -75,14 +80,11 @@
             Case tokenhared.token.CIL_BLOCK
                 nv_cil_commands(clinecodestruc, _ilmethod)
             Case tokenhared.token.IF
-                Dim cond As New ifcond(_ilmethod)
-                _ilmethod = cond.set_if_statement(clinecodestruc, _illocalinit, localinit)
+                ifcond.imp_cond_statement(clinecodestruc)
             Case tokenhared.token.ELSEIF
-                Dim cond As New ifcond(_ilmethod)
-                _ilmethod = cond.set_elseif_statement(clinecodestruc, _illocalinit, localinit)
+                ifcond.imp_cond_statement(clinecodestruc)
             Case tokenhared.token.ELSE
-                Dim cond As New ifcond(_ilmethod)
-                _ilmethod = cond.set_else_statement(clinecodestruc, _illocalinit, localinit)
+                ifcond.imp_cond_statement(clinecodestruc)
             Case tokenhared.token.UL
                 Dim cond As New ulcond(_ilmethod)
                 _ilmethod = cond.set_ul_statement(clinecodestruc, _illocalinit, localinit)
