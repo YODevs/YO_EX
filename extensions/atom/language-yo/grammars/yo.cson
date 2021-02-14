@@ -93,7 +93,7 @@ patterns: [
 
 
   {
-    match: "(?i:\\b(let|const|new|func|to|loop|while|match|return|break|repeat|continue|else|if|for|in)\\b)"
+    match: "(?i:\\b(let|const|new|func|to|loop|while|match|return|break|repeat|continue|elseif|else|if|for|in)\\b)"
     name: "keyword.control.yo"
   }
 
