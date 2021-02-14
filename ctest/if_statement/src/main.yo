@@ -1,0 +1,123 @@
+#[app::classname("MyApp")]
+include 'ystdio'
+
+func main()
+{
+  test1()
+  test2()
+  test3(5)
+  test3(15)
+  test4('red')
+  test4('green')
+  test4('blue')
+  test4('yellow')
+  test5(12,5)
+  test5(11,15)
+  test6()
+  test7()
+  test8()
+}
+
+func test1()
+{
+  if( 12 >= 10)
+  {
+    io::print("True")
+  }
+  io::println("!")
+}
+
+func test2()
+{
+  if( 12 <= 10)
+  {
+    io::print("True")
+  }
+  io::println("False!")
+}
+
+func test3(i : i32)
+{
+  if(i >> 10)
+  {
+    io::print("Bgt 10")
+  }else{
+    io::print("Ble 10")
+  }
+  io::println("!")
+}
+
+func test4(color : str)
+{
+  if(color == 'red')
+  {
+    io::print('*red')
+  }elseif(color == 'green')
+  {
+    io::print('*green')
+  }elseif(color == 'blue')
+  {
+    io::print('*blue')
+  }else{
+    io::print(color)
+  }
+  io::println("!")
+}
+
+func test5(i : i32 , x : i32)
+{
+  if(i >= 10)
+  {
+    io::print("i[bge] = #{i}")
+    if(x >> 10)
+    {
+      io::print(", x[bgt] = #{x}")
+    }elseif(x == 10)
+    {
+      io::print(", x = 10")
+    }else{
+      io::print(", x = #{x}")
+    }
+    io::print("!")
+  }else{
+    io::println("NT")
+  }
+  io::println("!")
+}
+
+func test6()
+{
+  let temp : i32 = 30
+  if(temp >> 24 )
+  {
+   System.Console::WriteLine("The temperature is #{temp} degrees and the air is warm.")
+  }
+
+}
+
+func test7()
+{
+  let temp : i32 = 20
+  if(temp >> 20)
+  {
+    System.Console::WriteLine(">>WARM")
+  }else{
+    System.Console::WriteLine(">>COOL")
+  }
+}
+
+func test8()
+{
+  let temp : i32 = 36
+  if(temp >> 24)
+  {
+    if(temp >= 36)
+    {
+      System.Console::WriteLine(">>HOT")
+    }else{
+      System.Console::WriteLine(">>WARM")
+    }
+  }else{
+    System.Console::WriteLine(">>COOL")
+  }
+}

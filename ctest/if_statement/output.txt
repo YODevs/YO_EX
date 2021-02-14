@@ -1,0 +1,13 @@
+True!
+False!
+Ble 10!
+Bgt 10!
+*red!
+*green!
+*blue!
+yellow!
+i[bge] = 12, x = 5!!
+i[bge] = 11, x[bgt] = 15!!
+The temperature is 30 degrees and the air is warm.
+>>COOL
+>>HOT
