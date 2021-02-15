@@ -7,6 +7,7 @@ Public Class crproj
         Dim typeproject As String
         Dim srcpath As String
         Dim createbatchfile As Boolean
+        Dim targetframework As String
     End Structure
 
     Dim yoda As YODA.YODA_Format
@@ -23,6 +24,7 @@ Public Class crproj
     Public Sub init_project()
         proj.assemblyname = get_assembly_name()
         proj.typeproject = get_type_of_project()
+        proj.targetframework = set_target_framwork()
         proj.createbatchfile = set_batch_file()
         create_prerequisites()
     End Sub
@@ -82,6 +84,9 @@ Public Class crproj
         key.Add("assetspath")
         value.Add("\assets")
 
+        key.Add("targetframework")
+        value.Add(proj.targetframework)
+
         Return yoda.WriteYODA_Map(key, value, False)
     End Function
 
@@ -130,7 +135,21 @@ Public Class crproj
         tproj = tproj.Remove(tproj.IndexOf("[")).Trim.ToLower
         Return tproj
     End Function
-
+    Private Function set_target_framwork() As String
+        Dim pathlist As New ArrayList
+        Dim namelist As New ArrayList
+        For index = 0 To Microsoft.Build.Utilities.TargetDotNetFrameworkVersion.VersionLatest
+            Dim pathdotnetframework As String = Microsoft.Build.Utilities.ToolLocationHelper.GetPathToDotNetFrameworkFile("ilasm.exe", index)
+            If pathdotnetframework <> String.Empty Then
+                pathlist.Add(pathdotnetframework)
+                namelist.Add([Enum].GetName(GetType(Microsoft.Build.Utilities.TargetDotNetFrameworkVersion), index))
+            End If
+        Next
+        Console.Write(vbLf & "# Select target framework:")
+        Dim menudata As String = yoda.WriteYODA(namelist)
+        Dim snetframework As String = YOOrderList.YOList.ShowMenu(menudata)
+        Return snetframework
+    End Function
     Private Function set_batch_file() As Boolean
         Console.Write(vbLf & "# Need a bash file to compile and run fast?[y/N] > ")
         Select Case Console.ReadKey.KeyChar.ToString.ToLower
