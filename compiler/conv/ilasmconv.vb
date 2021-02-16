@@ -24,7 +24,7 @@ Public Class ilasmconv
         ilasmoutputdata = New StringBuilder()
         Dim ilasmproc As New System.Diagnostics.Process()
         With ilasmproc.StartInfo
-            .FileName = My.Application.Info.DirectoryPath & "\ilasm.exe"
+            .FileName = compdt.ILASMPATH
             .Arguments = ilasmparameter.get_param_list
             .RedirectStandardOutput = True
             .RedirectStandardError = True
