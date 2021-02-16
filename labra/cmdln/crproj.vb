@@ -24,7 +24,7 @@ Public Class crproj
     Public Sub init_project()
         proj.assemblyname = get_assembly_name()
         proj.typeproject = get_type_of_project()
-        proj.targetframework = set_target_framwork()
+        'proj.targetframework = set_target_framwork()
         proj.createbatchfile = set_batch_file()
         create_prerequisites()
     End Sub
@@ -84,8 +84,8 @@ Public Class crproj
         key.Add("assetspath")
         value.Add("\assets")
 
-        key.Add("targetframework")
-        value.Add(proj.targetframework)
+        ' key.Add("targetframework")
+        'value.Add(proj.targetframework)
 
         Return yoda.WriteYODA_Map(key, value, False)
     End Function
@@ -140,7 +140,7 @@ Public Class crproj
         Dim namelist As New ArrayList
         For index = 0 To Microsoft.Build.Utilities.TargetDotNetFrameworkVersion.VersionLatest
             Dim pathdotnetframework As String = Microsoft.Build.Utilities.ToolLocationHelper.GetPathToDotNetFrameworkFile("ilasm.exe", index)
-            If pathdotnetframework <> String.Empty Then
+            If pathdotnetframework <> String.Empty AndAlso File.Exists(pathdotnetframework) Then
                 pathlist.Add(pathdotnetframework)
                 namelist.Add([Enum].GetName(GetType(Microsoft.Build.Utilities.TargetDotNetFrameworkVersion), index))
             End If
