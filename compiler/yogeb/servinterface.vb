@@ -1,4 +1,5 @@
-﻿Imports YOCA
+﻿Imports System.IO
+Imports YOCA
 
 Public Class servinterface
     Friend Shared clinecodestruc As xmlunpkd.linecodestruc
@@ -332,5 +333,28 @@ Public Class servinterface
             indexarray += 1
         Next
         Return nretcodestruc
+    End Function
+
+    Friend Shared Function get_target_framwork(version As String) As String
+        version = version.ToLower
+        For index = 0 To Microsoft.Build.Utilities.TargetDotNetFrameworkVersion.VersionLatest
+            Dim pathdotnetframework As String = Microsoft.Build.Utilities.ToolLocationHelper.GetPathToDotNetFrameworkFile("ilasm.exe", index)
+            If [Enum].GetName(GetType(Microsoft.Build.Utilities.TargetDotNetFrameworkVersion), index).ToLower = version AndAlso pathdotnetframework <> conrex.NULL Then
+                Return pathdotnetframework
+            End If
+        Next
+        Return conrex.NULL
+    End Function
+
+    Friend Shared Function get_ilasm_path() As String
+        Dim cpath As String = String.Empty
+        For index = 0 To Microsoft.Build.Utilities.TargetDotNetFrameworkVersion.VersionLatest
+            Dim pathdotnetframework As String = Microsoft.Build.Utilities.ToolLocationHelper.GetPathToDotNetFrameworkFile("ilasm.exe", index)
+            If pathdotnetframework <> conrex.NULL AndAlso File.Exists(pathdotnetframework) Then
+                cpath = pathdotnetframework
+            End If
+        Next
+        coutputdata.write_data(cpath)
+        Return cpath
     End Function
 End Class
