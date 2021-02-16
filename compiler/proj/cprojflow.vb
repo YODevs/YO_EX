@@ -21,21 +21,28 @@ Public Class cprojflow
         load_cproj_data()
         procresult.rs_set_result(True)
         procresult.rp_init("Check the path of project files")
-        If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("sourcepath")) = False Then
+        If Directory.Exists(conrex.ENVCURDIR & cprojdt.get_val("sourcepath")) = False Then
             dserr.args.Add("\src")
             dserr.new_error(conserr.errortype.PROJECTSTRUCTERROR, -1, Nothing)
         End If
 
-        If Directory.Exists(conrex.ENVCURDIR & cproj.get_val("assetspath")) = False Then
+        If Directory.Exists(conrex.ENVCURDIR & cprojdt.get_val("assetspath")) = False Then
             dserr.args.Add("\assets")
             dserr.new_error(conserr.errortype.PROJECTSTRUCTERROR, -1, Nothing)
         End If
 
+        Dim gpath As String = servinterface.get_ilasm_path()
+        If gpath <> conrex.NULL Then
+                compdt.ILASMPATH = gpath
+            Else
+            dserr.args.Add("V3.5|4|...")
+            dserr.new_error(conserr.errortype.TARGETFRAMEWORKERROR, -1, Nothing, "To solve this problem, you can go to https://dotnet.microsoft.com/download/dotnet-framework and download and install the desired version.")
+            End If
         procresult.rs_set_result(True)
 
-        libreg.init_libraries(conrex.ENVCURDIR & cproj.get_val("assetspath"))
+        libreg.init_libraries(conrex.ENVCURDIR & cprojdt.get_val("assetspath"))
 
-        impfiles.import_directory(conrex.ENVCURDIR & cproj.get_val("sourcepath"))
+        impfiles.import_directory(conrex.ENVCURDIR & cprojdt.get_val("sourcepath"))
     End Sub
 
     Public Sub load_cproj_data()
