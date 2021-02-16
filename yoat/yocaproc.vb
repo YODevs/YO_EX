@@ -73,7 +73,7 @@ Public Class yocaproc
             Console.Write("               compile:[{0}/{1}] - result:[{2}/{1}]", ncompilesuccess, acompile, nrunsuccess)
         End If
         Console.ResetColor()
-        Console.Write(" Project")
+        Console.Write(" Project(s)")
         Console.WriteLine()
     End Sub
     Private Function check_project(dir As String) As Boolean
