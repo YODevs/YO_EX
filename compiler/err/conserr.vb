@@ -50,6 +50,7 @@
         UNDEFINEDPARAM
         OVERLOADERROR
         INCLUDEERROR
+        TARGETFRAMEWORKERROR
     End Enum
 
     Enum errorpriority
@@ -130,5 +131,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.UNDEFINEDPARAM, errorpriority.STOP, "CIL error", "Undefined input parameters.")
         set_new_error(errortype.OVERLOADERROR, errorpriority.STOP, "Overload error", "Overload resolution failed because no accessible '{0}' is most specific for these arguments.")
         set_new_error(errortype.INCLUDEERROR, errorpriority.STOP, "Include error", "{0}")
+        set_new_error(errortype.TARGETFRAMEWORKERROR, errorpriority.STOP, "Target framework error", "The target version of the framework ({0}) is not installed on this system.")
     End Sub
 End Class
