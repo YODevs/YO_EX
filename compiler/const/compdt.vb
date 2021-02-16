@@ -1,4 +1,5 @@
 ﻿Public Class compdt
+    Friend Shared ILASMPATH As String = My.Application.Info.DirectoryPath & "\ilasm.exe"
     Friend Shared cilintegertypes() As String = {"int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64"}
     Friend Shared yointegertypes() As String = {"i8", "i16", "i32", "i64", "u8", "u16", "u32", "u64"}
     Friend Shared i8cmtypes() As String = {"int64", "uint64", "valuetype [mscorlib]System.Decimal"}
@@ -25,7 +26,6 @@
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
     Friend Const YOFORMATTEDSTRBYREGEX As String = "#{\w+}"
-
     Friend Const PARAM_IMPASSETS As String = "--import_assets"
     Friend Const PARAM_DEBUG As String = "--debug"
     Friend Const PARAM_DEBUG_IMPL As String = "--debug_impl"
