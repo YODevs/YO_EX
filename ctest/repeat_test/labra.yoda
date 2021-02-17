@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "repeat_test"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

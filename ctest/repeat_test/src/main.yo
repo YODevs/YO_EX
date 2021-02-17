@@ -1,0 +1,24 @@
+#[app::classname("MyApp")]
+include 'ystdio'
+
+func main()
+{
+  test1()
+}
+
+func test1()
+{
+  let _val : bool = true
+  let index : i32 = 0
+  while(_val == true)
+  {
+    _val := false
+    index += 1
+    if(index <= 5 )
+    {
+      io::print("#{index} ")
+      repeat while
+    }
+  }
+  io::println("!")
+}
