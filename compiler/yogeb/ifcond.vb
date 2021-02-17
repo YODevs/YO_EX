@@ -45,6 +45,7 @@ Public Class ifcond
         conddata = Nothing
         incond = False
         For index = 0 To prconddatacollection.Length - 1
+            stjmper.set_new_jmper(tokenhared.token.IF, enblbranch, prconddatacollection(index).brself, Nothing)
             Select Case prconddatacollection(index).statement
                 Case tokenhared.token.IF
                     set_if_statement(prconddatacollection(index).clinecodestruc, _illocalinit, localinit)
@@ -53,6 +54,7 @@ Public Class ifcond
                 Case tokenhared.token.ELSE
                     set_else_statement(prconddatacollection(index).clinecodestruc, _illocalinit, localinit)
             End Select
+            stjmper.reset_jmper(tokenhared.token.IF)
         Next
 
         lngen.set_direct_label(enblbranch, _ilmethod.codes)
