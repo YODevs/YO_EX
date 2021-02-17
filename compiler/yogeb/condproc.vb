@@ -203,6 +203,8 @@ Public Class condproc
                         get_condition_opt(sncond(ibar).optcond, opt, condlinecodestruc(index))
                         spstate = sepstate.rval
                         opt = conrex.NULL
+                    ElseIf opt.Length > 2 Then
+                        dserr.new_error(conserr.errortype.SYNTAXERROR, condlinecodestruc(index).line, ilbodybulider.path, "Operator expected , '" & opt & "' The operator could not be identified(conditional operators)." & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(condlinecodestruc(index - 1)), condlinecodestruc(index - 1).value), "Use '>>' , '>=' , '==' , '<>' , ...")
                     End If
                 Case sepstate.rval
                     sncond(ibar).rvalue = condlinecodestruc(index)
