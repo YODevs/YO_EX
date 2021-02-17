@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "if_example"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

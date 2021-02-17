@@ -1,0 +1,26 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+
+include 'ystdio'
+
+func main()
+{
+  let percentage : i32 = 78
+ let grade : str = get_grade(percentage)
+  io::print("Result[#{percentage}] : #{grade}")
+}
+
+func get_grade(percentage:i32) : str
+{
+  if(percentage <= 100 && percentage >= 90){
+    return "A"
+  }elseif(percentage >= 75){
+    return "B"
+  }elseif(percentage >= 50){
+    return "C"
+  }elseif(percentage >= 0){
+    return "D"
+  }else{
+    err "The value of the entered score is not valid."
+  }
+}
