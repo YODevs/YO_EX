@@ -1,0 +1,54 @@
+#[app::classname("MyApp")]
+include 'ystdio'
+
+func main()
+{
+ test(100,70)
+ test(40,50)
+ test(-5,20)
+ test(0,0)
+}
+
+func test(_val1:i32,_val2:i32)
+{
+  if(_val1 >= 50){
+    io::print("1,")
+    if(_val2 >= 50){
+      io::print("1")
+      break if
+    }elseif(_val2 >= 0){
+      io::print("2")
+      break if
+    }else{
+      io::print("3")
+      break if
+    }
+    break if
+    io::print("!")
+  }elseif(_val1 >= 0){
+    io::print("2,")
+    if(_val2 >= 50){
+      io::print("1")
+      break if
+    }elseif(_val2 >= 0){
+      io::print("2")
+      break if
+    }else{
+      io::print("3")
+      break if
+    }
+  }else{
+    io::print("3,")
+    if(_val2 >= 50){
+      io::print("1")
+      break if
+    }elseif(_val2 >= 0){
+      io::print("2")
+      break if
+    }else{
+      io::print("3")
+      break if
+    }
+  }
+  io::println("!")
+}

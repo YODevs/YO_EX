@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "if_break_test"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
