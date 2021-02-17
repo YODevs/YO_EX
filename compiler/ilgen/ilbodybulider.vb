@@ -75,7 +75,6 @@ call instance void [mscorlib]System.Object::.ctor()")
                     conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
                 lcode &= " = " & ildt.field(index).ptype & "(" & ildt.field(index).value & ")"
             Else
-
                 servinterface.is_common_data_type(ildt.field(index).ptype, ildt.field(index).ptype)
                 lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & ildt.field(index).modifier &
                     conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
@@ -132,7 +131,12 @@ call instance void [mscorlib]System.Object::.ctor()")
             set_wait_attribute()
         End If
 
-        If impretopt Then add_il_code("ret")
+        If impretopt Then
+            If funcdt.returntype <> conrex.NULL AndAlso funcdt.returntype.ToLower <> "void" Then
+                add_il_code("ldnull")
+            End If
+            add_il_code("ret")
+        End If
         add_en_block()
     End Sub
 
