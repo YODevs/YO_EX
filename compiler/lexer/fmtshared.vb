@@ -265,6 +265,7 @@
                     xmethods(i).returntype = cildatatype
                 Else
                     'Else Types ...
+                    xmethods(i).returntype = value
                 End If
                 If xmethods(i).isexpr Then
                     funcstate = funcstatecursor.FUNCEXPRASSIGNMENT
