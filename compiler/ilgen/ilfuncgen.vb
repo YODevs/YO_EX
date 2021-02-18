@@ -45,13 +45,28 @@
         _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
         _ilmethods(ilmethodsindex).isexpr = yomethod.isexpr
-
+        set_custom_type(_ilmethods(ilmethodsindex))
 
         set_parameter(yomethod, ilmethodsindex)
         Dim iltrans As New iltranscore(yomethod)
         iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
     End Sub
 
+    Private Sub set_custom_type(ByRef _ilmethodcollection As ilformat._ilmethodcollection)
+        If _ilmethodcollection.returntype = conrex.NULL OrElse _ilmethodcollection.returntype = "void" OrElse servinterface.get_yo_common_data_type(_ilmethodcollection.returntype, Nothing) = True Then
+            Return
+        End If
+        Dim retinf As New ilformat._returninfo
+        Dim ctorinf As New ilctor.ctorinfo
+        ctorinf.classname = _ilmethodcollection.returntype
+        If libserv.get_extern_index_class(_ilmethodcollection, ctorinf.classname, ctorinf.namespaceindex, ctorinf.classindex) = -1 Then
+            dserr.args.Add("Class " & ctorinf.classname & " not found.")
+            dserr.new_error(conserr.errortype.METHODERROR, -1, ilbodybulider.path, String.Format("The return type of the {0} function is not known.", _ilmethodcollection.name))
+        End If
+        retinf.asmextern = libserv.get_extern_assembly(ctorinf.namespaceindex)
+        retinf.classname = ctorinf.classname
+        _ilmethodcollection.returninfo = retinf
+    End Sub
     Private Sub set_parameter(yomethod As tknformat._method, ilmethodsindex As Integer)
         If IsNothing(yomethod.parameters) Then Return
         For index = 0 To yomethod.parameters.Length - 1
