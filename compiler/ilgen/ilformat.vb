@@ -20,12 +20,18 @@
         Dim accessible As _accessiblemethod
         Dim locallinit() As _illocalinit
         Dim returntype As String
+        Dim returninfo As _returninfo
         Dim parameter() As _ilparameter
         Dim entrypoint As Boolean
         Dim maxstack As Int16
         Dim codes As ArrayList
         Dim line As ArrayList
         Dim isexpr As Boolean
+    End Structure
+
+    Public Structure _returninfo
+        Dim asmextern As String
+        Dim classname As String
     End Structure
     Public Structure _ilparameter
         Dim name As String
