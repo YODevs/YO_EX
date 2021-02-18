@@ -436,6 +436,8 @@
                     _ilmethod = optgen.assi_bool(varname, clinecodestruc(ilinc), "bool")
                 Case "char"
                     _ilmethod = optgen.assi_char(varname, clinecodestruc(ilinc), "char")
+                Case Else
+                    _ilmethod = optgen.assi_identifier(varname, clinecodestruc(ilinc), localvartype.result)
             End Select
         Next
     End Sub
