@@ -98,6 +98,7 @@ call instance void [mscorlib]System.Object::.ctor()")
                 headfuncdt &= funcdt.returntype
             Else
                 'other types
+                headfuncdt &= String.Format("class [{0}]{1} ", funcdt.returninfo.asmextern, funcdt.returninfo.classname)
             End If
         End If
 
