@@ -197,7 +197,24 @@ Public Class ilopt
         Return _ilmethod
     End Function
 
+    Public Function assi_identifier(varname As String, clinecodestruc As xmlunpkd.linecodestruc, type As String) As ilformat._ilmethodcollection
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.IDENTIFIER
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, type)
+            'let value : str = NULL
+            Case tokenhared.token.NULL
+                cil.push_null_reference(_ilmethod.codes)
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add(type)
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
 
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, type)
+
+        Return _ilmethod
+    End Function
     Public Function assi_str(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
