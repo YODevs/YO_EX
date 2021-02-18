@@ -95,7 +95,17 @@ Public Class funcste
         End If
 
         Dim getdatatype As String = methodinfo.returntype
-        cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype)
+        If getdatatype <> Nothing AndAlso getdatatype <> "void" AndAlso servinterface.is_cil_common_data_type(getdatatype) = False Then
+            Dim retnamespaceindex, retclassindex As Integer
+            If libserv.get_extern_index_class(_ilmethod, getdatatype, retnamespaceindex, retclassindex) = -1 Then
+                dserr.args.Add("Class " & getdatatype & " not found.")
+                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+            End If
+            Dim freturntype As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(retnamespaceindex), getdatatype)
+            cil.call_intern_method(_ilmethod.codes, freturntype, classname, funcresult.clmethod, paramtype)
+        Else
+            cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype)
+        End If
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
