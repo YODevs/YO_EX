@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "returning_custom_type"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
