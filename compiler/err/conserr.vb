@@ -51,6 +51,7 @@
         OVERLOADERROR
         INCLUDEERROR
         TARGETFRAMEWORKERROR
+        CONSTRUCTORERROR
     End Enum
 
     Enum errorpriority
@@ -132,5 +133,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.OVERLOADERROR, errorpriority.STOP, "Overload error", "Overload resolution failed because no accessible '{0}' is most specific for these arguments.")
         set_new_error(errortype.INCLUDEERROR, errorpriority.STOP, "Include error", "{0}")
         set_new_error(errortype.TARGETFRAMEWORKERROR, errorpriority.STOP, "Target framework error", "The target version of the framework ({0}) is not installed on this system.")
+        set_new_error(errortype.CONSTRUCTORERROR, errorpriority.STOP, "Constructor error", "The initial value of the object is incorrect.")
     End Sub
 End Class
