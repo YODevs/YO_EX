@@ -1,0 +1,19 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+include 'ystdio'
+func main()
+{
+ let sb : System.Text.StringBuilder()
+ sb := get_string_builder()
+ let result : str = sb::ToString()
+ io::print(result)
+}
+
+func get_string_builder() : System.Text.StringBuilder
+{
+  let sb : init System.Text.StringBuilder()
+  sb::Append('Hello World !')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  return sb
+}
