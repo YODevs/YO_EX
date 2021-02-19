@@ -39,6 +39,10 @@ Public Class ilctor
     Private Sub invoke_constructor(glinecodestruc As xmlunpkd.linecodestruc(), resultfunc As funcvalid._resultfuncvaild, ctorinf As ctorinfo)
         resultfunc.asmextern = libserv.get_extern_assembly(ctorinf.namespaceindex)
         Dim ctormethodinfo As ConstructorInfo
+        rep_constructor_param(glinecodestruc)
+        coutputdata.print_token(glinecodestruc)
+
+
         Dim stateprop As Integer = libserv.get_extern_index_constructor(_ilmethod, funcste.get_argument_list(glinecodestruc), ctorinf.namespaceindex, ctorinf.classindex, ctormethodinfo)
         If stateprop = -1 Then
             dserr.args.Add("Constructor method not found.")
@@ -54,5 +58,10 @@ Public Class ilctor
         Dim getrettype As String = "void"
         cil.new_obj(_ilmethod.codes, getrettype, resultfunc.asmextern, resultfunc.exclass, resultfunc.clmethod, paramtype)
         cil.set_stack_local(_ilmethod.codes, ctorinf.objname)
+    End Sub
+    Private Sub rep_constructor_param(ByRef glinecodestruc As xmlunpkd.linecodestruc())
+        If glinecodestruc.Length - 1 = 0 Then
+            dserr.new_error(conserr.errortype.CONSTRUCTORERROR, glinecodestruc(0).line, ilbodybulider.path, "No parameters are defined for the initial value.", "If the initialization has no parameters, proceed as let x : init System.Text.StringBuilder()")
+        End If
     End Sub
 End Class
