@@ -27,6 +27,8 @@ Public Class ilctor
         Dim indclass As Integer = 3
         If _illocalinit(index).ctor Then
             indclass = 4
+        Else
+            Return
         End If
         Dim glinecodestruc() As xmlunpkd.linecodestruc = servinterface.trim_line_code_struc(clinecodestruc, indclass)
         glinecodestruc(0).value &= "::.ctor"
