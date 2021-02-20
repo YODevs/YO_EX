@@ -579,6 +579,29 @@
                 Else
                     _illocalinit(index).ctor = False
                     _illocalinit(index).datatype = clinecodestruc(3).value
+
+                    If clinecodestruc.Length > 4 Then
+                        If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
+                            'DECLARING ERROR
+                            dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value), "let name : str = ""Amin""")
+                        End If
+
+                        If clinecodestruc.Length > 4 Then
+                            Dim crenvalue(clinecodestruc.Length - 6) As xmlunpkd.linecodestruc
+                            Dim icren As Integer = 0
+                            For clindex = 5 To clinecodestruc.Length - 1
+                                crenvalue(icren) = New xmlunpkd.linecodestruc
+                                crenvalue(icren) = clinecodestruc(clindex)
+                                icren += 1
+                            Next
+                            _illocalinit(index).clocalvalue = crenvalue
+                            _illocalinit(index).hasdefaultvalue = True
+                            assignprocess = True
+                        Else
+                            'let name : str =
+                            dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected")
+                        End If
+                    End If
                 End If
                 Dim ctor As New ilctor(ilmethod)
                 ilmethod = ctor.set_new_ctor(index, clinecodestruc, _illocalinit, localinit)
