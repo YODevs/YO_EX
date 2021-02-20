@@ -6,6 +6,7 @@
     Structure _class
         Dim name As String
         Dim location As String
+        Dim enums() As _enum
         Dim methods() As _method
         Dim fields() As _pubfield
         Dim attribute As yocaattribute.yoattribute
@@ -13,6 +14,11 @@
         Dim includelist As ArrayList
     End Structure
 
+    Structure _enum
+        Dim name As String
+        Dim constkeys As ArrayList
+        Dim constvalues As ArrayList
+    End Structure
     Structure _method
         Dim name As String
         Dim returntype As String
