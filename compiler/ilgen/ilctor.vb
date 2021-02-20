@@ -40,9 +40,6 @@ Public Class ilctor
         resultfunc.asmextern = libserv.get_extern_assembly(ctorinf.namespaceindex)
         Dim ctormethodinfo As ConstructorInfo
         rep_constructor_param(glinecodestruc)
-        coutputdata.print_token(glinecodestruc)
-
-
         Dim stateprop As Integer = libserv.get_extern_index_constructor(_ilmethod, funcste.get_argument_list(glinecodestruc), ctorinf.namespaceindex, ctorinf.classindex, ctormethodinfo)
         If stateprop = -1 Then
             dserr.args.Add("Constructor method not found.")
