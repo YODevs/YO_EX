@@ -47,6 +47,9 @@
             Case "u8"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "uint8")
+            Case Else
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_identifier(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), funcdt.locallinit(index).datatype)
         End Select
 
         If loadatfirst Then
