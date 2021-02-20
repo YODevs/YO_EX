@@ -41,6 +41,7 @@
         _token.Add(token.REPEAT, "repeat")
         _token.Add(token.INIT, "init")
         _token.Add(token.INCLUDE, "include")
+        _token.Add(token.ENUM, "enum")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -218,5 +219,6 @@
         REPEAT = 84
         INIT = 85
         INCLUDE = 86
+        [ENUM] = 87
     End Enum
 End Class
