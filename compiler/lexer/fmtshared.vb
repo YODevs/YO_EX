@@ -28,6 +28,16 @@
         includelist = New ArrayList
     End Sub
 
+    Enum enumerationcursor
+        OUT
+        ENUMNAME
+        ENUMPROP
+        ENUMCONST
+        ENUMEQU
+        ENUMVAL
+        ENUMCMA
+        ENUMNEXT
+    End Enum
     Enum fieldtypestate
         [LET]
         [CONST]
@@ -37,6 +47,7 @@
         INIMPORTS
         FIELDS
         INCLUDES
+        ENUMS
         OUT
     End Enum
 
