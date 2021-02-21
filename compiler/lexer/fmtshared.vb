@@ -6,12 +6,14 @@
     Public xclass(0) As tknformat._class
     Public xmethods(0) As tknformat._method
     Public xfield(0) As tknformat._pubfield
+    Public xenum(0) As tknformat._enum
     Dim funcstate As funcstatecursor
     Dim parastate As funcparastate
     Dim paraitemstate As funcparaitemstate
     Dim fieldtypest As fieldtypestate
     Dim fieldstate As pbfieldstate
     Dim incstate As includestate
+    Dim enumstate As enumerationcursor
     Public externlist As ArrayList
     Public includelist As ArrayList
     Public Sub New(file As String)
@@ -20,10 +22,12 @@
         state = statecursor.OUT
         fieldstate = pbfieldstate.OUT
         funcstate = funcstatecursor.OUT
+        enumstate = enumerationcursor.OUT
         parastate = funcparastate.WAITFORSTARTBRACKET
         xmethods(0) = New tknformat._method
         xclass(0) = New tknformat._class
         xfield(0) = New tknformat._pubfield
+        xenum(0) = New tknformat._enum
         externlist = New ArrayList
         includelist = New ArrayList
     End Sub
@@ -107,6 +111,9 @@
                         state = statecursor.FIELDS
                         fieldstate = pbfieldstate.ACCESSCONTORL
                         fieldtypest = fieldtypestate.LET
+                    Case tokenhared.token.ENUM
+                        state = statecursor.ENUMS
+                        enumstate = enumerationcursor.ENUMNAME
                     Case tokenhared.token.CONST
                         state = statecursor.FIELDS
                         fieldstate = pbfieldstate.ACCESSCONTORL
@@ -126,6 +133,8 @@
                 _rev_extern(value, rd_token, linecinf)
             Case statecursor.INCLUDES
                 _rev_include(value, rd_token, linecinf)
+            Case statecursor.ENUMS
+                _rev_enumeration(value, rd_token, linecinf)
             Case Else
                 dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
         End Select
@@ -139,6 +148,67 @@
                 state = statecursor.OUT
         End Select
     End Sub
+    Private Sub _rev_enumeration(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
+        Static Dim i As Integer = 0
+        Static Dim consval As Integer = 0
+        Select Case enumstate
+            Case enumerationcursor.ENUMNAME
+                consval = 0
+                If i <> 0 Then
+                    Array.Resize(xenum, i + 1)
+                End If
+                Select Case rd_token
+                    Case tokenhared.token.IDENTIFIER
+                        xenum(i).name = value
+                        enumstate = enumerationcursor.ENUMPROP
+                    Case Else
+                        dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "enum state{red,green,yellow}")
+                End Select
+                Return
+            Case enumerationcursor.ENUMPROP
+                If rd_token = tokenhared.token.BLOCKOPEN Then
+                    xenum(i).constkeys = New ArrayList
+                    xenum(i).constvalues = New ArrayList
+                    enumstate = enumerationcursor.ENUMCONST
+                Else
+                    dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "")
+                End If
+                Return
+            Case enumerationcursor.ENUMCONST
+                If rd_token = tokenhared.token.IDENTIFIER Then
+                    xenum(i).constkeys.Add(value)
+                    enumstate = enumerationcursor.ENUMEQU
+                Else
+                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value))
+                End If
+            Case enumerationcursor.ENUMEQU
+                Select Case rd_token
+                    Case tokenhared.token.EQUALS
+                        enumstate = enumerationcursor.ENUMVAL
+                    Case tokenhared.token.CMA
+                        xenum(i).constvalues.Add(consval)
+                        consval += 1
+                        enumstate = enumerationcursor.ENUMCONST
+                    Case tokenhared.token.BLOCKEND
+                        xenum(i).constvalues.Add(consval)
+                        enumstate = enumerationcursor.OUT
+                        state = statecursor.OUT
+                    Case Else
+                        dserr.args.Add(value)
+                        dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use the ',' separator." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), )
+                End Select
+                Return
+            Case enumerationcursor.ENUMVAL
+                Select Case rd_token
+                    Case tokenhared.token.TYPE_INT
+                        consval = value
+                        enumstate = enumerationcursor.ENUMEQU
+                    Case Else
+                        dserr.new_error(conserr.errortype.CONSTANTVALERROR, linecinf.line, sourceloc, value & " - The constant value must be numeric." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), )
+                End Select
+        End Select
+    End Sub
+
     Private Sub _rev_field(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         Static Dim i As Integer = 0
         Select Case fieldstate
@@ -374,6 +444,7 @@
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
         xclass(0).includelist = includelist
+        xclass(0).enums = xenum
         If IsNothing(xfield) = False AndAlso xfield.Length = 1 AndAlso xfield(0).name = conrex.NULL Then
             xclass(0).fields = Nothing
         Else
@@ -385,6 +456,7 @@
         state = statecursor.OUT
         fieldstate = pbfieldstate.OUT
         funcstate = funcstatecursor.OUT
+        enumstate = enumerationcursor.OUT
         parastate = funcparastate.WAITFORSTARTBRACKET
         paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
         incstate = includestate.OUT
