@@ -27,8 +27,8 @@ Public Class cprojflow
         End If
 
         If Directory.Exists(conrex.ENVCURDIR & cprojdt.get_val("assetspath")) = False Then
-            dserr.args.Add("\assets")
-            dserr.new_error(conserr.errortype.PROJECTSTRUCTERROR, -1, Nothing)
+            Directory.CreateDirectory(conrex.ENVCURDIR & cprojdt.get_val("assetspath"))
+            Console.Write("[Reconstructed assets folder]")
         End If
 
         Dim gpath As String = servinterface.get_ilasm_path()
