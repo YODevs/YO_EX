@@ -60,7 +60,7 @@ Public Class fmtstrlit
         cil.convert_to_string(ilmethod.codes, datatype)
     End Sub
     Private Shared Sub load_string(ByRef ilmethod As ilformat._ilmethodcollection, value As String, cargcodestruc As xmlunpkd.linecodestruc, Optional lastproc As Boolean = False)
-        cil.load_string(ilmethod, value, cargcodestruc)
+        cil.load_string(ilmethod, value, cargcodestruc, False)
         paramcount += 1
         If lastproc = False AndAlso paramcount = 4 Then
             set_concat(ilmethod)

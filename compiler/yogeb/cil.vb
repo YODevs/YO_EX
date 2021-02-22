@@ -7,28 +7,28 @@
         If value.StartsWith(conrex.COSTR) OrElse value.StartsWith(conrex.DUSTR) Then
             specificdustrcommand.reset_line_feed(value)
             If value.StartsWith(conrex.DUSTR) Then
-                specificdustrcommand.get_specific_dustr_command(value)
-            Else
-                specificdustrcommand.rem_specific_cil_char(value)
+                    specificdustrcommand.get_specific_dustr_command(value)
+                Else
+                    specificdustrcommand.rem_specific_cil_char(value)
+                End If
+                authfunc.rem_fr_and_en(value)
             End If
-            authfunc.rem_fr_and_en(value)
-        End If
-        codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
+            codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
     End Sub
 
-    Public Shared Sub load_string(ByRef ilmethod As ilformat._ilmethodcollection, value As String, cargcodestruc As xmlunpkd.linecodestruc)
-        If value.StartsWith(conrex.COSTR) OrElse value.StartsWith(conrex.DUSTR) Then
+    Public Shared Sub load_string(ByRef ilmethod As ilformat._ilmethodcollection, value As String, cargcodestruc As xmlunpkd.linecodestruc, Optional removefrandenchar As Boolean = True)
+        If value.Length > 1 AndAlso value.StartsWith(conrex.COSTR) AndAlso value.EndsWith(conrex.COSTR) OrElse
+            value.StartsWith(conrex.DUSTR) AndAlso value.EndsWith(conrex.DUSTR) Then
             specificdustrcommand.reset_line_feed(value)
             If value.StartsWith(conrex.DUSTR) Then
                 specificdustrcommand.get_specific_dustr_command(value)
                 If fmtstrlit.action(ilmethod, value, cargcodestruc) Then
-
                     Return
                 End If
             Else
                 specificdustrcommand.rem_specific_cil_char(value)
+                If removefrandenchar Then authfunc.rem_fr_and_en(value)
             End If
-            authfunc.rem_fr_and_en(value)
         End If
         ilmethod.codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
     End Sub
