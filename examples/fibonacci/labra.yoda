@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "Fibonacci"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
