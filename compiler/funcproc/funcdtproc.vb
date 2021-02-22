@@ -4,6 +4,7 @@
         Dim filename As String
         Dim methods() As tknformat._method
         Dim fields() As tknformat._pubfield
+        Dim enums() As tknformat._enum
     End Structure
 
     Friend Shared reffunc() As _referfuncdata
@@ -22,6 +23,7 @@
         reffunc(index).filename = classdt.name
         reffunc(index).fields = classdt.fields
         reffunc(index).methods = classdt.methods
+        reffunc(index).enums = classdt.enums
         If classdt.attribute._app._namespace <> conrex.NULL Then
             reffunc(index).classname = classdt.attribute._app._namespace & conrex.DOT
         End If
@@ -104,5 +106,20 @@
     End Function
     Friend Shared Function get_field_info(classindex As Integer, fieldindex As Integer) As tknformat._pubfield
         Return reffunc(classindex).fields(fieldindex)
+    End Function
+
+    Friend Shared Function get_index_enum(ByRef identifier As String, classindex As Integer) As Integer
+        If IsNothing(reffunc(classindex).enums) Then Return -1
+        identifier = identifier.ToLower
+        For index = 0 To reffunc(classindex).enums.Length - 1
+            If reffunc(classindex).enums(index).name.ToLower = identifier Then
+                identifier = reffunc(classindex).enums(index).name
+                Return index
+            End If
+        Next
+        Return -1
+    End Function
+    Friend Shared Function get_enum_info(classindex As Integer, enumsindex As Integer) As tknformat._enum
+        Return reffunc(classindex).enums(enumsindex)
     End Function
 End Class
