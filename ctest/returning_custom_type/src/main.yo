@@ -2,7 +2,7 @@
 include 'ystdio'
 func main()
 {
- let sb : System.Text.StringBuilder()
+ let sb : System.Text.StringBuilder
  sb := get_string_builder()
  let result : str = sb::ToString()
  io::print(result)
