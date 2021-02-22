@@ -170,7 +170,7 @@ tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, toke
     Private Shared Sub st_ret()
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.RETURN)
-        add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
+        add_token(exptokenslist, tokenhared.token.EXPRESSION, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
 tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
         set_syntax_loader(statements.RET, "Return Statement", exptokenslist, "return [IDENTIFIER|STRING|INTEGER|...]")
     End Sub
