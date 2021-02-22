@@ -1,0 +1,26 @@
+#[app::classname("Fibonacci")]
+#[app::wait(true)]
+include 'ystdio'
+
+func main()
+{
+  for(num in [0..=10])
+  {
+    let result : i32 = get_fibonacci(num)
+    io::println("#{result}")
+  }
+}
+
+func get_fibonacci(num:i32) : i32
+{
+  let aset , icounter , bset : i32
+  bset:= 1
+  while(icounter << num)
+  {
+    let temp : i32 = aset
+    aset := bset
+    bset := [temp + bset]
+    icounter += 1
+  }
+  return aset
+}
