@@ -22,11 +22,13 @@ Public Class libserv
             Next
         End If
     End Sub
-    Friend Shared Function get_extern_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer, Optional ByRef isvirtualmethod As Boolean = False) As Integer
+    Friend Shared Function get_extern_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer, Optional ByRef isvirtualmethod As Boolean = False, Optional ByRef reclassname As String = Nothing) As Integer
         Dim classchename As String = String.Empty
         If IsNothing(_ilmethod.locallinit) = False Then
             get_identifier_ns(_ilmethod, classname, isvirtualmethod)
         End If
+        check_common_data_type(classname, reclassname)
+
         Dim resultclassindex As mapstoredata.dataresult = libreg.externtypes.find(classname, True, classchename)
         If resultclassindex.issuccessful Then
             classname = classchename
@@ -39,6 +41,14 @@ Public Class libserv
         End If
     End Function
 
+    Friend Shared Sub check_common_data_type(ByRef classname As String, ByRef reclassname As String)
+        If servinterface.is_cil_common_data_type(classname) Then
+            reclassname = classname
+            classname = "System." & servinterface.cil_to_vb_common_data_type(classname)
+        Else
+            reclassname = String.Empty
+        End If
+    End Sub
     Friend Shared Sub get_return_type(methodname As String, namespaceindex As Integer, classindex As Integer, methodindex As Integer, ByRef greturntype As String, ByRef gexternassembly As String)
         greturntype = libreg.types(namespaceindex)(classindex).GetMethods()(methodindex).ReturnType.ToString
         gexternassembly = libreg.types(namespaceindex)(classindex).GetMethods()(methodindex).ReturnType.Assembly.GetName.Name
