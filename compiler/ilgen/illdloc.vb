@@ -1,6 +1,7 @@
 ﻿Public Class illdloc
     Public _ilmethod As ilformat._ilmethodcollection
     Private Shared ldptr As Boolean = False
+    Friend Shared ldindx As Boolean = False
     Public Sub New(_ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = _ilmethod
     End Sub
@@ -68,10 +69,12 @@
                     ldbool(cargcodestruc(index), getdatatype)
                 Case Else
                     'Other Types
+                    ld_identifier(cargcodestruc(index).value, _ilmethod, cargcodestruc(index), Nothing, getdatatype)
             End Select
         Next
 
         ldptr = False
+        ldindx = False
         Return _ilmethod
     End Function
 
@@ -93,6 +96,9 @@
                 'Other Types
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
         End Select
+
+        ldptr = False
+        ldindx = False
 
         Return _ilmethod
     End Function
@@ -189,15 +195,31 @@
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).modifier = "static" Then
-                            cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
                         Else
-                            cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
                         End If
                     Else
                         If ilasmgen.classdata.fields(index).modifier = "static" Then
-                            cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
                         Else
-                            cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
                         End If
                     End If
                     Return True
@@ -226,6 +248,9 @@
                     If ldptr Then
                         cil.load_local_address(_ilmethod.codes, nvar)
                         Return True
+                    ElseIf ldindx Then
+                        cil.ldloca(_ilmethod.codes, nvar)
+                        Return True
                     Else
                         cil.load_local_variable(_ilmethod.codes, nvar)
                         Return True
@@ -252,7 +277,10 @@
                 End If
 
                 If datatype = getcildatatype Then
-                    If ldptr Then
+                    If ldindx Then
+                        cil.ldarga(_ilmethod.codes, nvar)
+                        Return True
+                    ElseIf ldptr Then
                         cil.load_local_address(_ilmethod.codes, nvar)
                         Return True
                     ElseIf _ilmethod.parameter(index).ispointer Then
