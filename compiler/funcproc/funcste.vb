@@ -14,8 +14,9 @@ Public Class funcste
 
     Friend Shared Sub inv_external_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
         Dim classindex, namespaceindex As Integer
+        Dim reclassname As String = String.Empty
         Dim isvirtualmethod As Boolean = False
-        If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex, isvirtualmethod) = -1 Then
+        If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
             dserr.args.Add("Class " & classname & " not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
@@ -41,7 +42,14 @@ Public Class funcste
                 gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
                 gidentifier.ile = gidentifier.value.Length
             End If
-            ldloc.load_single_in_stack(classname, gidentifier)
+            If reclassname <> String.Empty Then
+                If reclassname <> "string" Then
+                    illdloc.ldindx = True
+                End If
+            Else
+                reclassname = classname
+            End If
+            ldloc.load_single_in_stack(reclassname, gidentifier)
         End If
 
         Dim paramtype As ArrayList
@@ -61,7 +69,7 @@ Public Class funcste
             Dim freturntype As String = String.Format("[{0}]{1}", gexternassembly, greturntype)
             cil.call_virtual_method(_ilmethod.codes, freturntype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
         Else
-                cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
+            cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
         End If
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
