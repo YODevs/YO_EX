@@ -148,6 +148,14 @@ Public Class servinterface
         Return datatype
     End Function
 
+    Friend Shared Function cil_to_vb_common_data_type(datatype As String) As String
+        For index = 0 To conrex.plvbcommondatatype.Length - 1
+            If datatype = conrex.msilcommondatatype(index) Then
+                Return conrex.plvbcommondatatype(index)
+            End If
+        Next
+        Return datatype
+    End Function
     Friend Shared Function get_yo_common_data_type(datatype As String, ByRef yodatatype As String) As Boolean
         datatype = datatype.ToLower
         For index = 0 To conrex.yocommondatatype.Length - 1
