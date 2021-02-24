@@ -103,6 +103,21 @@
     Public Shared Sub load_argument(ByRef codes As ArrayList, name As String)
         codes.Add("ldarg " & name)
     End Sub
+
+    Public Shared Sub ldloca(ByRef codes As ArrayList, name As String)
+        codes.Add("ldloca " & name)
+    End Sub
+
+    Public Shared Sub ldarga(ByRef codes As ArrayList, name As String)
+        codes.Add("ldarga " & name)
+    End Sub
+
+    Public Shared Sub ldflda(ByRef codes As ArrayList, name As String)
+        codes.Add("ldflda " & name)
+    End Sub
+    Public Shared Sub ldsflda(ByRef codes As ArrayList, name As String)
+        codes.Add("ldsflda " & name)
+    End Sub
     Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
         codes.Add("call string [mscorlib]System.Convert::ToString(" & ptype & ")")
     End Sub
