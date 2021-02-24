@@ -21,10 +21,30 @@ Public Class libserv
                 End If
             Next
         End If
+        If IsNothing(_ilmethod.parameter) = False Then
+            For index = 0 To _ilmethod.parameter.Length - 1
+                If _ilmethod.parameter(index).name <> conrex.NULL AndAlso classname.ToLower = _ilmethod.parameter(index).name.ToLower Then
+                    classname = _ilmethod.parameter(index).datatype
+                    servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, classname)
+                    isvirtualmethod = True
+                    Return
+                End If
+            Next
+        End If
+        If IsNothing(ilasmgen.classdata.fields) = False Then
+            For index = 0 To ilasmgen.classdata.fields.Length - 1
+                If ilasmgen.classdata.fields(index).name <> conrex.NULL AndAlso classname.ToLower = ilasmgen.classdata.fields(index).name.ToLower Then
+                    classname = ilasmgen.classdata.fields(index).ptype
+                    servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, classname)
+                    isvirtualmethod = True
+                    Return
+                End If
+            Next
+        End If
     End Sub
     Friend Shared Function get_extern_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer, Optional ByRef isvirtualmethod As Boolean = False, Optional ByRef reclassname As String = Nothing) As Integer
         Dim classchename As String = String.Empty
-        If IsNothing(_ilmethod.locallinit) = False Then
+        If IsNothing(_ilmethod.locallinit) = False OrElse IsNothing(_ilmethod.parameter) = False Then
             get_identifier_ns(_ilmethod, classname, isvirtualmethod)
         End If
         check_common_data_type(classname, reclassname)
