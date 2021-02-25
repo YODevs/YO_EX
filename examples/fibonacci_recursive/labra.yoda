@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "fibonacci_recursive"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

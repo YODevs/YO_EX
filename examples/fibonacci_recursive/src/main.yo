@@ -1,0 +1,23 @@
+#[app::classname("Fibonacci")]
+#[app::wait(true)]
+include 'ystdio'
+func main()
+{
+  for(num in [0..=10])
+  {
+    let result : i32 = get_fibonacci(num)
+    io::println("#{result}")
+  }
+}
+
+func get_fibonacci(num:i32) : i32
+{
+  let aset , bset , result : i32
+  bset := 1
+  if(num == 0) { return 0 }
+  if(num == 1) { return 1 }
+  aset := get_fibonacci([num - 1])
+  bset := get_fibonacci([num - 2])
+  result := [aset + bset]
+  return result
+}
