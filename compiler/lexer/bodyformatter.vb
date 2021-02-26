@@ -73,6 +73,8 @@
                 imp_formatting_token("CDTY", value, rd_token, linecinf)
             Case tokenhared.token.EXPRESSION
                 imp_formatting_token("EXPR", value, rd_token, linecinf)
+            Case tokenhared.token.EXPLTYPECAST
+                imp_formatting_token("EXPL", value, rd_token, linecinf)
             Case tokenhared.token.RANGE
                 imp_formatting_token("RNG", value, rd_token, linecinf)
             Case tokenhared.token.CIL_BLOCK
