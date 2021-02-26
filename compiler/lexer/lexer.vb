@@ -464,6 +464,10 @@ Public Class lexer
     Private Function rev_expression(ByRef value As String) As Boolean
         If value.StartsWith("[") AndAlso value.EndsWith("]") Then
             If value.Contains(conrex.DBDOT) = False Then
+                If rev_typecasting(value) Then
+                    rd_token = tokenhared.token.EXPLTYPECAST
+                    Return True
+                End If
                 For index = 0 To compdt.expressionact.Length - 1
                     If value.Contains(compdt.expressionact(index)) Then
                         rd_token = tokenhared.token.EXPRESSION
@@ -479,6 +483,10 @@ Public Class lexer
             Return False
         End If
         Return False
+    End Function
+    Private Function rev_typecasting(value As String) As Boolean
+        authfunc.rem_fr_and_en(value)
+        Return servinterface.is_common_data_type(value, Nothing)
     End Function
     Private Function rev_range(value As String) As Boolean
         If value.Contains(conrex.DBDOT) Then
