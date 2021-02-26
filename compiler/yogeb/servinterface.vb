@@ -260,7 +260,7 @@ Public Class servinterface
         If IsNothing(ilasmgen.classdata.fields) = False Then
             For index = 0 To ilasmgen.classdata.fields.Length - 1
                 If ilasmgen.classdata.fields(index).name.ToLower = varname Then
-                    getdatatype = ilasmgen.classdata.fields(index).ptype
+                    servinterface.is_common_data_type(ilasmgen.classdata.fields(index).ptype, getdatatype)
                     Return True
                 End If
             Next
