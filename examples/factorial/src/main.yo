@@ -1,0 +1,20 @@
+#[app::classname("factorial")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+  let fact : i32 = factorial(5)
+  io::print("Factorial of '5' is #{fact}")
+}
+
+func factorial(number:i32) : i32
+{
+  if(number == 0)
+  {
+    return 1
+  }
+  let result : i32 = number
+  result *= factorial([number-1])
+  return result
+}
