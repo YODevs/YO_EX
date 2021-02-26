@@ -220,5 +220,6 @@
         INIT = 85
         INCLUDE = 86
         [ENUM] = 87
+        [EXPLTYPECAST] = 88
     End Enum
 End Class
