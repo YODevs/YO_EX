@@ -52,6 +52,7 @@
         INCLUDEERROR
         TARGETFRAMEWORKERROR
         CONSTRUCTORERROR
+        TYPECASTINGERROR
     End Enum
 
     Enum errorpriority
@@ -134,5 +135,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.INCLUDEERROR, errorpriority.STOP, "Include error", "{0}")
         set_new_error(errortype.TARGETFRAMEWORKERROR, errorpriority.STOP, "Target framework error", "The target version of the framework ({0}) is not installed on this system.")
         set_new_error(errortype.CONSTRUCTORERROR, errorpriority.STOP, "Constructor error", "The initial value of the object is incorrect.")
+        set_new_error(errortype.TYPECASTINGERROR, errorpriority.STOP, "Type casting error", "Type Casting operation failed.")
     End Sub
 End Class
