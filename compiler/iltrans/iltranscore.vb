@@ -195,6 +195,7 @@
             Return
         End If
         Dim dtassign As identifierassignmentinfo = get_iden_names(clinecodestruc, inline)
+        convtc.is_type_casting(clinecodestruc, inline)
 
         Select Case tokenhared.check_sym(dtassign.optval)
             Case tokenhared.token.ASSIDB
@@ -406,6 +407,7 @@
                     End If
                 End If
                 End If
+
 
             Select Case localvartype.result
                 Case "str"
