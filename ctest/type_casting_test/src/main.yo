@@ -1,0 +1,61 @@
+#[app::classname("MyApp")]
+
+include 'ystdio'
+
+let public static ch : char = "A"
+func main()
+{
+  test1()
+  test2()
+  test3(true)
+  let i : f32 = 10.215
+  test4(i)
+  test5("10.602")
+  test6()
+}
+
+func test1()
+{
+  let number : i32 = 10
+  let text : str
+  text := [str]number
+  io::println(text)
+}
+
+func test2()
+{
+  let number : i32 = 0
+  let text : str = "20"
+  number := [i32]text
+  io::println("#{number}")
+}
+
+func test3(val:bool)
+{
+  let result : str
+  result := [str]val
+  io::println(result)
+}
+
+func test4(i:f32&)
+{
+  let result : str
+  result := [str]i
+  io::println(result)
+}
+
+func test5(val:str)
+{
+  let f : f32 = 0
+  f := [f32]val
+  f += 5
+  val := [str]f
+  io::println(val)
+}
+
+func test6()
+{
+  let result : str
+  result := [str]ch
+  io::println(result)
+}
