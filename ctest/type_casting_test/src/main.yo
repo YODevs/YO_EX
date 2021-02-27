@@ -12,6 +12,7 @@ func main()
   test4(i)
   test5("10.602")
   test6()
+  test7()
 }
 
 func test1()
@@ -57,5 +58,14 @@ func test6()
 {
   let result : str
   result := [str]ch
+  io::println(result)
+}
+
+func test7()
+{
+  let result : str = "10"
+  let i : i32 = 5
+  i += [i32]result
+  result := [str]i
   io::println(result)
 }
