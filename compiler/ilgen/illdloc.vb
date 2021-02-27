@@ -223,6 +223,39 @@
                         End If
                     End If
                     Return True
+                ElseIf convtc.setconvmethod Then
+                    Dim classname As String = ilasmgen.classdata.attribute._app._classname
+                    If IsNothing(nactorcode) = False Then
+                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
+                        Else
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
+                        End If
+                    Else
+                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
+                        Else
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
+                        End If
+                    End If
+                    convtc.set_type_cast(_ilmethod, ilasmgen.classdata.fields(index).ptype, datatype, nvar, cargcodestruc)
+                    Return True
                 Else
                     dserr.args.Add(ilasmgen.classdata.fields(index).ptype)
                     dserr.args.Add(datatype)
@@ -255,6 +288,16 @@
                         cil.load_local_variable(_ilmethod.codes, nvar)
                         Return True
                     End If
+                ElseIf convtc.setconvmethod Then
+                    If ldptr Then
+                        cil.load_local_address(_ilmethod.codes, nvar)
+                    ElseIf ldindx Then
+                        cil.ldloca(_ilmethod.codes, nvar)
+                    Else
+                        cil.load_local_variable(_ilmethod.codes, nvar)
+                    End If
+                    convtc.set_type_cast(_ilmethod, _ilmethod.locallinit(index).datatype, datatype, nvar, cargcodestruc)
+                    Return True
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
                     dserr.args.Add(datatype)
@@ -291,6 +334,19 @@
                         cil.load_argument(_ilmethod.codes, nvar)
                         Return True
                     End If
+                ElseIf convtc.setconvmethod Then
+                    If ldindx Then
+                        cil.ldarga(_ilmethod.codes, nvar)
+                    ElseIf ldptr Then
+                        cil.load_local_address(_ilmethod.codes, nvar)
+                    ElseIf _ilmethod.parameter(index).ispointer Then
+                        cil.load_argument(_ilmethod.codes, nvar)
+                        cil.load_pointer(_ilmethod.codes, datatype)
+                    Else
+                        cil.load_argument(_ilmethod.codes, nvar)
+                    End If
+                    convtc.set_type_cast(_ilmethod, _ilmethod.parameter(index).datatype, datatype, nvar, cargcodestruc)
+                    Return True
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
                     dserr.args.Add(datatype)
