@@ -1,5 +1,4 @@
 #[app::classname("MyApp")]
-
 include 'ystdio'
 
 let public static ch : char = "A"
@@ -13,6 +12,7 @@ func main()
   test5("10.602")
   test6()
   test7()
+  test8()
 }
 
 func test1()
@@ -68,4 +68,11 @@ func test7()
   i += [i32]result
   result := [str]i
   io::println(result)
+}
+
+func test8()
+{
+  let result : str = "105"
+  let i : i32 = [i32]result
+  io::println("#{i}")
 }
