@@ -35,7 +35,7 @@
         setconvmethod = False
         ntypecast = String.Empty
     End Sub
-    Friend Shared Sub set_type_cast(_ilmethod As ilformat._ilmethodcollection, crdtype As String, nmethod As String, cargcodestruc As xmlunpkd.linecodestruc)
+    Friend Shared Sub set_type_cast(_ilmethod As ilformat._ilmethodcollection, crdtype As String, Optional nmethod As String = conrex.NULL, Optional cargcodestruc As xmlunpkd.linecodestruc = Nothing)
         servinterface.is_common_data_type(ntypecast, ntypecast)
         Dim pconvertparam As New ArrayList
         pconvertparam.Add(crdtype)
