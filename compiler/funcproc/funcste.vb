@@ -22,7 +22,6 @@ Public Class funcste
             Return
         End If
         funcresult.asmextern = libserv.get_extern_assembly(namespaceindex)
-
         Dim methodinfo As New tknformat._method
         Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo)
 
@@ -58,7 +57,7 @@ Public Class funcste
 
         If IsNothing(methodinfo.parameters) = False Then
             ' Print Tokens :
-            '  coutputdata.print_token(clinecodestruc)
+            ' coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype, cargcodestruc)
         End If
         Dim getdatatype As String = methodinfo.returntype
@@ -71,6 +70,8 @@ Public Class funcste
         Else
             cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
         End If
+        If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
+
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
@@ -98,7 +99,7 @@ Public Class funcste
         Dim paramtype As ArrayList
         If IsNothing(methodinfo.parameters) = False Then
             ' Print Tokens :
-            '  coutputdata.print_token(clinecodestruc)
+            ' coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
         End If
 
@@ -114,6 +115,8 @@ Public Class funcste
         Else
             cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype)
         End If
+        If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
+
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
