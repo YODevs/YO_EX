@@ -1,0 +1,13 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+  let rnd : init System.Random()
+  to(5)
+  {
+    let number : i32 = rnd::Next(0,10)
+    io::println("Number -> #{number}")
+  }
+}
