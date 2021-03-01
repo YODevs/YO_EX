@@ -1,4 +1,5 @@
 #[app::classname("MyApp")]
+
 include 'ystdio'
 
 let public static ch : char = "A"
@@ -13,6 +14,7 @@ func main()
   test6()
   test7()
   test8()
+  test9()
 }
 
 func test1()
@@ -75,4 +77,15 @@ func test8()
   let result : str = "105"
   let i : i32 = [i32]result
   io::println("#{i}")
+}
+
+func test9()
+{
+  let pi : str = [str]get_pi()
+  System.Console::Write("PI is #{pi}")
+}
+
+func get_pi() : f32
+{
+  return 3.14
 }
