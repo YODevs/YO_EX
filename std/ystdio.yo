@@ -20,3 +20,9 @@ func getln() : str
   let result : str = System.Console::ReadLine()
   return result
 }
+
+func getnum() : i32
+{
+  let result : i32 = [i32]System.Console::ReadLine()
+  return result
+}
