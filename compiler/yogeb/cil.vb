@@ -382,11 +382,15 @@
     End Sub
 
     Public Shared Sub call_virtual_method(ByRef codes As ArrayList, returntype As String, externlib As String, classprop As String, methodname As String, paramtypes As ArrayList)
-        Dim code As String = "callvirt instance class "
+        Dim code As String = "callvirt instance  "
         If returntype = Nothing Then
             code &= "void"
         Else
-            code &= returntype
+            If servinterface.reset_cil_common_data_type(returntype) Then
+                code &= returntype
+            Else
+                code &= " class " & returntype
+            End If
         End If
         code &= conrex.SPACE
         code &= String.Format("[{2}]{0}::{1}", classprop, methodname, externlib)
