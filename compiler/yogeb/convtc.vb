@@ -35,6 +35,14 @@
         setconvmethod = False
         ntypecast = String.Empty
     End Sub
+    Friend Shared Sub set_type_cast(_ilmethod As ilformat._ilmethodcollection, crdtype As String, nmethod As String, cargcodestruc As xmlunpkd.linecodestruc)
+        servinterface.is_common_data_type(ntypecast, ntypecast)
+        Dim pconvertparam As New ArrayList
+        pconvertparam.Add(crdtype)
+        cil.call_extern_method(_ilmethod.codes, ntypecast, "mscorlib", "System.Convert", get_convert_method(ntypecast), pconvertparam)
+        setconvmethod = False
+        ntypecast = String.Empty
+    End Sub
 
     Friend Shared Function get_convert_method(crdtype As String) As String
         For index = 0 To conrex.msilcommondatatype.Length - 1
