@@ -184,6 +184,17 @@ Public Class servinterface
         End If
     End Sub
 
+    Friend Shared Function reset_cil_common_data_type(ByRef value As String) As Boolean
+        If value.ToString.Contains(conrex.DOT) AndAlso value.StartsWith("[mscorlib]System.") Then
+            Dim getcommondtype As String = value.Remove(0, value.LastIndexOf(conrex.DOT) + 1).ToLower
+            If is_cil_common_data_type(getcommondtype) Then
+                value = getcommondtype
+                Return True
+            End If
+            Return False
+        End If
+        Return False
+    End Function
     Friend Shared Function get_target_info(clinecodestruc As xmlunpkd.linecodestruc) As lexer.targetinf
         Dim linecinf As New lexer.targetinf
         linecinf.lstart = clinecodestruc.ist
