@@ -199,7 +199,7 @@
         Dim dtassign As identifierassignmentinfo = get_iden_names(clinecodestruc, inline)
         convtc.is_type_casting(clinecodestruc, inline)
         If propresult.identvalid Then
-            propertyste.invoke_property(clinecodestruc, _ilmethod, propresult, tokenhared.check_sym(dtassign.optval))
+            propertyste.invoke_property(clinecodestruc, _ilmethod, propresult, inline, tokenhared.check_sym(dtassign.optval))
             Return
         End If
 
