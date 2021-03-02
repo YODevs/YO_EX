@@ -21,7 +21,7 @@
         Return resultvaild
     End Function
     Friend Shared Function check_extern_identifier(clinecodestruc As xmlunpkd.linecodestruc, ByRef resultvalid As _resultidentcvaild) As Boolean
-        If clinecodestruc.tokenid = tokenhared.token.IDENTIFIER AndAlso clinecodestruc.value.Contains("::") = False Then
+        If clinecodestruc.tokenid = tokenhared.token.IDENTIFIER AndAlso clinecodestruc.value.Contains("::") Then
             resultvalid.callintern = False
             set_identifier_valid(clinecodestruc, resultvalid)
         End If
