@@ -103,6 +103,17 @@ Public Class libserv
         Return -1
     End Function
 
+    Friend Shared Function get_extern_index_property(propertyname As String, namespaceindex As Integer, classindex As Integer, ByRef retproperty As PropertyInfo) As Integer
+        propertyname = propertyname.ToLower
+        For Each gproperty In libreg.types(namespaceindex)(classindex).GetProperties()
+            If propertyname = gproperty.Name.ToLower Then
+                retproperty = gproperty
+                Return 1
+            End If
+        Next
+        Return -1
+    End Function
+
     Friend Shared cargldr() As xmlunpkd.linecodestruc = Nothing
     Private Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, gparameters() As ParameterInfo, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
         'TODO : Check Return-Type
