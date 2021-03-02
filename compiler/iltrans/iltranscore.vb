@@ -190,12 +190,18 @@
             funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
             Return
         End If
+        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc(0))
+
         If clinecodestruc.Length < 3 Then
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
             Return
         End If
         Dim dtassign As identifierassignmentinfo = get_iden_names(clinecodestruc, inline)
         convtc.is_type_casting(clinecodestruc, inline)
+        If propresult.identvalid Then
+            propertyste.invoke_property(clinecodestruc, _ilmethod, propresult, tokenhared.check_sym(dtassign.optval))
+            Return
+        End If
 
         Select Case tokenhared.check_sym(dtassign.optval)
             Case tokenhared.token.ASSIDB
@@ -407,7 +413,6 @@
                     End If
                 End If
                 End If
-
 
             Select Case localvartype.result
                 Case "str"
