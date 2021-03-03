@@ -17,7 +17,7 @@ Public Class funcste
         Dim reclassname As String = String.Empty
         Dim isvirtualmethod As Boolean = False
         If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
-            dserr.args.Add("Class " & classname & " not found.")
+            dserr.args.Add("Class '" & classname & "' not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
         End If
