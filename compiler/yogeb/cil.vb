@@ -386,7 +386,7 @@
         If returntype = Nothing Then
             code &= "void"
         Else
-            If servinterface.reset_cil_common_data_type(returntype) Then
+            If servinterface.reset_cil_common_data_type(returntype) OrElse servinterface.is_cil_common_data_type(returntype) Then
                 code &= returntype
             Else
                 code &= " class " & returntype
