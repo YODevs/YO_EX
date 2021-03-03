@@ -376,4 +376,12 @@ Public Class servinterface
         coutputdata.write_data(cpath)
         Return cpath
     End Function
+
+    Friend Shared Function create_fake_linecodestruc(token As tokenhared.token, value As String) As xmlunpkd.linecodestruc
+        Dim clinecodestruc As New xmlunpkd.linecodestruc
+        clinecodestruc.tokenid = token
+        clinecodestruc.value = value
+        clinecodestruc.name = [Enum].GetName(GetType(tokenhared.token), token)
+        Return clinecodestruc
+    End Function
 End Class
