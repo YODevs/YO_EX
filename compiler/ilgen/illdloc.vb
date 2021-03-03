@@ -109,6 +109,11 @@
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 Return True
             End If
+            Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(rlinecodestruc(0))
+            If propresult.identvalid Then
+                propertyste.get_inv_property(rlinecodestruc, _ilmethod, propresult, 0)
+                Return True
+            End If
         End If
 
         If IsNothing(_ilmethod.locallinit) = False OrElse nvar.Contains(compdt.FLAGPERFIX) Then
