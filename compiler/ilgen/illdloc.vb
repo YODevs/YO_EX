@@ -103,17 +103,20 @@
         Return _ilmethod
     End Function
     Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, rlinecodestruc() As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        Dim clineprop As xmlunpkd.linecodestruc = cargcodestruc
         If IsNothing(rlinecodestruc) = False Then
             Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(rlinecodestruc)
             If funcresult.funcvalid Then
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 Return True
             End If
-            Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(rlinecodestruc(0))
-            If propresult.identvalid Then
-                propertyste.get_inv_property(rlinecodestruc, _ilmethod, propresult, 0)
-                Return True
-            End If
+            clineprop = rlinecodestruc(0)
+        End If
+
+        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clineprop)
+        If propresult.identvalid Then
+            propertyste.get_inv_property(New xmlunpkd.linecodestruc() {clineprop}, _ilmethod, propresult, 0)
+            Return True
         End If
 
         If IsNothing(_ilmethod.locallinit) = False OrElse nvar.Contains(compdt.FLAGPERFIX) Then
