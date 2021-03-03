@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Reflection
 Imports YOCA
 
 Public Class servinterface
@@ -248,6 +249,28 @@ Public Class servinterface
     End Function
 
     Friend Shared Function is_variable(ilmethod As ilformat._ilmethodcollection, varname As String, ByRef getdatatype As String) As Boolean
+        If varname.Contains(conrex.DBCLN) Then
+            Dim clinecodestruc As xmlunpkd.linecodestruc = create_fake_linecodestruc(tokenhared.token.IDENTIFIER, varname)
+            Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc)
+            If propresult.identvalid Then
+                Dim classindex, namespaceindex As Integer
+                Dim reclassname As String = String.Empty
+                Dim isvirtualmethod As Boolean = False
+                If libserv.get_extern_index_class(ilmethod, propresult.exclass, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
+                    Return False
+                End If
+                propresult.asmextern = libserv.get_extern_assembly(namespaceindex)
+                Dim retpropertyinfo As PropertyInfo
+                If libserv.get_extern_index_property(propresult.clident, namespaceindex, classindex, retpropertyinfo) = -1 Then
+                    Return False
+                End If
+                getdatatype = servinterface.vb_to_cil_common_data_type(retpropertyinfo.PropertyType.Name)
+                If servinterface.is_cil_common_data_type(getdatatype) = False Then
+                    getdatatype = retpropertyinfo.PropertyType.ToString
+                End If
+                Return True
+            End If
+        End If
         varname = varname.ToLower
         If IsNothing(ilmethod.parameter) = False Then
             For index = 0 To ilmethod.parameter.Length - 1
