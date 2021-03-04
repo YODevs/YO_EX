@@ -22,6 +22,7 @@
     Friend Shared MUTEPROCESS As Boolean = False
     Friend Shared DISABLEWARNINGS As Boolean = False
     Friend Shared EXECTIME As Boolean = False
+    Friend Shared COMPILETIME As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
@@ -35,4 +36,5 @@ pop"
     Friend Const PARAM_MUTE_PROCESS As String = "--mute_process"
     Friend Const PARAM_DISABLE_WARNINGS As String = "--disable_warnings"
     Friend Const PARAM_DISPLAY_EXEC_TIME As String = "--execution_time"
+    Friend Const PARAM_DISPLAY_COMPILE_TIME As String = "--compile_time"
 End Class
