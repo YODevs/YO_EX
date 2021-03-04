@@ -109,8 +109,11 @@ You can type 'Help' to view commands.")
         compdt.DISPLAYTOKENWLEX = argstorelist.find(compdt.PARAM_DISPLAYTOKENLEX, True)
         compdt.DISPLAYSTACKTRACE = argstorelist.find(compdt.PARAM_DISPLAYSTACKTRACE, True)
         compdt.DISABLEWARNINGS = argstorelist.find(compdt.PARAM_DISABLE_WARNINGS, True)
+        compdt.COMPILETIME = argstorelist.find(compdt.PARAM_DISPLAY_COMPILE_TIME, True)
+        If compdt.COMPILETIME Then compile_time(True)
         Dim projflow As New cprojflow()
         projflow.start_project_flow()
+        If compdt.COMPILETIME Then compile_time(False)
         If argstorelist.find(compdt.PARAM_IMPASSETS, True) Then impassets.copy_assets()
     End Sub
     Public Sub rp_run(args As ArrayList)
@@ -129,6 +132,12 @@ You can type 'Help' to view commands.")
         End If
     End Sub
 
+    Private Sub compile_time(firststage As Boolean)
+        Static frcompiletime As Date = Date.Now
+        If firststage = False Then
+            Console.WriteLine("Compile time : {0} ", Date.Now.Subtract(frcompiletime).ToString)
+        End If
+    End Sub
     Private Sub exec_time(appproc As Process)
         Dim tsp As TimeSpan = appproc.ExitTime.Subtract(appproc.StartTime)
         Console.WriteLine("Time measured ( + process call delay ) : {0} ", tsp.ToString)
