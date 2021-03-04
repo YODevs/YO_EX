@@ -141,6 +141,7 @@ Public Class funcste
                 paramtypes.Add(getcildatatype)
             Else
                 'Other Types...
+                paramtypes.Add(methodinfo.parameters(index).ptype)
             End If
         Next
         set_stack_space(_ilmethod, paramtypes, cargcodestruc)
