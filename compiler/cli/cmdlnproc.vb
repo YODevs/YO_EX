@@ -41,8 +41,8 @@
         Return -1
     End Function
     Public Shared Sub init_command_struct()
-        set_new_command(cmdtype.BUILD, "build", True, 6)
-        set_new_command(cmdtype.RUN, "run", True, 7)
+        set_new_command(cmdtype.BUILD, "build", True, 7)
+        set_new_command(cmdtype.RUN, "run", True, 8)
         set_new_command(cmdtype.CHECK, "check", True, 5)
         set_new_command(cmdtype.INIT, "init")
         set_new_command(cmdtype.IMPORT, "import")
