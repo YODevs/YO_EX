@@ -71,6 +71,7 @@
         For index = 0 To _method.parameters.Length - 1
             Dim ciltype As String = conrex.NULL
             servinterface.is_common_data_type(_method.parameters(index).ptype, ciltype)
+            If ciltype = String.Empty Then ciltype = _method.parameters(index).ptype
             paramtypes.Add(ciltype)
         Next
 
