@@ -2,6 +2,8 @@
 "build" = "Compile a project and build an output (.dll, .exe, etc.).
 Usage : yoca build <options>
 *** Options ***
+--compile_time
+Display project compilation time.
 --debug
 Disable JIT optimization, create PDB file, use sequence points from PDB.
 --debug_impl
@@ -24,6 +26,8 @@ The Build command must be called next to labra.yoda file by the Command Prompt."
 "run" = "Compile a project and execute it.
 Usage : yoca run <options>
 *** Options ***
+--compile_time
+Display project compilation time.
 --debug
 Disable JIT optimization, create PDB file, use sequence points from PDB.
 --debug_impl
