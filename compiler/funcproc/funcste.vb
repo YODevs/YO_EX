@@ -143,14 +143,14 @@ Public Class funcste
                 emptyparamtypes.Add(getcildatatype)
             Else
                 'Other Types...
-                emptyparamtypes.Add(methodinfo.parameters(index).ptype)
                 set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index).ptype, cargcodestruc)
+                emptyparamtypes.Add(methodinfo.parameters(index).ptype)
             End If
         Next
         set_stack_space(_ilmethod, emptyparamtypes, cargcodestruc)
     End Sub
 
-    Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, ptype As String, cargcodestruc As xmlunpkd.linecodestruc())
+    Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, ByRef ptype As String, cargcodestruc As xmlunpkd.linecodestruc())
         Dim classindex, namespaceindex As Integer
         Dim reclassname As String = String.Empty
         If libserv.get_extern_index_class(_ilmethod, ptype, namespaceindex, classindex, Nothing, reclassname) = -1 Then
