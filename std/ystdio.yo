@@ -10,6 +10,11 @@ func println(val:str) : void
   System.Console::WriteLine(val)
 }
 
+func newline()
+{
+  System.Console::WriteLine()
+}
+
 func wait() : void
 {
   System.Console::ReadLine()
