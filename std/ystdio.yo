@@ -10,7 +10,7 @@ func println(val:str) : void
   System.Console::WriteLine(val)
 }
 
-func newline()
+func newline() : void
 {
   System.Console::WriteLine()
 }
@@ -18,6 +18,15 @@ func newline()
 func wait() : void
 {
   System.Console::ReadLine()
+}
+
+func setin(result:str&,description:str) : void
+{
+  if(description <> NULL )
+  {
+    print(description)
+  }
+  result := getln()
 }
 
 func getln() : str
