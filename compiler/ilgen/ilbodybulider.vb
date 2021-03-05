@@ -151,6 +151,17 @@ call instance void [mscorlib]System.Object::.ctor()")
                 add_inline_code(cildatatype)
             Else
                 'Other Types ...
+                cildatatype = funcdt.parameter(index).datatype
+                Dim classindex, namespaceindex As Integer
+                Dim reclassname As String = String.Empty
+                If libserv.get_extern_index_class(funcdt, cildatatype, namespaceindex, classindex, Nothing, reclassname) = -1 Then
+                    dserr.args.Add("Class '" & funcdt.parameter(index).datatype & "' not found.")
+                    dserr.new_error(conserr.errortype.METHODERROR, -1, "", "Method : " & funcdt.name)
+                    Return
+                End If
+                Dim gcodeparam As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(namespaceindex), cildatatype)
+                If funcdt.parameter(index).ispointer Then gcodeparam &= "&"
+                add_inline_code(gcodeparam)
             End If
 
             add_inline_code(conrex.SPACE)
