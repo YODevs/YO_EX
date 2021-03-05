@@ -1,0 +1,24 @@
+#[app::classname("PowerApp")]
+#[app::wait(true)]
+include 'ystdio'
+
+func main()
+{
+  io::print("Base : ")
+  let baseinput : i32 = [i32]io::getln()
+  io::print("Power : ")
+  let powerinput : i32 = [i32]io::getln()
+  io::newline()
+  let pow : i32 = power(baseinput,powerinput)
+  io::println("#{baseinput} ^ #{powerinput} = #{pow}")
+}
+
+func power(base : i32 , power : i32) : i32
+{
+  let result : i32 = base
+  to(power)
+  {
+    result *= base
+  }
+  return result
+}
