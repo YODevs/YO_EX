@@ -75,6 +75,8 @@ Public Class propertyste
                 cil.div(_ilmethod.codes)
             Case tokenhared.token.ASTERISKEQ
                 cil.mul(_ilmethod.codes)
+            Case tokenhared.token.REMEQ
+                cil.[rem](_ilmethod.codes)
         End Select
     End Sub
 
