@@ -69,6 +69,12 @@ Public Class propertyste
                 cil.concat_simple(_ilmethod.codes)
             Case tokenhared.token.PLUSEQ
                 cil.add(_ilmethod.codes)
+            Case tokenhared.token.MINUSEQ
+                cil.sub(_ilmethod.codes)
+            Case tokenhared.token.SLASHEQ
+                cil.div(_ilmethod.codes)
+            Case tokenhared.token.ASTERISKEQ
+                cil.mul(_ilmethod.codes)
         End Select
     End Sub
 
