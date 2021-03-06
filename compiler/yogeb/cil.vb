@@ -271,6 +271,9 @@
     Public Shared Sub div(ByRef codes As ArrayList)
         codes.Add("div")
     End Sub
+    Public Shared Sub [rem](ByRef codes As ArrayList)
+        codes.Add("rem")
+    End Sub
     Public Shared Sub pop(ByRef codes As ArrayList)
         codes.Add("pop")
     End Sub
