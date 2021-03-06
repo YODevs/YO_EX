@@ -28,10 +28,13 @@ Public Class propertyste
         End If
         can_write(retpropertyinfo, propresult, clinecodestruc)
         'TODO : Properties support operators
-        set_property(_ilmethod, retpropertyinfo, isvirtualmethod, inline, clinecodestruc, propresult)
+        If optval <> tokenhared.token.ASSIDB Then
+            get_inv_property(clinecodestruc, _ilmethod, propresult, inline)
+        End If
+        set_property(_ilmethod, retpropertyinfo, isvirtualmethod, inline, clinecodestruc, propresult, optval)
     End Sub
 
-    Private Shared Sub set_property(_ilmethod As ilformat._ilmethodcollection, retpropertyinfo As PropertyInfo, isvirtualmethod As Boolean, inline As Integer, clinecodestruc() As xmlunpkd.linecodestruc, propresult As identvalid._resultidentcvaild)
+    Private Shared Sub set_property(_ilmethod As ilformat._ilmethodcollection, retpropertyinfo As PropertyInfo, isvirtualmethod As Boolean, inline As Integer, clinecodestruc() As xmlunpkd.linecodestruc, propresult As identvalid._resultidentcvaild, optval As tokenhared.token)
         Dim ldloc As New illdloc(_ilmethod)
         Dim gdatatype As String = retpropertyinfo.PropertyType.Name
         gdatatype = servinterface.vb_to_cil_common_data_type(gdatatype)
@@ -51,12 +54,20 @@ Public Class propertyste
             End If
             ldloc.load_single_in_stack(retpropertyinfo.ReflectedType.ToString, gidentifier)
         End If
+        check_operator(optval, _ilmethod)
         If isvirtualmethod Then
             cil.call_virtual_method(_ilmethod.codes, "void", propresult.asmextern, propertyclass, propertymethod, paramtype)
         Else
             cil.call_extern_method(_ilmethod.codes, "void", propresult.asmextern, propertyclass, propertymethod, paramtype)
         End If
         If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, gdatatype, propertymethod, clinecodestruc(inline))
+    End Sub
+
+    Private Shared Sub check_operator(optval As tokenhared.token, _ilmethod As ilformat._ilmethodcollection)
+        Select Case optval
+            Case tokenhared.token.ANDEQ
+                cil.concat_simple(_ilmethod.codes)
+        End Select
     End Sub
 
     Private Shared Sub can_write(retpropertyinfo As PropertyInfo, propresult As identvalid._resultidentcvaild, clinecodestruc() As xmlunpkd.linecodestruc)
