@@ -67,6 +67,8 @@ Public Class propertyste
         Select Case optval
             Case tokenhared.token.ANDEQ
                 cil.concat_simple(_ilmethod.codes)
+            Case tokenhared.token.PLUSEQ
+                cil.add(_ilmethod.codes)
         End Select
     End Sub
 
