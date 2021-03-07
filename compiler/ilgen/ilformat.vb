@@ -5,6 +5,7 @@
         Dim ilfmtdata As ildata
     End Structure
     Public Structure ildata
+        Dim enumeration() As tknformat._enum
         Dim ilmethod() As _ilmethodcollection
         Dim assemblyextern() As _ilassemblyextern
         Dim modulename As String
@@ -28,7 +29,6 @@
         Dim line As ArrayList
         Dim isexpr As Boolean
     End Structure
-
     Public Structure _returninfo
         Dim asmextern As String
         Dim classname As String
