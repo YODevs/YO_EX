@@ -444,11 +444,15 @@
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
         xclass(0).includelist = includelist
-        xclass(0).enums = xenum
         If IsNothing(xfield) = False AndAlso xfield.Length = 1 AndAlso xfield(0).name = conrex.NULL Then
             xclass(0).fields = Nothing
         Else
             xclass(0).fields = xfield
+        End If
+        If IsNothing(xenum) = False AndAlso xenum.Length = 1 AndAlso xenum(0).name = conrex.NULL Then
+            xclass(0).enums = Nothing
+        Else
+            xclass(0).enums = xenum
         End If
         Return xclass(0)
     End Function
@@ -461,5 +465,4 @@
         paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
         incstate = includestate.OUT
     End Sub
-
 End Class
