@@ -1,4 +1,6 @@
-﻿Public Class ilbodybulider
+﻿Imports YOCA
+
+Public Class ilbodybulider
 
     Public ildt As ilformat.ildata
     Friend Shared path As String
@@ -29,6 +31,8 @@
         imp_ctor()
 
         newline()
+        imp_enum(ildt.enumeration)
+        newline()
 
         For index = 0 To ildt.ilmethod.Length - 1
             newline()
@@ -40,6 +44,21 @@
 
         Return source
     End Function
+
+    Private Sub imp_enum(enumeration() As tknformat._enum)
+        If IsNothing(enumeration) Then Return
+        For index = 0 To enumeration.Length - 1
+            add_il_code(String.Format(".class nested public auto ansi sealed {0}
+        extends [mscorlib]System.Enum", enumeration(index).name))
+            add_st_block()
+            add_il_code(".field public specialname rtspecialname int32 value__")
+            For itemindex = 0 To enumeration(index).constkeys.Count - 1
+                add_il_code(String.Format(".field public static literal valuetype {0}/{1} {2} = int32({3})", attribute._app._classname, enumeration(index).name, enumeration(index).constkeys(itemindex).ToString, enumeration(index).constvalues(itemindex).ToString))
+            Next
+            add_en_block()
+        Next
+        newline()
+    End Sub
 
     Public Sub imp_ctor()
 
