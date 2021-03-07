@@ -25,6 +25,7 @@
         'Public fields ...
         _ilfunc = New ilfuncgen(ilcollection, yoclassdt)
         ilbodybulider.path = yoclassdt.location
+        ilcollection.enumeration = yoclassdt.enums
         set_fields(yoclassdt, ilcollection)
         localinitdata.import_fields(yoclassdt.fields)
         ilcollection.ilmethod = _ilfunc.gen()
