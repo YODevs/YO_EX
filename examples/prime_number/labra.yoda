@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "prime_number"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
