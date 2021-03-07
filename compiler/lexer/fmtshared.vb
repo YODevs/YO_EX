@@ -193,6 +193,7 @@
                         xenum(i).constvalues.Add(consval)
                         enumstate = enumerationcursor.OUT
                         state = statecursor.OUT
+                        i += 1
                     Case Else
                         dserr.args.Add(value)
                         dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use the ',' separator." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), )
