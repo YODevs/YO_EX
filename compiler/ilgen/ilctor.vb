@@ -39,8 +39,9 @@ Public Class ilctor
     Private Sub invoke_constructor(glinecodestruc As xmlunpkd.linecodestruc(), resultfunc As funcvalid._resultfuncvaild, ctorinf As ctorinfo)
         resultfunc.asmextern = libserv.get_extern_assembly(ctorinf.namespaceindex)
         Dim ctormethodinfo As ConstructorInfo
+        Dim methodinfo As New tknformat._method
         rep_constructor_param(glinecodestruc)
-        Dim stateprop As Integer = libserv.get_extern_index_constructor(_ilmethod, funcste.get_argument_list(glinecodestruc), ctorinf.namespaceindex, ctorinf.classindex, ctormethodinfo)
+        Dim stateprop As Integer = libserv.get_extern_index_constructor(_ilmethod, funcste.get_argument_list(glinecodestruc), ctorinf.namespaceindex, ctorinf.classindex, ctormethodinfo, methodinfo)
         If stateprop = -1 Then
             dserr.args.Add("Constructor method not found.")
             dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), glinecodestruc(0).value))
@@ -49,8 +50,8 @@ Public Class ilctor
         Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
         libserv.cargldr = Nothing
 
-        If IsNothing(ctormethodinfo.GetParameters()) AndAlso ctormethodinfo.GetParameters().Length > 0 Then
-            '     funcste.load_param_in_stack(cargcodestruc, _ilmethod, MethodInfo, Nothing, paramtype, cargcodestruc)
+        If IsNothing(methodinfo.parameters) = False AndAlso methodinfo.parameters.Length > 0 Then
+            funcste.load_param_in_stack(cargcodestruc, _ilmethod, methodinfo, Nothing, paramtype, cargcodestruc)
         End If
         Dim getrettype As String = "void"
         cil.new_obj(_ilmethod.codes, getrettype, resultfunc.asmextern, resultfunc.exclass, resultfunc.clmethod, paramtype)
