@@ -1,0 +1,41 @@
+#[app::classname("prime_number")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+  let n  : i32
+  io::print("Enter the number to check prime:")
+  n := io::getnum()
+  let result : bool = is_prime(n)
+  io::print("#{result}")
+}
+
+func modulus(a:i32,b:i32) : i32
+{
+  let divi : i32 = [a / b]
+  let mult : i32 = [divi * b]
+  let result : i32 = [a - mult]
+  return result
+}
+
+func is_prime(n:i32) : bool
+{
+  if(n >> 1 )
+  {
+    let  i , m , mod : i32
+    m := [n / 2]
+    i := 2
+    while(i <= m)
+    {
+      mod := modulus(n,i)
+      if(mod == 0)
+      {
+        return false
+      }
+      i += 1
+    }
+
+    return true
+  }
+}
