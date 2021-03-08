@@ -49,6 +49,8 @@
         Dim isconstant As Boolean
         Dim frinit As Boolean
         Dim ctor As Boolean
+        Dim isvaluetypes As Boolean
+        Dim valtpinf As _valtypeinfo
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
@@ -69,6 +71,16 @@
         [PUBLIC]
         [PRIVATE]
     End Enum
+    Public Enum _valuetypestructure
+        [NOTHING]
+        [ENUM]
+        [STRUCT]
+    End Enum
+    Public Structure _valtypeinfo
+        Dim structuretype As _valuetypestructure
+        Dim classname As String
+        Dim objectname As String
+    End Structure
     Public Sub New()
 
     End Sub
