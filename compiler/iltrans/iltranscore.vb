@@ -608,6 +608,7 @@
                 _illocalinit(index).iscommondatatype = True
                 _illocalinit(index).isconstant = isconst
                 _illocalinit(index).ctor = False
+                _illocalinit(index).valtpinf.structuretype = ilformat._valuetypestructure.NOTHING
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
@@ -622,7 +623,7 @@
                 Else
                     _illocalinit(index).ctor = False
                     _illocalinit(index).datatype = clinecodestruc(3).value
-
+                    valtp.check_value_type(_illocalinit(index).valtpinf, _illocalinit(index).datatype)
                     If clinecodestruc.Length > 4 Then
                         If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
                             'DECLARING ERROR
