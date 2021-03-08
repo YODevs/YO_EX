@@ -92,10 +92,11 @@ Public Class libserv
         Next
         Return retstate
     End Function
-    Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef ctorinfo As ConstructorInfo) As Integer
+    Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef ctorinfo As ConstructorInfo, ByRef methodinfo As tknformat._method) As Integer
         cargldr = Nothing
         For Each gconstructor In libreg.types(namespaceindex)(classindex).GetConstructors()
             If check_overloading(_ilmethod, gconstructor.GetParameters, cargcodestruc) Then
+                get_method_info(gconstructor, methodinfo)
                 ctorinfo = gconstructor
                 Return 1
             End If
@@ -141,14 +142,23 @@ Public Class libserv
         Else
             methodinfo.returntype = servinterface.vb_to_cil_common_data_type(method.ReturnType.Name)
         End If
-
         For index = 0 To method.GetParameters().Length - 1
             Array.Resize(methodinfo.parameters, index + 1)
             methodinfo.parameters(index) = New tknformat._parameter
             methodinfo.parameters(index).name = method.GetParameters(index).Name
             methodinfo.parameters(index).ptype = method.GetParameters(index).ParameterType.Name
         Next
-
+    End Sub
+    Friend Shared Sub get_method_info(ctormethod As Reflection.ConstructorInfo, ByRef methodinfo As tknformat._method)
+        methodinfo.name = ctormethod.Name
+        methodinfo.isexpr = False
+        methodinfo.returntype = "void"
+        For index = 0 To ctormethod.GetParameters().Length - 1
+            Array.Resize(methodinfo.parameters, index + 1)
+            methodinfo.parameters(index) = New tknformat._parameter
+            methodinfo.parameters(index).name = ctormethod.GetParameters(index).Name
+            methodinfo.parameters(index).ptype = ctormethod.GetParameters(index).ParameterType.Name
+        Next
     End Sub
 
 End Class
