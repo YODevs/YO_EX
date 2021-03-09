@@ -1,0 +1,55 @@
+#[app::classname("power_operator")]
+
+include 'ystdio'
+
+
+func main()
+{
+ test1()
+ test2()
+ test3()
+ test4(5.02,5.01)
+ test5(7,4)
+ test6(100,5)
+}
+
+func test1()
+{
+  let num : i32 = 5
+  num ^= 2.5
+  io::println("5 ^ 2.5 = #{num}")
+}
+
+func test2()
+{
+  let num : i32 = 5
+  let pow : f32 = 2.0
+  num ^= [i32]pow
+  io::println("5 ^ 2.0 = #{num}")
+}
+
+func test3()
+{
+  let num : f32 = 5.02
+  let pow : f32 = 5.01
+  num ^= pow
+  io::println("5.02 ^ 5.01 = #{num}")
+}
+
+func test4(num:f64,pow:f64)
+{
+  num ^= pow
+  io::println("5.02 ^ 5.01 = #{num}")
+}
+
+func test5(num:i16,pow:i32)
+{
+  num ^= [i16]pow
+  io::println("7 ^ 4 = #{num}")
+}
+
+func test6(num:i64,pow:i32)
+{
+  num ^= [i64]pow
+  io::println("100 ^ 5 = #{num}")
+}
