@@ -1,0 +1,25 @@
+#[app::classname("reverse_number")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+  let n , reverse , modul : i32
+  io::print("Enter a number:")
+  n := io::getnum()
+  while(n <> 0)
+  {
+    modul := modulus(n,10)
+    reverse := [reverse * 10 + modul]
+    n/=10
+  }
+  io::print("Reversed number:#{reverse}")
+}
+
+func modulus(a:i32,b:i32) : i32
+{
+  let divi : i32 = [a / b]
+  let mult : i32 = [divi * b]
+  let result : i32 = [a - mult]
+  return result
+}
