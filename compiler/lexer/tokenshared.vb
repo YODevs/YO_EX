@@ -1,6 +1,6 @@
 ﻿Public Class tokenhared
-    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}", ".", ":"}
-    Public Shared tokenassign() As String = {":", "+", "-", "*", "&", "/", "%"}
+    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}", ".", ":", "^"}
+    Public Shared tokenassign() As String = {":", "+", "-", "*", "&", "/", "%", "^"}
     Public Shared conditiontoken() As Object = {"==", "<>", ">>", "<<", ">=", "<="}
     Private Shared _token As Dictionary(Of token, String)
     Private Shared _tokensym As New Dictionary(Of token, String)
@@ -60,6 +60,7 @@
         _tokensym.Add(token.REMEQ, "%=")
         _tokensym.Add(token.ASTERISKEQ, "*=")
         _tokensym.Add(token.ANDEQ, "&=")
+        _tokensym.Add(token.POWEQ, "^=")
         _tokensym.Add(token.DUTNQ, "::")
         _tokensym.Add(token.ASSINQ, ":")
         _tokensym.Add(token.ASTERISK, "*")
@@ -78,6 +79,7 @@
         _tokensym.Add(token.PREND, ")")
         _tokensym.Add(token.DOT, ".")
         _tokensym.Add(token.[REM], "%")
+        _tokensym.Add(token.POW, "^")
     End Sub
 
 
@@ -223,5 +225,7 @@
         [ENUM] = 87
         [EXPLTYPECAST] = 88
         [REM] = 89
+        POWEQ = 90
+        POW = 91
     End Enum
 End Class
