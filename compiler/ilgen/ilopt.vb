@@ -238,6 +238,66 @@ Public Class ilopt
         Return _ilmethod
     End Function
 
+    Friend Function assipow(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String, Optional isfloat As Boolean = False) As ilformat._ilmethodcollection
+        Dim convi8 As Boolean = False
+        Dim convr8 As Boolean = False
+        Dim setconvr8 As Boolean = True
+        If datatype.ToLower = "i64" Then convi8 = True
+        If datatype.ToLower = "f64" Then
+            convr8 = True
+            setconvr8 = False
+        End If
+
+        If servinterface.is_pointer(_ilmethod, varname) Then
+            cil.load_argument(_ilmethod.codes, varname)
+        End If
+
+        servinterface.is_common_data_type(datatype, datatype)
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+
+        If setconvr8 Then
+            cil.conv_to_float64(_ilmethod.codes)
+        End If
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_FLOAT
+                cil.push_float64_onto_stack(_ilmethod.codes, clinecodestruc.value)
+            Case tokenhared.token.TYPE_INT
+                cil.push_float64_onto_stack(_ilmethod.codes, Convert.ToDouble(clinecodestruc.value))
+            Case tokenhared.token.IDENTIFIER
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+                If setconvr8 Then
+                    cil.conv_to_float64(_ilmethod.codes)
+                End If
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add("i64/i32/i16/i8/...")
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
+
+        Dim param As New ArrayList
+        param.Add("float64")
+        param.Add("float64")
+        cil.call_extern_method(_ilmethod.codes, "float64", "mscorlib", "System.Math", "Pow", param)
+        If isfloat = False Then
+            param.RemoveAt(0)
+            cil.call_extern_method(_ilmethod.codes, "float64", "mscorlib", "System.Math", "Round", param)
+        End If
+        If isfloat Then
+            If setconvr8 Then
+                cil.conv_to_float32(_ilmethod.codes)
+            End If
+        Else
+            If convi8 Then
+                cil.conv_to_int64(_ilmethod.codes)
+            Else
+                cil.conv_to_int32(_ilmethod.codes)
+            End If
+        End If
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, datatype)
+        Return _ilmethod
+    End Function
+
     Public Function assi_identifier(varname As String, clinecodestruc As xmlunpkd.linecodestruc, type As String) As ilformat._ilmethodcollection
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.IDENTIFIER
