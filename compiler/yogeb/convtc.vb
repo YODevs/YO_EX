@@ -24,8 +24,8 @@
 
     Friend Shared Sub set_type_cast(_ilmethod As ilformat._ilmethodcollection, newdtype As String, crdtype As String, nvar As String, cargcodestruc As xmlunpkd.linecodestruc)
         If crdtype <> ntypecast Then
-            dserr.args.Add(crdtype)
             dserr.args.Add(ntypecast)
+            dserr.args.Add(crdtype)
             dserr.new_error(conserr.errortype.EXPLICITCONVERSION, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - identifier : " & nvar & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
         End If
         servinterface.is_common_data_type(newdtype, newdtype)
