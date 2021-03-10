@@ -238,6 +238,31 @@ Public Class ilopt
         Return _ilmethod
     End Function
 
+    Public Function assiappeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_DU_STR
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
+            Case tokenhared.token.TYPE_CO_STR
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
+            Case tokenhared.token.IDENTIFIER
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add("string")
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
+
+        If servinterface.is_pointer(_ilmethod, varname) Then
+            cil.load_argument(_ilmethod.codes, varname)
+        End If
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, "string")
+
+        cil.concat_simple(_ilmethod.codes)
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, "string")
+
+        Return _ilmethod
+    End Function
     Friend Function assipow(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String, Optional isfloat As Boolean = False) As ilformat._ilmethodcollection
         Dim convi8 As Boolean = False
         Dim convr8 As Boolean = False
