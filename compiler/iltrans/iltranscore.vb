@@ -464,6 +464,7 @@
     End Sub
 
     Private Sub pv_iden_appeq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
             Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
