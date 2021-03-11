@@ -213,6 +213,53 @@ Public Class ilopt
 
         Return _ilmethod
     End Function
+
+    Public Function assiqes(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
+        If servinterface.is_pointer(_ilmethod, varname) Then
+            cil.load_argument(_ilmethod.codes, varname)
+        End If
+        Dim cdatatype As String = datatype
+        servinterface.is_common_data_type(datatype, cdatatype)
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, cdatatype)
+        Dim getlineprop As String = lngen.get_line_prop("exit_qeseq")
+        cil.branch_if_true(_ilmethod.codes, getlineprop)
+
+        Select Case datatype
+            Case "str"
+                _ilmethod = assi_str(varname, clinecodestruc)
+            Case "i128"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "i64"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "i32"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "i16"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "i8"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "u64"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "u32"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "u16"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "u8"
+                _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
+            Case "f32"
+                _ilmethod = assi_float(varname, clinecodestruc, cdatatype)
+            Case "f64"
+                _ilmethod = assi_float(varname, clinecodestruc, cdatatype)
+            Case "bool"
+                _ilmethod = assi_bool(varname, clinecodestruc, cdatatype)
+            Case "char"
+                _ilmethod = assi_char(varname, clinecodestruc, cdatatype)
+            Case Else
+                _ilmethod = assi_identifier(varname, clinecodestruc, cdatatype)
+        End Select
+
+        lngen.set_direct_label(getlineprop, _ilmethod.codes)
+        Return _ilmethod
+    End Function
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
