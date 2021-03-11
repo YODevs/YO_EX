@@ -210,6 +210,8 @@
                 pv_iden_andeq(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.APPEQ
                 pv_iden_appeq(dtassign, clinecodestruc, inline, _ilmethod)
+            Case tokenhared.token.QESEQ
+                pv_iden_qeseq(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.PLUSEQ
                 pv_iden_add(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.MINUSEQ
@@ -554,6 +556,34 @@
         Next
     End Sub
 
+    Private Sub pv_iden_qeseq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
+            If localvartype.issuccessful = False Then
+                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
+                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
+                    If servinterface.is_pointer(_ilmethod, varname) Then
+                        cil.load_argument(_ilmethod.codes, varname)
+                    End If
+                ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
+                    localvartype = localinitdata.fieldst.find(varname, True, varname)
+                Else
+                    Dim hfield As tknformat._pubfield
+                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                        localvartype.result = hfield.ptype
+                    Else
+                        'Set Error
+                        dserr.args.Add(varname)
+                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+                    End If
+                End If
+            End If
+
+            _ilmethod = optgen.assiqes(varname, clinecodestruc(ilinc), localvartype.result)
+        Next
+    End Sub
     Friend Shared Function check_opt_assignment(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer, ByRef opt As String) As Boolean
         If clinecodestruc(index).tokenid = tokenhared.token.CMA Then Return False
 
