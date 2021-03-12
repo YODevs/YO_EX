@@ -1,4 +1,14 @@
-﻿Public Class liststoredata
+﻿''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' این کلاس با استفاده از یک آرایه لیست مجموعه داده های تک بعدی را جمع می کند
+''' همچنین در زمان مورد نیاز می توان در داده های ثبتی جستجو کرد
+''' می توان از فرمت yoda برای اضافه دسته جمعی داده ها استفاده کرد
+''' </fa>
+''' </summary>
+Public Class liststoredata
     Public Structure dataresult
         Dim result As String
         Dim issuccessful As Boolean
