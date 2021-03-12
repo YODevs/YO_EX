@@ -1,6 +1,8 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' This class is known as mapstore which is created based on Key , Value.
+''' This class also supports YODA format
+''' In this class it is possible to search based on value or key.
 ''' </en>
 ''' <fa>
 ''' این کلاس به عنوان مپ استور شناخته می شود ، که براساس Key , Value ساخته شده است.
