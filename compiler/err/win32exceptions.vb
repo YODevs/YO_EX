@@ -1,6 +1,14 @@
 ﻿Imports System.IO
 Imports System.Text.RegularExpressions
-
+''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' این کلاس وظیفه ترجمه و مدیریت  خطاهای مربوط به ویندوز را دارد.
+''' فایل کامل این خطا در مسیر iniopt/win32exceptions.yoda وجود دارد
+''' </fa>
+''' </summary>
 Public Class win32exceptions
     Private errcode As String
     Public Sub New(errtext As String)
