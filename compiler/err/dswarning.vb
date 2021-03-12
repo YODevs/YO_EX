@@ -1,4 +1,13 @@
-﻿Public Class dswar
+﻿''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' این کلاس وظیفه ثبت و نمایش هشدارهای حین کامپایل و دیگر عملیات های کامپایلر را دارد
+''' هشدار ها بر خلاف خطاها باعث توقف فرایند نمی شوند و در آخر فرایند نمایش داده خواهد شد
+''' </fa>
+''' </summary>
+Public Class dswar
 
     Structure warstruct
         Dim title As String
