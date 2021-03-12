@@ -1,7 +1,7 @@
 ﻿Imports System.Text.RegularExpressions
 ''' <summary>
 ''' <en>
-'''
+''' This class has to run compiler's commands in the command line
 ''' </en>
 ''' <fa>
 '''این کلاس وظیفه اجرای دستورات خط فرمان کامپایلر را داردو
