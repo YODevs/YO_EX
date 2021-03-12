@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' This class has to prepare a list of errors with their details.
 ''' </en>
 ''' <fa>
 ''' این کلاس وظیفه آماده سازی لیستی از خطا ها به همراه جزییات آن دارد
