@@ -1,4 +1,12 @@
-﻿Public Class conserr
+﻿''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' این کلاس وظیفه آماده سازی لیستی از خطا ها به همراه جزییات آن دارد
+''' </fa>
+''' </summary>
+Public Class conserr
     Enum errortype
         DIRNOTFOUND
         YOFILENOTFOUND
