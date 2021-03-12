@@ -1,5 +1,14 @@
-﻿Public Class mapstoredata
-
+﻿''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' این کلاس به عنوان مپ استور شناخته می شود ، که براساس Key , Value ساخته شده است.
+''' این کلاس از فرمت yoda نیز پشتیبانی می کند.
+''' در این کلاس امکان جستجو براساس مقدار یا کلید نیز وجود دارد
+''' </fa>
+''' </summary>
+Public Class mapstoredata
     Public Structure dataresult
         Dim result As String
         Dim issuccessful As Boolean
