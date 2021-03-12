@@ -1,6 +1,8 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' This class collects list of one-dimention datasets from an array.
+''' Also, searching the data through submitted data is possible, when needed.
+''' YODA format can be used for adding collection of data.
 ''' </en>
 ''' <fa>
 ''' این کلاس با استفاده از یک آرایه لیست مجموعه داده های تک بعدی را جمع می کند
