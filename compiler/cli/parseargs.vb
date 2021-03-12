@@ -1,4 +1,12 @@
-﻿Public Class parseargs
+﻿''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' این کلاس وظیفه تجزیه و تحلیل آرگومان های ورودی کامپایلر را دارد
+''' </fa>
+''' </summary>
+Public Class parseargs
 
     Structure _parseresult
         Dim command As String
