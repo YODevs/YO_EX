@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' Consonants and arrays which during operation of compiling will be implemented in the preparation units of parameters or code-generates.
 ''' </en>
 ''' <fa>
 ''' ثوابت و ارایه هایی که حین عملیات کامپایل در واحدهای آماده سازی پارامتر ها یا کد جنریت ها استفاده می شوند
