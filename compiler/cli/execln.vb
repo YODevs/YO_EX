@@ -1,5 +1,12 @@
 ﻿Imports System.Text.RegularExpressions
-
+''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+'''این کلاس وظیفه اجرای دستورات خط فرمان کامپایلر را داردو
+''' </fa>
+''' </summary>
 Public Class execln
     Friend Shared argstorelist As liststoredata
     Friend Shared Sub nv_check_command(result As parseargs._parseresult)
@@ -32,6 +39,14 @@ Public Class execln
     End Sub
     Public Sub New()
     End Sub
+    ''' <summary>
+    ''' <en>
+    '''
+    ''' </en>
+    ''' <fa>
+    ''' بررسی اعتبار آرگومان های ارسال شده برای دستورات خط فرمان
+    ''' </fa>
+    ''' </summary>
     Friend Shared Sub check_parameters(result As parseargs._parseresult)
         Dim yodaf As New YODA.YODA_Format()
         Dim yodamap As YODA.YODA_Format.YODAMapFormat = yodaf.ReadYODA_Map(FileIO.FileSystem.ReadAllText(conrex.APPDIR & "\iniopt\param.yoda"))
