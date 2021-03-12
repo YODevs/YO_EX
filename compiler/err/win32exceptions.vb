@@ -2,7 +2,8 @@
 Imports System.Text.RegularExpressions
 ''' <summary>
 ''' <en>
-'''
+''' This class translates and manages errors related to MS Windows.
+''' The complete file of this error is located at iniopt/win32exceptions.yoda
 ''' </en>
 ''' <fa>
 ''' این کلاس وظیفه ترجمه و مدیریت  خطاهای مربوط به ویندوز را دارد.
