@@ -1,4 +1,12 @@
-﻿Public Class cmdlnproc
+﻿''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' آماده سازی دستورات خط فرمان
+''' </fa>
+''' </summary>
+Public Class cmdlnproc
     Enum cmdtype
         TEST
         [EXIT]
@@ -19,6 +27,15 @@
     End Structure
 
     Public Shared cmd() As cmdstruct
+
+    ''' <summary>
+    ''' <en>
+    '''
+    ''' </en>
+    ''' <fa>
+    ''' ثبت دستورات و ویژگی های هر دستور در خط فرمان
+    ''' </fa>
+    ''' </summary>
     Public Shared Sub set_new_command(commandtype As cmdtype, command As String, Optional withargs As Boolean = False, Optional maxargs As Int16 = 0)
         Static Dim indexarray As Int16 = 0
         Array.Resize(cmd, indexarray + 1)
@@ -40,6 +57,15 @@
         Next
         Return -1
     End Function
+
+    ''' <summary>
+    ''' <en>
+    '''
+    ''' </en>
+    ''' <fa>
+    ''' این تابع وظیفه آماده سازی و افزودن دستورات خط فرمان را دارد
+    ''' </fa>
+    ''' </summary>
     Public Shared Sub init_command_struct()
         set_new_command(cmdtype.BUILD, "build", True, 7)
         set_new_command(cmdtype.RUN, "run", True, 8)
