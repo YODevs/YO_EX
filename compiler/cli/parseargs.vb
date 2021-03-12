@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' This class has to analyze input arguments of the compiler
 ''' </en>
 ''' <fa>
 ''' این کلاس وظیفه تجزیه و تحلیل آرگومان های ورودی کامپایلر را دارد
