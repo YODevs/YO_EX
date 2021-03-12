@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' Preparing commands of command line
 ''' </en>
 ''' <fa>
 ''' آماده سازی دستورات خط فرمان
@@ -30,7 +30,7 @@ Public Class cmdlnproc
 
     ''' <summary>
     ''' <en>
-    '''
+    ''' Submitting commands and attributes of each command in the command line/
     ''' </en>
     ''' <fa>
     ''' ثبت دستورات و ویژگی های هر دستور در خط فرمان
@@ -60,7 +60,7 @@ Public Class cmdlnproc
 
     ''' <summary>
     ''' <en>
-    '''
+    ''' This function has to prepare and add commands of command line.
     ''' </en>
     ''' <fa>
     ''' این تابع وظیفه آماده سازی و افزودن دستورات خط فرمان را دارد
