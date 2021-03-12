@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' Compiler's process starts from the Main() function exists in this class
 ''' </en>
 ''' <fa>
 ''' شروع فرایند کامپایلر از تابع Main() در این کلاس است .
@@ -38,7 +38,7 @@ Module maincr
 
     ''' <summary>
     ''' <en>
-    '''
+    ''' Preparing and running prerequisites of starting compile process
     ''' </en>
     ''' <fa>
     ''' عملیات آماده سازی و اجرای پیشنیاز های شروع فرایند کامپایل
@@ -60,7 +60,7 @@ Module maincr
 
     ''' <summary>
     ''' <en>
-    '''
+    ''' Initializing essential files which are next to the compiler and affect compiler's activity.
     ''' </en>
     ''' <fa>
     ''' بررسی فایل های ضروری کنار کامپایلر ، که فعالیت آن را تحت تاثیر قرار میدهد.
