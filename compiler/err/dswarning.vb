@@ -1,10 +1,11 @@
 ﻿''' <summary>
 ''' <en>
-'''
+''' This class has to submit and show the warnings occur while compiling and other operations of compiler.
+''' Warnings unlike errors do not cause the process to stop and will be shown at the end of the process.
 ''' </en>
 ''' <fa>
 ''' این کلاس وظیفه ثبت و نمایش هشدارهای حین کامپایل و دیگر عملیات های کامپایلر را دارد
-''' هشدار ها بر خلاف خطاها باعث توقف فرایند نمی شوند و در آخر فرایند نمایش داده خواهد شد
+''' هشدار ها بر خلاف خطاها باعث توقف فرایند نمی شوند و در آخر فرایند نمایش داده خواهند شد
 ''' </fa>
 ''' </summary>
 Public Class dswar
