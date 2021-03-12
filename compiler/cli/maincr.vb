@@ -1,4 +1,12 @@
-﻿Module maincr
+﻿''' <summary>
+''' <en>
+'''
+''' </en>
+''' <fa>
+''' شروع فرایند کامپایلر از تابع Main() در این کلاس است .
+''' </fa>
+''' </summary>
+Module maincr
     Const BYPASSFLOW As Boolean = False
     Sub main(ByVal argsval() As String)
         Try
@@ -28,6 +36,14 @@
         End Try
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    '''
+    ''' </en>
+    ''' <fa>
+    ''' عملیات آماده سازی و اجرای پیشنیاز های شروع فرایند کامپایل
+    ''' </fa>
+    ''' </summary>
     Sub init_class_data()
         cmdlnproc.init_command_struct()
         conserr.init_error_struct()
@@ -42,6 +58,14 @@
         incfile.init()
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    '''
+    ''' </en>
+    ''' <fa>
+    ''' بررسی فایل های ضروری کنار کامپایلر ، که فعالیت آن را تحت تاثیر قرار میدهد.
+    ''' </fa>
+    ''' </summary>
     Sub init_essential_files()
         initessentialfiles.add_path(conrex.APPDIR & "\ilasm.exe")
         initessentialfiles.add_path(conrex.APPDIR & "\fusion.dll")
