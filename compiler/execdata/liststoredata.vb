@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-''' This class collects list of one-dimention datasets from an array.
+''' This class collects list of one-dimention datasets from an arraylist.
 ''' Also, searching the data through submitted data is possible, when needed.
 ''' YODA format can be used for adding collection of data.
 ''' </en>
