@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "expr_method_tests"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

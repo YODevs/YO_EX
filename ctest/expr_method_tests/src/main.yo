@@ -1,0 +1,23 @@
+#[app::classname("expr_tests")]
+include 'ystdio'
+func main()
+{
+ let f : f32 = test1(1.0)
+ io::println("#{f}")
+
+ let i : i32 = test2(2.1)
+ io::println("#{i}")
+
+ i := [i32] test1(1.0)
+ io::println("#{i}")
+
+ i := test3(10,5)
+ io::println("#{i}")
+
+ f := [f32] test3(10,5)
+ io::println("#{f}")
+}
+
+expr test1(c : f32) : f32 = [c + 2.54]
+expr test2(c : f32) : i32 = [c + 2.54]
+expr test3(c : i32 , v : i16) : i32 = [c + v]
