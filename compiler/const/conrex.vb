@@ -1,6 +1,6 @@
 ﻿''' <summary>
 ''' <en>
-''' A list of consonants and arrays which is applicable in units like lexer or parser.
+''' A list of constant and arrays which is applicable in units like lexer or parser.
 ''' </en>
 ''' <fa>
 ''' لیستی از ثوابت و آرایه هایی که در کامپایلر در واحد های مانند لکسر یا پارسر کاربرد دارد
