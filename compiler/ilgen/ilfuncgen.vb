@@ -50,8 +50,14 @@
         set_parameter(yomethod, ilmethodsindex)
         Dim iltrans As New iltranscore(yomethod)
         iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
+        If yomethod.isexpr Then
+            set_customization_expression(_ilmethods(ilmethodsindex))
+        End If
     End Sub
 
+    Private Sub set_customization_expression(ByRef _ilmethod As ilformat._ilmethodcollection)
+        cil.ret(_ilmethod.codes)
+    End Sub
     Private Sub set_custom_type(ByRef _ilmethodcollection As ilformat._ilmethodcollection)
         If _ilmethodcollection.returntype = conrex.NULL OrElse _ilmethodcollection.returntype = "void" OrElse servinterface.get_yo_common_data_type(_ilmethodcollection.returntype, Nothing) = True Then
             Return
