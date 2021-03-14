@@ -43,6 +43,7 @@ Public Class conrex
     Public Const CLN As Char = ":"
     Public Const DBCLN As Char = ":"
     Public Const EQU As Char = "="
+    Public Const QES As Char = "?"
 
 
     Enum exitcode
