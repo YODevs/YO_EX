@@ -62,6 +62,7 @@ Public Class conserr
         CONSTRUCTORERROR
         TYPECASTINGERROR
         PROPERTYERROR
+        BADMODIFIER
     End Enum
 
     Enum errorpriority
@@ -146,5 +147,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.CONSTRUCTORERROR, errorpriority.STOP, "Constructor error", "The initial value of the object is incorrect.")
         set_new_error(errortype.TYPECASTINGERROR, errorpriority.STOP, "Type casting error", "Type Casting operation failed.")
         set_new_error(errortype.PROPERTYERROR, errorpriority.STOP, "Property error", "{0}")
+        set_new_error(errortype.BADMODIFIER, errorpriority.STOP, "Modifier expected", "'{0}' , cannot be identified as an modifier.")
     End Sub
 End Class
