@@ -237,9 +237,12 @@
                 Select Case rd_token
                     Case tokenhared.token.STATIC
                         xfield(i).modifier = "static"
-                    Case Else
                         fieldstate = pbfieldstate.FIELDNAME
-                        _rev_field(value, rd_token, linecinf)
+                    Case tokenhared.token.INSTANCE
+                        fieldstate = pbfieldstate.FIELDNAME
+                    Case Else
+                        dserr.args.Add(value)
+                        dserr.new_error(conserr.errortype.BADMODIFIER, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "let public instance x : str  | let public static x : str")
                 End Select
                 Return
             Case pbfieldstate.FIELDNAME
