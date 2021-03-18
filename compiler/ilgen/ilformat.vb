@@ -20,6 +20,7 @@
         Dim name As String
         Dim objcontrol As fmtshared.objectcontrol
         Dim accessible As _accessiblemethod
+        Dim methodmodtype As _modifiertype
         Dim locallinit() As _illocalinit
         Dim returntype As String
         Dim returninfo As _returninfo
@@ -71,6 +72,11 @@
     Public Enum _accessiblemethod
         [PUBLIC]
         [PRIVATE]
+    End Enum
+
+    Public Enum _modifiertype
+        [STATIC]
+        [INSTANCE]
     End Enum
     Public Enum _valuetypestructure
         [NOTHING]
