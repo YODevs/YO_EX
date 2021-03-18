@@ -48,4 +48,6 @@ pop"
 
     Friend Const ACCESSIBLE_PUBLIC As String = "public"
     Friend Const ACCESSIBLE_PRIVATE As String = "private"
+    Friend Const OBJECTMODTYPE_STATIC As String = "static"
+    Friend Const OBJECTMODTYPE_INSTANCE As String = "instance"
 End Class
