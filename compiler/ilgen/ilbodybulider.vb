@@ -102,13 +102,20 @@ call instance void [mscorlib]System.Object::.ctor()")
         Next
         newline()
     End Sub
+
+    Public Function get_cil_access_control(accessibletoken As ilformat._accessiblemethod) As String
+        Select Case accessibletoken
+            Case ilformat._accessiblemethod.PUBLIC
+                Return compdt.ACCESSIBLE_PUBLIC
+            Case ilformat._accessiblemethod.PRIVATE
+                Return compdt.ACCESSIBLE_PRIVATE
+        End Select
+        Return compdt.ACCESSIBLE_PUBLIC
+    End Function
     Public Sub imp_func(funcdt As ilformat._ilmethodcollection)
         Dim headfuncdt As String = ".method static"
-        If funcdt.accessible = ilformat._accessiblemethod.PUBLIC Then
-            headfuncdt &= " public "
-        Else
-            headfuncdt &= " private "
-        End If
+
+        headfuncdt &= String.Format(" {0} ", get_cil_access_control(funcdt.accessible))
 
         If funcdt.returntype = "void" Or funcdt.returntype = Nothing Then
             headfuncdt &= "void"
