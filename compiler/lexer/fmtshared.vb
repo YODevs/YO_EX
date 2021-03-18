@@ -3,6 +3,7 @@
     Private sourceloc As String
     Dim bdyformatter As bodyformatter
     Dim state As statecursor
+    Dim objcontrol As objectcontrol
     Public xclass(0) As tknformat._class
     Public xmethods(0) As tknformat._method
     Public xfield(0) As tknformat._pubfield
@@ -30,8 +31,16 @@
         xenum(0) = New tknformat._enum
         externlist = New ArrayList
         includelist = New ArrayList
+        objcontrol = New objectcontrol
     End Sub
 
+    Structure objectcontrol
+        Dim disableobjectcontrol As Boolean
+        Dim accesscontrol As tokenhared.token
+        Dim accesscontrolval As String
+        Dim modifier As tokenhared.token
+        Dim modifierval As String
+    End Structure
     Enum enumerationcursor
         OUT
         ENUMNAME
@@ -97,13 +106,65 @@
         EQOPT
         FIELDVALUE
     End Enum
+
+    Private Function check_to_ignore_token(rd_token As tokenhared.token) As Boolean
+        For index = 0 To conrex.ignoretokencontrol.Length - 1
+            If rd_token = conrex.ignoretokencontrol(index) Then
+                Return False
+            End If
+        Next
+        Return True
+    End Function
+    Private Function is_accesscontrol(rd_token As tokenhared.token) As Boolean
+        For index = 0 To conrex.accesscontrol.Length - 1
+            If rd_token = conrex.accesscontrol(index) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
+    Private Function is_modifier(rd_token As tokenhared.token) As Boolean
+        For index = 0 To conrex.modifier.Length - 1
+            If rd_token = conrex.modifier(index) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+    Private Function check_object_control(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf) As Boolean
+        If check_to_ignore_token(rd_token) = False Then Return False
+        If objcontrol.accesscontrol = 0 Then
+            If is_accesscontrol(rd_token) Then
+                objcontrol.accesscontrol = rd_token
+                objcontrol.accesscontrolval = value
+            Else
+                dserr.args.Add(value)
+                dserr.new_error(conserr.errortype.BADACCESSCONTROL, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public / private / ...")
+            End If
+        ElseIf objcontrol.modifier = 0 Then
+            If is_modifier(rd_token) Then
+                objcontrol.modifier = rd_token
+                objcontrol.modifierval = value
+                objcontrol.disableobjectcontrol = True
+            Else
+                dserr.args.Add(value)
+                dserr.new_error(conserr.errortype.BADMODIFIER, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public / private / ...")
+            End If
+        End If
+        Return True
+    End Function
+
     Public Sub imp_token(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         Select Case state
             Case statecursor.OUT
+                If objcontrol.disableobjectcontrol = False AndAlso check_object_control(value, rd_token, linecinf) = True Then Return
                 Select Case rd_token
                     Case tokenhared.token.FUNC
+                        objcontrol.disableobjectcontrol = True
                         _rev_func(value, rd_token, linecinf)
                     Case tokenhared.token.EXPR
+                        objcontrol.disableobjectcontrol = True
                         _rev_func(value, rd_token, linecinf, True)
                     Case tokenhared.token.EXTERN
                         state = statecursor.INIMPORTS
@@ -111,13 +172,16 @@
                         state = statecursor.FIELDS
                         fieldstate = pbfieldstate.ACCESSCONTORL
                         fieldtypest = fieldtypestate.LET
+                        objcontrol.disableobjectcontrol = True
                     Case tokenhared.token.ENUM
                         state = statecursor.ENUMS
                         enumstate = enumerationcursor.ENUMNAME
+                        objcontrol.disableobjectcontrol = True
                     Case tokenhared.token.CONST
                         state = statecursor.FIELDS
                         fieldstate = pbfieldstate.ACCESSCONTORL
                         fieldtypest = fieldtypestate.CONST
+                        objcontrol.disableobjectcontrol = True
                     Case tokenhared.token.INCLUDE
                         state = statecursor.INCLUDES
                         incstate = includestate.INCLUDEFILE
@@ -300,6 +364,8 @@
                         Array.Resize(xmethods, i + 1)
                     End If
                     xmethods(i).isexpr = isexpr
+                    xmethods(i).objcontrol = objcontrol
+                    objcontrol = New objectcontrol
                     funcstate = funcstatecursor.FUNCNAME
                     paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
                     state = statecursor.INFUNC
