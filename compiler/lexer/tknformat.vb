@@ -26,6 +26,7 @@
         Dim parameters() As _parameter
         Dim bodyxmlfmt As String
         Dim isexpr As Boolean
+        Dim objcontrol As fmtshared.objectcontrol
     End Structure
 
     Structure _parameter
