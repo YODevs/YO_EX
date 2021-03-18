@@ -45,4 +45,7 @@ pop"
     Friend Const PARAM_DISABLE_WARNINGS As String = "--disable_warnings"
     Friend Const PARAM_DISPLAY_EXEC_TIME As String = "--execution_time"
     Friend Const PARAM_DISPLAY_COMPILE_TIME As String = "--compile_time"
+
+    Friend Const ACCESSIBLE_PUBLIC As String = "public"
+    Friend Const ACCESSIBLE_PRIVATE As String = "private"
 End Class
