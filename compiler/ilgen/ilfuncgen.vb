@@ -42,9 +42,9 @@
             End If
         End If
 
-        _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
         _ilmethods(ilmethodsindex).isexpr = yomethod.isexpr
+        set_object_control(_ilmethods(ilmethodsindex), yomethod)
         set_custom_type(_ilmethods(ilmethodsindex))
 
         set_parameter(yomethod, ilmethodsindex)
@@ -55,6 +55,18 @@
         End If
     End Sub
 
+    Private Sub set_object_control(ByRef _ilmethod As ilformat._ilmethodcollection, yomethod As tknformat._method)
+        Select Case yomethod.objcontrol.accesscontrol
+            Case tokenhared.token.UNDEFINED
+                _ilmethod.accessible = ilformat._accessiblemethod.PUBLIC
+            Case tokenhared.token.PRIVATE
+                _ilmethod.accessible = ilformat._accessiblemethod.PRIVATE
+            Case tokenhared.token.PUBLIC
+                _ilmethod.accessible = ilformat._accessiblemethod.PUBLIC
+        End Select
+
+        _ilmethod.objcontrol = yomethod.objcontrol
+    End Sub
     Private Sub set_customization_expression(ByRef _ilmethod As ilformat._ilmethodcollection)
         cil.ret(_ilmethod.codes)
     End Sub
