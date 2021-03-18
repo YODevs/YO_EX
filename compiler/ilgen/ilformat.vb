@@ -18,6 +18,7 @@
 
     Public Structure _ilmethodcollection
         Dim name As String
+        Dim objcontrol As fmtshared.objectcontrol
         Dim accessible As _accessiblemethod
         Dim locallinit() As _illocalinit
         Dim returntype As String
