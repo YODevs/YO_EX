@@ -112,10 +112,17 @@ call instance void [mscorlib]System.Object::.ctor()")
         End Select
         Return compdt.ACCESSIBLE_PUBLIC
     End Function
+    Public Function get_cil_modifier_type(modifiertoken As ilformat._accessiblemethod) As String
+        Select Case modifiertoken
+            Case ilformat._modifiertype.INSTANCE
+                Return compdt.OBJECTMODTYPE_INSTANCE
+            Case ilformat._modifiertype.STATIC
+                Return compdt.OBJECTMODTYPE_STATIC
+        End Select
+        Return compdt.OBJECTMODTYPE_STATIC
+    End Function
     Public Sub imp_func(funcdt As ilformat._ilmethodcollection)
-        Dim headfuncdt As String = ".method static"
-
-        headfuncdt &= String.Format(" {0} ", get_cil_access_control(funcdt.accessible))
+        Dim headfuncdt As String = String.Format(".method {1} {0} ", get_cil_modifier_type(funcdt.methodmodtype), get_cil_access_control(funcdt.accessible))
 
         If funcdt.returntype = "void" Or funcdt.returntype = Nothing Then
             headfuncdt &= "void"
