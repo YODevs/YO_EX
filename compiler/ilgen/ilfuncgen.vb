@@ -65,6 +65,14 @@
                 _ilmethod.accessible = ilformat._accessiblemethod.PUBLIC
         End Select
 
+        Select Case yomethod.objcontrol.modifier
+            Case tokenhared.token.UNDEFINED
+                _ilmethod.methodmodtype = ilformat._modifiertype.STATIC
+            Case tokenhared.token.STATIC
+                _ilmethod.methodmodtype = ilformat._modifiertype.STATIC
+            Case tokenhared.token.INSTANCE
+                _ilmethod.methodmodtype = ilformat._modifiertype.INSTANCE
+        End Select
         _ilmethod.objcontrol = yomethod.objcontrol
     End Sub
     Private Sub set_customization_expression(ByRef _ilmethod As ilformat._ilmethodcollection)
