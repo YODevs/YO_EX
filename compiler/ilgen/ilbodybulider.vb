@@ -6,6 +6,7 @@ Public Class ilbodybulider
     Friend Shared path As String
     Friend Shared attribute As yocaattribute.yoattribute
     Private msilsource As String
+    Private ctorset As Boolean = False
     Public ReadOnly Property source() As String
         Get
             Return msilsource
@@ -17,6 +18,7 @@ Public Class ilbodybulider
     End Sub
 
     Public Function conv_to_msil() As String
+        ctorset = False
         For index = 0 To ildt.assemblyextern.Length - 1
             add_assembly(ildt.assemblyextern(index))
         Next
@@ -28,9 +30,6 @@ Public Class ilbodybulider
         End If
         newline()
 
-        imp_ctor()
-
-        newline()
         imp_enum(ildt.enumeration)
         newline()
 
@@ -40,6 +39,12 @@ Public Class ilbodybulider
         Next
 
         newline()
+
+
+        imp_ctor()
+
+        newline()
+
         add_en_block()
 
         Return source
@@ -61,17 +66,19 @@ Public Class ilbodybulider
     End Sub
 
     Public Sub imp_ctor()
-
-        If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
-            add_il_code(".method public specialname rtspecialname instance void .ctor() cil managed ")
-            add_il_code("{")
-            add_il_code("ldarg.0
+        If ctorset = False Then
+            If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
+                MsgBox(1)
+                add_il_code(".method public specialname rtspecialname instance void .ctor() cil managed ")
+                add_il_code("{")
+                add_il_code("ldarg.0
 call instance void [mscorlib]System.Object::.ctor()")
-            For index = 0 To ildt.instancector.Count - 1
-                add_il_code(ildt.instancector(index))
-            Next
-            add_il_code("ret")
-            add_il_code("}")
+                For index = 0 To ildt.instancector.Count - 1
+                    add_il_code(ildt.instancector(index))
+                Next
+                add_il_code("ret")
+                add_il_code("}")
+            End If
         End If
 
         If IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
@@ -121,7 +128,38 @@ call instance void [mscorlib]System.Object::.ctor()")
         End Select
         Return compdt.OBJECTMODTYPE_STATIC
     End Function
+
+    Public Sub set_constructor(funcdt As ilformat._ilmethodcollection)
+        ctorset = True
+        add_inline_code(".method public specialname rtspecialname instance void .ctor")
+        If IsNothing(funcdt.parameter) Then
+            add_inline_code(conrex.PRSTEN)
+        Else
+            imp_parameter(funcdt)
+        End If
+        add_inline_code(" cil managed")
+        add_st_block()
+        If funcdt.locallinit.Length > 0 Then
+            imp_locals_init(funcdt)
+        End If
+
+        add_il_code("ldarg.0
+call instance void [mscorlib]System.Object::.ctor()")
+
+        If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
+            For index = 0 To ildt.instancector.Count - 1
+                add_il_code(ildt.instancector(index))
+            Next
+        End If
+        imp_body(funcdt, Nothing)
+        add_il_code("ret")
+        add_en_block()
+    End Sub
     Public Sub imp_func(funcdt As ilformat._ilmethodcollection)
+        If funcdt.name.ToLower = "ctor" AndAlso funcdt.methodmodtype = ilformat._modifiertype.INSTANCE AndAlso funcdt.accessible = ilformat._accessiblemethod.PUBLIC Then
+            set_constructor(funcdt)
+            Return
+        End If
         Dim headfuncdt As String = String.Format(".method {1} {0} ", get_cil_modifier_type(funcdt.methodmodtype), get_cil_access_control(funcdt.accessible))
 
         If funcdt.returntype = "void" Or funcdt.returntype = Nothing Then
