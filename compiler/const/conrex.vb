@@ -32,6 +32,7 @@ Public Class conrex
     Public Const CURSORERR As Char = "^"
     Public Const PRSTART As Char = "("
     Public Const PREND As Char = ")"
+    Public Const PRSTEN As String = "()"
     Public Const BRSTART As Char = "["
     Public Const BREND As Char = "]"
     Public Const COSTR As Char = "'"
