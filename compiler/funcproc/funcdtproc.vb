@@ -52,6 +52,21 @@
         Next
         Return retstate
     End Function
+    Friend Shared Function get_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
+        If IsNothing(reffunc(classindex).methods) Then Return -1
+        Dim retstate As Integer = -1
+        funcname = funcname.ToLower
+        For index = 0 To reffunc(classindex).methods.Length - 1
+            If reffunc(classindex).methods(index).name.ToLower = funcname Then
+                If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc) Then
+                    funcname = reffunc(classindex).methods(index).name
+                    Return index
+                End If
+                retstate = -2
+            End If
+        Next
+        Return retstate
+    End Function
 
     Friend Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, _method As tknformat._method, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
         'TODO : Check Return-Type
