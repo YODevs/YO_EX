@@ -68,7 +68,6 @@ Public Class ilbodybulider
     Public Sub imp_ctor()
         If ctorset = False Then
             If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
-                MsgBox(1)
                 add_il_code(".method public specialname rtspecialname instance void .ctor() cil managed ")
                 add_il_code("{")
                 add_il_code("ldarg.0
@@ -254,7 +253,9 @@ call instance void [mscorlib]System.Object::.ctor()")
             If funcdt.locallinit(index).datatype = conrex.NULL Then Continue For
             If funcdt.locallinit(index).iscommondatatype = False Then
                 classref = "class "
-                dllref = "[mscorlib]"
+                If funcdt.locallinit(index).asmextern <> conrex.NULL Then
+                    dllref = String.Format("[{0}]", funcdt.locallinit(index).asmextern)
+                End If
             End If
 
             If funcdt.locallinit.Length = index + 1 Then
