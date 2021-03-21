@@ -53,6 +53,7 @@
         Dim ctor As Boolean
         Dim isvaluetypes As Boolean
         Dim valtpinf As _valtypeinfo
+        Dim asmextern As String
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
