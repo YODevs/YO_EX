@@ -412,7 +412,12 @@
         codes.Add(code)
     End Sub
     Public Shared Sub new_obj(ByRef codes As ArrayList, returntype As String, externlib As String, classprop As String, methodname As String, paramtypes As ArrayList)
-        Dim code As String = String.Format("newobj instance {0} [{1}]{2}::{3}", returntype, externlib, classprop, methodname)
+        Dim code As String = String.Empty
+        If externlib = conrex.NULL Then
+            code = String.Format("newobj instance {0} {1}::{2}", returntype, classprop, methodname)
+        Else
+            code = String.Format("newobj instance {0} [{1}]{2}::{3}", returntype, externlib, classprop, methodname)
+        End If
         If IsNothing(paramtypes) OrElse paramtypes.Count = 0 Then
             code &= "()"
         Else
