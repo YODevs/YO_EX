@@ -50,4 +50,6 @@ pop"
     Friend Const ACCESSIBLE_PRIVATE As String = "private"
     Friend Const OBJECTMODTYPE_STATIC As String = "static"
     Friend Const OBJECTMODTYPE_INSTANCE As String = "instance"
+
+    Friend Const CONSTRUCTOR_METHOD As String = "ctor"
 End Class
