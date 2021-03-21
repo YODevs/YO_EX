@@ -40,6 +40,7 @@ Public Class ilctor
 
     Public Sub allocate_an_uninitialized_obj(glinecodestruc() As xmlunpkd.linecodestruc, resultfunc As funcvalid._resultfuncvaild, ctorinf As ctorinfo, index As Integer, clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
         If _illocalinit(index).ctor = False Then
+            If resultfunc.callintern = False Then _illocalinit(index).asmextern = libserv.get_extern_assembly(ctorinf.namespaceindex)
             Return
         End If
         If resultfunc.callintern Then
