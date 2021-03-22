@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "temperature_converter"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
