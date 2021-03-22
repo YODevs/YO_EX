@@ -117,7 +117,7 @@ patterns: [
     name: "storage.type.yo"
   }
   {
-    match: "(?i:\\b(Private|Public|Default|Static|Friend|Const)\\b)"
+    match: "(?i:\\b(Private|Public|Default|Static|Friend|Const|Instance)\\b)"
     name: "storage.modifier.yo"
   }
   {
