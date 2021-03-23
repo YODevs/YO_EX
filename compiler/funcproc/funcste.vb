@@ -78,9 +78,10 @@ Public Class funcste
     End Sub
 
     Friend Shared Sub inv_internal_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
-        Dim classindex As Integer = funcdtproc.get_index_class(classname)
+        Dim isvirtualmethod As Boolean = False
+        Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, classname, isvirtualmethod)
         If classindex = -1 Then
-            dserr.args.Add("Class " & classname & " not found.")
+            dserr.args.Add("Class '" & classname & "' not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
         End If
@@ -94,6 +95,15 @@ Public Class funcste
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) , The parameters of the called function do not match its original function.")
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value))
         End Select
+        If isvirtualmethod Then
+            Dim ldloc As New illdloc(_ilmethod)
+            Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
+            If gidentifier.value.Contains(conrex.DBCLN) Then
+                gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
+                gidentifier.ile = gidentifier.value.Length
+            End If
+            ldloc.load_single_in_stack(classname, gidentifier)
+        End If
 
         Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
         Dim paramtype As ArrayList
@@ -111,9 +121,9 @@ Public Class funcste
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             End If
             Dim freturntype As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(retnamespaceindex), getdatatype)
-            cil.call_intern_method(_ilmethod.codes, freturntype, classname, funcresult.clmethod, paramtype)
+            cil.call_intern_method(_ilmethod.codes, freturntype, classname, funcresult.clmethod, paramtype, isvirtualmethod)
         Else
-            cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype)
+            cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype, isvirtualmethod)
         End If
         If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
 
