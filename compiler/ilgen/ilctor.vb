@@ -21,9 +21,9 @@ Public Class ilctor
         End If
         Dim glinecodestruc() As xmlunpkd.linecodestruc = servinterface.trim_line_code_struc(clinecodestruc, indclass)
         glinecodestruc(0).value &= "::.ctor"
-        Dim resultfunc As funcvalid._resultfuncvaild = funcvalid.get_func_valid(glinecodestruc)
+        Dim resultfunc As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, glinecodestruc)
         If resultfunc.callintern Then
-            Dim classindex As Integer = funcdtproc.get_index_class(ctorinf.classname)
+            Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, ctorinf.classname)
             If classindex = -1 Then
                 dserr.args.Add("Class '" & ctorinf.classname & "' not found.")
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
