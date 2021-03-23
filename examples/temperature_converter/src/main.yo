@@ -1,0 +1,22 @@
+#[app::classname("temperature_converter")]
+#[app::wait(true)]
+include 'ystdio'
+func main()
+{
+  let result : f32 = to_fahrenheit(28.0)
+  io::println("#{result}")
+  result := to_celsius(5.0)
+  io::println("#{result}")
+}
+
+func to_celsius(fahren_val:f32) : f32
+{
+  let result : f32 = [(fahren_val - 32) * 5/9]
+  return result
+}
+
+func to_fahrenheit(cel_val:f32) : f32
+{
+  let result : f32 = [(cel_val * 9/5) + 32]
+  return result
+}
