@@ -94,8 +94,11 @@
         ' cargldr = cargcodestruc
         Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc)
     End Function
-    Friend Shared Function get_index_class(ByRef classname As String) As Integer
+    Friend Shared Function get_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, Optional ByRef isvirtualmethod As Boolean = False) As Integer
         Dim classchename As String = String.Empty
+        If IsNothing(_ilmethod) = False Then
+            libserv.get_identifier_ns(_ilmethod, classname, isvirtualmethod)
+        End If
         Dim resultclassindex As mapstoredata.dataresult = refrecord.find(classname, True, classchename)
         If resultclassindex.issuccessful Then
             classname = classchename
