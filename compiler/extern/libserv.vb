@@ -44,7 +44,7 @@ Public Class libserv
     End Sub
     Friend Shared Function get_extern_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer, Optional ByRef isvirtualmethod As Boolean = False, Optional ByRef reclassname As String = Nothing) As Integer
         Dim classchename As String = String.Empty
-        If IsNothing(_ilmethod.locallinit) = False OrElse IsNothing(_ilmethod.parameter) = False Then
+        If IsNothing(_ilmethod.locallinit) = False OrElse IsNothing(_ilmethod.parameter) = False OrElse IsNothing(ilasmgen.classdata.fields) = False Then
             get_identifier_ns(_ilmethod, classname, isvirtualmethod)
         End If
         check_common_data_type(classname, reclassname)
