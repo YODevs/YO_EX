@@ -336,8 +336,11 @@
         codes.Add(code)
     End Sub
 
-    Public Shared Sub call_intern_method(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList)
+    Public Shared Sub call_intern_method(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList, Optional isvirtualmethod As Boolean = False)
         Dim code As String = "call "
+        If isvirtualmethod Then
+            code = "callvirt instance "
+        End If
         If returntype = Nothing Then
             code &= "void"
         Else
