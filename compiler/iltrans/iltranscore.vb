@@ -185,7 +185,7 @@
         'coutputdata.print_token(clinecodestruc)
         Dim inline As Integer = 0
         Dim index As Integer = clinecodestruc.Length - 1
-        Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(clinecodestruc)
+        Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, clinecodestruc)
         If funcresult.funcvalid Then
             funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
             Return
