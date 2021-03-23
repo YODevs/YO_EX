@@ -105,7 +105,7 @@
     Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, rlinecodestruc() As xmlunpkd.linecodestruc, datatype As String) As Boolean
         Dim clineprop As xmlunpkd.linecodestruc = cargcodestruc
         If IsNothing(rlinecodestruc) = False Then
-            Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(rlinecodestruc)
+            Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, rlinecodestruc)
             If funcresult.funcvalid Then
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 Return True
