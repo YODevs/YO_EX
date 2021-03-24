@@ -23,6 +23,7 @@ Public Class conrex
     Public Shared VER As String = My.Application.Info.Version.ToString
     Public Shared APPDIR As String = My.Application.Info.DirectoryPath
     Public Shared ENVCURDIR As String = Environment.CurrentDirectory
+    Public Shared CACHEDIR As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\YOLang"
     Public Const YOFORMAT As String = ".yo"
     Public Const DNLIBFORMAT As String = ".dll"
     Public Const NULL As String = Nothing
