@@ -49,6 +49,7 @@ Module maincr
         conserr.init_error_struct()
         tokenhared.init()
         init_essential_files()
+        cacheste.init_cache_system()
         initcommondatatype.init_common_data_type()
         initcommondatatype.init_ptr_bind()
         specificdustrcommand.init()
