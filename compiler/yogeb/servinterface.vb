@@ -1,5 +1,7 @@
 ﻿Imports System.IO
 Imports System.Reflection
+Imports System.Security.Cryptography
+Imports System.Text
 Imports YOCA
 
 Public Class servinterface
@@ -406,5 +408,15 @@ Public Class servinterface
         clinecodestruc.value = value
         clinecodestruc.name = [Enum].GetName(GetType(tokenhared.token), token)
         Return clinecodestruc
+    End Function
+
+    Public Shared Function get_hash(val As String) As String
+        Dim hashcreator As MD5 = MD5.Create()
+        Dim dbytes As Byte() = hashcreator.ComputeHash(Encoding.UTF8.GetBytes(val))
+        Dim sb As New StringBuilder()
+        For i = 0 To dbytes.Length - 1
+            sb.Append(dbytes(i).ToString("X2"))
+        Next
+        Return sb.ToString()
     End Function
 End Class
