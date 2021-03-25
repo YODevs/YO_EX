@@ -121,6 +121,7 @@ You can type 'Help' to view commands.")
             compdt.MUTEPROCESS = argstorelist.find(compdt.PARAM_MUTE_PROCESS, True)
         End If
         procresult.set_state("init")
+        compdt.NOCACHE = argstorelist.find(compdt.PARAM_NOCACHE, True)
         compdt.DISPLAYTOKENWLEX = argstorelist.find(compdt.PARAM_DISPLAYTOKENLEX, True)
         compdt.DISPLAYSTACKTRACE = argstorelist.find(compdt.PARAM_DISPLAYSTACKTRACE, True)
         compdt.DISABLEWARNINGS = argstorelist.find(compdt.PARAM_DISABLE_WARNINGS, True)
