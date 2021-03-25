@@ -95,6 +95,8 @@ Public Class attr
 
     Private Sub set_cfg_attribute(resultattr As yocaattribute.resultattribute)
         Select Case resultattr.fieldattribute.ToLower
+            Case "no_cache"
+                attribute._cfg._no_cache = setinattr.get_bool_val(resultattr, path)
             Case "cil"
                 attribute._cfg._cilinject = setinattr.get_bool_val(resultattr, path)
             Case "optimize_expression"
