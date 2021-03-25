@@ -22,6 +22,10 @@ Public Class yocaattribute
         'EN : Disabling all of the warnings while compiling
         'FA : غیرفعال سازی همه هشدارهای حین کامپایل
         Dim _disable_warnings As Boolean
+
+        'EN : Enable or disable cache in this file 
+        'FA : فعال سازی یا غیرفعال سازی کش در این فایل
+        Dim _no_cache As Boolean
     End Structure
 
     Structure app
