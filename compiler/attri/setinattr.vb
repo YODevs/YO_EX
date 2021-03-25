@@ -21,6 +21,7 @@ Public Class setinattr
         yoattr._cfg._cilinject = False
         yoattr._cfg._optimize_expression = True
         yoattr._cfg._disable_warnings = False
+        yoattr._cfg._no_cache = False
 
         yoattr._app._namespace = Nothing
         yoattr._app._classname = compdt.YOMAINCLASS
