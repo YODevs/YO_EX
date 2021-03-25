@@ -6,6 +6,8 @@ Public Class ilbodybulider
     Friend Shared path As String
     Friend Shared attribute As yocaattribute.yoattribute
     Private msilsource As String
+    Private cachesystem As Boolean = False
+    Private singlefilecode As String
     Private ctorset As Boolean = False
     Public ReadOnly Property source() As String
         Get
@@ -19,6 +21,9 @@ Public Class ilbodybulider
 
     Public Function conv_to_msil() As String
         ctorset = False
+        cachesystem = False
+        singlefilecode = String.Empty
+        check_allow_to_cache()
         For index = 0 To ildt.assemblyextern.Length - 1
             add_assembly(ildt.assemblyextern(index))
         Next
@@ -47,6 +52,7 @@ Public Class ilbodybulider
 
         add_en_block()
 
+        If cachesystem Then cachemkr.create_cache_file(path, singlefilecode)
         Return source
     End Function
 
@@ -330,11 +336,23 @@ call instance void [mscorlib]System.Object::.ctor()")
     End Sub
     Public Sub add_il_code(code As String)
         msilsource &= vbCrLf & code
+        If cachesystem Then add_to_cache_file(vbCrLf & code)
     End Sub
     Public Sub add_inline_code(code As String)
         msilsource &= code
+        If cachesystem Then add_to_cache_file(code)
     End Sub
     Public Sub set_wait_attribute()
         add_il_code(compdt.WAITILCODE)
+    End Sub
+    Public Sub check_allow_to_cache()
+        If compdt.NOCACHE = False Then
+            If attribute._cfg._no_cache = False Then
+                cachesystem = True
+            End If
+        End If
+    End Sub
+    Public Sub add_to_cache_file(code As String)
+        singlefilecode &= code
     End Sub
 End Class
