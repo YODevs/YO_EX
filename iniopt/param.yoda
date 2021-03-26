@@ -3,5 +3,5 @@
 ,
 "run"= "debug,debug_impl,debug_opt,import_assets,execution_time,display_token,stack_trace,mute_process,disable_warnings,compile_time,no_cache"
 ,
-"check"= "debug,debug_impl,debug_opt,display_token,stack_trace,mute_process,disable_warnings,compile_time,no_cache"
+"check"= "debug,debug_impl,debug_opt,display_token,stack_trace,mute_process,disable_warnings,compile_time"
 ]
