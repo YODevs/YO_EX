@@ -12,7 +12,7 @@ Public Class cachegtr
                 Continue For
             End If
             Dim sourcepath As String = cacheprojectdir & servinterface.get_hash(tknfmtclass(index).location)
-            Dim sourceinfopath As String = sourcepath & conrex.LABRAFORMAT
+            Dim sourceinfopath As String = sourcepath & conrex.YODAFORMAT
             If File.Exists(sourcepath) = False OrElse File.Exists(sourceinfopath) = False Then
                 tknfmtclass(index).cacheinf.active = False
             Else
