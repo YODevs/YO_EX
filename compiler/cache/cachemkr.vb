@@ -24,7 +24,7 @@ Public Class cachemkr
 
         Dim yoda As New YODA.YODA_Format
         Dim labrainfo As String = yoda.WriteYODA_Map(key, val, True)
-        File.WriteAllText(hashfilepath & ".labra", labrainfo)
+        File.WriteAllText(hashfilepath & conrex.YODAFORMAT, labrainfo)
     End Sub
     Private Shared Sub create_cache_route()
         cacheprojectdir = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
