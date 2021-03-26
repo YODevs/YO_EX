@@ -15,6 +15,7 @@ Public Class impfiles
                     funcdtproc.import_method(tknfmtclass(index))
                 Next
                 import_include_file(tknfmtclass)
+                cachegtr.check_cache_repo(tknfmtclass)
                 procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
                 ilgen.codegenerator()
