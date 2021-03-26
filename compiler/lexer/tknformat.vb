@@ -12,8 +12,15 @@
         Dim attribute As yocaattribute.yoattribute
         Dim externlist As ArrayList
         Dim includelist As ArrayList
+        Dim cacheinf As _cacheinfo
     End Structure
 
+    Structure _cacheinfo
+        Dim active As Boolean
+        Dim path As String
+        Dim datecreated As Long
+        Dim datemodified As Long
+    End Structure
     Structure _enum
         Dim name As String
         Dim constkeys As ArrayList
