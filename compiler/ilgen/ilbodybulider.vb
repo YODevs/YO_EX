@@ -5,24 +5,23 @@ Public Class ilbodybulider
     Public ildt As ilformat.ildata
     Friend Shared path As String
     Friend Shared attribute As yocaattribute.yoattribute
-    Private msilsource As String
     Private cachesystem As Boolean = False
-    Private singlefilecode As String
     Private ctorset As Boolean = False
+    Private sbc As Text.StringBuilder
     Public ReadOnly Property source() As String
         Get
-            Return msilsource
+            Return sbc.ToString
         End Get
     End Property
     Public Sub New(ilclassdata As ilformat.ildata, attr As yocaattribute.yoattribute)
         ildt = ilclassdata
         attribute = attr
+        sbc = New Text.StringBuilder
     End Sub
 
-    Public Function conv_to_msil() As String
+    Public Sub conv_to_msil()
         ctorset = False
         cachesystem = False
-        singlefilecode = String.Empty
         check_allow_to_cache()
         For index = 0 To ildt.assemblyextern.Length - 1
             add_assembly(ildt.assemblyextern(index))
@@ -52,9 +51,8 @@ Public Class ilbodybulider
 
         add_en_block()
 
-        If cachesystem Then cachemkr.create_cache_file(path, singlefilecode)
-        Return source
-    End Function
+        If cachesystem Then cachemkr.create_cache_file(path, sbc.ToString)
+    End Sub
 
     Private Sub imp_enum(enumeration() As tknformat._enum)
         If IsNothing(enumeration) Then Return
@@ -335,12 +333,10 @@ call instance void [mscorlib]System.Object::.ctor()")
         End If
     End Sub
     Public Sub add_il_code(code As String)
-        msilsource &= vbCrLf & code
-        If cachesystem Then add_to_cache_file(vbCrLf & code)
+        sbc.Append(vbCrLf & code)
     End Sub
     Public Sub add_inline_code(code As String)
-        msilsource &= code
-        If cachesystem Then add_to_cache_file(code)
+        sbc.Append(code)
     End Sub
     Public Sub set_wait_attribute()
         add_il_code(compdt.WAITILCODE)
@@ -351,8 +347,5 @@ call instance void [mscorlib]System.Object::.ctor()")
                 cachesystem = True
             End If
         End If
-    End Sub
-    Public Sub add_to_cache_file(code As String)
-        singlefilecode &= code
     End Sub
 End Class
