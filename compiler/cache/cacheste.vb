@@ -22,4 +22,12 @@ Public Class cacheste
         File.WriteAllText(conrex.CACHEDIR & "\.ver", conrex.VER)
         Directory.CreateDirectory(conrex.CACHEDIR & "\fastbuild")
     End Sub
+
+    Friend Shared Function cache_cleaner() As Boolean
+        If Directory.Exists(conrex.CACHEDIR & "\fastbuild") Then
+            Directory.Delete(conrex.CACHEDIR & "\fastbuild", True)
+            Return True
+        End If
+        Return False
+    End Function
 End Class
