@@ -75,6 +75,12 @@ The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
 "init" = "Preparation and installation of compiler prerequisites, including statistics, set environment variable, etc.
 Usage : yoca init"
+, 
+"cacleaner" = "Delete all caches created by the compiler.
+Usage : yoca cacleaner
+*** Hints ***
+Caches are created to optimize RAM and CPU usage as well as dramatically increase compilation speed.
+Of course, the compiler also cleans old cache files." 
 ,
 "version" = "Print yoca compiler version.
 Usage : yoca version"
