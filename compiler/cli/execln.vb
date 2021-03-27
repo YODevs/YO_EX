@@ -109,6 +109,21 @@ You can type 'Help' to view commands.")
     Public Sub rp_init()
         initact.set_initial_process()
     End Sub
+    Public Sub rp_cacleaner()
+        Console.Write(vbCrLf & "Are you sure you want to delete all compiler caches?[y/N]")
+        If Console.ReadKey.KeyChar.ToString.ToLower = "y" Then
+            If cacheste.cache_cleaner() = True Then
+                Dim peconsolecolor As Int16 = Console.ForegroundColor
+                Console.ForegroundColor = System.ConsoleColor.DarkGreen
+                Console.WriteLine(vbCrLf & "The caches were cleared successfully.")
+                Console.ForegroundColor = peconsolecolor
+            Else
+                Console.WriteLine(vbCrLf & "The cache cleaning operation was stopped.(No cache found)")
+            End If
+        Else
+            Console.WriteLine(vbCrLf & "The cache cleaning operation was stopped.")
+        End If
+    End Sub
     Public Sub rp_check(args As ArrayList)
         compdt.CHECKSYNANDSEM = True
         rp_build(args, True)
