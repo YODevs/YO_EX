@@ -20,6 +20,7 @@ Public Class conrex
     Private Shared rand As New Random
     Public Shared specificrandomnumber As Integer = rand.Next(10000, 99999)
     Public Const TITLE As String = "[ YO Lang ]"
+    Public Const CACHEACTIVITYRANGE As Double = 60.0 'Days
     Public Shared VER As String = My.Application.Info.Version.ToString
     Public Shared APPDIR As String = My.Application.Info.DirectoryPath
     Public Shared ENVCURDIR As String = Environment.CurrentDirectory
