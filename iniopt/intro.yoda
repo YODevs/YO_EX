@@ -10,6 +10,8 @@ Disable JIT optimization, create PDB file, use sequence points from PDB.
 Disable JIT optimization, create PDB file, use implicit sequence points.
 --debug_opt
 Enable JIT optimization, create PDB file, use implicit sequence points.
+--dev
+Enable compiler development mode, which disables the cache unit and generates IL codes and more.
 --import_assets
 Copy dependencies and assets from the assets folder to the output.
 --display_token
@@ -36,6 +38,8 @@ Disable JIT optimization, create PDB file, use sequence points from PDB.
 Disable JIT optimization, create PDB file, use implicit sequence points.
 --debug_opt
 Enable JIT optimization, create PDB file, use implicit sequence points.
+--dev
+Enable compiler development mode, which disables the cache unit and generates IL codes and more.
 --import_assets
 Copy dependencies and assets from the assets folder to the output.
 --execution_time
@@ -62,6 +66,8 @@ Disable JIT optimization, create PDB file, use sequence points from PDB.
 Disable JIT optimization, create PDB file, use implicit sequence points.
 --debug_opt
 Enable JIT optimization, create PDB file, use implicit sequence points.
+--dev
+Enable compiler development mode, which disables the cache unit and generates IL codes and more.
 --import_assets
 Copy dependencies and assets from the assets folder to the output.
 --display_token
