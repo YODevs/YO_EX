@@ -20,7 +20,7 @@ Public Class ilgencode
             'Single File ;
             Dim getcfield As Integer = 0
             If IsNothing(classdt(index).fields) = False Then getcfield = classdt(index).fields.Length
-            If classdt(index).cacheinf.active AndAlso compdt.CHECKSYNANDSEM = False Then
+            If classdt(index).cacheinf.active AndAlso compdt.CHECKSYNANDSEM = False AndAlso compdt.DEVMOD = False Then
                 procresult.rp_gen(classdt(index).location & " [CA] - " & classdt(index).methods.Length & " func(s) , " & getcfield & " field(s)")
                 Dim cachedata As String = File.ReadAllText(classdt(index).cacheinf.path)
                 import_il_gen_code(cachedata)
@@ -49,7 +49,7 @@ Public Class ilgencode
         procresult.rp_asm("Preparation of prerequisites and parameters")
         Dim ilasmparameter As New ilasmparam
         check_debug_state(ilasmparameter)
-        coutputdata.write_file_data("msil_source.il", source)
+        If compdt.DEVMOD Then coutputdata.write_file_data("msil_source.il", source)
         Dim path As String = cilcomp.get_il_loca()
         File.WriteAllText(path, source)
         ilasmparameter.add_file(path)
