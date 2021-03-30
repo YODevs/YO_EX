@@ -19,6 +19,7 @@ Public Class cmdlnproc
         CHECK
         INIT
         CACLEANER
+        DEV
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -75,6 +76,7 @@ Public Class cmdlnproc
         set_new_command(cmdtype.IMPORT, "import")
         set_new_command(cmdtype.CLEAN, "clean")
         set_new_command(cmdtype.CACLEANER, "cacleaner")
+        set_new_command(cmdtype.DEV, "dev")
         set_new_command(cmdtype.VERSION, "version")
         set_new_command(cmdtype.TEST, "test")
         set_new_command(cmdtype.EXIT, "exit")
