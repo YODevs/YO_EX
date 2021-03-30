@@ -88,6 +88,12 @@ Usage : yoca cacleaner
 Caches are created to optimize RAM and CPU usage as well as dramatically increase compilation speed.
 Of course, the compiler also cleans old cache files." 
 ,
+"dev" = "Change to development mode or return to normal mode.
+Usage : yoca dev
+*** Hints ***
+In development mode, the cache system is disabled and debugging is performed.
+You also have the ability to output IL codes." 
+,
 "version" = "Print yoca compiler version.
 Usage : yoca version"
 ,
