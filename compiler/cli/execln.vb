@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.IO
+Imports System.Text.RegularExpressions
 ''' <summary>
 ''' <en>
 ''' This class has to run compiler's commands in the command line
@@ -163,7 +164,23 @@ You can type 'Help' to view commands.")
             If compdt.EXECTIME Then exec_time(appproc)
         End If
     End Sub
-
+    Public Sub rp_dev()
+        Console.Write(constcli.DEVQES)
+        Select Case Console.ReadKey.KeyChar.ToString.ToLower
+            Case "y"
+                If File.Exists(conrex.APPDIR & "\iniopt\dev") = False Then
+                    File.WriteAllText(conrex.APPDIR & "\iniopt\dev", conrex.NULL)
+                End If
+            Case "n"
+                If File.Exists(conrex.APPDIR & "\iniopt\dev") Then
+                    File.Delete(conrex.APPDIR & "\iniopt\dev")
+                End If
+            Case Else
+                Console.WriteLine(vbCrLf & constcli.DEVCHARERROR)
+                Return
+        End Select
+        Console.WriteLine(vbCrLf & constcli.DEVONCHANGED)
+    End Sub
     Private Sub compile_time(firststage As Boolean)
         Static frcompiletime As Date = Date.Now
         If firststage = False Then
