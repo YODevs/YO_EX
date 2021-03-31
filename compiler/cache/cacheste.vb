@@ -26,8 +26,8 @@ Public Class cacheste
     End Sub
 
     Friend Shared Function cache_cleaner() As Boolean
-        If Directory.Exists(conrex.CACHEDIR & "\fastbuild") Then
-            Directory.Delete(conrex.CACHEDIR & "\fastbuild", True)
+        If Directory.Exists(conrex.CACHEDIR) Then
+            Directory.Delete(conrex.CACHEDIR, True)
             Return True
         End If
         Return False
