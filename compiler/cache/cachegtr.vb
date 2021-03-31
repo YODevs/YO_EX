@@ -20,7 +20,21 @@ Public Class cachegtr
             End If
         Next
     End Sub
-
+    Friend Shared Sub check_cache_repo(ByRef tknfmtclass As tknformat._class)
+        If compdt.NOCACHE Then Return
+        If cacheprojectdir = conrex.NULL Then cacheprojectdir = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
+        If tknfmtclass.attribute._cfg._no_cache = True Then
+            tknfmtclass.cacheinf.active = False
+            Return
+        End If
+        Dim sourcepath As String = cacheprojectdir & servinterface.get_hash(tknfmtclass.location)
+        Dim sourceinfopath As String = sourcepath & conrex.YODAFORMAT
+        If File.Exists(sourcepath) = False OrElse File.Exists(sourceinfopath) = False Then
+            tknfmtclass.cacheinf.active = False
+        Else
+            check_file_information(tknfmtclass, sourcepath, sourceinfopath)
+        End If
+    End Sub
     Private Shared Sub check_file_information(ByRef tknfmtclass As tknformat._class, sourcepath As String, sourceinfopath As String)
         Dim getinfofile As String = File.ReadAllText(sourceinfopath)
         Dim fileinfo As New YODA.YODA_Format
