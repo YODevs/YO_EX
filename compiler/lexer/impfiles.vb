@@ -9,16 +9,26 @@ Public Class impfiles
                 Dim tknfmtclass(files.Count - 1) As tknformat._class
                 procresult.set_state("lex")
                 For index = 0 To files.Count - 1
-                    Dim lex As New lexer(files(index).ToString)
-                    lex.lexme(tknfmtclass(index))
+                    If cachelexunit.check_lexer_cache(tknfmtclass(index), files(index).ToString) = False Then
+                        Dim lex As New lexer(files(index).ToString)
+                        lex.lexme(tknfmtclass(index))
+                    End If
                     servinterface.check_class_vaild(tknfmtclass(index).attribute, tknfmtclass(index).location)
                     funcdtproc.import_method(tknfmtclass(index))
                 Next
                 import_include_file(tknfmtclass)
+                'Dim Ser As New Xml.Serialization.XmlSerializer(tknfmtclass.GetType)
+                'Dim WR As New StreamReader(conrex.CACHEDIR & "\Output.txt")
+                'tknfmtclass = Ser.Deserialize(WR)
+                'MsgBox(tknfmtclass(0).location)
+                'Dim WRI As New StreamWriter(conrex.CACHEDIR & "\Output.txt")
+                'Ser.Serialize(WRI, tknfmtclass)
                 cachegtr.check_cache_repo(tknfmtclass)
                 procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
                 ilgen.codegenerator()
+                Dim calex As New cachelexunit(tknfmtclass)
+                calex.lex_to_serialization()
             Else
                 Return
             End If
@@ -32,8 +42,10 @@ Public Class impfiles
         Dim bfindex As Integer = tknfmtclass.Length
         Array.Resize(tknfmtclass, tknfmtclass.Length + incfile.incspath.Count)
         For index = 0 To incfile.incspath.Count - 1
-            Dim lex As New lexer(incfile.incspath(index).ToString)
-            lex.lexme(tknfmtclass(bfindex + index))
+            If cachelexunit.check_lexer_cache(tknfmtclass(bfindex + index), incfile.incspath(index).ToString) = False Then
+                Dim lex As New lexer(incfile.incspath(index).ToString)
+                lex.lexme(tknfmtclass(bfindex + index))
+            End If
             servinterface.check_class_vaild(tknfmtclass(bfindex + index).attribute, tknfmtclass(bfindex + index).location)
             funcdtproc.import_method(tknfmtclass(bfindex + index))
         Next
