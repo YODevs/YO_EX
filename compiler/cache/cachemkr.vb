@@ -1,8 +1,9 @@
 ﻿Imports System.IO
 
 Public Class cachemkr
-    Private Shared cacheprojectdir As String = String.Empty
+    Friend Shared cacheprojectdir As String = String.Empty
     Friend Shared Sub create_cache_file(path As String, source As String)
+        Return
         If cacheprojectdir = conrex.NULL Then create_cache_route()
         Dim filepath As String = cacheprojectdir & servinterface.get_hash(path)
         File.WriteAllText(filepath, source)
@@ -26,7 +27,7 @@ Public Class cachemkr
         Dim labrainfo As String = yoda.WriteYODA_Map(key, val, True)
         File.WriteAllText(hashfilepath & conrex.YODAFORMAT, labrainfo)
     End Sub
-    Private Shared Sub create_cache_route()
+    Friend Shared Sub create_cache_route()
         cacheprojectdir = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
         If Directory.Exists(cacheprojectdir) = False Then
             Directory.CreateDirectory(cacheprojectdir)
