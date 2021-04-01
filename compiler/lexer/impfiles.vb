@@ -17,12 +17,6 @@ Public Class impfiles
                     funcdtproc.import_method(tknfmtclass(index))
                 Next
                 import_include_file(tknfmtclass)
-                'Dim Ser As New Xml.Serialization.XmlSerializer(tknfmtclass.GetType)
-                'Dim WR As New StreamReader(conrex.CACHEDIR & "\Output.txt")
-                'tknfmtclass = Ser.Deserialize(WR)
-                'MsgBox(tknfmtclass(0).location)
-                'Dim WRI As New StreamWriter(conrex.CACHEDIR & "\Output.txt")
-                'Ser.Serialize(WRI, tknfmtclass)
                 cachegtr.check_cache_repo(tknfmtclass)
                 procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
