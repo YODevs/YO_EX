@@ -3,7 +3,6 @@
 Public Class cachemkr
     Friend Shared cacheprojectdir As String = String.Empty
     Friend Shared Sub create_cache_file(path As String, source As String)
-        Return
         If cacheprojectdir = conrex.NULL Then create_cache_route()
         Dim filepath As String = cacheprojectdir & servinterface.get_hash(path)
         File.WriteAllText(filepath, source)
