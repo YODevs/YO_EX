@@ -6,7 +6,9 @@ Public Class cachelexunit
         tknfmtclass.location = path
         cachegtr.check_cache_repo(tknfmtclass)
         If tknfmtclass.cacheinf.active Then
+            procresult.rp_lex_file(path & " [CA]")
             deserialize_lex(tknfmtclass)
+            procresult.rs_proc_data(True)
             Return True
         Else
             Return False
