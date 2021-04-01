@@ -38,6 +38,7 @@ Public Class impfiles
     End Sub
 
     Private Shared Sub import_include_file(ByRef tknfmtclass As tknformat._class())
+        cachelexunit.load_includes()
         If incfile.incspath.Count = 0 Then Return
         Dim bfindex As Integer = tknfmtclass.Length
         Array.Resize(tknfmtclass, tknfmtclass.Length + incfile.incspath.Count)
