@@ -71,6 +71,8 @@
                 imp_formatting_token("FLOAT", value, rd_token, linecinf)
             Case tokenhared.token.COMMONDATATYPE
                 imp_formatting_token("CDTY", value, rd_token, linecinf)
+            Case tokenhared.token.ARR
+                imp_formatting_token("ARR", value, rd_token, linecinf)
             Case tokenhared.token.EXPRESSION
                 imp_formatting_token("EXPR", value, rd_token, linecinf)
             Case tokenhared.token.EXPLTYPECAST
