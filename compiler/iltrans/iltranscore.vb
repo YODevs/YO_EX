@@ -648,13 +648,14 @@
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(2).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "let name : str = ""Amin""")
             Return
         End If
+        Dim singleidentifiername As String = servinterface.get_array_name(clinecodestruc(1).value)
         Array.Resize(_illocalinit, ilmethodlen + 1)
-        If clinecodestruc(1).tokenid <> tokenhared.token.IDENTIFIER Then
+        If clinecodestruc(1).tokenid <> tokenhared.token.IDENTIFIER AndAlso clinecodestruc(1).tokenid <> tokenhared.token.ARR Then
             'IDENTIFIER EXPECTED
             dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value), "let name : str = ""Amin""")
 
             'TODO : Check Global Types.
-        ElseIf localinit.check_local_init(clinecodestruc(1).value) Then
+        ElseIf localinit.check_local_init(singleidentifiername) Then
             'DECLARING ERROR
             dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "Choose another name.")
         End If
