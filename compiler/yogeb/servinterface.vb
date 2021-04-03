@@ -419,4 +419,12 @@ Public Class servinterface
         Next
         Return sb.ToString()
     End Function
+
+    Public Shared Function get_array_name(tokenvalue As String) As String
+        If tokenvalue.Contains(conrex.BRSTART) AndAlso tokenvalue.EndsWith(conrex.BREND) Then
+            tokenvalue = tokenvalue.Remove(tokenvalue.IndexOf(conrex.BRSTART))
+        End If
+        End
+        Return tokenvalue
+    End Function
 End Class
