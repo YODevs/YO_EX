@@ -112,9 +112,15 @@ Public Class lexer
                         End If
                     Case targetaction.EXPRESSIONLOADER
                         If get_expression(getch, slinegrab, chstatusaction) Then
-                            linecinf.lend = index - 1
-                            linecinf.length = slinegrab.Length
-                            linec = slinegrab
+                            If IsNothing(linec) = False Then
+                                linec &= slinegrab
+                                linecinf.lend += index - 1
+                                linecinf.length += slinegrab.Length
+                            Else
+                                linecinf.lend = index - 1
+                                linecinf.length = slinegrab.Length
+                                linec = slinegrab
+                            End If
                             Dim afline As Integer = linecinf.line
                             linecinf.line = strline
                             check_token(linecinf, linec)
@@ -416,6 +422,9 @@ Public Class lexer
         If rd_token = tokenhared.token.UNDEFINED Then
             If authfunc.check_identifier_vaild(value.ToLower) Then
                 rd_token = tokenhared.token.IDENTIFIER
+                Return True
+            ElseIf authfunc.check_arriden_vaild(value.ToLower) Then
+                rd_token = tokenhared.token.ARR
                 Return True
             Else
                 rd_token = tokenhared.token.UNDEFINED
