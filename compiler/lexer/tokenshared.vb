@@ -235,5 +235,6 @@
         QES = 93
         QESEQ = 94
         INSTANCE = 95
+        ARR = 96
     End Enum
 End Class
