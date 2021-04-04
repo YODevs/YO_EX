@@ -40,6 +40,7 @@ Public Class conrex
     Public Const PRSTEN As String = "()"
     Public Const BRSTART As Char = "["
     Public Const BREND As Char = "]"
+    Public Const BRSTEN As String = "[]"
     Public Const COSTR As Char = "'"
     Public Const DUSTR As Char = """"
     Public Const BKSLASH As Char = "\"
