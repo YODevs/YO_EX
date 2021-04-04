@@ -701,9 +701,9 @@
 #End Region
         Else
 #Region "Single Declaring"
-
+            _illocalinit(index).name = clinecodestruc(1).value
+            arr.check_array_struct(_illocalinit(index).name, _illocalinit(index).arrayinf, _illocalinit(index).isarrayobj)
             If clinecodestruc(ilinc).tokenid = tokenhared.token.COMMONDATATYPE Then
-                _illocalinit(index).name = clinecodestruc(1).value
                 _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value).result
                 _illocalinit(index).iscommondatatype = True
                 _illocalinit(index).isconstant = isconst
@@ -712,7 +712,6 @@
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
-                _illocalinit(index).name = clinecodestruc(1).value
                 If clinecodestruc(3).tokenid = tokenhared.token.INIT Then
                     If clinecodestruc.Length > 4 Then
                         _illocalinit(index).datatype = clinecodestruc(4).value
