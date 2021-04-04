@@ -262,18 +262,12 @@ call instance void [mscorlib]System.Object::.ctor()")
                 End If
             End If
 
+            Dim arrlgo As String = String.Empty
+            If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
             If funcdt.locallinit.Length = index + 1 Then
-                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name)
+                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name)
             Else
-                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & " " & funcdt.locallinit(index).name & " , ")
-            End If
-            If funcdt.locallinit(index).hasdefaultvalue Then
-                If funcdt.locallinit(index).iscommondatatype Then
-                    '    assignmentcommondatatype.set_value(funcdt, index)
-                Else
-                    'Other Type...
-                End If
-
+                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name & " , ")
             End If
             islot += 1
         Next
