@@ -52,7 +52,9 @@
         Dim frinit As Boolean
         Dim ctor As Boolean
         Dim isvaluetypes As Boolean
+        Dim isarrayobj As Boolean
         Dim valtpinf As _valtypeinfo
+        Dim arrayinf As _arrayinfo
         Dim asmextern As String
     End Structure
     Public Structure _ilassemblyextern
@@ -60,7 +62,7 @@
         Dim isextern As Boolean
         Dim assemblyproperty As String
     End Structure
-    Structure _pubfield
+    Public Structure _pubfield
         Dim isliteral As Boolean
         Dim accesscontrol As String
         Dim modifier As String
@@ -69,6 +71,12 @@
         Dim value As String
         Dim valuecinf As lexer.targetinf
         Dim valuetoken As tokenhared.token
+    End Structure
+
+    Public Structure _arrayinfo
+        Dim isarrayref As Boolean
+        Dim isunspecifiedelements As Boolean
+        Dim elementsp As Object
     End Structure
     Public Enum _accessiblemethod
         [PUBLIC]
