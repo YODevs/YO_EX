@@ -424,7 +424,6 @@ Public Class servinterface
         If tokenvalue.Contains(conrex.BRSTART) AndAlso tokenvalue.EndsWith(conrex.BREND) Then
             tokenvalue = tokenvalue.Remove(tokenvalue.IndexOf(conrex.BRSTART))
         End If
-        End
         Return tokenvalue
     End Function
 End Class
