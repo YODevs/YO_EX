@@ -61,6 +61,8 @@
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.IDENTIFIER
                 nv_st_identifier(clinecodestruc, _ilmethod)
+            Case tokenhared.token.ARR
+                nv_st_identifier(clinecodestruc, _ilmethod, True)
             Case tokenhared.token.LET
                 Dim assignprocess As Boolean = False
                 nv_let(_ilmethod, clinecodestruc, assignprocess)
@@ -180,7 +182,7 @@
             dserr.new_error(conserr.errortype.CILCOMMANDSAUTH, clinecodestruc(0).line, path, Nothing)
         End If
     End Sub
-    Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+    Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, Optional isarray As Boolean = False)
         'Print Tokens by xmlunpkd.linecodestruc
         'coutputdata.print_token(clinecodestruc)
         Dim inline As Integer = 0
@@ -191,7 +193,6 @@
             Return
         End If
         Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc(0))
-
         If clinecodestruc.Length < 3 Then
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
             Return
@@ -612,7 +613,7 @@
         Dim optval As String = String.Empty
         For index = 0 To clinecodestruc.Length - 1
             If waitforcma = False Then
-                If clinecodestruc(index).tokenid <> tokenhared.token.IDENTIFIER Then
+                If clinecodestruc(index).tokenid <> tokenhared.token.IDENTIFIER AndAlso clinecodestruc(index).tokenid <> tokenhared.token.ARR Then
                     'IDENTIFIER EXPECTED
                     dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value), "let name : str = ""Amin""")
                 End If
