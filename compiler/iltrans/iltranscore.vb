@@ -525,6 +525,8 @@
             Select Case localvartype.result
                 Case "str"
                     _ilmethod = optgen.assi_str(varname, clinecodestruc(ilinc))
+                Case "obj"
+                    _ilmethod = optgen.assi_obj(varname, clinecodestruc(ilinc))
                 Case "i128"
                     _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "valuetype [mscorlib]System.Decimal")
                 Case "i64"
