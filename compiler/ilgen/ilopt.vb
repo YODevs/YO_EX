@@ -227,6 +227,8 @@ Public Class ilopt
         Select Case datatype
             Case "str"
                 _ilmethod = assi_str(varname, clinecodestruc)
+            Case "obj"
+                _ilmethod = assi_obj(varname, clinecodestruc)
             Case "i128"
                 _ilmethod = assi_int(varname, clinecodestruc, cdatatype)
             Case "i64"
@@ -411,6 +413,32 @@ Public Class ilopt
         Return _ilmethod
     End Function
 
+    Public Function assi_obj(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        Select Case clinecodestruc.tokenid
+            Case tokenhared.token.TYPE_DU_STR
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
+            Case tokenhared.token.TYPE_CO_STR
+                cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
+            Case tokenhared.token.IDENTIFIER
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "object")
+            Case tokenhared.token.TYPE_INT
+                servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, False, "int64")
+            Case tokenhared.token.TYPE_FLOAT
+                servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, True)
+            'let value : obj = NULL
+            Case tokenhared.token.NULL
+                cil.push_null_reference(_ilmethod.codes)
+            Case Else
+                'Set Error 
+                dserr.args.Add(clinecodestruc.value)
+                dserr.args.Add("object")
+                dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+        End Select
+
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, "object")
+
+        Return _ilmethod
+    End Function
     Public Function assi_int(varname As String, clinecodestruc As xmlunpkd.linecodestruc, datatype As String) As ilformat._ilmethodcollection
         Dim convtoi8 As Boolean = servinterface.is_i8(datatype)
         servinterface.clinecodestruc = clinecodestruc
