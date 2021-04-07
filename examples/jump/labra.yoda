@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "jump"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
