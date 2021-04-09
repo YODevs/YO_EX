@@ -16,6 +16,9 @@
             Case "str"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_str(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex))
+            Case "obj"
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_obj(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex))
             Case "bool"
                 indenditem = funcdt.codes.Count - 1
                 funcdt = optgen.assi_bool(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "bool")
