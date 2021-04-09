@@ -2,7 +2,6 @@
     Private _illocalinit(0) As ilformat._illocalinit
     Private methoddata As tknformat._method
     Private localinit As localinitdata
-    Private jmp As jmp
     Private path As String
     Private bodyxmlformat As String
     Structure identifierassignmentinfo
@@ -14,6 +13,7 @@
         localinit = New localinitdata
         localinit.import_parameter(method)
         stjmper.init()
+        jmp.init(path)
     End Sub
 
     Public Sub New(path As String, bodyxmlfmt As String, injillocalinit() As ilformat._illocalinit, injlocalinit As localinitdata)
@@ -33,7 +33,6 @@
         Else
             xmldata = New xmlunpkd(bodyxmlformat, False)
         End If
-        jmp = New jmp(path)
         stjmper.reset_method(path)
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
