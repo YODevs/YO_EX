@@ -99,9 +99,15 @@ Public Class condproc
                     Case tokenhared.token.UNDEFINED
                         If deftruebr Then
                             cil.beq(_ilmethod.codes, branchinfo.truebranch)
-                        Else
-                            cil.bne(_ilmethod.codes, branchinfo.falsebranch)
-                        End If
+                        ElseIf ltype = "string" AndAlso rtype = "string" Then
+                            Dim param As New ArrayList
+                                param.Add("string")
+                                param.Add("string")
+                                cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Inequality", param)
+                                cil.branch_if_true(_ilmethod.codes, branchinfo.falsebranch)
+                            Else
+                                cil.bne(_ilmethod.codes, branchinfo.falsebranch)
+                            End If
                 End Select
             Case tokenhared.token.LKOEQ     '>=
                 Select Case sncond.sepopt
