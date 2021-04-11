@@ -30,6 +30,8 @@ Public Class conrex
     Public Const LABRAFORMAT As String = ".labra"
     Public Const YODAFORMAT As String = ".yoda"
     Public Const LEXCACHEFORMAT As String = ".yoobj"
+    Public Const BOX As String = "box"
+    Public Const [OBJECT] As String = "object"
     Public Const NULL As String = Nothing
     Public Const SPACE As Char = " "
     Public Const DOT As Char = "."
