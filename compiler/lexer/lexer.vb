@@ -495,6 +495,9 @@ Public Class lexer
     End Function
     Private Function rev_typecasting(value As String) As Boolean
         authfunc.rem_fr_and_en(value)
+        If value.ToLower.Trim = conrex.BOX Then
+            Return True
+        End If
         Return servinterface.is_common_data_type(value, Nothing)
     End Function
     Private Function rev_range(value As String) As Boolean
