@@ -311,7 +311,10 @@
         codes.Add("newobj instance void [mscorlib]System.Exception::.ctor(string)")
         codes.Add("throw")
     End Sub
-
+    Public Shared Sub box(ByRef codes As ArrayList, asmextern As String, classname As String)
+        Dim lcode As String = String.Format("box [{0}]{1}", asmextern, [classname])
+        codes.Add(lcode)
+    End Sub
     Public Shared Sub call_method(ByRef codes As ArrayList, returntype As String, asmextern As String, classprop As String, methodname As String, paramtypes As ArrayList)
         Dim code As String = "call "
         If returntype = Nothing Then
