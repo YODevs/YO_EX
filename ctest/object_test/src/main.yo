@@ -1,0 +1,39 @@
+#[app::classname("Object_test")]
+
+func main()
+{
+  test1()
+  test2()
+  test3()
+  test4()
+}
+
+func test1()
+{
+  let myobject : obj = "HELLO"
+  System.Console::WriteLine(myobject)
+}
+
+func test2()
+{
+  let obj1 : obj = "This is a string"
+  let text : str = [str]obj1
+  System.Console::WriteLine(text)
+}
+
+func test3()
+{
+  let i : i32 = 18
+  let xobj: obj = NULL
+  xobj := [box]i
+  System.Console::WriteLine(xobj)
+}
+
+func test4()
+{
+  let i : i32 = 0
+  let f : f64 = 6.8455554
+  let xobj: obj = [box]f
+  i := [i32]xobj
+  System.Console::WriteLine(i)
+}
