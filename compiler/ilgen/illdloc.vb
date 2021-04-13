@@ -164,13 +164,13 @@
             If pdatatype = datatype Then
                 Dim classname As String = hresult.exclass
                 If IsNothing(nactorcode) = False Then
-                    If hfield.modifier = "static" Then
+                    If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
                         cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
                     Else
                         cil.load_field(nactorcode, pnvar, pdatatype, classname)
                     End If
                 Else
-                    If hfield.modifier = "static" Then
+                    If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
                         cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
                     Else
                         cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
@@ -202,7 +202,7 @@
                 If pdatatype = datatype Then
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If IsNothing(nactorcode) = False Then
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
@@ -216,7 +216,7 @@
                             End If
                         End If
                     Else
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
@@ -234,7 +234,7 @@
                 ElseIf convtc.setconvmethod Then
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If IsNothing(nactorcode) = False Then
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
@@ -248,7 +248,7 @@
                             End If
                         End If
                     Else
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
