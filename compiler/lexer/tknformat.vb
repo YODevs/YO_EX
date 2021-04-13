@@ -1,4 +1,6 @@
-﻿Public Class tknformat
+﻿Imports YOCA
+
+Public Class tknformat
 
     Structure _importdll
         Dim name As String
@@ -44,13 +46,12 @@
     End Structure
     Structure _pubfield
         Dim isconstant As Boolean
-        Dim accesscontrol As String
-        Dim modifier As String
         Dim name As String
         Dim ptype As String
         Dim value As String
         Dim valuecinf As lexer.targetinf
         Dim valuetoken As tokenhared.token
+        Dim objcontrol As fmtshared.objectcontrol
     End Structure
 
     Structure _inlcode
