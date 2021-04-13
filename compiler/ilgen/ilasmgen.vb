@@ -43,8 +43,8 @@
             Dim getdatatype As String = yoclassdt.fields(index).ptype
             servinterface.is_common_data_type(getdatatype, getdatatype)
             _ilcollection.field(index).name = yoclassdt.fields(index).name
-            _ilcollection.field(index).accesscontrol = yoclassdt.fields(index).accesscontrol
-            _ilcollection.field(index).modifier = yoclassdt.fields(index).modifier
+            _ilcollection.field(index).accesscontrol = yoclassdt.fields(index).objcontrol.accesscontrolval
+            _ilcollection.field(index).modifier = yoclassdt.fields(index).objcontrol.modifierval
             _ilcollection.field(index).ptype = getdatatype
             _ilcollection.field(index).isliteral = yoclassdt.fields(index).isconstant
             Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(yoclassdt.fields(index).valuecinf, yoclassdt.fields(index).value, yoclassdt.fields(index).valuetoken)
@@ -62,7 +62,7 @@
                 ctrfunc.codes = New ArrayList
                 Dim ldfield As New illdloc(ctrfunc)
                 ldfield.load_single_in_stack(getdatatype, getlinecodestruct)
-                If yoclassdt.fields(index).modifier = "static" Then
+                If yoclassdt.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                     For ictrcode = 0 To ctrfunc.codes.Count - 1
                         _ilcollection.staticctor.Add(ctrfunc.codes(ictrcode))
                     Next
