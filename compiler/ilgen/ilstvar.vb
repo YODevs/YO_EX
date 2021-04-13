@@ -114,13 +114,13 @@ Public Class ilstvar
                         classname = ilasmgen.classdata.attribute._app._namespace & conrex.DOT & classname
                     End If
                     If IsNothing(nactorcode) = False Then
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             cil.set_static_field(nactorcode, pnvar, pdatatype, classname)
                         Else
                             cil.set_field(nactorcode, pnvar, pdatatype, classname)
                         End If
                     Else
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             cil.set_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
                         Else
                             cil.set_field(_ilmethod.codes, pnvar, pdatatype, classname)
@@ -157,13 +157,13 @@ Public Class ilstvar
             If pdatatype = datatype Then
                 Dim classname As String = hresult.exclass
                 If IsNothing(nactorcode) = False Then
-                    If hfield.modifier = "static" Then
+                    If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
                         cil.set_static_field(nactorcode, pnvar, pdatatype, classname)
                     Else
                         cil.set_field(nactorcode, pnvar, pdatatype, classname)
                     End If
                 Else
-                    If hfield.modifier = "static" Then
+                    If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
                         cil.set_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
                     Else
                         cil.set_field(_ilmethod.codes, pnvar, pdatatype, classname)
