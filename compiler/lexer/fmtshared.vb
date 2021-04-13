@@ -170,7 +170,7 @@
                         state = statecursor.INIMPORTS
                     Case tokenhared.token.LET
                         state = statecursor.FIELDS
-                        fieldstate = pbfieldstate.ACCESSCONTORL
+                        fieldstate = pbfieldstate.FIELDNAME
                         fieldtypest = fieldtypestate.LET
                         objcontrol.disableobjectcontrol = True
                     Case tokenhared.token.ENUM
@@ -179,7 +179,7 @@
                         objcontrol.disableobjectcontrol = True
                     Case tokenhared.token.CONST
                         state = statecursor.FIELDS
-                        fieldstate = pbfieldstate.ACCESSCONTORL
+                        fieldstate = pbfieldstate.FIELDNAME
                         fieldtypest = fieldtypestate.CONST
                         objcontrol.disableobjectcontrol = True
                     Case tokenhared.token.INCLUDE
@@ -277,39 +277,12 @@
     Private Sub _rev_field(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         Static Dim i As Integer = 0
         Select Case fieldstate
-            Case pbfieldstate.ACCESSCONTORL
+            Case pbfieldstate.FIELDNAME
                 If i <> 0 Then
                     Array.Resize(xfield, i + 1)
                 End If
-                Select Case rd_token
-                    Case tokenhared.token.PUBLIC
-                        xfield(i).accesscontrol = "public"
-                    Case tokenhared.token.PRIVATE
-                        xfield(i).accesscontrol = "private"
-                    Case Else
-                        dserr.args.Add(value)
-                        dserr.new_error(conserr.errortype.BADACCESSCONTROL, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public / private / ...")
-                End Select
-                fieldstate = pbfieldstate.MODIFIER
-                If fieldtypest = fieldtypestate.CONST Then
-                    xfield(i).isconstant = True
-                Else
-                    xfield(i).isconstant = False
-                End If
-                Return
-            Case pbfieldstate.MODIFIER
-                Select Case rd_token
-                    Case tokenhared.token.STATIC
-                        xfield(i).modifier = "static"
-                        fieldstate = pbfieldstate.FIELDNAME
-                    Case tokenhared.token.INSTANCE
-                        fieldstate = pbfieldstate.FIELDNAME
-                    Case Else
-                        dserr.args.Add(value)
-                        dserr.new_error(conserr.errortype.BADMODIFIER, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "let public instance x : str  | let public static x : str")
-                End Select
-                Return
-            Case pbfieldstate.FIELDNAME
+                xfield(i).objcontrol = objcontrol
+                objcontrol = New objectcontrol
                 If rd_token = tokenhared.token.IDENTIFIER Then
                     xfield(i).name = value
                     fieldstate = pbfieldstate.FIELDDTTPOPT
