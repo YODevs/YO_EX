@@ -281,6 +281,10 @@
                 If i <> 0 Then
                     Array.Resize(xfield, i + 1)
                 End If
+                If objcontrol.modifier = tokenhared.token.INSTANCE Then
+                    objcontrol.modifier = tokenhared.token.UNDEFINED
+                    objcontrol.modifierval = conrex.NULL
+                End If
                 xfield(i).objcontrol = objcontrol
                 objcontrol = New objectcontrol
                 If rd_token = tokenhared.token.IDENTIFIER Then
