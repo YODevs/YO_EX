@@ -284,6 +284,9 @@
                 If objcontrol.modifier = tokenhared.token.INSTANCE Then
                     objcontrol.modifier = tokenhared.token.UNDEFINED
                     objcontrol.modifierval = conrex.NULL
+                ElseIf objcontrol.modifier = tokenhared.token.UNDEFINED Then
+                    objcontrol.modifier = tokenhared.token.STATIC
+                    objcontrol.modifierval = "static"
                 End If
                 xfield(i).objcontrol = objcontrol
                 objcontrol = New objectcontrol
