@@ -63,6 +63,7 @@ Public Class conserr
         TYPECASTINGERROR
         PROPERTYERROR
         BADMODIFIER
+        MODIFIERERROR
     End Enum
 
     Enum errorpriority
@@ -148,5 +149,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.TYPECASTINGERROR, errorpriority.STOP, "Type casting error", "Type Casting operation failed.")
         set_new_error(errortype.PROPERTYERROR, errorpriority.STOP, "Property error", "{0}")
         set_new_error(errortype.BADMODIFIER, errorpriority.STOP, "Modifier expected", "'{0}' , cannot be identified as an modifier.")
+        set_new_error(errortype.MODIFIERERROR, errorpriority.STOP, "Modifier error", "Cannot refer to an instance member of a class from within a static method / member initializer without an explicit instance of the class.")
     End Sub
 End Class
