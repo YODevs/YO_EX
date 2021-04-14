@@ -4,12 +4,22 @@
     Private localinit As localinitdata
     Private path As String
     Private bodyxmlformat As String
+    Private Shared privobjectcontrol As fmtshared.objectcontrol
+    Friend Shared ReadOnly Property methodobjectcontrol() As fmtshared.objectcontrol
+        Get
+            Return privobjectcontrol
+        End Get
+    End Property
     Structure identifierassignmentinfo
         Dim identifiers As ArrayList
         Dim optval As String
     End Structure
     Public Sub New(method As tknformat._method)
         methoddata = method
+        privobjectcontrol = method.objcontrol
+        If privobjectcontrol.modifier = tokenhared.token.UNDEFINED Then
+            privobjectcontrol.modifier = tokenhared.token.STATIC
+        End If
         localinit = New localinitdata
         localinit.import_parameter(method)
         stjmper.init()
