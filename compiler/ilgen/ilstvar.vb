@@ -106,6 +106,7 @@ Public Class ilstvar
         For index = 0 To ilasmgen.classdata.fields.Length - 1
             pnvar = ilasmgen.classdata.fields(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
+                illdloc.check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
                 pdatatype = ilasmgen.classdata.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
                 If pdatatype = datatype Then
