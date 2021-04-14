@@ -188,6 +188,11 @@
         Return False
     End Function
 
+    Friend Shared Sub check_identifier_modifiers(cargcodestruc As xmlunpkd.linecodestruc, nvar As String, objcontrol As fmtshared.objectcontrol, _ilmethod As ilformat._ilmethodcollection, ptype As String)
+        If iltranscore.methodobjectcontrol.modifier = tokenhared.token.STATIC AndAlso objcontrol.modifier = tokenhared.token.UNDEFINED Then
+            dserr.new_error(conserr.errortype.MODIFIERERROR, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - identifier : " & nvar & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value), String.Format("public static {0} : {1} ", nvar, ptype))
+        End If
+    End Sub
 
     Friend Shared Function ld_field(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String, Optional ByRef nactorcode As ArrayList = Nothing) As Boolean
         If IsNothing(ilasmgen.classdata.fields) Then Return False
@@ -199,6 +204,7 @@
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 pdatatype = ilasmgen.classdata.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
+                check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
                 If pdatatype = datatype Then
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If IsNothing(nactorcode) = False Then
