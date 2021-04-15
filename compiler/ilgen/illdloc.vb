@@ -161,7 +161,7 @@
         If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
             pdatatype = hfield.ptype
             servinterface.is_common_data_type(pdatatype, pdatatype)
-            If pdatatype = datatype Then
+            If eq_data_types(pdatatype, datatype) Then
                 Dim classname As String = hresult.exclass
                 If IsNothing(nactorcode) = False Then
                     If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
@@ -205,7 +205,7 @@
                 pdatatype = ilasmgen.classdata.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
                 check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
-                If pdatatype = datatype Then
+                If eq_data_types(pdatatype, datatype) Then
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
@@ -291,7 +291,7 @@
         For index = 0 To _ilmethod.locallinit.Length - 1
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
-                If _ilmethod.locallinit(index).datatype = datatype Then
+                If eq_data_types(_ilmethod.locallinit(index).datatype, datatype) Then
                     If ldptr Then
                         cil.load_local_address(_ilmethod.codes, nvar)
                         Return True
@@ -333,7 +333,7 @@
                     getcildatatype = _ilmethod.parameter(index).datatype
                 End If
 
-                If datatype = getcildatatype Then
+                If eq_data_types(datatype, getcildatatype) Then
                     If ldindx Then
                         cil.ldarga(_ilmethod.codes, nvar)
                         Return True
@@ -369,6 +369,22 @@
                 End If
             End If
         Next
+        Return False
+    End Function
+
+    Friend Shared Function eq_data_types(maintype As String, resulttype As String) As Boolean
+        maintype = maintype.ToLower
+        resulttype = resulttype.ToLower
+        If maintype = resulttype Then
+            Return True
+        End If
+        If resulttype.StartsWith("system.") Then
+            Dim mptype As String = resulttype.Remove(0, resulttype.IndexOf(conrex.DOT) + 1)
+            If maintype = mptype Then Return True
+        ElseIf maintype.StartsWith("system.") Then
+            Dim mptype As String = maintype.Remove(0, maintype.IndexOf(conrex.DOT) + 1)
+            If resulttype = mptype Then Return True
+        End If
         Return False
     End Function
 
