@@ -2,7 +2,7 @@
 
 include 'ystdio'
 
-let public static ch : char = "A"
+public static let ch : char = "A"
 func main()
 {
   test1()
