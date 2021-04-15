@@ -143,8 +143,9 @@ Public Class servinterface
     End Function
 
     Friend Shared Function vb_to_cil_common_data_type(datatype As String) As String
+        datatype = datatype.ToLower
         For index = 0 To conrex.plvbcommondatatype.Length - 1
-            If datatype = conrex.plvbcommondatatype(index) Then
+            If datatype = conrex.plvbcommondatatype(index).ToLower Then
                 Return conrex.msilcommondatatype(index)
             End If
         Next
@@ -152,8 +153,9 @@ Public Class servinterface
     End Function
 
     Friend Shared Function cil_to_vb_common_data_type(datatype As String) As String
+        datatype = datatype.ToLower
         For index = 0 To conrex.plvbcommondatatype.Length - 1
-            If datatype = conrex.msilcommondatatype(index) Then
+            If datatype = conrex.msilcommondatatype(index).ToLower Then
                 Return conrex.plvbcommondatatype(index)
             End If
         Next
@@ -190,6 +192,7 @@ Public Class servinterface
     Friend Shared Function reset_cil_common_data_type(ByRef value As String) As Boolean
         If value.ToString.Contains(conrex.DOT) AndAlso value.StartsWith("[mscorlib]System.") Then
             Dim getcommondtype As String = value.Remove(0, value.LastIndexOf(conrex.DOT) + 1).ToLower
+            getcommondtype = servinterface.vb_to_cil_common_data_type(getcommondtype)
             If is_cil_common_data_type(getcommondtype) Then
                 value = getcommondtype
                 Return True
@@ -324,6 +327,20 @@ Public Class servinterface
 
         Return False
     End Function
+
+    Friend Shared Function rep_data_type(datatype As String, ByRef resultdatatype As String) As Boolean
+        datatype = datatype.ToLower
+        If datatype.StartsWith("system.") Then
+            datatype = datatype.Remove(0, datatype.IndexOf(conrex.DOT) + 1)
+        End If
+
+        If servinterface.is_cil_common_data_type(datatype) Then
+            resultdatatype = datatype
+            Return True
+        Else
+            Return False
+        End If
+    End Function
     Friend Shared classlist As New ArrayList
     Friend Shared Sub check_class_vaild(attr As yocaattribute.yoattribute, location As String)
         Dim getclassname As String = attr._app._classname.ToLower
@@ -368,7 +385,7 @@ Public Class servinterface
     End Sub
 
     Friend Shared Function trim_line_code_struc(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer) As xmlunpkd.linecodestruc()
-        If clinecodestruc.Length < index Then Throw New IndexOutOfRangeException
+        If clinecodestruc.Length <index Then Throw New IndexOutOfRangeException
         Dim nretcodestruc() As xmlunpkd.linecodestruc
         Dim indexarray As Int16 = 0
         For stindex = index To clinecodestruc.Length - 1
