@@ -41,7 +41,7 @@ func test4()
   }
 }
 
-let private static name : str = "Ruzes"
+private static let name : str = "Ruzes"
 func test5()
 {
   match(name)
