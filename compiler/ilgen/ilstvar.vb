@@ -43,7 +43,7 @@ Public Class ilstvar
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 check_isconst(_ilmethod.locallinit(index), cargcodestruc)
-                If _ilmethod.locallinit(index).datatype = datatype Then
+                If illdloc.eq_data_types(_ilmethod.locallinit(index).datatype, datatype) Then
                     cil.set_stack_local(_ilmethod.codes, nvar)
                     Return True
                 Else
@@ -79,7 +79,7 @@ Public Class ilstvar
                     getcildatatype = _ilmethod.parameter(index).datatype
                 End If
 
-                If datatype = getcildatatype Then
+                If illdloc.eq_data_types(datatype, getcildatatype) Then
                     If _ilmethod.parameter(index).ispointer Then
                         cil.set_stack_pointer(_ilmethod.codes, datatype)
                         Return True
@@ -109,7 +109,7 @@ Public Class ilstvar
                 illdloc.check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
                 pdatatype = ilasmgen.classdata.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
-                If pdatatype = datatype Then
+                If illdloc.eq_data_types(pdatatype, datatype) Then
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If ilasmgen.classdata.attribute._app._namespace <> conrex.NULL Then
                         classname = ilasmgen.classdata.attribute._app._namespace & conrex.DOT & classname
@@ -155,7 +155,7 @@ Public Class ilstvar
         If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
             pdatatype = hfield.ptype
             servinterface.is_common_data_type(pdatatype, pdatatype)
-            If pdatatype = datatype Then
+            If illdloc.eq_data_types(pdatatype, datatype) Then
                 Dim classname As String = hresult.exclass
                 If IsNothing(nactorcode) = False Then
                     If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
