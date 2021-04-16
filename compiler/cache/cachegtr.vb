@@ -5,6 +5,7 @@ Public Class cachegtr
     Private Shared cacheprojectdir As String = String.Empty
     Friend Shared Sub check_cache_repo(ByRef tknfmtclass As tknformat._class())
         If compdt.NOCACHE Then Return
+        If compdt.DEVMOD Then Return
         If cacheprojectdir = conrex.NULL Then cacheprojectdir = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
         For index = 0 To tknfmtclass.Length - 1
             If tknfmtclass(index).attribute._cfg._no_cache = True Then
@@ -22,6 +23,7 @@ Public Class cachegtr
     End Sub
     Friend Shared Sub check_cache_repo(ByRef tknfmtclass As tknformat._class)
         If compdt.NOCACHE Then Return
+        If compdt.DEVMOD Then Return
         If cacheprojectdir = conrex.NULL Then cacheprojectdir = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
         If tknfmtclass.attribute._cfg._no_cache = True Then
             tknfmtclass.cacheinf.active = False
