@@ -14,14 +14,16 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
-
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
         End If
 
         servinterface.is_common_data_type(datatype, datatype)
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
-
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_FLOAT
                 If isfloat Then
@@ -55,14 +57,16 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
-
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
         End If
 
         servinterface.is_common_data_type(datatype, datatype)
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
-
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_FLOAT
                 If isfloat Then
@@ -96,14 +100,16 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
-
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
         End If
 
         servinterface.is_common_data_type(datatype, datatype)
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
-
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_FLOAT
                 If isfloat Then
@@ -137,14 +143,16 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
-
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
         End If
 
         servinterface.is_common_data_type(datatype, datatype)
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
-
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_FLOAT
                 If isfloat Then
@@ -178,14 +186,15 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
-
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
         End If
-
         servinterface.is_common_data_type(datatype, datatype)
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
-
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_FLOAT
                 If isfloat Then
@@ -220,9 +229,13 @@ Public Class ilopt
         End If
         Dim cdatatype As String = datatype
         servinterface.is_common_data_type(datatype, cdatatype)
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, cdatatype)
         Dim getlineprop As String = lngen.get_line_prop("exit_qeseq")
         cil.branch_if_true(_ilmethod.codes, getlineprop)
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
 
         Select Case datatype
             Case "str"
@@ -263,10 +276,14 @@ Public Class ilopt
         Return _ilmethod
     End Function
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
         End If
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, "string")
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
                 cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
@@ -288,6 +305,8 @@ Public Class ilopt
     End Function
 
     Public Function assiappeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
                 cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
@@ -301,6 +320,9 @@ Public Class ilopt
                 dserr.args.Add("string")
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
+
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
 
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
@@ -322,12 +344,18 @@ Public Class ilopt
             setconvr8 = False
         End If
 
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
+
         If servinterface.is_pointer(_ilmethod, varname) Then
             cil.load_argument(_ilmethod.codes, varname)
         End If
 
         servinterface.is_common_data_type(datatype, datatype)
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
 
         If setconvr8 Then
             cil.conv_to_float64(_ilmethod.codes)
