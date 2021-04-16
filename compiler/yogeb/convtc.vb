@@ -20,7 +20,7 @@
         Dim ncommondatatype As String = clinecodestruc.value
         authfunc.rem_fr_and_en(ncommondatatype)
         If ncommondatatype.Trim.ToLower = conrex.BOX Then
-            ntypecast = "object"
+            ntypecast = conrex.OBJECT
             Return
         End If
         servinterface.is_common_data_type(ncommondatatype, ntypecast)
@@ -52,8 +52,7 @@
             pconvertparam.Add(newdtype)
             cil.call_extern_method(_ilmethod.codes, crdtype, "mscorlib", "System.Convert", get_convert_method(crdtype), pconvertparam)
         End If
-        setconvmethod = False
-        ntypecast = String.Empty
+        reset_convtc()
     End Sub
     Friend Shared Sub set_type_cast(ByRef _ilmethod As ilformat._ilmethodcollection, crdtype As String, Optional nmethod As String = conrex.NULL, Optional cargcodestruc As xmlunpkd.linecodestruc = Nothing)
         If ntypecast = conrex.OBJECT Then
@@ -64,8 +63,7 @@
             pconvertparam.Add(crdtype)
             cil.call_extern_method(_ilmethod.codes, ntypecast, "mscorlib", "System.Convert", get_convert_method(ntypecast), pconvertparam)
         End If
-        setconvmethod = False
-        ntypecast = String.Empty
+        reset_convtc()
     End Sub
 
     Friend Shared Function get_convert_method(crdtype As String) As String
@@ -77,4 +75,8 @@
         Return conrex.NULL
     End Function
 
+    Friend Shared Sub reset_convtc()
+        setconvmethod = False
+        ntypecast = String.Empty
+    End Sub
 End Class
