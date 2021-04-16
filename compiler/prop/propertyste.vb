@@ -117,6 +117,8 @@ Public Class propertyste
 
     Private Shared Sub get_property(_ilmethod As ilformat._ilmethodcollection, retpropertyinfo As PropertyInfo, isvirtualmethod As Boolean, inline As Integer, clinecodestruc() As xmlunpkd.linecodestruc, propresult As identvalid._resultidentcvaild)
         Dim ldloc As New illdloc(_ilmethod)
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
         Dim gdatatype As String = retpropertyinfo.PropertyType.Name
         gdatatype = servinterface.vb_to_cil_common_data_type(gdatatype)
         If servinterface.is_cil_common_data_type(gdatatype) = False Then
@@ -137,6 +139,8 @@ Public Class propertyste
         Else
             cil.call_extern_method(_ilmethod.codes, gdatatype, propresult.asmextern, propertyclass, propertymethod, Nothing)
         End If
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
         If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, gdatatype, propertymethod, clinecodestruc(inline))
     End Sub
 
