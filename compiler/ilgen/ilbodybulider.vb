@@ -341,5 +341,6 @@ call instance void [mscorlib]System.Object::.ctor()")
                 cachesystem = True
             End If
         End If
+        If compdt.DEVMOD = True Then cachesystem = False
     End Sub
 End Class
