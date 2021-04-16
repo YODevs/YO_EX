@@ -332,7 +332,6 @@
                 If servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, getcildatatype) = False Then
                     getcildatatype = _ilmethod.parameter(index).datatype
                 End If
-
                 If eq_data_types(datatype, getcildatatype) Then
                     If ldindx Then
                         cil.ldarga(_ilmethod.codes, nvar)
@@ -384,6 +383,8 @@
         ElseIf maintype.StartsWith("system.") Then
             Dim mptype As String = maintype.Remove(0, maintype.IndexOf(conrex.DOT) + 1)
             If resulttype = mptype Then Return True
+        ElseIf maintype = conrex.OBJECT OrElse maintype = conrex.STRING AndAlso resulttype = conrex.OBJECT OrElse resulttype = conrex.STRING Then
+            Return True
         End If
         Return False
     End Function
@@ -395,13 +396,13 @@
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod, cargcodestruc.value, cargcodestruc)
             Case tokenhared.token.IDENTIFIER
-                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, "string")
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, conrex.STRING)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
                 'Set Error 
                 dserr.args.Add(cargcodestruc.value)
-                dserr.args.Add("string")
+                dserr.args.Add(conrex.STRING)
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
         End Select
     End Sub
