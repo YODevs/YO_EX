@@ -1,0 +1,54 @@
+#[app::classname("string_test")]
+include 'ystdio'
+
+func main()
+{
+ find("Hello World","World")
+ find("How are you?","Are")
+ trim()
+ replace()
+ length('')
+ length('HMMMM')
+ clone('YO Devs')
+ insert()
+}
+
+#>Contains Method
+func find(text:str,word:str)
+{
+  let result : bool =  text::contains(word)
+  io::println("#{result}")
+}
+
+func trim()
+{
+  let text : str = "    HMM    "
+  let result : str = text::trim()
+  io::println("*#{result}*")
+}
+
+func replace()
+{
+  let text : str = "Hello World !"
+  let result : str = text::replace('World','YO')
+  io::println(result)
+}
+
+func length(val:str)
+{
+  let result : str = [str]val::length
+  io::println(result)
+}
+
+func clone(val:str)
+{
+ let myobj : obj = val::clone()
+ System.Console::WriteLine(myobj)
+}
+
+func insert()
+{
+  let mystr : str = "0.1.2.4.5"
+  let result : str = mystr::insert(5,'.3')
+  io::println(result)
+}

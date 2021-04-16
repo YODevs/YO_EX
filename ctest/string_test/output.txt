@@ -1,0 +1,8 @@
+True
+False
+*HMM*
+Hello YO !
+0
+5
+YO Devs
+0.1.2.3.4.5
