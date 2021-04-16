@@ -21,8 +21,10 @@ Public Class impfiles
                 procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
                 ilgen.codegenerator()
-                Dim calex As New cachelexunit(tknfmtclass)
-                calex.lex_to_serialization()
+                If compdt.NOCACHE = False AndAlso compdt.DEVMOD = False Then
+                    Dim calex As New cachelexunit(tknfmtclass)
+                    calex.lex_to_serialization()
+                End If
             Else
                 Return
             End If
