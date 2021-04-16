@@ -162,6 +162,7 @@
             pdatatype = hfield.ptype
             servinterface.is_common_data_type(pdatatype, pdatatype)
             If eq_data_types(pdatatype, datatype) Then
+                convtc.reset_convtc()
                 Dim classname As String = hresult.exclass
                 If IsNothing(nactorcode) = False Then
                     If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
@@ -206,6 +207,7 @@
                 servinterface.is_common_data_type(pdatatype, pdatatype)
                 check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
                 If eq_data_types(pdatatype, datatype) Then
+                    convtc.reset_convtc()
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
@@ -292,6 +294,7 @@
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 If eq_data_types(_ilmethod.locallinit(index).datatype, datatype) Then
+                    convtc.reset_convtc()
                     If ldptr Then
                         cil.load_local_address(_ilmethod.codes, nvar)
                         Return True
@@ -333,6 +336,7 @@
                     getcildatatype = _ilmethod.parameter(index).datatype
                 End If
                 If eq_data_types(datatype, getcildatatype) Then
+                    convtc.reset_convtc()
                     If ldindx Then
                         cil.ldarga(_ilmethod.codes, nvar)
                         Return True
@@ -383,7 +387,7 @@
         ElseIf maintype.StartsWith("system.") Then
             Dim mptype As String = maintype.Remove(0, maintype.IndexOf(conrex.DOT) + 1)
             If resulttype = mptype Then Return True
-        ElseIf maintype = conrex.OBJECT OrElse maintype = conrex.STRING AndAlso resulttype = conrex.OBJECT OrElse resulttype = conrex.STRING Then
+        ElseIf (maintype = conrex.OBJECT OrElse maintype = conrex.STRING) AndAlso (resulttype = conrex.OBJECT OrElse resulttype = conrex.STRING) Then
             Return True
         End If
         Return False
