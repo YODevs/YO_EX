@@ -4,6 +4,7 @@ Imports YOCA
 Public Class cachelexunit
     Friend Shared Function check_lexer_cache(ByRef tknfmtclass As tknformat._class, path As String) As Boolean
         If compdt.DEVMOD = True Then Return False
+        If compdt.NOCACHE = True Then Return False
         tknfmtclass.location = path
         cachegtr.check_cache_repo(tknfmtclass)
         If tknfmtclass.cacheinf.active Then
