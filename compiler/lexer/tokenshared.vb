@@ -43,6 +43,7 @@
         _token.Add(token.INCLUDE, "include")
         _token.Add(token.ENUM, "enum")
         _token.Add(token.INSTANCE, "instance")
+        _token.Add(token.OPT, "opt")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -236,5 +237,6 @@
         QESEQ = 94
         INSTANCE = 95
         ARR = 96
+        OPT = 97
     End Enum
 End Class
