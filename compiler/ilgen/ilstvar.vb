@@ -2,6 +2,11 @@
 
 Public Class ilstvar
     Friend Shared Function st_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        If iltranscore.isarrayinstack Then
+            cil.set_element(_ilmethod.codes)
+            iltranscore.isarrayinstack = False
+            Return True
+        End If
         If IsNothing(_ilmethod.locallinit) = False OrElse nvar.StartsWith(compdt.FLAGPERFIX) Then
             If st_local(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
