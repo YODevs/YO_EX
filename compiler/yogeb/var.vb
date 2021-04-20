@@ -33,6 +33,9 @@ Public Class var
                 End If
             End If
         End If
+        If iltranscore.isarrayinstack Then
+            load_element_in_stack(varname, elementindex, localvartype.result, _ilmethod, clinecodestruc)
+        End If
         servinterface.get_yo_common_data_type(localvartype.result, localvartype.result)
         Return localvartype
     End Function
@@ -44,5 +47,9 @@ Public Class var
             If elementid = conrex.BREND Then Return
             elementindex = elementid.Remove(elementid.Length - 1).Trim
         End If
+    End Sub
+
+    Friend Shared Sub load_element_in_stack(varname As String, elementid As String, datatype As String, _ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc)
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc(0), Nothing, datatype)
     End Sub
 End Class
