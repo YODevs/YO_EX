@@ -247,22 +247,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -281,22 +266,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -315,22 +285,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -349,22 +304,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -383,22 +323,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -417,22 +342,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -450,22 +360,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case "str"
@@ -482,22 +377,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case "str"
@@ -556,27 +436,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                    If servinterface.is_pointer(_ilmethod, varname) Then
-                        cil.load_argument(_ilmethod.codes, varname)
-                    End If
-                ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        'Set Error
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
-
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path, False)
             _ilmethod = optgen.assiqes(varname, clinecodestruc(ilinc), localvartype.result)
         Next
     End Sub
