@@ -8,7 +8,7 @@ Public Class var
             Return elementindex
         End Get
     End Property
-    Friend Shared Function check_identifier_validation(_ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer, ByRef varname As String, localinit As localinitdata, path As String) As mapstoredata.dataresult
+    Friend Shared Function check_identifier_validation(_ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer, ByRef varname As String, localinit As localinitdata, path As String, Optional loadbyreference As Boolean = True) As mapstoredata.dataresult
         elementindex = conrex.NULL
         If iltranscore.isarrayinstack Then
             set_element(varname)
@@ -17,7 +17,7 @@ Public Class var
         If localvartype.issuccessful = False Then
             If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
                 localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                If servinterface.is_pointer(_ilmethod, varname) Then
+                If loadbyreference AndAlso servinterface.is_pointer(_ilmethod, varname) Then
                     cil.load_argument(_ilmethod.codes, varname)
                 End If
             ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
