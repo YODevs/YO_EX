@@ -56,4 +56,5 @@ pop"
     Friend Const OBJECTMODTYPE_INSTANCE As String = "instance"
 
     Friend Const CONSTRUCTOR_METHOD As String = "ctor"
+    Friend Const LOAD_FIRST_ARGUMENT As String = "ldarg.0"
 End Class
