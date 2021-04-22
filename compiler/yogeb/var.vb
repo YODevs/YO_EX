@@ -8,7 +8,7 @@ Public Class var
             Return elementindex
         End Get
     End Property
-    Friend Shared Function check_identifier_validation(_ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer, ByRef varname As String, localinit As localinitdata, path As String, Optional loadbyreference As Boolean = True) As mapstoredata.dataresult
+    Friend Shared Function check_identifier_validation(ByRef _ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer, ByRef varname As String, localinit As localinitdata, path As String, Optional loadbyreference As Boolean = True) As mapstoredata.dataresult
         elementindex = conrex.NULL
         If iltranscore.isarrayinstack Then
             set_element(varname)
@@ -22,6 +22,9 @@ Public Class var
                 End If
             ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
                 localvartype = localinitdata.fieldst.find(varname, True, varname)
+                If servinterface.get_field_from_current_class(varname).objcontrol.modifier = tokenhared.token.UNDEFINED Then
+                    cil.insert_il(_ilmethod.codes, compdt.LOAD_FIRST_ARGUMENT)
+                End If
             Else
                 Dim hfield As tknformat._pubfield
                 If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
