@@ -91,7 +91,7 @@
         Next
 
 
-        ' cargldr = cargcodestruc
+        libserv.cargldr = cargcodestruc
         Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc)
     End Function
     Friend Shared Function get_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, Optional ByRef isvirtualmethod As Boolean = False) As Integer
