@@ -24,6 +24,7 @@ Public Class ilctor
         Dim resultfunc As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, glinecodestruc)
         If resultfunc.callintern Then
             Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, ctorinf.classname)
+            ctorinf.classindex = classindex
             If classindex = -1 Then
                 dserr.args.Add("Class '" & ctorinf.classname & "' not found.")
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
@@ -57,10 +58,10 @@ Public Class ilctor
             dserr.args.Add("Constructor method not found.")
             dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), glinecodestruc(0).value))
         End If
+        methodinfo = funcdtproc.get_method_info(ctorinf.classindex, stateprop)
         Dim paramtype As ArrayList
         Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
         libserv.cargldr = Nothing
-
         If IsNothing(methodinfo.parameters) = False AndAlso methodinfo.parameters.Length > 0 Then
             funcste.load_param_in_stack(cargcodestruc, _ilmethod, methodinfo, Nothing, paramtype, cargcodestruc)
         End If
