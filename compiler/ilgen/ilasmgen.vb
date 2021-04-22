@@ -36,6 +36,10 @@
     End Function
     Private Sub set_fields(yoclassdt As tknformat._class, ByRef _ilcollection As ilformat.ildata)
         If IsNothing(yoclassdt.fields) Then Return
+        Dim fakeobjectcontrol As New fmtshared.objectcontrol
+        fakeobjectcontrol.modifier = tokenhared.token.INSTANCE
+        fakeobjectcontrol.modifierval = compdt.OBJECTMODTYPE_INSTANCE
+        iltranscore.set_object_control(fakeobjectcontrol)
         _ilcollection.staticctor = New ArrayList
         _ilcollection.instancector = New ArrayList
         For index = 0 To yoclassdt.fields.Length - 1
@@ -68,6 +72,7 @@
                     Next
                     ilstvar.st_field(yoclassdt.fields(index).name, Nothing, getlinecodestruct, getdatatype, _ilcollection.staticctor)
                 Else
+                    cil.insert_il(_ilcollection.instancector, compdt.LOAD_FIRST_ARGUMENT)
                     For ictrcode = 0 To ctrfunc.codes.Count - 1
                         _ilcollection.instancector.Add(ctrfunc.codes(ictrcode))
                     Next
@@ -78,5 +83,6 @@
             End If
             'Check Type ...
         Next
+        iltranscore.set_object_control(Nothing)
     End Sub
 End Class
