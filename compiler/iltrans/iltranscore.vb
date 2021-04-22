@@ -11,6 +11,10 @@
             Return privobjectcontrol
         End Get
     End Property
+
+    Friend Shared Sub set_object_control(objectcontrol As fmtshared.objectcontrol)
+        privobjectcontrol = objectcontrol
+    End Sub
     Structure identifierassignmentinfo
         Dim identifiers As ArrayList
         Dim optval As String
