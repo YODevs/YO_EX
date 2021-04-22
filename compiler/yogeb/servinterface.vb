@@ -308,6 +308,17 @@ Public Class servinterface
         Return False
     End Function
 
+    Friend Shared Function get_field_from_current_class(varname As String) As tknformat._pubfield
+        If IsNothing(ilasmgen.classdata.fields) = False Then
+            varname = varname.ToLower
+            For index = 0 To ilasmgen.classdata.fields.Length - 1
+                If ilasmgen.classdata.fields(index).name.ToLower = varname Then
+                    Return ilasmgen.classdata.fields(index)
+                End If
+            Next
+        End If
+        Return Nothing
+    End Function
     Friend Shared Function get_identifier_gb(varname As String, cargcodestruc As xmlunpkd.linecodestruc, ByRef getfield As tknformat._pubfield) As Boolean
         If varname.Contains("::") Then
             Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(cargcodestruc)
