@@ -209,6 +209,9 @@
                 If eq_data_types(pdatatype, datatype) Then
                     convtc.reset_convtc()
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
+                    If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.UNDEFINED Then 'INSTANCE
+                        cil.insert_il(_ilmethod.codes, compdt.LOAD_FIRST_ARGUMENT)
+                    End If
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
