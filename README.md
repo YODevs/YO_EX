@@ -18,6 +18,44 @@ func main()
 }
 ```
 
+## How to run & preparation YO Compiler?
+First, go to the link [https://github.com/YODevs/YO/releases][rellink] and download the latest version of YO, then extract the files from the compressed zip file and locate them in a proper place.
+Open the ```YOCA.exe``` executive file, type **```init```** command and hit ENTER. Now, You're all set to start coding with YO.
+
+## How to create a new project?
+In the project's folder, open the **CMD** or **POWERSHELL** and use the command :
+```sh
+labra new
+``` 
+Then select the project's attributes based on the platform and type of project.
+Now your new project is created.
+
+- Example
+```bat
+C:\Users\YO\route>labra new
+# Assembly name [ex:myapp]: fast_api_project
+
+# Select project type:
+->Console [.exe]
+Library [.dll]
+
+# Need a bash file to compile and run fast?[y/N] > y
+```
+**To compile and execute the project, just use the following command:**
+
+- **Build** (just compile)
+```bat
+yoca build
+```
+- **Build + Run**
+```bat
+yoca run
+```
+
+ <img src="https://raw.githubusercontent.com/YODevs/YO/master/icons/compile-project.gif">
+ 
+> You can use the `yoca help` command to learn more about parameters and commands.
+> 
 #### Expression
 ```f#
 #[app::classname("ctok")]
@@ -86,39 +124,35 @@ func exec_logs(inf : str)
   }
 }
 ```
+## Built-in types
+
+| Type | Description | Range | Reference |
+| ------ | ------ |------ |------ |
+| **`i8`** |  8-bit signed integer   | -128 to 127 |  SByte |
+| **`u8`** | 8-bit unsigned integer | 0 to 255 |  Byte  |
+| **`i16`** |  16-bit signed integer  |  -32,768 to 32,767  | Int16|
+| **`u16`** |  16-bit unsigned integer |  0 to 65,535  | UInt16|
+| **`i32`** |  32-bit signed integer  | -2,147,483,648 to 2,147,483,647| Int32|
+| **`u32`** | 32-bit unsigned integer|  0 to 4,294,967,295  | UInt32|
+| **`i64`** |  64-bit signed integer | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807  | Int64|
+| **`u64`** | 64-bit unsigned integer|  	0 to 18,446,744,073,709,551,615 | UInt64|
+| **`i128`** Soon|  128-bit signed integer  | (+ or -)1.0 x 10e-28 to 7.9 x 10e28 | Decimal|
+| **`f32`** |  32-bit Single-precision floating point type  | -3.402823e38 to 3.402823e38 | Single|
+| **`f64`** |  64-bit Double-precision floating point type  |  	-1.79769313486232e308 to 1.79769313486232e308 | Double|
+| **`bool`** |  8-bit logical true/false value | True / False | Boolean |
+| **`char`** | 16-bit single Unicode character  | * | Char|
+| **`str`** |  A sequence of Unicode characters  | * | String |
+| **`obj`** |  Base type of all other types.  | * | Object |
 
 ## Tools
 
 | Tool | Description |
 | ------ | ------ |
-| **YOCA** | The compiler is YO. |
+| **YOCA** | The compiler of YO. |
 | **YOAT** | It is Yo's Automatic Tester for tet projects (located in the "ctest" folder) which reviews errors and side interfaces while developing YOLANG compiler (YOCA) on previous projects. |
 | **Labra** | It is YOLANG's Project Manager which has responsibilities like creating new projects, modifying project attributes, etc. |
 | **YODA** | It is a structure for transferring data between applications, which currently supports "Lists" and "Hashmaps".YOLANG projects' config (labra.yoda) uses this structure. |
 
-## How to run YO Compiler?
-First, go to the link [https://github.com/YODevs/YO/releases][rellink] and download the latest version of YO, then extract the files from the compressed zip file and locate them in a proper place.
-Open the ```YOCA.exe``` executive file, type ```init``` command and hit ENTER. Now, You're all set to start coding with YO.
-
-## How to create a new project?
-In the project's folder, open the **CMD** or **POWERSHELL** and use the command :
-```sh
-labra new
-``` 
-Then select the project's attributes based on the platform and type of project.
-Now your new project is created.
-
-- Example
-```bat
-C:\Users\YO\route>labra new
-# Assembly name [ex:myapp]: fast_api_project
-
-# Select project type:
-->Console [.exe]
-Library [.dll]
-
-# Need a bash file to compile and run fast?[y/N] > y
-```
 
 ### What are YO projects' structures?
 - ```assets```:
