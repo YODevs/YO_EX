@@ -5,81 +5,22 @@ include 'ystdio'
 
 func main()
 {
-  #>start point
-  let a : i32
-  let b, c : i32
-
+  let a , b  : i32
   #> c**2 = b**2 + a**2
-
   io::print("give me side (a) : ")
   a := io::getnum()
-
   io::print("give me side (b) : ")
   b := io::getnum()
-
-  io::print("give me side (c) : ")
-  c := io::getnum()
-
-  if (a == 0){
-    let z : f32 = calculate_side_a(b, c)
-    io::print("The side (a) is equal to --> #{z}")
-  }
-
-  elseif(b == 0){
-    let z2 : f32 = calculate_side_b(a, c)
-    io::print("The side (a) is equal to --> #{z2}")
-  }
-
-  elseif (c == 0){
-    let z3 : f32 = calculate_side_c(a, b)
-    io::print("The side (a) is equal to --> #{z3}")
-  }
-
+  let c : f64 = calculate_side(a , b)
+  c := System.Math::Round(c,2)
+  io::print("The side (c) is equal to --> #{c}")
 }
 
-func calculate_side_a(o2 : i32, o3 : i32) : f32
+func calculate_side(a : i32, b : i32) : f64
 {
-
-  let b1 : i32 = o2
-  b1 ^= 2
-
-  let c1 : i32 = o3
-  c1 ^= 2
-
-  let a1 : f64 = [c1 - b1]
-
-  let resulta : f32 = System.Math::sqrt(a1)
-
-  return resulta
-
-}
-  func calculate_side_b(s1 : i32, s2 : i32) : f32
-{
-    let a2 : i32 = s1
-    a2 ^= 2
-
-    let c2 : i32 = s2
-    c2 ^= 2
-
-    let b2 : f64 = [c2 - a2]
-
-    let resultb : f32 = System.Math::sqrt(b2)
-
-
-    return resultb
-}
-
-func calculate_side_c(c1 : i32, c2 : i32) : f32
-{
-    let a3 : i32 = c1
-    a3 ^= 2
-
-    let b3 : i32 = c2
-    b3 ^= 2
-
-    let c3 : f64 = [b3 + a3]
-
-    let resultc : f32 = System.Math::sqrt(c3)
-
-    return resultc
+  a ^= 2
+  b ^= 2
+  let c : f64 = [b + a]
+  let cresult : f64 = System.Math::sqrt(c)
+  return cresult
 }
