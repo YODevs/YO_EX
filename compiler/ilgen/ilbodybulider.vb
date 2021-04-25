@@ -58,11 +58,11 @@ Public Class ilbodybulider
         If IsNothing(enumeration) Then Return
         For index = 0 To enumeration.Length - 1
             add_il_code(String.Format(".class nested public auto ansi sealed {0}
-        extends [mscorlib]System.Enum", enumeration(index).name))
+        extends [mscorlib]System.Enum", cilkeywordchecker.get_key(enumeration(index).name)))
             add_st_block()
             add_il_code(".field public specialname rtspecialname int32 value__")
             For itemindex = 0 To enumeration(index).constkeys.Count - 1
-                add_il_code(String.Format(".field public static literal valuetype {0}/{1} {2} = int32({3})", attribute._app._classname, enumeration(index).name, enumeration(index).constkeys(itemindex).ToString, enumeration(index).constvalues(itemindex).ToString))
+                add_il_code(String.Format(".field public static literal valuetype {0}/{1} {2} = int32({3})", cilkeywordchecker.get_key(attribute._app._classname), cilkeywordchecker.get_key(enumeration(index).name), enumeration(index).constkeys(itemindex).ToString, enumeration(index).constvalues(itemindex).ToString))
             Next
             add_en_block()
         Next
@@ -101,12 +101,12 @@ call instance void [mscorlib]System.Object::.ctor()")
         For index = 0 To ildt.field.Length - 1
             If ildt.field(index).isliteral Then
                 lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & "static literal" &
-                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
+                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & cilkeywordchecker.get_key(ildt.field(index).name) & conrex.SPACE
                 lcode &= " = " & ildt.field(index).ptype & "(" & ildt.field(index).value & ")"
             Else
                 servinterface.is_common_data_type(ildt.field(index).ptype, ildt.field(index).ptype)
                 lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & ildt.field(index).modifier &
-                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & ildt.field(index).name & conrex.SPACE
+                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & cilkeywordchecker.get_key(ildt.field(index).name) & conrex.SPACE
             End If
             add_il_code(lcode)
         Next
@@ -176,7 +176,7 @@ call instance void [mscorlib]System.Object::.ctor()")
             End If
         End If
 
-        headfuncdt &= Space(1) & funcdt.name
+        headfuncdt &= conrex.SPACE & cilkeywordchecker.get_key(funcdt.name)
         If IsNothing(funcdt.parameter) Then
             headfuncdt &= "()"
             add_il_code(headfuncdt)
@@ -238,8 +238,9 @@ call instance void [mscorlib]System.Object::.ctor()")
                 add_inline_code(gcodeparam)
             End If
 
+
             add_inline_code(conrex.SPACE)
-            add_inline_code(funcdt.parameter(index).name)
+            add_inline_code(cilkeywordchecker.get_key(funcdt.parameter(index).name))
 
             If funcdt.parameter.Length - 1 <> index Then
                 add_inline_code(conrex.CMA)
@@ -263,6 +264,8 @@ call instance void [mscorlib]System.Object::.ctor()")
             End If
 
             Dim arrlgo As String = String.Empty
+            funcdt.locallinit(index).name = cilkeywordchecker.get_key(funcdt.locallinit(index).name)
+            funcdt.locallinit(index).datatype = cilkeywordchecker.get_key(funcdt.locallinit(index).datatype)
             If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
             If funcdt.locallinit.Length = index + 1 Then
                 add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name)
@@ -288,6 +291,7 @@ call instance void [mscorlib]System.Object::.ctor()")
     End Sub
     Private Sub imp_module(name As String)
         'check name
+        name = cilkeywordchecker.get_key(name)
         Dim checkfieldinit As String = conrex.SPACE
         If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
             checkfieldinit = " beforefieldinit "
@@ -320,6 +324,7 @@ call instance void [mscorlib]System.Object::.ctor()")
     Public Sub add_assembly(assemblydt As ilformat._ilassemblyextern)
         'check uniq assembly
         'check names
+        assemblydt.name = cilkeywordchecker.get_key(assemblydt.name)
         If assemblydt.isextern Then
             add_il_code(".assembly extern " & assemblydt.name & assemblydt.assemblyproperty)
         Else
