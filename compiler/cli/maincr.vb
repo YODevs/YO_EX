@@ -57,6 +57,7 @@ Module maincr
         initblockop.init_blockop_allow_list()
         syntaxloader.init_syntax_loader()
         incfile.init()
+        cilkeywordchecker.init_keyword()
     End Sub
 
     ''' <summary>
