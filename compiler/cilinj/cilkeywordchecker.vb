@@ -1,0 +1,120 @@
+﻿Public Class cilkeywordchecker
+    Private Shared cilkey2w As New ArrayList
+    Private Shared cilkey3w As New ArrayList
+    Private Shared cilkey4w As New ArrayList
+    Private Shared cilkey5w As New ArrayList
+    Private Shared cilkey6w As New ArrayList
+    Private Shared cilkey7w As New ArrayList
+    Private Shared cilkeypl As New ArrayList
+    Private Shared keywordmaxlen As Short = 0
+    Friend Shared Sub init_keyword()
+        import_cil_keyword("add")
+        import_cil_keyword("and")
+        import_cil_keyword("arglist")
+        import_cil_keyword("beq")
+        import_cil_keyword("bge")
+        import_cil_keyword("bgt")
+        import_cil_keyword("ble")
+        import_cil_keyword("blt")
+        import_cil_keyword("box")
+        import_cil_keyword("br")
+        import_cil_keyword("break")
+        import_cil_keyword("brfalse")
+        import_cil_keyword("brinst")
+        import_cil_keyword("brnull")
+        import_cil_keyword("brtrue")
+        import_cil_keyword("brzero")
+        import_cil_keyword("call")
+        import_cil_keyword("callvirt")
+        import_cil_keyword("calli")
+        import_cil_keyword("castclass")
+        import_cil_keyword("ceq")
+        import_cil_keyword("cgt")
+        import_cil_keyword("ckfinite")
+        import_cil_keyword("clt")
+        import_cil_keyword("constrained.")
+        import_cil_keyword("cpblk")
+        import_cil_keyword("cpobj")
+        import_cil_keyword("div")
+        import_cil_keyword("div.u")
+        import_cil_keyword("dup")
+        import_cil_keyword("endfault")
+        import_cil_keyword("endfilter")
+        import_cil_keyword("endfinally")
+        import_cil_keyword("initblk")
+        import_cil_keyword("initobj")
+        import_cil_keyword("isinst")
+        import_cil_keyword("jmp")
+        import_cil_keyword("ldelem")
+        import_cil_keyword("ldelema")
+        import_cil_keyword("ldfld")
+        import_cil_keyword("ldflda")
+        import_cil_keyword("ldftn")
+        import_cil_keyword("ldlen")
+        import_cil_keyword("ldloc")
+        import_cil_keyword("ldnull")
+        import_cil_keyword("ldobj")
+        import_cil_keyword("ldsfld")
+        import_cil_keyword("ldsflda")
+        import_cil_keyword("ldstr")
+        import_cil_keyword("ldtoken")
+        import_cil_keyword("ldvirtftn")
+        import_cil_keyword("leave")
+        import_cil_keyword("localloc")
+        import_cil_keyword("mkrefany")
+        import_cil_keyword("mul")
+        import_cil_keyword("neg")
+        import_cil_keyword("newarr")
+        import_cil_keyword("newobj")
+        import_cil_keyword("no.")
+        import_cil_keyword("nop")
+        import_cil_keyword("not")
+        import_cil_keyword("or")
+        import_cil_keyword("pop")
+        import_cil_keyword("readonly.")
+        import_cil_keyword("refanytype")
+        import_cil_keyword("refanyval")
+        import_cil_keyword("rem")
+        import_cil_keyword("ret")
+        import_cil_keyword("rethrow")
+        import_cil_keyword("shl")
+        import_cil_keyword("shr")
+        import_cil_keyword("sizeof")
+        import_cil_keyword("starg")
+        import_cil_keyword("stelem")
+        import_cil_keyword("stfld")
+        import_cil_keyword("stloc")
+        import_cil_keyword("stobj")
+        import_cil_keyword("stsfld")
+        import_cil_keyword("sub")
+        import_cil_keyword("switch")
+        import_cil_keyword("tail.")
+        import_cil_keyword("throw")
+        import_cil_keyword("unaligned.")
+        import_cil_keyword("unbox")
+        import_cil_keyword("volatile")
+        import_cil_keyword("xor")
+    End Sub
+
+    Private Shared Sub import_cil_keyword(keyword As String)
+        Select Case keyword.Length
+            Case 2
+                cilkey2w.Add(keyword)
+            Case 3
+                cilkey3w.Add(keyword)
+            Case 4
+                cilkey4w.Add(keyword)
+            Case 5
+                cilkey5w.Add(keyword)
+            Case 6
+                cilkey6w.Add(keyword)
+            Case 7
+                cilkey7w.Add(keyword)
+            Case Else
+                cilkeypl.Add(keyword)
+        End Select
+        If keyword.Length > keywordmaxlen Then
+            keywordmaxlen = keyword.Length
+        End If
+    End Sub
+End Class
