@@ -117,4 +117,41 @@
             keywordmaxlen = keyword.Length
         End If
     End Sub
+
+    Friend Shared Function get_key(keyword As String) As String
+        If keyword = conrex.NULL Then Return conrex.NULL
+        If keyword.Length > keywordmaxlen Then Return keyword
+        Select Case keyword.Length
+            Case 1
+                Return keyword
+            Case 2
+                check_keyword_with_tokens(cilkey2w, keyword)
+            Case 3
+                check_keyword_with_tokens(cilkey3w, keyword)
+            Case 4
+                check_keyword_with_tokens(cilkey4w, keyword)
+            Case 5
+                check_keyword_with_tokens(cilkey5w, keyword)
+            Case 6
+                check_keyword_with_tokens(cilkey6w, keyword)
+            Case 7
+                check_keyword_with_tokens(cilkey7w, keyword)
+            Case Else
+                check_keyword_with_tokens(cilkeypl, keyword)
+        End Select
+        Return keyword
+    End Function
+
+    Private Shared Sub check_keyword_with_tokens(arr As ArrayList, ByRef keyword As String)
+        Dim cycle As Int32 = arr.Count - 1
+        For index = 0 To cycle
+            If arr(index).ToString = keyword Then
+                reset_keyword(keyword)
+            End If
+        Next
+    End Sub
+
+    Private Shared Sub reset_keyword(ByRef keyword As String)
+        keyword = conrex.COSTR & keyword & conrex.COSTR
+    End Sub
 End Class
