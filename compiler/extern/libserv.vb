@@ -2,9 +2,25 @@
 Imports YOCA
 
 Public Class libserv
-
+    Friend Shared stdimportlist As New ArrayList
+    Friend Shared Sub import_std_library(path As String)
+        If stdimportlist.Count > 0 Then
+            For index = 0 To stdimportlist.Count - 1
+                If stdimportlist(index) = path Then
+                    Return
+                End If
+            Next
+        End If
+        stdimportlist.Add(path)
+    End Sub
     Friend Shared Function find_extern_name(name As String) As Boolean
-        Return libreg.assemblymap.find(name, True).issuccessful
+        Dim externresult As mapstoredata.dataresult = libreg.assemblymap.find(name, True)
+        If externresult.issuccessful Then
+            If externresult.result.StartsWith(conrex.STDPATH) Then import_std_library(externresult.result)
+            Return True
+        Else
+            Return False
+        End If
     End Function
     Friend Shared Function get_extern_assembly(indexasm As Integer) As String
         Dim getextername As String = String.Empty
