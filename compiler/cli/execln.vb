@@ -148,6 +148,7 @@ You can type 'Help' to view commands.")
         projflow.start_project_flow()
         If compdt.COMPILETIME Then compile_time(False)
         If argstorelist.find(compdt.PARAM_IMPASSETS, True) Then impassets.copy_assets()
+        impassets.import_std()
     End Sub
     Public Sub rp_run(args As ArrayList)
         rp_build(args)
