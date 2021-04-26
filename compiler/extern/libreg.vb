@@ -23,8 +23,8 @@ Public Class libreg
         assemblymap = New mapstoredata
         externtypes = New mapstoredata
         get_dll_list(path, files, True)
+        get_dll_list(conrex.STDPATH, files, True)
         get_dll_info()
-        ' extract_dt_info([Assembly].Load("mscorlib"))
         extract_dt_info_to_map([Assembly].Load("mscorlib"))
         procresult.rs_set_result(True)
     End Sub
@@ -33,7 +33,6 @@ Public Class libreg
         Dim asm As [Assembly]
         For index = 0 To files.Count - 1
             asm = [Assembly].LoadFile(files(index).ToString)
-            'extract_dt_info(asm)
             extract_dt_info_to_map(asm)
         Next
     End Sub
