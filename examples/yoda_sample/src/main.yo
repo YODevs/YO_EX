@@ -1,0 +1,37 @@
+#[app::classname("yoda_format")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  list_data_format()
+  io::newline()
+  map_data_format()
+}
+
+
+func list_data_format()
+{
+  let mydata : init yolib.yoda()
+  mydata::compress := true
+  for(i in [0..10])
+  {
+    let result : i32 = [i * 5]
+    mydata::add("#{result}")
+  }
+  let getformat : str = mydata::get_list()
+  io::println(getformat)
+}
+
+func map_data_format()
+{
+  let mydata : init yolib.yoda()
+  mydata::add("Chelsea","England")
+  mydata::add("Bayern Munich","Germany")
+  mydata::add("Manchester City","England")
+  mydata::add("Paris Saint-Germain","France")
+  let getformat : str = mydata::get_map()
+  io::println(getformat)
+}
