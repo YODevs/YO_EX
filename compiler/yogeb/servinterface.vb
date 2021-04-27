@@ -196,6 +196,9 @@ Public Class servinterface
             If is_cil_common_data_type(getcommondtype) Then
                 value = getcommondtype
                 Return True
+            ElseIf getcommondtype.ToLower = conrex.VOID Then
+                value = conrex.VOID
+                Return True
             End If
             Return False
         End If
