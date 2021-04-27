@@ -36,6 +36,14 @@ Public Class propertyste
 
     Private Shared Sub set_property(_ilmethod As ilformat._ilmethodcollection, retpropertyinfo As PropertyInfo, isvirtualmethod As Boolean, inline As Integer, clinecodestruc() As xmlunpkd.linecodestruc, propresult As identvalid._resultidentcvaild, optval As tokenhared.token)
         Dim ldloc As New illdloc(_ilmethod)
+        If isvirtualmethod Then
+            Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
+            If gidentifier.value.Contains(conrex.DBCLN) Then
+                gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
+                gidentifier.ile = gidentifier.value.Length
+            End If
+            ldloc.load_single_in_stack(retpropertyinfo.ReflectedType.ToString, gidentifier)
+        End If
         Dim gdatatype As String = retpropertyinfo.PropertyType.Name
         gdatatype = servinterface.vb_to_cil_common_data_type(gdatatype)
         If servinterface.is_cil_common_data_type(gdatatype) = False Then
@@ -46,14 +54,6 @@ Public Class propertyste
         Dim propertyclass As String = retpropertyinfo.ReflectedType.ToString
         Dim propertymethod As String = String.Format("set_{0}", retpropertyinfo.Name)
         paramtype.Add(gdatatype)
-        If isvirtualmethod Then
-            Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
-            If gidentifier.value.Contains(conrex.DBCLN) Then
-                gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
-                gidentifier.ile = gidentifier.value.Length
-            End If
-            ldloc.load_single_in_stack(retpropertyinfo.ReflectedType.ToString, gidentifier)
-        End If
         check_operator(optval, _ilmethod)
         If isvirtualmethod Then
             cil.call_virtual_method(_ilmethod.codes, "void", propresult.asmextern, propertyclass, propertymethod, paramtype)
