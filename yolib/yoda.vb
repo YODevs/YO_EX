@@ -10,12 +10,46 @@ Public Class yoda
     Private Const ST_YODA As String = "!["
     Private Const EN_YODA As String = "]"
 #End Region
+
+    Private snkey, snvalue, snitem As ArrayList
+
+    Private compressformat As Boolean = False
+    Public Property compress() As Boolean
+        Get
+            Return compressformat
+        End Get
+        Set(ByVal value As Boolean)
+            compressformat = value
+        End Set
+    End Property
     Public Sub New()
+        snitem = New ArrayList
+        snvalue = New ArrayList
+        snkey = New ArrayList
     End Sub
     Public Structure YODAMapFormat
         Dim keys As ArrayList
         Dim values As ArrayList
     End Structure
+
+    Public Sub add(value As String)
+        snitem.Add(value)
+    End Sub
+    Public Sub add(key As String, value As String)
+        snkey.Add(key)
+        snvalue.Add(value)
+    End Sub
+    Public Function get_list() As String
+        Dim yodaf As String = WriteYODA(snitem, compress)
+        snitem.Clear()
+        Return yodaf
+    End Function
+    Public Function get_map() As String
+        Dim yodaf As String = WriteYODA_Map(snkey, snvalue, compress)
+        snkey.Clear()
+        snvalue.Clear()
+        Return yodaf
+    End Function
     Public Function WriteYODA(items As ArrayList, Optional compress As Boolean = True) As String
         Dim countOfItems As Integer = items.Count - 1
         If countOfItems = -1 Then Return YODA_EMP
