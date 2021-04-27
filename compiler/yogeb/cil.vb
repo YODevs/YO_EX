@@ -434,7 +434,7 @@
         returntype = cilkeywordchecker.get_key(returntype)
         externlib = cilkeywordchecker.get_key(externlib)
         Dim code As String = "callvirt instance  "
-        If returntype = Nothing Then
+        If returntype = Nothing OrElse returntype = conrex.VOID Then
             code &= "void"
         Else
             If servinterface.reset_cil_common_data_type(returntype) OrElse servinterface.is_cil_common_data_type(returntype) Then
