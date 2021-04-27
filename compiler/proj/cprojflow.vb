@@ -14,7 +14,7 @@ Public Class cprojflow
     End Sub
 
     Private Sub check_prerequisites()
-        procresult.rp_init("Preparation & analysis of 'Labra.yoda'")
+        procresult.rp_init("Preparation & analysis of 'labra.yoda'")
         If File.Exists(conrex.ENVCURDIR & "\labra.yoda") = False Then
             'set error
         End If
