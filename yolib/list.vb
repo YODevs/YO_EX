@@ -35,12 +35,12 @@ Public Class [list]
         items.Insert(index, value)
         Return items.Count
     End Function
-    Public Function import(YODA_F As String) As Integer
+    Public Function import(yodastring As String) As Integer
         Dim yodaformat As New yoda
-        Dim itemList As ArrayList = yodaformat.ReadYODA(YODA_F)
-        Dim itemCount As Integer = itemList.Count - 1
-        For index = 0 To itemCount
-            items.Add(itemList(index))
+        Dim itemlist As ArrayList = yodaformat.ReadYODA(yodastring)
+        Dim itemcount As Integer = itemlist.Count - 1
+        For index = 0 To itemcount
+            items.Add(itemlist(index))
         Next
         Return items.Count
     End Function
@@ -56,18 +56,14 @@ Public Class [list]
             Return
         End If
         Dim yodaformat As New yoda
-        Dim yodaPlainText As String = File.ReadAllText(path)
-        items = yodaformat.ReadYODA(yodaPlainText)
+        Dim yodaplaintext As String = File.ReadAllText(path)
+        items = yodaformat.ReadYODA(yodaplaintext)
     End Sub
 
     Public Function [set](yodastring As String) As Integer
-        items.Clear()
         Dim yodaformat As New yoda
-        Dim itemList As ArrayList = yodaformat.ReadYODA(yodastring)
-        Dim itemCount As Integer = itemList.Count - 1
-        For index = 0 To itemCount
-            items.Add(itemList(index))
-        Next
+        Dim itemlist As ArrayList = yodaformat.ReadYODA(yodastring)
+        items = itemlist
         Return items.Count
     End Function
 
@@ -95,8 +91,8 @@ Public Class [list]
     End Sub
 
     Public Function remove(value As String) As Boolean
-        Dim itemsCount As Integer = items.Count - 1
-        For index = 0 To itemsCount
+        Dim itemscount As Integer = items.Count - 1
+        For index = 0 To itemscount
             If items(index) = value Then
                 items.RemoveAt(index)
                 Return True
@@ -114,40 +110,40 @@ Public Class [list]
     End Sub
     Public Sub reverse()
         Dim departList As New ArrayList
-        Dim itemsCount As Integer = items.Count - 1
-        For index = itemsCount To 0 Step -1
+        Dim itemscount As Integer = items.Count - 1
+        For index = itemscount To 0 Step -1
             departList.Add(items(index))
         Next
         items = departList
     End Sub
 
     Public Function contains(value As String) As Boolean
-        Dim itemsCount As Integer = items.Count - 1
-        For index = 0 To itemsCount
+        Dim itemscount As Integer = items.Count - 1
+        For index = 0 To itemscount
             If items(index).ToString.Contains(value) Then Return True
         Next
         Return False
     End Function
 
     Public Function startswith(value As String) As Boolean
-        Dim itemsCount As Integer = items.Count - 1
-        For index = 0 To itemsCount
+        Dim itemscount As Integer = items.Count - 1
+        For index = 0 To itemscount
             If items(index).ToString.StartsWith(value) Then Return True
         Next
         Return False
     End Function
 
     Public Function endswith(value As String) As Boolean
-        Dim itemsCount As Integer = items.Count - 1
-        For index = 0 To itemsCount
+        Dim itemscount As Integer = items.Count - 1
+        For index = 0 To itemscount
             If items(index).ToString.EndsWith(value) Then Return True
         Next
         Return False
     End Function
 
     Public Function pattern(regexCode As String) As Boolean
-        Dim itemsCount As Integer = items.Count - 1
-        For index = 0 To itemsCount
+        Dim itemscount As Integer = items.Count - 1
+        For index = 0 To itemscount
             If System.Text.RegularExpressions.Regex.IsMatch(items(index).ToString, regexCode) Then Return True
         Next
         Return False
@@ -161,8 +157,8 @@ Public Class [list]
     End Function
 
     Public Function getindex(value As String) As Integer
-        Dim itemsCount As Integer = items.Count - 1
-        For index = 0 To itemsCount
+        Dim itemscount As Integer = items.Count - 1
+        For index = 0 To itemscount
             If value = items(index) Then Return index
         Next
         Return -1
