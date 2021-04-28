@@ -14,6 +14,7 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
+        Dim gpfdatatype As String = datatype
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
@@ -35,6 +36,19 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.EXPRESSION
+                Try
+                    Dim expr As expressiondt
+                    expr = New expressiondt(_ilmethod, gpfdatatype)
+                    If isfloat Then
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convr8)
+                    Else
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convi8)
+                    End If
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -53,6 +67,7 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
+        Dim gpfdatatype As String = datatype
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
@@ -74,6 +89,19 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.EXPRESSION
+                Try
+                    Dim expr As expressiondt
+                    expr = New expressiondt(_ilmethod, gpfdatatype)
+                    If isfloat Then
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convr8)
+                    Else
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convi8)
+                    End If
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -92,6 +120,7 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
+        Dim gpfdatatype As String = datatype
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
@@ -113,6 +142,19 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.EXPRESSION
+                Try
+                    Dim expr As expressiondt
+                    expr = New expressiondt(_ilmethod, gpfdatatype)
+                    If isfloat Then
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convr8)
+                    Else
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convi8)
+                    End If
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -131,6 +173,7 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
+        Dim gpfdatatype As String = datatype
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
@@ -152,6 +195,19 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.EXPRESSION
+                Try
+                    Dim expr As expressiondt
+                    expr = New expressiondt(_ilmethod, gpfdatatype)
+                    If isfloat Then
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convr8)
+                    Else
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convi8)
+                    End If
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -170,6 +226,7 @@ Public Class ilopt
         Dim convr8 As Boolean = False
         If datatype.ToLower = "i64" Then convi8 = True
         If datatype.ToLower = "f64" Then convr8 = True
+        Dim gpfdatatype As String = datatype
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
@@ -191,6 +248,19 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.EXPRESSION
+                Try
+                    Dim expr As expressiondt
+                    expr = New expressiondt(_ilmethod, gpfdatatype)
+                    If isfloat Then
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convr8)
+                    Else
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convi8)
+                    End If
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
@@ -318,7 +388,7 @@ Public Class ilopt
             convr8 = True
             setconvr8 = False
         End If
-
+        Dim gpfdatatype As String = datatype
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
@@ -340,6 +410,19 @@ Public Class ilopt
                 If setconvr8 Then
                     cil.conv_to_float64(_ilmethod.codes)
                 End If
+            Case tokenhared.token.EXPRESSION
+                Try
+                    Dim expr As expressiondt
+                    expr = New expressiondt(_ilmethod, gpfdatatype)
+                    If isfloat Then
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convr8)
+                    Else
+                        _ilmethod = expr.parse_expression_data(clinecodestruc.value, convi8)
+                    End If
+                Catch ex As Exception
+                    dserr.args.Add(ex.Message)
+                    dserr.new_error(conserr.errortype.EXPRESSIONERROR, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
+                End Try
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
