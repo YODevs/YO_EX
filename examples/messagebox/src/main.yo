@@ -1,0 +1,40 @@
+#[app::classname("messagebox_example")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  io::println(" 1-Simple messagebox #nl 2-Messagebox with title #nl 3-Critical messagebox #nl 4-YesNo messagebox #nl 5-AbortRetryIgnore messagebox ")
+  let ginput , result : str
+  io::setin(ginput,"Enter messagebox type : ")
+  match(ginput)
+  {
+    case "1"{
+      result := YOLIB.interaction::messagebox("This is a message.")
+       io::println("Response : #{result}")
+     }
+     case "2"{
+        result := YOLIB.interaction::messagebox("Interaction","This is a message.")
+        io::println("Response : #{result}")
+      }
+      case "3"{
+         result := YOLIB.interaction::messagebox("Error !","This is a critical message.",16)
+         io::println("Response : #{result}")
+       }
+      case "4"{
+          result := YOLIB.interaction::messagebox("Customize messagebox","Click the Yes or No button.",4)
+          io::println("Response : #{result}")
+        }
+      case "5"{
+           result := YOLIB.interaction::messagebox("Customize messagebox","Click the Abort/Retry/Ignore button.",2)
+           io::println("Response : #{result}")
+         }
+  }
+}
+
+
+#>
+#>
+#>
