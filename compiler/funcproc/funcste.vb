@@ -133,6 +133,9 @@ Public Class funcste
     End Sub
 
     Friend Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList, Optional cargcodestruc() As xmlunpkd.linecodestruc = Nothing)
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
+
         If IsNothing(cargcodestruc) Then cargcodestruc = get_argument_list(clinecodestruc)
 
         If IsNothing(cargcodestruc) OrElse cargcodestruc.Length <> methodinfo.parameters.Length Then
@@ -158,6 +161,8 @@ Public Class funcste
             End If
         Next
         set_stack_space(_ilmethod, emptyparamtypes, cargcodestruc)
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
     End Sub
 
     Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, ByRef ptype As String, cargcodestruc As xmlunpkd.linecodestruc())
