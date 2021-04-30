@@ -22,6 +22,11 @@ Public Class propertyste
         propresult.asmextern = libserv.get_extern_assembly(namespaceindex)
         Dim retpropertyinfo As PropertyInfo
         If libserv.get_extern_index_property(propresult.clident, namespaceindex, classindex, retpropertyinfo) = -1 Then
+            Dim retfieldinfo As FieldInfo
+            If libserv.get_extern_index_field(propresult.clident, namespaceindex, classindex, retfieldinfo) <> -1 Then
+                fieldste.inv_external_field(clinecodestruc, _ilmethod, propresult, inline, optval, namespaceindex, classindex, retfieldinfo)
+                Return
+            End If
             dserr.args.Add("Property '" & propresult.clident.ToLower & "' not found.")
             dserr.new_error(conserr.errortype.PROPERTYERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), propresult.clident))
             Return
