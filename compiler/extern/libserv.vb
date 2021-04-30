@@ -131,6 +131,17 @@ Public Class libserv
         Return -1
     End Function
 
+    Friend Shared Function get_extern_index_field(fieldname As String, namespaceindex As Integer, classindex As Integer, ByRef retfield As FieldInfo) As Integer
+        fieldname = fieldname.ToLower
+        For Each gfield In libreg.types(namespaceindex)(classindex).GetFields()
+            If fieldname = gfield.Name.ToLower Then
+                retfield = gfield
+                Return 1
+            End If
+        Next
+        Return -1
+    End Function
+
     Friend Shared cargldr() As xmlunpkd.linecodestruc = Nothing
     Private Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, gparameters() As ParameterInfo, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
         'TODO : Check Return-Type
