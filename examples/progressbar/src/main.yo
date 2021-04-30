@@ -1,0 +1,27 @@
+#[app::classname("progressbar_example")]
+#[app::wait(true)]
+
+include 'yolib'
+
+func main()
+{
+  let rnd : init System.Random()
+  let ms : i32 = 0
+  let progress : init YOLIB.progressbar()
+  progress::show_progress()
+  to(100)
+  {
+    progress::increase()
+    ms := rnd::next(1,200) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+
+  to(100)
+  {
+    progress::decrease()
+    ms := rnd::next(1,200) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+
+  progress::hide_progress()
+}
