@@ -64,6 +64,7 @@ Public Class conserr
         PROPERTYERROR
         BADMODIFIER
         MODIFIERERROR
+        EXTERNERROR
     End Enum
 
     Enum errorpriority
@@ -150,5 +151,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.PROPERTYERROR, errorpriority.STOP, "Property error", "{0}")
         set_new_error(errortype.BADMODIFIER, errorpriority.STOP, "Modifier expected", "'{0}' , cannot be identified as an modifier.")
         set_new_error(errortype.MODIFIERERROR, errorpriority.STOP, "Modifier error", "Cannot refer to an instance member of a class from within a static method / member initializer without an explicit instance of the class.")
+        set_new_error(errortype.EXTERNERROR, errorpriority.STOP, "Extern error", "Could not load file or assembly '{0}' or one of its dependencies. The system cannot find the file specified.")
     End Sub
 End Class
