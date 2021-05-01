@@ -5,6 +5,7 @@
         Dim methods() As tknformat._method
         Dim fields() As tknformat._pubfield
         Dim enums() As tknformat._enum
+        Dim externlist As ArrayList
     End Structure
 
     Friend Shared reffunc() As _referfuncdata
@@ -24,6 +25,7 @@
         reffunc(index).fields = classdt.fields
         reffunc(index).methods = classdt.methods
         reffunc(index).enums = classdt.enums
+        reffunc(index).externlist = classdt.externlist
         If classdt.attribute._app._namespace <> conrex.NULL Then
             reffunc(index).classname = classdt.attribute._app._namespace & conrex.DOT
         End If
@@ -140,5 +142,22 @@
     End Function
     Friend Shared Function get_enum_info(classindex As Integer, enumsindex As Integer) As tknformat._enum
         Return reffunc(classindex).enums(enumsindex)
+    End Function
+
+    Friend Shared Function check_extern_assembly(externname As String) As Boolean
+        Dim leref As Integer = reffunc.Length - 1
+        Dim bextern As String = externname
+        externname = externname.ToLower
+        For iref = 0 To leref
+            If IsNothing(reffunc(iref).externlist) Then Continue For
+            For index = 0 To reffunc(iref).externlist.Count - 1
+                If reffunc(iref).externlist(index).ToLower = externname Then
+                    Return True
+                End If
+            Next
+        Next
+        dserr.args.Add(bextern)
+        dserr.new_error(conserr.errortype.EXTERNERROR, -1, ilbodybulider.path, "Introduce the '" & bextern & "' library to the compiler with the Extern statement.", "extern " & bextern)
+        Return False
     End Function
 End Class
