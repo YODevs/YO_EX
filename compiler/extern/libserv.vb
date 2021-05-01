@@ -25,6 +25,7 @@ Public Class libserv
     Friend Shared Function get_extern_assembly(indexasm As Integer) As String
         Dim getextername As String = String.Empty
         libreg.assemblymap.get_index(indexasm, getextername)
+        If getextername.ToLower <> conrex.MSCORLIB Then funcdtproc.check_extern_assembly(getextername)
         Return getextername
     End Function
     Friend Shared Sub get_identifier_ns(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef isvirtualmethod As Boolean)
