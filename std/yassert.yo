@@ -1,0 +1,7 @@
+#[app::classname('yassert')]
+extern YOAssert
+
+func ping() : str
+{
+  return "pong"
+}
