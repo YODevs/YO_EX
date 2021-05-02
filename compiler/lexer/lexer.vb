@@ -316,8 +316,7 @@ Public Class lexer
         End If
     End Sub
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String, Optional index As Integer = -1)
-
-        If linec.Trim = conrex.NULL Then
+        If IsNothing(linec) OrElse linec.Trim = conrex.NULL Then
             linecinf.lstart = -1
             linec = conrex.NULL
             Return
