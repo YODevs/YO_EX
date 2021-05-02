@@ -443,7 +443,10 @@
                 End If
 
             Case funcstatecursor.FUNCBODY
-                If bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
+                If rd_token = tokenhared.token.FUNC Then
+                    dserr.args.Add("}")
+                    dserr.new_error(conserr.errortype.EXPECTEDERROR, linecinf.line, sourceloc, "Expect to close the previous method block.")
+                ElseIf bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
                     xmethods(i).bodyxmlfmt = bdyformatter.xmlresult
                     i += 1
                     _settingup()
@@ -491,6 +494,10 @@
         End Select
     End Sub
     Public Function _to_organize() As tknformat._class
+        If funcstate = funcstatecursor.FUNCBODY Then
+            dserr.args.Add("}")
+            dserr.new_error(conserr.errortype.EXPECTEDERROR, -1, sourceloc, "Expect to close the previous method block.(The last part of the source code)")
+        End If
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
         xclass(0).includelist = includelist
