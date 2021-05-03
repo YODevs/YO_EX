@@ -39,19 +39,23 @@
             classdt.methods(indexmethod).bodyxmlfmt = String.Empty
         Next
     End Sub
-    Friend Shared Function get_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
+    Friend Shared Function get_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer, leftassign As Boolean) As Integer
         If IsNothing(reffunc(classindex).methods) Then Return -1
         Dim retstate As Integer = -1
         funcname = funcname.ToLower
         For index = 0 To reffunc(classindex).methods.Length - 1
             If reffunc(classindex).methods(index).name.ToLower = funcname Then
-                If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc) Then
-                    funcname = reffunc(classindex).methods(index).name
-                    Return index
+                If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, reffunc(classindex).methods(index).returntype) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, funcste.assignmentype) Then
+                    If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc) Then
+                        funcname = reffunc(classindex).methods(index).name
+                        funcste.assignmentype = Nothing
+                        Return index
+                    End If
                 End If
                 retstate = -2
             End If
         Next
+        funcste.assignmentype = Nothing
         Return retstate
     End Function
     Friend Shared Function get_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
