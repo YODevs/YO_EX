@@ -90,23 +90,34 @@ Public Class libserv
         greturntype = libreg.types(namespaceindex)(classindex).GetMethods()(methodindex).ReturnType.ToString
         gexternassembly = libreg.types(namespaceindex)(classindex).GetMethods()(methodindex).ReturnType.Assembly.GetName.Name
     End Sub
-    Friend Shared Function get_extern_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, namespaceindex As Integer, classindex As Integer, ByRef methodinfo As tknformat._method) As Integer
+    Friend Shared Function get_extern_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, namespaceindex As Integer, classindex As Integer, ByRef methodinfo As tknformat._method, leftassign As Boolean) As Integer
         Dim funcnametolower As String = funcname.ToLower
         Dim retstate As Integer = -1
         cargldr = Nothing
         Dim methodindex As Integer = 0
         For Each method In libreg.types(namespaceindex)(classindex).GetMethods()
             If method.Name.ToLower = funcnametolower Then
-                If check_overloading(_ilmethod, method.GetParameters, cargcodestruc) Then
-                    funcname = method.Name
-                    get_method_info(method, methodinfo)
-                    Return methodindex
+                Dim tpcasttype As String = funcste.assignmentype
+                If funcste.assignmentype <> conrex.NULL Then
+                    servinterface.is_common_data_type(funcste.assignmentype, funcste.assignmentype)
+                    funcste.assignmentype = servinterface.cil_to_vb_common_data_type(funcste.assignmentype)
                 Else
-                    retstate = -2
+                    funcste.assignmentype = conrex.VOID
+                End If
+                If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, method.ReturnType.ToString) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, tpcasttype) Then
+                    If check_overloading(_ilmethod, method.GetParameters, cargcodestruc) Then
+                        funcname = method.Name
+                        get_method_info(method, methodinfo)
+                        funcste.assignmentype = Nothing
+                        Return methodindex
+                    Else
+                        retstate = -2
+                    End If
                 End If
             End If
             methodindex += 1
         Next
+        funcste.assignmentype = Nothing
         Return retstate
     End Function
     Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef ctorinfo As ConstructorInfo, ByRef methodinfo As tknformat._method) As Integer
