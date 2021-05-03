@@ -107,6 +107,7 @@
         If IsNothing(rlinecodestruc) = False Then
             Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, rlinecodestruc)
             If funcresult.funcvalid Then
+                funcste.assignmentype = datatype
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 Return True
             End If
@@ -379,8 +380,19 @@
     End Function
 
     Friend Shared Function eq_data_types(maintype As String, resulttype As String) As Boolean
-        maintype = maintype.ToLower
-        resulttype = resulttype.ToLower
+        If maintype = conrex.NULL OrElse resulttype = conrex.NULL Then
+            If maintype = resulttype Then
+                Return True
+            End If
+            If maintype = conrex.NULL AndAlso resulttype.ToLower = conrex.VOID Then
+                Return True
+            ElseIf resulttype = conrex.NULL AndAlso maintype.ToLower = conrex.VOID Then
+
+            End If
+        Else
+            maintype = maintype.ToLower
+            resulttype = resulttype.ToLower
+        End If
         If maintype = resulttype Then
             Return True
         End If
