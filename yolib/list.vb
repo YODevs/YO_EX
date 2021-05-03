@@ -19,11 +19,11 @@ Public Class [list]
     End Function
 
     Public Function add_with_split(values As String, pattern As String) As Integer
-        Dim splitItems() As String
-        splitItems = System.Text.RegularExpressions.Regex.Split(values, pattern)
-        Dim listSplitLength As Integer = splitItems.Length - 1
+        Dim splititems() As String
+        splititems = System.Text.RegularExpressions.Regex.Split(values, pattern)
+        Dim listSplitLength As Integer = splititems.Length - 1
         For index = 0 To listSplitLength
-            items.Add(splitItems(index))
+            items.Add(splititems(index))
         Next
         Return items.Count
     End Function
@@ -73,13 +73,13 @@ Public Class [list]
     End Function
 
     Public Function iter(item As String) As Integer
-        Dim numOfIter As Integer = 0
+        Dim numofiter As Integer = 0
         For index = 0 To items.Count - 1
             If item = items(index) Then
-                numOfIter += 1
+                numofiter += 1
             End If
         Next
-        Return numOfIter
+        Return numofiter
     End Function
 
     Public Function count() As Integer
@@ -101,7 +101,7 @@ Public Class [list]
         Return False
     End Function
 
-    Public Sub removeat(index As Integer)
+    Public Sub remove_at(index As Integer)
         items.RemoveAt(index)
     End Sub
 
@@ -125,7 +125,7 @@ Public Class [list]
         Return False
     End Function
 
-    Public Function startswith(value As String) As Boolean
+    Public Function starts_with(value As String) As Boolean
         Dim itemscount As Integer = items.Count - 1
         For index = 0 To itemscount
             If items(index).ToString.StartsWith(value) Then Return True
@@ -133,7 +133,7 @@ Public Class [list]
         Return False
     End Function
 
-    Public Function endswith(value As String) As Boolean
+    Public Function ends_with(value As String) As Boolean
         Dim itemscount As Integer = items.Count - 1
         For index = 0 To itemscount
             If items(index).ToString.EndsWith(value) Then Return True
@@ -156,7 +156,7 @@ Public Class [list]
         End If
     End Function
 
-    Public Function getindex(value As String) As Integer
+    Public Function get_index(value As String) As Integer
         Dim itemscount As Integer = items.Count - 1
         For index = 0 To itemscount
             If value = items(index) Then Return index
@@ -175,7 +175,7 @@ Public Class [list]
         Return item
     End Function
 
-    Public Function popleft() As String
+    Public Function pop_left() As String
         If items.Count = 0 Then Throw New Exception("pop from empty list.")
         Dim item As String = items(0)
         If items.Count <> 1 Then
