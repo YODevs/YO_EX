@@ -3,7 +3,7 @@
 Public Class ilret
     Friend Shared Sub ret_to_route(ByRef ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc)
         If clinecodestruc.Length = 1 Then
-            If ilmethod.returntype = conrex.NULL Then
+            If ilmethod.returntype = conrex.VOID OrElse ilmethod.returntype = conrex.NULL Then
                 cil.ret(ilmethod.codes)
             Else
                 dserr.args.Add(String.Format("The 'Return' command requires a value of type '{0}' to return.", ilmethod.returntype))
