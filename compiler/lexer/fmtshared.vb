@@ -448,6 +448,7 @@
                     dserr.new_error(conserr.errortype.EXPECTEDERROR, linecinf.line, sourceloc, "Expect to close the previous method block.")
                 ElseIf bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
                     xmethods(i).bodyxmlfmt = bdyformatter.xmlresult
+                    If xmethods(i).returntype = conrex.NULL Then xmethods(i).returntype = conrex.VOID
                     i += 1
                     _settingup()
                 End If
