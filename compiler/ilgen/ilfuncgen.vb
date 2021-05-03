@@ -115,16 +115,18 @@
         Dim crmethod As tknformat._method = methods(index)
         For ime = 0 To methods.Length - 1
             If ime <> index AndAlso crmethod.name = methods(ime).name Then
-                If IsNothing(crmethod.parameters) = False AndAlso IsNothing(methods(ime).parameters) = False Then
-                    If crmethod.parameters.Length = methods(ime).parameters.Length Then
-                        If check_rep_params(crmethod, methods(ime)) = False Then
-                            seterr = True
-                            Exit For
+                If crmethod.returntype.ToLower = methods(ime).returntype.ToLower Then
+                    If IsNothing(crmethod.parameters) = False AndAlso IsNothing(methods(ime).parameters) = False Then
+                        If crmethod.parameters.Length = methods(ime).parameters.Length Then
+                            If check_rep_params(crmethod, methods(ime)) = False Then
+                                seterr = True
+                                Exit For
+                            End If
                         End If
+                    ElseIf IsNothing(crmethod.parameters) AndAlso IsNothing(methods(ime).parameters) Then
+                        seterr = True
+                        Exit For
                     End If
-                ElseIf IsNothing(crmethod.parameters) AndAlso IsNothing(methods(ime).parameters) Then
-                    seterr = True
-                    Exit For
                 End If
             End If
         Next
