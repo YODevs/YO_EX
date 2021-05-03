@@ -3,6 +3,7 @@ Imports YOCA
 
 Public Class funcste
     Friend Shared attribute As yocaattribute.yoattribute
+    Friend Shared assignmentype As String
     Friend Shared Sub invoke_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, funcresult As funcvalid._resultfuncvaild, Optional leftassign As Boolean = True)
         fscmawait = False
         If funcresult.callintern Then
@@ -23,7 +24,7 @@ Public Class funcste
         End If
         funcresult.asmextern = libserv.get_extern_assembly(namespaceindex)
         Dim methodinfo As New tknformat._method
-        Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo)
+        Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo, leftassign)
 
         Select Case methodindex
             Case -1
@@ -86,7 +87,7 @@ Public Class funcste
             Return
         End If
 
-        Dim methodindex As Integer = funcdtproc.get_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, classindex)
+        Dim methodindex As Integer = funcdtproc.get_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, classindex, leftassign)
         Select Case methodindex
             Case -1
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) not found.")
