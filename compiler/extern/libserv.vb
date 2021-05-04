@@ -3,6 +3,7 @@ Imports YOCA
 
 Public Class libserv
     Friend Shared stdimportlist As New ArrayList
+    Friend Shared overloadlist As String = String.Empty
     Friend Shared Sub import_std_library(path As String)
         If stdimportlist.Count > 0 Then
             For index = 0 To stdimportlist.Count - 1
@@ -118,8 +119,60 @@ Public Class libserv
             methodindex += 1
         Next
         funcste.assignmentype = Nothing
+        If retstate = -2 Then get_overloads_of_method(libreg.types(namespaceindex)(classindex).GetMethods, funcnametolower)
         Return retstate
     End Function
+
+    Friend Shared Sub get_overloads_of_method(methodinfo As MethodInfo(), funcname As String)
+        Dim sb As New Text.StringBuilder
+        For Each method In methodinfo
+            If method.Name.ToLower = funcname Then
+                sb.Append(method.Name)
+                sb.Append(conrex.PRSTART)
+                For index = 0 To method.GetParameters.Length - 1
+                    Dim isbyref As Boolean = False
+                    Dim gparametername As String = method.GetParameters(index).Name
+                    Dim gtype As String = method.GetParameters(index).ParameterType.Name
+                    If method.GetParameters(index).ParameterType.IsArray Then
+                        gtype = gtype.Remove(gtype.Length - 2)
+                    End If
+                    If gtype.EndsWith("*") Then
+                        gtype = gtype.Remove(gtype.Length - 1)
+                        isbyref = True
+                    End If
+                    gtype = servinterface.vb_to_cil_common_data_type(gtype)
+                    servinterface.get_yo_common_data_type(gtype, gtype)
+                    If method.GetParameters(index).ParameterType.IsArray Then gtype &= conrex.BRSTEN
+                    If isbyref Then gtype &= conrex.AMP
+                    If gtype = method.GetParameters(index).ParameterType.Name.ToLower Then
+                        gtype = method.GetParameters(index).ParameterType.Name
+                    End If
+                    gtype = servinterface.get_yo_byte_types(gtype)
+                    sb.Append(gparametername & conrex.SPACE & gtype)
+
+                    If index + 1 < method.GetParameters.Length Then
+                        sb.Append(conrex.CMA)
+                    End If
+                Next
+                sb.Append(conrex.PREND)
+                Dim rettype As String = method.ReturnType.Name
+                If method.ReturnType.IsArray Then
+                    rettype = rettype.Remove(rettype.Length - 2)
+                End If
+                rettype = servinterface.vb_to_cil_common_data_type(rettype)
+                servinterface.get_yo_common_data_type(rettype, rettype)
+                If method.ReturnType.IsArray Then rettype &= conrex.BRSTEN
+                If rettype = method.ReturnType.Name.ToLower Then
+                    rettype = method.ReturnType.Name
+                End If
+                rettype = servinterface.get_yo_byte_types(rettype)
+                sb.Append(conrex.SPACE & conrex.CLN & conrex.SPACE & rettype)
+                sb.AppendLine()
+            End If
+        Next
+        overloadlist = sb.ToString
+    End Sub
+
     Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef ctorinfo As ConstructorInfo, ByRef methodinfo As tknformat._method) As Integer
         cargldr = Nothing
         For Each gconstructor In libreg.types(namespaceindex)(classindex).GetConstructors()
