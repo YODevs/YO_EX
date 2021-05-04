@@ -10,6 +10,7 @@
 
     Friend Shared reffunc() As _referfuncdata
     Friend Shared refrecord As New mapstoredata
+    Friend Shared overloadlist As String = String.Empty
     Friend Shared Sub import_method(classdt As tknformat._class)
         Dim index As Integer = 0
         If IsNothing(reffunc) Then
@@ -56,8 +57,54 @@
             End If
         Next
         funcste.assignmentype = Nothing
+        If retstate = -2 Then get_overloads_of_method(reffunc(classindex).methods, funcname.ToLower)
         Return retstate
     End Function
+
+    Friend Shared Sub get_overloads_of_method(methodinfo As tknformat._method(), funcname As String)
+        Dim sb As New Text.StringBuilder
+        For Each method In methodinfo
+            If method.name.ToLower = funcname Then
+                sb.Append(method.name)
+                sb.Append(conrex.PRSTART)
+                If method.nopara = False Then
+                    For index = 0 To method.parameters.Length - 1
+                        Dim isarray As Boolean = False
+                        Dim gparametername As String = method.parameters(index).name
+                        Dim gtype As String = method.parameters(index).ptype
+                        If gtype.EndsWith(conrex.BRSTEN) Then
+                            gtype = gtype.Remove(gtype.Length - 2)
+                            isarray = True
+                        End If
+                        If method.parameters(index).byreference = True Then
+                            gtype = gtype.Remove(gtype.Length - 1)
+                        End If
+                        gtype = servinterface.vb_to_cil_common_data_type(gtype)
+                        servinterface.get_yo_common_data_type(gtype, gtype)
+                        If isarray Then gtype &= conrex.BRSTEN
+                        If method.parameters(index).byreference Then gtype &= conrex.AMP
+                        If gtype = method.parameters(index).name.ToLower Then
+                            gtype = method.parameters(index).name
+                        End If
+                        gtype = servinterface.get_yo_byte_types(gtype)
+                        sb.Append(gparametername & conrex.SPACE & gtype)
+                        If index + 1 < method.parameters.Length Then
+                            sb.Append(conrex.CMA)
+                        End If
+                    Next
+                End If
+                sb.Append(conrex.PREND)
+                Dim rettype As String = method.returntype
+                'Check return-type is an 'Array' types
+                rettype = servinterface.vb_to_cil_common_data_type(rettype)
+                servinterface.get_yo_common_data_type(rettype, rettype)
+                rettype = servinterface.get_yo_byte_types(rettype)
+                sb.Append(conrex.SPACE & conrex.CLN & conrex.SPACE & rettype)
+                sb.AppendLine()
+                End If
+        Next
+        overloadlist = sb.ToString
+    End Sub
     Friend Shared Function get_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
         If IsNothing(reffunc(classindex).methods) Then Return -1
         Dim retstate As Integer = -1
