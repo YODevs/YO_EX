@@ -171,7 +171,14 @@ Public Class servinterface
         Next
         Return False
     End Function
-
+    Friend Shared Function get_yo_byte_types(datatype As String) As String
+        If datatype.ToLower = "sbyte" Then
+            Return "i8"
+        ElseIf datatype.ToLower = "byte" Then
+            Return "u8"
+        End If
+        Return datatype
+    End Function
     Friend Shared Function is_cil_common_data_type(datatype As String) As Boolean
         For index = 0 To conrex.msilcommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index) Then
