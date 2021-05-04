@@ -32,7 +32,7 @@ Public Class funcste
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Case -2
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) , The parameters of the called function do not match its original function.")
-                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value))
+                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "Overloads :" & vbCrLf & libserv.overloadlist)
         End Select
 
         If isvirtualmethod Then
@@ -94,7 +94,7 @@ Public Class funcste
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Case -2
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) , The parameters of the called function do not match its original function.")
-                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value))
+                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "Overloads :" & vbCrLf & funcdtproc.overloadlist)
         End Select
         If isvirtualmethod Then
             Dim ldloc As New illdloc(_ilmethod)
