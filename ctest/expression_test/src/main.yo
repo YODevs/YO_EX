@@ -1,0 +1,54 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+include 'ystdio'
+
+func main()
+{
+  let i : i32
+  test1()
+  test2(10)
+  test3(5)
+  test3(7.0)
+  i := test4(10)
+  io::println("#{i}")
+}
+
+func test1()
+{
+  let i : i32 = 4
+  i := [4 * 4]
+  let a : i32 = [i + 2 - (i - 2)]
+  io::println("#{i} , #{a}")
+
+}
+
+func test2(val:i32)
+{
+  val += [2 + 1]
+  io::println("#{val}")
+  val -= [4 - 2]
+  io::println("#{val}")
+}
+
+func test3(val:i32)
+{
+  val ?= 15
+  io::println("#{val}")
+  val := null
+  val ?= [25 + 11]
+  io::println("#{val}")
+}
+
+func test3(val:f32)
+{
+  val ?= 5.0
+  io::println("#{val}")
+  val := null
+  val ?= [25.1 + 10.9]
+  io::println("#{val}")
+}
+
+func test4(val:i32) :i32
+{
+  return [val * val]
+}
