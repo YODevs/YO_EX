@@ -575,18 +575,18 @@
                 _illocalinit(index).iscommondatatype = False
                 If clinecodestruc(3).tokenid = tokenhared.token.INIT Then
                     If clinecodestruc.Length > 4 Then
-                        If libserv.get_extern_index_class(ilmethod, clinecodestruc(4).value, Nothing, Nothing, Nothing, Nothing) = -1 Then
+                        If libserv.get_extern_index_class(ilmethod, clinecodestruc(4).value, Nothing, Nothing, Nothing, Nothing) = -1 AndAlso funcdtproc.get_index_class(ilmethod, clinecodestruc(4).value) = -1 Then
                             dserr.args.Add("Class '" & clinecodestruc(4).value & "' not found.")
                             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(4)), clinecodestruc(4).value))
                         End If
                         _illocalinit(index).datatype = clinecodestruc(4).value
                         _illocalinit(index).ctor = True
                     Else
-                        dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value),)
+                        dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value))
                     End If
                 Else
                     _illocalinit(index).ctor = False
-                    If libserv.get_extern_index_class(ilmethod, clinecodestruc(3).value, Nothing, Nothing, Nothing, Nothing) = -1 Then
+                    If libserv.get_extern_index_class(ilmethod, clinecodestruc(3).value, Nothing, Nothing, Nothing, Nothing) = -1 AndAlso funcdtproc.get_index_class(ilmethod, clinecodestruc(3).value) = -1 Then
                         dserr.args.Add("Class '" & clinecodestruc(3).value & "' not found.")
                         dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(3)), clinecodestruc(3).value))
                     End If
