@@ -22,6 +22,7 @@
         End If
         Console.WriteLine()
         Console.Write(hwall)
+        Console.WriteLine()
         Console.ForegroundColor = ConsoleColor.Red
         Console.Write(err.title & " : ")
         Console.ForegroundColor = ConsoleColor.Gray
@@ -64,6 +65,7 @@
         If err.priority = conserr.errorpriority.STOP Then
             System.Environment.Exit(conrex.exitcode.ERROR)
         End If
+        Console.WriteLine()
         Return
     End Sub
 End Class
