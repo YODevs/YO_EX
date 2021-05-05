@@ -35,7 +35,6 @@
             If blockinfo.istart = blockinfo.iend + 1 Then
                 imp_token("</block>")
                 'Create a log , data file [xml output].
-                coutputdata.write_data(blockinfo.datafmt)
                 xmlresult = blockinfo.datafmt
                 Return True
             Else
