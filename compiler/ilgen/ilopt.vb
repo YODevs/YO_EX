@@ -526,8 +526,6 @@ Public Class ilopt
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.TYPE_INT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
-            Case tokenhared.token.TYPE_FLOAT
-                servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
             'let value : str = NULL
