@@ -8,6 +8,7 @@
 ''' </summary>
 Public Class compdt
     Friend Shared ILASMPATH As String = My.Application.Info.DirectoryPath & "\ilasm.exe"
+    Friend Shared SYSTEMLIBPATH As String = String.Empty
     Friend Shared cilintegertypes() As String = {"int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64"}
     Friend Shared yointegertypes() As String = {"i8", "i16", "i32", "i64", "u8", "u16", "u32", "u64"}
     Friend Shared i8cmtypes() As String = {"int64", "uint64", "valuetype [mscorlib]System.Decimal"}
