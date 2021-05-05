@@ -28,7 +28,7 @@
         localinit = New localinitdata
         localinit.import_parameter(method)
         stjmper.init()
-        jmp.init(path)
+        jmp.init(ilbodybulider.path)
     End Sub
 
     Public Sub New(path As String, bodyxmlfmt As String, injillocalinit() As ilformat._illocalinit, injlocalinit As localinitdata)
