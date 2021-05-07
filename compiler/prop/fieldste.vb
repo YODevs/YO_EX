@@ -15,7 +15,6 @@ Public Class fieldste
         If servinterface.is_cil_common_data_type(gdatatype) = False Then
             gdatatype = retfieldinfo.FieldType.ToString
         End If
-        Dim propertyclass As String = retfieldinfo.ReflectedType.ToString
         If retfieldinfo.IsStatic = False Then
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
