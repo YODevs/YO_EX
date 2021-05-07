@@ -10,6 +10,7 @@ func main()
   test3(7.0)
   i := test4(10)
   io::println("#{i}")
+  test5([10 + 5],[20 - 5])
 }
 
 func test1()
@@ -50,4 +51,10 @@ func test3(val:f32)
 func test4(val:i32) :i32
 {
   return [val * val]
+}
+
+func test5(val:i32,val1:i32)
+{
+  let result : i32 = [val + val1]
+  io::println("#{result}")
 }
