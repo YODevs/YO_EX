@@ -1,0 +1,45 @@
+#[app::classname("map_example2")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  let map : init YOLib.map()
+  let a : i32
+  let name, ID, result : str
+
+  io::println("Hi, welcom to Conference.select your action:")
+  $start:
+  io::print("1.add new User#nl2.show Users#nl3.exit#nlyour action: ")
+  a := io::getnum()
+  if (a == 1){
+    io::print("username: ")
+    name := io::getln()
+    io::print("ID number: ")
+    ID := io::getln()
+    map::add(name, ID)
+    result := YOLIB.interaction::messagebox("success","Guest added successfully")
+    io::println(" ")
+    jmp $start
+  }elseif (a == 2){
+    let getname, getID : str
+    let number : i32
+    let count : i32 = map::size()
+    for(i in [0..count])
+    {
+      let getnames , getid : str
+      let s : i32 = [i + 1]
+      map::get_map(i, getnames, getid)
+      io::println("#{s}- name : #{getnames} , ID-code : #{getid}")
+    }
+    jmp $start
+  }elseif(a == 3){
+    result := YOLIB.interaction::messagebox("end","good luck ;)")
+  }else{
+    result := YOLIB.interaction::messagebox("Error","please select right action")
+    io::println(" ")
+    jmp $start
+  }
+}

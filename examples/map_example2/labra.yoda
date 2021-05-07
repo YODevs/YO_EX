@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "map_example2"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
