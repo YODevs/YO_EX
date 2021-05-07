@@ -10,7 +10,7 @@ Public Class localinitdata
     End Sub
 
     Public Function check_local_init(name As String) As Boolean
-        Return datatypelocal.find(name).issuccessful
+        Return datatypelocal.find(name.ToLower, True).issuccessful
     End Function
 
     Public Sub add_local_init(name As String, datatype As String)
