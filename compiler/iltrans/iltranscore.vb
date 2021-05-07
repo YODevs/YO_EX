@@ -2,18 +2,33 @@
     Private _illocalinit(0) As ilformat._illocalinit
     Private methoddata As tknformat._method
     Private localinit As localinitdata
-    Private jmp As jmp
     Private path As String
     Private bodyxmlformat As String
+    Friend Shared isarrayinstack As Boolean
+    Private Shared privobjectcontrol As fmtshared.objectcontrol
+    Friend Shared ReadOnly Property methodobjectcontrol() As fmtshared.objectcontrol
+        Get
+            Return privobjectcontrol
+        End Get
+    End Property
+
+    Friend Shared Sub set_object_control(objectcontrol As fmtshared.objectcontrol)
+        privobjectcontrol = objectcontrol
+    End Sub
     Structure identifierassignmentinfo
         Dim identifiers As ArrayList
         Dim optval As String
     End Structure
     Public Sub New(method As tknformat._method)
         methoddata = method
+        privobjectcontrol = method.objcontrol
+        If privobjectcontrol.modifier = tokenhared.token.UNDEFINED Then
+            privobjectcontrol.modifier = tokenhared.token.STATIC
+        End If
         localinit = New localinitdata
         localinit.import_parameter(method)
         stjmper.init()
+        jmp.init(path)
     End Sub
 
     Public Sub New(path As String, bodyxmlfmt As String, injillocalinit() As ilformat._illocalinit, injlocalinit As localinitdata)
@@ -33,7 +48,6 @@
         Else
             xmldata = New xmlunpkd(bodyxmlformat, False)
         End If
-        jmp = New jmp(path)
         stjmper.reset_method(path)
         While xmldata.xmlreader.EOF = False
             Dim clinecodestruc() As xmlunpkd.linecodestruc
@@ -61,6 +75,8 @@
         Select Case clinecodestruc(0).tokenid
             Case tokenhared.token.IDENTIFIER
                 nv_st_identifier(clinecodestruc, _ilmethod)
+            Case tokenhared.token.ARR
+                nv_st_identifier(clinecodestruc, _ilmethod, True)
             Case tokenhared.token.LET
                 Dim assignprocess As Boolean = False
                 nv_let(_ilmethod, clinecodestruc, assignprocess)
@@ -180,27 +196,38 @@
             dserr.new_error(conserr.errortype.CILCOMMANDSAUTH, clinecodestruc(0).line, path, Nothing)
         End If
     End Sub
-    Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection)
+    Private Sub nv_st_identifier(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, Optional isarray As Boolean = False)
         'Print Tokens by xmlunpkd.linecodestruc
         'coutputdata.print_token(clinecodestruc)
+        isarrayinstack = isarray
         Dim inline As Integer = 0
         Dim index As Integer = clinecodestruc.Length - 1
-        Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(clinecodestruc)
+        Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, clinecodestruc)
         If funcresult.funcvalid Then
             funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
             Return
         End If
+        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc(0))
         If clinecodestruc.Length < 3 Then
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
             Return
         End If
         Dim dtassign As identifierassignmentinfo = get_iden_names(clinecodestruc, inline)
+        convtc.is_type_casting(clinecodestruc, inline)
+        If propresult.identvalid Then
+            propertyste.invoke_property(clinecodestruc, _ilmethod, propresult, inline, tokenhared.check_sym(dtassign.optval))
+            Return
+        End If
 
         Select Case tokenhared.check_sym(dtassign.optval)
             Case tokenhared.token.ASSIDB
                 pv_iden_assidb(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.ANDEQ
                 pv_iden_andeq(dtassign, clinecodestruc, inline, _ilmethod)
+            Case tokenhared.token.APPEQ
+                pv_iden_appeq(dtassign, clinecodestruc, inline, _ilmethod)
+            Case tokenhared.token.QESEQ
+                pv_iden_qeseq(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.PLUSEQ
                 pv_iden_add(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.MINUSEQ
@@ -209,32 +236,22 @@
                 pv_iden_mul(dtassign, clinecodestruc, inline, _ilmethod)
             Case tokenhared.token.SLASHEQ
                 pv_iden_div(dtassign, clinecodestruc, inline, _ilmethod)
+            Case tokenhared.token.REMEQ
+                pv_iden_rem(dtassign, clinecodestruc, inline, _ilmethod)
+            Case tokenhared.token.POWEQ
+                pv_iden_pow(dtassign, clinecodestruc, inline, _ilmethod)
             Case Else
                 dserr.args.Add(dtassign.optval)
                 dserr.new_error(conserr.errortype.OPERATORUNKNOWN, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), dtassign.optval))
         End Select
+        isarrayinstack = False
     End Sub
 
     Private Sub pv_iden_div(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf IsNothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -253,22 +270,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -287,22 +289,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -321,22 +308,7 @@
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case illdloc.check_yo_integer_type(localvartype.result)
@@ -351,26 +323,48 @@
         Next
     End Sub
 
+    Private Sub pv_iden_pow(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
+
+            Select Case localvartype.result
+                Case illdloc.check_yo_integer_type(localvartype.result)
+                    _ilmethod = optgen.assipow(varname, clinecodestruc(ilinc), localvartype.result)
+                Case illdloc.check_yo_float_type(localvartype.result)
+                    _ilmethod = optgen.assipow(varname, clinecodestruc(ilinc), localvartype.result, True)
+                Case Else
+                    dserr.args.Add(varname & " -> " & localvartype.result)
+                    dserr.args.Add("i64/i32/i16/i8/...")
+                    dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+            End Select
+        Next
+    End Sub
+
+    Private Sub pv_iden_rem(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
+
+            Select Case localvartype.result
+                Case illdloc.check_yo_integer_type(localvartype.result)
+                    _ilmethod = optgen.assirem(varname, clinecodestruc(ilinc), localvartype.result)
+                Case illdloc.check_yo_float_type(localvartype.result)
+                    _ilmethod = optgen.assirem(varname, clinecodestruc(ilinc), localvartype.result, True)
+                Case Else
+                    dserr.args.Add(varname & " -> " & localvartype.result)
+                    dserr.args.Add("i64/i32/i16/i8/...")
+                    dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+            End Select
+        Next
+    End Sub
     Private Sub pv_iden_andeq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-            End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case "str"
@@ -382,34 +376,34 @@
             End Select
         Next
     End Sub
+
+    Private Sub pv_iden_appeq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
+
+            Select Case localvartype.result
+                Case "str"
+                    _ilmethod = optgen.assiappeq(varname, clinecodestruc(ilinc))
+                Case Else
+                    dserr.args.Add(varname & " -> " & localvartype.result)
+                    dserr.args.Add("str")
+                    dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
+            End Select
+        Next
+    End Sub
     Private Sub pv_iden_assidb(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
             Dim varname As String = dtassign.identifiers(index)
-            Dim localvartype As mapstoredata.dataresult = localinit.datatypelocal.find(varname, True, varname)
-            If localvartype.issuccessful = False Then
-                If localinit.datatypeparameter.find(varname, True, varname).issuccessful Then
-                    localvartype = localinit.datatypeparameter.find(varname, True, varname)
-                    If servinterface.is_pointer(_ilmethod, varname) Then
-                        cil.load_argument(_ilmethod.codes, varname)
-                    End If
-                ElseIf isnothing(localinitdata.fieldst) = False AndAlso localinitdata.fieldst.find(varname, True, varname).issuccessful Then
-                    localvartype = localinitdata.fieldst.find(varname, True, varname)
-                Else
-                    Dim hfield As tknformat._pubfield
-                    If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
-                        localvartype.result = hfield.ptype
-                    Else
-                        'Set Error
-                        dserr.args.Add(varname)
-                        dserr.new_error(conserr.errortype.TYPENOTFOUND, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), varname))
-                    End If
-                End If
-                End If
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path)
 
             Select Case localvartype.result
                 Case "str"
                     _ilmethod = optgen.assi_str(varname, clinecodestruc(ilinc))
+                Case "obj"
+                    _ilmethod = optgen.assi_obj(varname, clinecodestruc(ilinc))
                 Case "i128"
                     _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "valuetype [mscorlib]System.Decimal")
                 Case "i64"
@@ -442,6 +436,14 @@
         Next
     End Sub
 
+    Private Sub pv_iden_qeseq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
+        For index = 0 To dtassign.identifiers.Count - 1
+            Dim varname As String = dtassign.identifiers(index)
+            Dim localvartype As mapstoredata.dataresult = var.check_identifier_validation(_ilmethod, clinecodestruc, ilinc, varname, localinit, path, False)
+            _ilmethod = optgen.assiqes(varname, clinecodestruc(ilinc), localvartype.result)
+        Next
+    End Sub
     Friend Shared Function check_opt_assignment(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer, ByRef opt As String) As Boolean
         If clinecodestruc(index).tokenid = tokenhared.token.CMA Then Return False
 
@@ -470,7 +472,7 @@
         Dim optval As String = String.Empty
         For index = 0 To clinecodestruc.Length - 1
             If waitforcma = False Then
-                If clinecodestruc(index).tokenid <> tokenhared.token.IDENTIFIER Then
+                If clinecodestruc(index).tokenid <> tokenhared.token.IDENTIFIER AndAlso clinecodestruc(index).tokenid <> tokenhared.token.ARR Then
                     'IDENTIFIER EXPECTED
                     dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value), "let name : str = ""Amin""")
                 End If
@@ -506,13 +508,14 @@
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(2).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "let name : str = ""Amin""")
             Return
         End If
+        Dim singleidentifiername As String = servinterface.get_array_name(clinecodestruc(1).value)
         Array.Resize(_illocalinit, ilmethodlen + 1)
-        If clinecodestruc(1).tokenid <> tokenhared.token.IDENTIFIER Then
+        If clinecodestruc(1).tokenid <> tokenhared.token.IDENTIFIER AndAlso clinecodestruc(1).tokenid <> tokenhared.token.ARR Then
             'IDENTIFIER EXPECTED
             dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value), "let name : str = ""Amin""")
 
             'TODO : Check Global Types.
-        ElseIf localinit.check_local_init(clinecodestruc(1).value) Then
+        ElseIf localinit.check_local_init(singleidentifiername) Then
             'DECLARING ERROR
             dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "Choose another name.")
         End If
@@ -558,19 +561,24 @@
 #End Region
         Else
 #Region "Single Declaring"
-
+            _illocalinit(index).name = clinecodestruc(1).value
+            arr.check_array_struct(_illocalinit(index).name, _illocalinit(index).arrayinf, _illocalinit(index).isarrayobj)
             If clinecodestruc(ilinc).tokenid = tokenhared.token.COMMONDATATYPE Then
-                _illocalinit(index).name = clinecodestruc(1).value
                 _illocalinit(index).datatype = initcommondatatype.cdtype.find(clinecodestruc(3).value).result
                 _illocalinit(index).iscommondatatype = True
                 _illocalinit(index).isconstant = isconst
                 _illocalinit(index).ctor = False
+                _illocalinit(index).valtpinf.structuretype = ilformat._valuetypestructure.NOTHING
+                localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
-                _illocalinit(index).name = clinecodestruc(1).value
                 If clinecodestruc(3).tokenid = tokenhared.token.INIT Then
                     If clinecodestruc.Length > 4 Then
+                        If libserv.get_extern_index_class(ilmethod, clinecodestruc(4).value, Nothing, Nothing, Nothing, Nothing) = -1 Then
+                            dserr.args.Add("Class '" & clinecodestruc(4).value & "' not found.")
+                            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(4)), clinecodestruc(4).value))
+                        End If
                         _illocalinit(index).datatype = clinecodestruc(4).value
                         _illocalinit(index).ctor = True
                     Else
@@ -578,8 +586,12 @@
                     End If
                 Else
                     _illocalinit(index).ctor = False
+                    If libserv.get_extern_index_class(ilmethod, clinecodestruc(3).value, Nothing, Nothing, Nothing, Nothing) = -1 Then
+                        dserr.args.Add("Class '" & clinecodestruc(3).value & "' not found.")
+                        dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(3)), clinecodestruc(3).value))
+                    End If
                     _illocalinit(index).datatype = clinecodestruc(3).value
-
+                    valtp.check_value_type(_illocalinit(index).valtpinf, _illocalinit(index).datatype)
                     If clinecodestruc.Length > 4 Then
                         If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
                             'DECLARING ERROR

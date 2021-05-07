@@ -10,13 +10,49 @@ func println(val:str) : void
   System.Console::WriteLine(val)
 }
 
+func newline() : void
+{
+  System.Console::WriteLine()
+}
+
 func wait() : void
 {
   System.Console::ReadLine()
 }
 
+func setin(result:str&,description:str) : void
+{
+  if(description <> NULL )
+  {
+    print(description)
+  }
+  result := getln()
+}
+
 func getln() : str
 {
   let result : str = System.Console::ReadLine()
+  return result
+}
+
+func getln(description:str) : str
+{
+  if(description <> NULL )
+  {
+    print(description)
+  }
+  let result : str = System.Console::ReadLine()
+  return result
+}
+
+func getnum() : i32
+{
+  let result : i32 = [i32]System.Console::ReadLine()
+  return result
+}
+
+func getnum() : f32
+{
+  let result : f32 = [f32]System.Console::ReadLine()
   return result
 }

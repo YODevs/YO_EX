@@ -109,7 +109,7 @@ patterns: [
     name: "variable.other.dim.yo"
   }
   {
-    match: "(?i:\\s*\\b(let|const|new|func|expr|include|to|loop|break|continue|repeat|jmp|try|catch|extern|err|match|case|for|in)\\b\\s*)"
+    match: "(?i:\\s*\\b(let|const|new|func|expr|include|to|loop|break|continue|repeat|jmp|try|catch|extern|err|match|case|for|in|box)\\b\\s*)"
     name: "storage.type.yo"
   }
   {
@@ -117,7 +117,7 @@ patterns: [
     name: "storage.type.yo"
   }
   {
-    match: "(?i:\\b(Private|Public|Default|Static|Friend|Const)\\b)"
+    match: "(?i:\\b(Private|Public|Default|Static|Friend|Const|Instance)\\b)"
     name: "storage.modifier.yo"
   }
   {

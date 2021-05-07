@@ -1,0 +1,20 @@
+!![
+"version" = "Print labra version.
+Usage : labra version"
+,
+"test" = "Preliminary test to find out compiler performance.
+Usage : labra test"
+,
+"exit" = "Close processes and exit the service manager.
+Usage : labra exit"
+,
+"new" = "Create a project with support for several different outputs.
+Usage : labra new"
+,
+"add" = "Create and add raw files to the project (empty folder, YO class, files of any format).
+Usage : labra add"
+,
+"edit" = "Edit settings in the labra.yoda file.
+Usage : labra edit
+Usage : labra edit <property>"
+]

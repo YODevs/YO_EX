@@ -2,54 +2,62 @@
 
     Friend Shared Sub set_value(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, Optional loadatfirst As Boolean = True)
         Static indinsert As Integer = 0
+        Dim valindex As Integer = 0
         Dim indenditem As Integer = 0
         Dim prcodes As New ArrayList
         Dim datatype As String = funcdt.locallinit(index).datatype
-        Dim optgen As New ilopt(funcdt, servinterface.get_contain_clinecodestruc(funcdt.locallinit(index).clocalvalue, 0))
+        If funcdt.locallinit(index).clocalvalue.Length > 1 AndAlso funcdt.locallinit(index).clocalvalue(0).tokenid = tokenhared.token.EXPLTYPECAST Then
+            convtc.is_type_casting(funcdt.locallinit(index).clocalvalue, 0)
+            valindex = 1
+        End If
+        Dim optgen As New ilopt(funcdt, servinterface.get_contain_clinecodestruc(funcdt.locallinit(index).clocalvalue, valindex))
 
         Select Case initcommondatatype.cdtype.findkey(datatype).result
             Case "str"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_str(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0))
+                funcdt = optgen.assi_str(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex))
+            Case "obj"
+                indenditem = funcdt.codes.Count - 1
+                funcdt = optgen.assi_obj(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex))
             Case "bool"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_bool(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "bool")
+                funcdt = optgen.assi_bool(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "bool")
             Case "char"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_char(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "char")
+                funcdt = optgen.assi_char(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "char")
             Case "i32"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int32")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "int32")
             Case "i64"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int64")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "int64")
             Case "i16"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int16")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "int16")
             Case "i8"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "int8")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "int8")
             Case "f32"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float32")
+                funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "float32")
             Case "f64"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "float64")
+                funcdt = optgen.assi_float(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "float64")
             Case "u64"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "uint64")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "uint64")
             Case "u32"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "uint32")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "uint32")
             Case "u16"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "uint16")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "uint16")
             Case "u8"
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), "uint8")
+                funcdt = optgen.assi_int(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), "uint8")
             Case Else
                 indenditem = funcdt.codes.Count - 1
-                funcdt = optgen.assi_identifier(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(0), funcdt.locallinit(index).datatype)
+                funcdt = optgen.assi_identifier(funcdt.locallinit(index).name, funcdt.locallinit(index).clocalvalue(valindex), funcdt.locallinit(index).datatype)
         End Select
 
         If loadatfirst Then

@@ -40,7 +40,21 @@ Public Class authfunc
         Next
         Return True
     End Function
-
+    Public Shared Function check_arriden_vaild(value As String) As Boolean
+        If value.Contains(conrex.BRSTART) AndAlso value.EndsWith(conrex.BREND) Then
+            If IsNumeric(value(0)) Then Return False
+            value = value.Remove(value.IndexOf(conrex.BRSTART))
+            For index = 0 To value.Length - 1
+                Dim getasciicode As Integer = Asc(value(index))
+                If value(index) = conrex.DOT OrElse getasciicode >= 97 AndAlso getasciicode <= 122 OrElse getasciicode = 95 OrElse getasciicode >= 48 AndAlso getasciicode <= 58 Then
+                    Continue For
+                Else
+                    Return False
+                End If
+            Next
+        End If
+        Return True
+    End Function
     Public Shared Function check_sym_lex(value As String) As Boolean
         value = value.ToLower
         For index = 0 To value.Length - 1

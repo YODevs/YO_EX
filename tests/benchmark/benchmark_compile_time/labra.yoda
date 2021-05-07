@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "benchmark_compile_time"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

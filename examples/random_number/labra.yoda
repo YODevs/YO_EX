@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "random_number"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

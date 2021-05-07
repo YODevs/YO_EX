@@ -72,7 +72,14 @@
         'TODO : check data types and warning
         _ilmethod = illdloc.load_single_in_stack(conddtype, clinecondstruc)
         _ilmethod = illdloc.load_single_in_stack(getcasedt, clinecodestruc(1))
-        cil.ceq(_ilmethod.codes)
+        If getcasedt = "string" AndAlso conddtype = "string" Then
+            Dim param As New ArrayList
+            param.Add("string")
+            param.Add("string")
+            cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Equality", param)
+        Else
+            cil.ceq(_ilmethod.codes)
+        End If
         nextblocklabel = lngen.get_line_prop(scount)
         cil.branch_if_false(_ilmethod.codes, nextblocklabel)
         scount += 1

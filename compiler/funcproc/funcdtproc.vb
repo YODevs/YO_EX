@@ -5,10 +5,12 @@
         Dim methods() As tknformat._method
         Dim fields() As tknformat._pubfield
         Dim enums() As tknformat._enum
+        Dim externlist As ArrayList
     End Structure
 
     Friend Shared reffunc() As _referfuncdata
     Friend Shared refrecord As New mapstoredata
+    Friend Shared overloadlist As String = String.Empty
     Friend Shared Sub import_method(classdt As tknformat._class)
         Dim index As Integer = 0
         If IsNothing(reffunc) Then
@@ -24,6 +26,7 @@
         reffunc(index).fields = classdt.fields
         reffunc(index).methods = classdt.methods
         reffunc(index).enums = classdt.enums
+        reffunc(index).externlist = classdt.externlist
         If classdt.attribute._app._namespace <> conrex.NULL Then
             reffunc(index).classname = classdt.attribute._app._namespace & conrex.DOT
         End If
@@ -37,7 +40,72 @@
             classdt.methods(indexmethod).bodyxmlfmt = String.Empty
         Next
     End Sub
-    Friend Shared Function get_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
+    Friend Shared Function get_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer, leftassign As Boolean) As Integer
+        If IsNothing(reffunc(classindex).methods) Then Return -1
+        Dim retstate As Integer = -1
+        funcname = funcname.ToLower
+        For index = 0 To reffunc(classindex).methods.Length - 1
+            If reffunc(classindex).methods(index).name.ToLower = funcname Then
+                If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, reffunc(classindex).methods(index).returntype) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, funcste.assignmentype) Then
+                    If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc) Then
+                        funcname = reffunc(classindex).methods(index).name
+                        funcste.assignmentype = Nothing
+                        Return index
+                    End If
+                End If
+                retstate = -2
+            End If
+        Next
+        funcste.assignmentype = Nothing
+        If retstate = -2 Then get_overloads_of_method(reffunc(classindex).methods, funcname.ToLower)
+        Return retstate
+    End Function
+
+    Friend Shared Sub get_overloads_of_method(methodinfo As tknformat._method(), funcname As String)
+        Dim sb As New Text.StringBuilder
+        For Each method In methodinfo
+            If method.name.ToLower = funcname Then
+                sb.Append(method.name)
+                sb.Append(conrex.PRSTART)
+                If method.nopara = False Then
+                    For index = 0 To method.parameters.Length - 1
+                        Dim isarray As Boolean = False
+                        Dim gparametername As String = method.parameters(index).name
+                        Dim gtype As String = method.parameters(index).ptype
+                        If gtype.EndsWith(conrex.BRSTEN) Then
+                            gtype = gtype.Remove(gtype.Length - 2)
+                            isarray = True
+                        End If
+                        If method.parameters(index).byreference = True Then
+                            gtype = gtype.Remove(gtype.Length - 1)
+                        End If
+                        gtype = servinterface.vb_to_cil_common_data_type(gtype)
+                        servinterface.get_yo_common_data_type(gtype, gtype)
+                        If isarray Then gtype &= conrex.BRSTEN
+                        If method.parameters(index).byreference Then gtype &= conrex.AMP
+                        If gtype = method.parameters(index).name.ToLower Then
+                            gtype = method.parameters(index).name
+                        End If
+                        gtype = servinterface.get_yo_byte_types(gtype)
+                        sb.Append(gparametername & conrex.SPACE & gtype)
+                        If index + 1 < method.parameters.Length Then
+                            sb.Append(conrex.CMA)
+                        End If
+                    Next
+                End If
+                sb.Append(conrex.PREND)
+                Dim rettype As String = method.returntype
+                'Check return-type is an 'Array' types
+                rettype = servinterface.vb_to_cil_common_data_type(rettype)
+                servinterface.get_yo_common_data_type(rettype, rettype)
+                rettype = servinterface.get_yo_byte_types(rettype)
+                sb.Append(conrex.SPACE & conrex.CLN & conrex.SPACE & rettype)
+                sb.AppendLine()
+                End If
+        Next
+        overloadlist = sb.ToString
+    End Sub
+    Friend Shared Function get_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
         If IsNothing(reffunc(classindex).methods) Then Return -1
         Dim retstate As Integer = -1
         funcname = funcname.ToLower
@@ -71,15 +139,19 @@
         For index = 0 To _method.parameters.Length - 1
             Dim ciltype As String = conrex.NULL
             servinterface.is_common_data_type(_method.parameters(index).ptype, ciltype)
+            If ciltype = String.Empty Then ciltype = _method.parameters(index).ptype
             paramtypes.Add(ciltype)
         Next
 
 
-        ' cargldr = cargcodestruc
+        libserv.cargldr = cargcodestruc
         Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc)
     End Function
-    Friend Shared Function get_index_class(ByRef classname As String) As Integer
+    Friend Shared Function get_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, Optional ByRef isvirtualmethod As Boolean = False) As Integer
         Dim classchename As String = String.Empty
+        If IsNothing(_ilmethod) = False Then
+            libserv.get_identifier_ns(_ilmethod, classname, isvirtualmethod)
+        End If
         Dim resultclassindex As mapstoredata.dataresult = refrecord.find(classname, True, classchename)
         If resultclassindex.issuccessful Then
             classname = classchename
@@ -121,5 +193,22 @@
     End Function
     Friend Shared Function get_enum_info(classindex As Integer, enumsindex As Integer) As tknformat._enum
         Return reffunc(classindex).enums(enumsindex)
+    End Function
+
+    Friend Shared Function check_extern_assembly(externname As String) As Boolean
+        Dim leref As Integer = reffunc.Length - 1
+        Dim bextern As String = externname
+        externname = externname.ToLower
+        For iref = 0 To leref
+            If IsNothing(reffunc(iref).externlist) Then Continue For
+            For index = 0 To reffunc(iref).externlist.Count - 1
+                If reffunc(iref).externlist(index).ToLower = externname Then
+                    Return True
+                End If
+            Next
+        Next
+        dserr.args.Add(bextern)
+        dserr.new_error(conserr.errortype.EXTERNERROR, -1, ilbodybulider.path, "Introduce the '" & bextern & "' library to the compiler with the Extern statement.", "extern " & bextern)
+        Return False
     End Function
 End Class

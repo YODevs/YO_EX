@@ -1,0 +1,26 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+
+include 'ystdio'
+
+func main()
+{
+  let a , b  : i32
+  #> c**2 = b**2 + a**2
+  io::print("give me side (a) : ")
+  a := io::getnum()
+  io::print("give me side (b) : ")
+  b := io::getnum()
+  let c : f64 = calculate_side(a , b)
+  c := System.Math::Round(c,2)
+  io::print("The side (c) is equal to --> #{c}")
+}
+
+func calculate_side(a : i32, b : i32) : f64
+{
+  a ^= 2
+  b ^= 2
+  let c : f64 = [b + a]
+  let cresult : f64 = System.Math::sqrt(c)
+  return cresult
+}

@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "assertion"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

@@ -1,5 +1,13 @@
-﻿Imports System.Text.RegularExpressions
-
+﻿Imports System.IO
+Imports System.Text.RegularExpressions
+''' <summary>
+''' <en>
+''' This class has to run compiler's commands in the command line
+''' </en>
+''' <fa>
+'''این کلاس وظیفه اجرای دستورات خط فرمان کامپایلر را داردو
+''' </fa>
+''' </summary>
 Public Class execln
     Friend Shared argstorelist As liststoredata
     Friend Shared Sub nv_check_command(result As parseargs._parseresult)
@@ -32,6 +40,14 @@ Public Class execln
     End Sub
     Public Sub New()
     End Sub
+    ''' <summary>
+    ''' <en>
+    '''
+    ''' </en>
+    ''' <fa>
+    ''' بررسی اعتبار آرگومان های ارسال شده برای دستورات خط فرمان
+    ''' </fa>
+    ''' </summary>
     Friend Shared Sub check_parameters(result As parseargs._parseresult)
         Dim yodaf As New YODA.YODA_Format()
         Dim yodamap As YODA.YODA_Format.YODAMapFormat = yodaf.ReadYODA_Map(FileIO.FileSystem.ReadAllText(conrex.APPDIR & "\iniopt\param.yoda"))
@@ -94,6 +110,21 @@ You can type 'Help' to view commands.")
     Public Sub rp_init()
         initact.set_initial_process()
     End Sub
+    Public Sub rp_cacleaner()
+        Console.Write(vbCrLf & "Are you sure you want to delete all compiler caches?[y/N]")
+        If Console.ReadKey.KeyChar.ToString.ToLower = "y" Then
+            If cacheste.cache_cleaner() = True Then
+                Dim peconsolecolor As Int16 = Console.ForegroundColor
+                Console.ForegroundColor = System.ConsoleColor.DarkGreen
+                Console.WriteLine(vbCrLf & "The caches were cleared successfully.")
+                Console.ForegroundColor = peconsolecolor
+            Else
+                Console.WriteLine(vbCrLf & "The cache cleaning operation was stopped.(No cache found)")
+            End If
+        Else
+            Console.WriteLine(vbCrLf & "The cache cleaning operation was stopped.")
+        End If
+    End Sub
     Public Sub rp_check(args As ArrayList)
         compdt.CHECKSYNANDSEM = True
         rp_build(args, True)
@@ -106,12 +137,18 @@ You can type 'Help' to view commands.")
             compdt.MUTEPROCESS = argstorelist.find(compdt.PARAM_MUTE_PROCESS, True)
         End If
         procresult.set_state("init")
+        compdt.DEVMOD = argstorelist.find(compdt.PARAM_DEV, True)
+        compdt.NOCACHE = argstorelist.find(compdt.PARAM_NOCACHE, True)
         compdt.DISPLAYTOKENWLEX = argstorelist.find(compdt.PARAM_DISPLAYTOKENLEX, True)
         compdt.DISPLAYSTACKTRACE = argstorelist.find(compdt.PARAM_DISPLAYSTACKTRACE, True)
         compdt.DISABLEWARNINGS = argstorelist.find(compdt.PARAM_DISABLE_WARNINGS, True)
+        compdt.COMPILETIME = argstorelist.find(compdt.PARAM_DISPLAY_COMPILE_TIME, True)
+        If compdt.COMPILETIME Then compile_time(True)
         Dim projflow As New cprojflow()
         projflow.start_project_flow()
+        If compdt.COMPILETIME Then compile_time(False)
         If argstorelist.find(compdt.PARAM_IMPASSETS, True) Then impassets.copy_assets()
+        impassets.import_std()
     End Sub
     Public Sub rp_run(args As ArrayList)
         rp_build(args)
@@ -128,7 +165,29 @@ You can type 'Help' to view commands.")
             If compdt.EXECTIME Then exec_time(appproc)
         End If
     End Sub
-
+    Public Sub rp_dev()
+        Console.Write(constcli.DEVQES)
+        Select Case Console.ReadKey.KeyChar.ToString.ToLower
+            Case "y"
+                If File.Exists(conrex.APPDIR & "\iniopt\dev") = False Then
+                    File.WriteAllText(conrex.APPDIR & "\iniopt\dev", conrex.NULL)
+                End If
+            Case "n"
+                If File.Exists(conrex.APPDIR & "\iniopt\dev") Then
+                    File.Delete(conrex.APPDIR & "\iniopt\dev")
+                End If
+            Case Else
+                Console.WriteLine(vbCrLf & constcli.DEVCHARERROR)
+                Return
+        End Select
+        Console.WriteLine(vbCrLf & constcli.DEVONCHANGED)
+    End Sub
+    Private Sub compile_time(firststage As Boolean)
+        Static frcompiletime As Date = Date.Now
+        If firststage = False Then
+            Console.WriteLine("Compile time : {0} ", Date.Now.Subtract(frcompiletime).ToString)
+        End If
+    End Sub
     Private Sub exec_time(appproc As Process)
         Dim tsp As TimeSpan = appproc.ExitTime.Subtract(appproc.StartTime)
         Console.WriteLine("Time measured ( + process call delay ) : {0} ", tsp.ToString)

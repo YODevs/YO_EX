@@ -35,7 +35,7 @@ namespace Expr2CIL
         /// <summary>
         /// Builds and returns a dynamic assembly
         /// </summary>
-        public string  CompileMsil(string expression , string datatype)
+        public string CompileMsil(string expression , string datatype)
         {
             // Parse the expression.  This will insert MSIL instructions
             this.datatype = datatype;
@@ -107,7 +107,7 @@ namespace Expr2CIL
 
         protected override void matchMod()
         {
-            throw new NotImplementedException();
+            insertILCode("rem");
         }
 
         protected override void matchMult()
@@ -188,7 +188,7 @@ namespace Expr2CIL
         {
             string name = tokenValue.ToString();
                 insertILCode(">" + name);
-        }
+         }
 
         protected override void matchXor()
         {

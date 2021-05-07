@@ -1,0 +1,91 @@
+#[app::classname("MyApp")]
+
+include 'ystdio'
+
+public static let ch : char = "A"
+func main()
+{
+  test1()
+  test2()
+  test3(true)
+  let i : f32 = 10.215
+  test4(i)
+  test5("10.602")
+  test6()
+  test7()
+  test8()
+  test9()
+}
+
+func test1()
+{
+  let number : i32 = 10
+  let text : str
+  text := [str]number
+  io::println(text)
+}
+
+func test2()
+{
+  let number : i32 = 0
+  let text : str = "20"
+  number := [i32]text
+  io::println("#{number}")
+}
+
+func test3(val:bool)
+{
+  let result : str
+  result := [str]val
+  io::println(result)
+}
+
+func test4(i:f32&)
+{
+  let result : str
+  result := [str]i
+  io::println(result)
+}
+
+func test5(val:str)
+{
+  let f : f32 = 0
+  f := [f32]val
+  f += 5
+  val := [str]f
+  io::println(val)
+}
+
+func test6()
+{
+  let result : str
+  result := [str]ch
+  io::println(result)
+}
+
+func test7()
+{
+  let result : str = "10"
+  let i : i32 = 5
+  i += [i32]result
+  result := [str]i
+  io::println(result)
+}
+
+func test8()
+{
+  let result : str = "105"
+  let i : i32 = [i32]result
+  io::println("#{i}")
+}
+
+func test9()
+{
+  let pi : str = [str]get_pi()
+  System.Console::Write("PI is #{pi}")
+}
+
+func get_pi() : f32
+{
+  return 3.14
+}

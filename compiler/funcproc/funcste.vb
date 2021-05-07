@@ -3,6 +3,7 @@ Imports YOCA
 
 Public Class funcste
     Friend Shared attribute As yocaattribute.yoattribute
+    Friend Shared assignmentype As String
     Friend Shared Sub invoke_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, funcresult As funcvalid._resultfuncvaild, Optional leftassign As Boolean = True)
         fscmawait = False
         If funcresult.callintern Then
@@ -14,16 +15,16 @@ Public Class funcste
 
     Friend Shared Sub inv_external_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
         Dim classindex, namespaceindex As Integer
+        Dim reclassname As String = String.Empty
         Dim isvirtualmethod As Boolean = False
-        If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex, isvirtualmethod) = -1 Then
-            dserr.args.Add("Class " & classname & " not found.")
+        If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
+            dserr.args.Add("Class '" & classname & "' not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
         End If
         funcresult.asmextern = libserv.get_extern_assembly(namespaceindex)
-
         Dim methodinfo As New tknformat._method
-        Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo)
+        Dim methodindex As Integer = libserv.get_extern_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, namespaceindex, classindex, methodinfo, leftassign)
 
         Select Case methodindex
             Case -1
@@ -31,7 +32,7 @@ Public Class funcste
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Case -2
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) , The parameters of the called function do not match its original function.")
-                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value))
+                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "Overloads :" & vbCrLf & libserv.overloadlist)
         End Select
 
         If isvirtualmethod Then
@@ -41,7 +42,14 @@ Public Class funcste
                 gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
                 gidentifier.ile = gidentifier.value.Length
             End If
-            ldloc.load_single_in_stack(classname, gidentifier)
+            If reclassname <> String.Empty Then
+                If reclassname <> "string" Then
+                    illdloc.ldindx = True
+                End If
+            Else
+                reclassname = classname
+            End If
+            ldloc.load_single_in_stack(reclassname, gidentifier)
         End If
 
         Dim paramtype As ArrayList
@@ -50,7 +58,7 @@ Public Class funcste
 
         If IsNothing(methodinfo.parameters) = False Then
             ' Print Tokens :
-            '  coutputdata.print_token(clinecodestruc)
+            ' coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype, cargcodestruc)
         End If
         Dim getdatatype As String = methodinfo.returntype
@@ -61,36 +69,48 @@ Public Class funcste
             Dim freturntype As String = String.Format("[{0}]{1}", gexternassembly, greturntype)
             cil.call_virtual_method(_ilmethod.codes, freturntype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
         Else
-                cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
+            cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
         End If
+        If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
+
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
     End Sub
 
     Friend Shared Sub inv_internal_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, classname As String, funcresult As funcvalid._resultfuncvaild, leftassign As Boolean)
-        Dim classindex As Integer = funcdtproc.get_index_class(classname)
+        Dim isvirtualmethod As Boolean = False
+        Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, classname, isvirtualmethod)
         If classindex = -1 Then
-            dserr.args.Add("Class " & classname & " not found.")
+            dserr.args.Add("Class '" & classname & "' not found.")
             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Return
         End If
 
-        Dim methodindex As Integer = funcdtproc.get_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, classindex)
+        Dim methodindex As Integer = funcdtproc.get_index_method(_ilmethod, get_argument_list(clinecodestruc), funcresult.clmethod, classindex, leftassign)
         Select Case methodindex
             Case -1
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) not found.")
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             Case -2
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) , The parameters of the called function do not match its original function.")
-                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value))
+                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "Overloads :" & vbCrLf & funcdtproc.overloadlist)
         End Select
+        If isvirtualmethod Then
+            Dim ldloc As New illdloc(_ilmethod)
+            Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
+            If gidentifier.value.Contains(conrex.DBCLN) Then
+                gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
+                gidentifier.ile = gidentifier.value.Length
+            End If
+            ldloc.load_single_in_stack(classname, gidentifier)
+        End If
 
         Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
         Dim paramtype As ArrayList
         If IsNothing(methodinfo.parameters) = False Then
             ' Print Tokens :
-            '  coutputdata.print_token(clinecodestruc)
+            ' coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
         End If
 
@@ -102,16 +122,21 @@ Public Class funcste
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             End If
             Dim freturntype As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(retnamespaceindex), getdatatype)
-            cil.call_intern_method(_ilmethod.codes, freturntype, classname, funcresult.clmethod, paramtype)
+            cil.call_intern_method(_ilmethod.codes, freturntype, classname, funcresult.clmethod, paramtype, isvirtualmethod)
         Else
-            cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype)
+            cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype, isvirtualmethod)
         End If
+        If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
+
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
         End If
     End Sub
 
     Friend Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList, Optional cargcodestruc() As xmlunpkd.linecodestruc = Nothing)
+        Dim setconvmethod As Boolean = convtc.setconvmethod
+        Dim ntypecast As String = convtc.ntypecast
+
         If IsNothing(cargcodestruc) Then cargcodestruc = get_argument_list(clinecodestruc)
 
         If IsNothing(cargcodestruc) OrElse cargcodestruc.Length <> methodinfo.parameters.Length Then
@@ -123,16 +148,34 @@ Public Class funcste
 
         check_expression_method(clinecodestruc, methodinfo)
         paramtypes = New ArrayList
+        Dim emptyparamtypes As New ArrayList
         For index = 0 To methodinfo.parameters.Length - 1
             Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
             If methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
                 If methodinfo.parameters(index).byreference Then getcildatatype &= "&"
                 paramtypes.Add(getcildatatype)
+                emptyparamtypes.Add(getcildatatype)
             Else
                 'Other Types...
+                set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index).ptype, cargcodestruc)
+                emptyparamtypes.Add(methodinfo.parameters(index).ptype)
             End If
         Next
-        set_stack_space(_ilmethod, paramtypes, cargcodestruc)
+        set_stack_space(_ilmethod, emptyparamtypes, cargcodestruc)
+        convtc.setconvmethod = setconvmethod
+        convtc.ntypecast = ntypecast
+    End Sub
+
+    Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, ByRef ptype As String, cargcodestruc As xmlunpkd.linecodestruc())
+        Dim classindex, namespaceindex As Integer
+        Dim reclassname As String = String.Empty
+        If libserv.get_extern_index_class(_ilmethod, ptype, namespaceindex, classindex, Nothing, reclassname) = -1 Then
+            dserr.args.Add("Class '" & ptype & "' not found.")
+            dserr.new_error(conserr.errortype.METHODERROR, cargcodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc(0)), cargcodestruc(0).value))
+            Return
+        End If
+        Dim gcodeparam As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(namespaceindex), ptype)
+        paramtypes.Add(gcodeparam)
     End Sub
 
     Private Shared Sub check_expression_method(clinecodestruc() As xmlunpkd.linecodestruc, methodinfo As tknformat._method)

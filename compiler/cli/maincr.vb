@@ -1,4 +1,12 @@
-﻿Module maincr
+﻿''' <summary>
+''' <en>
+''' Compiler's process starts from the Main() function exists in this class
+''' </en>
+''' <fa>
+''' شروع فرایند کامپایلر از تابع Main() در این کلاس است .
+''' </fa>
+''' </summary>
+Module maincr
     Const BYPASSFLOW As Boolean = False
     Sub main(ByVal argsval() As String)
         Try
@@ -28,11 +36,20 @@
         End Try
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    ''' Preparing and running prerequisites of starting compile process
+    ''' </en>
+    ''' <fa>
+    ''' عملیات آماده سازی و اجرای پیشنیاز های شروع فرایند کامپایل
+    ''' </fa>
+    ''' </summary>
     Sub init_class_data()
         cmdlnproc.init_command_struct()
         conserr.init_error_struct()
         tokenhared.init()
         init_essential_files()
+        cacheste.init_cache_system()
         initcommondatatype.init_common_data_type()
         initcommondatatype.init_ptr_bind()
         specificdustrcommand.init()
@@ -40,8 +57,17 @@
         initblockop.init_blockop_allow_list()
         syntaxloader.init_syntax_loader()
         incfile.init()
+        cilkeywordchecker.init_keyword()
     End Sub
 
+    ''' <summary>
+    ''' <en>
+    ''' Initializing essential files which are next to the compiler and affect compiler's activity.
+    ''' </en>
+    ''' <fa>
+    ''' بررسی فایل های ضروری کنار کامپایلر ، که فعالیت آن را تحت تاثیر قرار میدهد.
+    ''' </fa>
+    ''' </summary>
     Sub init_essential_files()
         initessentialfiles.add_path(conrex.APPDIR & "\ilasm.exe")
         initessentialfiles.add_path(conrex.APPDIR & "\fusion.dll")

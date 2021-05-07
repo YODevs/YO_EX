@@ -1,5 +1,4 @@
 #[app::classname("MyApp")]
-
 func main()
 {
   test1()
@@ -9,6 +8,8 @@ func main()
   test5()
   test6()
   test7()
+  test8(-1)
+  test9(-1)
 }
 
 func test1()
@@ -82,5 +83,23 @@ func test7()
   for(i in [6..0;-2])
   {
     System.Console::WriteLine("#{i}")
+  }
+}
+
+func test8(step:i32)
+{
+  System.Console::WriteLine()
+  for(i in [5..0;step])
+  {
+    System.Console::WriteLine(i)
+  }
+}
+
+func test9(step:i32)
+{
+  System.Console::WriteLine()
+  for(i in [5..=0;step])
+  {
+    System.Console::WriteLine(i)
   }
 }

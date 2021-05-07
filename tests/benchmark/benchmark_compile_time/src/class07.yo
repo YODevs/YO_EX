@@ -1,0 +1,6203 @@
+#[app::classname("classt07")]
+
+
+func test0()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test1()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test2()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test3()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test4()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test5()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test6()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test7()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test8()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test9()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test10()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test11()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test12()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test13()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test14()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test15()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test16()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test17()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test18()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test19()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test20()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test21()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test22()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test23()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test24()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test25()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test26()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test27()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test28()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test29()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test30()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test31()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test32()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test33()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test34()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test35()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test36()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test37()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test38()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test39()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test40()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test41()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test42()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test43()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test44()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test45()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test46()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test47()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test48()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test49()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test50()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test51()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test52()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test53()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test54()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test55()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test56()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test57()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test58()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test59()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test60()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test61()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test62()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test63()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test64()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test65()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test66()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test67()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test68()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test69()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test70()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test71()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test72()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test73()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test74()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test75()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test76()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test77()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test78()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test79()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test80()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test81()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test82()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test83()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test84()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test85()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test86()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test87()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test88()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test89()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test90()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test91()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test92()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test93()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test94()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test95()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test96()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test97()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test98()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test99()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test100()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test101()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test102()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test103()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test104()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test105()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test106()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test107()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test108()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test109()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test110()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test111()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test112()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test113()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test114()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test115()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test116()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test117()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test118()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test119()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test120()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test121()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test122()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test123()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test124()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test125()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test126()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test127()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test128()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test129()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test130()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test131()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test132()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test133()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test134()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test135()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test136()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test137()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test138()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test139()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test140()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test141()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test142()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test143()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test144()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test145()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test146()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test147()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test148()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test149()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test150()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test151()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test152()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test153()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test154()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test155()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test156()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test157()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test158()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test159()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test160()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test161()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test162()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test163()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test164()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test165()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test166()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test167()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test168()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test169()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test170()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test171()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test172()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test173()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test174()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test175()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test176()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test177()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test178()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test179()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test180()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test181()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test182()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test183()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test184()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test185()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test186()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test187()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test188()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test189()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test190()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test191()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test192()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test193()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test194()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test195()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test196()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test197()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test198()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}
+func test199()
+{
+  let txt : str = "Hello"
+  txt := txt::remove(11)
+  io::println(txt)
+  let sb : init System.Text.StringBuilder()
+  sb::Append('txt')
+  sb::AppendLine()
+  sb::Append("Hello Programmers !")
+  System.Console::title := "Hello !"
+  io::println(System.Console::title)
+  let title : str =  System.Console::title
+  io::println(title)
+  if(title == "HELLO")
+  {
+    while(true == true)
+    {
+      io::println(title)
+      let ii : i32 = [5 + 6]
+      io::println("#{ii}")
+      io::println("#{ii}")
+    }
+  }else{
+    io::println(title)
+  }
+  to(5)
+  {
+    sb::AppendLine()
+    sb::Append("Hello Programmers !")
+  }
+}

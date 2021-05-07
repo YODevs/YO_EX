@@ -1,0 +1,4 @@
+100
+hello
+team1 = 'Man Utd' , team2 = 'Chelsea'
+re1 = 'False' , re2 = 'True'

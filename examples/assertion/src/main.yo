@@ -1,0 +1,27 @@
+#[app::classname("assertion_example")]
+#[app::wait(true)]
+include 'yassert'
+
+func main()
+{
+  let ya : init YOAssert.assert()
+  let result : i32 = sum(5,4)
+  ya::is_equal('Test #1',result,9)
+  ya::is_equal('Test #2',10.82,10.80)
+
+  result := get_greater(20,30)
+  ya::is_greater('Test #3',30,20)
+
+  let mail : str = "yodevs@yo-lang.org"
+  ya::regex('Test #4',mail,'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)')
+  ya::starts_with('Test #5',mail,'Yodevs')
+  ya::is_true('Test #6','YO','YO')
+  ya::is_false('Test #7','YO','Yo')
+}
+
+func sum(x:i32,y:i32) : i32 { return [x + y] }
+func get_greater(x:i32,y:i32) : i32
+{
+  if(x >= y){return x}
+  return y
+}

@@ -14,4 +14,8 @@ Public Class coutputdata
             Console.WriteLine("{0}-{1} :: {2}", clinecodestruc(index).tokenid, clinecodestruc(index).name, clinecodestruc(index).value)
         Next
     End Sub
+
+    Public Shared Sub message_box(text As String)
+        MsgBox(text)
+    End Sub
 End Class

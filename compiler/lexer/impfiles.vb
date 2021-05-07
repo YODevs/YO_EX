@@ -9,15 +9,22 @@ Public Class impfiles
                 Dim tknfmtclass(files.Count - 1) As tknformat._class
                 procresult.set_state("lex")
                 For index = 0 To files.Count - 1
-                    Dim lex As New lexer(files(index).ToString)
-                    lex.lexme(tknfmtclass(index))
+                    If cachelexunit.check_lexer_cache(tknfmtclass(index), files(index).ToString) = False Then
+                        Dim lex As New lexer(files(index).ToString)
+                        lex.lexme(tknfmtclass(index))
+                    End If
                     servinterface.check_class_vaild(tknfmtclass(index).attribute, tknfmtclass(index).location)
                     funcdtproc.import_method(tknfmtclass(index))
                 Next
                 import_include_file(tknfmtclass)
+                cachegtr.check_cache_repo(tknfmtclass)
                 procresult.set_state("gen")
                 ilgen = New ilgencode(tknfmtclass)
                 ilgen.codegenerator()
+                If compdt.NOCACHE = False AndAlso compdt.DEVMOD = False Then
+                    Dim calex As New cachelexunit(tknfmtclass)
+                    calex.lex_to_serialization()
+                End If
             Else
                 Return
             End If
@@ -27,12 +34,15 @@ Public Class impfiles
     End Sub
 
     Private Shared Sub import_include_file(ByRef tknfmtclass As tknformat._class())
+        cachelexunit.load_includes()
         If incfile.incspath.Count = 0 Then Return
         Dim bfindex As Integer = tknfmtclass.Length
         Array.Resize(tknfmtclass, tknfmtclass.Length + incfile.incspath.Count)
         For index = 0 To incfile.incspath.Count - 1
-            Dim lex As New lexer(incfile.incspath(index).ToString)
-            lex.lexme(tknfmtclass(bfindex + index))
+            If cachelexunit.check_lexer_cache(tknfmtclass(bfindex + index), incfile.incspath(index).ToString) = False Then
+                Dim lex As New lexer(incfile.incspath(index).ToString)
+                lex.lexme(tknfmtclass(bfindex + index))
+            End If
             servinterface.check_class_vaild(tknfmtclass(bfindex + index).attribute, tknfmtclass(bfindex + index).location)
             funcdtproc.import_method(tknfmtclass(bfindex + index))
         Next

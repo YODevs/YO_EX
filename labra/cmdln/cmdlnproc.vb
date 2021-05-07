@@ -6,6 +6,7 @@
         VERSION
         ADD
         EDIT
+        HELP
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -43,5 +44,6 @@
         set_new_command(cmdtype.VERSION, "version")
         set_new_command(cmdtype.ADD, "add")
         set_new_command(cmdtype.EDIT, "edit", True, 1)
+        set_new_command(cmdtype.HELP, "help")
     End Sub
 End Class

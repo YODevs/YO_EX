@@ -114,7 +114,7 @@ Public Class yocaproc
         Dim yoproc As New System.Diagnostics.Process()
         With yoproc.StartInfo
             .FileName = conrex.APPDIR & "\yoca.exe"
-            .Arguments = "build"
+            .Arguments = "build --no_cache"
             .RedirectStandardOutput = True
             .RedirectStandardError = True
             .RedirectStandardInput = True

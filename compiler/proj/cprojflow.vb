@@ -14,7 +14,7 @@ Public Class cprojflow
     End Sub
 
     Private Sub check_prerequisites()
-        procresult.rp_init("Preparation & analysis of 'Labra.yoda'")
+        procresult.rp_init("Preparation & analysis of 'labra.yoda'")
         If File.Exists(conrex.ENVCURDIR & "\labra.yoda") = False Then
             'set error
         End If
@@ -27,8 +27,8 @@ Public Class cprojflow
         End If
 
         If Directory.Exists(conrex.ENVCURDIR & cprojdt.get_val("assetspath")) = False Then
-            dserr.args.Add("\assets")
-            dserr.new_error(conserr.errortype.PROJECTSTRUCTERROR, -1, Nothing)
+            Directory.CreateDirectory(conrex.ENVCURDIR & cprojdt.get_val("assetspath"))
+            Console.Write("[Reconstructed assets folder]")
         End If
 
         Dim gpath As String = servinterface.get_ilasm_path()
@@ -46,6 +46,9 @@ Public Class cprojflow
     End Sub
 
     Public Sub load_cproj_data()
+        If compdt.DEVMOD = False Then
+            If File.Exists(conrex.APPDIR & "\iniopt\dev") Then compdt.DEVMOD = True
+        End If
         Dim getlabrasetting As String = File.ReadAllText(conrex.ENVCURDIR & "\labra.yoda")
         Dim labradt As YODA_Format.YODAMapFormat = yodagen.ReadYODA_Map(getlabrasetting)
         cproj = New cprojdt(labradt)

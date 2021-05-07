@@ -1,0 +1,19 @@
+#>Interaction Class
+#[app::classname("inputbox_example")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  let gname : str = NULL
+  let gage : i32 = 0
+  gname := YOLIB.interaction::inputbox('Input Box Sample','Enter your name : ')
+  gage := [i32]YOLIB.interaction::inputbox('Input Box Sample',"Hey #{gname} , how old are you ?")
+  io::print("#{gname}, you are #{gage} years old.")
+}
+
+#>inputbox() : str
+#>inputbox(title:str,description:str) : str
+#>inputbox(title:str,description:str,defualtresult:str) : str

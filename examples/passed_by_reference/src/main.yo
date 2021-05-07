@@ -1,0 +1,20 @@
+#[app::classname("passing_reference_example")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+ let mcar , ncar : str
+ mcar := 'Ford'
+ ncar := 'Bmw'
+ io::println("mcar = '#{mcar}' , ncar = '#{ncar}'")
+ swap(mcar,ncar)
+ io::print("mcar = '#{mcar}' , ncar = '#{ncar}'")
+}
+
+func swap(val1:str& , val2:str&)
+{
+  let temp : str = val1
+  val1 := val2
+  val2 := temp
+}

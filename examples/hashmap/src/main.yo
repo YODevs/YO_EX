@@ -1,0 +1,25 @@
+#[app::classname("hashmap_example")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+ let map : init YOLib.map()
+ map::add('iPhone 12','Apple')
+ map::add('Galaxy Quantum 2','Samsung')
+ map::add('Mi 11X','Xiaomi')
+ map::add('Q52','LG')
+ map::add('Xperia 5 III','Sony')
+
+ #>Iterating Hashmap...
+ let count : i32 = map::size()
+ io::println("Map size : #{count}")
+ for(index in [0..count])
+ {
+   let getbrand , getphone : str
+   map::get_map(index,getphone,getbrand)  #> Passing By reference
+   io::println("#{index}- Brand : #{getbrand} , Phone : #{getphone}")
+ }
+}

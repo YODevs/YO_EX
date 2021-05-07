@@ -1,0 +1,60 @@
+#[app::classname("null_coalescing_operator")]
+include 'ystdio'
+
+func main()
+{
+ test1()
+ test2()
+ test3()
+ test4()
+ test5()
+}
+
+func test1()
+{
+  let x : str = "Book"
+  let o : str
+  x ?= "Car"
+  o ?= "Car"
+  io::println("X = #{x} , O = #{o}")
+}
+
+func test2()
+{
+  let x : str = "Book"
+  let o : str
+  if(x == "Book")
+  {
+    x := NULL
+  }
+  x ?= "Car"
+  o ?= "Car"
+  io::println("X = #{x} , O = #{o}")
+}
+
+func test3()
+{
+  let x : i32 = 0
+  let o : i16 = -1
+  x ?= 5
+  o ?= 2
+  io::println("X = #{x} , O = #{o}")
+}
+
+func test4()
+{
+  let x : bool = 1
+  let o : bool = false
+  x ?= false
+  o ?= true
+  io::println("X = #{x} , O = #{o}")
+}
+
+func test5()
+{
+  let x : bool = 0
+  let o : bool = false
+  x ?= true
+  o ?= x
+  io::println("X = #{x} , O = #{o}")
+}

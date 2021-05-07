@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "passing_by_ref"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

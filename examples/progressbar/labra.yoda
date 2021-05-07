@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "progressbar"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

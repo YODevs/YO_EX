@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "power"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

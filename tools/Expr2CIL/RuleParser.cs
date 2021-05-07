@@ -453,6 +453,12 @@ namespace Expr2CIL
                     pos++;
                     tokenType = ttMul;
                 }
+                else if (firstChar == '%')
+                {
+                    //testOutput("[nextToken] '*' token");
+                    pos++;
+                    tokenType = ttMod;
+                }
                 // Variable, and, or, not, true, false?
                 else if (isAlpha(firstChar) || firstChar == '_')
                 {

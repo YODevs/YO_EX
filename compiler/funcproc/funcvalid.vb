@@ -1,5 +1,6 @@
 ﻿Public Class funcvalid
 
+    Private Shared ilmethod As ilformat._ilmethodcollection
     Structure _resultfuncvaild
         Dim asmextern As String
         Dim exclass As String
@@ -14,7 +15,8 @@
         Return True
     End Function
 
-    Friend Shared Function get_func_valid(clinecodestruc() As xmlunpkd.linecodestruc) As _resultfuncvaild
+    Friend Shared Function get_func_valid(_ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc) As _resultfuncvaild
+        ilmethod = _ilmethod
         Dim resultvaild As New _resultfuncvaild
         resultvaild.funcvalid = False
         Dim len As Integer = clinecodestruc.Length
@@ -54,7 +56,8 @@
                 resultvalid.funcvalid = True
                 resultvalid.callintern = True
                 set_func_vaild(clinecodestruc, resultvalid)
-                Dim classindex As Integer = funcdtproc.get_index_class(resultvalid.exclass)
+                Dim nspname As String = resultvalid.exclass
+                Dim classindex As Integer = funcdtproc.get_index_class(ilmethod, nspname)
                 If classindex <> -1 Then
                     resultvalid.funcvalid = True
                     resultvalid.callintern = True
@@ -89,6 +92,11 @@
                 Dim nsname As String = clinecodestruc(0).value
                 Dim nmethod As String = nsname.Remove(0, nsname.IndexOf("::") + 2)
                 nsname = nsname.Remove(nsname.IndexOf("::"))
+                Dim nspname As String = nsname
+                Dim classindex As Integer = funcdtproc.get_index_class(ilmethod, nspname)
+                If classindex <> -1 Then
+                    resultvalid.callintern = True
+                End If
                 resultvalid.exclass = nsname
                 resultvalid.clmethod = nmethod
                 resultvalid.asmextern = conrex.NULL

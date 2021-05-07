@@ -36,6 +36,7 @@
     ''' stloc [str]
     ''' </summary>
     Public Shared Sub set_stack_local(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
         codes.Add("stloc " & name)
     End Sub
 
@@ -46,6 +47,7 @@
     Public Shared Sub set_stack_pointer(ByRef codes As ArrayList, datatype As String)
         Dim resultdata As mapstoredata.dataresult = compdt.ptrinddata.find(datatype, True)
         If resultdata.issuccessful Then
+            resultdata.result = cilkeywordchecker.get_key(resultdata.result)
             codes.Add("stind." & resultdata.result)
         Else
             codes.Add("stind.ref")
@@ -56,6 +58,7 @@
     ''' starg [str]
     ''' </summary>
     Public Shared Sub set_stack_argument(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
         codes.Add("starg " & name)
     End Sub
 
@@ -65,6 +68,7 @@
     Public Shared Sub load_pointer(ByRef codes As ArrayList, datatype As String)
         Dim resultdata As mapstoredata.dataresult = compdt.ptrinddata.find(datatype, True)
         If resultdata.issuccessful Then
+            resultdata.result = cilkeywordchecker.get_key(resultdata.result)
             codes.Add("ldind." & resultdata.result)
         Else
             codes.Add("ldind.ref")
@@ -75,6 +79,7 @@
     ''' ldloca [str]
     ''' </summary>
     Public Shared Sub load_local_address(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
         codes.Add("ldloca " & name)
     End Sub
 
@@ -92,6 +97,7 @@
     ''' <param name="codes"></param>
     ''' <param name="name"></param>
     Public Shared Sub load_local_variable(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
         codes.Add("ldloc " & name)
     End Sub
 
@@ -101,7 +107,27 @@
     ''' <param name="codes"></param>
     ''' <param name="name"></param>
     Public Shared Sub load_argument(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
         codes.Add("ldarg " & name)
+    End Sub
+
+    Public Shared Sub ldloca(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
+        codes.Add("ldloca " & name)
+    End Sub
+
+    Public Shared Sub ldarga(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
+        codes.Add("ldarga " & name)
+    End Sub
+
+    Public Shared Sub ldflda(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
+        codes.Add("ldflda " & name)
+    End Sub
+    Public Shared Sub ldsflda(ByRef codes As ArrayList, name As String)
+        name = cilkeywordchecker.get_key(name)
+        codes.Add("ldsflda " & name)
     End Sub
     Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
         codes.Add("call string [mscorlib]System.Convert::ToString(" & ptype & ")")
@@ -115,17 +141,32 @@
         codes.Add("call string [mscorlib]System.String::Concat(" & params & ")")
     End Sub
     Public Shared Sub load_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        name = cilkeywordchecker.get_key(name)
+        classname = cilkeywordchecker.get_key(classname)
+        ptype = cilkeywordchecker.get_key(ptype)
         codes.Add("ldsfld " & ptype & " " & classname & "::" & name)
     End Sub
     Public Shared Sub load_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        name = cilkeywordchecker.get_key(name)
+        classname = cilkeywordchecker.get_key(classname)
+        ptype = cilkeywordchecker.get_key(ptype)
         codes.Add("ldfld " & ptype & " " & classname & "::" & name)
     End Sub
 
     Public Shared Sub set_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        name = cilkeywordchecker.get_key(name)
+        classname = cilkeywordchecker.get_key(classname)
+        ptype = cilkeywordchecker.get_key(ptype)
         codes.Add("stsfld " & ptype & " " & classname & "::" & name)
     End Sub
     Public Shared Sub set_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        name = cilkeywordchecker.get_key(name)
+        classname = cilkeywordchecker.get_key(classname)
+        ptype = cilkeywordchecker.get_key(ptype)
         codes.Add("stfld " & ptype & " " & classname & "::" & name)
+    End Sub
+    Public Shared Sub set_element(ByRef codes As ArrayList)
+        codes.Add("stelem.ref")
     End Sub
 
     ''' <summary>
@@ -256,6 +297,9 @@
     Public Shared Sub div(ByRef codes As ArrayList)
         codes.Add("div")
     End Sub
+    Public Shared Sub [rem](ByRef codes As ArrayList)
+        codes.Add("rem")
+    End Sub
     Public Shared Sub pop(ByRef codes As ArrayList)
         codes.Add("pop")
     End Sub
@@ -293,8 +337,16 @@
         codes.Add("newobj instance void [mscorlib]System.Exception::.ctor(string)")
         codes.Add("throw")
     End Sub
-
+    Public Shared Sub box(ByRef codes As ArrayList, asmextern As String, classname As String)
+        asmextern = cilkeywordchecker.get_key(asmextern)
+        classname = cilkeywordchecker.get_key(classname)
+        Dim lcode As String = String.Format("box [{0}]{1}", asmextern, [classname])
+        codes.Add(lcode)
+    End Sub
     Public Shared Sub call_method(ByRef codes As ArrayList, returntype As String, asmextern As String, classprop As String, methodname As String, paramtypes As ArrayList)
+        methodname = cilkeywordchecker.get_key(methodname)
+        classprop = cilkeywordchecker.get_key(classprop)
+        returntype = cilkeywordchecker.get_key(returntype)
         Dim code As String = "call "
         If returntype = Nothing Then
             code &= "void"
@@ -318,8 +370,14 @@
         codes.Add(code)
     End Sub
 
-    Public Shared Sub call_intern_method(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList)
+    Public Shared Sub call_intern_method(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList, Optional isvirtualmethod As Boolean = False)
+        methodname = cilkeywordchecker.get_key(methodname)
+        classprop = cilkeywordchecker.get_key(classprop)
+        returntype = cilkeywordchecker.get_key(returntype)
         Dim code As String = "call "
+        If isvirtualmethod Then
+            code = "callvirt instance "
+        End If
         If returntype = Nothing Then
             code &= "void"
         Else
@@ -343,6 +401,10 @@
     End Sub
 
     Public Shared Sub call_extern_method(ByRef codes As ArrayList, returntype As String, externlib As String, classprop As String, methodname As String, paramtypes As ArrayList)
+        methodname = cilkeywordchecker.get_key(methodname)
+        classprop = cilkeywordchecker.get_key(classprop)
+        returntype = cilkeywordchecker.get_key(returntype)
+        externlib = cilkeywordchecker.get_key(externlib)
         Dim code As String = "call "
         If returntype = Nothing Then
             code &= "void"
@@ -367,11 +429,19 @@
     End Sub
 
     Public Shared Sub call_virtual_method(ByRef codes As ArrayList, returntype As String, externlib As String, classprop As String, methodname As String, paramtypes As ArrayList)
-        Dim code As String = "callvirt instance class "
-        If returntype = Nothing Then
+        methodname = cilkeywordchecker.get_key(methodname)
+        classprop = cilkeywordchecker.get_key(classprop)
+        returntype = cilkeywordchecker.get_key(returntype)
+        externlib = cilkeywordchecker.get_key(externlib)
+        Dim code As String = "callvirt instance  "
+        If returntype = Nothing OrElse returntype = conrex.VOID Then
             code &= "void"
         Else
-            code &= returntype
+            If servinterface.reset_cil_common_data_type(returntype) OrElse servinterface.is_cil_common_data_type(returntype) Then
+                code &= returntype
+            Else
+                code &= " class " & returntype
+            End If
         End If
         code &= conrex.SPACE
         code &= String.Format("[{2}]{0}::{1}", classprop, methodname, externlib)
@@ -390,7 +460,17 @@
         codes.Add(code)
     End Sub
     Public Shared Sub new_obj(ByRef codes As ArrayList, returntype As String, externlib As String, classprop As String, methodname As String, paramtypes As ArrayList)
-        Dim code As String = String.Format("newobj instance {0} [{1}]{2}::{3}", returntype, externlib, classprop, methodname)
+        methodname = cilkeywordchecker.get_key(methodname)
+        classprop = cilkeywordchecker.get_key(classprop)
+        returntype = cilkeywordchecker.get_key(returntype)
+        externlib = cilkeywordchecker.get_key(externlib)
+
+        Dim code As String = String.Empty
+        If externlib = conrex.NULL Then
+            code = String.Format("newobj instance {0} {1}::{2}", returntype, classprop, methodname)
+        Else
+            code = String.Format("newobj instance {0} [{1}]{2}::{3}", returntype, externlib, classprop, methodname)
+        End If
         If IsNothing(paramtypes) OrElse paramtypes.Count = 0 Then
             code &= "()"
         Else

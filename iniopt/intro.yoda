@@ -2,16 +2,22 @@
 "build" = "Compile a project and build an output (.dll, .exe, etc.).
 Usage : yoca build <options>
 *** Options ***
+--compile_time
+Display project compilation time.
 --debug
 Disable JIT optimization, create PDB file, use sequence points from PDB.
 --debug_impl
 Disable JIT optimization, create PDB file, use implicit sequence points.
 --debug_opt
 Enable JIT optimization, create PDB file, use implicit sequence points.
+--dev
+Enable compiler development mode, which disables the cache unit and generates IL codes and more.
 --import_assets
 Copy dependencies and assets from the assets folder to the output.
 --display_token
 Display and print tokens while analyzing source code (lexical analysis).
+--no_cache
+Disable the use of project caches in the compiler(YOCA).
 --stack_trace
 View and track details of compiler problems at runtime.
 --mute_process
@@ -24,18 +30,24 @@ The Build command must be called next to labra.yoda file by the Command Prompt."
 "run" = "Compile a project and execute it.
 Usage : yoca run <options>
 *** Options ***
+--compile_time
+Display project compilation time.
 --debug
 Disable JIT optimization, create PDB file, use sequence points from PDB.
 --debug_impl
 Disable JIT optimization, create PDB file, use implicit sequence points.
 --debug_opt
 Enable JIT optimization, create PDB file, use implicit sequence points.
+--dev
+Enable compiler development mode, which disables the cache unit and generates IL codes and more.
 --import_assets
 Copy dependencies and assets from the assets folder to the output.
 --execution_time
 Measuring the execution time of the called process.
 --display_token
 Display and print tokens while analyzing source code (lexical analysis).
+--no_cache
+Disable the use of project caches in the compiler(YOCA).
 --stack_trace
 View and track details of compiler problems at runtime.
 --mute_process
@@ -54,6 +66,8 @@ Disable JIT optimization, create PDB file, use sequence points from PDB.
 Disable JIT optimization, create PDB file, use implicit sequence points.
 --debug_opt
 Enable JIT optimization, create PDB file, use implicit sequence points.
+--dev
+Enable compiler development mode, which disables the cache unit and generates IL codes and more.
 --import_assets
 Copy dependencies and assets from the assets folder to the output.
 --display_token
@@ -67,6 +81,18 @@ The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
 "init" = "Preparation and installation of compiler prerequisites, including statistics, set environment variable, etc.
 Usage : yoca init"
+, 
+"cacleaner" = "Delete all caches created by the compiler.
+Usage : yoca cacleaner
+*** Hints ***
+Caches are created to optimize RAM and CPU usage as well as dramatically increase compilation speed.
+Of course, the compiler also cleans old cache files." 
+,
+"dev" = "Change to development mode or return to normal mode.
+Usage : yoca dev
+*** Hints ***
+In development mode, the cache system is disabled and debugging is performed.
+You also have the ability to output IL codes." 
 ,
 "version" = "Print yoca compiler version.
 Usage : yoca version"

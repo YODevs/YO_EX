@@ -5,6 +5,7 @@
         Dim ilfmtdata As ildata
     End Structure
     Public Structure ildata
+        Dim enumeration() As tknformat._enum
         Dim ilmethod() As _ilmethodcollection
         Dim assemblyextern() As _ilassemblyextern
         Dim modulename As String
@@ -17,7 +18,9 @@
 
     Public Structure _ilmethodcollection
         Dim name As String
+        Dim objcontrol As fmtshared.objectcontrol
         Dim accessible As _accessiblemethod
+        Dim methodmodtype As _modifiertype
         Dim locallinit() As _illocalinit
         Dim returntype As String
         Dim returninfo As _returninfo
@@ -28,7 +31,6 @@
         Dim line As ArrayList
         Dim isexpr As Boolean
     End Structure
-
     Public Structure _returninfo
         Dim asmextern As String
         Dim classname As String
@@ -49,13 +51,18 @@
         Dim isconstant As Boolean
         Dim frinit As Boolean
         Dim ctor As Boolean
+        Dim isvaluetypes As Boolean
+        Dim isarrayobj As Boolean
+        Dim valtpinf As _valtypeinfo
+        Dim arrayinf As _arrayinfo
+        Dim asmextern As String
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
         Dim isextern As Boolean
         Dim assemblyproperty As String
     End Structure
-    Structure _pubfield
+    Public Structure _pubfield
         Dim isliteral As Boolean
         Dim accesscontrol As String
         Dim modifier As String
@@ -65,10 +72,31 @@
         Dim valuecinf As lexer.targetinf
         Dim valuetoken As tokenhared.token
     End Structure
+
+    Public Structure _arrayinfo
+        Dim isarrayref As Boolean
+        Dim isunspecifiedelements As Boolean
+        Dim elementsp As Object
+    End Structure
     Public Enum _accessiblemethod
         [PUBLIC]
         [PRIVATE]
     End Enum
+
+    Public Enum _modifiertype
+        [STATIC]
+        [INSTANCE]
+    End Enum
+    Public Enum _valuetypestructure
+        [NOTHING]
+        [ENUM]
+        [STRUCT]
+    End Enum
+    Public Structure _valtypeinfo
+        Dim structuretype As _valuetypestructure
+        Dim classname As String
+        Dim objectname As String
+    End Structure
     Public Sub New()
 
     End Sub

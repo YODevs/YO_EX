@@ -1,0 +1,8 @@
+#[app::classname("MyApp")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+
+}

@@ -86,6 +86,11 @@
             envarloop.tokenid = tokenhared.token.IDENTIFIER
         End If
 
+        Dim steptoken As tokenhared.token
+        If IsNumeric(rnginf.stepsc) = False Then
+            steptoken = tokenhared.token.IDENTIFIER
+        End If
+
         envarloop.line = looprangecodestruc.line
         envarloop.ist = looprangecodestruc.value.IndexOf("..") + 2
         envarloop.ile = envarloop.value.Length
@@ -93,13 +98,35 @@
         ldloc.load_single_in_stack("int32", envarloop)
         If userange Then
             If isreverseloop = False Then
-                If rnginf.ignorelastpoint Then
-                    cil.blt(_ilmethod.codes, getbrhead)
+                If steptoken = tokenhared.token.IDENTIFIER Then
+                    Dim steploopvariable As xmlunpkd.linecodestruc = servinterface.create_fake_linecodestruc(tokenhared.token.IDENTIFIER, rnginf.stepsc)
+                    ldloc.load_single_in_stack("int32", steploopvariable)
+                    cil.push_int32_onto_stack(_ilmethod.codes, 0)
+                    Dim endbrlabel As String = lngen.get_line_prop("END_FOR_STEP_COND")
+                    Dim exitblock As String = lngen.get_line_prop("EXIT_FOR_STEP")
+                    cil.blt(_ilmethod.codes, endbrlabel)
+                    If rnginf.ignorelastpoint Then
+                        cil.blt(_ilmethod.codes, getbrhead)
+                    Else
+                        cil.ble(_ilmethod.codes, getbrhead)
+                    End If
+                    cil.branch_to_target(_ilmethod.codes, exitblock)
+                    lngen.set_direct_label(endbrlabel, _ilmethod.codes)
+                    If rnginf.ignorelastpoint Then
+                        cil.bge(_ilmethod.codes, getbrhead)
+                    Else
+                        cil.bgt(_ilmethod.codes, getbrhead)
+                    End If
+                    lngen.set_direct_label(exitblock, _ilmethod.codes)
                 Else
-                    cil.ble(_ilmethod.codes, getbrhead)
+                    If rnginf.ignorelastpoint Then
+                        cil.blt(_ilmethod.codes, getbrhead)
+                    Else
+                        cil.ble(_ilmethod.codes, getbrhead)
+                    End If
                 End If
             Else
-                cil.bge(_ilmethod.codes, getbrhead)
+                    cil.bge(_ilmethod.codes, getbrhead)
             End If
         Else
                 cil.ble(_ilmethod.codes, getbrhead)

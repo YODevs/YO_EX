@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "null_coalescing_operator"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

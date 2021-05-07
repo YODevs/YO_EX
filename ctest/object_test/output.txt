@@ -1,0 +1,4 @@
+HELLO
+This is a string
+18
+7

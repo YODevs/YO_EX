@@ -1,6 +1,7 @@
 ﻿Public Class illdloc
     Public _ilmethod As ilformat._ilmethodcollection
     Private Shared ldptr As Boolean = False
+    Friend Shared ldindx As Boolean = False
     Public Sub New(_ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = _ilmethod
     End Sub
@@ -68,10 +69,12 @@
                     ldbool(cargcodestruc(index), getdatatype)
                 Case Else
                     'Other Types
+                    ld_identifier(cargcodestruc(index).value, _ilmethod, cargcodestruc(index), Nothing, getdatatype)
             End Select
         Next
 
         ldptr = False
+        ldindx = False
         Return _ilmethod
     End Function
 
@@ -94,15 +97,27 @@
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
         End Select
 
+        ldptr = False
+        ldindx = False
+
         Return _ilmethod
     End Function
     Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, rlinecodestruc() As xmlunpkd.linecodestruc, datatype As String) As Boolean
+        Dim clineprop As xmlunpkd.linecodestruc = cargcodestruc
         If IsNothing(rlinecodestruc) = False Then
-            Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(rlinecodestruc)
+            Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, rlinecodestruc)
             If funcresult.funcvalid Then
+                funcste.assignmentype = datatype
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 Return True
             End If
+            clineprop = rlinecodestruc(0)
+        End If
+
+        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clineprop)
+        If propresult.identvalid Then
+            propertyste.get_inv_property(New xmlunpkd.linecodestruc() {clineprop}, _ilmethod, propresult, 0)
+            Return True
         End If
 
         If IsNothing(_ilmethod.locallinit) = False OrElse nvar.Contains(compdt.FLAGPERFIX) Then
@@ -147,16 +162,17 @@
         If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
             pdatatype = hfield.ptype
             servinterface.is_common_data_type(pdatatype, pdatatype)
-            If pdatatype = datatype Then
+            If eq_data_types(pdatatype, datatype) Then
+                convtc.reset_convtc()
                 Dim classname As String = hresult.exclass
                 If IsNothing(nactorcode) = False Then
-                    If hfield.modifier = "static" Then
+                    If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
                         cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
                     Else
                         cil.load_field(nactorcode, pnvar, pdatatype, classname)
                     End If
                 Else
-                    If hfield.modifier = "static" Then
+                    If hfield.objcontrol.modifier = tokenhared.token.STATIC Then
                         cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
                     Else
                         cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
@@ -174,6 +190,11 @@
         Return False
     End Function
 
+    Friend Shared Sub check_identifier_modifiers(cargcodestruc As xmlunpkd.linecodestruc, nvar As String, objcontrol As fmtshared.objectcontrol, _ilmethod As ilformat._ilmethodcollection, ptype As String)
+        If iltranscore.methodobjectcontrol.modifier = tokenhared.token.STATIC AndAlso objcontrol.modifier = tokenhared.token.UNDEFINED Then
+            dserr.new_error(conserr.errortype.MODIFIERERROR, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - identifier : " & nvar & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value), String.Format("public static {0} : {1} ", nvar, ptype))
+        End If
+    End Sub
 
     Friend Shared Function ld_field(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String, Optional ByRef nactorcode As ArrayList = Nothing) As Boolean
         If IsNothing(ilasmgen.classdata.fields) Then Return False
@@ -185,21 +206,75 @@
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 pdatatype = ilasmgen.classdata.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
-                If pdatatype = datatype Then
+                check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
+                If eq_data_types(pdatatype, datatype) Then
+                    convtc.reset_convtc()
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
+                    If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.UNDEFINED Then 'INSTANCE
+                        cil.insert_il(_ilmethod.codes, compdt.LOAD_FIRST_ARGUMENT)
+                    End If
                     If IsNothing(nactorcode) = False Then
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
-                            cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
                         Else
-                            cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
                         End If
                     Else
-                        If ilasmgen.classdata.fields(index).modifier = "static" Then
-                            cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
                         Else
-                            cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
                         End If
                     End If
+                    Return True
+                ElseIf convtc.setconvmethod Then
+                    Dim classname As String = ilasmgen.classdata.attribute._app._classname
+                    If IsNothing(nactorcode) = False Then
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
+                        Else
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                            End If
+                        End If
+                    Else
+                        If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
+                            If ldindx Then
+                                cil.ldsflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
+                        Else
+                            If ldindx Then
+                                cil.ldflda(_ilmethod.codes, pnvar)
+                            Else
+                                cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            End If
+                        End If
+                    End If
+                    convtc.set_type_cast(_ilmethod, ilasmgen.classdata.fields(index).ptype, datatype, nvar, cargcodestruc)
                     Return True
                 Else
                     dserr.args.Add(ilasmgen.classdata.fields(index).ptype)
@@ -222,14 +297,28 @@
         For index = 0 To _ilmethod.locallinit.Length - 1
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
-                If _ilmethod.locallinit(index).datatype = datatype Then
+                If eq_data_types(_ilmethod.locallinit(index).datatype, datatype) Then
+                    convtc.reset_convtc()
                     If ldptr Then
                         cil.load_local_address(_ilmethod.codes, nvar)
+                        Return True
+                    ElseIf ldindx Then
+                        cil.ldloca(_ilmethod.codes, nvar)
                         Return True
                     Else
                         cil.load_local_variable(_ilmethod.codes, nvar)
                         Return True
                     End If
+                ElseIf convtc.setconvmethod Then
+                    If ldptr Then
+                        cil.load_local_address(_ilmethod.codes, nvar)
+                    ElseIf ldindx Then
+                        cil.ldloca(_ilmethod.codes, nvar)
+                    Else
+                        cil.load_local_variable(_ilmethod.codes, nvar)
+                    End If
+                    convtc.set_type_cast(_ilmethod, _ilmethod.locallinit(index).datatype, datatype, nvar, cargcodestruc)
+                    Return True
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
                     dserr.args.Add(datatype)
@@ -250,9 +339,12 @@
                 If servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, getcildatatype) = False Then
                     getcildatatype = _ilmethod.parameter(index).datatype
                 End If
-
-                If datatype = getcildatatype Then
-                    If ldptr Then
+                If eq_data_types(datatype, getcildatatype) Then
+                    convtc.reset_convtc()
+                    If ldindx Then
+                        cil.ldarga(_ilmethod.codes, nvar)
+                        Return True
+                    ElseIf ldptr Then
                         cil.load_local_address(_ilmethod.codes, nvar)
                         Return True
                     ElseIf _ilmethod.parameter(index).ispointer Then
@@ -263,6 +355,19 @@
                         cil.load_argument(_ilmethod.codes, nvar)
                         Return True
                     End If
+                ElseIf convtc.setconvmethod Then
+                    If ldindx Then
+                        cil.ldarga(_ilmethod.codes, nvar)
+                    ElseIf ldptr Then
+                        cil.load_local_address(_ilmethod.codes, nvar)
+                    ElseIf _ilmethod.parameter(index).ispointer Then
+                        cil.load_argument(_ilmethod.codes, nvar)
+                        cil.load_pointer(_ilmethod.codes, datatype)
+                    Else
+                        cil.load_argument(_ilmethod.codes, nvar)
+                    End If
+                    convtc.set_type_cast(_ilmethod, _ilmethod.parameter(index).datatype, datatype, nvar, cargcodestruc)
+                    Return True
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
                     dserr.args.Add(datatype)
@@ -274,6 +379,35 @@
         Return False
     End Function
 
+    Friend Shared Function eq_data_types(maintype As String, resulttype As String) As Boolean
+        If maintype = conrex.NULL OrElse resulttype = conrex.NULL Then
+            If maintype = resulttype Then
+                Return True
+            End If
+            If maintype = conrex.NULL AndAlso resulttype.ToLower = conrex.VOID Then
+                Return True
+            ElseIf resulttype = conrex.NULL AndAlso maintype.ToLower = conrex.VOID Then
+
+            End If
+        Else
+            maintype = maintype.ToLower
+            resulttype = resulttype.ToLower
+        End If
+        If maintype = resulttype Then
+            Return True
+        End If
+        If resulttype.StartsWith("system.") Then
+            Dim mptype As String = resulttype.Remove(0, resulttype.IndexOf(conrex.DOT) + 1)
+            If maintype = mptype Then Return True
+        ElseIf maintype.StartsWith("system.") Then
+            Dim mptype As String = maintype.Remove(0, maintype.IndexOf(conrex.DOT) + 1)
+            If resulttype = mptype Then Return True
+        ElseIf (maintype = conrex.OBJECT OrElse maintype = conrex.STRING) AndAlso (resulttype = conrex.OBJECT OrElse resulttype = conrex.STRING) Then
+            Return True
+        End If
+        Return False
+    End Function
+
     Private Sub ldstr(cargcodestruc As xmlunpkd.linecodestruc)
         Select Case cargcodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
@@ -281,13 +415,13 @@
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod, cargcodestruc.value, cargcodestruc)
             Case tokenhared.token.IDENTIFIER
-                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, "string")
+                ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, conrex.STRING)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
                 'Set Error 
                 dserr.args.Add(cargcodestruc.value)
-                dserr.args.Add("string")
+                dserr.args.Add(conrex.STRING)
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
         End Select
     End Sub

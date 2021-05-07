@@ -112,9 +112,15 @@ Public Class lexer
                         End If
                     Case targetaction.EXPRESSIONLOADER
                         If get_expression(getch, slinegrab, chstatusaction) Then
-                            linecinf.lend = index - 1
-                            linecinf.length = slinegrab.Length
-                            linec = slinegrab
+                            If IsNothing(linec) = False Then
+                                linec &= slinegrab
+                                linecinf.lend += index - 1
+                                linecinf.length += slinegrab.Length
+                            Else
+                                linecinf.lend = index - 1
+                                linecinf.length = slinegrab.Length
+                                linec = slinegrab
+                            End If
                             Dim afline As Integer = linecinf.line
                             linecinf.line = strline
                             check_token(linecinf, linec)
@@ -310,8 +316,7 @@ Public Class lexer
         End If
     End Sub
     Private Sub check_token(ByRef linecinf As targetinf, ByRef linec As String, Optional index As Integer = -1)
-
-        If linec.Trim = conrex.NULL Then
+        If IsNothing(linec) OrElse linec.Trim = conrex.NULL Then
             linecinf.lstart = -1
             linec = conrex.NULL
             Return
@@ -417,6 +422,9 @@ Public Class lexer
             If authfunc.check_identifier_vaild(value.ToLower) Then
                 rd_token = tokenhared.token.IDENTIFIER
                 Return True
+            ElseIf authfunc.check_arriden_vaild(value.ToLower) Then
+                rd_token = tokenhared.token.ARR
+                Return True
             Else
                 rd_token = tokenhared.token.UNDEFINED
                 dserr.new_error(conserr.errortype.IDENTIFIERUNKNOWN, linecinf.line, sfile, authfunc.get_line_error(sfile, linecinf, value), "name / mycity2 / get_name")
@@ -464,6 +472,10 @@ Public Class lexer
     Private Function rev_expression(ByRef value As String) As Boolean
         If value.StartsWith("[") AndAlso value.EndsWith("]") Then
             If value.Contains(conrex.DBDOT) = False Then
+                If rev_typecasting(value) Then
+                    rd_token = tokenhared.token.EXPLTYPECAST
+                    Return True
+                End If
                 For index = 0 To compdt.expressionact.Length - 1
                     If value.Contains(compdt.expressionact(index)) Then
                         rd_token = tokenhared.token.EXPRESSION
@@ -479,6 +491,13 @@ Public Class lexer
             Return False
         End If
         Return False
+    End Function
+    Private Function rev_typecasting(value As String) As Boolean
+        authfunc.rem_fr_and_en(value)
+        If value.ToLower.Trim = conrex.BOX Then
+            Return True
+        End If
+        Return servinterface.is_common_data_type(value, Nothing)
     End Function
     Private Function rev_range(value As String) As Boolean
         If value.Contains(conrex.DBDOT) Then

@@ -1,6 +1,6 @@
 ﻿Public Class tokenhared
-    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}", ".", ":"}
-    Public Shared tokenassign() As String = {":", "+", "-", "*", "&", "/"}
+    Public Shared tokenopt() As Object = {" ", "=", "&", "+", "-", "*", "/", "%", "|", ">", "<", ",", "(", ")", "{", "}", ".", ":", "^", "?"}
+    Public Shared tokenassign() As String = {":", "+", "-", "*", "&", "/", "%", "^", ".", "?"}
     Public Shared conditiontoken() As Object = {"==", "<>", ">>", "<<", ">=", "<="}
     Private Shared _token As Dictionary(Of token, String)
     Private Shared _tokensym As New Dictionary(Of token, String)
@@ -42,6 +42,8 @@
         _token.Add(token.INIT, "init")
         _token.Add(token.INCLUDE, "include")
         _token.Add(token.ENUM, "enum")
+        _token.Add(token.INSTANCE, "instance")
+        _token.Add(token.OPT, "opt")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -57,9 +59,12 @@
         _tokensym.Add(token.PLUSEQ, "+=")
         _tokensym.Add(token.MINUSEQ, "-=")
         _tokensym.Add(token.SLASHEQ, "/=")
-        _tokensym.Add(token.REMINDEQ, "%=")
+        _tokensym.Add(token.REMEQ, "%=")
         _tokensym.Add(token.ASTERISKEQ, "*=")
         _tokensym.Add(token.ANDEQ, "&=")
+        _tokensym.Add(token.POWEQ, "^=")
+        _tokensym.Add(token.APPEQ, ".=")
+        _tokensym.Add(token.QESEQ, "?=")
         _tokensym.Add(token.DUTNQ, "::")
         _tokensym.Add(token.ASSINQ, ":")
         _tokensym.Add(token.ASTERISK, "*")
@@ -77,6 +82,9 @@
         _tokensym.Add(token.PRSTART, "(")
         _tokensym.Add(token.PREND, ")")
         _tokensym.Add(token.DOT, ".")
+        _tokensym.Add(token.[REM], "%")
+        _tokensym.Add(token.POW, "^")
+        _tokensym.Add(token.QES, "?")
     End Sub
 
 
@@ -164,7 +172,7 @@
         PLUSEQ = 29
         MINUSEQ = 30
         SLASHEQ = 31
-        REMINDEQ = 32
+        REMEQ = 32
         ASTERISKEQ = 33
         ANDEQ = 34
         ASTERISK = 35
@@ -220,5 +228,15 @@
         INIT = 85
         INCLUDE = 86
         [ENUM] = 87
+        [EXPLTYPECAST] = 88
+        [REM] = 89
+        POWEQ = 90
+        POW = 91
+        APPEQ = 92
+        QES = 93
+        QESEQ = 94
+        INSTANCE = 95
+        ARR = 96
+        OPT = 97
     End Enum
 End Class

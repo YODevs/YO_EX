@@ -7,6 +7,7 @@
             If getdatatype.EndsWith("&") Then
                 getdatatype = getdatatype.Remove(getdatatype.Length - 1)
             End If
+
             Select Case getdatatype
                 Case "string"
                     If chstr(_ilmethod, cargcodestruc(index)) = False Then Return False
@@ -22,6 +23,10 @@
                     If chbool(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
                 Case Else
                     'Other Types
+                    Dim crdatatype As String = String.Empty
+                    If servinterface.is_variable(_ilmethod, cargcodestruc(0).value, crdatatype) AndAlso getdatatype.ToLower = crdatatype.ToLower Then
+                        Return True
+                    End If
                     Return False
             End Select
         Next

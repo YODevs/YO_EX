@@ -1,0 +1,7 @@
+#[app::classname('std')]
+extern YOLIB
+
+func ping() : str
+{
+  return "pong"
+}

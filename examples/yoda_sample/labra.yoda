@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "yoda_sample"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

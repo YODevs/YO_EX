@@ -42,16 +42,42 @@
             End If
         End If
 
-        _ilmethods(ilmethodsindex).accessible = ilformat._accessiblemethod.PUBLIC
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
         _ilmethods(ilmethodsindex).isexpr = yomethod.isexpr
+        set_object_control(_ilmethods(ilmethodsindex), yomethod)
         set_custom_type(_ilmethods(ilmethodsindex))
 
         set_parameter(yomethod, ilmethodsindex)
         Dim iltrans As New iltranscore(yomethod)
         iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
+        If yomethod.isexpr Then
+            set_customization_expression(_ilmethods(ilmethodsindex))
+        End If
     End Sub
 
+    Private Sub set_object_control(ByRef _ilmethod As ilformat._ilmethodcollection, yomethod As tknformat._method)
+        Select Case yomethod.objcontrol.accesscontrol
+            Case tokenhared.token.UNDEFINED
+                _ilmethod.accessible = ilformat._accessiblemethod.PUBLIC
+            Case tokenhared.token.PRIVATE
+                _ilmethod.accessible = ilformat._accessiblemethod.PRIVATE
+            Case tokenhared.token.PUBLIC
+                _ilmethod.accessible = ilformat._accessiblemethod.PUBLIC
+        End Select
+
+        Select Case yomethod.objcontrol.modifier
+            Case tokenhared.token.UNDEFINED
+                _ilmethod.methodmodtype = ilformat._modifiertype.STATIC
+            Case tokenhared.token.STATIC
+                _ilmethod.methodmodtype = ilformat._modifiertype.STATIC
+            Case tokenhared.token.INSTANCE
+                _ilmethod.methodmodtype = ilformat._modifiertype.INSTANCE
+        End Select
+        _ilmethod.objcontrol = yomethod.objcontrol
+    End Sub
+    Private Sub set_customization_expression(ByRef _ilmethod As ilformat._ilmethodcollection)
+        cil.ret(_ilmethod.codes)
+    End Sub
     Private Sub set_custom_type(ByRef _ilmethodcollection As ilformat._ilmethodcollection)
         If _ilmethodcollection.returntype = conrex.NULL OrElse _ilmethodcollection.returntype = "void" OrElse servinterface.get_yo_common_data_type(_ilmethodcollection.returntype, Nothing) = True Then
             Return
@@ -89,16 +115,18 @@
         Dim crmethod As tknformat._method = methods(index)
         For ime = 0 To methods.Length - 1
             If ime <> index AndAlso crmethod.name = methods(ime).name Then
-                If IsNothing(crmethod.parameters) = False AndAlso IsNothing(methods(ime).parameters) = False Then
-                    If crmethod.parameters.Length = methods(ime).parameters.Length Then
-                        If check_rep_params(crmethod, methods(ime)) = False Then
-                            seterr = True
-                            Exit For
+                If crmethod.returntype.ToLower = methods(ime).returntype.ToLower Then
+                    If IsNothing(crmethod.parameters) = False AndAlso IsNothing(methods(ime).parameters) = False Then
+                        If crmethod.parameters.Length = methods(ime).parameters.Length Then
+                            If check_rep_params(crmethod, methods(ime)) = False Then
+                                seterr = True
+                                Exit For
+                            End If
                         End If
+                    ElseIf IsNothing(crmethod.parameters) AndAlso IsNothing(methods(ime).parameters) Then
+                        seterr = True
+                        Exit For
                     End If
-                ElseIf IsNothing(crmethod.parameters) AndAlso IsNothing(methods(ime).parameters) Then
-                    seterr = True
-                    Exit For
                 End If
             End If
         Next

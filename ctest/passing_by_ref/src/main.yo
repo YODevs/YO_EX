@@ -1,0 +1,54 @@
+#[app::classname("passing_by_ref")]
+
+include 'ystdio'
+func main()
+{
+ let val : i32 = 10
+ let ps : str = "Hello"
+ test1(val)
+ io::println("#{val}")
+
+ test2(ps)
+ io::println(ps)
+
+ let team1 , team2 : str
+ team1 := 'Chelsea'
+ team2 := 'Man Utd'
+ test3(team1,team2)
+ io::println("team1 = '#{team1}' , team2 = '#{team2}'")
+
+ let re1 , re2 : bool
+ re1 := true
+ re2 := false
+ test4(re1)
+ test4(re2)
+ io::println("re1 = '#{re1}' , re2 = '#{re2}'")
+}
+
+func test1(val:i32&)
+{
+ val *= val
+}
+
+func test2(val:str&)
+{
+  val := val::tolower()
+
+}
+
+func test3(val1:str& , val2:str&)
+{
+  let temp : str = val1
+  val1 := val2
+  val2 := temp
+}
+
+func test4(result:bool&)
+{
+  if(result == true)
+  {
+    result := false
+    return
+  }
+  result := true
+}

@@ -1,0 +1,42 @@
+[YOCA ver0.0.13.9]
+
+C:\...\YOProject\benchmark_compile_time>yoca build --compile_time
+
+-Initialization & Process Preparation
+        Init ->Preparation & analysis of 'Labra.yoda' :: [PASSED]
+        Init ->Check the path of project files :: [PASSED]
+        Init ->Check the dependencies of the '\assets' path :: [PASSED]
+-Lexical Analyzer
+        Lex ->\src\class0.yo :: [PASSED]
+        Lex ->\src\class01.yo :: [PASSED]
+        Lex ->\src\class02.yo :: [PASSED]
+        Lex ->\src\class03.yo :: [PASSED]
+        Lex ->\src\class04.yo :: [PASSED]
+        Lex ->\src\class05.yo :: [PASSED]
+        Lex ->\src\class06.yo :: [PASSED]
+        Lex ->\src\class07.yo :: [PASSED]
+        Lex ->\src\class08.yo :: [PASSED]
+        Lex ->\src\class09.yo :: [PASSED]
+        Lex ->\src\main.yo :: [PASSED]
+        Lex ->E:\YO\YOCA\YOCA\bin\Release\std\ystdio.yo :: [PASSED]
+-Intermediate Code Generation
+        Gen ->\src\class0.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class01.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class02.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class03.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class04.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class05.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class06.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class07.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class08.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\class09.yo - 200 func(s) , 0 field(s) :: [DONE]
+        Gen ->\src\main.yo - 1 func(s) , 0 field(s) :: [DONE]
+        Gen ->E:\YO\YOCA\YOCA\bin\Release\std\ystdio.yo - 5 func(s) , 0 field(s)
+ :: [DONE]
+-Assembly Code Generation
+        Asm ->Preparation of prerequisites and parameters :: [DONE]
+        Asm ->Assembly process & Linker :: [DONE]
+-The overall result
+        ***** Operation completed successfully *****
+Compile time : 00:00:41.2250105
+

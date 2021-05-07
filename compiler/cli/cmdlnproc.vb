@@ -1,4 +1,12 @@
-﻿Public Class cmdlnproc
+﻿''' <summary>
+''' <en>
+''' Preparing commands of command line
+''' </en>
+''' <fa>
+''' آماده سازی دستورات خط فرمان
+''' </fa>
+''' </summary>
+Public Class cmdlnproc
     Enum cmdtype
         TEST
         [EXIT]
@@ -10,6 +18,8 @@
         HELP
         CHECK
         INIT
+        CACLEANER
+        DEV
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -19,6 +29,15 @@
     End Structure
 
     Public Shared cmd() As cmdstruct
+
+    ''' <summary>
+    ''' <en>
+    ''' Submitting commands and attributes of each command in the command line/
+    ''' </en>
+    ''' <fa>
+    ''' ثبت دستورات و ویژگی های هر دستور در خط فرمان
+    ''' </fa>
+    ''' </summary>
     Public Shared Sub set_new_command(commandtype As cmdtype, command As String, Optional withargs As Boolean = False, Optional maxargs As Int16 = 0)
         Static Dim indexarray As Int16 = 0
         Array.Resize(cmd, indexarray + 1)
@@ -40,13 +59,24 @@
         Next
         Return -1
     End Function
+
+    ''' <summary>
+    ''' <en>
+    ''' This function has to prepare and add commands of command line.
+    ''' </en>
+    ''' <fa>
+    ''' این تابع وظیفه آماده سازی و افزودن دستورات خط فرمان را دارد
+    ''' </fa>
+    ''' </summary>
     Public Shared Sub init_command_struct()
-        set_new_command(cmdtype.BUILD, "build", True, 6)
-        set_new_command(cmdtype.RUN, "run", True, 7)
-        set_new_command(cmdtype.CHECK, "check", True, 5)
+        set_new_command(cmdtype.BUILD, "build", True, 9)
+        set_new_command(cmdtype.RUN, "run", True, 10)
+        set_new_command(cmdtype.CHECK, "check", True, 7)
         set_new_command(cmdtype.INIT, "init")
         set_new_command(cmdtype.IMPORT, "import")
         set_new_command(cmdtype.CLEAN, "clean")
+        set_new_command(cmdtype.CACLEANER, "cacleaner")
+        set_new_command(cmdtype.DEV, "dev")
         set_new_command(cmdtype.VERSION, "version")
         set_new_command(cmdtype.TEST, "test")
         set_new_command(cmdtype.EXIT, "exit")

@@ -28,4 +28,12 @@ Public Class impassets
             My.Computer.FileSystem.CopyFile(routefile, cilcomp.get_output_loca_without_extension & filename, True)
         Next
     End Sub
+
+    Friend Shared Sub import_std()
+        If libserv.stdimportlist.Count = 0 Then Return
+        For index = 0 To libserv.stdimportlist.Count - 1
+            Dim destfilename As String = libserv.stdimportlist(index).ToString.Replace(conrex.STDPATH, cilcomp.get_output_loca_without_extension & "\")
+            My.Computer.FileSystem.CopyFile(libserv.stdimportlist(index), destfilename, True)
+        Next
+    End Sub
 End Class

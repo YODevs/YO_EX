@@ -1,4 +1,7 @@
 ﻿Imports System.IO
+Imports System.Reflection
+Imports System.Security.Cryptography
+Imports System.Text
 Imports YOCA
 
 Public Class servinterface
@@ -140,14 +143,24 @@ Public Class servinterface
     End Function
 
     Friend Shared Function vb_to_cil_common_data_type(datatype As String) As String
+        datatype = datatype.ToLower
         For index = 0 To conrex.plvbcommondatatype.Length - 1
-            If datatype = conrex.plvbcommondatatype(index) Then
+            If datatype = conrex.plvbcommondatatype(index).ToLower Then
                 Return conrex.msilcommondatatype(index)
             End If
         Next
         Return datatype
     End Function
 
+    Friend Shared Function cil_to_vb_common_data_type(datatype As String) As String
+        datatype = datatype.ToLower
+        For index = 0 To conrex.plvbcommondatatype.Length - 1
+            If datatype = conrex.msilcommondatatype(index).ToLower Then
+                Return conrex.plvbcommondatatype(index)
+            End If
+        Next
+        Return datatype
+    End Function
     Friend Shared Function get_yo_common_data_type(datatype As String, ByRef yodatatype As String) As Boolean
         datatype = datatype.ToLower
         For index = 0 To conrex.yocommondatatype.Length - 1
@@ -158,7 +171,14 @@ Public Class servinterface
         Next
         Return False
     End Function
-
+    Friend Shared Function get_yo_byte_types(datatype As String) As String
+        If datatype.ToLower = "sbyte" Then
+            Return "i8"
+        ElseIf datatype.ToLower = "byte" Then
+            Return "u8"
+        End If
+        Return datatype
+    End Function
     Friend Shared Function is_cil_common_data_type(datatype As String) As Boolean
         For index = 0 To conrex.msilcommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index) Then
@@ -176,6 +196,21 @@ Public Class servinterface
         End If
     End Sub
 
+    Friend Shared Function reset_cil_common_data_type(ByRef value As String) As Boolean
+        If value.ToString.Contains(conrex.DOT) AndAlso value.StartsWith("[mscorlib]System.") Then
+            Dim getcommondtype As String = value.Remove(0, value.LastIndexOf(conrex.DOT) + 1).ToLower
+            getcommondtype = servinterface.vb_to_cil_common_data_type(getcommondtype)
+            If is_cil_common_data_type(getcommondtype) Then
+                value = getcommondtype
+                Return True
+            ElseIf getcommondtype.ToLower = conrex.VOID Then
+                value = conrex.VOID
+                Return True
+            End If
+            Return False
+        End If
+        Return False
+    End Function
     Friend Shared Function get_target_info(clinecodestruc As xmlunpkd.linecodestruc) As lexer.targetinf
         Dim linecinf As New lexer.targetinf
         linecinf.lstart = clinecodestruc.ist
@@ -229,6 +264,28 @@ Public Class servinterface
     End Function
 
     Friend Shared Function is_variable(ilmethod As ilformat._ilmethodcollection, varname As String, ByRef getdatatype As String) As Boolean
+        If varname.Contains(conrex.DBCLN) Then
+            Dim clinecodestruc As xmlunpkd.linecodestruc = create_fake_linecodestruc(tokenhared.token.IDENTIFIER, varname)
+            Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc)
+            If propresult.identvalid Then
+                Dim classindex, namespaceindex As Integer
+                Dim reclassname As String = String.Empty
+                Dim isvirtualmethod As Boolean = False
+                If libserv.get_extern_index_class(ilmethod, propresult.exclass, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
+                    Return False
+                End If
+                propresult.asmextern = libserv.get_extern_assembly(namespaceindex)
+                Dim retpropertyinfo As PropertyInfo
+                If libserv.get_extern_index_property(propresult.clident, namespaceindex, classindex, retpropertyinfo) = -1 Then
+                    Return False
+                End If
+                getdatatype = servinterface.vb_to_cil_common_data_type(retpropertyinfo.PropertyType.Name)
+                If servinterface.is_cil_common_data_type(getdatatype) = False Then
+                    getdatatype = retpropertyinfo.PropertyType.ToString
+                End If
+                Return True
+            End If
+        End If
         varname = varname.ToLower
         If IsNothing(ilmethod.parameter) = False Then
             For index = 0 To ilmethod.parameter.Length - 1
@@ -252,7 +309,7 @@ Public Class servinterface
         If IsNothing(ilasmgen.classdata.fields) = False Then
             For index = 0 To ilasmgen.classdata.fields.Length - 1
                 If ilasmgen.classdata.fields(index).name.ToLower = varname Then
-                    getdatatype = ilasmgen.classdata.fields(index).ptype
+                    servinterface.is_common_data_type(ilasmgen.classdata.fields(index).ptype, getdatatype)
                     Return True
                 End If
             Next
@@ -261,6 +318,17 @@ Public Class servinterface
         Return False
     End Function
 
+    Friend Shared Function get_field_from_current_class(varname As String) As tknformat._pubfield
+        If IsNothing(ilasmgen.classdata.fields) = False Then
+            varname = varname.ToLower
+            For index = 0 To ilasmgen.classdata.fields.Length - 1
+                If ilasmgen.classdata.fields(index).name.ToLower = varname Then
+                    Return ilasmgen.classdata.fields(index)
+                End If
+            Next
+        End If
+        Return Nothing
+    End Function
     Friend Shared Function get_identifier_gb(varname As String, cargcodestruc As xmlunpkd.linecodestruc, ByRef getfield As tknformat._pubfield) As Boolean
         If varname.Contains("::") Then
             Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(cargcodestruc)
@@ -279,6 +347,20 @@ Public Class servinterface
         End If
 
         Return False
+    End Function
+
+    Friend Shared Function rep_data_type(datatype As String, ByRef resultdatatype As String) As Boolean
+        datatype = datatype.ToLower
+        If datatype.StartsWith("system.") Then
+            datatype = datatype.Remove(0, datatype.IndexOf(conrex.DOT) + 1)
+        End If
+
+        If servinterface.is_cil_common_data_type(datatype) Then
+            resultdatatype = datatype
+            Return True
+        Else
+            Return False
+        End If
     End Function
     Friend Shared classlist As New ArrayList
     Friend Shared Sub check_class_vaild(attr As yocaattribute.yoattribute, location As String)
@@ -324,7 +406,7 @@ Public Class servinterface
     End Sub
 
     Friend Shared Function trim_line_code_struc(clinecodestruc() As xmlunpkd.linecodestruc, index As Integer) As xmlunpkd.linecodestruc()
-        If clinecodestruc.Length < index Then Throw New IndexOutOfRangeException
+        If clinecodestruc.Length <index Then Throw New IndexOutOfRangeException
         Dim nretcodestruc() As xmlunpkd.linecodestruc
         Dim indexarray As Int16 = 0
         For stindex = index To clinecodestruc.Length - 1
@@ -356,5 +438,30 @@ Public Class servinterface
         Next
         coutputdata.write_data(cpath)
         Return cpath
+    End Function
+
+    Friend Shared Function create_fake_linecodestruc(token As tokenhared.token, value As String) As xmlunpkd.linecodestruc
+        Dim clinecodestruc As New xmlunpkd.linecodestruc
+        clinecodestruc.tokenid = token
+        clinecodestruc.value = value
+        clinecodestruc.name = [Enum].GetName(GetType(tokenhared.token), token)
+        Return clinecodestruc
+    End Function
+
+    Public Shared Function get_hash(val As String) As String
+        Dim hashcreator As MD5 = MD5.Create()
+        Dim dbytes As Byte() = hashcreator.ComputeHash(Encoding.UTF8.GetBytes(val))
+        Dim sb As New StringBuilder()
+        For i = 0 To dbytes.Length - 1
+            sb.Append(dbytes(i).ToString("X2"))
+        Next
+        Return sb.ToString()
+    End Function
+
+    Public Shared Function get_array_name(tokenvalue As String) As String
+        If tokenvalue.Contains(conrex.BRSTART) AndAlso tokenvalue.EndsWith(conrex.BREND) Then
+            tokenvalue = tokenvalue.Remove(tokenvalue.IndexOf(conrex.BRSTART))
+        End If
+        Return tokenvalue
     End Function
 End Class

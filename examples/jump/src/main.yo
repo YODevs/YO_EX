@@ -1,0 +1,21 @@
+#[app::classname("Jump_sample")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+  $startprocess:
+  let user , password : str
+  io::setin(user,"User : ")
+  io::setin(password,"Password : ")
+  if(user == "admin" && password == "12345")
+  {
+    io::println("You have logged in successfully.")
+    jmp $endprocess
+  }else
+  {
+    io::println("Input information is incorrect.")
+    jmp $startprocess
+  }
+  $endprocess:
+}
