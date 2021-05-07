@@ -40,7 +40,7 @@ Public Class ilasmconv
         ilasmproc.WaitForExit()
 
         If compdt.DISPLAYILASMOUTPUT Then Console.WriteLine(ilasmoutputdata.ToString())
-        coutputdata.write_file_data("conv_info.txt", ilasmoutputdata.ToString())
+        If compdt.DEVMOD Then coutputdata.write_file_data("conv_info.txt", ilasmoutputdata.ToString())
 
 
         If ilasmoutputdata.ToString.Contains("Operation completed successfully") Then

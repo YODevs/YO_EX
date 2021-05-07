@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "jmp_statement"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

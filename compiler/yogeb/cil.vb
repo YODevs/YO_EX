@@ -141,12 +141,22 @@
         codes.Add("call string [mscorlib]System.String::Concat(" & params & ")")
     End Sub
     Public Shared Sub load_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
+            'Action
+        Else
+            ptype &= " class " & ptype
+        End If
         name = cilkeywordchecker.get_key(name)
         classname = cilkeywordchecker.get_key(classname)
         ptype = cilkeywordchecker.get_key(ptype)
         codes.Add("ldsfld " & ptype & " " & classname & "::" & name)
     End Sub
     Public Shared Sub load_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
+            'Action
+        Else
+            ptype &= " class " & ptype
+        End If
         name = cilkeywordchecker.get_key(name)
         classname = cilkeywordchecker.get_key(classname)
         ptype = cilkeywordchecker.get_key(ptype)

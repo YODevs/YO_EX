@@ -28,14 +28,20 @@ Public Class fmtstrlit
         End If
         Return False
     End Function
-
     Private Shared Sub set_concat(ByRef ilmethod As ilformat._ilmethodcollection)
         cil.concat(ilmethod.codes, "string", paramcount)
         paramcount = 1
     End Sub
     Private Shared Sub load_identifier(ByRef ilmethod As ilformat._ilmethodcollection, varname As String, cargcodestruc As xmlunpkd.linecodestruc)
         Dim getdatatype As String = String.Empty
-        If servinterface.is_variable(ilmethod, varname, getdatatype) Then
+        If lexer.is_expression(varname) Then
+            load_expression(ilmethod, varname, cargcodestruc)
+            conv_to_string(ilmethod, "int32")
+            paramcount += 1
+            If paramcount = 4 Then
+                set_concat(ilmethod)
+            End If
+        ElseIf servinterface.is_variable(ilmethod, varname, getdatatype) Then
             servinterface.is_common_data_type(getdatatype, getdatatype)
             illdloc.ld_identifier(varname, ilmethod, cargcodestruc, Nothing, getdatatype)
             If servinterface.is_cil_common_data_type(getdatatype) Then
@@ -65,5 +71,16 @@ Public Class fmtstrlit
         If lastproc = False AndAlso paramcount = 4 Then
             set_concat(ilmethod)
         End If
+    End Sub
+
+    Private Shared Sub load_expression(ByRef _ilmethod As ilformat._ilmethodcollection, value As String, cargcodestruc As xmlunpkd.linecodestruc)
+        Try
+            Dim expr As expressiondt
+            expr = New expressiondt(_ilmethod, "i32")
+            _ilmethod = expr.parse_expression_data(value, True)
+        Catch ex As Exception
+            dserr.args.Add(ex.Message)
+            dserr.new_error(conserr.errortype.EXPRESSIONERROR, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
+        End Try
     End Sub
 End Class

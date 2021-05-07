@@ -434,9 +434,9 @@ Public Class servinterface
             Dim pathdotnetframework As String = Microsoft.Build.Utilities.ToolLocationHelper.GetPathToDotNetFrameworkFile("ilasm.exe", index)
             If pathdotnetframework <> conrex.NULL AndAlso File.Exists(pathdotnetframework) Then
                 cpath = pathdotnetframework
+                compdt.SYSTEMLIBPATH = Microsoft.Build.Utilities.ToolLocationHelper.GetPathToDotNetFrameworkFile("System.dll", index)
             End If
         Next
-        coutputdata.write_data(cpath)
         Return cpath
     End Function
 

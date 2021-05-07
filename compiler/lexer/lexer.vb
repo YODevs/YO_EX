@@ -573,4 +573,17 @@ Public Class lexer
     Public Sub displaytokens(token As tokenhared.token, value As String)
         Console.WriteLine([Enum].GetName(GetType(tokenhared.token), token) & "[" & token & "]" & " ~> " & value)
     End Sub
+
+    Friend Shared Function is_expression(value As String) As Boolean
+        If value.StartsWith("[") AndAlso value.EndsWith("]") Then
+            If value.Contains(conrex.DBDOT) = False Then
+                For index = 0 To compdt.expressionact.Length - 1
+                    If value.Contains(compdt.expressionact(index)) Then
+                        Return True
+                    End If
+                Next
+            End If
+        End If
+        Return False
+    End Function
 End Class
