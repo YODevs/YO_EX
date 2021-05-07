@@ -1,0 +1,48 @@
+#[app::classname('mylib')]
+
+private instance let i : i32
+private instance let a : i32
+private instance let b : i32
+
+public instance func ctor()
+{
+  a := 3
+  b := 4
+  i := 5
+}
+
+
+public instance func ctor(x:i32)
+{
+  a := x
+  b := a
+  i := x
+}
+
+public instance func ctor(x:i32,y:i32) :i32
+{
+  a := x
+  b := y
+  i := [y+x]
+}
+
+public instance func pow() : i32
+{
+  i ^= 2
+  return i
+}
+
+public instance func sum(x:i32,y:i32):i32
+{
+  return [x+y]
+}
+
+public instance func sum():i32
+{
+  return [a+b]
+}
+
+func sayhello(val:str) :str
+{
+  return "Hello #{val}"
+}

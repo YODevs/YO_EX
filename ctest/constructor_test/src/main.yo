@@ -1,0 +1,109 @@
+#[app::classname("MyApp")]
+
+
+include 'ystdio'
+func main()
+{
+  test1(17,18)
+  test2("Mahdi")
+  test3(10)
+  test4()
+  test5()
+  test6()
+  test7()
+  test8()
+  test9()
+  test10()
+  test11()
+}
+
+func test1(val:i32,val1:i32)
+{
+  let x : init mylib()
+  let result : i32 = x::sum(val,val1)
+  io::println("#{result}")
+}
+
+func test2(val:str)
+{
+  let result : str = mylib::sayhello(val)
+  io::println(result)
+}
+
+func test3(val:i32)
+{
+  let x : init mylib(val)
+  let result : i32 = x::pow()
+  io::println("#{result}")
+}
+
+func test4()
+{
+  let x : init mylib()
+  let result : i32 = x::pow()
+  io::println("#{result}")
+}
+
+func test5()
+{
+  let x : init mylib(10,5)
+  let result : i32 = x::sum()
+  io::println("#{result}")
+}
+
+func test6()
+{
+  let x : init mylib()
+  let result : i32 = x::pow()
+  io::println("#{result}")
+  result := x::sum()
+  io::println("#{result}")
+}
+
+func test7()
+{
+  let x : init mylib(6,5)
+  let result : i32 = x::sum()
+  io::println("#{result}")
+  let y : init mylib(8)
+  result := y::pow()
+  io::println("#{result}")
+}
+
+func test8()
+{
+  let x : init mylib(3,2)
+  let result : i32 = x::pow()
+  io::println("#{result}")
+  let y : init mylib(2)
+  result := y::sum()
+  io::println("#{result}")
+}
+
+func test9()
+{
+  let x : init mylib(5,4)
+  let result : i32 = x::pow()
+  io::println("#{result}")
+  result := x::sum()
+  io::println("#{result}")
+}
+
+func test10()
+{
+  let x : init mylib(10)
+  let result : i32 = x::pow()
+  io::println("#{result}")
+  result := x::sum()
+  io::println("#{result}")
+}
+
+func test11()
+{
+  let x : init mylib()
+  let result : i32 = x::sum()
+  io::println("#{result}")
+  let y : init mylib()
+  result := y::pow()
+  io::println("#{result}")
+}
