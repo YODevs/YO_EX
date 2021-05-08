@@ -164,12 +164,22 @@
     End Sub
 
     Public Shared Sub set_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
+            'Action
+        Else
+            ptype &= " class " & ptype
+        End If
         name = cilkeywordchecker.get_key(name)
         classname = cilkeywordchecker.get_key(classname)
         ptype = cilkeywordchecker.get_key(ptype)
         codes.Add("stsfld " & ptype & " " & classname & "::" & name)
     End Sub
     Public Shared Sub set_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
+        If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
+            'Action
+        Else
+            ptype &= " class " & ptype
+        End If
         name = cilkeywordchecker.get_key(name)
         classname = cilkeywordchecker.get_key(classname)
         ptype = cilkeywordchecker.get_key(ptype)
