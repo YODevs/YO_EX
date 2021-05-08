@@ -41,8 +41,6 @@ Public Class propertyste
 
     Private Shared Sub set_property(_ilmethod As ilformat._ilmethodcollection, retpropertyinfo As PropertyInfo, isvirtualmethod As Boolean, inline As Integer, clinecodestruc() As xmlunpkd.linecodestruc, propresult As identvalid._resultidentcvaild, optval As tokenhared.token)
         Dim ldloc As New illdloc(_ilmethod)
-        Dim setconvmethod As Boolean = convtc.setconvmethod
-        Dim ntypecast As String = convtc.ntypecast
         If isvirtualmethod Then
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
@@ -56,20 +54,18 @@ Public Class propertyste
         If servinterface.is_cil_common_data_type(gdatatype) = False Then
             gdatatype = retpropertyinfo.PropertyType.ToString
         End If
+        ldloc.load_single_in_stack(gdatatype, clinecodestruc(inline))
         Dim paramtype As New ArrayList
         Dim propertyclass As String = retpropertyinfo.ReflectedType.ToString
         Dim propertymethod As String = String.Format("set_{0}", retpropertyinfo.Name)
         paramtype.Add(gdatatype)
-        convtc.setconvmethod = setconvmethod
-        convtc.ntypecast = ntypecast
-        ldloc.load_single_in_stack(gdatatype, clinecodestruc(inline))
-        If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, gdatatype, propertymethod, clinecodestruc(inline))
         check_operator(optval, _ilmethod)
         If isvirtualmethod Then
             cil.call_virtual_method(_ilmethod.codes, "void", propresult.asmextern, propertyclass, propertymethod, paramtype)
         Else
             cil.call_extern_method(_ilmethod.codes, "void", propresult.asmextern, propertyclass, propertymethod, paramtype)
         End If
+        If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, gdatatype, propertymethod, clinecodestruc(inline))
     End Sub
 
     Private Shared Sub check_operator(optval As tokenhared.token, _ilmethod As ilformat._ilmethodcollection)
