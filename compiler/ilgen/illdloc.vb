@@ -116,6 +116,7 @@
 
         Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clineprop)
         If propresult.identvalid Then
+            propertyste.assignmentype = datatype
             propertyste.get_inv_property(New xmlunpkd.linecodestruc() {clineprop}, _ilmethod, propresult, 0)
             Return True
         End If
