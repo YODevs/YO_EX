@@ -53,6 +53,12 @@ Public Class fieldste
         Dim fieldname As String = retfieldinfo.Name
         Dim fclass As String = String.Format("[{0}]{1}", libserv.get_extern_assembly(namespaceindex), retfieldinfo.DeclaringType.FullName)
         Dim ftype As String = String.Format("[{0}]{1}", libserv.get_extern_assembly(retfieldinfo.FieldType.Assembly), retfieldinfo.FieldType.ToString)
+        If setconvmethod = False AndAlso illdloc.eq_data_types(propertyste.assignmentype, retfieldinfo.FieldType.ToString) = False Then
+            dserr.args.Add(retfieldinfo.FieldType.ToString)
+            dserr.args.Add(propertyste.assignmentype)
+            dserr.new_error(conserr.errortype.EXPLICITCONVERSION, clinecodestruc(0).line, ilbodybulider.path, "Method : " & _ilmethod.name & " - identifier : " & clinecodestruc(0).value & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
+            Return
+        End If
         If retfieldinfo.IsStatic Then
             cil.load_static_field(_ilmethod.codes, fieldname, ftype, fclass)
         Else
