@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "datetime"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

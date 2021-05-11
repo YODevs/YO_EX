@@ -1,0 +1,11 @@
+#[app::classname("datetime_example")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  let currenttime : str = yolib.date::get_now("{Y}/{M}/{D} - {h}:{m}:{s}")
+  io::println(currenttime)
+}
