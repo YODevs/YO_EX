@@ -1,6 +1,6 @@
 ﻿Public Class parampt
 
-    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc()) As Boolean
+    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc(), Optional paramfullname As ArrayList = Nothing) As Boolean
         Dim getdatatype As String = conrex.NULL
         For index = 0 To cargcodestruc.Length - 1
             getdatatype = paramtypes(index).ToString()
@@ -25,6 +25,8 @@
                     'Other Types
                     Dim crdatatype As String = String.Empty
                     If servinterface.is_variable(_ilmethod, cargcodestruc(0).value, crdatatype) AndAlso getdatatype.ToLower = crdatatype.ToLower Then
+                        Return True
+                    ElseIf IsNothing(paramfullname) = False AndAlso paramfullname(index).ToString.ToLower = crdatatype.ToLower Then
                         Return True
                     End If
                     Return False
