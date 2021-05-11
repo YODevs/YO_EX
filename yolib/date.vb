@@ -1,4 +1,16 @@
 ﻿Public Class [date]
+    Private Const YEAR As String = "Y"
+    Private Const MONTH As String = "M"
+    Private Const DAY As String = "D"
+    Private Const DAYOFWEEK As String = "DW"
+    Private Const DAYOFYEAR As String = "DY"
+    Private Const HOUR As String = "h"
+    Private Const MINUTE As String = "m"
+    Private Const SECOND As String = "s"
+    Private Const MILLISECOND As String = "t"
+    Private Const STARG As String = "{"
+    Private Const ENARG As String = "}"
+
     ''' <summary>
     ''' Return date and time in arbitrary format.
     ''' </summary>
@@ -11,10 +23,10 @@
         Dim formatteddate As String = format
         For Each getch As Char In format
             Select Case getch
-                Case "{"
+                Case STARG
                     getsingleformat = getch
                     activechargrabber = True
-                Case "}"
+                Case ENARG
                     activechargrabber = False
                     getsingleformat &= getch
                     'Validation and replacement in elementary history format
@@ -38,26 +50,24 @@
 
         'Identify constant expressions in string
         Select Case singleformat
-            Case "Y"
+            Case YEAR
                 setdate = DateTime.Now.Year
-            Case "M"
+            Case MONTH
                 setdate = DateTime.Now.Month
-            Case "D"
+            Case DAY
                 setdate = DateTime.Now.Day
-            Case "DW"
+            Case DAYOFWEEK
                 setdate = DateTime.Now.DayOfWeek
-            Case "DY"
+            Case DAYOFYEAR
                 setdate = DateTime.Now.DayOfYear
-            Case "h"
+            Case HOUR
                 setdate = DateTime.Now.Hour
-            Case "m"
+            Case MINUTE
                 setdate = DateTime.Now.Minute
-            Case "s"
+            Case SECOND
                 setdate = DateTime.Now.Second
-            Case "t"
+            Case MILLISECOND
                 setdate = DateTime.Now.Millisecond
-            Case Else
-                Return Nothing
         End Select
         Return setdate
     End Function
