@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "bomb"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

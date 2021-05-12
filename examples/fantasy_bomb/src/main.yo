@@ -1,0 +1,90 @@
+#[app::classname("bomb")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+private static let numberofwires : i32 = 3
+
+func main()
+{
+ system.console::title := "Fantasy Bomb"
+loop{
+ clear()
+ io::print("Choose an option:")
+ let result : str = yolib.menu::show_menu("!['Start Game','Setting','Exit']")
+ match(result)
+ {
+   case 'Start Game' {
+     start_game()
+   }
+   case 'Setting' {
+     setting()
+   }
+   case 'Exit' {
+     system.environment::exit(-1)
+   }
+
+ }
+}
+}
+
+func setting()
+{
+  io::print("Select the bomb level in the game: ")
+  let result : str = yolib.menu::show_menu("!['Easy','Normal','Hard']")
+  match(result)
+  {
+   case 'Easy' {
+     numberofwires := 2
+   }
+   case 'Normal' {
+     numberofwires := 3
+   }
+   case 'Hard' {
+     numberofwires := 5
+   }
+  }
+}
+func start_game()
+{
+ clear()
+ let resultgame : bool = true
+ let rand : init system.random()
+ to(numberofwires)
+ {
+  let randint : i32 = [i32]rand::next(0,3)
+  io::print("Cut a wire:")
+  let userinp : str = yolib.menu::show_menu("!['RED','GREEN','BLUE']")
+  if(randint == 0 && userinp == 'RED')
+  {
+    io::println("You have chosen the right wire!")
+  }elseif(randint == 1 && userinp == 'GREEN')
+  {
+    io::println("You have chosen the right wire!")
+  }elseif(randint == 2 && userinp == 'BLUE'){
+    io::println("You have chosen the right wire!")
+  }else{
+    resultgame := false
+    to(5)
+    {
+      system.console::beep()
+    }
+    break to
+  }
+ }
+
+ io::newline()
+ if(resultgame == true){
+   io::println("You defused the bomb !")
+ }else{
+   io::println("The bomb exploded !!!!!!!!!")
+ }
+ io::newline()
+ io::getln("Press Enter to play again ...")
+}
+
+private static func clear()
+{
+  system.console::clear()
+}
