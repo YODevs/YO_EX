@@ -1,0 +1,21 @@
+#[app::classname("list_example")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  let colors : init yolib.list()
+  colors::add_with_split('Red,Blue,Green',',')
+  colors::add('Black')
+  colors::add('White')
+  colors::sort()
+  let count : i32 = colors::count()
+  io::println("list count : #{count}")
+  for(index in [0..count])
+  {
+    let getitem  : str = colors::get(index)
+    io::println("#{[index + 1]}-#{getitem}")
+  }
+}
