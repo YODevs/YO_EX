@@ -1,6 +1,7 @@
 #[app::classname("MyApp")]
 
 extern YOLib
+include 'ystdio'
 
 func main()
 {
