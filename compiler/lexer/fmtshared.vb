@@ -299,13 +299,18 @@
             Case pbfieldstate.FIELDDTTPOPT
                 If rd_token = tokenhared.token.ASSINQ Then
                     fieldstate = pbfieldstate.FIELDTYPE
+                    xfield(i).initproc = False
                 Else
                     dserr.args.Add(value)
                     dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use the ':' operator." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), "let public static age : i32 = 51")
                 End If
             Case pbfieldstate.FIELDTYPE
-                xfield(i).ptype = value
-                fieldstate = pbfieldstate.EQOPT
+                If rd_token = tokenhared.token.INIT Then
+                    xfield(i).initproc = True
+                Else
+                    xfield(i).ptype = value
+                    fieldstate = pbfieldstate.EQOPT
+                End If
             Case pbfieldstate.EQOPT
                 If rd_token = tokenhared.token.EQUALS Then
                     fieldstate = pbfieldstate.FIELDVALUE
