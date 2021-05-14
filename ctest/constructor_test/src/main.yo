@@ -1,7 +1,7 @@
 #[app::classname("MyApp")]
 
+extern YOLib
 
-include 'ystdio'
 func main()
 {
   test1(17,18)
@@ -15,6 +15,8 @@ func main()
   test9()
   test10()
   test11()
+  test12()
+  test13("This Is A ")
 }
 
 func test1(val:i32,val1:i32)
@@ -106,4 +108,21 @@ func test11()
   let y : init mylib()
   result := y::pow()
   io::println("#{result}")
+}
+
+func test12()
+{
+  let map : init YOLib.map()
+  map::add('Mahdi','Developer')
+  map::add('Amin','CEO')
+  let count : i32 = map::size()
+  io::println("#{count}")
+}
+
+func test13(val:str)
+{
+  let sb : init System.Text.StringBuilder(val)
+  sb::append("Test Form StringBuilder Constructor")
+  let result : str = sb::tostring()
+  io::println(result)
 }
