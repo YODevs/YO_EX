@@ -52,6 +52,7 @@ Public Class tknformat
         Dim valuecinf As lexer.targetinf
         Dim valuetoken As tokenhared.token
         Dim objcontrol As fmtshared.objectcontrol
+        Dim initproc As Boolean
     End Structure
 
     Structure _inlcode
