@@ -57,4 +57,20 @@
             Return System.Environment.SystemDirectory
         End Get
     End Property
+
+    Public Shared Sub terminate()
+        terminate(0)
+    End Sub
+    Public Shared Sub terminate(exitcode As Integer)
+        System.Environment.Exit(exitcode)
+    End Sub
+
+    Public Shared Function get_env(envname As String) As String
+        Return System.Environment.GetEnvironmentVariable(envname)
+    End Function
+
+    Public Shared Sub set_env(envname As String, value As String)
+        System.Environment.SetEnvironmentVariable(envname, value)
+    End Sub
+
 End Class
