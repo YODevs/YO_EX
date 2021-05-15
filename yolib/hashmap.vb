@@ -56,7 +56,7 @@ Public Class map
         values.Add(value)
         Return True
     End Function
-    Public Function contains_Key(key As String) As Object
+    Public Function contains_key(key As String) As Object
         If key = Nothing Then
             Throw New Exception("Key is empty.")
         End If
