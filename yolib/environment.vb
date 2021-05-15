@@ -57,7 +57,11 @@
             Return System.Environment.SystemDirectory
         End Get
     End Property
-
+    Public ReadOnly Property arglen() As Integer
+        Get
+            Return System.Environment.GetCommandLineArgs.Length
+        End Get
+    End Property
     Public Shared Sub terminate()
         terminate(0)
     End Sub
@@ -72,5 +76,8 @@
     Public Shared Sub set_env(envname As String, value As String)
         System.Environment.SetEnvironmentVariable(envname, value)
     End Sub
-
+    Public Shared Function get_arg(index As Integer) As String
+        If System.Environment.GetCommandLineArgs.Length - 1 > index OrElse index < 0 Then Return Nothing
+        Return System.Environment.GetCommandLineArgs(index)
+    End Function
 End Class
