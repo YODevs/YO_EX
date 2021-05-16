@@ -46,7 +46,7 @@ Public Class propertyste
         Dim ldloc As New illdloc(_ilmethod)
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
-        If isvirtualmethod Then
+        If isvirtualmethod AndAlso retpropertyinfo.GetMethod.IsStatic = False Then
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
                 gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
@@ -68,7 +68,7 @@ Public Class propertyste
         ldloc.load_single_in_stack(gdatatype, clinecodestruc(inline))
         If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, gdatatype, propertymethod, clinecodestruc(inline))
         check_operator(optval, _ilmethod)
-        If isvirtualmethod Then
+        If isvirtualmethod AndAlso retpropertyinfo.GetMethod.IsStatic = False Then
             cil.call_virtual_method(_ilmethod.codes, "void", propresult.asmextern, propertyclass, propertymethod, paramtype)
         Else
             cil.call_extern_method(_ilmethod.codes, "void", propresult.asmextern, propertyclass, propertymethod, paramtype)
@@ -151,7 +151,7 @@ Public Class propertyste
             gdatatype = retpropertyinfo.PropertyType.ToString
         End If
         Dim propertyclass As String = retpropertyinfo.ReflectedType.ToString
-        If isvirtualmethod Then
+        If isvirtualmethod AndAlso retpropertyinfo.GetMethod.IsStatic = False Then
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
                 gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
@@ -160,7 +160,7 @@ Public Class propertyste
             ldloc.load_single_in_stack(retpropertyinfo.ReflectedType.ToString, gidentifier)
         End If
         Dim propertymethod As String = String.Format("get_{0}", retpropertyinfo.Name)
-        If isvirtualmethod Then
+        If isvirtualmethod AndAlso retpropertyinfo.GetMethod.IsStatic = False Then
             cil.call_virtual_method(_ilmethod.codes, gdatatype, propresult.asmextern, propertyclass, propertymethod, Nothing)
         Else
             cil.call_extern_method(_ilmethod.codes, gdatatype, propresult.asmextern, propertyclass, propertymethod, Nothing)
