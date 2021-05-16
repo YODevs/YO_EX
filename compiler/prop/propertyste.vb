@@ -34,6 +34,7 @@ Public Class propertyste
             Return
         End If
         can_write(retpropertyinfo, propresult, clinecodestruc)
+        check_access_control(retpropertyinfo.SetMethod, isvirtualmethod, clinecodestruc, propresult)
         'TODO : Properties support operators
         If optval <> tokenhared.token.ASSIDB Then
             get_inv_property(clinecodestruc, _ilmethod, propresult, inline)
@@ -129,7 +130,15 @@ Public Class propertyste
             Return
         End If
         can_read(retpropertyinfo, propresult, clinecodestruc)
+        check_access_control(retpropertyinfo.GetMethod, isvirtualmethod, clinecodestruc, propresult)
         get_property(_ilmethod, retpropertyinfo, isvirtualmethod, inline, clinecodestruc, propresult)
+    End Sub
+
+    Private Shared Sub check_access_control(methodinf As MethodInfo, isvirtualmethod As Boolean, clinecodestruc() As xmlunpkd.linecodestruc, propresult As identvalid._resultidentcvaild)
+        If methodinf.IsStatic = False AndAlso isvirtualmethod = False Then
+            dserr.args.Add("Property '" & propresult.clident.ToLower & "' , Reference to a non-shared member requires an object reference.")
+            dserr.new_error(conserr.errortype.PROPERTYERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), propresult.clident))
+        End If
     End Sub
 
     Private Shared Sub get_property(_ilmethod As ilformat._ilmethodcollection, retpropertyinfo As PropertyInfo, isvirtualmethod As Boolean, inline As Integer, clinecodestruc() As xmlunpkd.linecodestruc, propresult As identvalid._resultidentcvaild)
