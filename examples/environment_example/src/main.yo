@@ -1,0 +1,29 @@
+#[app::classname("env")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+ display_properties()
+ display_paths()
+}
+
+func display_properties()
+{
+  let user , osver  : str
+  let is64bitos : bool = yolib.environment::is64bitos
+  user := yolib.environment::username
+  osver := yolib.environment::osversion
+  io::println(" Username : #{user} #nl OS : #{osver} #nl 64BitOS ? #{is64bitos}")
+}
+
+func display_paths()
+{
+  let crdir , sysdir , appdir : str
+  crdir  := yolib.environment::crdir
+  sysdir := yolib.environment::sysdir
+  appdir := yolib.environment::appdir
+  io::println(" Current Directory : #{crdir} #nl System Directory : #{sysdir} #nl Application Directory : #{appdir}")
+}
