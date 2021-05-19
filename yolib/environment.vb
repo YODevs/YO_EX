@@ -46,7 +46,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property appdir() As String
+    Public Shared ReadOnly Property appdir() As String
         Get
             Return My.Application.Info.DirectoryPath
         End Get
