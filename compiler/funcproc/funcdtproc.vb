@@ -199,6 +199,7 @@
         Dim leref As Integer = reffunc.Length - 1
         Dim bextern As String = externname
         externname = externname.ToLower
+        If externname = "system" Then Return True
         For iref = 0 To leref
             If IsNothing(reffunc(iref).externlist) Then Continue For
             For index = 0 To reffunc(iref).externlist.Count - 1
