@@ -181,14 +181,16 @@ Public Class libserv
 
     Friend Shared Function get_extern_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, namespaceindex As Integer, classindex As Integer, ByRef ctorinfo As ConstructorInfo, ByRef methodinfo As tknformat._method) As Integer
         cargldr = Nothing
+        Dim retcode As Integer = -1
         For Each gconstructor In libreg.types(namespaceindex)(classindex).GetConstructors()
             If check_overloading(_ilmethod, gconstructor.GetParameters, cargcodestruc) Then
                 get_method_info(gconstructor, methodinfo)
                 ctorinfo = gconstructor
                 Return 1
             End If
+            retcode = 0
         Next
-        Return -1
+        Return retcode
     End Function
 
     Friend Shared Function get_extern_index_property(propertyname As String, namespaceindex As Integer, classindex As Integer, ByRef retproperty As PropertyInfo) As Integer
