@@ -69,9 +69,15 @@ Public Class funcste
             Dim freturntype As String = String.Format("[{0}]{1}", gexternassembly, greturntype)
             cil.call_virtual_method(_ilmethod.codes, freturntype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
         Else
+            If getdatatype <> conrex.VOID AndAlso servinterface.is_cil_common_data_type(getdatatype) = False Then
+                Dim gexternassembly As String = conrex.NULL
+                Dim greturntype As String = conrex.NULL
+                libserv.get_return_type(funcresult.clmethod, namespaceindex, classindex, methodindex, greturntype, gexternassembly)
+                getdatatype = String.Format("class [{0}]{1}", gexternassembly, greturntype)
+            End If
             cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
-        End If
-        If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
+            End If
+            If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
 
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
             cil.pop(_ilmethod.codes)
