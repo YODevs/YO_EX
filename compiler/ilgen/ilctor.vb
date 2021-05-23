@@ -78,15 +78,23 @@ Public Class ilctor
         Dim ctormethodinfo As ConstructorInfo
         Dim methodinfo As New tknformat._method
         rep_constructor_param(glinecodestruc)
-        Dim stateprop As Integer = libserv.get_extern_index_constructor(_ilmethod, funcste.get_argument_list(glinecodestruc), ctorinf.namespaceindex, ctorinf.classindex, ctormethodinfo, methodinfo)
-        If stateprop = -1 Then
-            If glinecodestruc(0).value.Contains(conrex.DBCLN) Then
-                glinecodestruc(0).value = glinecodestruc(0).value.Remove(glinecodestruc(0).value.IndexOf(conrex.DBCLN))
-            End If
-            dserr.args.Add("Constructor method not found.")
-            dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), glinecodestruc(0).value))
-            End If
-            Dim paramtype As ArrayList
+        Select Case libserv.get_extern_index_constructor(_ilmethod, funcste.get_argument_list(glinecodestruc), ctorinf.namespaceindex, ctorinf.classindex, ctormethodinfo, methodinfo)
+            Case 1
+                Exit Select
+            Case -1
+                If glinecodestruc(0).value.Contains(conrex.DBCLN) Then
+                    glinecodestruc(0).value = glinecodestruc(0).value.Remove(glinecodestruc(0).value.IndexOf(conrex.DBCLN))
+                End If
+                dserr.args.Add("Constructor method not found.")
+                dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), glinecodestruc(0).value))
+            Case 0
+                If glinecodestruc(0).value.Contains(conrex.DBCLN) Then
+                    glinecodestruc(0).value = glinecodestruc(0).value.Remove(glinecodestruc(0).value.IndexOf(conrex.DBCLN))
+                End If
+                dserr.args.Add("Constructor method [Overloads] , The parameters of the called function do not match its original function.")
+                dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), glinecodestruc(0).value))
+        End Select
+        Dim paramtype As ArrayList
         Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
         libserv.cargldr = Nothing
         If IsNothing(methodinfo.parameters) = False AndAlso methodinfo.parameters.Length > 0 Then
