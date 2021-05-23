@@ -25,6 +25,7 @@ Public Class libreg
         get_dll_list(path, files, True)
         get_dll_list(conrex.STDPATH, files, True)
         get_dll_info()
+        extract_dt_info_to_map([Assembly].LoadWithPartialName("System"))
         extract_dt_info_to_map([Assembly].Load("mscorlib"))
         procresult.rs_set_result(True)
     End Sub
