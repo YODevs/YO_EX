@@ -1,0 +1,50 @@
+#[app::classname("log")]
+
+extern yolib
+include 'ystdio'
+
+public static let printenabled : bool = false
+func set_debug(val:str)
+{
+ log_maker("DEBUG",val,false)
+}
+
+func set_info(val:str)
+{
+  log_maker("INFO",val,false)
+}
+
+func set_warn(val:str)
+{
+  log_maker("WARN",val,false)
+}
+
+func set_error(val:str)
+{
+  log_maker("ERROR",val,false)
+}
+
+func set_fatal(val:str)
+{
+  log_maker("FATAL",val,true)
+}
+
+private func log_maker(priority:str,val:str,killprocess:bool)
+{
+  let time : str = yolib.date::get_now("[{Y}/{M}/{D},{h}:{m}:{s}.{t}]")
+  let appdir : str = yolib.environment::appdir
+  let filename : str = "log.txt"
+  let result : str = "#{priority} => #{time} > #{val}"
+  let sw : system.io.streamwriter
+  sw := system.io.file::appendtext("#{appdir}\#{filename}")
+  sw::writeline(result)
+  sw::close()
+  if(printenabled == true)
+  {
+   system.console::writeline(result)
+  }
+  if(killprocess == true)
+  {
+    system.environment::exit(-1)
+  }
+}
