@@ -43,7 +43,11 @@ Public Class crproj
             Directory.CreateDirectory(path & "\src")
             Directory.CreateDirectory(path & "\assets")
 
-            File.WriteAllText(path & "\src\main.yo", conrex.MAINDEFCODE)
+            If proj.typeproject = "console" Then
+                File.WriteAllText(path & "\src\main.yo", conrex.MAINDEFCODE)
+            ElseIf proj.typeproject = "library" Then
+                File.WriteAllText(path & "\src\main.yo", conrex.MAINLIBDEFCODE)
+            End If
 
             File.WriteAllText(path & "\labra.yoda", get_labra_setting())
             If proj.createbatchfile Then File.WriteAllText(path & "\build & run.bat", conrex.BATCHFILESTR)
