@@ -31,7 +31,8 @@ Public Class cachegtr
         End If
         Dim sourcepath As String = cacheprojectdir & servinterface.get_hash(tknfmtclass.location)
         Dim sourceinfopath As String = sourcepath & conrex.YODAFORMAT
-        If File.Exists(sourcepath) = False OrElse File.Exists(sourceinfopath) = False Then
+        Dim yoobjpath As String = sourcepath & conrex.LEXCACHEFORMAT
+        If File.Exists(sourcepath) = False OrElse File.Exists(sourceinfopath) = False OrElse File.Exists(yoobjpath) = False Then
             tknfmtclass.cacheinf.active = False
         Else
             check_file_information(tknfmtclass, sourcepath, sourceinfopath)
