@@ -34,6 +34,45 @@
  
  بعد از انتخاب نام پروژه باید نوع پروژه را مشخص کنید.
 برای مثال می توان از منو گزینه `Console` را انتخاب کرد تا یک پروژه کنسول را بسازد.
+ 
+ حالا می توانید به پوشه پروژه ساخته شده و زیر شاخه `src` بروید و فایل main.yo را به عنوان یک فایل یولنگ ادیت کنید 
+<div dir="ltr">
+ 
+```f#
+#[app::classname("myfirstapp")]
+include 'ystdio'
+func main()
+{
+ io::print('Hello World!')
+}
+```
+ 
+ </div>
+ 
+ سپس برای کامپایل پروژه کافیست از مسیر اصلی پروژه CMD یا Powershell را باز کنید و دستور زیر را وارد کنید :
+ - **کامپایل پروژه**
+ 
+ <div dir="ltr">
+ 
+ ```bat
+yoca build
+```
+ </div>
+ 
+ - **کامپایل + اجرا**
+
+ <div dir="ltr">
+ 
+ ```bat
+yoca run
+```
+  
+ </div>
+ 
+ برای نمونه مانند تصویر زیر صورت می گیرد :
+<img src="https://raw.githubusercontent.com/YODevs/YO/master/icons/compile-project.gif">
+
+ > خروجی های کامپایل شده در مسیر `target>debug|release` تولید می شوند.
 </div>
 
   
