@@ -70,6 +70,7 @@ yoca run
  </div>
  
  برای نمونه مانند تصویر زیر صورت می گیرد :
+ 
 <img src="https://raw.githubusercontent.com/YODevs/YO/master/icons/compile-project.gif">
 
  > خروجی های کامپایل شده در مسیر `target>debug|release` تولید می شوند.
