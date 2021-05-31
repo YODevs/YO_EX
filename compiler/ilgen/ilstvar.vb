@@ -22,7 +22,7 @@ Public Class ilstvar
             clinecodestruc.tokenid = tokenhared.token.IDENTIFIER
             clinecodestruc.line = cargcodestruc.line
             cargcodestruc.ile = nvar.Length
-            Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc)
+            Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, clinecodestruc)
             If hresult.identvalid = True Then
                 If hresult.callintern = True Then
                     If st_field_global(hresult, _ilmethod, cargcodestruc, datatype) Then Return True

@@ -207,7 +207,7 @@
             funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
             Return
         End If
-        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc(0))
+        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, clinecodestruc(0))
         If clinecodestruc.Length < 3 Then
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
             Return

@@ -266,7 +266,7 @@ Public Class servinterface
     Friend Shared Function is_variable(ilmethod As ilformat._ilmethodcollection, varname As String, ByRef getdatatype As String) As Boolean
         If varname.Contains(conrex.DBCLN) Then
             Dim clinecodestruc As xmlunpkd.linecodestruc = create_fake_linecodestruc(tokenhared.token.IDENTIFIER, varname)
-            Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc)
+            Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(ilmethod, clinecodestruc)
             If propresult.identvalid Then
                 Dim classindex, namespaceindex As Integer
                 Dim reclassname As String = String.Empty
@@ -329,9 +329,9 @@ Public Class servinterface
         End If
         Return Nothing
     End Function
-    Friend Shared Function get_identifier_gb(varname As String, cargcodestruc As xmlunpkd.linecodestruc, ByRef getfield As tknformat._pubfield) As Boolean
+    Friend Shared Function get_identifier_gb(_ilmethod As ilformat._ilmethodcollection, varname As String, cargcodestruc As xmlunpkd.linecodestruc, ByRef getfield As tknformat._pubfield) As Boolean
         If varname.Contains("::") Then
-            Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(cargcodestruc)
+            Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc)
             If hresult.identvalid = True Then
                 Dim getfieldindex As Integer = -1
                 If hresult.callintern = True Then
