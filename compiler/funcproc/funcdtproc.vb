@@ -161,6 +161,14 @@
         End If
     End Function
 
+    Friend Shared Function get_class_name(classindex As Integer) As String
+        Dim resultclassindex As mapstoredata.dataresult = refrecord.findkey(classindex)
+        If resultclassindex.issuccessful Then
+            Return resultclassindex.result
+        Else
+            Return Nothing
+        End If
+    End Function
     Friend Shared Function get_method_info(classindex As Integer, methodindex As Integer) As tknformat._method
         Return reffunc(classindex).methods(methodindex)
     End Function
