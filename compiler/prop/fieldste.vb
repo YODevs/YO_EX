@@ -54,26 +54,23 @@ Public Class fieldste
         End If
         Dim nfield As tknformat._pubfield = funcdtproc.get_field_info(classindex, fieldindex)
         Dim gdatatype As String = nfield.ptype
+        servinterface.is_common_data_type(gdatatype, gdatatype)
         If isvirtualmethod Then
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
                 gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
                 gidentifier.ile = gidentifier.value.Length
             End If
-            ldloc.load_single_in_stack(gdatatype, gidentifier)
-
+            ldloc.load_single_in_stack(funcdtproc.get_class_name(classindex), gidentifier)
             ldloc.load_single_in_stack(gdatatype, clinecodestruc(inline))
             cil.set_field(ilmethod.codes, fieldname, gdatatype, fieldresult.exclass)
         Else
             ldloc.load_single_in_stack(gdatatype, clinecodestruc(inline))
             cil.set_static_field(ilmethod.codes, fieldname, gdatatype, fieldresult.exclass)
         End If
-
-
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
         If convtc.setconvmethod Then convtc.set_type_cast(ilmethod, gdatatype, fieldname, clinecodestruc(inline))
-
     End Sub
 
     Friend Shared Sub get_external_field(clinecodestruc() As xmlunpkd.linecodestruc, _ilmethod As ilformat._ilmethodcollection, fieldresult As identvalid._resultidentcvaild, inline As Integer, namespaceindex As Integer, classindex As Integer, retfieldinfo As FieldInfo, isvirtualmethod As Boolean)
