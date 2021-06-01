@@ -32,7 +32,9 @@
             resultvalid.clident = True
             resultvalid.callintern = True
             set_identifier_valid(clinecodestruc, resultvalid)
+            Dim bfexclass As String = resultvalid.exclass
             Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, resultvalid.exclass)
+            resultvalid.exclass = bfexclass
             If classindex <> -1 Then
                 resultvalid.classindex = classindex
                 resultvalid.identvalid = True
