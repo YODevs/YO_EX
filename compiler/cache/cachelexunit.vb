@@ -34,12 +34,12 @@ Public Class cachelexunit
     End Sub
     Friend Shared Sub load_includes(tknfmtclass As tknformat._class())
         Dim cacheprojectdir As String = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
-        For index = 0 To tknfmtclass.Length - 1
-            MsgBox(tknfmtclass(index).includelist.Count)
-        Next
-        If Directory.Exists(cacheprojectdir) AndAlso File.Exists(cacheprojectdir & "includes.yoda") Then
-            Dim yoda As New YODA.YODA_Format
-            incfile.incspath = yoda.ReadYODA(File.ReadAllText(cacheprojectdir & "includes.yoda"))
+        If Directory.Exists(cacheprojectdir) Then
+            For index = 0 To tknfmtclass.Length - 1
+                For i2 = 0 To tknfmtclass(index).includelist.Count - 1
+                    incfile.add_new_path(tknfmtclass(index).includelist(i2).ToString)
+                Next
+            Next
         End If
     End Sub
 
