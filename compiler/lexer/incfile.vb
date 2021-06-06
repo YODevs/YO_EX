@@ -10,6 +10,17 @@ Public Class incfile
         Dim isexist As Boolean
         Dim replist As Boolean
     End Structure
+
+    Friend Shared Sub add_new_path(path As String)
+        Dim addpath As Boolean = True
+        For index = 0 To incspath.Count - 1
+            If incspath(index).ToString = path Then
+                addpath = False
+                Exit For
+            End If
+        Next
+        If addpath Then incspath.Add(path)
+    End Sub
     Public Shared Sub set_new_include_source(ByRef includelist As ArrayList, value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         linecodeinf = linecinf
         If rd_token = tokenhared.token.TYPE_CO_STR OrElse rd_token = tokenhared.token.TYPE_DU_STR Then
