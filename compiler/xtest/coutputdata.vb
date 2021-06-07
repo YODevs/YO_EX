@@ -22,7 +22,7 @@ Public Class coutputdata
             Return
         End If
         For index = 0 To arr.Count - 1
-            Console.WriteLine("{0}-> {1}", arr(index))
+            Console.WriteLine("{0}-> {1}", index, arr(index))
         Next
     End Sub
     Public Shared Sub message_box(text As String)
