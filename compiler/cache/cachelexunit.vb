@@ -63,7 +63,6 @@ Public Class cachelexunit
                 save_single_include_file(frclass(index))
             End If
         Next
-        save_include_file()
     End Sub
 
     Private Sub save_single_include_file(frclass As tknformat._class)
@@ -76,7 +75,7 @@ Public Class cachelexunit
             File.WriteAllText(path, getincludeyodafmt)
         End If
     End Sub
-    Private Sub save_include_file()
+    Friend Shared Sub save_include_file()
         Dim includes As New YODA.YODA_Format
         Dim getincludeyodafmt As String = includes.WriteYODA(incfile.incspath)
         File.WriteAllText(cachemkr.cacheprojectdir & "includes.yoda", getincludeyodafmt)
