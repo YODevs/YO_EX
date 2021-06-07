@@ -8,6 +8,7 @@ Public Class impfiles
             If get_colc_yo_files(dir, files, True) Then
                 Dim tknfmtclass(files.Count - 1) As tknformat._class
                 procresult.set_state("lex")
+                cachelexunit.load_includes()
                 For index = 0 To files.Count - 1
                     If cachelexunit.check_lexer_cache(tknfmtclass(index), files(index).ToString) = False Then
                         Dim lex As New lexer(files(index).ToString)
@@ -24,6 +25,7 @@ Public Class impfiles
                 If compdt.NOCACHE = False AndAlso compdt.DEVMOD = False Then
                     Dim calex As New cachelexunit(tknfmtclass)
                     calex.lex_to_serialization()
+                    cachelexunit.save_include_file()
                 End If
             Else
                 Return
@@ -40,8 +42,8 @@ Public Class impfiles
         Dim bfindex As Integer = tknfmtclass.Length
         Array.Resize(tknfmtclass, tknfmtclass.Length + incfile.incspath.Count)
         For index = 0 To incfile.incspath.Count - 1
+            includelexlist.Add(incfile.incspath(index).ToString)
             If cachelexunit.check_lexer_cache(tknfmtclass(bfindex + index), incfile.incspath(index).ToString) = False Then
-                includelexlist.Add(incfile.incspath(index).ToString)
                 Dim lex As New lexer(incfile.incspath(index).ToString)
                 lex.lexme(tknfmtclass(bfindex + index))
             End If
@@ -64,10 +66,10 @@ Public Class impfiles
             If lexfile Then
                 Dim bfindex As Integer = tknfmtclass.Length
                 Array.Resize(tknfmtclass, bfindex + 1)
+                includelexlist.Add(incfile.incspath(index).ToString)
                 If cachelexunit.check_lexer_cache(tknfmtclass(bfindex), incfile.incspath(index).ToString) = False Then
                     Dim lex As New lexer(incfile.incspath(index).ToString)
                     lex.lexme(tknfmtclass(bfindex))
-                    includelexlist.Add(incfile.incspath(index).ToString)
                 End If
                 servinterface.check_class_vaild(tknfmtclass(bfindex).attribute, tknfmtclass(bfindex).location)
                 funcdtproc.import_method(tknfmtclass(bfindex))
