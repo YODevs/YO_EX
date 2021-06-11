@@ -618,6 +618,11 @@
                 Dim ctor As New ilctor(ilmethod)
                 ilmethod = ctor.set_new_ctor(index, clinecodestruc, _illocalinit, localinit)
                 localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
+                Dim indclass As Integer = 3
+                If _illocalinit(index).ctor Then
+                    indclass = 4
+                End If
+                yotypecreator.get_type_info(ilmethod, clinecodestruc, indclass, _illocalinit(index).datatype)
                 Return
             End If
             _illocalinit(index).hasdefaultvalue = False
