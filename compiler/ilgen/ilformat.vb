@@ -67,6 +67,7 @@
         Dim externlib As String
         Dim isprimitive As Boolean
         Dim yosymbol As String
+        Dim asminfo As String
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
