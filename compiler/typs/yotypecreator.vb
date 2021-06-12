@@ -35,6 +35,7 @@
         tpinf.fullname = tp.ToString
         tpinf.name = tp.Name
         tpinf.namespace = tp.Namespace
+        tpinf.asminfo = tp.AssemblyQualifiedName
         tpinf.isprimitive = False
         Return tpinf
     End Function
