@@ -83,6 +83,22 @@ yoca run
 | **`target`** | خروجی‌های کامپایل شده در این  پوشه و زیر مجموعه `release` یا `debug` ذخیره می کند. |
 | **`labra.yoda`** | تنظیمات عمومی پروژه و اطلاعات کلی در مورد پروژه را به کامپایلر معرفی می کند. |
 
+ ## کامنت ها و توضیحات
+
+ 
+ <div dir="ltr">
+  
+```
+#> This is a single-line comment.
+  
+#-
+This is a multi-line comment.
+...
+...
+-#
+  
+```
+  
 </div>
 
   
