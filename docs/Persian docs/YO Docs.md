@@ -83,6 +83,86 @@ yoca run
 | **`target`** | خروجی‌های کامپایل شده در این  پوشه و زیر مجموعه `release` یا `debug` ذخیره می کند. |
 | **`labra.yoda`** | تنظیمات عمومی پروژه و اطلاعات کلی در مورد پروژه را به کامپایلر معرفی می کند. |
 
+ ## کامنت ها و توضیحات
+
+ 
+ <div dir="ltr">
+  
+```
+#> This is a single-line comment.
+  
+#-
+This is a multi-line comment.
+...
+...
+-#
+  
+```
+ </div>
+ 
+ ## توابع
+  
+   <div dir="ltr">
+
+ ```f#
+#[app::classname("function_sample")]
+#[app::wait(true)]
+
+include "ystdio"
+func main()
+{
+ say_hello()
+ io::newline()
+ add(7,4)
+}
+
+func say_hello()
+{
+ io::print("Welcome to myapp .")
+}
+
+func add(a : i32 , b : i32)
+{
+  let c : i32 = [a + b]
+  io::println("#{a} + #{b} = #{c} ")
+}
+```
+    
+  </div>
+ 
+  توابع در یولنگ ، می توانند به صورت `overloading` نیز نوشته شود.
+   
+   <div dir="ltr">
+
+ ```f#
+func main()
+{
+ let result : i32 = 0
+ result := pow(5)
+ system.console::writeline(result)
+ result := pow(5,3)
+ system.console::writeline(result)
+}
+
+func pow(base : i32) : i32
+{
+  return [base * base]
+}
+
+func pow(base : i32 , power : i32) : i32
+{
+  let result : i32 = 1
+  to(power)
+  {
+    result *= base
+  }
+  return result
+}
+
+```
+    
+  </div>
+ 
 </div>
 
   
