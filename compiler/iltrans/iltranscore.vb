@@ -622,7 +622,7 @@
                 If _illocalinit(index).ctor Then
                     indclass = 4
                 End If
-                yotypecreator.get_type_info(ilmethod, clinecodestruc, indclass, _illocalinit(index).datatype)
+                _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, indclass, _illocalinit(index).datatype)
                 Return
             End If
             _illocalinit(index).hasdefaultvalue = False
