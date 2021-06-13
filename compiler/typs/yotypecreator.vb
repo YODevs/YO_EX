@@ -1,8 +1,10 @@
-﻿Public Class yotypecreator
+﻿Imports System.Reflection
+
+Public Class yotypecreator
     Public Shared Function get_type_info(ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc(), indclass As Integer, typestr As String) As ilformat._typeinfo
         Dim tpinf As New ilformat._typeinfo
         If servinterface.is_cil_common_data_type(typestr) OrElse servinterface.is_common_data_type(typestr, Nothing) Then
-
+            get_common_dtype(tpinf, typestr)
         Else
             Dim classresult As funcvalid._resultfuncvaild = get_class_valid_rtype(ilmethod, clinecodestruc, indclass)
             If classresult.callintern Then
@@ -14,6 +16,11 @@
         Return tpinf
     End Function
 
+    Friend Shared Sub get_common_dtype(ByRef tpinf As ilformat._typeinfo, typestr As String)
+        typestr = servinterface.cil_to_vb_common_data_type(typestr)
+        Dim tp As Type = Type.GetType("System." & typestr, True, True)
+        MsgBox(tp.AssemblyQualifiedName)
+    End Sub
     Friend Shared Sub get_external_type(ilmethod As ilformat._ilmethodcollection, ByRef tpinf As ilformat._typeinfo, clinecodestruc As xmlunpkd.linecodestruc(), classresult As funcvalid._resultfuncvaild, indclass As Integer)
         Dim classindex, namespaceindex As Integer
         Dim reclassname As String = String.Empty
