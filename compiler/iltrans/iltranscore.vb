@@ -570,6 +570,7 @@
                 _illocalinit(index).ctor = False
                 _illocalinit(index).valtpinf.structuretype = ilformat._valuetypestructure.NOTHING
                 localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
+                _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, 3, _illocalinit(index).datatype)
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
