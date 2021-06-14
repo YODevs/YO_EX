@@ -17,9 +17,16 @@ Public Class yotypecreator
     End Function
 
     Friend Shared Sub get_common_dtype(ByRef tpinf As ilformat._typeinfo, typestr As String)
-        typestr = servinterface.cil_to_vb_common_data_type(typestr)
-        Dim tp As Type = Type.GetType("System." & typestr, True, True)
-        MsgBox(tp.AssemblyQualifiedName)
+        Dim ctypestr As String = servinterface.cil_to_vb_common_data_type(typestr)
+        Dim tp As Type = Type.GetType("System." & ctypestr, True, True)
+        tpinf.externlib = tp.Assembly.GetName().Name
+        tpinf.fullname = tp.ToString
+        tpinf.name = tp.Name
+        tpinf.namespace = tp.Namespace
+        tpinf.asminfo = tp.AssemblyQualifiedName
+        tpinf.isprimitive = True
+        tpinf.cdttypesymbol = typestr
+        servinterface.get_yo_common_data_type(typestr, tpinf.yosymbol)
     End Sub
     Friend Shared Sub get_external_type(ilmethod As ilformat._ilmethodcollection, ByRef tpinf As ilformat._typeinfo, clinecodestruc As xmlunpkd.linecodestruc(), classresult As funcvalid._resultfuncvaild, indclass As Integer)
         Dim classindex, namespaceindex As Integer
