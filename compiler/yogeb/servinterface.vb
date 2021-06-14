@@ -179,6 +179,13 @@ Public Class servinterface
         End If
         Return datatype
     End Function
+    Friend Shared Sub get_cil_byte_types(ByRef datatype As String)
+        If datatype.ToLower = "int8" Then
+            datatype = "SByte"
+        ElseIf datatype.ToLower = "uint8" Then
+            datatype = "Byte"
+        End If
+    End Sub
     Friend Shared Function is_cil_common_data_type(datatype As String) As Boolean
         For index = 0 To conrex.msilcommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index) Then
