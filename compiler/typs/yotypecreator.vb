@@ -18,6 +18,7 @@ Public Class yotypecreator
 
     Friend Shared Sub get_common_dtype(ByRef tpinf As ilformat._typeinfo, typestr As String)
         Dim ctypestr As String = servinterface.cil_to_vb_common_data_type(typestr)
+        servinterface.get_cil_byte_types(ctypestr)
         Dim tp As Type = Type.GetType("System." & ctypestr, True, True)
         tpinf.externlib = tp.Assembly.GetName().Name
         tpinf.fullname = tp.ToString
