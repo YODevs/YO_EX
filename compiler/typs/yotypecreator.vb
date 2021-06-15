@@ -1,4 +1,5 @@
 ﻿Imports System.Reflection
+Imports YOCA
 
 Public Class yotypecreator
     Public Shared Function get_type_info(ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc(), indclass As Integer, typestr As String) As ilformat._typeinfo
@@ -8,13 +9,34 @@ Public Class yotypecreator
         Else
             Dim classresult As funcvalid._resultfuncvaild = get_class_valid_rtype(ilmethod, clinecodestruc, indclass)
             If classresult.callintern Then
-
+                get_internal_type(ilmethod, tpinf, clinecodestruc, classresult, indclass)
             Else
                 get_external_type(ilmethod, tpinf, clinecodestruc, classresult, indclass)
             End If
         End If
         Return tpinf
     End Function
+
+    Private Shared Sub get_internal_type(ilmethod As ilformat._ilmethodcollection, ByRef tpinf As ilformat._typeinfo, clinecodestruc() As xmlunpkd.linecodestruc, classresult As funcvalid._resultfuncvaild, indclass As Integer)
+        Dim classindex As Integer
+        Dim isvirtualmethod As Boolean = False
+        Dim classname As String = classresult.exclass
+        classindex = funcdtproc.get_index_class(ilmethod, classname, isvirtualmethod)
+        If classindex = -1 Then
+            dserr.args.Add("Class '" & classname & "' not found.")
+            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(indclass).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(indclass)), clinecodestruc(indclass).value))
+            Return
+        End If
+        tpinf.fullname = classname
+        If classname.Contains(conrex.DOT) Then
+            tpinf.name = classname.Remove(0, classname.IndexOf(conrex.DOT) + 1)
+            tpinf.namespace = classname.Remove(classname.LastIndexOf(conrex.DOT) + 1)
+        Else
+            tpinf.name = classname
+        End If
+        tpinf.isprimitive = False
+        tpinf.asminfo = classname
+    End Sub
 
     Friend Shared Sub get_common_dtype(ByRef tpinf As ilformat._typeinfo, typestr As String)
         Dim ctypestr As String = servinterface.cil_to_vb_common_data_type(typestr)
