@@ -4,8 +4,12 @@ Public Class initact
     Friend Shared Sub set_initial_process()
         check_environment_variable()
         set_compiler_statistics()
+        install_extension()
     End Sub
 
+    Private Shared Sub install_extension()
+        yoext.extensioninstaller.install_extensions()
+    End Sub
     Private Shared Sub set_compiler_statistics()
         Console.Write("Generate data for compiler statistics :: ")
         Try
