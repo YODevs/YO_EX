@@ -36,6 +36,8 @@ Public Class yotypecreator
         End If
         tpinf.isprimitive = False
         tpinf.asminfo = classname
+        tpinf.isclass = True
+        tpinf.isinternalclass = True
     End Sub
 
     Friend Shared Sub get_common_dtype(ByRef tpinf As ilformat._typeinfo, typestr As String)
@@ -49,6 +51,8 @@ Public Class yotypecreator
         tpinf.asminfo = tp.AssemblyQualifiedName
         tpinf.isprimitive = True
         tpinf.cdttypesymbol = typestr
+        tpinf.isclass = False
+        tpinf.isinternalclass = False
         servinterface.get_yo_common_data_type(typestr, tpinf.yosymbol)
     End Sub
     Friend Shared Sub get_external_type(ilmethod As ilformat._ilmethodcollection, ByRef tpinf As ilformat._typeinfo, clinecodestruc As xmlunpkd.linecodestruc(), classresult As funcvalid._resultfuncvaild, indclass As Integer)
@@ -74,6 +78,8 @@ Public Class yotypecreator
         tpinf.namespace = tp.Namespace
         tpinf.asminfo = tp.AssemblyQualifiedName
         tpinf.isprimitive = False
+        tpinf.isclass = True
+        tpinf.isinternalclass = False
         Return tpinf
     End Function
     Private Shared Function get_class_valid_rtype(ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc(), indclass As Integer) As funcvalid._resultfuncvaild
