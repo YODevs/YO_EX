@@ -66,6 +66,8 @@
         Dim fullname As String
         Dim externlib As String
         Dim isprimitive As Boolean
+        Dim isclass As Boolean
+        Dim isinternalclass As Boolean
         Dim yosymbol As String
         Dim cdttypesymbol As String
         Dim asminfo As String
