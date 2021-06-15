@@ -132,6 +132,7 @@ Public Class servinterface
     End Function
 
     Friend Shared Function is_common_data_type(datatype As String, ByRef cildatatype As String) As Boolean
+        If datatype = conrex.NULL Then Return False
         datatype = datatype.ToLower
         For index = 0 To conrex.yocommondatatype.Length - 1
             If datatype = conrex.yocommondatatype(index) Then
