@@ -253,28 +253,54 @@ call instance void [mscorlib]System.Object::.ctor()")
         add_il_code(".locals init(")
         Dim islot As Integer = 0
         For index = 0 To funcdt.locallinit.Length - 1
+            If funcdt.locallinit(index).datatype = conrex.NULL Then Continue For
             Dim classref As String = String.Empty
             Dim dllref As String = String.Empty
-            If funcdt.locallinit(index).datatype = conrex.NULL Then Continue For
-            If funcdt.locallinit(index).iscommondatatype = False Then
-                classref = "class "
-                If funcdt.locallinit(index).asmextern <> conrex.NULL Then
-                    dllref = String.Format("[{0}]", funcdt.locallinit(index).asmextern)
+            If funcdt.locallinit(index).typeinf.asminfo <> conrex.NULL Then
+                If funcdt.locallinit(index).typeinf.isprimitive = False Then
+                    classref = compdt.CLASS
+                    If funcdt.locallinit(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", funcdt.locallinit(index).typeinf.externlib)
                 End If
-            End If
-
-            Dim arrlgo As String = String.Empty
-            funcdt.locallinit(index).name = cilkeywordchecker.get_key(funcdt.locallinit(index).name)
-            funcdt.locallinit(index).datatype = cilkeywordchecker.get_key(funcdt.locallinit(index).datatype)
-            If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
-            If funcdt.locallinit.Length = index + 1 Then
-                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name)
+                Dim arrlgo As String = String.Empty
+                Dim fullname As String = String.Empty
+                funcdt.locallinit(index).name = cilkeywordchecker.get_key(funcdt.locallinit(index).name)
+                If funcdt.locallinit(index).typeinf.isprimitive Then
+                    fullname = cilkeywordchecker.get_key(funcdt.locallinit(index).typeinf.cdttypesymbol)
+                Else
+                    fullname = cilkeywordchecker.get_key(funcdt.locallinit(index).typeinf.fullname)
+                End If
+                If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
+                Dim locinitcode As String = String.Format("[{0}] {1} {2}{3}{4} {5}", islot, classref, dllref, fullname, arrlgo, funcdt.locallinit(index).name)
+                add_il_code(locinitcode)
+                If funcdt.locallinit.Length <> index + 1 Then
+                    add_inline_code(conrex.CMA)
+                End If
             Else
-                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name & " , ")
+                imp_locals_init_lgcy(funcdt, index, islot)
             End If
             islot += 1
         Next
         add_il_code(")")
+    End Sub
+
+    Private Sub imp_locals_init_lgcy(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, islot As Integer)
+        Dim classref As String = String.Empty
+        Dim dllref As String = String.Empty
+        If funcdt.locallinit(index).iscommondatatype = False Then
+            classref = "class "
+            If funcdt.locallinit(index).asmextern <> conrex.NULL Then
+                dllref = String.Format("[{0}]", funcdt.locallinit(index).asmextern)
+            End If
+        End If
+        Dim arrlgo As String = String.Empty
+        funcdt.locallinit(index).name = cilkeywordchecker.get_key(funcdt.locallinit(index).name)
+        funcdt.locallinit(index).datatype = cilkeywordchecker.get_key(funcdt.locallinit(index).datatype)
+        If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
+        If funcdt.locallinit.Length = index + 1 Then
+            add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name)
+        Else
+            add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name & " , ")
+        End If
     End Sub
     Private Sub imp_body(funcdt As ilformat._ilmethodcollection, ByRef impretopt As Boolean)
         Dim linecode As String = String.Empty
