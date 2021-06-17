@@ -182,7 +182,31 @@ func sum(a : i32 , b : i32) : i32
  ```
  </div>
  
+  ### ارجاع از طریق منبع - pass by reference
+  برای استفاده از خاصیت `byref` در توابع کافیست بعد از تایپ پارامتر از `&` استفاده کنیم.
+ در مثال پایین مقادیر دو متغیر باهم جا به جا می شوند.
+  <div dir="ltr">
 
+```f#
+include 'ystdio'
+func main()
+{
+ let team1 , team2 : str
+ team1 := "Chelsea"
+ team2 := "Barcelona"
+ io::println("Team1 : #{team1} Team2 : #{team2}")
+ swap(team1,team2)
+ io::println("Team1 : #{team1} Team2 : #{team2}")
+}
+
+func swap(val1 : str& , val2 : str&)
+{
+ let midval : str = val1
+ val1 := val2
+ val2 := midval
+}
+ ```
+ </div>
 </div>
 
   
