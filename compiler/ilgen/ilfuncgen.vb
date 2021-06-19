@@ -43,6 +43,11 @@
         End If
 
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
+        If yomethod.typetargetvalue <> conrex.NULL AndAlso servinterface.is_common_data_type(yomethod.typetargetvalue, Nothing) Then
+            Dim clinetypeinfostruct(1) As xmlunpkd.linecodestruc
+            clinetypeinfostruct(0) = servinterface.get_line_code_struct(yomethod.typetargetinfo, yomethod.typetargetvalue, tokenhared.token.IDENTIFIER)
+            _ilmethods(ilmethodsindex).typeinf = yotypecreator.get_type_info(_ilmethods(ilmethodsindex), clinetypeinfostruct, 0, yomethod.typetargetvalue)
+        End If
         _ilmethods(ilmethodsindex).isexpr = yomethod.isexpr
         set_object_control(_ilmethods(ilmethodsindex), yomethod)
         set_custom_type(_ilmethods(ilmethodsindex))
