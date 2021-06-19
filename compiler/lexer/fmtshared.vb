@@ -396,9 +396,11 @@
                     End If
                 End If
 
+                xmethods(i).typetargetinfo = linecinf
+                xmethods(i).typetargetvalue = value
                 If servinterface.is_common_data_type(value, cildatatype) Then
                     'Common Data Type
-                    xmethods(i).returntype = cildatatype
+                xmethods(i).returntype = cildatatype
                 Else
                     'Else Types ...
                     xmethods(i).returntype = value
