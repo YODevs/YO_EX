@@ -163,6 +163,93 @@ func pow(base : i32 , power : i32) : i32
     
   </div>
  
+ ### توابع برگشتی
+ 
+  <div dir="ltr">
+
+```f#
+include 'ystdio'
+func main()
+{
+ let result : i32 = sum(5,7)
+ io::println("5 + 7 = #{result}")
+}
+
+func sum(a : i32 , b : i32) : i32
+{
+  return [a + b]
+}
+ ```
+ </div>
+ 
+  ### ارجاع از طریق منبع - pass by reference
+  برای استفاده از خاصیت `byref` در توابع کافیست بعد از تایپ پارامتر از `&` استفاده کنیم.
+ در مثال پایین مقادیر دو متغیر باهم جا به جا می شوند.
+  <div dir="ltr">
+
+```f#
+include 'ystdio'
+func main()
+{
+ let team1 , team2 : str
+ team1 := "Chelsea"
+ team2 := "Barcelona"
+ io::println("Team1 : #{team1} Team2 : #{team2}")
+ swap(team1,team2)
+ io::println("Team1 : #{team1} Team2 : #{team2}")
+}
+
+func swap(val1 : str& , val2 : str&)
+{
+ let midval : str = val1
+ val1 := val2
+ val2 := midval
+}
+ ```
+ </div>
+ 
+ ### فرمت های داده
+ 
+   <div dir="ltr">
+    
+| Type | Description | Range | Reference |
+| ------ | ------ |------ |------ |
+| **`i8`** |  8-bit signed integer   | -128 to 127 |  SByte |
+| **`u8`** | 8-bit unsigned integer | 0 to 255 |  Byte  |
+| **`i16`** |  16-bit signed integer  |  -32,768 to 32,767  | Int16|
+| **`u16`** |  16-bit unsigned integer |  0 to 65,535  | UInt16|
+| **`i32`** |  32-bit signed integer  | -2,147,483,648 to 2,147,483,647| Int32|
+| **`u32`** | 32-bit unsigned integer|  0 to 4,294,967,295  | UInt32|
+| **`i64`** |  64-bit signed integer | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807  | Int64|
+| **`u64`** | 64-bit unsigned integer|  	0 to 18,446,744,073,709,551,615 | UInt64|
+| **`i128`** Soon|  128-bit signed integer  | (+ or -)1.0 x 10e-28 to 7.9 x 10e28 | Decimal|
+| **`f32`** |  32-bit Single-precision floating point type  | -3.402823e38 to 3.402823e38 | Single|
+| **`f64`** |  64-bit Double-precision floating point type  |  	-1.79769313486232e308 to 1.79769313486232e308 | Double|
+| **`bool`** |  8-bit logical true/false value | True / False | Boolean |
+| **`char`** | 16-bit single Unicode character  | * | Char|
+| **`str`** |  A sequence of Unicode characters  | * | String |
+| **`obj`** |  Base type of all other types.  | * | Object |
+    
+ </div>
+
+### متغیرها - Variables
+ دیتاتایپ های بخش قبل به عنوان `Primitive types` یا `Common data-types` شناخته می شوند.
+ 
+ برای تعریف یک متغیر کافیست از فرم `let varname : vartype` استفاده کنید.
+ 
+ 
+<div dir="ltr">
+
+     
+ ```f#
+ let color : str = "Red"
+ let age : i32 = 30
+ let isset : bool = True
+ const PI : f32 = 3.14
+ ```
+     
+
+
 </div>
 
   
