@@ -30,6 +30,8 @@ Public Class tknformat
     End Structure
     Structure _method
         Dim name As String
+        Dim typetargetinfo As lexer.targetinf
+        Dim typetargetvalue As String
         Dim returntype As String
         Dim nopara As Boolean
         Dim parameters() As _parameter
