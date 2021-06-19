@@ -4,7 +4,7 @@ Imports YOCA
 Public Class yotypecreator
     Public Shared Function get_type_info(ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc(), indclass As Integer, typestr As String) As ilformat._typeinfo
         Dim tpinf As New ilformat._typeinfo
-        If servinterface.is_cil_common_data_type(typestr) OrElse servinterface.is_common_data_type(typestr, Nothing) Then
+        If servinterface.is_cil_common_data_type(typestr) OrElse servinterface.is_common_data_type(typestr, typestr) Then
             get_common_dtype(tpinf, typestr)
         Else
             Dim classresult As funcvalid._resultfuncvaild = get_class_valid_rtype(ilmethod, clinecodestruc, indclass)
