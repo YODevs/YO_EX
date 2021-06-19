@@ -232,6 +232,23 @@ func swap(val1 : str& , val2 : str&)
     
  </div>
 
+### متغیرها - Variables
+ دیتاتایپ های بخش قبل به عنوان `Primitive types` یا `Common data-types` شناخته می شوند.
+ 
+ برای تعریف یک متغیر کافیست از فرم `let varname : vartype` استفاده کنید.
+ 
+ 
+<div dir="ltr">
+
+     
+ ```f#
+ let color : str = "Red"
+ let age : i32 = 30
+ let isset : bool = True
+ const PI : f32 = 3.14
+ ```
+     
+
 
 </div>
 
