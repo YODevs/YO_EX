@@ -43,7 +43,7 @@
         End If
 
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
-        If yomethod.typetargetvalue <> conrex.NULL Then
+        If yomethod.typetargetvalue <> conrex.NULL AndAlso yomethod.returntype.ToLower <> conrex.VOID Then
             Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
             clinetypeinfostruct(0) = servinterface.get_line_code_struct(yomethod.typetargetinfo, yomethod.typetargetvalue, tokenhared.token.IDENTIFIER)
             clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
