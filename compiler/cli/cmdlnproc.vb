@@ -20,6 +20,7 @@ Public Class cmdlnproc
         INIT
         CACLEANER
         DEV
+        YOAT
     End Enum
     Structure cmdstruct
         Dim commandtype As cmdtype
@@ -79,6 +80,7 @@ Public Class cmdlnproc
         set_new_command(cmdtype.DEV, "dev")
         set_new_command(cmdtype.VERSION, "version")
         set_new_command(cmdtype.TEST, "test")
+        set_new_command(cmdtype.YOAT, "yoat")
         set_new_command(cmdtype.EXIT, "exit")
         set_new_command(cmdtype.HELP, "help")
     End Sub
