@@ -110,6 +110,15 @@ You can type 'Help' to view commands.")
     Public Sub rp_init()
         initact.set_initial_process()
     End Sub
+
+    Public Sub rp_yoat()
+        Dim yoatpath As String = conrex.APPDIR & "\YOAT.exe"
+        If File.Exists(yoatpath) Then
+            Process.Start(yoatpath)
+        Else
+            Console.WriteLine("Sorry, the YOAT.exe file could not be found, please reinstall the setup.")
+        End If
+    End Sub
     Public Sub rp_cacleaner()
         Console.Write(vbCrLf & "Are you sure you want to delete all compiler caches?[y/N]")
         If Console.ReadKey.KeyChar.ToString.ToLower = "y" Then
