@@ -1,4 +1,6 @@
-﻿Public Class ilfuncgen
+﻿Imports YOCA
+
+Public Class ilfuncgen
 
     Public setinitialization As Boolean = False
     Private grabentrypoint As Boolean = False
@@ -111,8 +113,24 @@
             _ilmethods(ilmethodsindex).parameter(index).name = yomethod.parameters(index).name
             _ilmethods(ilmethodsindex).parameter(index).datatype = yomethod.parameters(index).ptype
             _ilmethods(ilmethodsindex).parameter(index).ispointer = yomethod.parameters(index).byreference
+            _ilmethods(ilmethodsindex).parameter(index).typeinf = set_type_info(_ilmethods(ilmethodsindex), index, yomethod.parameters(index).dtypetargetinfo)
         Next
     End Sub
+
+    Private Function set_type_info(ilmethod As ilformat._ilmethodcollection, paramindex As Integer, dtypetargetinfo As lexer.targetinf) As ilformat._typeinfo
+        Dim tpinf As New ilformat._typeinfo
+        Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
+        clinetypeinfostruct(0) = servinterface.get_line_code_struct(dtypetargetinfo, ilmethod.parameter(paramindex).datatype, tokenhared.token.IDENTIFIER)
+        clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
+        clinetypeinfostruct(1).tokenid = tokenhared.token.PRSTART
+        clinetypeinfostruct(1).value = conrex.PRSTART
+        clinetypeinfostruct(2) = New xmlunpkd.linecodestruc
+        clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
+        clinetypeinfostruct(2).value = conrex.PREND
+        tpinf = yotypecreator.get_type_info(ilmethod, clinetypeinfostruct, 0, ilmethod.parameter(paramindex).datatype)
+        Return tpinf
+    End Function
+
     Private Function check_entry_point_by_file(location As String) As Boolean
         location = location.Remove(0, location.LastIndexOf("\") + 1)
         If location.ToLower = "main.yo" Then
