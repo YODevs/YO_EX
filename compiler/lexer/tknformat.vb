@@ -45,6 +45,7 @@ Public Class tknformat
         Dim ptype As String
         Dim byreference As Boolean
         Dim defvalue As String
+        Dim dtypetargetinfo As lexer.targetinf
     End Structure
     Structure _pubfield
         Dim isconstant As Boolean
