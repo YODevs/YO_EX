@@ -487,6 +487,7 @@
             Case funcparaitemstate.WAITFORPARAMETERTYPE
                 paraitemstate = funcparaitemstate.WAITFORSPLITTER
                 xmethods(i).parameters(arindex).ptype = value
+                xmethods(i).parameters(arindex).dtypetargetinfo = linecinf
             Case funcparaitemstate.WAITFORSPLITTER
                 If rd_token = tokenhared.token.CMA Then
                     paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
