@@ -308,6 +308,7 @@
                 If rd_token = tokenhared.token.INIT Then
                     xfield(i).initproc = True
                 Else
+                    xfield(i).typetargetinfo = linecinf
                     xfield(i).ptype = value
                     fieldstate = pbfieldstate.EQOPT
                 End If
