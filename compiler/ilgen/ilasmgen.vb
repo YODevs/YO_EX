@@ -1,4 +1,6 @@
-﻿Public Class ilasmgen
+﻿Imports YOCA
+
+Public Class ilasmgen
 
     Private _ilhead As ilhead
     Private _ilfunc As ilfuncgen
@@ -45,6 +47,7 @@
         For index = 0 To yoclassdt.fields.Length - 1
             Array.Resize(_ilcollection.field, index + 1)
             Dim getdatatype As String = yoclassdt.fields(index).ptype
+            set_type_info(_ilcollection.field(index), yoclassdt.fields(index))
             servinterface.is_common_data_type(getdatatype, getdatatype)
             _ilcollection.field(index).name = yoclassdt.fields(index).name
             _ilcollection.field(index).accesscontrol = yoclassdt.fields(index).objcontrol.accesscontrolval
@@ -84,5 +87,17 @@
             'Check Type ...
         Next
         iltranscore.set_object_control(Nothing)
+    End Sub
+
+    Private Sub set_type_info(ByRef pubgenfield As ilformat._pubfield, publexfield As tknformat._pubfield)
+        Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
+        clinetypeinfostruct(0) = servinterface.get_line_code_struct(publexfield.typetargetinfo, publexfield.ptype, tokenhared.token.IDENTIFIER)
+        clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
+        clinetypeinfostruct(1).tokenid = tokenhared.token.PRSTART
+        clinetypeinfostruct(1).value = conrex.PRSTART
+        clinetypeinfostruct(2) = New xmlunpkd.linecodestruc
+        clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
+        clinetypeinfostruct(2).value = conrex.PREND
+        pubgenfield.typeinf = yotypecreator.get_type_info(Nothing, clinetypeinfostruct, 0, publexfield.ptype)
     End Sub
 End Class
