@@ -301,24 +301,24 @@
                 If eq_data_types(_ilmethod.locallinit(index).datatype, datatype) Then
                     convtc.reset_convtc()
                     If ldptr Then
-                        cil.load_local_address(_ilmethod.codes, nvar)
+                        cil.load_local_address(_ilmethod.codes, pnvar)
                         Return True
                     ElseIf ldindx Then
-                        cil.ldloca(_ilmethod.codes, nvar)
+                        cil.ldloca(_ilmethod.codes, pnvar)
                         Return True
                     Else
-                        cil.load_local_variable(_ilmethod.codes, nvar)
+                        cil.load_local_variable(_ilmethod.codes, pnvar)
                         Return True
                     End If
                 ElseIf convtc.setconvmethod Then
                     If ldptr Then
-                        cil.load_local_address(_ilmethod.codes, nvar)
+                        cil.load_local_address(_ilmethod.codes, pnvar)
                     ElseIf ldindx Then
-                        cil.ldloca(_ilmethod.codes, nvar)
+                        cil.ldloca(_ilmethod.codes, pnvar)
                     Else
-                        cil.load_local_variable(_ilmethod.codes, nvar)
+                        cil.load_local_variable(_ilmethod.codes, pnvar)
                     End If
-                    convtc.set_type_cast(_ilmethod, _ilmethod.locallinit(index).datatype, datatype, nvar, cargcodestruc)
+                    convtc.set_type_cast(_ilmethod, _ilmethod.locallinit(index).datatype, datatype, pnvar, cargcodestruc)
                     Return True
                 Else
                     dserr.args.Add(_ilmethod.locallinit(index).datatype)
