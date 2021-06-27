@@ -252,6 +252,23 @@ func swap(val1 : str& , val2 : str&)
 
 </div>
 
+ 
+### تبدیل نوع متغیرها - Type Casting
+یولنگ یک زبان `Static Type` و `Stronge Type` است ، که در آن امکان تبدیل خودکار یا ضمنی `implicit` وجود ندارد.
+این خاصیت باعث می شود تا برنامه نویس از مقادیر انتساب داده شده به یک متغیر در هنگام فراخانی مطمئن باشد.
+البته تبدیل نوع از روش صریح یا `explicit` وجود دارد.
+<div dir="ltr">
+
+ ```f#
+ let i : i32 = 52
+ let v : str = [str]v
+ let f : f32
+ f := [f32]i
+ ```
+     
+
+
+</div>
   
 
 [rellink]: <https://github.com/YODevs/YO/releases>
