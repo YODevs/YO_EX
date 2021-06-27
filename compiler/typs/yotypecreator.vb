@@ -85,6 +85,15 @@ Public Class yotypecreator
     Private Shared Function get_class_valid_rtype(ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc(), indclass As Integer) As funcvalid._resultfuncvaild
         Dim glinecodestruc() As xmlunpkd.linecodestruc = servinterface.trim_line_code_struc(clinecodestruc, indclass)
         glinecodestruc(0).value &= "::.ctor"
+        If glinecodestruc.Length = 1 Then
+            Array.Resize(glinecodestruc, 3)
+            glinecodestruc(1) = New xmlunpkd.linecodestruc
+            glinecodestruc(1).tokenid = tokenhared.token.PRSTART
+            glinecodestruc(1).value = conrex.PRSTART
+            glinecodestruc(2) = New xmlunpkd.linecodestruc
+            glinecodestruc(2).tokenid = tokenhared.token.PREND
+            glinecodestruc(2).value = conrex.PREND
+        End If
         Return funcvalid.get_func_valid(ilmethod, glinecodestruc)
     End Function
 End Class
