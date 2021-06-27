@@ -43,6 +43,16 @@
         Return getlastitemindex + 1
     End Function
 
+    Public Sub delete(index As Integer)
+        If IsNothing(dt) Then
+            Throw New Exception("Datastore is empty.")
+        End If
+        If index >= 0 AndAlso index < dt.Length Then
+            dt = dt.Skip(index).ToArray
+        Else
+            Throw New Exception("Index is not allowed, review it.")
+        End If
+    End Sub
     Public Function get_row_map(index As Integer) As map
         Dim yodastr As String = get_row(index)
         Dim mp As New map
@@ -53,7 +63,6 @@
         Next
         Return mp
     End Function
-
     Public Function get_row_list(index As Integer) As list
         Dim yodastr As String = get_row(index)
         Dim ls As New list
