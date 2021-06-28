@@ -53,6 +53,7 @@
             Throw New Exception("Index is not allowed, review it.")
         End If
     End Sub
+
     Public Function get_row_map(index As Integer) As map
         Dim yodastr As String = get_row(index)
         Dim mp As New map
@@ -82,4 +83,24 @@
             Return Nothing
         End If
     End Function
+
+    Private Sub index_validation(index As Integer)
+        If IsNothing(dt) Then
+            Throw New Exception("Datastore is empty.")
+        End If
+        If index >= 0 AndAlso index < dt.Length Then
+            Return
+        Else
+            Throw New Exception("Index is not allowed, review it.")
+        End If
+    End Sub
+
+    Private Sub column_validation(ByRef columnname As String)
+        For index = 0 To columns.Count - 1
+            If columns(index).ToString.ToLower = columnname.ToLower Then
+                columnname = columns(index).ToString
+            End If
+        Next
+        Throw New Exception("Column named '" & columnname & "' not found.")
+    End Sub
 End Class
