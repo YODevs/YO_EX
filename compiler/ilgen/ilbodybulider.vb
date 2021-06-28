@@ -100,13 +100,23 @@ call instance void [mscorlib]System.Object::.ctor()")
         Dim lcode As String = String.Empty
         For index = 0 To ildt.field.Length - 1
             If ildt.field(index).isliteral Then
+                'NEED TO REVIEW
                 lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & "static literal" &
                     conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & cilkeywordchecker.get_key(ildt.field(index).name) & conrex.SPACE
                 lcode &= " = " & ildt.field(index).ptype & "(" & ildt.field(index).value & ")"
             Else
-                servinterface.is_common_data_type(ildt.field(index).ptype, ildt.field(index).ptype)
-                lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & ildt.field(index).modifier &
-                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & cilkeywordchecker.get_key(ildt.field(index).name) & conrex.SPACE
+                If ildt.field(index).typeinf.isprimitive Then
+                    lcode = String.Format(".field {0} {1} {2} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                       ildt.field(index).typeinf.cdttypesymbol, cilkeywordchecker.get_key(ildt.field(index).name))
+                Else
+                    If ildt.field(index).typeinf.isinternalclass Then
+                        lcode = String.Format(".field {0} {1} class {2} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                       cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name))
+                    Else
+                        lcode = String.Format(".field {0} {1} class [{2}]{3} {4}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                      cilkeywordchecker.get_key(ildt.field(index).typeinf.externlib), cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name))
+                    End If
+                End If
             End If
             add_il_code(lcode)
         Next
