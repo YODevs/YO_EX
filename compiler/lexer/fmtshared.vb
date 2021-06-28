@@ -149,7 +149,7 @@
                 objcontrol.disableobjectcontrol = True
             Else
                 dserr.args.Add(value)
-                dserr.new_error(conserr.errortype.BADMODIFIER, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public / private / ...")
+                dserr.new_error(conserr.errortype.BADMODIFIER, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "static / instance")
             End If
         End If
         Return True
