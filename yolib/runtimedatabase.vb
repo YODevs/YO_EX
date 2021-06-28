@@ -54,6 +54,12 @@
         End If
     End Sub
 
+    Public Sub update(index As Integer, columnname As String, value As String)
+        index_validation(index)
+        Dim columnindex As Integer = find_column_index(columnname)
+        dt(index).Insert(columnindex + 1, value)
+        dt(index).RemoveAt(columnindex)
+    End Sub
     Public Function get_row_map(index As Integer) As map
         Dim yodastr As String = get_row(index)
         Dim mp As New map
@@ -103,4 +109,14 @@
         Next
         Throw New Exception("Column named '" & columnname & "' not found.")
     End Sub
+
+    Private Function find_column_index(ByRef columnname As String) As Integer
+        For index = 0 To columns.Count - 1
+            If columns(index).ToString.ToLower = columnname.ToLower Then
+                columnname = columns(index).ToString
+                Return index
+            End If
+        Next
+        Throw New Exception("Column named '" & columnname & "' not found.")
+    End Function
 End Class
