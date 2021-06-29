@@ -56,7 +56,6 @@
         Dim ctor As Boolean
         Dim isvaluetypes As Boolean
         Dim isarrayobj As Boolean
-        Dim valtpinf As _valtypeinfo
         Dim arrayinf As _arrayinfo
         Dim asmextern As String
     End Structure
@@ -67,10 +66,12 @@
         Dim externlib As String
         Dim isprimitive As Boolean
         Dim isclass As Boolean
+        Dim isenum As Boolean
         Dim isinternalclass As Boolean
         Dim yosymbol As String
         Dim cdttypesymbol As String
         Dim asminfo As String
+        Dim valtpinf As _valtypeinfo
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
