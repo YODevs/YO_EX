@@ -265,7 +265,11 @@ call instance void [mscorlib]System.Object::.ctor()")
             Dim dllref As String = String.Empty
             If funcdt.locallinit(index).typeinf.asminfo <> conrex.NULL Then
                 If funcdt.locallinit(index).typeinf.isprimitive = False Then
-                    classref = compdt.CLASS
+                    If funcdt.locallinit(index).isvaluetypes Then
+                        classref = compdt.VALUETYPE
+                    Else
+                        classref = compdt.CLASS
+                    End If
                     If funcdt.locallinit(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", funcdt.locallinit(index).typeinf.externlib)
                 End If
                 Dim arrlgo As String = String.Empty
@@ -277,7 +281,12 @@ call instance void [mscorlib]System.Object::.ctor()")
                     fullname = cilkeywordchecker.get_key(funcdt.locallinit(index).typeinf.fullname)
                 End If
                 If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
-                Dim locinitcode As String = String.Format("[{0}] {1} {2}{3}{4} {5}", islot, classref, dllref, fullname, arrlgo, funcdt.locallinit(index).name)
+                Dim locinitcode As String
+                If funcdt.locallinit(index).isvaluetypes = False Then
+                    locinitcode = String.Format("[{0}] {1} {2}{3}{4} {5}", islot, classref, dllref, fullname, arrlgo, funcdt.locallinit(index).name)
+                Else
+                    locinitcode = String.Format("[{0}] {1} {2}{3}/{4}{5} {6}", islot, classref, dllref, funcdt.locallinit(index).typeinf.valtpinf.classname, funcdt.locallinit(index).typeinf.valtpinf.objectname, arrlgo, funcdt.locallinit(index).name)
+                End If
                 add_il_code(locinitcode)
                 If funcdt.locallinit.Length <> index + 1 Then
                     add_inline_code(conrex.CMA)
