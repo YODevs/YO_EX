@@ -66,6 +66,9 @@ Public Class libserv
             Next
         End If
     End Sub
+    Friend Shared Function get_nested_type(nestedtypeindex As Integer, namespaceindex As Integer, classindex As Integer) As Type
+        Return libreg.types(namespaceindex)(classindex).GetNestedTypes()(nestedtypeindex)
+    End Function
     Friend Shared Function get_extern_class_type(namespaceindex As Integer, classindex As Integer) As Type
         Return libreg.types(namespaceindex)(classindex)
     End Function
@@ -196,6 +199,18 @@ Public Class libserv
         Return retcode
     End Function
 
+    Friend Shared Function get_index_enum(ByRef enumname As String, namespaceindex As Integer, classindex As Integer) As Integer
+        Dim enumtolower As String = enumname.ToLower
+        Dim index As Integer = 0
+        For Each gmember In libreg.types(namespaceindex)(classindex).GetNestedTypes
+            If gmember.IsEnum = True AndAlso enumtolower = gmember.Name.ToLower Then
+                enumname = gmember.Name
+                Return index
+            End If
+            index += 1
+        Next
+        Return -1
+    End Function
     Friend Shared Function get_extern_index_property(propertyname As String, namespaceindex As Integer, classindex As Integer, ByRef retproperty As PropertyInfo) As Integer
         propertyname = propertyname.ToLower
         For Each gproperty In libreg.types(namespaceindex)(classindex).GetProperties()
