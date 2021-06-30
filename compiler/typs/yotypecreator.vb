@@ -23,9 +23,13 @@ Public Class yotypecreator
         Dim classname As String = classresult.exclass
         classindex = funcdtproc.get_index_class(ilmethod, classname, isvirtualmethod)
         If classindex = -1 Then
-            dserr.args.Add("Class '" & classname & "' not found.")
-            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(indclass).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(indclass)), clinecodestruc(indclass).value))
-            Return
+            If valtp.check_value_type(ilmethod, tpinf, classname) Then
+                Return
+            Else
+                dserr.args.Add("Class '" & classname & "' not found.")
+                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(indclass).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(indclass)), clinecodestruc(indclass).value))
+                Return
+            End If
         End If
         tpinf.fullname = classname
         If classname.Contains(conrex.DOT) Then
@@ -61,9 +65,13 @@ Public Class yotypecreator
         Dim isvirtualmethod As Boolean = False
         Dim classname As String = classresult.exclass
         If libserv.get_extern_index_class(ilmethod, classresult.exclass, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
-            dserr.args.Add("Class '" & classname & "' not found.")
-            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(indclass).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(indclass)), clinecodestruc(indclass).value))
-            Return
+            If valtp.check_value_type(ilmethod, tpinf, classresult.exclass) Then
+                Return
+            Else
+                dserr.args.Add("Class '" & classname & "' not found.")
+                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(indclass).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(indclass)), clinecodestruc(indclass).value))
+                Return
+            End If
         End If
         classresult.asmextern = libserv.get_extern_assembly(namespaceindex)
         tpinf = get_extern_class_type(namespaceindex, classindex)
