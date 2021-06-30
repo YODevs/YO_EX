@@ -577,8 +577,14 @@
                 If clinecodestruc(3).tokenid = tokenhared.token.INIT Then
                     If clinecodestruc.Length > 4 Then
                         If libserv.get_extern_index_class(ilmethod, clinecodestruc(4).value, Nothing, Nothing, Nothing, Nothing) = -1 AndAlso funcdtproc.get_index_class(ilmethod, clinecodestruc(4).value) = -1 Then
-                            dserr.args.Add("Class '" & clinecodestruc(4).value & "' not found.")
-                            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(4)), clinecodestruc(4).value))
+                            If valtp.check_value_type(ilmethod, _illocalinit(index).typeinf, clinecodestruc(4).value) Then
+                                _illocalinit(index).isvaluetypes = True
+                                _illocalinit(index).datatype = _illocalinit(index).typeinf.fullname
+                                clinecodestruc(4).value = _illocalinit(index).datatype
+                            Else
+                                dserr.args.Add("Class '" & clinecodestruc(4).value & "' not found.")
+                                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(4)), clinecodestruc(4).value))
+                            End If
                         End If
                         _illocalinit(index).datatype = clinecodestruc(4).value
                         _illocalinit(index).ctor = True
@@ -588,7 +594,9 @@
                 Else
                     _illocalinit(index).ctor = False
                     If libserv.get_extern_index_class(ilmethod, clinecodestruc(3).value, Nothing, Nothing, Nothing, Nothing) = -1 AndAlso funcdtproc.get_index_class(ilmethod, clinecodestruc(3).value) = -1 Then
-                        If valtp.check_value_type(ilmethod, _illocalinit(index), clinecodestruc(3).value) Then
+                        If valtp.check_value_type(ilmethod, _illocalinit(index).typeinf, clinecodestruc(3).value) Then
+                            _illocalinit(index).isvaluetypes = True
+                            _illocalinit(index).datatype = _illocalinit(index).typeinf.fullname
                             clinecodestruc(3).value = _illocalinit(index).datatype
                         Else
                             dserr.args.Add("Class '" & clinecodestruc(3).value & "' not found.")
