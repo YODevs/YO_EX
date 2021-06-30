@@ -236,10 +236,18 @@ call instance void [mscorlib]System.Object::.ctor()")
             Else
                 'Other Types ...
                 Dim gcodeparam As String = conrex.NULL
-                If funcdt.parameter(index).typeinf.isinternalclass Then
-                    gcodeparam = String.Format("class {0}", funcdt.parameter(index).typeinf.fullname)
+                Dim classref, dllref As String
+                If funcdt.parameter(index).typeinf.valtpinf.classname = conrex.NULL Then
+                    classref = compdt.CLASS
                 Else
-                    gcodeparam = String.Format("class [{0}]{1}", funcdt.parameter(index).typeinf.externlib, funcdt.parameter(index).typeinf.fullname)
+                    classref = compdt.VALUETYPE
+                End If
+                If funcdt.parameter(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", funcdt.parameter(index).typeinf.externlib)
+
+                If classref = compdt.CLASS Then
+                    gcodeparam = String.Format("{0} {1}{2}", classref, dllref, funcdt.parameter(index).typeinf.fullname)
+                Else
+                    gcodeparam = String.Format("{0} {1}{2}/{3}", classref, dllref, funcdt.parameter(index).typeinf.valtpinf.classname, funcdt.parameter(index).typeinf.valtpinf.objectname)
                 End If
                 If funcdt.parameter(index).ispointer Then gcodeparam &= "&"
                 add_inline_code(gcodeparam)
