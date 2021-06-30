@@ -271,4 +271,52 @@ func swap(val1 : str& , val2 : str&)
 </div>
   
 
+###  رشته‌های فرمت دار شده - formatted string literals
+رشته‌های فرمت دار یا به اختصار `f-string` در یولنگ  پشتیبانی می شود.
+برای استفاده از این قابلیت کافیست مقادیر را مثل `"Hello #{name}"` تکمیل کنید.
+ توجه کنید که کوتیشن از قابلیت پشتیبانی نمی کند.
+<div dir="ltr">
+
+ ```f#
+include 'ystdio'
+func main()
+{
+ let name : str
+ let age : i32 = 30
+ name := "Ruzes"
+ io::print("My name is #{name} and im #{age} years old.")
+}
+ 
+```
+ 
+```
+ My name is Ruzes and im 30 years old.
+``` 
+
+ 
+Ascii code 
+```f#
+ io::print("My name is #[82]#[117]#[122]#[101]#[115]")
+```
+ 
+```
+ My name is Ruzes
+``` 
+ 
+ 
+ 
+ New Feed / Line
+```f#
+ io::print("Hello World#nlWelcome to myapp.")
+```
+ 
+```
+Hello World
+Welcome to myapp.
+ ``` 
+</div>
+ 
+ در مواقعی که نیاز به قابلیت `f-string` ندارید ، می توانید برای رشته‌ها از کوتیشن استفاده کنید ، این کار به صورت خیلی جزئی در زمان کامپایل ، صرفه جویی می کند.
+
+
 [rellink]: <https://github.com/YODevs/YO/releases>
