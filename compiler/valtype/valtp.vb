@@ -1,7 +1,7 @@
 ﻿Imports YOCA
 
 Public Class valtp
-    Friend Shared Function check_value_type(ilmethod As ilformat._ilmethodcollection, ByRef illocalinit As ilformat._illocalinit, classname As String) As Boolean
+    Friend Shared Function check_value_type(ilmethod As ilformat._ilmethodcollection, ByRef typeinf As ilformat._typeinfo, classname As String) As Boolean
         Dim enumname As String = String.Empty
         Dim classindex As Integer = -1
         Dim namespaceindex As Integer = -1
@@ -26,23 +26,21 @@ Public Class valtp
             If enumindex = -1 Then
                 Return False
             Else
-                illocalinit.isvaluetypes = True
-                illocalinit.typeinf.valtpinf.structuretype = ilformat._valuetypestructure.ENUM
-                illocalinit.typeinf.valtpinf.objectname = enumname
-                illocalinit.typeinf.valtpinf.classname = classname
-                illocalinit.typeinf.isenum = True
-                illocalinit.typeinf.isclass = True
-                illocalinit.typeinf.isinternalclass = True
-                illocalinit.typeinf.isprimitive = False
-                illocalinit.typeinf.fullname = classname & conrex.DOT & enumname
-                illocalinit.typeinf.asminfo = classname & conrex.DOT & enumname
+                typeinf.valtpinf.structuretype = ilformat._valuetypestructure.ENUM
+                typeinf.valtpinf.objectname = enumname
+                typeinf.valtpinf.classname = classname
+                typeinf.isenum = True
+                typeinf.isclass = True
+                typeinf.isinternalclass = True
+                typeinf.isprimitive = False
+                typeinf.fullname = classname & conrex.DOT & enumname
+                typeinf.asminfo = classname & conrex.DOT & enumname
                 If classname.Contains(conrex.DOT) Then
-                    illocalinit.typeinf.name = classname.Remove(0, classname.IndexOf(conrex.DOT) + 1)
-                    illocalinit.typeinf.namespace = classname.Remove(classname.LastIndexOf(conrex.DOT) + 1)
+                    typeinf.name = classname.Remove(0, classname.IndexOf(conrex.DOT) + 1)
+                    typeinf.namespace = classname.Remove(classname.LastIndexOf(conrex.DOT) + 1)
                 Else
-                    illocalinit.typeinf.name = classname
+                    typeinf.name = classname
                 End If
-                illocalinit.datatype = illocalinit.typeinf.asminfo
                 Return True
             End If
         Else
@@ -51,23 +49,21 @@ Public Class valtp
                 Return False
             Else
                 Dim getnestedtype As Type = libserv.get_nested_type(enumindex, namespaceindex, classindex)
-                illocalinit.isvaluetypes = True
-                illocalinit.typeinf.valtpinf.structuretype = ilformat._valuetypestructure.ENUM
-                illocalinit.typeinf.valtpinf.objectname = enumname
-                illocalinit.typeinf.valtpinf.classname = classname
-                illocalinit.typeinf.isenum = True
-                illocalinit.typeinf.isclass = True
-                illocalinit.typeinf.isinternalclass = False
-                illocalinit.typeinf.isprimitive = False
-                illocalinit.typeinf.fullname = getnestedtype.FullName.Replace("+", ".")
-                illocalinit.typeinf.asminfo = getnestedtype.AssemblyQualifiedName
-                illocalinit.typeinf.externlib = getnestedtype.Assembly.GetName().Name
+                typeinf.valtpinf.structuretype = ilformat._valuetypestructure.ENUM
+                typeinf.valtpinf.objectname = enumname
+                typeinf.valtpinf.classname = classname
+                typeinf.isenum = True
+                typeinf.isclass = True
+                typeinf.isinternalclass = False
+                typeinf.isprimitive = False
+                typeinf.fullname = getnestedtype.FullName.Replace("+", ".")
+                typeinf.asminfo = getnestedtype.AssemblyQualifiedName
+                typeinf.externlib = getnestedtype.Assembly.GetName().Name
                 If getnestedtype.Namespace <> conrex.NULL Then
-                    illocalinit.typeinf.namespace = getnestedtype.Namespace
+                    typeinf.namespace = getnestedtype.Namespace
                 Else
-                    illocalinit.typeinf.name = getnestedtype.Name
+                    typeinf.name = getnestedtype.Name
                 End If
-                illocalinit.datatype = illocalinit.typeinf.fullname
                 Return True
             End If
         End If
