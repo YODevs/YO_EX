@@ -398,5 +398,42 @@ Stopping service...
 5
  ```
  </div>
+ 
+ 
+   ### حلقه To
+در مواردی می توانید حلقه `for` یا `while` را ساده‌تر بنویسید.
+ در این حلقه کافیست تعداد گردش حلقه را مشخص کنید.
+ این حلقه از ایندکس پشتیبانی نمی کند.
+ <div dir="ltr">
 
+ ```f#
+ let i : i32 = 5
+ to(i)
+ {
+   io::print("*")
+ }
+ ```
+  
+ ```
+*****
+ ```
+ </div>
+  
+ در شکلی پیشرفته‌تر می توانید توان اعداد را با حلقه `to` محاسبه کنید.
+  <div dir="ltr">
+
+ ```f#
+func pow(base : i32 , power : i32) : i32
+{
+  let result : i32 = base
+  to(power)
+  {
+    result *= base
+  }
+  return result
+}
+   
+ ```
+ </div>
+ 
 [rellink]: <https://github.com/YODevs/YO/releases>
