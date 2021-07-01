@@ -318,5 +318,122 @@ Welcome to myapp.
  
  در مواقعی که نیاز به قابلیت `f-string` ندارید ، می توانید برای رشته‌ها از کوتیشن استفاده کنید ، این کار به صورت خیلی جزئی در زمان کامپایل ، صرفه جویی می کند.
 
+ ### ساختار شرطی If-Else
+ساختار شرطی If-Else همانند بقیه زبان‌های برنامه نویسی است.
+<div dir="ltr">
 
+ ```f#
+ let i : i32 = 12
+ if(i >> 0)
+ {
+   io::print("#{i} is positive.")
+ }elseif(i << 0)
+ {
+   io::print("#{i} is negative.")
+ }else {
+   io::print("#{i} is zero.")
+ }
+ ```
+     
+ </div>
+ 
+ ### دستور شرطی Match
+ساختار این دستور شرطی همانند `Switch` در زبان C است.
+ 
+<div dir="ltr">
+
+ ```f#
+func main()
+{
+  exec_logs("start")
+  system.threading.thread::sleep(5000)
+  exec_logs("stop")
+}
+
+func exec_logs(inf : str)
+{
+  match(inf)
+  {
+    case "start"  {
+      io::println("Starting service...")
+    }
+    case "stop"  {
+      io::println("Stopping service...")
+    }
+    default {
+      io::println("Command Not Found")
+    }
+  }
+}
+ ```
+ ```
+Starting service...
+Stopping service...
+```
+     
+
+</div>
+ 
+ 
+  ### حلقه بینهایت Loop
+  یولنگ ، از حلقه‌های متفاوتی پشتیبانی کند ، حلقه بینهایت `loop` ساده ترین حلقه که بدون هیچگونه ساختار شرطی است.
+  کنترل جریان برنامه در این حلقه با استفاده از دستورات `break` و `continue` انجام می گیرد.
+ 
+ <div dir="ltr">
+
+ ```f#
+ let index : i32 = 0
+ loop {
+   index += 1
+   if(index == 3) {continue loop}
+   io::println("#{index}")
+   if(index >= 5) {break loop}
+ }
+ ```
+ 
+ ```
+1
+2
+4
+5
+ ```
+ </div>
+ 
+ 
+   ### حلقه To
+در مواردی می توانید حلقه `for` یا `while` را ساده‌تر بنویسید.
+ در این حلقه کافیست تعداد گردش حلقه را مشخص کنید.
+ این حلقه از ایندکس پشتیبانی نمی کند.
+ <div dir="ltr">
+
+ ```f#
+ let i : i32 = 5
+ to(i)
+ {
+   io::print("*")
+ }
+ ```
+  
+ ```
+*****
+ ```
+ </div>
+  
+ در شکلی پیشرفته‌تر می توانید توان اعداد را با حلقه `to` محاسبه کنید.
+  <div dir="ltr">
+
+ ```f#
+func pow(base : i32 , power : i32) : i32
+{
+  let result : i32 = base
+  to(power)
+  {
+    result *= base
+  }
+  return result
+}
+   
+ ```
+ </div>
+ 
 [rellink]: <https://github.com/YODevs/YO/releases>
