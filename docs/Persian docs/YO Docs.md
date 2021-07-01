@@ -318,5 +318,25 @@ Welcome to myapp.
  
  در مواقعی که نیاز به قابلیت `f-string` ندارید ، می توانید برای رشته‌ها از کوتیشن استفاده کنید ، این کار به صورت خیلی جزئی در زمان کامپایل ، صرفه جویی می کند.
 
+ ### ساختار شرطی If-Else
+ساختار شرطی If-Else همانند بقیه زبان‌های برنامه نویسی است.
+<div dir="ltr">
+
+ ```f#
+ let i : i32 = 12
+ if(i >> 0)
+ {
+   io::print("#{i} is positive.")
+ }elseif(i << 0)
+ {
+   io::print("#{i} is negative.")
+ }else {
+   io::print("#{i} is zero.")
+ }
+ ```
+     
+
+
+</div>
 
 [rellink]: <https://github.com/YODevs/YO/releases>
