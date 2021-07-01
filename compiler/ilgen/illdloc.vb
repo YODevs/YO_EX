@@ -114,11 +114,16 @@
             clineprop = rlinecodestruc(0)
         End If
 
-        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, clineprop)
-        If propresult.identvalid Then
-            propertyste.assignmentype = datatype
-            propertyste.get_inv_property(New xmlunpkd.linecodestruc() {clineprop}, _ilmethod, propresult, 0)
-            Return True
+        Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, clineprop)
+
+        If idenresult.identvalid Then
+            If enumeration.is_enum(_ilmethod, idenresult, cargcodestruc) Then
+                Return True
+            Else
+                propertyste.assignmentype = datatype
+                propertyste.get_inv_property(New xmlunpkd.linecodestruc() {clineprop}, _ilmethod, idenresult, 0)
+                Return True
+            End If
         End If
 
         If IsNothing(_ilmethod.locallinit) = False OrElse nvar.Contains(compdt.FLAGPERFIX) Then
