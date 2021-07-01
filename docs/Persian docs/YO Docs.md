@@ -335,7 +335,42 @@ Welcome to myapp.
  }
  ```
      
+ </div>
+ 
+ ### دستور شرطی Match
+ساختار این دستور شرطی همانند `Switch` در زبان C است.
+ 
+<div dir="ltr">
 
+ ```f#
+func main()
+{
+  exec_logs("start")
+  system.threading.thread::sleep(5000)
+  exec_logs("stop")
+}
+
+func exec_logs(inf : str)
+{
+  match(inf)
+  {
+    case "start"  {
+      io::println("Starting service...")
+    }
+    case "stop"  {
+      io::println("Stopping service...")
+    }
+    default {
+      io::println("Command Not Found")
+    }
+  }
+}
+ ```
+ ```
+Starting service...
+Stopping service...
+```
+     
 
 </div>
 
