@@ -373,5 +373,30 @@ Stopping service...
      
 
 </div>
+ 
+ 
+  ### حلقه بینهایت Loop
+  یولنگ ، از حلقه‌های متفاوتی پشتیبانی کند ، حلقه بینهایت `loop` ساده ترین حلقه که بدون هیچگونه ساختار شرطی است.
+  کنترل جریان برنامه در این حلقه با استفاده از دستورات `break` و `continue` انجام می گیرد.
+ 
+ <div dir="ltr">
+
+ ```f#
+ let index : i32 = 0
+ loop {
+   index += 1
+   if(index == 3) {continue loop}
+   io::println("#{index}")
+   if(index >= 5) {break loop}
+ }
+ ```
+ 
+ ```
+1
+2
+4
+5
+ ```
+ </div>
 
 [rellink]: <https://github.com/YODevs/YO/releases>
