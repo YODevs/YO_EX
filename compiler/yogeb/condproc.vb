@@ -247,6 +247,6 @@ Public Class condproc
             End If
         Next
 
-        dserr.new_error(conserr.errortype.SYNTAXERROR, linecodestruc.line, ilbodybulider.path, "Expression expected , '" & optval & "' The operator could not be identified." & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(linecodestruc), optval))
+        dserr.new_error(conserr.errortype.SYNTAXERROR, linecodestruc.line, ilbodybulider.path, "Expression expected , '" & optval & "' The operator could not be identified." & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(linecodestruc), linecodestruc.value))
     End Sub
 End Class
