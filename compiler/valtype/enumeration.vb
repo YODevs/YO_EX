@@ -12,26 +12,37 @@ Public Class enumeration
             classname = exname.Remove(exname.LastIndexOf(conrex.DOT))
             enumname = exname.Remove(0, exname.LastIndexOf(conrex.DOT) + 1)
         Else
-
+            classname = exname.Remove(exname.LastIndexOf(conrex.DOT))
+            enumname = exname.Remove(0, exname.LastIndexOf(conrex.DOT) + 1)
         End If
 
         Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, classname, False)
         If classindex = -1 Then
 
+            set_execption_class_unknown(classname, cargcodestruc)
             Return False
         Else
             Dim enumindex As Integer = funcdtproc.get_index_enum(enumname, classindex)
             If enumindex = -1 Then
-
+                set_expection_enum_unknown(enumname, cargcodestruc)
                 Return False
             End If
-
             Dim enumtp As tknformat._enum = funcdtproc.get_enum_info(classindex, enumindex)
             set_internal_enum_value(_ilmethod, enumtp, idenresult.clident, cargcodestruc, exname)
             Return True
         End If
         Return False
     End Function
+
+    Private Shared Sub set_execption_class_unknown(classname As String, cargcodestruc As xmlunpkd.linecodestruc)
+        dserr.args.Add("Class '" & classname & "' not found.")
+        dserr.new_error(conserr.errortype.METHODERROR, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
+    End Sub
+
+    Private Shared Sub set_expection_enum_unknown(enumname As String, cargcodestruc As xmlunpkd.linecodestruc)
+        dserr.args.Add(enumname)
+        dserr.new_error(conserr.errortype.TYPENOTFOUND, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
+    End Sub
 
     Private Shared Sub set_internal_enum_value(ByRef ilmethod As ilformat._ilmethodcollection, enumtp As tknformat._enum, clident As String, cargcodestruc As xmlunpkd.linecodestruc, exname As String)
         For index = 0 To enumtp.constkeys.Count - 1
