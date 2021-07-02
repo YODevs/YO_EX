@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "enum_sample"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

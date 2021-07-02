@@ -1,0 +1,27 @@
+#[app::classname("myclass")]
+#[app::wait(true)]
+include 'ystdio'
+
+enum level
+{
+  LOW    ,
+  MEDIUM ,
+  HIGH
+}
+
+func main()
+{
+ let quizlevel : myclass.level = myclass.level::MEDIUM
+ match(quizlevel)
+ {
+   case quizlevel::LOW {
+    io::println("LOW Level")
+   }
+   case quizlevel::MEDIUM {
+    io::println("MEDIUM Level")
+   }
+   case quizlevel::HIGH {
+    io::println("HIGH Level")
+   }
+ }
+}
