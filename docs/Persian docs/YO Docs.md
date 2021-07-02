@@ -436,4 +436,32 @@ func pow(base : i32 , power : i32) : i32
  ```
  </div>
  
-[rellink]: <https://github.com/YODevs/YO/releases>
+
+ ### حلقه While
+ 
+ 
+ <div dir="ltr">
+
+```f#
+let index : i32 = 0
+while(index <> 5 )
+{
+  index += 1
+  if(index == 3)
+  {
+    continue while
+  }
+  system.console::writeline(index)
+}
+  
+```
+ 
+```
+ 1
+ 2
+ 4
+ 5
+ ```
+ </div>
+ 
+ [rellink]: <https://github.com/YODevs/YO/releases>
