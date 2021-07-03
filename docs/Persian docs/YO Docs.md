@@ -463,5 +463,35 @@ while(index <> 5 )
  5
  ```
  </div>
- 
- [rellink]: <https://github.com/YODevs/YO/releases>
+  
+   ### حلقه For
+ حلقه `for` یکی دیگر از حلقه‌ها در یولنگ است.برای استفاده از این حلقه باید از `range`ها استفاده کنیم.
+  برای مثال 
+  
+   <div dir="ltr">
+
+  ```f#
+    
+  for(i in [0..5])
+  {
+    io::println("index => #{i}")
+  }
+    
+  ```
+    
+
+   
+  ```f#
+    
+index => 0
+index => 1
+index => 2
+index => 3
+index => 4
+    
+  ```
+  </div>
+  
+  
+  
+[rellink]: <https://github.com/YODevs/YO/releases>
