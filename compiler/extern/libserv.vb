@@ -251,7 +251,8 @@ Public Class libserv
         Next
 
         cargldr = cargcodestruc
-        Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc, paramfullname)
+        Return parampt.check_param_types(_ilmethod, gparameters, cargcodestruc)
+        'Legacy : Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc, paramfullname)
     End Function
 
     Friend Shared Sub get_method_info(method As Reflection.MethodInfo, ByRef methodinfo As tknformat._method)
@@ -267,6 +268,7 @@ Public Class libserv
             methodinfo.parameters(index) = New tknformat._parameter
             methodinfo.parameters(index).name = method.GetParameters(index).Name
             methodinfo.parameters(index).ptype = method.GetParameters(index).ParameterType.Name
+            methodinfo.parameters(index).typeinf = yotypecreator.convert_to_type_info(method.GetParameters(index).ParameterType)
         Next
     End Sub
     Friend Shared Sub get_method_info(ctormethod As Reflection.ConstructorInfo, ByRef methodinfo As tknformat._method)
