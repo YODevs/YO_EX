@@ -36,6 +36,43 @@
         Return True
     End Function
 
+    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, gparameters() As Reflection.ParameterInfo, cargcodestruc As xmlunpkd.linecodestruc()) As Boolean
+        Dim getdatatype As String = conrex.NULL
+        For index = 0 To cargcodestruc.Length - 1
+            getdatatype = servinterface.vb_to_cil_common_data_type(gparameters(index).ParameterType.Name)
+            If getdatatype.EndsWith("&") Then
+                getdatatype = getdatatype.Remove(getdatatype.Length - 1)
+            End If
+
+            Select Case getdatatype
+                Case "string"
+                    If chstr(_ilmethod, cargcodestruc(index)) = False Then Return False
+                Case illdloc.check_integer_type(getdatatype)
+                    If chint(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "float32"
+                    If chflt(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "float64"
+                    If chflt(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "char"
+                    If chchr(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "bool"
+                    If chbool(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case Else
+                    'Other Types
+                    Dim crdatatype As String = String.Empty
+                    If servinterface.is_variable(_ilmethod, cargcodestruc(0).value, crdatatype) Then
+                        Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(0).value)
+                        If tpinf.asminfo = gparameters(index).ParameterType.AssemblyQualifiedName Then
+                            Return True
+                        End If
+                    End If
+                    Return False
+            End Select
+        Next
+
+        Return True
+    End Function
+
     Friend Shared Function chstr(_ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc) As Boolean
         Select Case cargcodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
