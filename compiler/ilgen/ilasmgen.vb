@@ -6,6 +6,7 @@ Public Class ilasmgen
     Private _ilfunc As ilfuncgen
     Private ilcollection As ilformat.ildata
     Friend Shared classdata As tknformat._class
+    Friend Shared fields() As ilformat._pubfield
     Public Sub New(ilcol As ilformat.ildata)
         ilcollection = ilcol
     End Sub
@@ -29,6 +30,7 @@ Public Class ilasmgen
         ilbodybulider.path = yoclassdt.location
         ilcollection.enumeration = yoclassdt.enums
         set_fields(yoclassdt, ilcollection)
+        fields = ilcollection.field
         localinitdata.import_fields(yoclassdt.fields)
         ilcollection.ilmethod = _ilfunc.gen()
         _ilresultcollection.ilfmtdata = ilcollection
