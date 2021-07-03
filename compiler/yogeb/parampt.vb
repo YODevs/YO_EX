@@ -60,11 +60,14 @@
                 Case Else
                     'Other Types
                     Dim crdatatype As String = String.Empty
-                    If servinterface.is_variable(_ilmethod, cargcodestruc(0).value, crdatatype) Then
-                        Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(0).value)
+                    If servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) Then
+                        Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
                         If tpinf.asminfo = gparameters(index).ParameterType.AssemblyQualifiedName Then
-                            Return True
+                            Continue For
                         End If
+                    Else
+                        Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc(index))
+                        If idenresult.identvalid Then Continue For
                     End If
                     Return False
             End Select
@@ -72,7 +75,6 @@
 
         Return True
     End Function
-
     Friend Shared Function chstr(_ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc) As Boolean
         Select Case cargcodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR
