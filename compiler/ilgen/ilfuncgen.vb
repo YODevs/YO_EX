@@ -106,7 +106,7 @@ Public Class ilfuncgen
         retinf.classname = ctorinf.classname
         _ilmethodcollection.returninfo = retinf
     End Sub
-    Private Sub set_parameter(yomethod As tknformat._method, ilmethodsindex As Integer)
+    Private Sub set_parameter(ByRef yomethod As tknformat._method, ilmethodsindex As Integer)
         If IsNothing(yomethod.parameters) Then Return
         For index = 0 To yomethod.parameters.Length - 1
             Array.Resize(_ilmethods(ilmethodsindex).parameter, index + 1)
@@ -114,6 +114,7 @@ Public Class ilfuncgen
             _ilmethods(ilmethodsindex).parameter(index).datatype = yomethod.parameters(index).ptype
             _ilmethods(ilmethodsindex).parameter(index).ispointer = yomethod.parameters(index).byreference
             _ilmethods(ilmethodsindex).parameter(index).typeinf = set_type_info(_ilmethods(ilmethodsindex), index, yomethod.parameters(index).dtypetargetinfo)
+            yomethod.parameters(index).typeinf = _ilmethods(ilmethodsindex).parameter(index).typeinf
         Next
     End Sub
 
