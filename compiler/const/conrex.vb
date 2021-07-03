@@ -60,6 +60,7 @@ Public Class conrex
     Public Const DBCLN As String = "::"
     Public Const EQU As Char = "="
     Public Const QES As Char = "?"
+    Public Const PLUS As Char = "+"
 
 
     Enum exitcode
