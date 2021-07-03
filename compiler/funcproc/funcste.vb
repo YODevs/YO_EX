@@ -163,8 +163,7 @@ Public Class funcste
                 emptyparamtypes.Add(getcildatatype)
             Else
                 'Other Types...
-                set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index).ptype, cargcodestruc)
-                emptyparamtypes.Add(methodinfo.parameters(index).ptype)
+                set_extern_assembly(paramtypes, methodinfo.parameters(index).typeinf, emptyparamtypes)
             End If
         Next
         set_stack_space(_ilmethod, emptyparamtypes, cargcodestruc)
@@ -172,16 +171,16 @@ Public Class funcste
         convtc.ntypecast = ntypecast
     End Sub
 
-    Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, ByRef ptype As String, cargcodestruc As xmlunpkd.linecodestruc())
-        Dim classindex, namespaceindex As Integer
-        Dim reclassname As String = String.Empty
-        If libserv.get_extern_index_class(_ilmethod, ptype, namespaceindex, classindex, Nothing, reclassname) = -1 Then
-            dserr.args.Add("Class '" & ptype & "' not found.")
-            dserr.new_error(conserr.errortype.METHODERROR, cargcodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc(0)), cargcodestruc(0).value))
-            Return
+    Private Shared Sub set_extern_assembly(ByRef paramtypes As ArrayList, typeinf As ilformat._typeinfo, ByRef emptyparamtypes As ArrayList)
+        Dim gcodeparam As String = String.Empty
+        If typeinf.isenum = False Then
+            gcodeparam = String.Format("class [{0}]{1}", typeinf.externlib, typeinf.fullname)
+        Else
+            gcodeparam = String.Format("valuetype [{0}]{1}/{2}", typeinf.externlib, typeinf.valtpinf.classname, typeinf.valtpinf.objectname)
+
         End If
-        Dim gcodeparam As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(namespaceindex), ptype)
         paramtypes.Add(gcodeparam)
+        emptyparamtypes.Add(typeinf.fullname)
     End Sub
 
     Private Shared Sub check_expression_method(clinecodestruc() As xmlunpkd.linecodestruc, methodinfo As tknformat._method)
