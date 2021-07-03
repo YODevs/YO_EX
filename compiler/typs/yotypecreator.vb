@@ -17,6 +17,26 @@ Public Class yotypecreator
         Return tpinf
     End Function
 
+    Public Shared Function convert_to_type_info(asmtype As Type) As ilformat._typeinfo
+        Dim tpinf As New ilformat._typeinfo
+        tpinf.externlib = asmtype.Assembly.GetName().Name
+        tpinf.fullname = asmtype.ToString
+        tpinf.name = asmtype.Name
+        tpinf.namespace = asmtype.Namespace
+        tpinf.asminfo = asmtype.AssemblyQualifiedName
+        tpinf.isprimitive = False
+        tpinf.isclass = True
+        tpinf.isinternalclass = False
+        tpinf.isenum = asmtype.IsEnum
+        If tpinf.isenum Then
+            tpinf.fullname = tpinf.fullname.Replace(conrex.PLUS, conrex.DOT)
+            tpinf.valtpinf.structuretype = ilformat._valuetypestructure.ENUM
+            tpinf.valtpinf.objectname = tpinf.fullname.Remove(0, tpinf.fullname.LastIndexOf(conrex.DOT) + 1)
+            tpinf.valtpinf.classname = tpinf.fullname.Remove(tpinf.fullname.LastIndexOf(conrex.DOT))
+        End If
+        Return tpinf
+    End Function
+
     Private Shared Sub get_internal_type(ilmethod As ilformat._ilmethodcollection, ByRef tpinf As ilformat._typeinfo, clinecodestruc() As xmlunpkd.linecodestruc, classresult As funcvalid._resultfuncvaild, indclass As Integer)
         Dim classindex As Integer
         Dim isvirtualmethod As Boolean = False
@@ -88,6 +108,13 @@ Public Class yotypecreator
         tpinf.isprimitive = False
         tpinf.isclass = True
         tpinf.isinternalclass = False
+        tpinf.isenum = tp.IsEnum
+        If tpinf.isenum Then
+            tpinf.fullname = tpinf.fullname.Replace(conrex.PLUS, conrex.DOT)
+            tpinf.valtpinf.structuretype = ilformat._valuetypestructure.ENUM
+            tpinf.valtpinf.objectname = tpinf.fullname.Remove(0, tpinf.fullname.LastIndexOf(conrex.DOT) + 1)
+            tpinf.valtpinf.classname = tpinf.fullname.Remove(tpinf.fullname.LastIndexOf(conrex.DOT))
+        End If
         Return tpinf
     End Function
     Private Shared Function get_class_valid_rtype(ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc(), indclass As Integer) As funcvalid._resultfuncvaild
