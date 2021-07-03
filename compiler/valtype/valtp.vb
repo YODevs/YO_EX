@@ -56,7 +56,7 @@ Public Class valtp
                 typeinf.isclass = True
                 typeinf.isinternalclass = False
                 typeinf.isprimitive = False
-                typeinf.fullname = getnestedtype.FullName.Replace("+", ".")
+                typeinf.fullname = getnestedtype.FullName.Replace(conrex.PLUS, conrex.DOT)
                 typeinf.asminfo = getnestedtype.AssemblyQualifiedName
                 typeinf.externlib = getnestedtype.Assembly.GetName().Name
                 If getnestedtype.Namespace <> conrex.NULL Then
