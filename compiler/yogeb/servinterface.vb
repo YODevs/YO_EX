@@ -326,6 +326,56 @@ Public Class servinterface
         Return False
     End Function
 
+    Friend Shared Function get_variable_type(ilmethod As ilformat._ilmethodcollection, varname As String) As ilformat._typeinfo
+        Dim tp As New ilformat._typeinfo
+        If varname.Contains(conrex.DBCLN) Then
+            Dim clinecodestruc As xmlunpkd.linecodestruc = create_fake_linecodestruc(tokenhared.token.IDENTIFIER, varname)
+            Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(ilmethod, clinecodestruc)
+            If propresult.identvalid Then
+                Dim classindex, namespaceindex As Integer
+                Dim reclassname As String = String.Empty
+                Dim isvirtualmethod As Boolean = False
+                If libserv.get_extern_index_class(ilmethod, propresult.exclass, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
+                    Return Nothing
+                End If
+                propresult.asmextern = libserv.get_extern_assembly(namespaceindex)
+                Dim retpropertyinfo As PropertyInfo
+                If libserv.get_extern_index_property(propresult.clident, namespaceindex, classindex, retpropertyinfo) = -1 Then
+                    Return Nothing
+                End If
+
+                Return yotypecreator.convert_to_type_info(retpropertyinfo.PropertyType)
+            End If
+            Return Nothing
+        End If
+
+        varname = varname.ToLower
+        If IsNothing(ilmethod.parameter) = False Then
+            For index = 0 To ilmethod.parameter.Length - 1
+                If ilmethod.parameter(index).name.ToLower = varname Then
+                    Return ilmethod.parameter(index).typeinf
+                End If
+            Next
+        End If
+
+        If IsNothing(ilmethod.locallinit) = False Then
+            For index = 0 To ilmethod.locallinit.Length - 1
+                If ilmethod.locallinit(index).name <> conrex.NULL AndAlso ilmethod.locallinit(index).name.ToLower = varname Then
+                    Return ilmethod.locallinit(index).typeinf
+                End If
+            Next
+        End If
+
+        If IsNothing(ilasmgen.fields) = False Then
+            For index = 0 To ilasmgen.classdata.fields.Length - 1
+                If ilasmgen.fields(index).name.ToLower = varname Then
+                    Return ilasmgen.fields(index).typeinf
+                End If
+            Next
+        End If
+
+        Return Nothing
+    End Function
     Friend Shared Function get_field_from_current_class(varname As String) As tknformat._pubfield
         If IsNothing(ilasmgen.classdata.fields) = False Then
             varname = varname.ToLower
