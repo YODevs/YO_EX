@@ -528,4 +528,35 @@ index => 4
   ```
   </div>
   
+  
+   
+   # پرش در کدها - Jmp
+  
+  دستور `jmp` در زبان‌های دیگر با نام‌هایی مثل `goto` شناخته می شود.
+  برای مشخص کردن نقطه مقصد پرش کافیست یک برچسب یا `label` بسازید ، برای ساخت برچسب باید به فرمت `:LABELNAME$` عمل کنید.
+<div dir="ltr">
+
+ 
+  ```f#
+ 
+  $startprocess:
+  let user , password : str
+  io::setin(user,"User : ")
+  io::setin(password,"Password : ")
+  if(user == "admin" && password == "12345")
+  {
+    io::println("You have logged in successfully.")
+    jmp $endprocess
+  }else
+  {
+    io::println("Input information is incorrect.")
+    jmp $startprocess
+  }
+  $endprocess:
+ 
+  ```
+ 
+  </div>
+  
+  
 [rellink]: <https://github.com/YODevs/YO/releases>
