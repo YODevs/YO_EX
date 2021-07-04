@@ -243,16 +243,8 @@ Public Class libserv
         ElseIf gparameters.Length = 0 AndAlso cargcodelen = 0 Then
             Return True
         End If
-        Dim paramtypes As New ArrayList
-        Dim paramfullname As New ArrayList
-        For index = 0 To gparameters.Length - 1
-            paramtypes.Add(servinterface.vb_to_cil_common_data_type(gparameters(index).ParameterType.Name))
-            paramfullname.Add(gparameters(index).ParameterType.FullName)
-        Next
-
         cargldr = cargcodestruc
         Return parampt.check_param_types(_ilmethod, gparameters, cargcodestruc)
-        'Legacy : Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc, paramfullname)
     End Function
 
     Friend Shared Sub get_method_info(method As Reflection.MethodInfo, ByRef methodinfo As tknformat._method)
