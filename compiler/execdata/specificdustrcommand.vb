@@ -34,7 +34,9 @@ Public Class specificdustrcommand
             Dim result As String = regexresult(index).Value
             result = result.Remove(0, 2)
             result = result.Remove(result.Length - 1)
-            value = value.Replace(regexresult(index).Value, ChrW(result))
+            Dim newvalue As String = ChrW(result)
+            If newvalue = conrex.DUSTR Then newvalue = conrex.BKSLASH & conrex.DUSTR
+            value = value.Replace(regexresult(index).Value, newvalue)
         Next
     End Sub
     Friend Shared Sub rem_specific_cil_char(ByRef value As String)
