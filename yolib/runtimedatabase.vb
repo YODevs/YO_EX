@@ -1,5 +1,13 @@
 ﻿Public Class rds
     Private columns, dt() As ArrayList
+    Enum commandstate
+        EQUAL
+        UNEQUAL
+        GREATE
+        GREATEEQ
+        LESS
+        LESSEQ
+    End Enum
     Public Sub New()
         columns = New ArrayList
     End Sub
@@ -28,8 +36,10 @@
             Throw New Exception("The columns are still empty.")
         End If
     End Sub
+    Public Sub set_command(state As commandstate, columnname As String, value As String)
 
-    Public Function insert(items As String) As Integer
+    End Sub
+    Public Function insert_by_index(items As String) As Integer
         Dim rowlist As ArrayList
         Dim yoda As New yoda
         rowlist = yoda.ReadYODA(items)
