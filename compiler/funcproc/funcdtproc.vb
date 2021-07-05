@@ -145,7 +145,7 @@
 
 
         libserv.cargldr = cargcodestruc
-        Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc)
+        Return parampt.check_param_types(_ilmethod, paramtypes, _method.parameters, cargcodestruc)
     End Function
     Friend Shared Function get_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, Optional ByRef isvirtualmethod As Boolean = False) As Integer
         Dim classchename As String = String.Empty
