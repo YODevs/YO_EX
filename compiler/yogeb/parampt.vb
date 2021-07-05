@@ -1,6 +1,6 @@
 ﻿Public Class parampt
 
-    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc(), Optional paramfullname As ArrayList = Nothing) As Boolean
+    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, params As tknformat._parameter(), cargcodestruc As xmlunpkd.linecodestruc(), Optional paramfullname As ArrayList = Nothing) As Boolean
         Dim getdatatype As String = conrex.NULL
         For index = 0 To cargcodestruc.Length - 1
             getdatatype = paramtypes(index).ToString()
@@ -24,11 +24,18 @@
                 Case Else
                     'Other Types
                     Dim crdatatype As String = String.Empty
-                    If servinterface.is_variable(_ilmethod, cargcodestruc(0).value, crdatatype) AndAlso getdatatype.ToLower = crdatatype.ToLower Then
-                        Return True
+                    If servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) Then
+                        Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
+                        If tpinf.asminfo = params(index).typeinf.asminfo Then
+                            Continue For
+                        End If
+                    ElseIf servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) AndAlso getdatatype.ToLower = crdatatype.ToLower Then
+                        Continue For
                     ElseIf IsNothing(paramfullname) = False AndAlso paramfullname(index).ToString.ToLower = crdatatype.ToLower Then
-                        Return True
+                        Continue For
                     End If
+                    Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc(index))
+                    If idenresult.identvalid Then Continue For
                     Return False
             End Select
         Next
