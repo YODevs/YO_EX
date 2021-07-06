@@ -105,6 +105,7 @@
         FIELDTYPE
         EQOPT
         FIELDVALUE
+        INITVALUE
     End Enum
 
     Private Function check_to_ignore_token(rd_token As tokenhared.token) As Boolean
@@ -315,6 +316,8 @@
             Case pbfieldstate.EQOPT
                 If rd_token = tokenhared.token.EQUALS Then
                     fieldstate = pbfieldstate.FIELDVALUE
+                ElseIf rd_token = tokenhared.token.PRSTART Then
+
                 Else
                     xfield(i).value = String.Empty
                     xfield(i).valuecinf = Nothing
