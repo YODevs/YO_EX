@@ -163,7 +163,7 @@ Public Class funcste
                 emptyparamtypes.Add(getcildatatype)
             Else
                 'Other Types...
-                set_extern_assembly(paramtypes, methodinfo.parameters(index).typeinf, emptyparamtypes)
+                set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes)
             End If
         Next
         set_stack_space(_ilmethod, emptyparamtypes, cargcodestruc)
@@ -171,16 +171,30 @@ Public Class funcste
         convtc.ntypecast = ntypecast
     End Sub
 
-    Private Shared Sub set_extern_assembly(ByRef paramtypes As ArrayList, typeinf As ilformat._typeinfo, ByRef emptyparamtypes As ArrayList)
+    Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, parameterinf As tknformat._parameter, ByRef emptyparamtypes As ArrayList)
         Dim gcodeparam As String = String.Empty
-        If typeinf.isenum = False Then
-            gcodeparam = String.Format("class [{0}]{1}", typeinf.externlib, typeinf.fullname)
+        If parameterinf.typeinf.asminfo = conrex.NULL Then
+
+            Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
+            clinetypeinfostruct(0) = servinterface.get_line_code_struct(parameterinf.dtypetargetinfo, parameterinf.ptype, tokenhared.token.IDENTIFIER)
+            clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
+            clinetypeinfostruct(1).tokenid = tokenhared.token.PRSTART
+            clinetypeinfostruct(1).value = conrex.PRSTART
+            clinetypeinfostruct(2) = New xmlunpkd.linecodestruc
+            clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
+            clinetypeinfostruct(2).value = conrex.PREND
+            parameterinf.typeinf = yotypecreator.get_type_info(_ilmethod, clinetypeinfostruct, 0, parameterinf.ptype)
+            'TODO : Set type info for yomethod
+        End If
+
+        If parameterinf.typeinf.isenum = False Then
+            gcodeparam = String.Format("class [{0}]{1}", parameterinf.typeinf.externlib, parameterinf.typeinf.fullname)
         Else
-            gcodeparam = String.Format("valuetype [{0}]{1}/{2}", typeinf.externlib, typeinf.valtpinf.classname, typeinf.valtpinf.objectname)
+            gcodeparam = String.Format("valuetype [{0}]{1}/{2}", parameterinf.typeinf.externlib, parameterinf.typeinf.valtpinf.classname, parameterinf.typeinf.valtpinf.objectname)
 
         End If
         paramtypes.Add(gcodeparam)
-        emptyparamtypes.Add(typeinf.fullname)
+        emptyparamtypes.Add(parameterinf.typeinf.fullname)
     End Sub
 
     Private Shared Sub check_expression_method(clinecodestruc() As xmlunpkd.linecodestruc, methodinfo As tknformat._method)
