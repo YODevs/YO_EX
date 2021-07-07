@@ -188,10 +188,17 @@ Public Class funcste
         End If
 
         If parameterinf.typeinf.isenum = False Then
-            gcodeparam = String.Format("class [{0}]{1}", parameterinf.typeinf.externlib, parameterinf.typeinf.fullname)
+            If parameterinf.typeinf.isinternalclass Then
+                gcodeparam = String.Format("class {0}", parameterinf.typeinf.fullname)
+            Else
+                gcodeparam = String.Format("class [{0}]{1}", parameterinf.typeinf.externlib, parameterinf.typeinf.fullname)
+            End If
         Else
-            gcodeparam = String.Format("valuetype [{0}]{1}/{2}", parameterinf.typeinf.externlib, parameterinf.typeinf.valtpinf.classname, parameterinf.typeinf.valtpinf.objectname)
-
+                If parameterinf.typeinf.isinternalclass Then
+                gcodeparam = String.Format("valuetype {0}/{1}", parameterinf.typeinf.valtpinf.classname, parameterinf.typeinf.valtpinf.objectname)
+            Else
+                gcodeparam = String.Format("valuetype [{0}]{1}/{2}", parameterinf.typeinf.externlib, parameterinf.typeinf.valtpinf.classname, parameterinf.typeinf.valtpinf.objectname)
+            End If
         End If
         paramtypes.Add(gcodeparam)
         emptyparamtypes.Add(parameterinf.typeinf.fullname)
