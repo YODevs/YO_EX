@@ -115,7 +115,6 @@
         End If
 
         Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, clineprop)
-
         If idenresult.identvalid Then
             If enumeration.is_enum(_ilmethod, idenresult, cargcodestruc) Then
                 Return True
@@ -345,7 +344,7 @@
                 If servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, getcildatatype) = False Then
                     getcildatatype = _ilmethod.parameter(index).datatype
                 End If
-                If eq_data_types(datatype, getcildatatype) Then
+                If eq_data_types(datatype, getcildatatype, _ilmethod.parameter(index).typeinf) Then
                     convtc.reset_convtc()
                     If ldindx Then
                         cil.ldarga(_ilmethod.codes, nvar)
@@ -385,7 +384,7 @@
         Return False
     End Function
 
-    Friend Shared Function eq_data_types(maintype As String, resulttype As String) As Boolean
+    Friend Shared Function eq_data_types(maintype As String, resulttype As String, Optional typeinf As ilformat._typeinfo = Nothing) As Boolean
         If maintype = conrex.NULL OrElse resulttype = conrex.NULL Then
             If maintype = resulttype Then
                 Return True
@@ -409,6 +408,8 @@
             Dim mptype As String = maintype.Remove(0, maintype.IndexOf(conrex.DOT) + 1)
             If resulttype = mptype Then Return True
         ElseIf (maintype = conrex.OBJECT OrElse maintype = conrex.STRING) AndAlso (resulttype = conrex.OBJECT OrElse resulttype = conrex.STRING) Then
+            Return True
+        ElseIf typeinf.isenum = True AndAlso maintype = "int32" Then
             Return True
         End If
         Return False
