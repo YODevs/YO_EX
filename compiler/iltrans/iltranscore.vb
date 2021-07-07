@@ -207,7 +207,7 @@
             funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
             Return
         End If
-        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(clinecodestruc(0))
+        Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, clinecodestruc(0))
         If clinecodestruc.Length < 3 Then
             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(index).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(index)), clinecodestruc(index).value))
             Return
@@ -568,16 +568,23 @@
                 _illocalinit(index).iscommondatatype = True
                 _illocalinit(index).isconstant = isconst
                 _illocalinit(index).ctor = False
-                _illocalinit(index).valtpinf.structuretype = ilformat._valuetypestructure.NOTHING
+                _illocalinit(index).isvaluetypes = False
                 localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
+                _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, 3, _illocalinit(index).datatype)
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
                 If clinecodestruc(3).tokenid = tokenhared.token.INIT Then
                     If clinecodestruc.Length > 4 Then
                         If libserv.get_extern_index_class(ilmethod, clinecodestruc(4).value, Nothing, Nothing, Nothing, Nothing) = -1 AndAlso funcdtproc.get_index_class(ilmethod, clinecodestruc(4).value) = -1 Then
-                            dserr.args.Add("Class '" & clinecodestruc(4).value & "' not found.")
-                            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(4)), clinecodestruc(4).value))
+                            If valtp.check_value_type(ilmethod, _illocalinit(index).typeinf, clinecodestruc(4).value) Then
+                                _illocalinit(index).isvaluetypes = True
+                                _illocalinit(index).datatype = _illocalinit(index).typeinf.fullname
+                                clinecodestruc(4).value = _illocalinit(index).datatype
+                            Else
+                                dserr.args.Add("Class '" & clinecodestruc(4).value & "' not found.")
+                                dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(4)), clinecodestruc(4).value))
+                            End If
                         End If
                         _illocalinit(index).datatype = clinecodestruc(4).value
                         _illocalinit(index).ctor = True
@@ -587,11 +594,16 @@
                 Else
                     _illocalinit(index).ctor = False
                     If libserv.get_extern_index_class(ilmethod, clinecodestruc(3).value, Nothing, Nothing, Nothing, Nothing) = -1 AndAlso funcdtproc.get_index_class(ilmethod, clinecodestruc(3).value) = -1 Then
-                        dserr.args.Add("Class '" & clinecodestruc(3).value & "' not found.")
-                        dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(3)), clinecodestruc(3).value))
+                        If valtp.check_value_type(ilmethod, _illocalinit(index).typeinf, clinecodestruc(3).value) Then
+                            _illocalinit(index).isvaluetypes = True
+                            _illocalinit(index).datatype = _illocalinit(index).typeinf.fullname
+                            clinecodestruc(3).value = _illocalinit(index).datatype
+                        Else
+                            dserr.args.Add("Class '" & clinecodestruc(3).value & "' not found.")
+                            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(3)), clinecodestruc(3).value))
+                        End If
                     End If
                     _illocalinit(index).datatype = clinecodestruc(3).value
-                    valtp.check_value_type(_illocalinit(index).valtpinf, _illocalinit(index).datatype)
                     If clinecodestruc.Length > 4 Then
                         If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
                             'DECLARING ERROR
@@ -615,11 +627,20 @@
                         End If
                     End If
                 End If
-                Dim ctor As New ilctor(ilmethod)
-                ilmethod = ctor.set_new_ctor(index, clinecodestruc, _illocalinit, localinit)
-                localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
+                If _illocalinit(index).isvaluetypes = False Then
+                    Dim ctor As New ilctor(ilmethod)
+                    ilmethod = ctor.set_new_ctor(index, clinecodestruc, _illocalinit, localinit)
+                    localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
+                    Dim indclass As Integer = 3
+                    If _illocalinit(index).ctor Then
+                        indclass = 4
+                    End If
+                    _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, indclass, _illocalinit(index).datatype)
+                Else
+                    localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
+                End If
                 Return
-            End If
+                End If
             _illocalinit(index).hasdefaultvalue = False
 
             If clinecodestruc.Length > 4 Then

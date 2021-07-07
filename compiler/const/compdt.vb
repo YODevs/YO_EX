@@ -58,4 +58,6 @@ pop"
 
     Friend Const CONSTRUCTOR_METHOD As String = "ctor"
     Friend Const LOAD_FIRST_ARGUMENT As String = "ldarg.0"
+    Friend Const [CLASS] As String = "class"
+    Friend Const VALUETYPE As String = "valuetype"
 End Class

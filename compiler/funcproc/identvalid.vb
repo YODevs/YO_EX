@@ -9,11 +9,11 @@
         Dim callintern As Boolean
     End Structure
 
-    Friend Shared Function get_identifier_valid(clinecodestruc As xmlunpkd.linecodestruc) As _resultidentcvaild
+    Friend Shared Function get_identifier_valid(_ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc) As _resultidentcvaild
         Dim resultvaild As New _resultidentcvaild
         resultvaild.identvalid = False
 
-        If check_intern_identifier(clinecodestruc, resultvaild) Then
+        If check_intern_identifier(_ilmethod, clinecodestruc, resultvaild) Then
             Return resultvaild
         ElseIf check_extern_identifier(clinecodestruc, resultvaild) Then
             Return resultvaild
@@ -27,12 +27,14 @@
         End If
         Return False
     End Function
-    Friend Shared Function check_intern_identifier(clinecodestruc As xmlunpkd.linecodestruc, ByRef resultvalid As _resultidentcvaild) As Boolean
+    Friend Shared Function check_intern_identifier(_ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, ByRef resultvalid As _resultidentcvaild) As Boolean
         If clinecodestruc.tokenid = tokenhared.token.IDENTIFIER AndAlso clinecodestruc.value.Contains("::") Then
             resultvalid.clident = True
             resultvalid.callintern = True
             set_identifier_valid(clinecodestruc, resultvalid)
-            Dim classindex As Integer = funcdtproc.get_index_class(Nothing, resultvalid.exclass)
+            Dim bfexclass As String = resultvalid.exclass
+            Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, resultvalid.exclass)
+            resultvalid.exclass = bfexclass
             If classindex <> -1 Then
                 resultvalid.classindex = classindex
                 resultvalid.identvalid = True

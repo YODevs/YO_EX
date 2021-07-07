@@ -66,6 +66,12 @@ Public Class libserv
             Next
         End If
     End Sub
+    Friend Shared Function get_nested_type(nestedtypeindex As Integer, namespaceindex As Integer, classindex As Integer) As Type
+        Return libreg.types(namespaceindex)(classindex).GetNestedTypes()(nestedtypeindex)
+    End Function
+    Friend Shared Function get_extern_class_type(namespaceindex As Integer, classindex As Integer) As Type
+        Return libreg.types(namespaceindex)(classindex)
+    End Function
     Friend Shared Function get_extern_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer, Optional ByRef isvirtualmethod As Boolean = False, Optional ByRef reclassname As String = Nothing) As Integer
         Dim classchename As String = String.Empty
         If IsNothing(_ilmethod.locallinit) = False OrElse IsNothing(_ilmethod.parameter) = False OrElse IsNothing(ilasmgen.classdata.fields) = False Then
@@ -193,6 +199,18 @@ Public Class libserv
         Return retcode
     End Function
 
+    Friend Shared Function get_index_enum(ByRef enumname As String, namespaceindex As Integer, classindex As Integer) As Integer
+        Dim enumtolower As String = enumname.ToLower
+        Dim index As Integer = 0
+        For Each gmember In libreg.types(namespaceindex)(classindex).GetNestedTypes
+            If gmember.IsEnum = True AndAlso enumtolower = gmember.Name.ToLower Then
+                enumname = gmember.Name
+                Return index
+            End If
+            index += 1
+        Next
+        Return -1
+    End Function
     Friend Shared Function get_extern_index_property(propertyname As String, namespaceindex As Integer, classindex As Integer, ByRef retproperty As PropertyInfo) As Integer
         propertyname = propertyname.ToLower
         For Each gproperty In libreg.types(namespaceindex)(classindex).GetProperties()
@@ -225,15 +243,8 @@ Public Class libserv
         ElseIf gparameters.Length = 0 AndAlso cargcodelen = 0 Then
             Return True
         End If
-        Dim paramtypes As New ArrayList
-        Dim paramfullname As New ArrayList
-        For index = 0 To gparameters.Length - 1
-            paramtypes.Add(servinterface.vb_to_cil_common_data_type(gparameters(index).ParameterType.Name))
-            paramfullname.Add(gparameters(index).ParameterType.FullName)
-        Next
-
         cargldr = cargcodestruc
-        Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc, paramfullname)
+        Return parampt.check_param_types(_ilmethod, gparameters, cargcodestruc)
     End Function
 
     Friend Shared Sub get_method_info(method As Reflection.MethodInfo, ByRef methodinfo As tknformat._method)
@@ -249,6 +260,7 @@ Public Class libserv
             methodinfo.parameters(index) = New tknformat._parameter
             methodinfo.parameters(index).name = method.GetParameters(index).Name
             methodinfo.parameters(index).ptype = method.GetParameters(index).ParameterType.Name
+            methodinfo.parameters(index).typeinf = yotypecreator.convert_to_type_info(method.GetParameters(index).ParameterType)
         Next
     End Sub
     Friend Shared Sub get_method_info(ctormethod As Reflection.ConstructorInfo, ByRef methodinfo As tknformat._method)

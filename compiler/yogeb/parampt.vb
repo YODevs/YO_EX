@@ -1,6 +1,6 @@
 ﻿Public Class parampt
 
-    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, cargcodestruc As xmlunpkd.linecodestruc(), Optional paramfullname As ArrayList = Nothing) As Boolean
+    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, paramtypes As ArrayList, params As tknformat._parameter(), cargcodestruc As xmlunpkd.linecodestruc(), Optional paramfullname As ArrayList = Nothing) As Boolean
         Dim getdatatype As String = conrex.NULL
         For index = 0 To cargcodestruc.Length - 1
             getdatatype = paramtypes(index).ToString()
@@ -24,11 +24,18 @@
                 Case Else
                     'Other Types
                     Dim crdatatype As String = String.Empty
-                    If servinterface.is_variable(_ilmethod, cargcodestruc(0).value, crdatatype) AndAlso getdatatype.ToLower = crdatatype.ToLower Then
-                        Return True
+                    If servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) Then
+                        Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
+                        If tpinf.asminfo = params(index).typeinf.asminfo Then
+                            Continue For
+                        End If
+                    ElseIf servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) AndAlso getdatatype.ToLower = crdatatype.ToLower Then
+                        Continue For
                     ElseIf IsNothing(paramfullname) = False AndAlso paramfullname(index).ToString.ToLower = crdatatype.ToLower Then
-                        Return True
+                        Continue For
                     End If
+                    Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc(index))
+                    If idenresult.identvalid Then Continue For
                     Return False
             End Select
         Next
@@ -36,6 +43,45 @@
         Return True
     End Function
 
+    Friend Shared Function check_param_types(_ilmethod As ilformat._ilmethodcollection, gparameters() As Reflection.ParameterInfo, cargcodestruc As xmlunpkd.linecodestruc()) As Boolean
+        Dim getdatatype As String = conrex.NULL
+        For index = 0 To cargcodestruc.Length - 1
+            getdatatype = servinterface.vb_to_cil_common_data_type(gparameters(index).ParameterType.Name)
+            If getdatatype.EndsWith("&") Then
+                getdatatype = getdatatype.Remove(getdatatype.Length - 1)
+            End If
+
+            Select Case getdatatype
+                Case "string"
+                    If chstr(_ilmethod, cargcodestruc(index)) = False Then Return False
+                Case illdloc.check_integer_type(getdatatype)
+                    If chint(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "float32"
+                    If chflt(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "float64"
+                    If chflt(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "char"
+                    If chchr(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "bool"
+                    If chbool(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case Else
+                    'Other Types
+                    Dim crdatatype As String = String.Empty
+                    If servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) Then
+                        Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
+                        If tpinf.asminfo = gparameters(index).ParameterType.AssemblyQualifiedName Then
+                            Continue For
+                        End If
+                    Else
+                        Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc(index))
+                        If idenresult.identvalid Then Continue For
+                    End If
+                    Return False
+            End Select
+        Next
+
+        Return True
+    End Function
     Friend Shared Function chstr(_ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc) As Boolean
         Select Case cargcodestruc.tokenid
             Case tokenhared.token.TYPE_DU_STR

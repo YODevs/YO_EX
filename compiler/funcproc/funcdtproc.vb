@@ -145,7 +145,7 @@
 
 
         libserv.cargldr = cargcodestruc
-        Return parampt.check_param_types(_ilmethod, paramtypes, cargcodestruc)
+        Return parampt.check_param_types(_ilmethod, paramtypes, _method.parameters, cargcodestruc)
     End Function
     Friend Shared Function get_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, Optional ByRef isvirtualmethod As Boolean = False) As Integer
         Dim classchename As String = String.Empty
@@ -161,6 +161,14 @@
         End If
     End Function
 
+    Friend Shared Function get_class_name(classindex As Integer) As String
+        Dim resultclassindex As mapstoredata.dataresult = refrecord.findkey(classindex)
+        If resultclassindex.issuccessful Then
+            Return resultclassindex.result
+        Else
+            Return Nothing
+        End If
+    End Function
     Friend Shared Function get_method_info(classindex As Integer, methodindex As Integer) As tknformat._method
         Return reffunc(classindex).methods(methodindex)
     End Function

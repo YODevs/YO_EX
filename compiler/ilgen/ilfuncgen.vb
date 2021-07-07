@@ -1,4 +1,6 @@
-﻿Public Class ilfuncgen
+﻿Imports YOCA
+
+Public Class ilfuncgen
 
     Public setinitialization As Boolean = False
     Private grabentrypoint As Boolean = False
@@ -43,6 +45,17 @@
         End If
 
         _ilmethods(ilmethodsindex).returntype = yomethod.returntype
+        If yomethod.typetargetvalue <> conrex.NULL AndAlso yomethod.returntype.ToLower <> conrex.VOID Then
+            Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
+            clinetypeinfostruct(0) = servinterface.get_line_code_struct(yomethod.typetargetinfo, yomethod.typetargetvalue, tokenhared.token.IDENTIFIER)
+            clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
+            clinetypeinfostruct(1).tokenid = tokenhared.token.PRSTART
+            clinetypeinfostruct(1).value = conrex.PRSTART
+            clinetypeinfostruct(2) = New xmlunpkd.linecodestruc
+            clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
+            clinetypeinfostruct(2).value = conrex.PREND
+            _ilmethods(ilmethodsindex).typeinf = yotypecreator.get_type_info(_ilmethods(ilmethodsindex), clinetypeinfostruct, 0, yomethod.typetargetvalue)
+        End If
         _ilmethods(ilmethodsindex).isexpr = yomethod.isexpr
         set_object_control(_ilmethods(ilmethodsindex), yomethod)
         set_custom_type(_ilmethods(ilmethodsindex))
@@ -93,15 +106,32 @@
         retinf.classname = ctorinf.classname
         _ilmethodcollection.returninfo = retinf
     End Sub
-    Private Sub set_parameter(yomethod As tknformat._method, ilmethodsindex As Integer)
+    Private Sub set_parameter(ByRef yomethod As tknformat._method, ilmethodsindex As Integer)
         If IsNothing(yomethod.parameters) Then Return
         For index = 0 To yomethod.parameters.Length - 1
             Array.Resize(_ilmethods(ilmethodsindex).parameter, index + 1)
             _ilmethods(ilmethodsindex).parameter(index).name = yomethod.parameters(index).name
             _ilmethods(ilmethodsindex).parameter(index).datatype = yomethod.parameters(index).ptype
             _ilmethods(ilmethodsindex).parameter(index).ispointer = yomethod.parameters(index).byreference
+            _ilmethods(ilmethodsindex).parameter(index).typeinf = set_type_info(_ilmethods(ilmethodsindex), index, yomethod.parameters(index).dtypetargetinfo)
+            yomethod.parameters(index).typeinf = _ilmethods(ilmethodsindex).parameter(index).typeinf
         Next
     End Sub
+
+    Private Function set_type_info(ilmethod As ilformat._ilmethodcollection, paramindex As Integer, dtypetargetinfo As lexer.targetinf) As ilformat._typeinfo
+        Dim tpinf As New ilformat._typeinfo
+        Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
+        clinetypeinfostruct(0) = servinterface.get_line_code_struct(dtypetargetinfo, ilmethod.parameter(paramindex).datatype, tokenhared.token.IDENTIFIER)
+        clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
+        clinetypeinfostruct(1).tokenid = tokenhared.token.PRSTART
+        clinetypeinfostruct(1).value = conrex.PRSTART
+        clinetypeinfostruct(2) = New xmlunpkd.linecodestruc
+        clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
+        clinetypeinfostruct(2).value = conrex.PREND
+        tpinf = yotypecreator.get_type_info(ilmethod, clinetypeinfostruct, 0, ilmethod.parameter(paramindex).datatype)
+        Return tpinf
+    End Function
+
     Private Function check_entry_point_by_file(location As String) As Boolean
         location = location.Remove(0, location.LastIndexOf("\") + 1)
         If location.ToLower = "main.yo" Then

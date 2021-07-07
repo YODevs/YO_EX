@@ -31,6 +31,7 @@ Public Class conrex
     Public Const DNLIBFORMAT As String = ".dll"
     Public Const LABRAFORMAT As String = ".labra"
     Public Const YODAFORMAT As String = ".yoda"
+    Public Const YODAEMPTYDATA As String = "![]"
     Public Const LEXCACHEFORMAT As String = ".yoobj"
     Public Const BOX As String = "box"
     Public Const MSCORLIB As String = "mscorlib"
@@ -59,6 +60,7 @@ Public Class conrex
     Public Const DBCLN As String = "::"
     Public Const EQU As Char = "="
     Public Const QES As Char = "?"
+    Public Const PLUS As Char = "+"
 
 
     Enum exitcode

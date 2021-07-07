@@ -27,7 +27,7 @@ Public Class var
                 End If
             Else
                 Dim hfield As tknformat._pubfield
-                If servinterface.get_identifier_gb(varname, clinecodestruc(0), hfield) Then
+                If servinterface.get_identifier_gb(_ilmethod, varname, clinecodestruc(0), hfield) Then
                     localvartype.result = hfield.ptype
                 Else
                     'Set Error

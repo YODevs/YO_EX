@@ -105,6 +105,7 @@
         FIELDTYPE
         EQOPT
         FIELDVALUE
+        INITVALUE
     End Enum
 
     Private Function check_to_ignore_token(rd_token As tokenhared.token) As Boolean
@@ -149,7 +150,7 @@
                 objcontrol.disableobjectcontrol = True
             Else
                 dserr.args.Add(value)
-                dserr.new_error(conserr.errortype.BADMODIFIER, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public / private / ...")
+                dserr.new_error(conserr.errortype.BADMODIFIER, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "static / instance")
             End If
         End If
         Return True
@@ -308,12 +309,15 @@
                 If rd_token = tokenhared.token.INIT Then
                     xfield(i).initproc = True
                 Else
+                    xfield(i).typetargetinfo = linecinf
                     xfield(i).ptype = value
                     fieldstate = pbfieldstate.EQOPT
                 End If
             Case pbfieldstate.EQOPT
                 If rd_token = tokenhared.token.EQUALS Then
                     fieldstate = pbfieldstate.FIELDVALUE
+                ElseIf rd_token = tokenhared.token.PRSTART Then
+
                 Else
                     xfield(i).value = String.Empty
                     xfield(i).valuecinf = Nothing
@@ -396,9 +400,11 @@
                     End If
                 End If
 
+                xmethods(i).typetargetinfo = linecinf
+                xmethods(i).typetargetvalue = value
                 If servinterface.is_common_data_type(value, cildatatype) Then
                     'Common Data Type
-                    xmethods(i).returntype = cildatatype
+                xmethods(i).returntype = cildatatype
                 Else
                     'Else Types ...
                     xmethods(i).returntype = value
@@ -485,6 +491,7 @@
             Case funcparaitemstate.WAITFORPARAMETERTYPE
                 paraitemstate = funcparaitemstate.WAITFORSPLITTER
                 xmethods(i).parameters(arindex).ptype = value
+                xmethods(i).parameters(arindex).dtypetargetinfo = linecinf
             Case funcparaitemstate.WAITFORSPLITTER
                 If rd_token = tokenhared.token.CMA Then
                     paraitemstate = funcparaitemstate.WAITFORIDENTIFIER

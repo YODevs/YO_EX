@@ -6,7 +6,8 @@ Public Class propertyste
 
     Friend Shared Sub invoke_property(clinecodestruc() As xmlunpkd.linecodestruc, ilmethod As ilformat._ilmethodcollection, propresult As identvalid._resultidentcvaild, inline As Integer, optval As tokenhared.token)
         If propresult.callintern = True Then
-            Throw New NotImplementedException
+            'check internal property & fields ...
+            fieldste.inv_internal_field(clinecodestruc, ilmethod, propresult, inline, optval)
         Else
             inv_external_property(clinecodestruc, ilmethod, propresult, inline, optval)
         End If
@@ -101,7 +102,7 @@ Public Class propertyste
 
     Friend Shared Sub get_inv_property(clinecodestruc() As xmlunpkd.linecodestruc, ilmethod As ilformat._ilmethodcollection, propresult As identvalid._resultidentcvaild, inline As Integer)
         If propresult.callintern = True Then
-            Throw New NotImplementedException
+            fieldste.get_internal_field(clinecodestruc, ilmethod, propresult, inline)
         Else
             get_external_property(clinecodestruc, ilmethod, propresult, inline)
         End If

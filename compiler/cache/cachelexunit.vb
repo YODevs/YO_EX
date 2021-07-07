@@ -32,6 +32,16 @@ Public Class cachelexunit
             incfile.incspath = yoda.ReadYODA(File.ReadAllText(cacheprojectdir & "includes.yoda"))
         End If
     End Sub
+    Friend Shared Sub load_includes(tknfmtclass As tknformat._class())
+        Dim cacheprojectdir As String = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
+        If Directory.Exists(cacheprojectdir) Then
+            For index = 0 To tknfmtclass.Length - 1
+                For i2 = 0 To tknfmtclass(index).includelist.Count - 1
+                    incfile.add_new_path(tknfmtclass(index).includelist(i2).ToString)
+                Next
+            Next
+        End If
+    End Sub
 
     Private frclass() As tknformat._class
     Public Sub New(tknfmtclass() As tknformat._class)
@@ -50,12 +60,22 @@ Public Class cachelexunit
                 Dim nxmlserializer As New Xml.Serialization.XmlSerializer(frclass(index).GetType)
                 Dim nstreamwriter As New IO.StreamWriter(filepath)
                 nxmlserializer.Serialize(nstreamwriter, frclass(index))
+                save_single_include_file(frclass(index))
             End If
         Next
-        save_include_file()
     End Sub
 
-    Private Sub save_include_file()
+    Private Sub save_single_include_file(frclass As tknformat._class)
+        Dim path As String = cachemkr.cacheprojectdir & servinterface.get_hash(frclass.location) & "inc" & conrex.YODAFORMAT
+        If IsNothing(frclass.includelist) OrElse frclass.includelist.Count = 0 Then
+            File.WriteAllText(path, conrex.YODAEMPTYDATA)
+        Else
+            Dim includes As New YODA.YODA_Format
+            Dim getincludeyodafmt As String = includes.WriteYODA(frclass.includelist)
+            File.WriteAllText(path, getincludeyodafmt)
+        End If
+    End Sub
+    Friend Shared Sub save_include_file()
         Dim includes As New YODA.YODA_Format
         Dim getincludeyodafmt As String = includes.WriteYODA(incfile.incspath)
         File.WriteAllText(cachemkr.cacheprojectdir & "includes.yoda", getincludeyodafmt)

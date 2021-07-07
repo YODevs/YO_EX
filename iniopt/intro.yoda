@@ -108,4 +108,7 @@ Usage : yoca clean"
 ,
 "import" = "Copy all dependencies into the assets folder next to the compiled output.
 Usage : yoca import"
+,
+"yoat" = "YOAT is software for automated testing of projects written with YO.
+Usage : yoca yoat"
 ]

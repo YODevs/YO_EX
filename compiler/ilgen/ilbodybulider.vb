@@ -100,13 +100,23 @@ call instance void [mscorlib]System.Object::.ctor()")
         Dim lcode As String = String.Empty
         For index = 0 To ildt.field.Length - 1
             If ildt.field(index).isliteral Then
+                'NEED TO REVIEW
                 lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & "static literal" &
                     conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & cilkeywordchecker.get_key(ildt.field(index).name) & conrex.SPACE
                 lcode &= " = " & ildt.field(index).ptype & "(" & ildt.field(index).value & ")"
             Else
-                servinterface.is_common_data_type(ildt.field(index).ptype, ildt.field(index).ptype)
-                lcode = ".field " & ildt.field(index).accesscontrol & conrex.SPACE & ildt.field(index).modifier &
-                    conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & cilkeywordchecker.get_key(ildt.field(index).name) & conrex.SPACE
+                If ildt.field(index).typeinf.isprimitive Then
+                    lcode = String.Format(".field {0} {1} {2} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                       ildt.field(index).typeinf.cdttypesymbol, cilkeywordchecker.get_key(ildt.field(index).name))
+                Else
+                    If ildt.field(index).typeinf.isinternalclass Then
+                        lcode = String.Format(".field {0} {1} class {2} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                       cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name))
+                    Else
+                        lcode = String.Format(".field {0} {1} class [{2}]{3} {4}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                      cilkeywordchecker.get_key(ildt.field(index).typeinf.externlib), cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name))
+                    End If
+                End If
             End If
             add_il_code(lcode)
         Next
@@ -225,15 +235,20 @@ call instance void [mscorlib]System.Object::.ctor()")
                 add_inline_code(cildatatype)
             Else
                 'Other Types ...
-                cildatatype = funcdt.parameter(index).datatype
-                Dim classindex, namespaceindex As Integer
-                Dim reclassname As String = String.Empty
-                If libserv.get_extern_index_class(funcdt, cildatatype, namespaceindex, classindex, Nothing, reclassname) = -1 Then
-                    dserr.args.Add("Class '" & funcdt.parameter(index).datatype & "' not found.")
-                    dserr.new_error(conserr.errortype.METHODERROR, -1, "", "Method : " & funcdt.name)
-                    Return
+                Dim gcodeparam As String = conrex.NULL
+                Dim classref, dllref As String
+                If funcdt.parameter(index).typeinf.valtpinf.classname = conrex.NULL Then
+                    classref = compdt.CLASS
+                Else
+                    classref = compdt.VALUETYPE
                 End If
-                Dim gcodeparam As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(namespaceindex), cildatatype)
+                If funcdt.parameter(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", funcdt.parameter(index).typeinf.externlib)
+
+                If classref = compdt.CLASS Then
+                    gcodeparam = String.Format("{0} {1}{2}", classref, dllref, funcdt.parameter(index).typeinf.fullname)
+                Else
+                    gcodeparam = String.Format("{0} {1}{2}/{3}", classref, dllref, funcdt.parameter(index).typeinf.valtpinf.classname, funcdt.parameter(index).typeinf.valtpinf.objectname)
+                End If
                 If funcdt.parameter(index).ispointer Then gcodeparam &= "&"
                 add_inline_code(gcodeparam)
             End If
@@ -253,28 +268,63 @@ call instance void [mscorlib]System.Object::.ctor()")
         add_il_code(".locals init(")
         Dim islot As Integer = 0
         For index = 0 To funcdt.locallinit.Length - 1
+            If funcdt.locallinit(index).datatype = conrex.NULL Then Continue For
             Dim classref As String = String.Empty
             Dim dllref As String = String.Empty
-            If funcdt.locallinit(index).datatype = conrex.NULL Then Continue For
-            If funcdt.locallinit(index).iscommondatatype = False Then
-                classref = "class "
-                If funcdt.locallinit(index).asmextern <> conrex.NULL Then
-                    dllref = String.Format("[{0}]", funcdt.locallinit(index).asmextern)
+            If funcdt.locallinit(index).typeinf.asminfo <> conrex.NULL Then
+                If funcdt.locallinit(index).typeinf.isprimitive = False Then
+                    If funcdt.locallinit(index).isvaluetypes Then
+                        classref = compdt.VALUETYPE
+                    Else
+                        classref = compdt.CLASS
+                    End If
+                    If funcdt.locallinit(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", funcdt.locallinit(index).typeinf.externlib)
                 End If
-            End If
-
-            Dim arrlgo As String = String.Empty
-            funcdt.locallinit(index).name = cilkeywordchecker.get_key(funcdt.locallinit(index).name)
-            funcdt.locallinit(index).datatype = cilkeywordchecker.get_key(funcdt.locallinit(index).datatype)
-            If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
-            If funcdt.locallinit.Length = index + 1 Then
-                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name)
+                Dim arrlgo As String = String.Empty
+                Dim fullname As String = String.Empty
+                funcdt.locallinit(index).name = cilkeywordchecker.get_key(funcdt.locallinit(index).name)
+                If funcdt.locallinit(index).typeinf.isprimitive Then
+                    fullname = cilkeywordchecker.get_key(funcdt.locallinit(index).typeinf.cdttypesymbol)
+                Else
+                    fullname = cilkeywordchecker.get_key(funcdt.locallinit(index).typeinf.fullname)
+                End If
+                If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
+                Dim locinitcode As String
+                If funcdt.locallinit(index).isvaluetypes = False Then
+                    locinitcode = String.Format("[{0}] {1} {2}{3}{4} {5}", islot, classref, dllref, fullname, arrlgo, funcdt.locallinit(index).name)
+                Else
+                    locinitcode = String.Format("[{0}] {1} {2}{3}/{4}{5} {6}", islot, classref, dllref, funcdt.locallinit(index).typeinf.valtpinf.classname, funcdt.locallinit(index).typeinf.valtpinf.objectname, arrlgo, funcdt.locallinit(index).name)
+                End If
+                add_il_code(locinitcode)
+                If funcdt.locallinit.Length <> index + 1 Then
+                    add_inline_code(conrex.CMA)
+                End If
             Else
-                add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name & " , ")
+                imp_locals_init_lgcy(funcdt, index, islot)
             End If
             islot += 1
         Next
         add_il_code(")")
+    End Sub
+
+    Private Sub imp_locals_init_lgcy(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, islot As Integer)
+        Dim classref As String = String.Empty
+        Dim dllref As String = String.Empty
+        If funcdt.locallinit(index).iscommondatatype = False Then
+            classref = "class "
+            If funcdt.locallinit(index).asmextern <> conrex.NULL Then
+                dllref = String.Format("[{0}]", funcdt.locallinit(index).asmextern)
+            End If
+        End If
+        Dim arrlgo As String = String.Empty
+        funcdt.locallinit(index).name = cilkeywordchecker.get_key(funcdt.locallinit(index).name)
+        funcdt.locallinit(index).datatype = cilkeywordchecker.get_key(funcdt.locallinit(index).datatype)
+        If funcdt.locallinit(index).isarrayobj Then arrlgo = conrex.BRSTEN
+        If funcdt.locallinit.Length = index + 1 Then
+            add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name)
+        Else
+            add_il_code("[" & islot & "] " & classref & dllref & funcdt.locallinit(index).datatype & arrlgo & " " & funcdt.locallinit(index).name & " , ")
+        End If
     End Sub
     Private Sub imp_body(funcdt As ilformat._ilmethodcollection, ByRef impretopt As Boolean)
         Dim linecode As String = String.Empty

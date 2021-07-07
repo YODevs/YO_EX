@@ -30,6 +30,8 @@ Public Class tknformat
     End Structure
     Structure _method
         Dim name As String
+        Dim typetargetinfo As lexer.targetinf
+        Dim typetargetvalue As String
         Dim returntype As String
         Dim nopara As Boolean
         Dim parameters() As _parameter
@@ -43,6 +45,8 @@ Public Class tknformat
         Dim ptype As String
         Dim byreference As Boolean
         Dim defvalue As String
+        Dim dtypetargetinfo As lexer.targetinf
+        Dim typeinf As ilformat._typeinfo
     End Structure
     Structure _pubfield
         Dim isconstant As Boolean
@@ -53,6 +57,7 @@ Public Class tknformat
         Dim valuetoken As tokenhared.token
         Dim objcontrol As fmtshared.objectcontrol
         Dim initproc As Boolean
+        Dim typetargetinfo As lexer.targetinf
     End Structure
 
     Structure _inlcode

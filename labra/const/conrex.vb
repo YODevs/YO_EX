@@ -11,13 +11,18 @@
     Public Const DUSTR As Char = """"
     Public Const BATCHFILESTR As String = "yoca run
 pause"
-    Public Const MAINDEFCODE As String = "#[app::classname(""MyApp"")]
+    Public Const MAINDEFCODE As String = "#[app::classname(""myapp"")]
 #[app::wait(true)]
-#[cfg::CIL(true)]
 
 func main()
 {
   
+}
+"
+    Public Const MAINLIBDEFCODE As String = "#[app::classname(""mylib"")]
+public instance func ctor()
+{
+
 }
 "
 End Class

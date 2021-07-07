@@ -23,6 +23,7 @@
         Dim methodmodtype As _modifiertype
         Dim locallinit() As _illocalinit
         Dim returntype As String
+        Dim typeinf As _typeinfo
         Dim returninfo As _returninfo
         Dim parameter() As _ilparameter
         Dim entrypoint As Boolean
@@ -37,6 +38,7 @@
     End Structure
     Public Structure _ilparameter
         Dim name As String
+        Dim typeinf As _typeinfo
         Dim datatype As String
         Dim hasdefaultvalue As Boolean
         Dim ispointer As Boolean
@@ -45,6 +47,7 @@
     Public Structure _illocalinit
         Dim name As String
         Dim datatype As String
+        Dim typeinf As _typeinfo
         Dim iscommondatatype As Boolean
         Dim hasdefaultvalue As Boolean
         Dim clocalvalue() As xmlunpkd.linecodestruc
@@ -53,9 +56,22 @@
         Dim ctor As Boolean
         Dim isvaluetypes As Boolean
         Dim isarrayobj As Boolean
-        Dim valtpinf As _valtypeinfo
         Dim arrayinf As _arrayinfo
         Dim asmextern As String
+    End Structure
+    Public Structure _typeinfo
+        Dim name As String
+        Dim [namespace] As String
+        Dim fullname As String
+        Dim externlib As String
+        Dim isprimitive As Boolean
+        Dim isclass As Boolean
+        Dim isenum As Boolean
+        Dim isinternalclass As Boolean
+        Dim yosymbol As String
+        Dim cdttypesymbol As String
+        Dim asminfo As String
+        Dim valtpinf As _valtypeinfo
     End Structure
     Public Structure _ilassemblyextern
         Dim name As String
@@ -67,6 +83,7 @@
         Dim accesscontrol As String
         Dim modifier As String
         Dim name As String
+        Dim typeinf As _typeinfo
         Dim ptype As String
         Dim value As String
         Dim valuecinf As lexer.targetinf

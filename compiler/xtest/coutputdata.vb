@@ -15,6 +15,16 @@ Public Class coutputdata
         Next
     End Sub
 
+    Public Shared Sub print_collection(arr As ArrayList)
+        Console.WriteLine()
+        If IsNothing(arr) OrElse arr.Count = 0 Then
+            Console.WriteLine("Collection is Empty !")
+            Return
+        End If
+        For index = 0 To arr.Count - 1
+            Console.WriteLine("{0}-> {1}", index, arr(index))
+        Next
+    End Sub
     Public Shared Sub message_box(text As String)
         MsgBox(text)
     End Sub
