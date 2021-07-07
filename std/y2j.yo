@@ -1,0 +1,56 @@
+#[app::classname("y2j")]
+
+include 'yolib'
+
+func get_map(source:str) : str
+{
+  let key , val , result : str
+  let map : init yolib.map()
+  let sb : init system.text.stringbuilder(result)
+  map::import(source)
+  let size : i32 = map::size()
+  sb::append('{')
+  sb::appendline()
+  for(index in [0..size])
+  {
+    map::get_map(index,key,val)
+    if(index << [size - 1])
+    {
+      sb::append("#qu#{key}#qu : #qu#{val}#qu ,#nl")
+    }
+    else
+    {
+      sb::append("#qu#{key}#qu : #qu#{val}#qu")
+    }
+  }
+    sb::appendline()
+    sb::append('}')
+    result := sb::tostring()
+    return result
+}
+
+func get_list(source:str) : str
+{
+  let result : str
+  let list : init yolib.list()
+  let sb : init system.text.stringbuilder(result)
+  list::import(source)
+  let size : i32 = list::count()
+  sb::append('[')
+  for(index in [0..size])
+  {
+    let item  : str = list::get(index)
+    if(index << [size - 1])
+    {
+      sb::append("#qu#{item}#qu ,")
+    }
+
+    else
+    {
+      sb::append("#qu#{item}#qu")
+    }
+  }
+  sb::append(']')
+  result := sb::tostring()
+  return result
+}
