@@ -30,6 +30,11 @@ func wait() : void
   System.Console::ReadLine()
 }
 
+func clear() : void
+{
+  System.Console::Clear()
+}
+
 func setin(result:str&,description:str) : void
 {
   if(description <> NULL )
