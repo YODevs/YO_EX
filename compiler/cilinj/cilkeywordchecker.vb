@@ -95,6 +95,8 @@
         import_cil_keyword("volatile")
         import_cil_keyword("xor")
         import_cil_keyword("import")
+        import_cil_keyword("value")
+        import_cil_keyword("type")
     End Sub
 
     Private Shared Sub import_cil_keyword(keyword As String)
