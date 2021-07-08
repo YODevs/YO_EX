@@ -1,0 +1,32 @@
+#[app::classname("menuapp")]
+
+include 'yolib'
+include 'ystdio'
+
+func main()
+{
+  let result : str =  yolib.menu::show_menu("!['Start Program','Setting','Exit']")
+  match(result)
+  {
+    case 'Start Program' {
+     start_app()
+    }
+    case 'Setting' {
+      io::println("Setting Menu Clicked !")
+    }
+    #> Default -> Stop app
+  }
+}
+
+func start_app()
+{
+  system.console::clear()
+  let menulist : init yolib.list()
+  menulist::add("New Process")
+  menulist::add("Continue Process")
+  menulist::add("Back")
+  let yodafmt : str = menulist::clone()
+  let result : str =  yolib.menu::show_menu(yodafmt)
+  io::println("#nl'#{result}' Clicked !")
+  io::wait()
+}
