@@ -302,7 +302,7 @@
         For index = 0 To _ilmethod.locallinit.Length - 1
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
-                If eq_data_types(_ilmethod.locallinit(index).datatype, datatype) Then
+                If eq_data_types(_ilmethod.locallinit(index).datatype, datatype, _ilmethod.locallinit(index).typeinf) Then
                     convtc.reset_convtc()
                     If ldptr Then
                         cil.load_local_address(_ilmethod.codes, pnvar)
@@ -409,7 +409,7 @@
             If resulttype = mptype Then Return True
         ElseIf (maintype = conrex.OBJECT OrElse maintype = conrex.STRING) AndAlso (resulttype = conrex.OBJECT OrElse resulttype = conrex.STRING) Then
             Return True
-        ElseIf typeinf.isenum = True AndAlso maintype = "int32" Then
+        ElseIf typeinf.isenum = True AndAlso (maintype = "int32" OrElse resulttype = "int32") Then
             Return True
         End If
         Return False
