@@ -1,0 +1,65 @@
+#[app::classname("myclass")]
+include 'ystdio'
+
+enum level
+{
+  LOW = 5 ,
+  MEDIUM = 10,
+  HIGH = 20
+}
+
+enum colors
+{
+  RED ,
+  BLUE ,
+  GREEN ,
+  YELLOW ,
+  WHITE ,
+  BLACK
+}
+
+func main()
+{
+  test1()
+  test2(myclass.level::LOW)
+  test3()
+  test4(myclass.colors::RED)
+  test4(myclass.colors::BLUE)
+}
+
+func test1()
+{
+  let i : i32 = myclass.level::MEDIUM
+  io::println(i)
+}
+
+func test2(gamelevel : myclass.level)
+{
+ let i : i32 = gamelevel
+ io::println(i)
+}
+
+func test3()
+{
+  let lvl : init myclass.level()
+  lvl := lvl::HIGH
+  let i : i32 = lvl
+  io::println(i)
+}
+
+func test4(color:myclass.colors)
+{
+  let clr : myclass.colors = color
+  match(clr)
+  {
+    case clr::GREEN {
+      io::println("Green")
+    }
+    case clr::RED {
+      io::println("Red")
+    }
+    default {
+      io::println("Other color ...")
+    }
+  }
+}
