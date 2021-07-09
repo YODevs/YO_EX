@@ -40,7 +40,7 @@ Public Class cacheste
             Dim dir As String = fastbuilddirs(index).ToString
             Dim dircurdate As Date = Directory.GetLastWriteTime(dir)
             Dim tsp As TimeSpan = Date.Now.Subtract(dircurdate)
-            If tsp.TotalDays > conrex.CACHEACTIVITYRANGE Then
+            If tsp.TotalDays > conrex.CACHEACTIVITYRANGE OrElse File.Exists(dir & "\.delete") Then
                 Directory.Delete(dir, True)
             End If
         Next
