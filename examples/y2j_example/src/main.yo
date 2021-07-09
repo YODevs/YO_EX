@@ -1,0 +1,54 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+include 'y2j'
+
+func main()
+{
+  io::print("Enter the size of YODA list: ")
+  let size : i32 = io::getnum()
+  let list : str = list_to_yoda(size)
+  let list_result : str = y2j::get_list(list)
+  io::println(list_result)
+
+  io::newline()
+
+  io::print("Enter the size of YODA map: ")
+  size := io::getnum()
+  let map : str = map_to_yoda(size)
+  let map_result : str = y2j::get_map(map)
+  io::println(map_result)
+
+}
+
+func list_to_yoda(size:i32) : str
+{
+  let result , get_item : str
+  let list : init yolib.list()
+  for(index in [0..size])
+  {
+    io::print("Index #{index}: ")
+    get_item := io::getln()
+    list::add(get_item)
+  }
+  result := list::clone()
+  return result
+}
+
+func map_to_yoda(size:i32) : str
+{
+  let result , key , val : str
+  let map : init yolib.map()
+  for(index in [0..size])
+  {
+    io::print("Key #{index}: ")
+    key := io::getln()
+    io::print("Value #{index}: ")
+    val := io::getln()
+    map::add(key,val)
+  }
+  result := map::clone()
+  return result
+}
