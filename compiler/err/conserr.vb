@@ -66,6 +66,7 @@ Public Class conserr
         MODIFIERERROR
         EXTERNERROR
         ENUMMEMBERERROR
+        ACCESSINGFILEERROR
     End Enum
 
     Enum errorpriority
@@ -154,5 +155,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.MODIFIERERROR, errorpriority.STOP, "Modifier error", "Cannot refer to an instance member of a class from within a static method / member initializer without an explicit instance of the class.")
         set_new_error(errortype.EXTERNERROR, errorpriority.STOP, "Extern error", "Could not load file or assembly '{0}' or one of its dependencies. The system cannot find the file specified.")
         set_new_error(errortype.ENUMMEMBERERROR, errorpriority.STOP, "Enum error", "'{0}' is not a member of '{1}'.")
+        set_new_error(errortype.ACCESSINGFILEERROR, errorpriority.STOP, "Accessing file error", "'{0}' file is deleted or renamed, the deleted system cache can be reset.")
     End Sub
 End Class
