@@ -48,7 +48,7 @@ Public Class ilstvar
             pnvar = _ilmethod.locallinit(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
                 check_isconst(_ilmethod.locallinit(index), cargcodestruc)
-                If illdloc.eq_data_types(_ilmethod.locallinit(index).datatype, datatype) Then
+                If illdloc.eq_data_types(_ilmethod.locallinit(index).datatype, datatype, _ilmethod.locallinit(index).typeinf) Then
                     cil.set_stack_local(_ilmethod.codes, nvar)
                     Return True
                 Else
@@ -84,7 +84,7 @@ Public Class ilstvar
                     getcildatatype = _ilmethod.parameter(index).datatype
                 End If
 
-                If illdloc.eq_data_types(datatype, getcildatatype) Then
+                If illdloc.eq_data_types(datatype, getcildatatype, _ilmethod.parameter(index).typeinf) Then
                     If _ilmethod.parameter(index).ispointer Then
                         cil.set_stack_pointer(_ilmethod.codes, datatype)
                         Return True
