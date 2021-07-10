@@ -6,14 +6,9 @@
         Dim indexerr As Int16 = errtype
         Dim err As conserr.errorstruct = conserr.err(indexerr)
         Dim indexspaceolor As ConsoleColor = Console.ForegroundColor
-        Console.ForegroundColor = ConsoleColor.DarkRed
         Dim hwall As String = String.Empty
         Dim consolebufferwidth As Integer = 80
-        If Console.IsOutputRedirected = False Then consolebufferwidth = Console.BufferWidth
-        For index = 0 To consolebufferwidth - 1
-            hwall &= "="
-        Next
-
+        set_header_err(consolebufferwidth, hwall)
         If args.Count > 0 Then
             For index = 0 To args.Count - 1
                 err.text = err.text.Replace("{" & index & "}", args(index))
@@ -21,16 +16,11 @@
             args.Clear()
         End If
         Console.WriteLine()
-        Console.Write(hwall)
+        print_value(ConsoleColor.DarkRed, hwall, ConsoleColor.DarkRed)
         Console.WriteLine()
-        Console.ForegroundColor = ConsoleColor.Red
-        Console.Write(err.title & " : ")
-        Console.ForegroundColor = ConsoleColor.Gray
+        print_value(ConsoleColor.Red, err.title & " : ", ConsoleColor.Gray)
         Console.Write(err.text & vbCrLf)
-
-        Console.ForegroundColor = ConsoleColor.Red
-        Console.Write("Source : ")
-        Console.ForegroundColor = ConsoleColor.Gray
+        print_value(ConsoleColor.Red, "source : ", ConsoleColor.Gray)
         If file <> Nothing Then
             If line = -1 Then
                 Console.WriteLine(file)
@@ -38,34 +28,39 @@
                 Console.WriteLine(file & " - Line [" & line & "]")
             End If
         End If
-        Console.ForegroundColor = ConsoleColor.Red
-        Console.Write("Error Code : ")
-        Console.ForegroundColor = ConsoleColor.Gray
+        print_value(ConsoleColor.Red, "Error Code : ", ConsoleColor.Gray)
         Console.WriteLine("[Err-{0}-{1}]", errtype, indexerr)
-
-        Console.ForegroundColor = ConsoleColor.Red
-        Console.WriteLine("*** More Detials ***")
-        Console.ForegroundColor = ConsoleColor.Gray
+        print_value(ConsoleColor.Red, "*** More Detials ***", ConsoleColor.Gray, True)
         Console.WriteLine(description)
-
         Dim indexspace As Int16 = (consolebufferwidth - 54) / 2
-
-        Console.ForegroundColor = ConsoleColor.DarkRed
-        Console.WriteLine(Space(indexspace) & "***********************SNIPPT************************" & Space(indexspace))
-        Console.ForegroundColor = ConsoleColor.Green
+        print_value(ConsoleColor.DarkRed, Space(indexspace) & "***********************SNIPPT************************" & Space(indexspace), ConsoleColor.Green, True)
         Console.WriteLine("Example : ")
         Console.ForegroundColor = ConsoleColor.White
         Console.WriteLine(example)
 
-
-        Console.ForegroundColor = ConsoleColor.DarkRed
-        Console.Write(hwall)
-        Console.ForegroundColor = ConsoleColor.Gray
+        print_value(ConsoleColor.DarkRed, hwall, ConsoleColor.Gray)
 
         If err.priority = conserr.errorpriority.STOP Then
             System.Environment.Exit(conrex.exitcode.ERROR)
         End If
         Console.WriteLine()
         Return
+    End Sub
+
+    Private Shared Sub set_header_err(ByRef consolebufferwidth As Integer, ByRef hwall As String)
+        If Console.IsOutputRedirected = False Then consolebufferwidth = Console.BufferWidth
+        For index = 0 To consolebufferwidth - 1
+            hwall &= conrex.EQU
+        Next
+    End Sub
+
+    Private Shared Sub print_value(bfcolor As ConsoleColor, value As String, nxcolor As ConsoleColor, Optional newline As Boolean = False)
+        Console.ForegroundColor = bfcolor
+        If newline Then
+            Console.WriteLine(value)
+        Else
+            Console.Write(value)
+        End If
+        Console.ForegroundColor = nxcolor
     End Sub
 End Class
