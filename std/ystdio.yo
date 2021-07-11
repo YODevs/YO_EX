@@ -5,6 +5,11 @@ func print(val:str) : void
   System.Console::Write(val)
 }
 
+func print(val:f32) : void
+{
+  System.Console::Write(val)
+}
+
 func println(val:str) : void
 {
   System.Console::WriteLine(val)
@@ -13,6 +18,11 @@ func println(val:str) : void
 func print(val:i32) : void
 {
   System.Console::Write(val)
+}
+
+func println(val:f32) : void
+{
+  System.Console::WriteLine(val)
 }
 
 func println(val:i32) : void
