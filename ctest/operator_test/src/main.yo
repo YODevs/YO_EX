@@ -1,0 +1,149 @@
+#[app::classname("myapp")]
+
+include 'ystdio'
+
+func main()
+{
+  test1(20)
+  test2()
+  test3("Hello ")
+  test4()
+  test5(50)
+  test6()
+  test7(2)
+  test8()
+  test9(9)
+  test10()
+  test11("Test")
+  test12()
+  test13("YO")
+  test14()
+  test15(2)
+  test16(5.1)
+  test17(9)
+  test18(16.8)
+}
+
+func test1(val:i32)
+{
+  let x : i32 = 15
+  x += val
+  io::println(x)
+}
+
+func test2()
+{
+  let x : f32 = 2.55
+  x += [4.45 + 4]
+  io::println(x)
+}
+
+func test3(val:str)
+{
+  val &= "YO"
+  io::println(val)
+}
+
+func test4()
+{
+  let x : str = "test"
+  let y : str = "This is a "
+  y &= x
+  io::println(y)
+}
+
+func test5(val:i32)
+{
+  let x : i32 = 100
+  x -= [val + 10]
+  io::println(x)
+}
+
+func test6()
+{
+  let x : f32 = 50.55
+  x -= [4.70 + 10]
+  io::println(x)
+}
+
+func test7(val:i32)
+{
+  let x : i32 = 6
+  x /= val
+  io::println(x)
+}
+
+func test8()
+{
+  let x : f32 = 20.20
+  x /= [2.2 + 1.1 + 2.2]
+  io::println(x)
+}
+
+func test9(val:i32)
+{
+  let x : i32 = 9
+  x *= val
+  io::println(x)
+}
+
+func test10()
+{
+  let x : f32 = 7.5
+  x *= 2.10
+  io::println(x)
+}
+
+func test11(val:str)
+{
+  let x : str = null
+  x ?= val
+  io::println(x)
+}
+
+func test12()
+{
+  let x : str = "x is not null"
+  x ?= "x is null"
+  io::println(x)
+}
+
+func test13(val:str)
+{
+  val .= "Hello "
+  io::println(val)
+}
+
+func test14()
+{
+  let x : str = "This is a "
+  let y : str = "test"
+  y .= x
+  io::println(y)
+}
+
+func test15(val:i32)
+{
+  val ^= 5
+  io::println(val)
+}
+
+func test16(val:f32)
+{
+  let x : f32 = 2.5
+  val ^= x
+  io::println(val)
+}
+
+func test17(val:i32)
+{
+  val %= 4
+  io::println(val)
+}
+
+func test18(val:f32)
+{
+  let x : f32 = 4.2
+  val %= x
+  io::println(val)
+}
