@@ -587,4 +587,61 @@ index => 4
  
   </div>
   
+  برای تولید ساختارهای داده فوق می توانید از کلاس `yolib.yoda` استفاده کنید.
+  بنابراین برای استفاده از فرمت YODA ابتدا باید کتابخانه استاندارد `yolib` را فراخانی کنید.
+  
+
+<div dir="ltr">
+
+ 
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+  let mydata : init yolib.yoda()
+  mydata::compress := true
+  for(i in [0..10])
+  {
+    let result : i32 = [i * 5]
+    mydata::add("#{result}")
+  }
+  let getformat : str = mydata::get_list()
+  io::println(getformat)
+}
+
+  ```
+     
+ ```
+!["0","5","10","15","20","25","30","35","40","45"]
+ ```
+ 
+ 
+ 
+ ```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+  let mydata : init yolib.yoda()
+  mydata::add("Chelsea","England")
+  mydata::add("Bayern Munich","Germany")
+  mydata::add("Manchester City","England")
+  mydata::add("Paris Saint-Germain","France")
+  let getformat : str = mydata::get_map()
+  io::println(getformat)
+}
+
+  ```
+     
+ ```
+!![
+"Chelsea"   =   "England"   ,
+"Bayern Munich"   =   "Germany"   ,
+"Manchester City"   =   "England"   ,
+"Paris Saint-Germain"   =   "France"
+]
+ ```
+  </div>
+ 
 [rellink]: <https://github.com/YODevs/YO/releases>
