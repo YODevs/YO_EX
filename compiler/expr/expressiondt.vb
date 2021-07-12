@@ -3,6 +3,7 @@ Public Class expressiondt
     Dim _ilmethod As ilformat._ilmethodcollection
     Dim _datatype As String
     Dim _yocaexpr As Expr2CIL.Expr2CIL
+    Dim _expression As String
     Public Sub New(ilmethod As ilformat._ilmethodcollection, datatype As String)
         Me._ilmethod = ilmethod
         Me._datatype = datatype
@@ -10,6 +11,7 @@ Public Class expressiondt
     End Sub
 
     Public Function parse_expression_data(expression As String, convtoi8 As Boolean) As ilformat._ilmethodcollection
+        _expression = expression
         authfunc.rem_fr_and_en(expression)
 
         'example : 5 * ( 6 - 4 )
@@ -38,6 +40,7 @@ Public Class expressiondt
                     If servinterface.is_variable(_ilmethod, varname, getdatatype) Then
                         servinterface.is_common_data_type(getdatatype, getcildatatype)
                         If getcildatatype = String.Empty Then getcildatatype = getdatatype
+                        check_valid_dttype(getcildatatype, varname)
                         illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, getcildatatype)
                         conv_local_variable(getcildatatype)
                         Continue For
@@ -52,6 +55,18 @@ Public Class expressiondt
         End If
         Return _ilmethod
     End Function
+
+    Private Sub check_valid_dttype(getcildatatype As String, varname As String)
+        For index = 0 To compdt.cilnumerictypes.Length - 1
+            If compdt.cilnumerictypes(index) = getcildatatype Then
+                Return
+            End If
+        Next
+        servinterface.is_common_data_type(_datatype, _datatype)
+        dserr.args.Add(getcildatatype)
+        dserr.args.Add(_datatype)
+        dserr.new_error(conserr.errortype.EXPLICITCONVERSION, -1, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & varname & " , in " & _expression)
+    End Sub
 
     Private Sub conv_local_variable(getdatatype As String)
         Select Case _datatype
