@@ -8,6 +8,7 @@ Public Class enumeration
         Dim enumname As String = String.Empty
         Dim isvirtual As Boolean = False
         libserv.get_identifier_ns(_ilmethod, exname, isvirtual)
+        If exname.Contains(conrex.DOT) = False Then Return False
         If isvirtual Then
             classname = exname.Remove(exname.LastIndexOf(conrex.DOT))
             enumname = exname.Remove(0, exname.LastIndexOf(conrex.DOT) + 1)
