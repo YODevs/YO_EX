@@ -19,9 +19,9 @@ Public Class enumeration
         Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, classname, False)
         If classindex = -1 Then
             Dim namespaceindex As Integer = -1
+            classname = exname
             If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex) = 1 Then
-                load_extern_enum(_ilmethod, classname, enumname, idenresult, cargcodestruc, classindex, namespaceindex)
-                Return True
+                Return load_extern_enum(_ilmethod, classname, enumname, idenresult, cargcodestruc, classindex, namespaceindex)
             End If
             set_exception_class_unknown(classname, cargcodestruc)
             Return False
@@ -38,24 +38,23 @@ Public Class enumeration
         Return False
     End Function
 
-    Private Shared Sub load_extern_enum(ByRef ilmethod As ilformat._ilmethodcollection, classname As String, enumname As String, idenresult As identvalid._resultidentcvaild, cargcodestruc As xmlunpkd.linecodestruc, classindex As Integer, namespaceindex As Integer)
+    Private Shared Function load_extern_enum(ByRef ilmethod As ilformat._ilmethodcollection, classname As String, enumname As String, idenresult As identvalid._resultidentcvaild, cargcodestruc As xmlunpkd.linecodestruc, classindex As Integer, namespaceindex As Integer) As Boolean
         Dim enumindex As Integer = libserv.get_index_enum(enumname, namespaceindex, classindex)
         If enumindex = -1 Then
-            set_exception_enum_unknown(enumname, cargcodestruc)
-            Return
+            Return False
         End If
         Dim enumtp As Type = libserv.get_nested_type(enumindex, namespaceindex, classindex)
         Dim enumfield As String = idenresult.clident.ToLower
         For index = 0 To enumtp.GetEnumValues.Length - 1
             If enumtp.GetEnumValues(index).ToString.ToLower = enumfield Then
                 cil.push_int32_onto_stack(ilmethod.codes, enumtp.GetEnumValues(index))
-                Return
+                Return True
             End If
         Next
         dserr.args.Add(idenresult.clident)
         dserr.args.Add(idenresult.exclass)
         dserr.new_error(conserr.errortype.ENUMMEMBERERROR, cargcodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
-    End Sub
+    End Function
 
     Private Shared Sub set_exception_class_unknown(classname As String, cargcodestruc As xmlunpkd.linecodestruc)
         dserr.args.Add("Class '" & classname & "' not found.")
