@@ -559,4 +559,32 @@ index => 4
   </div>
   
   
+  ### فرمت ساختاری یودا - YODA
+  
+  یودا یا YO Data Format یک ساختار داده است ، که در کلاس‌های یولنگ مثل `list` , `map` , `rds` , `menu` , ... استفاده می شود.
+  
+  #### ساختار لیستی یودا
+  <div dir="ltr">
+
+  ```f#
+  !["item1","item2","item3","item4"]
+
+  ```
+ 
+  </div>
+  
+  #### ساختار مپ یا key-value
+  <div dir="ltr">
+
+  ```f#
+  !![
+    "key1" = "value1" , 
+    "key2" = "value2" , 
+    "key3" = "value3" , 
+    "key4" = "value4"  ]
+
+  ```
+ 
+  </div>
+  
 [rellink]: <https://github.com/YODevs/YO/releases>
