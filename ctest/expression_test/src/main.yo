@@ -1,4 +1,4 @@
-#[app::classname("MyApp")]
+#[app::classname("expression_test")]
 include 'ystdio'
 
 func main()
@@ -9,7 +9,7 @@ func main()
   test3(5)
   test3(7.0)
   i := test4(10)
-  io::println("#{i}")
+  io::println(i)
   test5([10 + 5],[20 - 5])
 }
 
@@ -25,27 +25,27 @@ func test1()
 func test2(val:i32)
 {
   val += [2 + 1]
-  io::println("#{val}")
+  io::println(val)
   val -= [4 - 2]
-  io::println("#{val}")
+  io::println(val)
 }
 
 func test3(val:i32)
 {
   val ?= 15
-  io::println("#{val}")
+  io::println(val)
   val := null
   val ?= [25 + 11]
-  io::println("#{val}")
+  io::println(val)
 }
 
 func test3(val:f32)
 {
   val ?= 5.0
-  io::println("#{val}")
+  io::println(val)
   val := null
   val ?= [25.1 + 10.9]
-  io::println("#{val}")
+  io::println(val)
 }
 
 func test4(val:i32) :i32
@@ -56,5 +56,5 @@ func test4(val:i32) :i32
 func test5(val:i32,val1:i32)
 {
   let result : i32 = [val + val1]
-  io::println("#{result}")
+  io::println(result)
 }
