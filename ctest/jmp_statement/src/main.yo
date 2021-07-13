@@ -1,4 +1,4 @@
-#[app::classname("MyApp")]
+#[app::classname("jmp_test")]
 
 include 'ystdio'
 
@@ -18,11 +18,10 @@ func test1(start:i32,end:i32,step:i32)
   $startpoint:
   if(start <= end)
   {
-    io::println("#{start}")
+    io::println(start)
     start += step
     jmp $startpoint
   }
-  $endpoint:
 }
 
 
@@ -31,11 +30,10 @@ func test2(start:i32,end:i32,step:i32)
   $startpoint:
   if(start <= end)
   {
-    io::println("#{start}")
+    io::println(start)
     start -= step
     jmp $startpoint
   }
-  $endpoint:
 }
 
 func test3(start:i32,end:i32,step:i32)
@@ -43,11 +41,10 @@ func test3(start:i32,end:i32,step:i32)
   $startpoint:
   if(end <= start)
   {
-    io::println("#{start}")
+    io::println(start)
     start += step
     jmp $startpoint
   }
-  $endpoint:
 }
 
 func test4(start:i32,end:i32,step:i32)
@@ -55,11 +52,10 @@ func test4(start:i32,end:i32,step:i32)
   $startpoint:
   if(end <= start)
   {
-    io::println("#{start}")
+    io::println(start)
     start -= step
     jmp $startpoint
   }
-  $endpoint:
 }
 
 func test5(val:i32,val1:i32)
