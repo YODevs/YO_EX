@@ -75,7 +75,7 @@
             If method.name.ToLower = funcname Then
                 sb.Append(method.name)
                 sb.Append(conrex.PRSTART)
-                If method.nopara = False Then
+                If method.nopara = True Then
                     For index = 0 To method.parameters.Length - 1
                         Dim isarray As Boolean = False
                         Dim gparametername As String = method.parameters(index).name
