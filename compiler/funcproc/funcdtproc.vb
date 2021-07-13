@@ -40,15 +40,23 @@
             classdt.methods(indexmethod).bodyxmlfmt = String.Empty
         Next
     End Sub
+
+    Friend Shared Sub set_type_info(classindex As Integer, methodindex As Integer, method As tknformat._method)
+        reffunc(classindex).methods(methodindex).parameters = method.parameters
+    End Sub
     Friend Shared Function get_index_method(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer, leftassign As Boolean) As Integer
         If IsNothing(reffunc(classindex).methods) Then Return -1
         Dim retstate As Integer = -1
+        Dim settypeinfo As Boolean = False
         funcname = funcname.ToLower
         For index = 0 To reffunc(classindex).methods.Length - 1
             If reffunc(classindex).methods(index).name.ToLower = funcname Then
                 If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, reffunc(classindex).methods(index).returntype) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, funcste.assignmentype) Then
-                    If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc) Then
+                    If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc, settypeinfo) Then
                         funcname = reffunc(classindex).methods(index).name
+                        If settypeinfo Then
+                            set_type_info(classindex, index, reffunc(classindex).methods(index))
+                        End If
                         funcste.assignmentype = Nothing
                         Return index
                     End If
@@ -108,11 +116,15 @@
     Friend Shared Function get_index_constructor(_ilmethod As ilformat._ilmethodcollection, cargcodestruc() As xmlunpkd.linecodestruc, ByRef funcname As String, classindex As Integer) As Integer
         If IsNothing(reffunc(classindex).methods) Then Return -1
         Dim retstate As Integer = -1
+        Dim settypeinfo As Boolean = False
         funcname = funcname.ToLower
         For index = 0 To reffunc(classindex).methods.Length - 1
             If reffunc(classindex).methods(index).name.ToLower = funcname Then
-                If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc) Then
+                If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc, settypeinfo) Then
                     funcname = reffunc(classindex).methods(index).name
+                    If settypeinfo Then
+                        set_type_info(classindex, index, reffunc(classindex).methods(index))
+                    End If
                     Return index
                 End If
                 retstate = -2
@@ -121,10 +133,11 @@
         Return retstate
     End Function
 
-    Friend Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, _method As tknformat._method, cargcodestruc() As xmlunpkd.linecodestruc) As Boolean
+    Friend Shared Function check_overloading(_ilmethod As ilformat._ilmethodcollection, ByRef _method As tknformat._method, cargcodestruc() As xmlunpkd.linecodestruc, ByRef settypeinfo As Boolean) As Boolean
         'TODO : Check Return-Type
         Dim cargcodelen As Integer = 0
         Dim methodlen As Integer = 0
+        settypeinfo = False
 
         If IsNothing(_method.parameters) = False Then methodlen = _method.parameters.Length
         If IsNothing(cargcodestruc) = False Then cargcodelen = cargcodestruc.Length
@@ -141,6 +154,18 @@
             servinterface.is_common_data_type(_method.parameters(index).ptype, ciltype)
             If ciltype = String.Empty Then ciltype = _method.parameters(index).ptype
             paramtypes.Add(ciltype)
+            If _method.parameters(index).typeinf.asminfo = conrex.NULL Then
+                Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
+                clinetypeinfostruct(0) = servinterface.get_line_code_struct(_method.parameters(index).dtypetargetinfo, _method.parameters(index).ptype, tokenhared.token.IDENTIFIER)
+                clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
+                clinetypeinfostruct(1).tokenid = tokenhared.token.PRSTART
+                clinetypeinfostruct(1).value = conrex.PRSTART
+                clinetypeinfostruct(2) = New xmlunpkd.linecodestruc
+                clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
+                clinetypeinfostruct(2).value = conrex.PREND
+                _method.parameters(index).typeinf = yotypecreator.get_type_info(_ilmethod, clinetypeinfostruct, 0, _method.parameters(index).ptype)
+                settypeinfo = True
+            End If
         Next
 
 
