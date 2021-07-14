@@ -1,0 +1,78 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+include 'ylog'
+
+func main()
+{
+  log::set_debug("Program started!")
+  io::println("Please select a command from below...")
+  let command : str =  yolib.menu::show_menu("!['Start','Exit']")
+  match(command)
+  {
+    case 'Start' {
+     start()
+    }
+    case 'Exit' {
+      log::set_debug("Program stopped!")
+      yolib.environment::terminate(0)
+    }
+  }
+}
+
+func game(name:str)
+{
+  let rnd : init System.Random()
+  let number : i32 = rnd::next(0,5)
+  let chance : i32 = 3
+  io::println("#{name}, you can try your chance and guess number#nl")
+  $guess:
+  if(chance >= 1)
+  {
+    io::print("Number: ")
+    let guess : i32 = io::getnum()
+    if(guess == number)
+    {
+      chance += 1
+      io::println("Correct! number is #{number} - Your remained chances : #{chance}")
+      log::set_info("Correct guess!")
+      number := rnd::next(0,5)
+      jmp $guess
+    }
+    else
+    {
+      chance -= 1
+      io::println("Wrong! number is #{number} - Your remained chances : #{chance}")
+      log::set_info("Wrong guess!")
+      number := rnd::next(0,5)
+      jmp $guess
+    }
+  }
+  else
+  {
+    io::println("Game over!")
+    log::set_error("You lost the game!")
+  }
+}
+
+func start()
+{
+  io::clear()
+  let name : str
+  $getname:
+  io::print("Hi!please enter a username to play(at least 5 characters):")
+  name := io::getln()
+  if(name::length << 5)
+  {
+    log::set_warn("Bad username entered!")
+    io::clear()
+    jmp $getname
+  }
+  else
+  {
+    log::set_info("#{name} logged in!")
+    game(name)
+  }
+}
