@@ -43,7 +43,6 @@
         statelist.Add(state)
         columnlist.Add(find_column_index(columnname))
         valuelist.Add(value)
-        MsgBox(state)
     End Sub
     Public Function insert(items As String) As Integer
         Dim rowlist As ArrayList
@@ -76,6 +75,10 @@
         dt(index).Insert(columnindex + 1, value)
         dt(index).RemoveAt(columnindex)
     End Sub
+    Public Sub update(value As String)
+        command_validation()
+    End Sub
+
     Public Function get_row_map(index As Integer) As map
         Dim yodastr As String = get_row(index)
         Dim mp As New map
@@ -106,6 +109,14 @@
         End If
     End Function
 
+    Private Sub command_validation()
+        If IsNothing(dt) Then
+            Throw New Exception("Datastore is empty.")
+        End If
+        If statelist.Count = 0 Then
+            Throw New Exception("No command for the datastore specified, enter the command via 'set_command(...)'.")
+        End If
+    End Sub
     Private Sub index_validation(index As Integer)
         If IsNothing(dt) Then
             Throw New Exception("Datastore is empty.")
