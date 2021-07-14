@@ -12,12 +12,21 @@
             End If
         End Set
     End Property
+
+    Public Shared Function show_menu(items As list) As String
+        Dim yoda As New yoda
+        Return create_menu(yoda.ReadYODA(items.clone).ToArray)
+    End Function
+
     Public Shared Function show_menu(items As String) As String
+        Dim yoda As New yoda
+        Return create_menu(yoda.ReadYODA(items).ToArray)
+    End Function
+
+    Private Shared Function create_menu(menuitems() As Object) As String
         Dim menuindex As Short = 0
         Dim key As ConsoleKeyInfo
         Dim textfpr As String
-        Dim yoda As New yoda
-        Dim menuitems() As Object = yoda.ReadYODA(items).ToArray
         Dim staticcursortop As Integer = Console.CursorTop
         Do
             Console.CursorTop = staticcursortop
