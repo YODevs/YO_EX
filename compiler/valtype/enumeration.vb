@@ -20,16 +20,14 @@ Public Class enumeration
         Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, classname, False)
         If classindex = -1 Then
             Dim namespaceindex As Integer = -1
-            classname = exname
+            classname = exname.Remove(exname.LastIndexOf(conrex.DOT))
             If libserv.get_extern_index_class(_ilmethod, classname, namespaceindex, classindex) = 1 Then
                 Return load_extern_enum(_ilmethod, classname, enumname, idenresult, cargcodestruc, classindex, namespaceindex)
             End If
-            set_exception_class_unknown(classname, cargcodestruc)
             Return False
         Else
             Dim enumindex As Integer = funcdtproc.get_index_enum(enumname, classindex)
             If enumindex = -1 Then
-                set_exception_enum_unknown(enumname, cargcodestruc)
                 Return False
             End If
             Dim enumtp As tknformat._enum = funcdtproc.get_enum_info(classindex, enumindex)
