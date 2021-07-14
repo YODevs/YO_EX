@@ -1,5 +1,6 @@
 ﻿Public Class rds
     Private columns, dt() As ArrayList
+    Private statelist, columnlist, valuelist As ArrayList
     Enum commandstate
         EQUAL
         UNEQUAL
@@ -10,8 +11,10 @@
     End Enum
     Public Sub New()
         columns = New ArrayList
+        statelist = New ArrayList
+        columnlist = New ArrayList
+        valuelist = New ArrayList
     End Sub
-
     Public ReadOnly Property columncount() As Integer
         Get
             Return columns.Count
@@ -37,9 +40,12 @@
         End If
     End Sub
     Public Sub set_command(state As commandstate, columnname As String, value As String)
-
+        statelist.Add(state)
+        columnlist.Add(find_column_index(columnname))
+        valuelist.Add(value)
+        MsgBox(state)
     End Sub
-    Public Function insert_by_index(items As String) As Integer
+    Public Function insert(items As String) As Integer
         Dim rowlist As ArrayList
         Dim yoda As New yoda
         rowlist = yoda.ReadYODA(items)
