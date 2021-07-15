@@ -45,14 +45,19 @@ Public Class var
 
     Private Shared Sub set_element(ByRef varname As String)
         If varname.Contains(conrex.BRSTART) Then
-            Dim elementid As String = varname.Remove(0, varname.IndexOf(conrex.BRSTART)).Trim
+            Dim elementid As String = varname.Remove(0, varname.IndexOf(conrex.BRSTART) + 1).Trim
             varname = varname.Remove(varname.IndexOf(conrex.BRSTART))
             If elementid = conrex.BREND Then Return
             elementindex = elementid.Remove(elementid.Length - 1).Trim
         End If
     End Sub
 
-    Friend Shared Sub load_element_in_stack(varname As String, elementid As String, datatype As String, _ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc)
+    Friend Shared Sub load_element_in_stack(varname As String, elementsp As String, datatype As String, _ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc)
         illdloc.ld_identifier(varname, _ilmethod, clinecodestruc(0), Nothing, datatype)
+        If IsNumeric(elementsp) Then
+            servinterface.ldc_i_checker(_ilmethod.codes, elementsp, False, "int32")
+        Else
+            illdloc.ld_identifier(elementsp, _ilmethod, clinecodestruc(0), Nothing, "int32")
+        End If
     End Sub
 End Class
