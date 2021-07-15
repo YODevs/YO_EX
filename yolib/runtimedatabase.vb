@@ -1,6 +1,6 @@
 ﻿Public Class rds
     Private columns, dt() As ArrayList
-    Private statelist, columnlist, valuelist As ArrayList
+    Private statelist, columnlist, indexlist, valuelist As ArrayList
     Enum commandstate
         EQUAL
         UNEQUAL
@@ -40,8 +40,10 @@
         End If
     End Sub
     Public Sub set_command(state As commandstate, columnname As String, value As String)
+        Dim index As Integer = 0
         statelist.Add(state)
-        columnlist.Add(find_column_index(columnname))
+        columnlist.Add(find_column_index(columnname, Index))
+        indexlist.Add(index)
         valuelist.Add(value)
     End Sub
     Public Function insert(items As String) As Integer
@@ -77,6 +79,8 @@
     End Sub
     Public Sub update(value As String)
         command_validation()
+        Dim items As ArrayList = condition_exec()
+
     End Sub
 
     Public Function get_row_map(index As Integer) As map
@@ -109,6 +113,11 @@
         End If
     End Function
 
+    Private Function condition_exec() As ArrayList
+        Dim items As New ArrayList
+
+        Return items
+    End Function
     Private Sub command_validation()
         If IsNothing(dt) Then
             Throw New Exception("Datastore is empty.")
@@ -137,10 +146,11 @@
         Throw New Exception("Column named '" & columnname & "' not found.")
     End Sub
 
-    Private Function find_column_index(ByRef columnname As String) As Integer
+    Private Function find_column_index(ByRef columnname As String, Optional ByRef indexlist As Integer = 0) As Integer
         For index = 0 To columns.Count - 1
             If columns(index).ToString.ToLower = columnname.ToLower Then
                 columnname = columns(index).ToString
+                indexlist = index
                 Return index
             End If
         Next
