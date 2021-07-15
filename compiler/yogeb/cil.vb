@@ -479,6 +479,11 @@
         End If
         codes.Add(code)
     End Sub
+
+    Public Shared Sub new_arr(ByRef codes As ArrayList, typeinf As ilformat._typeinfo)
+        codes.Add(String.Format("newarr [{0}]{1}", cilkeywordchecker.get_key(typeinf.externlib), cilkeywordchecker.get_key(typeinf.fullname)))
+    End Sub
+
     Public Shared Sub new_obj(ByRef codes As ArrayList, returntype As String, externlib As String, classprop As String, methodname As String, paramtypes As ArrayList)
         methodname = cilkeywordchecker.get_key(methodname)
         classprop = cilkeywordchecker.get_key(classprop)
