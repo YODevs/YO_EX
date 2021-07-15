@@ -1,4 +1,6 @@
-﻿Public Class arr
+﻿Imports YOCA
+
+Public Class arr
 
     Friend Shared Function check_array_struct(ByRef varname As String, ByRef arrayinf As ilformat._arrayinfo, ByRef isarrayobj As Boolean) As Boolean
         Dim bkvarname As String = varname
@@ -23,4 +25,24 @@
         End If
         Return False
     End Function
+
+    Friend Shared Sub set_new_arr(ByRef ilmethod As ilformat._ilmethodcollection, illocalinit As ilformat._illocalinit, clinecodestruc As xmlunpkd.linecodestruc)
+        If illocalinit.isarrayobj = False OrElse illocalinit.arrayinf.isunspecifiedelements Then Return
+        Dim elementsp As String = illocalinit.arrayinf.elementsp
+        authfunc.rem_fr_and_en(elementsp)
+        If IsNumeric(elementsp) Then
+            servinterface.ldc_i_checker(ilmethod.codes, elementsp, False, "int32")
+        Else
+            illdloc.ld_identifier(elementsp, ilmethod, clinecodestruc, Nothing, "int32")
+        End If
+        cil.new_arr(ilmethod.codes, illocalinit.typeinf)
+        setloc = True
+    End Sub
+
+    Friend Shared setloc As Boolean = False
+    Friend Shared Sub set_loc(ByRef ilmethod As ilformat._ilmethodcollection, illocalinit As ilformat._illocalinit, clinecodestruc As xmlunpkd.linecodestruc)
+        If setloc = False Then Return
+        ilstvar.st_identifier(illocalinit.name, ilmethod, clinecodestruc, illocalinit.typeinf.fullname)
+        setloc = False
+    End Sub
 End Class
