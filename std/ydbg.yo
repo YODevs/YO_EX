@@ -1,0 +1,25 @@
+#[app::classname("dbg")]
+
+include 'ystdio'
+include 'yolib'
+
+func print(list : yolib.list) : void
+{
+  let count : i32 = list::count()
+  for(index in [0..count])
+  {
+    let item : str = list::get(index)
+    io::println(item)
+  }
+}
+
+func print(map : yolib.map) : void
+{
+  let size : i32 = map::size()
+  for(index in [0..size])
+  {
+    let key, value: str
+    map::get_map(index,key,value)
+    io::println("Key -> #{key}#nlValue -> #{value}")
+  }
+}
