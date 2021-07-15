@@ -81,6 +81,7 @@
                 Dim assignprocess As Boolean = False
                 nv_let(_ilmethod, clinecodestruc, assignprocess)
                 _ilmethod.locallinit = _illocalinit 'exc no local init
+                If arr.setloc Then arr.set_loc(_ilmethod, _illocalinit(_illocalinit.Length - 1), clinecodestruc(1))
                 If assignprocess Then
                     assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
                 End If
@@ -571,6 +572,7 @@
                 _illocalinit(index).isvaluetypes = False
                 localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
                 _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, 3, _illocalinit(index).datatype)
+                If _illocalinit(index).isarrayobj Then arr.set_new_arr(ilmethod, _illocalinit(index), clinecodestruc(0))
             Else
                 'Check other type ...
                 _illocalinit(index).iscommondatatype = False
@@ -666,7 +668,7 @@
                 End If
             End If
             'TODO : Check init value .
-            localinit.add_local_init(clinecodestruc(1).value, clinecodestruc(3).value)
+            localinit.add_local_init(_illocalinit(index).name, clinecodestruc(3).value)
 #End Region
 
         End If
