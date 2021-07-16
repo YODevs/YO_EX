@@ -443,6 +443,8 @@
                 servinterface.ldc_i_checker(_ilmethod.codes, cargcodestruc.value, convtoi8, datatype)
             Case tokenhared.token.IDENTIFIER
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
