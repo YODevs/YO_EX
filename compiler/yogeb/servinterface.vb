@@ -439,6 +439,10 @@ Public Class servinterface
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.IDENTIFIER
                 get_datatype(_ilmethod, clinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                clinecodestruc.value = clinecodestruc.value.Remove(clinecodestruc.value.IndexOf(conrex.BRSTART))
+                clinecodestruc.tokenid = tokenhared.token.IDENTIFIER
+                get_datatype(_ilmethod, clinecodestruc, datatype)
             Case tokenhared.token.TYPE_CO_STR
                 datatype = "string"
             Case tokenhared.token.TYPE_DU_STR
