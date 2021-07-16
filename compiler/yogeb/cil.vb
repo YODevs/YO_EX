@@ -129,6 +129,9 @@
         name = cilkeywordchecker.get_key(name)
         codes.Add("ldsflda " & name)
     End Sub
+    Public Shared Sub ldelem(ByRef codes As ArrayList)
+        codes.Add("ldelem.ref")
+    End Sub
     Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
         codes.Add("call string [mscorlib]System.Convert::ToString(" & ptype & ")")
     End Sub
