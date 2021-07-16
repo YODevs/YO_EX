@@ -133,7 +133,7 @@ default {
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.CASE)
         add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
-tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
+tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.ARR, tokenhared.token.NULL)
         add_token(exptokenslist, tokenhared.token.BLOCKOP)
         set_syntax_loader(statements.CASE, "Case Statement", exptokenslist, "match(inf)
   {
@@ -152,7 +152,7 @@ tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, toke
         add_token(exptokenslist, tokenhared.token.MATCH)
         add_token(exptokenslist, tokenhared.token.PRSTART)
         add_token(exptokenslist, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
-tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
+tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.ARR, tokenhared.token.NULL)
         add_token(exptokenslist, tokenhared.token.PREND)
         add_token(exptokenslist, tokenhared.token.BLOCKOP)
         set_syntax_loader(statements.MATCH, "Match Statement", exptokenslist, "match(inf)
@@ -171,7 +171,7 @@ tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, toke
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.RETURN)
         add_token(exptokenslist, tokenhared.token.EXPRESSION, tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT,
-tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.NULL)
+tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, tokenhared.token.ARR, tokenhared.token.NULL)
         set_syntax_loader(statements.RET, "Return Statement", exptokenslist, "return [IDENTIFIER|STRING|INTEGER|...]")
     End Sub
 
@@ -229,7 +229,7 @@ tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.IDENTIFIER, toke
         Dim exptokenslist As New ArrayList
         add_token(exptokenslist, tokenhared.token.TO)
         add_token(exptokenslist, tokenhared.token.PRSTART)
-        add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER, tokenhared.token.EXPRESSION)
+        add_token(exptokenslist, tokenhared.token.TYPE_INT, tokenhared.token.IDENTIFIER, tokenhared.token.ARR, tokenhared.token.EXPRESSION)
         add_token(exptokenslist, tokenhared.token.PREND)
         add_token(exptokenslist, tokenhared.token.BLOCKOP)
 
