@@ -479,6 +479,8 @@ Public Class ilopt
                 cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, "string")
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -528,6 +530,8 @@ Public Class ilopt
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
