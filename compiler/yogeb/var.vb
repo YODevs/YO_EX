@@ -2,14 +2,14 @@
 
 Public Class var
 
-    Private Shared elementindex As String
-    Public ReadOnly Property get_element_index() As String
+    Private Shared privelementindex As String
+    Public Shared ReadOnly Property elementindex() As String
         Get
-            Return elementindex
+            Return privelementindex
         End Get
     End Property
     Friend Shared Function check_identifier_validation(ByRef _ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer, ByRef varname As String, localinit As localinitdata, path As String, Optional loadbyreference As Boolean = True) As mapstoredata.dataresult
-        elementindex = conrex.NULL
+        privelementindex = conrex.NULL
         If iltranscore.isarrayinstack Then
             set_element(varname)
         End If
@@ -37,7 +37,7 @@ Public Class var
             End If
         End If
         If iltranscore.isarrayinstack Then
-            load_element_in_stack(varname, elementindex, localvartype.result, _ilmethod, clinecodestruc)
+            load_element_in_stack(varname, privelementindex, localvartype.result, _ilmethod, clinecodestruc(0))
         End If
         servinterface.get_yo_common_data_type(localvartype.result, localvartype.result)
         Return localvartype
@@ -48,16 +48,30 @@ Public Class var
             Dim elementid As String = varname.Remove(0, varname.IndexOf(conrex.BRSTART) + 1).Trim
             varname = varname.Remove(varname.IndexOf(conrex.BRSTART))
             If elementid = conrex.BREND Then Return
-            elementindex = elementid.Remove(elementid.Length - 1).Trim
+            privelementindex = elementid.Remove(elementid.Length - 1).Trim
         End If
     End Sub
 
-    Friend Shared Sub load_element_in_stack(varname As String, elementsp As String, datatype As String, _ilmethod As ilformat._ilmethodcollection, clinecodestruc() As xmlunpkd.linecodestruc)
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc(0), Nothing, datatype)
+    Friend Shared Sub load_element_in_stack(varname As String, elementsp As String, datatype As String, _ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, Optional justloadelement As Boolean = False)
+        If justloadelement = False Then illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
         If IsNumeric(elementsp) Then
             servinterface.ldc_i_checker(_ilmethod.codes, elementsp, False, "int32")
         Else
-            illdloc.ld_identifier(elementsp, _ilmethod, clinecodestruc(0), Nothing, "int32")
+            illdloc.ld_identifier(elementsp, _ilmethod, clinecodestruc, Nothing, "int32")
         End If
+    End Sub
+
+    Friend Shared Sub load_arr_identifier(ByRef _ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, rlinecodestruc As xmlunpkd.linecodestruc(), datatype As String)
+        Dim clinearrname As xmlunpkd.linecodestruc = clinecodestruc
+        clinearrname.value = clinecodestruc.value.Remove(clinearrname.value.IndexOf(conrex.BRSTART))
+        clinearrname.tokenid = tokenhared.token.IDENTIFIER
+        clinearrname.ile = clinearrname.value.Length
+        illdloc.ld_identifier(clinearrname.value, _ilmethod, clinearrname, rlinecodestruc, datatype)
+
+        Dim varname As String = clinecodestruc.value
+        set_element(varname)
+        load_element_in_stack(varname, privelementindex, datatype, _ilmethod, clinecodestruc, True)
+
+        cil.ldelem(_ilmethod.codes)
     End Sub
 End Class
