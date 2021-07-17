@@ -189,9 +189,11 @@
         codes.Add("stfld " & ptype & " " & classname & "::" & name)
     End Sub
     Public Shared Sub set_element(ByRef codes As ArrayList)
+        codes.Add("stelem.i")
+    End Sub
+    Public Shared Sub set_element_ref(ByRef codes As ArrayList)
         codes.Add("stelem.ref")
     End Sub
-
     ''' <summary>
     ''' ldc.i4.s[int32] Push int32 onto stack 
     ''' </summary>
