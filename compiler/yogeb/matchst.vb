@@ -72,10 +72,10 @@
         'TODO : check data types and warning
         _ilmethod = illdloc.load_single_in_stack(conddtype, clinecondstruc)
         _ilmethod = illdloc.load_single_in_stack(getcasedt, clinecodestruc(1))
-        If getcasedt = "string" AndAlso conddtype = "string" Then
+        If getcasedt = conrex.STRING AndAlso conddtype = conrex.STRING Then
             Dim param As New ArrayList
-            param.Add("string")
-            param.Add("string")
+            param.Add(conrex.STRING)
+            param.Add(conrex.STRING)
             cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Equality", param)
         Else
             cil.ceq(_ilmethod.codes)

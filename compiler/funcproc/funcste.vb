@@ -43,7 +43,7 @@ Public Class funcste
                 gidentifier.ile = gidentifier.value.Length
             End If
             If reclassname <> String.Empty Then
-                If reclassname <> "string" Then
+                If reclassname <> conrex.STRING Then
                     illdloc.ldindx = True
                 End If
             Else

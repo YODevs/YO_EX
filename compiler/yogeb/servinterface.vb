@@ -444,9 +444,9 @@ Public Class servinterface
                 clinecodestruc.tokenid = tokenhared.token.IDENTIFIER
                 get_datatype(_ilmethod, clinecodestruc, datatype)
             Case tokenhared.token.TYPE_CO_STR
-                datatype = "string"
+                datatype = conrex.STRING
             Case tokenhared.token.TYPE_DU_STR
-                datatype = "string"
+                datatype = conrex.STRING
             Case tokenhared.token.TYPE_BOOL
                 datatype = "bool"
             Case tokenhared.token.TRUE

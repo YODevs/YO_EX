@@ -9,7 +9,7 @@
             End If
 
             Select Case getdatatype
-                Case "string"
+                Case conrex.STRING
                     If chstr(_ilmethod, cargcodestruc(index)) = False Then Return False
                 Case illdloc.check_integer_type(getdatatype)
                     If chint(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
@@ -52,7 +52,7 @@
             End If
 
             Select Case getdatatype
-                Case "string"
+                Case conrex.STRING
                     If chstr(_ilmethod, cargcodestruc(index)) = False Then Return False
                 Case illdloc.check_integer_type(getdatatype)
                     If chint(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
@@ -90,7 +90,7 @@
                 Return True
             Case tokenhared.token.IDENTIFIER
                 Dim getdatatype As String = String.Empty
-                If servinterface.is_variable(_ilmethod, cargcodestruc.value, getdatatype) AndAlso getdatatype = "string" Then
+                If servinterface.is_variable(_ilmethod, cargcodestruc.value, getdatatype) AndAlso getdatatype = conrex.STRING Then
                     Return True
                 End If
                 Return False

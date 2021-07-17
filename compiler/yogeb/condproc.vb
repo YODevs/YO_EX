@@ -85,10 +85,10 @@ Public Class condproc
             Case tokenhared.token.CONDEQ    '==
                 Select Case sncond.sepopt
                     Case tokenhared.token.ANDLOGIC
-                        If ltype = "string" AndAlso rtype = "string" Then
+                        If ltype = conrex.STRING AndAlso rtype = conrex.STRING Then
                             Dim param As New ArrayList
-                            param.Add("string")
-                            param.Add("string")
+                            param.Add(conrex.STRING)
+                            param.Add(conrex.STRING)
                             cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Inequality", param)
                             cil.branch_if_true(_ilmethod.codes, branchinfo.falsebranch)
                         Else
@@ -99,10 +99,10 @@ Public Class condproc
                     Case tokenhared.token.UNDEFINED
                         If deftruebr Then
                             cil.beq(_ilmethod.codes, branchinfo.truebranch)
-                        ElseIf ltype = "string" AndAlso rtype = "string" Then
+                        ElseIf ltype = conrex.STRING AndAlso rtype = conrex.STRING Then
                             Dim param As New ArrayList
-                                param.Add("string")
-                                param.Add("string")
+                                param.Add(conrex.STRING)
+                                param.Add(conrex.STRING)
                                 cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Inequality", param)
                                 cil.branch_if_true(_ilmethod.codes, branchinfo.falsebranch)
                             Else
@@ -162,10 +162,10 @@ Public Class condproc
                         End If
                 End Select
             Case tokenhared.token.LRNA      '<>
-                If ltype = "string" AndAlso rtype = "string" Then
+                If ltype = conrex.STRING AndAlso rtype = conrex.STRING Then
                     Dim param As New ArrayList
-                    param.Add("string")
-                    param.Add("string")
+                    param.Add(conrex.STRING)
+                    param.Add(conrex.STRING)
                     If sncond.sepopt = tokenhared.token.ANDLOGIC Then
                         cil.call_method(_ilmethod.codes, "bool", "mscorlib", "System.String", "op_Equality", param)
                         cil.branch_if_true(_ilmethod.codes, branchinfo.falsebranch)

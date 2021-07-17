@@ -29,7 +29,7 @@ Public Class fmtstrlit
         Return False
     End Function
     Private Shared Sub set_concat(ByRef ilmethod As ilformat._ilmethodcollection)
-        cil.concat(ilmethod.codes, "string", paramcount)
+        cil.concat(ilmethod.codes, conrex.STRING, paramcount)
         paramcount = 1
     End Sub
     Private Shared Sub load_identifier(ByRef ilmethod As ilformat._ilmethodcollection, varname As String, cargcodestruc As xmlunpkd.linecodestruc)
@@ -62,7 +62,7 @@ Public Class fmtstrlit
     End Sub
 
     Friend Shared Sub conv_to_string(ByRef ilmethod As ilformat._ilmethodcollection, datatype As String)
-        If datatype.ToLower = "string" Then Return
+        If datatype.ToLower = conrex.STRING Then Return
         cil.convert_to_string(ilmethod.codes, datatype)
     End Sub
     Private Shared Sub load_string(ByRef ilmethod As ilformat._ilmethodcollection, value As String, cargcodestruc As xmlunpkd.linecodestruc, Optional lastproc As Boolean = False)
