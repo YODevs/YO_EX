@@ -55,7 +55,7 @@
                 ldptr = False
             End If
             Select Case getdatatype
-                Case "string"
+                Case conrex.STRING
                     ldstr(cargcodestruc(index))
                 Case check_integer_type(getdatatype)
                     ldint(cargcodestruc(index), getdatatype)
@@ -80,7 +80,7 @@
 
     Public Function load_single_in_stack(datatype As String, cargcodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         Select Case datatype
-            Case "string"
+            Case conrex.STRING
                 ldstr(cargcodestruc)
             Case check_integer_type(datatype)
                 ldint(cargcodestruc, datatype)
@@ -423,6 +423,8 @@
                 cil.load_string(_ilmethod, cargcodestruc.value, cargcodestruc)
             Case tokenhared.token.IDENTIFIER
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, conrex.STRING)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, cargcodestruc, Nothing, conrex.STRING)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
@@ -473,6 +475,8 @@
                 servinterface.ldc_r_checker(_ilmethod.codes, cargcodestruc.value, convtor8)
             Case tokenhared.token.IDENTIFIER
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
@@ -511,6 +515,8 @@
                 End If
             Case tokenhared.token.IDENTIFIER
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
@@ -531,6 +537,8 @@
                 cil.push_int32_onto_stack(_ilmethod.codes, 0)
             Case tokenhared.token.IDENTIFIER
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.TYPE_INT
                 ld_identifier(cargcodestruc.value, _ilmethod, cargcodestruc, Nothing, datatype)
             Case tokenhared.token.NULL
