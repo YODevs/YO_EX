@@ -36,6 +36,8 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.EXPRESSION
                 Try
                     Dim expr As expressiondt
@@ -89,6 +91,8 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.EXPRESSION
                 Try
                     Dim expr As expressiondt
@@ -142,6 +146,8 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.EXPRESSION
                 Try
                     Dim expr As expressiondt
@@ -195,6 +201,8 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.EXPRESSION
                 Try
                     Dim expr As expressiondt
@@ -329,7 +337,7 @@ Public Class ilopt
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, "string")
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, conrex.STRING)
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
@@ -338,16 +346,18 @@ Public Class ilopt
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
-                dserr.args.Add("string")
+                dserr.args.Add(conrex.STRING)
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
         cil.concat_simple(_ilmethod.codes)
-        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, "string")
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, conrex.STRING)
 
         Return _ilmethod
     End Function
@@ -361,21 +371,23 @@ Public Class ilopt
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
-                dserr.args.Add("string")
+                dserr.args.Add(conrex.STRING)
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
 
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, "string")
+        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, conrex.STRING)
 
         cil.concat_simple(_ilmethod.codes)
-        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, "string")
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, conrex.STRING)
 
         Return _ilmethod
     End Function
@@ -457,6 +469,8 @@ Public Class ilopt
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, type)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, type)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -478,20 +492,20 @@ Public Class ilopt
             Case tokenhared.token.TYPE_CO_STR
                 cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.IDENTIFIER
-                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "string")
+                illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
             Case tokenhared.token.ARR
-                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, "string")
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
-                dserr.args.Add("string")
+                dserr.args.Add(conrex.STRING)
                 dserr.new_error(conserr.errortype.ASSIGNCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
         End Select
 
-        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, "string")
+        ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, conrex.STRING)
 
         Return _ilmethod
     End Function
@@ -504,6 +518,8 @@ Public Class ilopt
                 cil.load_string(_ilmethod, clinecodestruc.value, clinecodestruc)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, "object")
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, "object")
             Case tokenhared.token.TYPE_INT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, False, "int64")
             Case tokenhared.token.TYPE_FLOAT
@@ -566,6 +582,8 @@ Public Class ilopt
                 cil.push_int32_onto_stack(_ilmethod.codes, 0)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.TYPE_INT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             'let value : str = NULL
@@ -603,6 +621,8 @@ Public Class ilopt
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
                 'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
@@ -627,6 +647,8 @@ Public Class ilopt
                 servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, convtor8)
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.ARR
+                var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
