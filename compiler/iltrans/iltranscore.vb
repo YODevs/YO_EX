@@ -81,7 +81,10 @@
                 Dim assignprocess As Boolean = False
                 nv_let(_ilmethod, clinecodestruc, assignprocess)
                 _ilmethod.locallinit = _illocalinit 'exc no local init
-                If arr.setloc Then arr.set_loc(_ilmethod, _illocalinit(_illocalinit.Length - 1), clinecodestruc(1))
+                If arr.setloc Then
+                    _illocalinit(_illocalinit.Length - 1).typeinf.isarray = True
+                    arr.set_loc(_ilmethod, _illocalinit(_illocalinit.Length - 1), clinecodestruc(1))
+                End If
                 If assignprocess Then
                     assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
                 End If
