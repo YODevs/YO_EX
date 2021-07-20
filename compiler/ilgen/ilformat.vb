@@ -67,6 +67,7 @@
         Dim isprimitive As Boolean
         Dim isclass As Boolean
         Dim isenum As Boolean
+        Dim isarray As Boolean
         Dim isinternalclass As Boolean
         Dim yosymbol As String
         Dim cdttypesymbol As String
