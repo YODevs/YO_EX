@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "array_test"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]

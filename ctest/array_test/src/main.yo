@@ -1,0 +1,119 @@
+#[app::classname("array_test")]
+
+include 'ystdio'
+func main()
+{
+  test1()
+  let getresult : i32 = test2()
+  io::println(getresult)
+  test3()
+  test4()
+  test5()
+  test6()
+  test7()
+  test8()
+}
+
+func test1()
+{
+  let i : i32 = 5
+  let names[i] : str
+  names[0] := "ANDY"
+  let name : str = names[0]
+  io::println(name)
+}
+
+func test2() : i32
+{
+  let foo[1] : i32
+  foo[0] := 12
+  return foo[0]
+}
+
+func test3()
+{
+  let foo[1] : i32
+  foo[0] := 5
+  match(foo[0])
+  {
+    case foo[0] {
+      io::println("OK !")
+    }
+    default {
+      io::println("Wrong !")
+    }
+  }
+}
+
+func test4()
+{
+  io::println("------------")
+  let i[3] : i32
+  let val : i32 = 10
+  for(index in [0..2])
+  {
+    i[index] := val
+    val *= 2
+    }
+
+  for(index2 in [0..2])
+  {
+    val := i[index2]
+    io::println(val)
+  }
+}
+
+func test5()
+{
+  let i[3] : str
+  let val : str = "Amin"
+  for(index in [0..3])
+  {
+    i[index] := val
+    val .= 'e'
+  }
+
+  for(index2 in [0..3])
+  {
+    val := i[index2]
+    io::println(val)
+  }
+}
+
+func test6()
+{
+  let ages[1] : i32
+  ages[0] := 10
+  let age : i32 = ages[0]
+  io::println(age)
+}
+
+func test7()
+{
+  let x[2] : i32
+  x[0] := 20
+  x[1] := 40
+  let y[] : i32
+  y := x
+  let val : i32
+  for(index in [0..2])
+  {
+    val := y[index]
+    io::println(val)
+  }
+}
+
+func test8()
+{
+  let x[2] : i32
+  x[0] := 60
+  x[1] := 80
+  let y[1] : i32
+  y := x
+  let val : i32
+  for(index in [0..2])
+  {
+    val := y[index]
+    io::println(val)
+  }
+}
