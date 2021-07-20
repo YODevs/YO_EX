@@ -253,6 +253,9 @@ call instance void [mscorlib]System.Object::.ctor()")
                 add_inline_code(gcodeparam)
             End If
 
+            If funcdt.parameter(index).typeinf.isarray = True Then
+                add_inline_code(conrex.BRSTEN)
+            End If
 
             add_inline_code(conrex.SPACE)
             add_inline_code(cilkeywordchecker.get_key(funcdt.parameter(index).name))
