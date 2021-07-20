@@ -114,6 +114,13 @@ Public Class ilfuncgen
             _ilmethods(ilmethodsindex).parameter(index).datatype = yomethod.parameters(index).ptype
             _ilmethods(ilmethodsindex).parameter(index).ispointer = yomethod.parameters(index).byreference
             _ilmethods(ilmethodsindex).parameter(index).typeinf = set_type_info(_ilmethods(ilmethodsindex), index, yomethod.parameters(index).dtypetargetinfo)
+            Dim paramname As String = _ilmethods(ilmethodsindex).parameter(index).name
+            If paramname.EndsWith(conrex.BRSTEN) Then
+                _ilmethods(ilmethodsindex).parameter(index).typeinf.isarray = True
+                paramname = paramname.Remove(paramname.IndexOf(conrex.BRSTEN))
+                _ilmethods(ilmethodsindex).parameter(index).name = paramname
+                yomethod.parameters(index).name = paramname
+            End If
             yomethod.parameters(index).typeinf = _ilmethods(ilmethodsindex).parameter(index).typeinf
         Next
     End Sub
