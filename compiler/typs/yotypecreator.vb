@@ -26,6 +26,7 @@ Public Class yotypecreator
         tpinf.asminfo = asmtype.AssemblyQualifiedName
         tpinf.isprimitive = False
         tpinf.isclass = True
+        tpinf.isarray = False
         tpinf.isinternalclass = False
         tpinf.isenum = asmtype.IsEnum
         If tpinf.isenum Then
@@ -62,6 +63,7 @@ Public Class yotypecreator
         tpinf.asminfo = classname
         tpinf.isclass = True
         tpinf.isinternalclass = True
+        tpinf.isarray = False
     End Sub
 
     Friend Shared Sub get_common_dtype(ByRef tpinf As ilformat._typeinfo, typestr As String)
@@ -77,6 +79,7 @@ Public Class yotypecreator
         tpinf.cdttypesymbol = typestr
         tpinf.isclass = False
         tpinf.isinternalclass = False
+        tpinf.isarray = False
         servinterface.get_yo_common_data_type(typestr, tpinf.yosymbol)
     End Sub
     Friend Shared Sub get_external_type(ilmethod As ilformat._ilmethodcollection, ByRef tpinf As ilformat._typeinfo, clinecodestruc As xmlunpkd.linecodestruc(), classresult As funcvalid._resultfuncvaild, indclass As Integer)
@@ -109,6 +112,7 @@ Public Class yotypecreator
         tpinf.isclass = True
         tpinf.isinternalclass = False
         tpinf.isenum = tp.IsEnum
+        tpinf.isarray = False
         If tpinf.isenum Then
             tpinf.fullname = tpinf.fullname.Replace(conrex.PLUS, conrex.DOT)
             tpinf.valtpinf.structuretype = ilformat._valuetypestructure.ENUM
