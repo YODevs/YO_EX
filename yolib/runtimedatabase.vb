@@ -13,6 +13,7 @@
         columns = New ArrayList
         statelist = New ArrayList
         columnlist = New ArrayList
+        indexlist = New ArrayList
         valuelist = New ArrayList
     End Sub
     Public ReadOnly Property columncount() As Integer
@@ -77,11 +78,16 @@
         dt(index).Insert(columnindex + 1, value)
         dt(index).RemoveAt(columnindex)
     End Sub
-    Public Sub update(value As String)
+    Public Function update(columnname As String, value As String) As Integer
         command_validation()
+        Dim columnindex As Integer = find_column_index(columnname)
         Dim items As ArrayList = condition_exec()
-
-    End Sub
+        For index = 0 To items.Count - 1
+            dt(index).Insert(columnindex + 1, value)
+            dt(index).RemoveAt(columnindex)
+        Next
+        Return items.Count
+    End Function
 
     Public Function get_row_map(index As Integer) As map
         Dim yodastr As String = get_row(index)
@@ -115,8 +121,26 @@
 
     Private Function condition_exec() As ArrayList
         Dim items As New ArrayList
-
+        Dim dtlen As Integer = dt.Length - 1
+        Dim statelen As Integer = statelist.Count - 1
+        For index = 0 To dtlen
+            Dim resultact As Boolean = True
+            For i2 = 0 To statelen
+                Select Case Convert.ToInt32(statelist(i2))
+                    Case commandstate.EQUAL
+                        If ch_equal_method(dt(index)(indexlist(i2)), valuelist(i2)) = False Then
+                            resultact = False
+                            Exit For
+                        End If
+                End Select
+            Next
+            If resultact Then items.Add(index)
+        Next
         Return items
+    End Function
+
+    Private Function ch_equal_method(realresult As Object, idealresult As Object) As Boolean
+        Return (realresult = idealresult)
     End Function
     Private Sub command_validation()
         If IsNothing(dt) Then
