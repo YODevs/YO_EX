@@ -33,6 +33,7 @@ Public Class valtp
                 typeinf.isclass = True
                 typeinf.isinternalclass = True
                 typeinf.isprimitive = False
+                typeinf.isarray = False
                 typeinf.fullname = classname & conrex.DOT & enumname
                 typeinf.asminfo = classname & conrex.DOT & enumname
                 If classname.Contains(conrex.DOT) Then
@@ -56,6 +57,7 @@ Public Class valtp
                 typeinf.isclass = True
                 typeinf.isinternalclass = False
                 typeinf.isprimitive = False
+                typeinf.isarray = False
                 typeinf.fullname = getnestedtype.FullName.Replace(conrex.PLUS, conrex.DOT)
                 typeinf.asminfo = getnestedtype.AssemblyQualifiedName
                 typeinf.externlib = getnestedtype.Assembly.GetName().Name
