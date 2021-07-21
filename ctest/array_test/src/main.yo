@@ -12,6 +12,7 @@ func main()
   test6()
   test7()
   test8()
+  test9()
 }
 
 func test1()
@@ -116,4 +117,18 @@ func test8()
     val := y[index]
     io::println(val)
   }
+}
+
+func test9()
+{
+let x[2] : i32
+x[0] := 10
+x[1] := 20
+test9_a(x)
+}
+
+func test9_a(y[] : i32)
+{
+let i : i32 = y[0]
+io::println(i)
 }
