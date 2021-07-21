@@ -385,6 +385,9 @@
     End Function
 
     Friend Shared Function eq_data_types(maintype As String, resulttype As String, Optional typeinf As ilformat._typeinfo = Nothing) As Boolean
+        If IsNothing(typeinf) = False AndAlso typeinf.isarray AndAlso resulttype.EndsWith(conrex.BRSTEN) AndAlso maintype.EndsWith(conrex.BRSTEN) = False Then
+            maintype &= conrex.BRSTEN
+        End If
         If maintype = conrex.NULL OrElse resulttype = conrex.NULL Then
             If maintype = resulttype Then
                 Return True
@@ -401,6 +404,7 @@
         If maintype = resulttype Then
             Return True
         End If
+
         If resulttype.StartsWith("system.") Then
             Dim mptype As String = resulttype.Remove(0, resulttype.IndexOf(conrex.DOT) + 1)
             If maintype = mptype Then Return True
