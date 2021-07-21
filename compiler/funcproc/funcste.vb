@@ -158,6 +158,9 @@ Public Class funcste
         For index = 0 To methodinfo.parameters.Length - 1
             Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
             If methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
+                If methodinfo.parameters(index).name.EndsWith(conrex.BRSTEN) Then
+                    getcildatatype &= conrex.BRSTEN
+                End If
                 If methodinfo.parameters(index).byreference Then getcildatatype &= "&"
                 paramtypes.Add(getcildatatype)
                 emptyparamtypes.Add(getcildatatype)
