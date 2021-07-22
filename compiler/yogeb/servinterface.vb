@@ -163,10 +163,15 @@ Public Class servinterface
         Return datatype
     End Function
     Friend Shared Function get_yo_common_data_type(datatype As String, ByRef yodatatype As String) As Boolean
+        Dim isarray As Boolean = False
+        If datatype.EndsWith(conrex.BRSTEN) Then
+            datatype = datatype.Remove(datatype.IndexOf(conrex.BRSTART))
+        End If
         datatype = datatype.ToLower
         For index = 0 To conrex.yocommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index) Then
                 yodatatype = conrex.yocommondatatype(index)
+                If isarray Then yodatatype &= conrex.BRSTEN
                 Return True
             End If
         Next
