@@ -391,7 +391,7 @@
 
             Case funcstatecursor.FUNCRETURNTYPE
                 Dim cildatatype As String = String.Empty
-                If rd_token <> tokenhared.token.IDENTIFIER AndAlso rd_token <> tokenhared.token.COMMONDATATYPE Then
+                If rd_token <> tokenhared.token.IDENTIFIER AndAlso rd_token <> tokenhared.token.COMMONDATATYPE AndAlso rd_token <> tokenhared.token.ARR Then
                     If xmethods(i).isexpr Then
                         dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "expr kelvin(ct : i32) : i32 = [ct + 373]")
                     Else
@@ -400,15 +400,20 @@
                     End If
                 End If
 
+                If value.EndsWith(conrex.BRSTEN) Then
+                    xmethods(i).returnarray = True
+                    value = value.Remove(value.LastIndexOf(conrex.BRSTART))
+                End If
                 xmethods(i).typetargetinfo = linecinf
                 xmethods(i).typetargetvalue = value
                 If servinterface.is_common_data_type(value, cildatatype) Then
                     'Common Data Type
-                xmethods(i).returntype = cildatatype
+                    xmethods(i).returntype = cildatatype
                 Else
                     'Else Types ...
                     xmethods(i).returntype = value
                 End If
+                If xmethods(i).returnarray Then xmethods(i).returntype &= conrex.BRSTEN
                 If xmethods(i).isexpr Then
                     funcstate = funcstatecursor.FUNCEXPRASSIGNMENT
                 Else
