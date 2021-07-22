@@ -178,15 +178,19 @@ call instance void [mscorlib]System.Object::.ctor()")
         If funcdt.returntype = "void" Or funcdt.returntype = Nothing Then
             headfuncdt &= "void"
         Else
+            If funcdt.isretarray Then
+                funcdt.returntype = funcdt.returntype.Remove(funcdt.returntype.IndexOf(conrex.BRSTART))
+            End If
             If servinterface.is_cil_common_data_type(funcdt.returntype) Then
                 headfuncdt &= funcdt.returntype
             Else
                 'other types
-                headfuncdt &= String.Format("class [{0}]{1} ", funcdt.returninfo.asmextern, funcdt.returninfo.classname)
+                headfuncdt &= String.Format("class [{0}]{1}", funcdt.returninfo.asmextern, funcdt.returninfo.classname)
             End If
+            If funcdt.isretarray Then headfuncdt &= conrex.BRSTEN
         End If
 
-        headfuncdt &= conrex.SPACE & cilkeywordchecker.get_key(funcdt.name)
+            headfuncdt &= conrex.SPACE & cilkeywordchecker.get_key(funcdt.name)
         If IsNothing(funcdt.parameter) Then
             headfuncdt &= "()"
             add_il_code(headfuncdt)
