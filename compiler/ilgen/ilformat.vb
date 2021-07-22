@@ -31,6 +31,7 @@
         Dim codes As ArrayList
         Dim line As ArrayList
         Dim isexpr As Boolean
+        Dim isretarray As Boolean
     End Structure
     Public Structure _returninfo
         Dim asmextern As String
