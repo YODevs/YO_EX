@@ -92,6 +92,7 @@ Public Class ilfuncgen
         cil.ret(_ilmethod.codes)
     End Sub
     Private Sub set_custom_type(ByRef _ilmethodcollection As ilformat._ilmethodcollection)
+        _ilmethodcollection.isretarray = _ilmethodcollection.returntype.EndsWith(conrex.BRSTEN)
         If _ilmethodcollection.returntype = conrex.NULL OrElse _ilmethodcollection.returntype = "void" OrElse servinterface.get_yo_common_data_type(_ilmethodcollection.returntype, Nothing) = True Then
             Return
         End If
