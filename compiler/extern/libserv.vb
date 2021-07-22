@@ -74,6 +74,11 @@ Public Class libserv
     End Function
     Friend Shared Function get_extern_index_class(_ilmethod As ilformat._ilmethodcollection, ByRef classname As String, ByRef namespaceptr As Integer, ByRef classptr As Integer, Optional ByRef isvirtualmethod As Boolean = False, Optional ByRef reclassname As String = Nothing) As Integer
         Dim classchename As String = String.Empty
+        Dim isarray As Boolean = False
+        If classname.EndsWith(conrex.BRSTEN) Then
+            classname = classname.Remove(classname.IndexOf(conrex.BRSTART))
+            isarray = True
+        End If
         If IsNothing(_ilmethod.locallinit) = False OrElse IsNothing(_ilmethod.parameter) = False OrElse IsNothing(ilasmgen.classdata.fields) = False Then
             get_identifier_ns(_ilmethod, classname, isvirtualmethod)
         End If
@@ -82,6 +87,9 @@ Public Class libserv
         Dim resultclassindex As mapstoredata.dataresult = libreg.externtypes.find(classname, True, classchename)
         If resultclassindex.issuccessful Then
             classname = classchename
+            If isarray Then
+                classname &= conrex.BRSTEN
+            End If
             Dim spdata As String = resultclassindex.result
             namespaceptr = spdata.Remove(spdata.IndexOf(conrex.CMA))
             classptr = spdata.Remove(0, spdata.IndexOf(conrex.CMA) + 1)
