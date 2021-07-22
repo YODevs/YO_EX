@@ -33,6 +33,7 @@ Public Class tknformat
         Dim typetargetinfo As lexer.targetinf
         Dim typetargetvalue As String
         Dim returntype As String
+        Dim returnarray As Boolean
         Dim nopara As Boolean
         Dim parameters() As _parameter
         Dim bodyxmlfmt As String
