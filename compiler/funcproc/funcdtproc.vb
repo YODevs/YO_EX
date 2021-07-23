@@ -51,17 +51,21 @@
         funcname = funcname.ToLower
         For index = 0 To reffunc(classindex).methods.Length - 1
             If reffunc(classindex).methods(index).name.ToLower = funcname Then
-                If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, reffunc(classindex).methods(index).returntype) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, funcste.assignmentype) Then
-                    If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc, settypeinfo) Then
-                        funcname = reffunc(classindex).methods(index).name
-                        If settypeinfo Then
-                            set_type_info(classindex, index, reffunc(classindex).methods(index))
-                        End If
-                        funcste.assignmentype = Nothing
-                        Return index
-                    End If
+                Dim resulttype As String = reffunc(classindex).methods(index).returntype
+                If reffunc(classindex).methods(index).returnarray Then
+                    resulttype = resulttype.Remove(resulttype.Length - 2)
                 End If
-                retstate = -2
+            If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, resulttype) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, funcste.assignmentype) Then
+                If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc, settypeinfo) Then
+                    funcname = reffunc(classindex).methods(index).name
+                    If settypeinfo Then
+                        set_type_info(classindex, index, reffunc(classindex).methods(index))
+                    End If
+                    funcste.assignmentype = Nothing
+                    Return index
+                End If
+            End If
+            retstate = -2
             End If
         Next
         funcste.assignmentype = Nothing
