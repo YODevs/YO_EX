@@ -13,6 +13,12 @@ func main()
   test7()
   test8()
   test9()
+  let val[] : str = test10()
+  let snval : str = val[2]
+  io::println(snval)
+  val := test10()
+  snval := val[0]
+  io::println(snval)
 }
 
 func test1()
@@ -131,4 +137,13 @@ func test9_a(y[] : i32)
 {
 let i : i32 = y[0]
 io::println(i)
+}
+
+func test10() : str[]
+{
+let val[3] : str
+val[0] := 'Alpha'
+val[1] := 'Beta'
+val[2] := 'Gamma'
+return val
 }

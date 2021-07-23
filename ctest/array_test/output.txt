@@ -13,3 +13,5 @@ eeAmin
 60
 80
 10
+Gamma
+Alpha
