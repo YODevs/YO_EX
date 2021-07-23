@@ -79,7 +79,7 @@ Public Class funcste
             End If
             If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
 
-        If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
+        If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> conrex.VOID Then
             cil.pop(_ilmethod.codes)
         End If
     End Sub
@@ -115,13 +115,11 @@ Public Class funcste
         Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
         Dim paramtype As ArrayList
         If IsNothing(methodinfo.parameters) = False Then
-            ' Print Tokens :
-            ' coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
         End If
 
         Dim getdatatype As String = methodinfo.returntype
-        If getdatatype <> Nothing AndAlso getdatatype <> "void" AndAlso servinterface.is_cil_common_data_type(getdatatype) = False Then
+        If getdatatype <> Nothing AndAlso getdatatype <> conrex.VOID AndAlso servinterface.is_cil_common_data_type(getdatatype) = False Then
             Dim retnamespaceindex, retclassindex As Integer
             If libserv.get_extern_index_class(_ilmethod, getdatatype, retnamespaceindex, retclassindex) = -1 Then
                 dserr.args.Add("Class " & getdatatype & " not found.")
@@ -134,7 +132,7 @@ Public Class funcste
         End If
         If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
 
-        If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> "void" Then
+        If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> conrex.VOID Then
             cil.pop(_ilmethod.codes)
         End If
     End Sub
