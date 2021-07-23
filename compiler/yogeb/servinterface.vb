@@ -134,9 +134,15 @@ Public Class servinterface
     Friend Shared Function is_common_data_type(datatype As String, ByRef cildatatype As String) As Boolean
         If datatype = conrex.NULL Then Return False
         datatype = datatype.ToLower
+        Dim isarray As Boolean = False
+        If datatype.EndsWith(conrex.BRSTEN) Then
+            datatype = datatype.Remove(datatype.Length - 2)
+            isarray = True
+        End If
         For index = 0 To conrex.yocommondatatype.Length - 1
             If datatype = conrex.yocommondatatype(index) Then
                 cildatatype = conrex.msilcommondatatype(index)
+                If isarray Then cildatatype &= conrex.BRSTEN
                 Return True
             End If
         Next
@@ -145,21 +151,37 @@ Public Class servinterface
 
     Friend Shared Function vb_to_cil_common_data_type(datatype As String) As String
         datatype = datatype.ToLower
+        Dim isarray As Boolean = False
+        If datatype.EndsWith(conrex.BRSTEN) Then
+            datatype = datatype.Remove(datatype.Length - 2)
+            isarray = True
+        End If
         For index = 0 To conrex.plvbcommondatatype.Length - 1
             If datatype = conrex.plvbcommondatatype(index).ToLower Then
-                Return conrex.msilcommondatatype(index)
+                Dim result As String = conrex.msilcommondatatype(index)
+                If isarray Then result &= conrex.BRSTEN
+                Return result
             End If
         Next
+        If isarray Then datatype &= conrex.BRSTEN
         Return datatype
     End Function
 
     Friend Shared Function cil_to_vb_common_data_type(datatype As String) As String
         datatype = datatype.ToLower
+        Dim isarray As Boolean = False
+        If datatype.EndsWith(conrex.BRSTEN) Then
+            datatype = datatype.Remove(datatype.Length - 2)
+            isarray = True
+        End If
         For index = 0 To conrex.plvbcommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index).ToLower Then
-                Return conrex.plvbcommondatatype(index)
+                Dim result As String = conrex.plvbcommondatatype(index)
+                If isarray Then result &= conrex.BRSTEN
+                Return result
             End If
         Next
+        If isarray Then datatype &= conrex.BRSTEN
         Return datatype
     End Function
     Friend Shared Function get_yo_common_data_type(datatype As String, ByRef yodatatype As String) As Boolean
@@ -193,6 +215,7 @@ Public Class servinterface
         End If
     End Sub
     Friend Shared Function is_cil_common_data_type(datatype As String) As Boolean
+        If datatype.EndsWith(conrex.BRSTEN) Then datatype = datatype.Remove(datatype.Length - 2)
         For index = 0 To conrex.msilcommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index) Then
                 Return True
