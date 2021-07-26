@@ -2,6 +2,13 @@
 
     Private dt() As ArrayList
     Private gcolumnsize, growsize As Integer
+    Private gisempty As Boolean = True
+    Public columnseparator As String = Space(2)
+    Public ReadOnly Property isempty() As Boolean
+        Get
+            Return gisempty
+        End Get
+    End Property
     Public ReadOnly Property columnsize() As Integer
         Get
             Return gcolumnsize
@@ -30,12 +37,26 @@
         For index = 0 To gcolumnsize - 1
             dt(index).Clear()
         Next
+        gisempty = True
     End Sub
     Public Sub set_zero_matrix()
+        clear_matrix()
         For index = 0 To gcolumnsize - 1
             For i2 = 0 To growsize - 1
                 dt(index).Add(0)
             Next
         Next
+        gisempty = False
     End Sub
+    Public Function get_matrix() As String
+        If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        Dim result As String
+        For index = 0 To growsize - 1
+            For i2 = 0 To gcolumnsize - 1
+                result &= dt(i2)(index).ToString & columnseparator
+            Next
+            If growsize - 1 <> index Then result &= vbCrLf
+        Next
+        Return result
+    End Function
 End Class
