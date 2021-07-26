@@ -48,6 +48,22 @@
         Next
         gisempty = False
     End Sub
+    Public Sub set_unit_matrix()
+        If gcolumnsize <> growsize Then Throw New Exception("Unit matrix should be a square matrix (for example, 3 * 3 or 2 * 2).")
+        clear_matrix()
+        Dim rowunit As Integer = 0
+        For index = 0 To gcolumnsize - 1
+            For i2 = 0 To growsize - 1
+                If rowunit = i2 Then
+                    dt(i2).Add(1)
+                Else
+                    dt(i2).Add(0)
+                End If
+            Next
+            rowunit += 1
+        Next
+        gisempty = False
+    End Sub
     Public Function get_matrix() As String
         If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
         Dim result As String
