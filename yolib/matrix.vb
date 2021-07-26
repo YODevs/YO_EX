@@ -26,4 +26,16 @@
             dt(index) = New ArrayList
         Next
     End Sub
+    Public Sub clear_matrix()
+        For index = 0 To gcolumnsize - 1
+            dt(index).Clear()
+        Next
+    End Sub
+    Public Sub set_zero_matrix()
+        For index = 0 To gcolumnsize - 1
+            For i2 = 0 To growsize - 1
+                dt(index).Add(0)
+            Next
+        Next
+    End Sub
 End Class
