@@ -18,5 +18,12 @@
         End If
         gcolumnsize = ncol
         growsize = nrow
+        init_columns()
+    End Sub
+    Private Sub init_columns()
+        Array.Resize(dt, gcolumnsize)
+        For index = 0 To gcolumnsize - 1
+            dt(index) = New ArrayList
+        Next
     End Sub
 End Class
