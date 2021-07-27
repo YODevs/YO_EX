@@ -23,3 +23,16 @@ func print(map : yolib.map) : void
     io::println("Key -> #{key}#nlValue -> #{value}")
   }
 }
+
+func is_num(val:str) : bool
+{
+  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(val,"^\d+$")
+  return result
+}
+
+func is_num(val:obj) : bool
+{
+  let valtostr : str = [str]val
+  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(valtostr,"^\d+$")
+  return result
+}
