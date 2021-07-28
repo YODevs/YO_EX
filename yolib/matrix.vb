@@ -98,4 +98,18 @@
         Next
         Return maxlengthindex
     End Function
+
+    Private Sub priv_set_item(columnindex As Integer, rowindex As Integer, value As Object)
+        If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        If columnindex >= gcolumnsize Then Throw New Exception("There is no column with this ID, reduce the index.")
+        If rowindex >= growsize Then Throw New Exception("There is no row with this ID, reduce the index.")
+        dt(columnindex).Insert(rowindex + 1, value)
+        dt(columnindex).RemoveAt(rowindex)
+    End Sub
+    Public Sub set_item(columnindex As Integer, rowindex As Integer, value As Integer)
+        priv_set_item(columnindex, rowindex, value)
+    End Sub
+    Public Sub set_item(columnindex As Integer, rowindex As Integer, value As Double)
+        priv_set_item(columnindex, rowindex, value)
+    End Sub
 End Class
