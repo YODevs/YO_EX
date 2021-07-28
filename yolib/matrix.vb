@@ -3,7 +3,6 @@
     Private dt() As ArrayList
     Private gcolumnsize, growsize As Integer
     Private gisempty As Boolean = True
-    Public columnseparator As String = Space(2)
     Public ReadOnly Property isempty() As Boolean
         Get
             Return gisempty
@@ -76,12 +75,27 @@
     Public Function get_matrix() As String
         If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
         Dim result As String
+        Dim maxlengthindex As Integer = get_max_length()
+
         For index = 0 To growsize - 1
             For i2 = 0 To gcolumnsize - 1
-                result &= dt(i2)(index).ToString & columnseparator
+                Dim value As String = dt(i2)(index).ToString
+                result &= value & Space(maxlengthindex - dt(i2)(index).ToString.Length + 2)
             Next
             If growsize - 1 <> index Then result &= vbCrLf
         Next
+
         Return result
+    End Function
+
+    Private Function get_max_length() As Integer
+        Dim maxlengthindex As Integer = 0
+        For index = 0 To growsize - 1
+            For i2 = 0 To gcolumnsize - 1
+                Dim value As String = dt(i2)(index).ToString
+                If value.Length > maxlengthindex Then maxlengthindex = value.Length
+            Next
+        Next
+        Return maxlengthindex
     End Function
 End Class
