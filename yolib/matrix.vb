@@ -106,10 +106,30 @@
         dt(columnindex).Insert(rowindex + 1, value)
         dt(columnindex).RemoveAt(rowindex)
     End Sub
+
     Public Sub set_item(columnindex As Integer, rowindex As Integer, value As Integer)
         priv_set_item(columnindex, rowindex, value)
     End Sub
+
     Public Sub set_item(columnindex As Integer, rowindex As Integer, value As Double)
         priv_set_item(columnindex, rowindex, value)
     End Sub
+
+    Private Function priv_get_item(columnindex As Integer, rowindex As Integer) As Object
+        If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        If columnindex >= gcolumnsize Then Throw New Exception("There is no column with this ID, reduce the index.")
+        If rowindex >= growsize Then Throw New Exception("There is no row with this ID, reduce the index.")
+        Return dt(columnindex)(rowindex)
+    End Function
+
+    Public Function get_item(columnindex As Integer, rowindex As Integer) As Integer
+        Dim result As Integer = Convert.ToInt32(priv_get_item(columnindex, rowindex))
+        Return result
+    End Function
+
+    Public Function get_item_f64(columnindex As Integer, rowindex As Integer) As Double
+        Dim result As Double = Convert.ToDouble(priv_get_item(columnindex, rowindex))
+        Return result
+    End Function
+
 End Class
