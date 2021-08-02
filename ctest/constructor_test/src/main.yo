@@ -18,6 +18,8 @@ func main()
   test11()
   test12()
   test13("This Is A ")
+  test14()
+  test15()
 }
 
 func test1(val:i32,val1:i32)
@@ -126,4 +128,22 @@ func test13(val:str)
   sb::append("Test Form StringBuilder Constructor")
   let result : str = sb::tostring()
   io::println(result)
+}
+
+func test14()
+{
+  let sb : System.text.stringbuilder
+  sb := init System.text.stringbuilder()
+  sb::append("Hello ")
+  sb::append("Amin")
+  let result : str = sb::tostring()
+  io::println(result)
+}
+
+func test15()
+{
+  let x : mylib
+  x := init mylib(2,6)
+  let result : i32 = x::sum()
+  io::println("#{result}")
 }
