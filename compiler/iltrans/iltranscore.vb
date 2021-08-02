@@ -435,11 +435,21 @@
                 Case "char"
                     _ilmethod = optgen.assi_char(varname, clinecodestruc(ilinc), "char")
                 Case Else
+                    If clinecodestruc(ilinc).tokenid = tokenhared.token.INIT Then
+                        check_constructor_assignment(clinecodestruc, ilinc, optgen)
+                    End If
                     _ilmethod = optgen.assi_identifier(varname, clinecodestruc(ilinc), localvartype.result)
             End Select
         Next
     End Sub
 
+    Private Sub check_constructor_assignment(clinecodestruc() As xmlunpkd.linecodestruc, ilinc As Integer, ByRef optgen As ilopt)
+        If clinecodestruc.Length <= ilinc + 1 Then
+            dserr.new_error(conserr.errortype.TYPEEXPECTEDERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), clinecodestruc(ilinc).value) & vbCrLf & "Type must be specified after the INIT keyword.", "sb := init system.text.stringbuilder()")
+        End If
+        Dim ctorlinecodestruc() As xmlunpkd.linecodestruc = servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc + 1)
+        optgen.ctorlinecodestruc = ctorlinecodestruc
+    End Sub
     Private Sub pv_iden_qeseq(dtassign As identifierassignmentinfo, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
         Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
         For index = 0 To dtassign.identifiers.Count - 1
