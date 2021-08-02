@@ -67,6 +67,7 @@ Public Class conserr
         EXTERNERROR
         ENUMMEMBERERROR
         ACCESSINGFILEERROR
+        TYPEEXPECTEDERROR
     End Enum
 
     Enum errorpriority
@@ -156,5 +157,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.EXTERNERROR, errorpriority.STOP, "Extern error", "Could not load file or assembly '{0}' or one of its dependencies. The system cannot find the file specified.")
         set_new_error(errortype.ENUMMEMBERERROR, errorpriority.STOP, "Enum error", "'{0}' is not a member of '{1}'.")
         set_new_error(errortype.ACCESSINGFILEERROR, errorpriority.STOP, "Accessing file error", "'{0}' file is deleted or renamed, the deleted system cache can be reset.")
+        set_new_error(errortype.TYPEEXPECTEDERROR, errorpriority.STOP, "Syntax error", "Type expected.")
     End Sub
 End Class
