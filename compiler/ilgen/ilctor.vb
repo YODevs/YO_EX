@@ -38,16 +38,41 @@ Public Class ilctor
         allocate_an_uninitialized_obj(glinecodestruc, resultfunc, ctorinf, index, clinecodestruc, _illocalinit, localinit)
         Return _ilmethod
     End Function
-
+    Public Function set_new_ctor(glinecodestruc() As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        Dim ctorinf As New ctorinfo
+        glinecodestruc(0).value &= "::.ctor"
+        Dim resultfunc As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, glinecodestruc)
+        ctorinf.classname = resultfunc.exclass
+        If resultfunc.callintern Then
+            Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, ctorinf.classname)
+            ctorinf.classindex = classindex
+            If classindex = -1 Then
+                dserr.args.Add("Class '" & ctorinf.classname & "' not found.")
+                dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), glinecodestruc(0).value))
+            End If
+        Else
+            If libserv.get_extern_index_class(_ilmethod, ctorinf.classname, ctorinf.namespaceindex, ctorinf.classindex) = -1 Then
+                dserr.args.Add("Class '" & ctorinf.classname & "' not found.")
+                dserr.new_error(conserr.errortype.METHODERROR, glinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(glinecodestruc(0)), ctorinf.classname))
+            End If
+        End If
+        resultfunc.exclass = ctorinf.classname
+        allocate_an_uninitialized_obj(glinecodestruc, resultfunc, ctorinf, -1, glinecodestruc, Nothing, Nothing)
+        Return _ilmethod
+    End Function
     Public Sub allocate_an_uninitialized_obj(glinecodestruc() As xmlunpkd.linecodestruc, resultfunc As funcvalid._resultfuncvaild, ctorinf As ctorinfo, index As Integer, clinecodestruc() As xmlunpkd.linecodestruc, ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
-        If _illocalinit(index).ctor = False Then
+        If index <> -1 AndAlso _illocalinit(index).ctor = False Then
             If resultfunc.callintern = False Then _illocalinit(index).asmextern = libserv.get_extern_assembly(ctorinf.namespaceindex)
             Return
         End If
         If resultfunc.callintern Then
             inv_internal_constructor(glinecodestruc, resultfunc, ctorinf)
         Else
-            inv_external_constructor(_illocalinit(index), glinecodestruc, resultfunc, ctorinf)
+            If index = -1 Then
+                inv_external_constructor(Nothing, glinecodestruc, resultfunc, ctorinf)
+            Else
+                inv_external_constructor(_illocalinit(index), glinecodestruc, resultfunc, ctorinf)
+            End If
         End If
     End Sub
     Private Sub inv_internal_constructor(glinecodestruc As xmlunpkd.linecodestruc(), resultfunc As funcvalid._resultfuncvaild, ctorinf As ctorinfo)
@@ -69,7 +94,7 @@ Public Class ilctor
             funcste.load_param_in_stack(cargcodestruc, _ilmethod, methodinfo, Nothing, paramtype, cargcodestruc)
         End If
         cil.new_obj(_ilmethod.codes, "void", Nothing, resultfunc.exclass, resultfunc.clmethod, paramtype)
-        cil.set_stack_local(_ilmethod.codes, ctorinf.objname)
+        If ctorinf.objname <> conrex.NULL Then cil.set_stack_local(_ilmethod.codes, ctorinf.objname)
     End Sub
 
     Private Sub inv_external_constructor(ByRef _illocalinit As ilformat._illocalinit, glinecodestruc As xmlunpkd.linecodestruc(), resultfunc As funcvalid._resultfuncvaild, ctorinf As ctorinfo)
@@ -102,7 +127,7 @@ Public Class ilctor
         End If
         Dim getrettype As String = "void"
         cil.new_obj(_ilmethod.codes, getrettype, resultfunc.asmextern, resultfunc.exclass, resultfunc.clmethod, paramtype)
-        cil.set_stack_local(_ilmethod.codes, ctorinf.objname)
+        If ctorinf.objname <> conrex.NULL Then cil.set_stack_local(_ilmethod.codes, ctorinf.objname)
     End Sub
     Private Sub rep_constructor_param(ByRef glinecodestruc As xmlunpkd.linecodestruc())
         If glinecodestruc.Length - 1 = 0 Then
