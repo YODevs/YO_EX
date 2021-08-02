@@ -465,6 +465,7 @@ Public Class ilopt
         Return _ilmethod
     End Function
 
+    Public ctorlinecodestruc() As xmlunpkd.linecodestruc
     Public Function assi_identifier(varname As String, clinecodestruc As xmlunpkd.linecodestruc, type As String) As ilformat._ilmethodcollection
         Select Case clinecodestruc.tokenid
             Case tokenhared.token.IDENTIFIER
@@ -474,6 +475,9 @@ Public Class ilopt
             'let value : str = NULL
             Case tokenhared.token.NULL
                 cil.push_null_reference(_ilmethod.codes)
+            Case tokenhared.token.INIT
+                Dim ctor As New ilctor(_ilmethod)
+                _ilmethod = ctor.set_new_ctor(ctorlinecodestruc)
             Case Else
                 'Set Error 
                 dserr.args.Add(clinecodestruc.value)
