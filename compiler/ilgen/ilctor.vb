@@ -21,6 +21,13 @@ Public Class ilctor
         End If
         Dim glinecodestruc() As xmlunpkd.linecodestruc = servinterface.trim_line_code_struc(clinecodestruc, indclass)
         glinecodestruc(0).value &= "::.ctor"
+        If _illocalinit(index).ctor = False Then
+            Array.Resize(glinecodestruc, 3)
+            glinecodestruc(1).tokenid = tokenhared.token.PRSTART
+            glinecodestruc(1).value = conrex.PRSTART
+            glinecodestruc(2).tokenid = tokenhared.token.PREND
+            glinecodestruc(2).value = conrex.PREND
+        End If
         Dim resultfunc As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, glinecodestruc)
         If resultfunc.callintern Then
             Dim classindex As Integer = funcdtproc.get_index_class(_ilmethod, ctorinf.classname)
