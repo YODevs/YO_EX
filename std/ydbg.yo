@@ -77,3 +77,38 @@ func is_bool(val:obj) : bool
     }
   }
 }
+
+func is_float(val:str) : bool
+{
+  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(val, "^[0-9]*(?:\.[0-9]*)?$")
+  if(result == true)
+  {
+    result := val::contains(".")
+    if(result == true)
+    {
+      return true
+    }
+    else
+    {
+      return false
+    }
+  }
+}
+
+func is_float(val:obj) : bool
+{
+  let valtostr : str = [str]val
+  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(valtostr, "^[0-9]*(?:\.[0-9]*)?$")
+  if(result == true)
+  {
+    result := valtostr::contains(".")
+    if(result == true)
+    {
+      return true
+    }
+    else
+    {
+      return false
+    }
+  }
+}
