@@ -36,3 +36,44 @@ func is_num(val:obj) : bool
   let result : bool = System.Text.RegularExpressions.Regex::IsMatch(valtostr,"^\d+$")
   return result
 }
+
+func is_bool(val:str) : bool
+{
+  val := val::tolower()
+  match(val)
+  {
+    case "true"
+    {
+      return true
+    }
+    case "false"
+    {
+      return true
+    }
+    default
+    {
+      return false
+    }
+  }
+}
+
+func is_bool(val:obj) : bool
+{
+  let valtostr : str = [str]val
+  valtostr := valtostr::tolower()
+  match(valtostr)
+  {
+    case "true"
+    {
+      return true
+    }
+    case "false"
+    {
+      return true
+    }
+    default
+    {
+      return false
+    }
+  }
+}
