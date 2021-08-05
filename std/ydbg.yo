@@ -112,3 +112,48 @@ func is_float(val:obj) : bool
     }
   }
 }
+
+func is_space(val:str) : bool
+{
+  let result : bool
+  let length : i32 = val::length
+  if(val::length >> 0)
+  {
+    for(index in [0..length])
+    {
+      result := system.char::iswhitespace(val,index)
+      if(result == false)
+      {
+        return false
+      }
+    }
+    return true
+  }
+  else
+  {
+    return false
+  }
+}
+
+func is_space(val:obj) : bool
+{
+  let valtostr : str = [str]val
+  let result : bool
+  let length : i32 = valtostr::length
+  if(valtostr::length >> 0)
+  {
+    for(index in [0..length])
+    {
+      result := system.char::iswhitespace(valtostr,index)
+      if(result == false)
+      {
+        return false
+      }
+    }
+    return true
+  }
+  else
+  {
+    return false
+  }
+}
