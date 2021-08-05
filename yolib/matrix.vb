@@ -122,6 +122,10 @@
         Return dt(columnindex)(rowindex)
     End Function
 
+    Private Function is_double(val As Object) As Boolean
+        Return val.ToString.Contains(".")
+    End Function
+
     Public Function get_item(columnindex As Integer, rowindex As Integer) As Integer
         Dim result As Integer = Convert.ToInt32(priv_get_item(columnindex, rowindex))
         Return result
@@ -132,4 +136,24 @@
         Return result
     End Function
 
+    Public Function neg() As matrix
+        If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        Dim nmatrix As New matrix(growsize, gcolumnsize)
+        nmatrix.set_zero_matrix()
+        For index = 0 To gcolumnsize - 1
+            For rindex = 0 To growsize - 1
+                Dim item As Object = dt(index)(rindex)
+                If is_double(item) Then
+                    Dim valf32 As Double = Convert.ToDouble(item)
+                    valf32 *= -1
+                    nmatrix.set_item(index, rindex, valf32)
+                Else
+                    Dim vali32 As Integer = Convert.ToDouble(item)
+                    vali32 *= -1
+                    nmatrix.set_item(index, rindex, vali32)
+                End If
+            Next
+        Next
+        Return nmatrix
+    End Function
 End Class
