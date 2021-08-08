@@ -33,7 +33,7 @@ func is_num(val:str) : bool
 func is_num(val:obj) : bool
 {
   let valtostr : str = [str]val
-  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(valtostr,"^\d+$")
+  let result : bool = is_num(valtostr)
   return result
 }
 
@@ -60,22 +60,8 @@ func is_bool(val:str) : bool
 func is_bool(val:obj) : bool
 {
   let valtostr : str = [str]val
-  valtostr := valtostr::tolower()
-  match(valtostr)
-  {
-    case "true"
-    {
-      return true
-    }
-    case "false"
-    {
-      return true
-    }
-    default
-    {
-      return false
-    }
-  }
+  let result : bool = is_bool(valtostr)
+  return result
 }
 
 func is_float(val:str) : bool
@@ -98,19 +84,8 @@ func is_float(val:str) : bool
 func is_float(val:obj) : bool
 {
   let valtostr : str = [str]val
-  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(valtostr, "^[0-9]*(?:\.[0-9]*)?$")
-  if(result == true)
-  {
-    result := valtostr::contains(".")
-    if(result == true)
-    {
-      return true
-    }
-    else
-    {
-      return false
-    }
-  }
+  let result : bool = is_float(valtostr)
+  return result
 }
 
 func is_space(val:str) : bool
@@ -138,22 +113,6 @@ func is_space(val:str) : bool
 func is_space(val:obj) : bool
 {
   let valtostr : str = [str]val
-  let result : bool
-  let length : i32 = valtostr::length
-  if(valtostr::length >> 0)
-  {
-    for(index in [0..length])
-    {
-      result := system.char::iswhitespace(valtostr,index)
-      if(result == false)
-      {
-        return false
-      }
-    }
-    return true
-  }
-  else
-  {
-    return false
-  }
+  let result : bool = is_space(valtostr)
+  return result
 }
