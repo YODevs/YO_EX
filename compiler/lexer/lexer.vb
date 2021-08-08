@@ -123,6 +123,9 @@ Public Class lexer
                             End If
                             Dim afline As Integer = linecinf.line
                             linecinf.line = strline
+                            If nextchar(index) = conrex.CLN AndAlso nextchar(index + 1) = conrex.CLN AndAlso Regex.IsMatch(linec, conrex.ARRMETHODREGEX) Then
+                                Continue For
+                            End If
                             check_token(linecinf, linec)
                             linecinf.line = afline
                             slinegrab = conrex.NULL
