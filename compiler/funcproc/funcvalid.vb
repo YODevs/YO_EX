@@ -32,8 +32,8 @@
         Return resultvaild
     End Function
     Friend Shared Function check_extern_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef resultvalid As _resultfuncvaild) As Boolean
-        If clinecodestruc(0).tokenid = tokenhared.token.IDENTIFIER AndAlso
-                clinecodestruc(1).tokenid = tokenhared.token.PRSTART Then
+        If ((clinecodestruc(0).tokenid = tokenhared.token.IDENTIFIER OrElse clinecodestruc(0).tokenid = tokenhared.token.ARR) AndAlso
+                clinecodestruc(1).tokenid = tokenhared.token.PRSTART) Then
 
             If clinecodestruc(clinecodestruc.Length - 1).tokenid <> tokenhared.token.PREND Then
                 set_expect_error(clinecodestruc, clinecodestruc.Length - 1, ")")
@@ -46,8 +46,8 @@
         Return False
     End Function
     Friend Shared Function check_intern_method(clinecodestruc() As xmlunpkd.linecodestruc, ByRef resultvalid As _resultfuncvaild) As Boolean
-        If clinecodestruc(0).tokenid = tokenhared.token.IDENTIFIER AndAlso
-                clinecodestruc(1).tokenid = tokenhared.token.PRSTART Then
+        If ((clinecodestruc(0).tokenid = tokenhared.token.IDENTIFIER OrElse clinecodestruc(0).tokenid = tokenhared.token.ARR) AndAlso
+                clinecodestruc(1).tokenid = tokenhared.token.PRSTART) Then
 
             If clinecodestruc(clinecodestruc.Length - 1).tokenid <> tokenhared.token.PREND Then
                 set_expect_error(clinecodestruc, clinecodestruc.Length - 1, ")")
