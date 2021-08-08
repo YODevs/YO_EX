@@ -207,6 +207,7 @@
         Dim inline As Integer = 0
         Dim index As Integer = clinecodestruc.Length - 1
         Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, clinecodestruc)
+        'coutputdata.print_token(clinecodestruc)
         If funcresult.funcvalid Then
             funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
             Return
@@ -618,6 +619,7 @@
                             dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(3)), clinecodestruc(3).value))
                         End If
                     End If
+
                     _illocalinit(index).datatype = clinecodestruc(3).value
                     If clinecodestruc.Length > 4 Then
                         If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
@@ -625,7 +627,7 @@
                             dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value), "let name : str = ""Amin""")
                         End If
 
-                        If clinecodestruc.Length > 4 Then
+                        If clinecodestruc.Length >= 5 Then
                             Dim crenvalue(clinecodestruc.Length - 6) As xmlunpkd.linecodestruc
                             Dim icren As Integer = 0
                             For clindex = 5 To clinecodestruc.Length - 1
@@ -657,7 +659,6 @@
                 Return
                 End If
             _illocalinit(index).hasdefaultvalue = False
-
             If clinecodestruc.Length > 4 Then
                 If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
                     'DECLARING ERROR
