@@ -416,6 +416,13 @@
         ElseIf typeinf.isenum = True AndAlso (maintype = "int32" OrElse resulttype = "int32") Then
             Return True
         End If
+
+        'Ignore check collection types.
+        If resulttype.EndsWith(conrex.BRSTEN) OrElse maintype.EndsWith(conrex.BRSTEN) Then
+            If resulttype.EndsWith(conrex.BRSTEN) Then resulttype = resulttype.Remove(resulttype.IndexOf(conrex.BRSTART))
+            If maintype.EndsWith(conrex.BRSTEN) Then maintype = maintype.Remove(maintype.IndexOf(conrex.BRSTART))
+            If maintype.ToLower = resulttype.ToLower Then Return True
+        End If
         Return False
     End Function
 
