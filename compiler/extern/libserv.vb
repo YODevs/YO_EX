@@ -78,6 +78,9 @@ Public Class libserv
         If classname.EndsWith(conrex.BRSTEN) Then
             classname = classname.Remove(classname.IndexOf(conrex.BRSTART))
             isarray = True
+        ElseIf classname.Contains(conrex.BRSTART) AndAlso classname.EndsWith(conrex.BREND) Then
+            classname = classname.Remove(classname.IndexOf(conrex.BRSTART))
+            isarray = True
         End If
         If IsNothing(_ilmethod.locallinit) = False OrElse IsNothing(_ilmethod.parameter) = False OrElse IsNothing(ilasmgen.classdata.fields) = False Then
             get_identifier_ns(_ilmethod, classname, isvirtualmethod)
