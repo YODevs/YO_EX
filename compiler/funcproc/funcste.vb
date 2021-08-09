@@ -40,6 +40,9 @@ Public Class funcste
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
                 gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.DBCLN))
+                If gidentifier.value.Contains(conrex.BRSTART) Then
+                    gidentifier.value = gidentifier.value.Remove(gidentifier.value.IndexOf(conrex.BRSTART))
+                End If
                 gidentifier.ile = gidentifier.value.Length
             End If
             If reclassname <> String.Empty Then
