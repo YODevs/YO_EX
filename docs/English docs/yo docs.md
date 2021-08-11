@@ -1,18 +1,56 @@
- <div dir="auto">
-
 # YO Lang Documentation
 
 ## Introduction
-**YOLang** is a compiled and open source language based on .NET Core and .NET Framework.
+YOLang is a compiled and open source language based on .NET Core and .NET Framework.
 
 The YO's syntax is similar to languages such as Rust, Go, and C; and YOlang is also a High-Level language, but its design seeks to retain some of the properties of low-level languages.
 
 ## Installing the compiler and tools
+
 Click here to install the latest version of the YOLang, or check the Releases section in the YOLang repository.
 DotNetFramework 4.5 is a Prerequisite for running the YOLang's compiler.
-After downloading the compressed file, extract it and then run the compiler's executable file (PE) called `YOCA.exe` in the main path of the extracted files, after opening the console environment, Enter init command for preparation and initialization.
+After downloading the compressed file, extract it and then run the compiler's executable file (PE) called YOCA.exe in the main path of the extracted files, after opening the console environment, Enter init command for preparation and initialization.
 
-Congratulations!  Now YOLang's compiler is ready for developing your softwares.
- </div>
+Congratulations! Now YOLang's compiler is ready for developing your softwares.
+
+[rellink](https://github.com/YODevs/YO/releases)
+
+## Building the first project:
+
+The YO's compiler supports various structures in projects, which can be created with **LABRA** software.
+
+Labra is a proprietary project manager for YOLang, which helps the developer to create a variety of YOLang project structures and change their configuration.
+
+[![BuildingYOProject](https://raw.githubusercontent.com/YODevs/YO/master/docs/labra1.png?sanitize=true)](.)
+
+**Note:
+To create a project in the desired path, the command line must be in that path, otherwise use the `cd` command as shown above.**
+
+After choosing the project's name, you must specify the project's type. For example, you can select the `Console` option from the menu to create a console project.
+
+You can now go to the created project folder under the `src` directory and edit the main.yo file as a YOLang file.
+
+```f#
+#[app::classname("myfirstapp")]
+include 'ystdio'
+func main()
+{
+ io::print('Hello World!')
+}
+```
+Then for compiling the project, open `CMD` or `Powershell` from the main directory and use below command:
+
+- **Compiling Project**
  
-[rellink]: <https://github.com/YODevs/YO/releases>
+```bat
+yoca build
+```
+
+- **Compile + Execution**
+
+```bat
+yoca run
+```
+Outcome, for example, shall be as below:
+
+[![CompilingYOProject](https://raw.githubusercontent.com/YODevs/YO/master/icons/compile-project.gif)](.)
