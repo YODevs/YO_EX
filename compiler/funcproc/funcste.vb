@@ -54,7 +54,7 @@ Public Class funcste
             End If
             ldloc.load_single_in_stack(reclassname, gidentifier)
         End If
-
+        If clinecodestruc(0).tokenid = tokenhared.token.ARR Then var.load_element_by_method_ac(_ilmethod, clinecodestruc(0))
         Dim paramtype As ArrayList
         Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
         libserv.cargldr = Nothing
@@ -116,6 +116,7 @@ Public Class funcste
             ldloc.load_single_in_stack(classname, gidentifier)
         End If
 
+        If clinecodestruc(0).tokenid = tokenhared.token.ARR Then var.load_element_by_method_ac(_ilmethod, clinecodestruc(0))
         Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
         Dim paramtype As ArrayList
         If IsNothing(methodinfo.parameters) = False Then
