@@ -64,6 +64,7 @@ Public Class funcste
             ' coutputdata.print_token(clinecodestruc)
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype, cargcodestruc)
         End If
+        servinterface.remove_br_in_class(classname)
         Dim getdatatype As String = methodinfo.returntype
         If isvirtualmethod Then
             Dim gexternassembly As String = conrex.NULL
@@ -121,6 +122,7 @@ Public Class funcste
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
         End If
 
+        servinterface.remove_br_in_class(classname)
         Dim getdatatype As String = methodinfo.returntype
         If getdatatype <> Nothing AndAlso getdatatype <> conrex.VOID AndAlso servinterface.is_cil_common_data_type(getdatatype) = False Then
             Dim retnamespaceindex, retclassindex As Integer
