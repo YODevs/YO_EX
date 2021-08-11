@@ -52,13 +52,21 @@ Public Class var
         End If
     End Sub
 
-    Friend Shared Sub load_element_in_stack(varname As String, elementsp As String, datatype As String, _ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, Optional justloadelement As Boolean = False)
+    Friend Shared Sub load_element_in_stack(varname As String, elementsp As String, datatype As String, ByRef _ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, Optional justloadelement As Boolean = False)
         If justloadelement = False Then illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
         If IsNumeric(elementsp) Then
             servinterface.ldc_i_checker(_ilmethod.codes, elementsp, False, "int32")
         Else
             illdloc.ld_identifier(elementsp, _ilmethod, clinecodestruc, Nothing, "int32")
         End If
+    End Sub
+
+    Friend Shared Sub load_element_by_method_ac(ByRef _ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc)
+        If clinecodestruc.tokenid <> tokenhared.token.ARR Then Return
+        Dim elementsp As String = clinecodestruc.value.Remove(0, clinecodestruc.value.IndexOf(conrex.BRSTART) + 1)
+        elementsp = elementsp.Remove(elementsp.IndexOf(conrex.BREND))
+        load_element_in_stack(Nothing, elementsp, Nothing, _ilmethod, clinecodestruc, True)
+        cil.ldelem(_ilmethod.codes)
     End Sub
 
     Friend Shared Sub load_arr_identifier(ByRef _ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, rlinecodestruc As xmlunpkd.linecodestruc(), datatype As String)
