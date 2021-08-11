@@ -554,4 +554,10 @@ Public Class servinterface
         End If
         Return tokenvalue
     End Function
+
+    Public Shared Sub remove_br_in_class(ByRef classname As String)
+        If classname.EndsWith(conrex.BRSTEN) Then
+            classname = classname.Remove(classname.IndexOf(conrex.BRSTART))
+        End If
+    End Sub
 End Class
