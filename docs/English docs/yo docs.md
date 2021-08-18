@@ -539,3 +539,14 @@ $endprocess:
 ### YODA data format:
 
 YODA or YO Data Format is a data structure which is used in YOLang's classes such as `list`, `map`, `rds`, `menu`, `etc`.
+
+#### YODA list structure:
+
+  <div dir="ltr">
+
+```f#
+!["item1","item2","item3","item4"]
+
+```
+
+  </div>
