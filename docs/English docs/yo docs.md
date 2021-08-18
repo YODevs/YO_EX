@@ -319,3 +319,42 @@ if(i >> 0)
 ```
 
  </div>
+
+ ### Match conditional statement:
+
+The structure of this conditional statement is the same as `Switch` in C programming language.
+
+<div dir="ltr">
+
+```f#
+func main()
+{
+ exec_logs("start")
+ system.threading.thread::sleep(5000)
+ exec_logs("stop")
+}
+
+func exec_logs(inf : str)
+{
+ match(inf)
+ {
+   case "start"  {
+     io::println("Starting service...")
+   }
+   case "stop"  {
+     io::println("Stopping service...")
+   }
+   default {
+     io::println("Command Not Found")
+   }
+ }
+}
+```
+
+```
+Starting service...
+Stopping service...
+```
+
+</div>
+
