@@ -219,3 +219,20 @@ func swap(val1 : str& , val2 : str&)
 | **`obj`** |  Base type of all other types.  | * | Object |
     
  </div>
+
+### Variables:
+
+The datatypes of the previous section are known as `Primitive types` or `Common data-types`.
+
+To define a variable, just use the form `let varname: vartype`.
+
+<div dir="ltr">
+
+```f#
+let color : str = "Red"
+let age : i32 = 30
+let isset : bool = True
+const PI : f32 = 3.14
+```
+
+</div>
