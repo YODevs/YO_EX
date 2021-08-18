@@ -54,3 +54,14 @@ yoca run
 Outcome, for example, shall be as below:
 
 [![CompilingYOProject](https://raw.githubusercontent.com/YODevs/YO/master/icons/compile-project.gif)](.)
+
+> Compiled outputs will be generated in this path: `target> debug | release`.
+
+## Project's structure in YOLang:
+
+| Folder/file name | description                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| **`assets`**     | All libraries and files related to the project are located in this folder.         |
+| **`src`**        | Project's body files, usually in `.yo` format, are located in this folder.         |
+| **`target`**     | Saves the compiled output(s) ‌in this folder as subset of the `Release` or `Debug` |
+| **`labra.yoda`** | Introduces general settings and total information of the project to the compiler.  |
