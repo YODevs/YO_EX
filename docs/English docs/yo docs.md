@@ -508,3 +508,30 @@ In YOLang, Ranges have important usages; for example, you can specify the condit
 ```
 
   </div>
+
+### Jump through codes:
+
+The `jmp` statement is known in other languages by names like `goto`. To specify the destination point of the jump, just create a `label`. For creating it, you must use the format: `$LABELNAME` :
+
+<div dir="ltr">
+
+```f#
+
+$startprocess:
+let user , password : str
+io::setin(user,"User : ")
+io::setin(password,"Password : ")
+if(user == "admin" && password == "12345")
+{
+  io::println("You have logged in successfully.")
+  jmp $endprocess
+}else
+{
+  io::println("Input information is incorrect.")
+  jmp $startprocess
+}
+$endprocess:
+
+```
+
+  </div>
