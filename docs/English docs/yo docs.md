@@ -251,3 +251,50 @@ f := [f32]i
 ```
 
 </div>
+
+### Formatted string literals:
+
+Formatted string literals or `f-strings` for short, are supported in the YOLang. To use this feature, just fill in the values like `"Hello # {name}"`. Note that the quotation does not support the feature.
+
+<div dir="ltr">
+
+```f#
+include 'ystdio'
+func main()
+{
+let name : str
+let age : i32 = 30
+name := "Ruzes"
+io::print("My name is #{name} and im #{age} years old.")
+}
+
+```
+
+```
+ My name is Ruzes and im 30 years old.
+```
+
+Ascii code
+
+```f#
+ io::print("My name is #[82]#[117]#[122]#[101]#[115]")
+```
+
+```
+ My name is Ruzes
+```
+
+New Feed / Line
+
+```f#
+ io::print("Hello World#nlWelcome to myapp.")
+```
+
+```
+Hello World
+Welcome to myapp.
+```
+
+</div>
+ 
+When you do not need the `f-string` feature, you can use quotation marks for strings, which saves very partial time of compilation.
