@@ -298,3 +298,24 @@ Welcome to myapp.
 </div>
  
 When you do not need the `f-string` feature, you can use quotation marks for strings, which saves very partial time of compilation.
+
+### If-Else conditional structure:
+
+The conditional structure of If-Else is the same as for other programming languages.
+
+<div dir="ltr">
+
+```f#
+let i : i32 = 12
+if(i >> 0)
+{
+  io::print("#{i} is positive.")
+}elseif(i << 0)
+{
+  io::print("#{i} is negative.")
+}else {
+  io::print("#{i} is zero.")
+}
+```
+
+ </div>
