@@ -320,7 +320,7 @@ if(i >> 0)
 
  </div>
 
- ### Match conditional statement:
+### Match conditional statement:
 
 The structure of this conditional statement is the same as `Switch` in C programming language.
 
@@ -358,3 +358,27 @@ Stopping service...
 
 </div>
 
+### Infinite Loop:
+
+YOLang supports different types of loops; The infinite `loop` is the simplest loop that does not contain any conditional structure. In this loop, program's flow control can be done by using the `break` and `continue` commands.
+
+ <div dir="ltr">
+
+```f#
+let index : i32 = 0
+loop {
+  index += 1
+  if(index == 3) {continue loop}
+  io::println("#{index}")
+  if(index >= 5) {break loop}
+}
+```
+
+```
+1
+2
+4
+5
+```
+
+ </div>
