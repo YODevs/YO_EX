@@ -448,7 +448,7 @@ while(index <> 5 )
 
  </div>
 
- ### For loop:
+### For loop:
 
 The `For` loop is another loop in the YOLang. To use this loop, you must use `ranges`.
 For instance:
@@ -476,3 +476,35 @@ index => 4
 
   </div>
 
+### Ranges:
+
+In YOLang, Ranges have important usages; for example, you can specify the conditions of a `For` loop by using a range. Below review a list of examples of `ranges`:
+
+<div dir="ltr">
+
+```f#
+[START..END;STEP]
+```
+
+```f#
+[0..5] => 0,1,2,3,4
+```
+
+```f#
+[0..=5] => 0,1,2,3,4,5
+```
+
+```f#
+[0..10;2] => 0,2,4,6,8
+```
+
+```f#
+[0..=10;2] => 0,2,4,6,8,10
+```
+
+```f#
+[10..2;-2] => 10,8,6,4,2
+[10..=2;-2] => 10,8,6,4,2
+```
+
+  </div>
