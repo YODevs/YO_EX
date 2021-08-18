@@ -383,7 +383,7 @@ loop {
 
  </div>
 
- ### To loop:
+### To loop:
 
 In some cases you can code the `For` or `While` loops more easily. In this loop, it is enough to specify the number of circlutation times of the loop. This loop does not support the index.
 
@@ -417,6 +417,33 @@ func pow(base : i32 , power : i32) : i32
  return result
 }
 
+```
+
+ </div>
+
+### While loop:
+
+ <div dir="ltr">
+
+```f#
+let index : i32 = 0
+while(index <> 5 )
+{
+  index += 1
+  if(index == 3)
+  {
+    continue while
+  }
+  system.console::writeline(index)
+}
+
+```
+
+```
+ 1
+ 2
+ 4
+ 5
 ```
 
  </div>
