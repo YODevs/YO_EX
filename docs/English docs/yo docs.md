@@ -1,6 +1,7 @@
 # YO Lang Documentation
 
 ## Introduction
+
 YOLang is a compiled and open source language based on .NET Core and .NET Framework.
 
 The YO's syntax is similar to languages such as Rust, Go, and C; and YOlang is also a High-Level language, but its design seeks to retain some of the properties of low-level languages.
@@ -38,10 +39,11 @@ func main()
  io::print('Hello World!')
 }
 ```
+
 Then for compiling the project, open `CMD` or `Powershell` from the main directory and use below command:
 
 - **Compiling Project**
- 
+
 ```bat
 yoca build
 ```
@@ -51,6 +53,7 @@ yoca build
 ```bat
 yoca run
 ```
+
 Outcome, for example, shall be as below:
 
 [![CompilingYOProject](https://raw.githubusercontent.com/YODevs/YO/master/icons/compile-project.gif)](.)
@@ -81,3 +84,66 @@ This is a multi-line comment.
   
 ```
  </div>
+
+## Functions:
+
+   <div dir="ltr">
+
+```f#
+#[app::classname("function_sample")]
+#[app::wait(true)]
+
+include "ystdio"
+func main()
+{
+say_hello()
+io::newline()
+add(7,4)
+}
+
+func say_hello()
+{
+io::print("Welcome to myapp .")
+}
+
+func add(a : i32 , b : i32)
+{
+ let c : i32 = [a + b]
+ io::println("#{a} + #{b} = #{c} ")
+}
+```
+
+  </div>
+
+Functions in YOLang can also be programmed as `overloading`.
+
+   <div dir="ltr">
+
+```f#
+func main()
+{
+let result : i32 = 0
+result := pow(5)
+system.console::writeline(result)
+result := pow(5,3)
+system.console::writeline(result)
+}
+
+func pow(base : i32) : i32
+{
+ return [base * base]
+}
+
+func pow(base : i32 , power : i32) : i32
+{
+ let result : i32 = 1
+ to(power)
+ {
+   result *= base
+ }
+ return result
+}
+
+```
+
+  </div>
