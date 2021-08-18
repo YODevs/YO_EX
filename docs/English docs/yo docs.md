@@ -382,3 +382,41 @@ loop {
 ```
 
  </div>
+
+ ### To loop:
+
+In some cases you can code the `For` or `While` loops more easily. In this loop, it is enough to specify the number of circlutation times of the loop. This loop does not support the index.
+
+ <div dir="ltr">
+
+```f#
+let i : i32 = 5
+to(i)
+{
+  io::print("*")
+}
+```
+
+```
+*****
+```
+
+ </div>
+  
+In a more advanced way, you can calculate the power of numbers with the `To` loop.
+  <div dir="ltr">
+
+```f#
+func pow(base : i32 , power : i32) : i32
+{
+ let result : i32 = base
+ to(power)
+ {
+   result *= base
+ }
+ return result
+}
+
+```
+
+ </div>
