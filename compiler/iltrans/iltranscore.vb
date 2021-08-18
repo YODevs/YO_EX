@@ -653,6 +653,7 @@
                         indclass = 4
                     End If
                     _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, indclass, _illocalinit(index).datatype)
+                    If _illocalinit(index).isarrayobj Then arr.set_new_arr(ilmethod, _illocalinit(index), clinecodestruc(0))
                 Else
                     localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
                 End If
