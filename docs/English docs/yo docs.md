@@ -550,3 +550,73 @@ YODA or YO Data Format is a data structure which is used in YOLang's classes suc
 ```
 
   </div>
+
+#### Map structure or Key-Value:
+
+  <div dir="ltr">
+
+```f#
+!![
+  "key1" = "value1" ,
+  "key2" = "value2" ,
+  "key3" = "value3" ,
+  "key4" = "value4"  ]
+
+```
+
+  </div>
+  
+  You can use the `yolib.yoda` class to generate the above mentioned data structures. So to use the YODA format, you must first call the `yolib` standard library.
+
+<div dir="ltr">
+
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+  let mydata : init yolib.yoda()
+  mydata::compress := true
+  for(i in [0..10])
+  {
+    let result : i32 = [i * 5]
+    mydata::add("#{result}")
+  }
+  let getformat : str = mydata::get_list()
+  io::println(getformat)
+}
+
+```
+
+```
+!["0","5","10","15","20","25","30","35","40","45"]
+```
+
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+ let mydata : init yolib.yoda()
+ mydata::add("Chelsea","England")
+ mydata::add("Bayern Munich","Germany")
+ mydata::add("Manchester City","England")
+ mydata::add("Paris Saint-Germain","France")
+ let getformat : str = mydata::get_map()
+ io::println(getformat)
+}
+
+```
+
+```
+!![
+"Chelsea"   =   "England"   ,
+"Bayern Munich"   =   "Germany"   ,
+"Manchester City"   =   "England"   ,
+"Paris Saint-Germain"   =   "France"
+]
+```
+
+  </div>
+ 
+[rellink]: <https://github.com/YODevs/YO/releases>
