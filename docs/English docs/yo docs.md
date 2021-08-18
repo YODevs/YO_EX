@@ -447,3 +447,32 @@ while(index <> 5 )
 ```
 
  </div>
+
+ ### For loop:
+
+The `For` loop is another loop in the YOLang. To use this loop, you must use `ranges`.
+For instance:
+
+   <div dir="ltr">
+
+```f#
+
+for(i in [0..5])
+{
+  io::println("index => #{i}")
+}
+
+```
+
+```f#
+
+index => 0
+index => 1
+index => 2
+index => 3
+index => 4
+
+```
+
+  </div>
+
