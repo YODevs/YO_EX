@@ -236,3 +236,18 @@ const PI : f32 = 3.14
 ```
 
 </div>
+
+### Type Casting:
+
+YOLang is a `Static Type` and `Stronge Type` language, in which it is not possible to convert `implicitly` (implicit automatically). This feature allows the programmer to be sure of the values assigned to a variable while calling it، though a kind of explicity or `explicit` method conversion is available.
+
+<div dir="ltr">
+
+```f#
+let i : i32 = 52
+let v : str = [str]v
+let f : f32
+f := [f32]i
+```
+
+</div>
