@@ -147,7 +147,7 @@ func pow(base : i32 , power : i32) : i32
 ```
 
   </div>
-  
+
 ### Return functions:
 
   <div dir="ltr">
@@ -163,6 +163,34 @@ func main()
 func sum(a : i32 , b : i32) : i32
 {
   return [a + b]
+}
+```
+
+ </div>
+
+### Pass by reference:
+
+To use the `byref` property in functions, just use `"&"` after typing the parameter. In the example below, the values of the two variables are swapped together.
+
+  <div dir="ltr">
+
+```f#
+include 'ystdio'
+func main()
+{
+ let team1 , team2 : str
+ team1 := "Chelsea"
+ team2 := "Barcelona"
+ io::println("Team1 : #{team1} Team2 : #{team2}")
+ swap(team1,team2)
+ io::println("Team1 : #{team1} Team2 : #{team2}")
+}
+
+func swap(val1 : str& , val2 : str&)
+{
+ let midval : str = val1
+ val1 := val2
+ val2 := midval
 }
 ```
 
