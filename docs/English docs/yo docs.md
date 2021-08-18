@@ -147,3 +147,23 @@ func pow(base : i32 , power : i32) : i32
 ```
 
   </div>
+  
+### Return functions:
+
+  <div dir="ltr">
+
+```f#
+include 'ystdio'
+func main()
+{
+ let result : i32 = sum(5,7)
+ io::println("5 + 7 = #{result}")
+}
+
+func sum(a : i32 , b : i32) : i32
+{
+  return [a + b]
+}
+```
+
+ </div>
