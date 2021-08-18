@@ -65,3 +65,19 @@ Outcome, for example, shall be as below:
 | **`src`**        | Project's body files, usually in `.yo` format, are located in this folder.         |
 | **`target`**     | Saves the compiled output(s) ‌in this folder as subset of the `Release` or `Debug` |
 | **`labra.yoda`** | Introduces general settings and total information of the project to the compiler.  |
+
+## Comments and explanations:
+
+ <div dir="ltr">
+  
+```
+#> This is a single-line comment.
+  
+#-
+This is a multi-line comment.
+...
+...
+-#
+  
+```
+ </div>
