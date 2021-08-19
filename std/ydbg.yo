@@ -26,8 +26,17 @@ func print(map : yolib.map) : void
 
 func is_num(val:str) : bool
 {
-  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(val,"^\d+$")
-  return result
+  let i : i32
+  let result : bool = val::contains(" ")
+  if(result == true)
+  {
+    return false
+  }
+  else
+  {
+    result := System.Int32::TryParse(val,i)
+    return result
+  }
 }
 
 func is_num(val:obj) : bool
