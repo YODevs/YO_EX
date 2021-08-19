@@ -30,6 +30,8 @@
                 Return "float32"
             Case "float64"
                 Return "float64"
+            Case "single"
+                Return "float32"
             Case Else
                 Return Nothing
         End Select
@@ -59,6 +61,9 @@
                     ldstr(cargcodestruc(index))
                 Case check_integer_type(getdatatype)
                     ldint(cargcodestruc(index), getdatatype)
+                Case "single"
+                    getdatatype = "float32"
+                    ldflt(cargcodestruc(index), getdatatype)
                 Case "float32"
                     ldflt(cargcodestruc(index), getdatatype)
                 Case "float64"
@@ -84,6 +89,9 @@
                 ldstr(cargcodestruc)
             Case check_integer_type(datatype)
                 ldint(cargcodestruc, datatype)
+            Case "single"
+                datatype = "float32"
+                ldflt(cargcodestruc, datatype)
             Case "float32"
                 ldflt(cargcodestruc, datatype)
             Case "float64"
