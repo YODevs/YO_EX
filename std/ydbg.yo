@@ -75,18 +75,24 @@ func is_bool(val:obj) : bool
 
 func is_float(val:str) : bool
 {
-  let result : bool = System.Text.RegularExpressions.Regex::IsMatch(val, "^[0-9]*(?:\.[0-9]*)?$")
-  if(result == true)
+  let result : bool = val::contains(" ")
+  if(result == false)
   {
     result := val::contains(".")
     if(result == true)
     {
-      return true
+      let f : f32
+      result := System.Single::TryParse(val,f)
+      return result
     }
     else
     {
       return false
     }
+  }
+  else
+  {
+    return false
   }
 }
 
