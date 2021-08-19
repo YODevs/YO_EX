@@ -19,6 +19,7 @@ func main()
   val := test10()
   snval := val[0]
   io::println(snval)
+  test11()
 }
 
 func test1()
@@ -146,4 +147,15 @@ val[0] := 'Alpha'
 val[1] := 'Beta'
 val[2] := 'Gamma'
 return val
+}
+
+func test11()
+{
+  let sb[1] : System.text.stringbuilder
+  sb[0] := init System.text.stringbuilder()
+  sb[0]::append("Hello ")
+  sb[0]::append("World!")
+  let v : str
+  v := sb[0]::tostring()
+  io::println(v)
 }
