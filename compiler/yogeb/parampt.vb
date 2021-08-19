@@ -58,6 +58,9 @@
                     If chint(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
                 Case "float32"
                     If chflt(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "single"
+                    getdatatype = "float32"
+                    If chflt(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
                 Case "float64"
                     If chflt(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
                 Case "char"
