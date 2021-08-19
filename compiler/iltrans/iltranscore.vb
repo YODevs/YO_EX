@@ -210,6 +210,7 @@
         'coutputdata.print_token(clinecodestruc)
         If funcresult.funcvalid Then
             funcste.invoke_method(clinecodestruc, _ilmethod, funcresult)
+            isarrayinstack = False
             Return
         End If
         Dim propresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, clinecodestruc(0))
@@ -221,6 +222,7 @@
         convtc.is_type_casting(clinecodestruc, inline)
         If propresult.identvalid Then
             propertyste.invoke_property(clinecodestruc, _ilmethod, propresult, inline, tokenhared.check_sym(dtassign.optval))
+            isarrayinstack = False
             Return
         End If
 
