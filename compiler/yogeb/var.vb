@@ -75,6 +75,7 @@ Public Class var
         clinearrname.tokenid = tokenhared.token.IDENTIFIER
         clinearrname.ile = clinearrname.value.Length
         illdloc.ld_identifier(clinearrname.value, _ilmethod, clinearrname, rlinecodestruc, datatype)
+        If IsNothing(rlinecodestruc) = False AndAlso funcvalid.get_func_valid(_ilmethod, rlinecodestruc).funcvalid Then Return
 
         Dim varname As String = clinecodestruc.value
         set_element(varname)
