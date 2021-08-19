@@ -152,6 +152,11 @@ Public Class servinterface
     Friend Shared Function vb_to_cil_common_data_type(datatype As String) As String
         datatype = datatype.ToLower
         Dim isarray As Boolean = False
+        Dim isref As Boolean = False
+        If datatype.EndsWith(conrex.AMP) Then
+            datatype = datatype.Remove(datatype.Length - 1)
+            isref = True
+        End If
         If datatype.EndsWith(conrex.BRSTEN) Then
             datatype = datatype.Remove(datatype.Length - 2)
             isarray = True
@@ -160,20 +165,29 @@ Public Class servinterface
             If datatype = conrex.plvbcommondatatype(index).ToLower Then
                 Dim result As String = conrex.msilcommondatatype(index)
                 If isarray Then result &= conrex.BRSTEN
+                If isref Then result &= conrex.AMP
                 Return result
             End If
         Next
+
         If isarray Then datatype &= conrex.BRSTEN
+        If isref Then datatype &= conrex.AMP
         Return datatype
     End Function
 
     Friend Shared Function cil_to_vb_common_data_type(datatype As String) As String
         datatype = datatype.ToLower
         Dim isarray As Boolean = False
+        Dim isref As Boolean = False
+        If datatype.EndsWith(conrex.AMP) Then
+            datatype = datatype.Remove(datatype.Length - 1)
+            isref = True
+        End If
         If datatype.EndsWith(conrex.BRSTEN) Then
             datatype = datatype.Remove(datatype.Length - 2)
             isarray = True
         End If
+
         For index = 0 To conrex.plvbcommondatatype.Length - 1
             If datatype = conrex.msilcommondatatype(index).ToLower Then
                 Dim result As String = conrex.plvbcommondatatype(index)
@@ -182,10 +196,16 @@ Public Class servinterface
             End If
         Next
         If isarray Then datatype &= conrex.BRSTEN
+        If isref Then datatype &= conrex.AMP
         Return datatype
     End Function
     Friend Shared Function get_yo_common_data_type(datatype As String, ByRef yodatatype As String) As Boolean
         Dim isarray As Boolean = False
+        Dim isref As Boolean = False
+        If datatype.EndsWith(conrex.AMP) Then
+            datatype = datatype.Remove(datatype.Length - 1)
+            isref = True
+        End If
         If datatype.EndsWith(conrex.BRSTEN) Then
             datatype = datatype.Remove(datatype.IndexOf(conrex.BRSTART))
         End If
@@ -194,6 +214,7 @@ Public Class servinterface
             If datatype = conrex.msilcommondatatype(index) Then
                 yodatatype = conrex.yocommondatatype(index)
                 If isarray Then yodatatype &= conrex.BRSTEN
+                If isref Then yodatatype &= conrex.AMP
                 Return True
             End If
         Next
