@@ -59,6 +59,7 @@ Public Class tknformat
         Dim objcontrol As fmtshared.objectcontrol
         Dim initproc As Boolean
         Dim typetargetinfo As lexer.targetinf
+        Dim ctorparameters() As xmlunpkd.linecodestruc
     End Structure
 
     Structure _inlcode
