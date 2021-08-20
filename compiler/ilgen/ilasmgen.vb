@@ -50,12 +50,16 @@ Public Class ilasmgen
             Array.Resize(_ilcollection.field, index + 1)
             Dim getdatatype As String = yoclassdt.fields(index).ptype
             set_type_info(_ilcollection.field(index), yoclassdt.fields(index))
+            Array.Resize(fields, index + 1)
+            fields(index) = _ilcollection.field(index)
             servinterface.is_common_data_type(getdatatype, getdatatype)
             _ilcollection.field(index).name = yoclassdt.fields(index).name
             _ilcollection.field(index).accesscontrol = yoclassdt.fields(index).objcontrol.accesscontrolval
             _ilcollection.field(index).modifier = yoclassdt.fields(index).objcontrol.modifierval
             _ilcollection.field(index).ptype = getdatatype
             _ilcollection.field(index).isliteral = yoclassdt.fields(index).isconstant
+            _ilcollection.field(index).initproc = yoclassdt.fields(index).initproc
+            _ilcollection.field(index).ctorparameter = yoclassdt.fields(index).ctorparameters
             Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(yoclassdt.fields(index).valuecinf, yoclassdt.fields(index).value, yoclassdt.fields(index).valuetoken)
             If yoclassdt.fields(index).value <> String.Empty Then
                 If _ilcollection.field(index).isliteral Then
@@ -86,9 +90,37 @@ Public Class ilasmgen
             ElseIf _ilcollection.field(index).isliteral Then
                 dserr.new_error(conserr.errortype.CONSTANTVALERROR, -1, yoclassdt.location, "[Identifier] -> " & yoclassdt.fields(index).name)
             End If
-            'Check Type ...
+
+            If _ilcollection.field(index).initproc Then
+                set_ctor(_ilcollection, _ilcollection.field(index), yoclassdt.fields(index), getdatatype)
+            End If
         Next
         iltranscore.set_object_control(Nothing)
+    End Sub
+
+    Private Sub set_ctor(ByRef _ilcollection As ilformat.ildata, pubfield As ilformat._pubfield, lexfield As tknformat._pubfield, getdatatype As String)
+        Dim ctorclinecodestruc(pubfield.ctorparameter.Length) As xmlunpkd.linecodestruc
+        ctorclinecodestruc(0) = servinterface.get_line_code_struct(lexfield.typetargetinfo, lexfield.ptype, tokenhared.token.IDENTIFIER)
+        For index = 0 To pubfield.ctorparameter.Length - 1
+            ctorclinecodestruc(index + 1) = pubfield.ctorparameter(index)
+        Next
+        Dim fakector As ilformat._ilmethodcollection = servinterface.create_fake_method_collection(".ctor_test")
+        Dim ctor As New ilctor(fakector)
+        ctor.set_new_ctor(ctorclinecodestruc)
+        Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(lexfield.valuecinf, lexfield.name, lexfield.valuetoken)
+        Dim ldfield As New illdloc(fakector)
+        If lexfield.objcontrol.modifier = tokenhared.token.STATIC Then
+            For ictrcode = 0 To fakector.codes.Count - 1
+                _ilcollection.staticctor.Add(fakector.codes(ictrcode))
+            Next
+            ilstvar.st_field(lexfield.name, Nothing, getlinecodestruct, getdatatype, _ilcollection.staticctor)
+        Else
+            cil.insert_il(_ilcollection.instancector, compdt.LOAD_FIRST_ARGUMENT)
+            For ictrcode = 0 To fakector.codes.Count - 1
+                _ilcollection.instancector.Add(fakector.codes(ictrcode))
+            Next
+            ilstvar.st_field(lexfield.name, Nothing, getlinecodestruct, getdatatype, _ilcollection.instancector)
+        End If
     End Sub
 
     Private Sub set_type_info(ByRef pubgenfield As ilformat._pubfield, publexfield As tknformat._pubfield)
