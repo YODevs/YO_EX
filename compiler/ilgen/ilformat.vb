@@ -90,6 +90,8 @@
         Dim value As String
         Dim valuecinf As lexer.targetinf
         Dim valuetoken As tokenhared.token
+        Dim ctorparameter() As xmlunpkd.linecodestruc
+        Dim initproc As Boolean
     End Structure
 
     Public Structure _arrayinfo
