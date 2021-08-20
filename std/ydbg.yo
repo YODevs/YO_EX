@@ -24,7 +24,7 @@ func print(map : yolib.map) : void
   }
 }
 
-func is_num(val:str) : bool
+func is_i32(val:str) : bool
 {
   let i : i32
   let result : bool = val::contains(" ")
@@ -34,15 +34,15 @@ func is_num(val:str) : bool
   }
   else
   {
-    result := System.Int32::TryParse(val,i)
+    result := system.int32::tryparse(val,i)
     return result
   }
 }
 
-func is_num(val:obj) : bool
+func is_i32(val:obj) : bool
 {
   let valtostr : str = [str]val
-  let result : bool = is_num(valtostr)
+  let result : bool = is_i32(valtostr)
   return result
 }
 
@@ -73,7 +73,7 @@ func is_bool(val:obj) : bool
   return result
 }
 
-func is_float(val:str) : bool
+func is_f32(val:str) : bool
 {
   let result : bool = val::contains(" ")
   if(result == false)
@@ -82,7 +82,7 @@ func is_float(val:str) : bool
     if(result == true)
     {
       let f : f32
-      result := System.Single::TryParse(val,f)
+      result := system.single::tryparse(val,f)
       return result
     }
     else
@@ -96,10 +96,10 @@ func is_float(val:str) : bool
   }
 }
 
-func is_float(val:obj) : bool
+func is_f32(val:obj) : bool
 {
   let valtostr : str = [str]val
-  let result : bool = is_float(valtostr)
+  let result : bool = is_f32(valtostr)
   return result
 }
 
