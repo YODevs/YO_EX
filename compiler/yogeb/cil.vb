@@ -158,7 +158,7 @@
         If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
             'Action
         Else
-            ptype &= " class " & ptype
+            ptype = " class " & ptype
         End If
         name = cilkeywordchecker.get_key(name)
         classname = cilkeywordchecker.get_key(classname)
@@ -170,7 +170,7 @@
         If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
             'Action
         Else
-            ptype &= " class " & ptype
+            ptype = " class " & ptype
         End If
         name = cilkeywordchecker.get_key(name)
         classname = cilkeywordchecker.get_key(classname)
