@@ -559,6 +559,15 @@ Public Class servinterface
         Return clinecodestruc
     End Function
 
+    Friend Shared Function create_fake_method_collection(methodname As String) As ilformat._ilmethodcollection
+        Dim func As New ilformat._ilmethodcollection
+        func.entrypoint = False
+        func.isexpr = False
+        func.name = methodname
+        func.codes = New ArrayList
+        Return func
+    End Function
+
     Public Shared Function get_hash(val As String) As String
         Dim hashcreator As MD5 = MD5.Create()
         Dim dbytes As Byte() = hashcreator.ComputeHash(Encoding.UTF8.GetBytes(val))
