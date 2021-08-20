@@ -105,7 +105,7 @@
         FIELDTYPE
         EQOPT
         FIELDVALUE
-        INITVALUE
+        CTORPARAMETER
     End Enum
 
     Private Function check_to_ignore_token(rd_token As tokenhared.token) As Boolean
@@ -311,13 +311,33 @@
                 Else
                     xfield(i).typetargetinfo = linecinf
                     xfield(i).ptype = value
-                    fieldstate = pbfieldstate.EQOPT
+                    If xfield(i).initproc Then
+                        fieldstate = pbfieldstate.CTORPARAMETER
+                    Else
+                        fieldstate = pbfieldstate.EQOPT
+                    End If
                 End If
+            Case pbfieldstate.CTORPARAMETER
+                Static ctorparamlinecode() As xmlunpkd.linecodestruc
+                Static ictor As Integer = 0
+                Array.Resize(ctorparamlinecode, ictor + 1)
+                ctorparamlinecode(ictor) = New xmlunpkd.linecodestruc
+                ctorparamlinecode(ictor) = servinterface.get_line_code_struct(linecinf, value, rd_token)
+                If ictor = 0 Then
+                    If rd_token <> tokenhared.token.PRSTART Then
+                        dserr.new_error(conserr.errortype.FUNCOPBRACKETEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public instance let list : init yolib.list()")
+                    End If
+                ElseIf rd_token = tokenhared.token.PREND Then
+                    xfield(i).ctorparameters = ctorparamlinecode
+                    fieldstate = pbfieldstate.OUT
+                    state = statecursor.OUT
+                    ictor = 0
+                    ctorparamlinecode = Nothing
+                End If
+                ictor += 1
             Case pbfieldstate.EQOPT
                 If rd_token = tokenhared.token.EQUALS Then
                     fieldstate = pbfieldstate.FIELDVALUE
-                ElseIf rd_token = tokenhared.token.PRSTART Then
-
                 Else
                     xfield(i).value = String.Empty
                     xfield(i).valuecinf = Nothing
