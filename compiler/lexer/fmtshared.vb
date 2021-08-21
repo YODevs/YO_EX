@@ -277,6 +277,8 @@
 
     Private Sub _rev_field(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         Static Dim i As Integer = 0
+        Static ctorparamlinecode() As xmlunpkd.linecodestruc
+        Static ictor As Integer = 0
         Select Case fieldstate
             Case pbfieldstate.FIELDNAME
                 If i <> 0 Then
@@ -318,8 +320,6 @@
                     End If
                 End If
             Case pbfieldstate.CTORPARAMETER
-                Static ctorparamlinecode() As xmlunpkd.linecodestruc
-                Static ictor As Integer = 0
                 Array.Resize(ctorparamlinecode, ictor + 1)
                 ctorparamlinecode(ictor) = New xmlunpkd.linecodestruc
                 ctorparamlinecode(ictor) = servinterface.get_line_code_struct(linecinf, value, rd_token)
@@ -334,6 +334,7 @@
                     ictor = 0
                     ctorparamlinecode = Nothing
                     i += 1
+                    Return
                 End If
                 ictor += 1
             Case pbfieldstate.EQOPT
@@ -345,6 +346,8 @@
                     fieldstate = pbfieldstate.OUT
                     state = statecursor.OUT
                     i += 1
+                    ictor = 0
+                    ctorparamlinecode = Nothing
                     imp_token(value, rd_token, linecinf)
                 End If
             Case pbfieldstate.FIELDVALUE
@@ -353,6 +356,8 @@
                 xfield(i).valuetoken = rd_token
                 fieldstate = pbfieldstate.OUT
                 state = statecursor.OUT
+                ictor = 0
+                ctorparamlinecode = Nothing
                 i += 1
         End Select
         Return
