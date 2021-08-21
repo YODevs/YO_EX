@@ -50,8 +50,6 @@ Public Class ilasmgen
             Array.Resize(_ilcollection.field, index + 1)
             Dim getdatatype As String = yoclassdt.fields(index).ptype
             set_type_info(_ilcollection.field(index), yoclassdt.fields(index))
-            Array.Resize(fields, index + 1)
-            fields(index) = _ilcollection.field(index)
             servinterface.is_common_data_type(getdatatype, getdatatype)
             _ilcollection.field(index).name = yoclassdt.fields(index).name
             _ilcollection.field(index).accesscontrol = yoclassdt.fields(index).objcontrol.accesscontrolval
@@ -60,6 +58,8 @@ Public Class ilasmgen
             _ilcollection.field(index).isliteral = yoclassdt.fields(index).isconstant
             _ilcollection.field(index).initproc = yoclassdt.fields(index).initproc
             _ilcollection.field(index).ctorparameter = yoclassdt.fields(index).ctorparameters
+            Array.Resize(fields, index + 1)
+            fields(index) = _ilcollection.field(index)
             Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(yoclassdt.fields(index).valuecinf, yoclassdt.fields(index).value, yoclassdt.fields(index).valuetoken)
             If yoclassdt.fields(index).value <> String.Empty Then
                 If _ilcollection.field(index).isliteral Then
