@@ -108,28 +108,28 @@ Public Class ilstvar
         Dim nvartolower As String = nvar.ToLower
         Dim pnvar As String = String.Empty
         Dim pdatatype As String = String.Empty
-        For index = 0 To ilasmgen.classdata.fields.Length - 1
-            pnvar = ilasmgen.classdata.fields(index).name
+        For index = 0 To ilasmgen.fields.Length - 1
+            pnvar = ilasmgen.fields(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
-                illdloc.check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
-                pdatatype = ilasmgen.classdata.fields(index).ptype
+                illdloc.check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.fields(index).ptype)
+                pdatatype = ilasmgen.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
-                If illdloc.eq_data_types(pdatatype, datatype) Then
+                If illdloc.eq_data_types(pdatatype, datatype, ilasmgen.fields(index).typeinf) Then
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If ilasmgen.classdata.attribute._app._namespace <> conrex.NULL Then
                         classname = ilasmgen.classdata.attribute._app._namespace & conrex.DOT & classname
                     End If
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
-                            cil.set_static_field(nactorcode, pnvar, pdatatype, classname)
+                            cil.set_static_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
                         Else
-                            cil.set_field(nactorcode, pnvar, pdatatype, classname)
+                            cil.set_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
                         End If
                     Else
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
-                            cil.set_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            cil.set_static_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
                         Else
-                            cil.set_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                            cil.set_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
                         End If
                     End If
                     Return True
