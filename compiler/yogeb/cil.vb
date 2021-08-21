@@ -166,6 +166,28 @@
         codes.Add("ldfld " & ptype & " " & classname & "::" & name)
     End Sub
 
+    Public Shared Sub set_static_field(ByRef codes As ArrayList, field As ilformat._pubfield, name As String, ptype As String, classname As String)
+        Dim code As String = "stsfld "
+        If field.typeinf.isclass Then
+            code &= String.Format("class [{0}]{1}", field.typeinf.externlib, cilkeywordchecker.get_key(field.typeinf.fullname))
+        Else
+            servinterface.reset_cil_common_data_type(cilkeywordchecker.get_key(ptype))
+            code &= ptype
+        End If
+        code &= String.Format(" {0}::{1}", classname, name)
+        codes.Add(code)
+    End Sub
+    Public Shared Sub set_field(ByRef codes As ArrayList, field As ilformat._pubfield, name As String, ptype As String, classname As String)
+        Dim code As String = "stfld "
+        If field.typeinf.isclass Then
+            code &= String.Format("class [{0}]{1}", field.typeinf.externlib, cilkeywordchecker.get_key(field.typeinf.fullname))
+        Else
+            servinterface.reset_cil_common_data_type(cilkeywordchecker.get_key(ptype))
+            code &= ptype
+        End If
+        code &= String.Format(" {0}::{1}", classname, name)
+        codes.Add(code)
+    End Sub
     Public Shared Sub set_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
         If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
             'Action
