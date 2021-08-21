@@ -333,6 +333,7 @@
                     state = statecursor.OUT
                     ictor = 0
                     ctorparamlinecode = Nothing
+                    i += 1
                 End If
                 ictor += 1
             Case pbfieldstate.EQOPT
