@@ -139,7 +139,7 @@
         If IsNothing(_ilmethod.parameter) = False Then
             If ld_argument(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
-        If IsNothing(ilasmgen.classdata.fields) = False AndAlso nvar.Contains("::") = False Then
+        If IsNothing(ilasmgen.fields) = False AndAlso nvar.Contains("::") = False Then
             If ld_field(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
 
@@ -210,16 +210,16 @@
     End Sub
 
     Friend Shared Function ld_field(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String, Optional ByRef nactorcode As ArrayList = Nothing) As Boolean
-        If IsNothing(ilasmgen.classdata.fields) Then Return False
+        If IsNothing(ilasmgen.fields) Then Return False
         Dim nvartolower As String = nvar.ToLower
         Dim pnvar As String = String.Empty
         Dim pdatatype As String = String.Empty
-        For index = 0 To ilasmgen.classdata.fields.Length - 1
-            pnvar = ilasmgen.classdata.fields(index).name
+        For index = 0 To ilasmgen.fields.Length - 1
+            pnvar = ilasmgen.fields(index).name
             If pnvar <> conrex.NULL AndAlso pnvar.ToLower = nvartolower Then
-                pdatatype = ilasmgen.classdata.fields(index).ptype
+                pdatatype = ilasmgen.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
-                check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.classdata.fields(index).ptype)
+                check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.fields(index).ptype)
                 If eq_data_types(pdatatype, datatype) Then
                     convtc.reset_convtc()
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
@@ -231,13 +231,13 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                                cil.load_static_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                                cil.load_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         End If
                     Else
@@ -245,13 +245,13 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                                cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                                cil.load_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         End If
                     End If
@@ -263,13 +263,13 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(nactorcode, pnvar, pdatatype, classname)
+                                cil.load_static_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(nactorcode, pnvar, pdatatype, classname)
+                                cil.load_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         End If
                     Else
@@ -277,20 +277,20 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                                cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(_ilmethod.codes, pnvar, pdatatype, classname)
+                                cil.load_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
                             End If
                         End If
                     End If
-                    convtc.set_type_cast(_ilmethod, ilasmgen.classdata.fields(index).ptype, datatype, nvar, cargcodestruc)
+                    convtc.set_type_cast(_ilmethod, ilasmgen.fields(index).ptype, datatype, nvar, cargcodestruc)
                     Return True
                 Else
-                    dserr.args.Add(ilasmgen.classdata.fields(index).ptype)
+                    dserr.args.Add(ilasmgen.fields(index).ptype)
                     dserr.args.Add(datatype)
                     dserr.new_error(conserr.errortype.EXPLICITCONVERSION, cargcodestruc.line, ilbodybulider.path, "Method : " & _ilmethod.name & " - identifier [ Field ] : " & nvar & vbCrLf)
                     Return False
