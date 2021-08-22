@@ -55,11 +55,11 @@ Public Class libserv
                 End If
             Next
         End If
-        If IsNothing(ilasmgen.classdata.fields) = False Then
-            For index = 0 To ilasmgen.classdata.fields.Length - 1
-                If ilasmgen.classdata.fields(index).name <> conrex.NULL AndAlso classname.ToLower = ilasmgen.classdata.fields(index).name.ToLower Then
-                    classname = ilasmgen.classdata.fields(index).ptype
-                    servinterface.is_common_data_type(_ilmethod.parameter(index).datatype, classname)
+        If IsNothing(ilasmgen.fields) = False Then
+            For index = 0 To ilasmgen.fields.Length - 1
+                If ilasmgen.fields(index).name <> conrex.NULL AndAlso classname.ToLower = ilasmgen.fields(index).name.ToLower Then
+                    classname = ilasmgen.fields(index).ptype
+                    servinterface.is_common_data_type(ilasmgen.fields(index).ptype, classname)
                     isvirtualmethod = True
                     Return
                 End If
