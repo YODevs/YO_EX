@@ -268,6 +268,23 @@ Public Class servinterface
         End If
         Return False
     End Function
+
+    Friend Shared Function reset_cil_cdtype_without_asmextern(ByRef value As String) As Boolean
+        If value.ToString.Contains(conrex.DOT) AndAlso value.StartsWith("System.") Then
+            Dim getcommondtype As String = value.Remove(0, value.LastIndexOf(conrex.DOT) + 1).ToLower
+            getcommondtype = servinterface.vb_to_cil_common_data_type(getcommondtype)
+            If is_cil_common_data_type(getcommondtype) Then
+                value = getcommondtype
+                Return True
+            ElseIf getcommondtype.ToLower = conrex.VOID Then
+                value = conrex.VOID
+                Return True
+            End If
+            Return False
+        End If
+        Return False
+    End Function
+
     Friend Shared Function get_target_info(clinecodestruc As xmlunpkd.linecodestruc) As lexer.targetinf
         Dim linecinf As New lexer.targetinf
         linecinf.lstart = clinecodestruc.ist
