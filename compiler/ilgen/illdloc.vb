@@ -220,7 +220,7 @@
                 pdatatype = ilasmgen.fields(index).ptype
                 servinterface.is_common_data_type(pdatatype, pdatatype)
                 check_identifier_modifiers(cargcodestruc, nvar, ilasmgen.classdata.fields(index).objcontrol, _ilmethod, ilasmgen.fields(index).ptype)
-                If eq_data_types(pdatatype, datatype) Then
+                If eq_data_types(pdatatype, datatype, ilasmgen.fields(index).typeinf) Then
                     convtc.reset_convtc()
                     Dim classname As String = ilasmgen.classdata.attribute._app._classname
                     If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.UNDEFINED Then 'INSTANCE
