@@ -80,7 +80,7 @@ Public Class funcste
                 getdatatype = String.Format("class [{0}]{1}", gexternassembly, greturntype)
             End If
             cil.call_extern_method(_ilmethod.codes, getdatatype, funcresult.asmextern, classname, funcresult.clmethod, paramtype)
-            End If
+        End If
             If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
 
         If leftassign AndAlso getdatatype <> Nothing AndAlso getdatatype <> conrex.VOID Then
@@ -162,9 +162,16 @@ Public Class funcste
         For index = 0 To methodinfo.parameters.Length - 1
             Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
             If methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
+                Dim checkcommondatatype As String = methodinfo.parameters(index).typeinf.fullname
+                If servinterface.reset_cil_cdtype_without_asmextern(checkcommondatatype) = False Then
+                    set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes)
+                    Continue For
+                End If
+
                 If methodinfo.parameters(index).name.EndsWith(conrex.BRSTEN) Then
                     getcildatatype &= conrex.BRSTEN
                 End If
+
                 If methodinfo.parameters(index).byreference Then getcildatatype &= "&"
                 paramtypes.Add(getcildatatype)
                 emptyparamtypes.Add(getcildatatype)
