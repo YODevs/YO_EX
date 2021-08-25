@@ -132,6 +132,31 @@
                             resultact = False
                             Exit For
                         End If
+                    Case commandstate.UNEQUAL
+                        If ch_unequal_method(dt(index)(indexlist(i2)), valuelist(i2)) = False Then
+                            resultact = False
+                            Exit For
+                        End If
+                    Case commandstate.GREATE
+                        If ch_greater_method(dt(index)(indexlist(i2)), valuelist(i2)) = False Then
+                            resultact = False
+                            Exit For
+                        End If
+                    Case commandstate.GREATEEQ
+                        If ch_greater_equal_method(dt(index)(indexlist(i2)), valuelist(i2)) = False Then
+                            resultact = False
+                            Exit For
+                        End If
+                    Case commandstate.LESS
+                        If ch_less_method(dt(index)(indexlist(i2)), valuelist(i2)) = False Then
+                            resultact = False
+                            Exit For
+                        End If
+                    Case commandstate.LESSEQ
+                        If ch_less_equal_method(dt(index)(indexlist(i2)), valuelist(i2)) = False Then
+                            resultact = False
+                            Exit For
+                        End If
                 End Select
             Next
             If resultact Then items.Add(index)
@@ -142,6 +167,25 @@
     Private Function ch_equal_method(realresult As Object, idealresult As Object) As Boolean
         Return (realresult = idealresult)
     End Function
+    Private Function ch_unequal_method(realresult As Object, idealresult As Object) As Boolean
+        Return (realresult <> idealresult)
+    End Function
+    Private Function ch_greater_method(realresult As Object, idealresult As Object) As Boolean
+        Return (realresult > idealresult)
+    End Function
+
+    Private Function ch_greater_equal_method(realresult As Object, idealresult As Object) As Boolean
+        Return (realresult >= idealresult)
+    End Function
+
+    Private Function ch_less_method(realresult As Object, idealresult As Object) As Boolean
+        Return (realresult < idealresult)
+    End Function
+
+    Private Function ch_less_equal_method(realresult As Object, idealresult As Object) As Boolean
+        Return (realresult <= idealresult)
+    End Function
+
     Private Sub command_validation()
         If IsNothing(dt) Then
             Throw New Exception("Datastore is empty.")
