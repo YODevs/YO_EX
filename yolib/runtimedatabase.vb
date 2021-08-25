@@ -71,7 +71,14 @@
             Throw New Exception("Index is not allowed, review it.")
         End If
     End Sub
-
+    Public Function delete() As Integer
+        command_validation()
+        Dim items As ArrayList = condition_exec()
+        For index = 0 To items.Count - 1
+            dt = dt.Skip(items(index)).ToArray
+        Next
+        Return items.Count
+    End Function
     Public Sub update(index As Integer, columnname As String, value As String)
         index_validation(index)
         Dim columnindex As Integer = find_column_index(columnname)
@@ -88,7 +95,6 @@
         Next
         Return items.Count
     End Function
-
     Public Function get_row_map(index As Integer) As map
         Dim yodastr As String = get_row(index)
         Dim mp As New map
