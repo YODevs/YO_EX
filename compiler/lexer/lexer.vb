@@ -249,7 +249,14 @@ Public Class lexer
 
     Private Function get_du_string(getch As Char, linecinf As targetinf, ByRef slinegrab As String, ByRef chstatus As targetaction, lastchar As Boolean) As Boolean
         If slinegrab.StartsWith(conrex.DUSTR) AndAlso getch = conrex.DUSTR Then
-            If slinegrab(slinegrab.Length - 1) <> conrex.BKSLASH Then
+            Dim is2leftbkslash As Boolean = False
+            If slinegrab.Length >= 4 AndAlso slinegrab(slinegrab.Length - 2) = conrex.BKSLASH Then
+                is2leftbkslash = True
+            End If
+            If slinegrab(slinegrab.Length - 1) <> conrex.BKSLASH OrElse is2leftbkslash Then
+                If is2leftbkslash Then
+                    slinegrab = slinegrab.Remove(slinegrab.Length - 1)
+                End If
                 chstatus = targetaction.NOOPERATION
                 slinegrab &= getch
                 Return True
