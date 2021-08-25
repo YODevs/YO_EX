@@ -163,7 +163,7 @@ Public Class funcste
             Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
             If methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
                 Dim checkcommondatatype As String = methodinfo.parameters(index).typeinf.fullname
-                If servinterface.reset_cil_cdtype_without_asmextern(checkcommondatatype) = False Then
+                If checkcommondatatype <> conrex.NULL AndAlso servinterface.reset_cil_cdtype_without_asmextern(checkcommondatatype) = False Then
                     set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes)
                     Continue For
                 End If
