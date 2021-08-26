@@ -148,7 +148,7 @@
                     valf32 *= -1
                     nmatrix.set_item(index, rindex, valf32)
                 Else
-                    Dim vali32 As Integer = Convert.ToDouble(item)
+                    Dim vali32 As Integer = Convert.ToInt32(item)
                     vali32 *= -1
                     nmatrix.set_item(index, rindex, vali32)
                 End If
