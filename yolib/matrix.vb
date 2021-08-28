@@ -170,4 +170,35 @@
         Return nmatrix
     End Function
 
+    Public Function multiply(val As Integer) As matrix
+        Return priv_multiply(val, True)
+    End Function
+
+    Public Function multiply(val As Double) As matrix
+        Return priv_multiply(val, False)
+    End Function
+
+    Private Function priv_multiply(val As Object, isinteger As Boolean) As matrix
+        If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        Dim nmatrix As New matrix(gcolumnsize, growsize)
+        nmatrix.set_zero_matrix()
+        For index = 0 To gcolumnsize - 1
+            For rindex = 0 To growsize - 1
+                Dim item As Object = dt(index)(rindex)
+                If is_double(item) Then
+                    Dim valf32 As Double = Convert.ToDouble(item)
+                    Dim scalarval As Double = Convert.ToDouble(val)
+                    valf32 *= scalarval
+                    nmatrix.set_item(index, rindex, valf32)
+                Else
+                    Dim vali32 As Integer = Convert.ToInt32(item)
+                    Dim scalarval As Integer = Convert.ToInt32(val)
+                    vali32 *= scalarval
+                    nmatrix.set_item(index, rindex, vali32)
+                End If
+            Next
+        Next
+        Return nmatrix
+    End Function
+
 End Class
