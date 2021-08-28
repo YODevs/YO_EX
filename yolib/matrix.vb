@@ -156,4 +156,18 @@
         Next
         Return nmatrix
     End Function
+
+    Public Function transpose() As matrix
+        If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        Dim nmatrix As New matrix(growsize, gcolumnsize)
+        nmatrix.set_zero_matrix()
+        For index = 0 To gcolumnsize - 1
+            For rindex = 0 To growsize - 1
+                Dim item As Object = dt(index)(rindex)
+                nmatrix.set_item(rindex, index, item)
+            Next
+        Next
+        Return nmatrix
+    End Function
+
 End Class
