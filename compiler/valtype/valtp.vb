@@ -6,6 +6,7 @@ Public Class valtp
         Dim classindex As Integer = -1
         Dim namespaceindex As Integer = -1
         Dim internalclass As Boolean = False
+        Dim rbackupclassname As String = classname
         If classname.Contains(conrex.DOT) Then
             enumname = classname.Remove(0, classname.LastIndexOf(conrex.DOT) + 1)
             classname = classname.Remove(classname.LastIndexOf(conrex.DOT))
@@ -13,6 +14,7 @@ Public Class valtp
             enumname = classname
             classname = ilasmgen.classdata.name
         End If
+
         If libserv.get_extern_index_class(ilmethod, classname, namespaceindex, classindex, Nothing, Nothing) = -1 Then
             classindex = funcdtproc.get_index_class(ilmethod, classname)
             If classindex = -1 Then
