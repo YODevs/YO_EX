@@ -282,7 +282,12 @@ Public Class libserv
             Array.Resize(methodinfo.parameters, index + 1)
             methodinfo.parameters(index) = New tknformat._parameter
             methodinfo.parameters(index).name = ctormethod.GetParameters(index).Name
-            methodinfo.parameters(index).ptype = ctormethod.GetParameters(index).ParameterType.Name
+            If servinterface.is_cil_common_data_type(ctormethod.GetParameters(index).ParameterType.Name) OrElse servinterface.is_common_data_type(ctormethod.GetParameters(index).ParameterType.Name, Nothing) Then
+                methodinfo.parameters(index).ptype = ctormethod.GetParameters(index).ParameterType.Name
+            Else
+                methodinfo.parameters(index).ptype = ctormethod.GetParameters(index).ParameterType.FullName
+                methodinfo.parameters(index).typeinf = New ilformat._typeinfo
+            End If
         Next
     End Sub
 
