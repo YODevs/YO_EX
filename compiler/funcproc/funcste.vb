@@ -161,10 +161,10 @@ Public Class funcste
         Dim emptyparamtypes As New ArrayList
         For index = 0 To methodinfo.parameters.Length - 1
             Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
-            If methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype) Then
+            If (methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype)) AndAlso methodinfo.parameters(index).typeinf.externlib = "mscorlib" Then
                 Dim checkcommondatatype As String = methodinfo.parameters(index).typeinf.fullname
                 If checkcommondatatype <> conrex.NULL AndAlso servinterface.reset_cil_cdtype_without_asmextern(checkcommondatatype) = False Then
-                    set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes)
+                    set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes, clinecodestruc(0).line)
                     Continue For
                 End If
 
@@ -177,7 +177,7 @@ Public Class funcste
                 emptyparamtypes.Add(getcildatatype)
             Else
                 'Other Types...
-                set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes)
+                set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes, clinecodestruc(0).line)
             End If
         Next
         set_stack_space(_ilmethod, emptyparamtypes, cargcodestruc)
@@ -185,18 +185,21 @@ Public Class funcste
         convtc.ntypecast = ntypecast
     End Sub
 
-    Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, parameterinf As tknformat._parameter, ByRef emptyparamtypes As ArrayList)
+    Private Shared Sub set_extern_assembly(_ilmethod As ilformat._ilmethodcollection, ByRef paramtypes As ArrayList, parameterinf As tknformat._parameter, ByRef emptyparamtypes As ArrayList, line As Integer)
         Dim gcodeparam As String = String.Empty
         If parameterinf.typeinf.asminfo = conrex.NULL Then
 
             Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
             clinetypeinfostruct(0) = servinterface.get_line_code_struct(parameterinf.dtypetargetinfo, parameterinf.ptype, tokenhared.token.IDENTIFIER)
+            clinetypeinfostruct(0).line = line
             clinetypeinfostruct(1) = New xmlunpkd.linecodestruc
             clinetypeinfostruct(1).tokenid = tokenhared.token.PRSTART
             clinetypeinfostruct(1).value = conrex.PRSTART
+            clinetypeinfostruct(1).line = line
             clinetypeinfostruct(2) = New xmlunpkd.linecodestruc
             clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
             clinetypeinfostruct(2).value = conrex.PREND
+            clinetypeinfostruct(2).line = line
             parameterinf.typeinf = yotypecreator.get_type_info(_ilmethod, clinetypeinfostruct, 0, parameterinf.ptype)
             'TODO : Set type info for yomethod
         End If
@@ -208,7 +211,7 @@ Public Class funcste
                 gcodeparam = String.Format("class [{0}]{1}", parameterinf.typeinf.externlib, parameterinf.typeinf.fullname)
             End If
         Else
-                If parameterinf.typeinf.isinternalclass Then
+            If parameterinf.typeinf.isinternalclass Then
                 gcodeparam = String.Format("valuetype {0}/{1}", parameterinf.typeinf.valtpinf.classname, parameterinf.typeinf.valtpinf.objectname)
             Else
                 gcodeparam = String.Format("valuetype [{0}]{1}/{2}", parameterinf.typeinf.externlib, parameterinf.typeinf.valtpinf.classname, parameterinf.typeinf.valtpinf.objectname)
