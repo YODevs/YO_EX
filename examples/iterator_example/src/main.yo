@@ -1,0 +1,19 @@
+#[app::classname("iterator_example")]
+#[app::wait(true)]
+
+include 'yolib'
+include 'ystdio'
+
+func main()
+{
+  let carbrands : init yolib.list()
+  carbrands::add_with_split('Nissan@Opel@Lexus@Kia@Honda@Jaguar@Hummer','@')
+  let iter : init yolib.iterator(carbrands)
+  let hasnext : bool = iter::has_next()
+  while(hasnext == true)
+  {
+    let item : str = iter::next()
+    io::println(item)
+    hasnext := iter::has_next()
+  }
+}
