@@ -282,8 +282,10 @@ Public Class libserv
             Array.Resize(methodinfo.parameters, index + 1)
             methodinfo.parameters(index) = New tknformat._parameter
             methodinfo.parameters(index).name = ctormethod.GetParameters(index).Name
-            If servinterface.is_cil_common_data_type(ctormethod.GetParameters(index).ParameterType.Name) OrElse servinterface.is_common_data_type(ctormethod.GetParameters(index).ParameterType.Name, Nothing) Then
-                methodinfo.parameters(index).ptype = ctormethod.GetParameters(index).ParameterType.Name
+            If servinterface.is_cil_common_data_type(ctormethod.GetParameters(index).ParameterType.Name.ToLower) OrElse servinterface.is_common_data_type(ctormethod.GetParameters(index).ParameterType.Name.ToLower, Nothing) Then
+                servinterface.get_yo_common_data_type(ctormethod.GetParameters(index).ParameterType.Name.ToLower,methodinfo.parameters(index).ptype)
+                methodinfo.parameters(index).typeinf = New ilformat._typeinfo
+                methodinfo.parameters(index).typeinf.externlib = "mscorlib"
             Else
                 methodinfo.parameters(index).ptype = ctormethod.GetParameters(index).ParameterType.FullName
                 methodinfo.parameters(index).typeinf = New ilformat._typeinfo
