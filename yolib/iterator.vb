@@ -23,7 +23,19 @@
     End Sub
 
     Public Function has_next() As Boolean
+        If privindex < 0 Then
+            privindex = 0
+            Return True
+        End If
         Return (count > privindex)
+    End Function
+
+    Public Function has_previous() As Boolean
+        If privindex >= count Then
+            privindex = count - 1
+            Return True
+        End If
+        Return (privindex >= 0)
     End Function
 
     Public Function [next]() As String
@@ -33,6 +45,15 @@
             Return result
         End If
         Throw New Exception("There is no item, with 'has_next()' function you can check the iterator values.")
+    End Function
+
+    Public Function previous() As String
+        If has_previous() Then
+            Dim result As String = clist.get(privindex)
+            privindex -= 1
+            Return result
+        End If
+        Throw New Exception("There is no item, with 'has_previous()' function you can check the iterator values.")
     End Function
 
 End Class
