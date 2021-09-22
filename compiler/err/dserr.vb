@@ -40,11 +40,21 @@
 
         print_value(ConsoleColor.DarkRed, hwall, ConsoleColor.Gray)
 
+        If compdt.DEVMOD Then set_stack_trace()
         If err.priority = conserr.errorpriority.STOP Then
             System.Environment.Exit(conrex.exitcode.ERROR)
         End If
         Console.WriteLine()
         Return
+    End Sub
+
+    Private Shared Sub set_stack_trace()
+        Dim sb As New Text.StringBuilder
+        Dim st As New StackTrace()
+        For index = 2 To st.FrameCount - 1
+            sb.AppendLine(String.Format("{0}->{1}", st.GetFrame(index).GetMethod.ReflectedType.ToString, st.GetFrame(index).GetMethod().Name))
+        Next
+        coutputdata.write_file_data("stacktrace.txt", sb.ToString)
     End Sub
 
     Private Shared Sub set_header_err(ByRef consolebufferwidth As Integer, ByRef hwall As String)
