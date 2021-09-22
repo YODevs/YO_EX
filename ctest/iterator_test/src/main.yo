@@ -1,0 +1,67 @@
+#[app::classname("iterator_test")]
+
+include 'yolib'
+include 'ystdio'
+
+func main()
+{
+  let numlist : init yolib.list()
+  numlist::add_with_split('1#2#3#4#5','#')
+  test1(numlist)
+  test2(numlist)
+  test3(numlist)
+}
+
+
+func test1(numlist : yolib.list)
+{
+  let iter : init yolib.iterator(numlist)
+  let hasnext : bool = iter::has_next()
+  while(hasnext == true)
+  {
+    let item : str = iter::next()
+    io::print(item)
+    hasnext := iter::has_next()
+  }
+  io::newline()
+}
+
+func test2(numlist : yolib.list)
+{
+  let iter : init yolib.iterator(numlist)
+  let hasnext : bool = iter::has_next()
+  while(hasnext == true)
+  {
+    let item : str = iter::next()
+    io::print(item)
+    if(item == "2")
+    {
+     iter::index := 3
+    }
+    hasnext := iter::has_next()
+  }
+  io::newline()
+}
+
+func test3(numlist : yolib.list)
+{
+  let iter : init yolib.iterator(numlist)
+  let hasnext : bool = iter::has_next()
+  while(hasnext == true)
+  {
+    let item : str = iter::next()
+    io::print(item)
+    hasnext := iter::has_next()
+  }
+
+  io::newline()
+  let hasprevious : bool = iter::has_previous()
+  while(hasprevious == true)
+  {
+    item := iter::previous()
+    io::print(item)
+    hasprevious := iter::has_previous()
+  }
+
+  io::newline()
+}
