@@ -18,7 +18,7 @@ Public Class ilopt
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, datatype)
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
@@ -183,7 +183,7 @@ Public Class ilopt
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, datatype)
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
@@ -238,7 +238,7 @@ Public Class ilopt
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, datatype)
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
@@ -287,7 +287,7 @@ Public Class ilopt
         servinterface.is_common_data_type(datatype, cdatatype)
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, cdatatype)
+        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, cdatatype)
         Dim getlineprop As String = lngen.get_line_prop("exit_qeseq")
         cil.branch_if_true(_ilmethod.codes, getlineprop)
         convtc.setconvmethod = setconvmethod
@@ -337,7 +337,7 @@ Public Class ilopt
     Public Function assiandeq(varname As String, clinecodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, conrex.STRING)
+        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, conrex.STRING)
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
         Select Case clinecodestruc.tokenid
@@ -384,7 +384,7 @@ Public Class ilopt
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
 
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, conrex.STRING)
+        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, conrex.STRING)
 
         cil.concat_simple(_ilmethod.codes)
         ilstvar.st_identifier(varname, _ilmethod, clinecodestruc, conrex.STRING)
@@ -404,7 +404,7 @@ Public Class ilopt
         Dim setconvmethod As Boolean = convtc.setconvmethod
         Dim ntypecast As String = convtc.ntypecast
         servinterface.is_common_data_type(datatype, datatype)
-        illdloc.ld_identifier(varname, _ilmethod, clinecodestruc, Nothing, datatype)
+        illdloc.ld_identifier(varname, _ilmethod, Nothing, Nothing, datatype)
 
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
