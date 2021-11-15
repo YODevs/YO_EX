@@ -1,0 +1,30 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+func main()
+{
+    print("Hello World !")
+    print("")
+
+    let fc : i32 = factorial(5)
+    System.Console::WriteLine(fc)
+    fc := factorial(-2)
+    System.Console::WriteLine(fc)
+}
+
+func print(message:str) ? (message <> "")
+{
+  System.Console::WriteLine(">> #{message}")
+}
+
+
+func factorial(number:i32) : i32 ? (number >= 0)
+{
+  if(number == 0)
+  {
+    return 1
+  }
+  let result : i32 = number
+  result *= factorial([number-1])
+  return result
+}

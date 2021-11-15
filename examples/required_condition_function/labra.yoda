@@ -1,0 +1,6 @@
+!![
+"assemblyname"   =   "required_condition_function"   ,
+"outputtype"   =   "console"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
