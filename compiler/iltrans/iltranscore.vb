@@ -38,6 +38,30 @@
         _illocalinit = injillocalinit
     End Sub
 
+    Private Sub gen_per_condition(ByRef _ilmethod As ilformat._ilmethodcollection)
+        If methoddata.condxmlfmt = Nothing Then Return
+        Dim condxmldata As New xmlunpkd(methoddata.condxmlfmt)
+        condxmldata.path = path
+        coutputdata.write_data(methoddata.condxmlfmt)
+        Dim nbranch As New condproc.branchtargetinfo
+        nbranch.truebranch = lngen.get_line_prop("per_ret_tr")
+        nbranch.falsebranch = lngen.get_line_prop("per_ret_fa")
+        While condxmldata.xmlreader.EOF = False
+            Dim clinecodestruc() As xmlunpkd.linecodestruc
+            clinecodestruc = condxmldata.get_line_tokens()
+            clinecodestruc = condproc.get_condition(clinecodestruc, 0)
+            Dim cdproc As New condproc(nbranch)
+            cdproc.set_condition(_ilmethod, clinecodestruc)
+        End While
+        lngen.set_direct_label(nbranch.falsebranch, _ilmethod.codes)
+        If methoddata.returntype <> Nothing AndAlso methoddata.returntype <> "void" Then
+            cil.push_null_reference(_ilmethod.codes)
+        End If
+        cil.ret(_ilmethod.codes)
+        lngen.set_direct_label(nbranch.truebranch, _ilmethod.codes)
+
+        condxmldata.close()
+    End Sub
     Public Sub gen_transpile_code(ByRef _ilmethod As ilformat._ilmethodcollection, Optional invokebymainproc As Boolean = True)
         Dim xmldata As xmlunpkd
         If invokebymainproc Then
@@ -45,8 +69,11 @@
             _ilmethod.line = New ArrayList
             xmldata = New xmlunpkd(methoddata.bodyxmlfmt)
             path = xmldata.path
+            If methoddata.condxmlfmt <> Nothing Then
+                gen_per_condition(_ilmethod)
+            End If
         Else
-            xmldata = New xmlunpkd(bodyxmlformat, False)
+                xmldata = New xmlunpkd(bodyxmlformat, False)
         End If
         stjmper.reset_method(path)
         While xmldata.xmlreader.EOF = False
