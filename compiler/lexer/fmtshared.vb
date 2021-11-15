@@ -1,7 +1,7 @@
 ﻿Public Class fmtshared
     Public tknfmt As tknformat
     Private sourceloc As String
-    Dim bdyformatter As bodyformatter
+    Dim bdyformatter, condformatter As bodyformatter
     Dim state As statecursor
     Dim objcontrol As objectcontrol
     Public xclass(0) As tknformat._class
@@ -77,6 +77,7 @@
         FUNCNAME
         FUNCPARA
         FUNCRETURNTYPE
+        FUNCCONDITION
         FUNCEXPRASSIGNMENT
         FUNCEXPREQUEXPRESSION
         FUNCSTBLOCK
@@ -468,6 +469,24 @@
                     dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "expr kelvin(ct : i32) : i32 = [ct + 373]")
                 End If
                 Return
+            Case funcstatecursor.FUNCCONDITION
+                If IsNothing(condformatter) = True Then
+                    condformatter = New bodyformatter("Cond", sourceloc)
+                    condformatter.setblocktag = True
+                    If rd_token <> tokenhared.token.PRSTART Then
+                        dserr.new_error(conserr.errortype.SYNTAXERROR, linecinf.line, sourceloc, "The condition of the function must start with '('.")
+                    End If
+                End If
+                If rd_token = tokenhared.token.BLOCKOPEN Then
+                    xmethods(i).condxmlfmt = condformatter.getincompletedata
+                    condformatter = Nothing
+                    funcstate = funcstatecursor.FUNCSTBLOCK
+                    _rev_func(value, rd_token, linecinf)
+                    Return
+                Else
+                    condformatter.new_token_shared(value, rd_token, linecinf)
+                End If
+
             Case funcstatecursor.FUNCSTBLOCK
                 If rd_token = tokenhared.token.BLOCKOPEN AndAlso xmethods(i).isexpr = False Then
                     funcstate = funcstatecursor.FUNCBODY
@@ -475,6 +494,8 @@
                     bdyformatter.new_token_shared(value, rd_token, linecinf)
                 ElseIf rd_token = tokenhared.token.ASSINQ AndAlso xmethods(i).returntype = String.Empty Then
                     funcstate = funcstatecursor.FUNCRETURNTYPE
+                ElseIf rd_token = tokenhared.token.QES Then
+                    funcstate = funcstatecursor.FUNCCONDITION
                 Else
                     If xmethods(i).isexpr Then
                         dserr.new_error(conserr.errortype.BLOCKOPENEXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "expr kelvin(ct : i32) : i32 = [ct + 373]")
