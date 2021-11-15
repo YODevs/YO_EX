@@ -35,6 +35,7 @@ Public Class tknformat
         Dim returntype As String
         Dim returnarray As Boolean
         Dim nopara As Boolean
+        Dim condxmlfmt As String
         Dim parameters() As _parameter
         Dim bodyxmlfmt As String
         Dim isexpr As Boolean
