@@ -10,6 +10,7 @@
 
     Dim blockinfo As blockinf
     Public xmlresult As String = String.Empty
+    Public setblocktag As Boolean = False
     Public Sub New(blockname As String, sourcelocation As String)
         blockinfo.name = blockname
         blockinfo.istart = 0
@@ -17,6 +18,14 @@
         blockinfo.path = sourcelocation
     End Sub
 
+    Public ReadOnly Property getincompletedata() As String
+        Get
+            If setblocktag Then
+                imp_token("</block>")
+            End If
+            Return blockinfo.datafmt
+        End Get
+    End Property
     Public Function new_token_shared(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf) As Boolean
         Static iline As Integer = linecinf.line
         If blockinfo.datafmt = conrex.NULL Then
@@ -104,5 +113,8 @@
 
     Private Sub init_format()
         blockinfo.datafmt = "<?xml version='1.0' encoding='UTF-8' ?>" & vbCr
+        If setblocktag = True Then
+            imp_token("<block path = '" & blockinfo.path & "'>")
+        End If
     End Sub
 End Class
