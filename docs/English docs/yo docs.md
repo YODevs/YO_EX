@@ -168,6 +168,52 @@ func sum(a : i32 , b : i32) : i32
 
  </div>
 
+
+  ### Required condition function
+
+  If you need to check parameters before executing the body, you can use the following command:
+  
+<div dir="ltr">
+ 
+```f#
+func sum(...) : i32 ? (CONDITION)
+{
+ ...
+}
+ ```
+ </div>
+ 
+For example ,if parameter value of `number` was negative, function does not run and `NULL` value will be returned. 
+ <div dir="ltr">
+ 
+```f#
+
+func main()
+{
+    let fc : i32 = factorial(5)
+    System.Console::WriteLine(fc)
+    fc := factorial(-2)
+    System.Console::WriteLine(fc)
+}
+
+func factorial(number:i32) : i32 ? (number >= 0)
+{
+  if(number == 0)
+  {
+    return 1
+  }
+  let result : i32 = number
+  result *= factorial([number-1])
+  return result
+}
+ ```
+  
+```
+125
+0
+``` 
+ </div>
+
 ### Pass by reference:
 
 To use the `byref` property in functions, just use `"&"` after typing the parameter. In the example below, the values of the two variables are swapped together.
