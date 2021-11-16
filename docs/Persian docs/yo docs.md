@@ -182,6 +182,52 @@ func sum(a : i32 , b : i32) : i32
  ```
  </div>
  
+  ### شروط اجرای تابع
+  در صورتی که نیاز به بررسی پارامترها قبل از اجرای بدنه دارید ، می توانید از این دستور استفاده کنید.
+  
+  
+<div dir="ltr">
+ 
+```f#
+func sum(...) : i32 ? (CONDITION)
+{
+ ...
+}
+ ```
+ </div>
+ 
+ برای نمونه در صورتی که مقدار پارامتر `number` عدد منفی باشد ، تابع اجرا نمی شود و مقدار `NULL` برگشت داده خواهد شد.
+ 
+ <div dir="ltr">
+ 
+```f#
+
+func main()
+{
+    let fc : i32 = factorial(5)
+    System.Console::WriteLine(fc)
+    fc := factorial(-2)
+    System.Console::WriteLine(fc)
+}
+
+func factorial(number:i32) : i32 ? (number >= 0)
+{
+  if(number == 0)
+  {
+    return 1
+  }
+  let result : i32 = number
+  result *= factorial([number-1])
+  return result
+}
+ ```
+  
+```
+125
+0
+``` 
+ </div>
+ 
   ### ارجاع از طریق منبع - pass by reference
   برای استفاده از خاصیت `byref` در توابع کافیست بعد از تایپ پارامتر از `&` استفاده کنیم.
  در مثال پایین مقادیر دو متغیر باهم جا به جا می شوند.
