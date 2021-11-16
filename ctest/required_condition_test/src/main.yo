@@ -1,0 +1,42 @@
+#[app::classname("myapp")]
+
+
+include 'ystdio'
+func main()
+{
+  test1()
+  test2()
+  test3(5)
+  test3(22)
+  test3(14)
+  test4(3,true)
+  test4(15,false)
+  let i : i32 = 32
+  test5(i,true)
+}
+
+func test1() ? (true == true)
+{
+  io::println("Test1 ...")
+}
+
+func test2() ? (true == false)
+{
+  io::println("Test2 ...")
+}
+
+func test3(i:i32) ? (i >> 5)
+{
+  io::println("Test3 >> #{i}")
+}
+
+func test4(i:i32,val:bool) : i32 ? (val == true && i << 10)
+{
+  io::println("Test4 >> #{i}")
+  return i
+}
+
+func test5(i:i32&,val:bool) ? (val == true && i >> 10)
+{
+  io::println("Test5 >> #{i}")
+}
