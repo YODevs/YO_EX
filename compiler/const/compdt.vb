@@ -17,6 +17,7 @@ Public Class compdt
     Friend Shared expressionactopt() As String = {"add", "sub", "div", "mul", "rem"}
     Friend Shared errcap() As String = {"Error:", "error code="}
     Friend Shared ptrinddata As mapstoredata
+    Friend Shared byrefforbiddentoken() As tokenhared.token = {tokenhared.token.NULL, tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_CO_STR}
     Friend Shared argumentallow() As tokenhared.token = {tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_BOOL, tokenhared.token.IDENTIFIER,
         tokenhared.token.EXPRESSION, tokenhared.token.NULL, tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.ARR}
     Friend Shared blockopallow() As tokenhared.token = {tokenhared.token.ENUM, tokenhared.token.FOR, tokenhared.token.UL, tokenhared.token.ELSEIF, tokenhared.token.ELSE, tokenhared.token.IF, tokenhared.token.WHILE, tokenhared.token.DEFAULT, tokenhared.token.CASE, tokenhared.token.MATCH, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY, tokenhared.token.CATCH}
