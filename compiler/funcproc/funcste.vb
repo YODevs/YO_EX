@@ -172,7 +172,15 @@ Public Class funcste
                     getcildatatype &= conrex.BRSTEN
                 End If
 
-                If methodinfo.parameters(index).byreference Then getcildatatype &= "&"
+                If methodinfo.parameters(index).byreference Then
+                    For bindex = 0 To compdt.byrefforbiddentoken.Length - 1
+                        If cargcodestruc(index).tokenid = compdt.byrefforbiddentoken(bindex) Then
+                            dserr.args.Add(methodinfo.parameters(index).name)
+                            dserr.new_error(conserr.errortype.BYREFERENCEERROR, cargcodestruc(index).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc(index)), cargcodestruc(index).value), "You can enter a constant value into a variable and then pass the variable.")
+                        End If
+                    Next
+                    getcildatatype &= "&"
+                End If
                 paramtypes.Add(getcildatatype)
                 emptyparamtypes.Add(getcildatatype)
             Else
