@@ -8,8 +8,10 @@ Public Class crproj
         Dim srcpath As String
         Dim createbatchfile As Boolean
         Dim targetframework As String
+        Dim projectframework As String
     End Structure
 
+    Dim dotnetcoreroot As String = conrex.PROGRAMFILEDIR & "\dotnet\shared\Microsoft.NETCore.App"
     Dim yoda As YODA.YODA_Format
     Dim proj As _projstruct
     Dim typesitem As ArrayList
@@ -17,14 +19,20 @@ Public Class crproj
         yoda = New YODA.YODA_Format
         proj = New _projstruct
         typesitem = New ArrayList
-        typesitem.Add("Console [.exe]")
-        typesitem.Add("Library [.dll]")
+        typesitem.Add("Console [.exe] - .NetFramework")
+        typesitem.Add("Library [.dll] - .NetFramework")
+        If Directory.Exists(dotnetcoreroot) AndAlso Directory.GetDirectories(dotnetcoreroot).Length > 0 Then
+            typesitem.Add("Console [*] - .NetCore")
+            typesitem.Add("Library [*] - .NetCore")
+        End If
     End Sub
 
     Public Sub init_project()
         proj.assemblyname = get_assembly_name()
-        proj.typeproject = get_type_of_project()
-        'proj.targetframework = set_target_framwork()
+        get_type_of_project(proj)
+        If proj.projectframework = ".netcore" Then
+            proj.targetframework = set_dotnetcore_target_framwork()
+        End If
         proj.createbatchfile = set_batch_file()
         create_prerequisites()
     End Sub
@@ -82,14 +90,19 @@ Public Class crproj
         key.Add("outputtype")
         value.Add(proj.typeproject)
 
+        key.Add("projectframework")
+        value.Add(proj.projectframework)
+
+        If proj.projectframework <> conrex.NULL AndAlso proj.projectframework = ".netcore" Then
+            key.Add("targetframework")
+            value.Add(proj.targetframework)
+        End If
+
         key.Add("sourcepath")
         value.Add("\src")
 
         key.Add("assetspath")
         value.Add("\assets")
-
-        ' key.Add("targetframework")
-        'value.Add(proj.targetframework)
 
         Return yoda.WriteYODA_Map(key, value, False)
     End Function
@@ -132,13 +145,13 @@ Public Class crproj
             continueloop = False
         End If
     End Sub
-    Private Function get_type_of_project() As String
+    Private Sub get_type_of_project(ByRef proj As _projstruct)
         Console.Write(vbLf & "# Select project type:")
         Dim menudata As String = yoda.WriteYODA(typesitem)
         Dim tproj As String = YOOrderList.YOList.ShowMenu(menudata)
-        tproj = tproj.Remove(tproj.IndexOf("[")).Trim.ToLower
-        Return tproj
-    End Function
+        proj.projectframework = tproj.Remove(0, tproj.IndexOf("-") + 1).Trim.ToLower
+        proj.typeproject = tproj.Remove(tproj.IndexOf("[")).Trim.ToLower
+    End Sub
     Private Function set_target_framwork() As String
         Dim pathlist As New ArrayList
         Dim namelist As New ArrayList
@@ -149,6 +162,36 @@ Public Class crproj
                 namelist.Add([Enum].GetName(GetType(Microsoft.Build.Utilities.TargetDotNetFrameworkVersion), index))
             End If
         Next
+        Console.Write(vbLf & "# Select target framework:")
+        Dim menudata As String = yoda.WriteYODA(namelist)
+        Dim snetframework As String = YOOrderList.YOList.ShowMenu(menudata)
+        Return snetframework
+    End Function
+    Private Function set_dotnetcore_target_framwork() As String
+        Dim pathlist As New ArrayList
+        Dim namelist As New ArrayList
+        Dim dotnetproc As New System.Diagnostics.Process()
+        With dotnetproc.StartInfo
+            .FileName = "dotnet"
+            .Arguments = "--list-sdks"
+            .RedirectStandardOutput = True
+            .RedirectStandardError = True
+            .RedirectStandardInput = True
+            .UseShellExecute = False
+            .WindowStyle = ProcessWindowStyle.Normal
+            .CreateNoWindow = False
+        End With
+
+        dotnetproc.Start()
+        dotnetproc.WaitForExit()
+        For Each singlesdk In dotnetproc.StandardOutput.ReadToEnd().Split(vbCrLf)
+            singlesdk = singlesdk.Trim
+            If singlesdk <> conrex.NULL Then
+                singlesdk = singlesdk.Remove(singlesdk.IndexOf("["))
+                namelist.Add(singlesdk)
+            End If
+        Next
+
         Console.Write(vbLf & "# Select target framework:")
         Dim menudata As String = yoda.WriteYODA(namelist)
         Dim snetframework As String = YOOrderList.YOList.ShowMenu(menudata)
