@@ -33,18 +33,62 @@ Public Class cprojflow
 
         Dim gpath As String = servinterface.get_ilasm_path()
         If gpath <> conrex.NULL Then
-                compdt.ILASMPATH = gpath
-            Else
+            compdt.ILASMPATH = gpath
+        Else
             dserr.args.Add("V3.5|4|...")
             dserr.new_error(conserr.errortype.TARGETFRAMEWORKERROR, -1, Nothing, "To solve this problem, you can go to https://dotnet.microsoft.com/download/dotnet-framework and download and install the desired version.")
-            End If
+        End If
         procresult.rs_set_result(True)
 
+        load_type_of_project()
         libreg.init_libraries(conrex.ENVCURDIR & cprojdt.get_val("assetspath"))
-
         impfiles.import_directory(conrex.ENVCURDIR & cprojdt.get_val("sourcepath"))
     End Sub
+    Public Sub load_type_of_project()
+        compdt.PROJECTFRAMEWORK = cprojdt.get_val("projectframework")
+        If compdt.PROJECTFRAMEWORK = ".netcore" Then procresult.rp_init("Check .NET Core Prerequisites")
+        If compdt.PROJECTFRAMEWORK = conrex.NULL Then compdt.PROJECTFRAMEWORK = ".netframework"
+        compdt.TARGETFRAMEWORK = cprojdt.get_val("targetframework")
 
+        If compdt.PROJECTFRAMEWORK = ".netcore" Then
+            Dim dotnetproc As New System.Diagnostics.Process()
+            Try
+                With dotnetproc.StartInfo
+                    .FileName = "dotnet"
+                    .Arguments = "--list-sdks"
+                    .RedirectStandardOutput = True
+                    .RedirectStandardError = True
+                    .RedirectStandardInput = True
+                    .UseShellExecute = False
+                    .WindowStyle = ProcessWindowStyle.Normal
+                    .CreateNoWindow = False
+                End With
+
+                dotnetproc.Start()
+                dotnetproc.WaitForExit()
+            Catch ex As Exception
+                dserr.args.Add(".NET Core is not installed on your system.
+Download the latest SDK version from this link (https://dotnet.microsoft.com/download).")
+                dserr.new_error(conserr.errortype.DOTNETERROR, -1, Nothing, Nothing)
+            End Try
+            Dim result As Boolean = False
+            For Each singlesdk In dotnetproc.StandardOutput.ReadToEnd().Split(vbCrLf)
+                singlesdk = singlesdk.Trim
+                If singlesdk <> conrex.NULL Then
+                    singlesdk = singlesdk.Remove(singlesdk.IndexOf("["))
+                    If singlesdk = compdt.TARGETFRAMEWORK Then
+                        result = True
+                        Exit For
+                    End If
+                End If
+            Next
+            procresult.rs_set_result(result)
+            If result = False Then
+                dserr.args.Add(".NET Core version '" & compdt.TARGETFRAMEWORK & "' is not installed on your system, download the SDK via this link.(https://dotnet.microsoft.com/download).")
+                dserr.new_error(conserr.errortype.DOTNETERROR, -1, Nothing, Nothing)
+            End If
+        End If
+    End Sub
     Public Sub load_cproj_data()
         If compdt.DEVMOD = False Then
             If File.Exists(conrex.APPDIR & "\iniopt\dev") Then compdt.DEVMOD = True
