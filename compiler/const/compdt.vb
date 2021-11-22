@@ -62,4 +62,6 @@ pop"
     Friend Const LOAD_FIRST_ARGUMENT As String = "ldarg.0"
     Friend Const [CLASS] As String = "class"
     Friend Const VALUETYPE As String = "valuetype"
+
+    Friend Shared PROJECTFRAMEWORK, TARGETFRAMEWORK As String
 End Class
