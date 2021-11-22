@@ -69,6 +69,7 @@ Public Class conserr
         ACCESSINGFILEERROR
         TYPEEXPECTEDERROR
         BYREFERENCEERROR
+        DOTNETERROR
     End Enum
 
     Enum errorpriority
@@ -160,5 +161,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.ACCESSINGFILEERROR, errorpriority.STOP, "Accessing file error", "'{0}' file is deleted or renamed, the deleted system cache can be reset.")
         set_new_error(errortype.TYPEEXPECTEDERROR, errorpriority.STOP, "Syntax error", "Type expected.")
         set_new_error(errortype.BYREFERENCEERROR, errorpriority.STOP, "ByReference error", "'{0}' The parameter is of 'ByReference' type, it is not possible to pass literal arguments.")
+        set_new_error(errortype.DOTNETERROR, errorpriority.STOP, ".NetCore error", "{0}")
     End Sub
 End Class
