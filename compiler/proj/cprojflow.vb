@@ -75,17 +75,19 @@ Download the latest SDK version from this link (https://dotnet.microsoft.com/dow
             For Each singlesdk In dotnetproc.StandardOutput.ReadToEnd().Split(vbCrLf)
                 singlesdk = singlesdk.Trim
                 If singlesdk <> conrex.NULL Then
-                    singlesdk = singlesdk.Remove(singlesdk.IndexOf("["))
+                    singlesdk = singlesdk.Remove(singlesdk.IndexOf("[")).Trim
                     If singlesdk = compdt.TARGETFRAMEWORK Then
                         result = True
                         Exit For
                     End If
                 End If
             Next
-            procresult.rs_set_result(result)
             If result = False Then
                 dserr.args.Add(".NET Core version '" & compdt.TARGETFRAMEWORK & "' is not installed on your system, download the SDK via this link.(https://dotnet.microsoft.com/download).")
                 dserr.new_error(conserr.errortype.DOTNETERROR, -1, Nothing, Nothing)
+            Else
+                netcoreinitproc.init()
+                procresult.rs_set_result(True)
             End If
         End If
     End Sub
