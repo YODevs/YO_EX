@@ -8,6 +8,8 @@
 ''' </summary>
 Public Class compdt
     Friend Shared ILASMPATH As String = My.Application.Info.DirectoryPath & "\ilasm.exe"
+    Friend Shared BRIDGECORE As String = conrex.APPDIR & "\.netcorefr\net6.0\BridgeCore.exe"
+    Friend Shared BRIDGECORELIB As String = conrex.APPDIR & "\.netcorefr\net6.0\BridgeCore.dll"
     Friend Shared SYSTEMLIBPATH As String = String.Empty
     Friend Shared cilnumerictypes() As String = {"int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64", "float32", "float64"}
     Friend Shared cilintegertypes() As String = {"int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64"}
