@@ -69,10 +69,10 @@ Module maincr
     ''' </fa>
     ''' </summary>
     Sub init_essential_files()
-        initessentialfiles.add_path(conrex.APPDIR & "\ilasm.exe")
-        initessentialfiles.add_path(conrex.APPDIR & "\fusion.dll")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\intro.yoda")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\win32exceptions.yoda")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\param.yoda")
+        initessentialfiles.add_path(compdt.BRIDGECORE)
+        initessentialfiles.add_path(compdt.BRIDGECORELIB)
     End Sub
 End Module
