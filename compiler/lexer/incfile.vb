@@ -23,8 +23,8 @@ Public Class incfile
     End Sub
     Public Shared Sub set_new_include_source(ByRef includelist As ArrayList, value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf)
         linecodeinf = linecinf
-        If rd_token = tokenhared.token.TYPE_CO_STR OrElse rd_token = tokenhared.token.TYPE_DU_STR Then
-            authfunc.rem_fr_and_en(value)
+        If rd_token = tokenhared.token.TYPE_CO_STR OrElse rd_token = tokenhared.token.TYPE_DU_STR OrElse rd_token = tokenhared.token.IDENTIFIER Then
+            If rd_token <> tokenhared.token.IDENTIFIER Then authfunc.rem_fr_and_en(value)
             Dim inc As New incstruct
             set_include_struct_data(inc, value)
             check_route_repetition(inc)
