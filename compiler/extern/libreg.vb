@@ -57,26 +57,6 @@ Public Class libreg
         indexarray += 1
     End Sub
 
-
-    Private Shared Sub extract_dt_info(asm As Assembly)
-        assemblymap.add(asm.GetName.Name, asm.Location)
-        Static Dim indexarray As Int16 = 0
-        For Each asmtype In asm.GetTypes()
-            Array.Resize(_externinf, indexarray + 1)
-            _externinf(indexarray) = New _extern_info
-            If asmtype.Namespace <> conrex.NULL Then
-                _externinf(indexarray).name = asmtype.Namespace & conrex.DOT
-            End If
-            _externinf(indexarray).name &= asmtype.Name
-            _externinf(indexarray).asmname = asm.GetName.Name
-            _externinf(indexarray).fullname = asmtype.FullName
-            _externinf(indexarray).msnamespace = asmtype.Namespace
-            _externinf(indexarray).location = asm.Location
-            _externinf(indexarray).asmtype = asmtype
-            _externinf(indexarray).asmmethods = asmtype.GetMethods
-            indexarray += 1
-        Next
-    End Sub
     Friend Shared Function get_dll_list(dir As String, ByRef files As ArrayList, Optional head As Boolean = False) As Boolean
         Dim file As String = Nothing
         For index = 0 To Directory.GetFiles(dir).Count - 1
