@@ -66,4 +66,9 @@ pop"
     Friend Const VALUETYPE As String = "valuetype"
 
     Friend Shared PROJECTFRAMEWORK, TARGETFRAMEWORK As String
+    Public Enum dotnetcorebridgestate
+        success = 0
+        dotnetcorenotfound = -1
+        dotnetcoreversionnotfound = -2
+    End Enum
 End Class
