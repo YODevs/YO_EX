@@ -70,6 +70,7 @@ Public Class conserr
         TYPEEXPECTEDERROR
         BYREFERENCEERROR
         DOTNETERROR
+        BRIDGECOREERROR
     End Enum
 
     Enum errorpriority
@@ -162,5 +163,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.TYPEEXPECTEDERROR, errorpriority.STOP, "Syntax error", "Type expected.")
         set_new_error(errortype.BYREFERENCEERROR, errorpriority.STOP, "ByReference error", "'{0}' The parameter is of 'ByReference' type, it is not possible to pass literal arguments.")
         set_new_error(errortype.DOTNETERROR, errorpriority.STOP, ".NetCore error", "{0}")
+        set_new_error(errortype.BRIDGECOREERROR, errorpriority.STOP, "BridgeCore error", "{0}")
     End Sub
 End Class
