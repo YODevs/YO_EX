@@ -17,25 +17,34 @@ Public Class netcoreinitproc
         Try
             With bridgecoreproc.StartInfo
                 .FileName = compdt.BRIDGECORE
-                .Arguments = compdt.TARGETFRAMEWORK & Space(1) & targetdir.Replace(conrex.SPACE, "@#SP#")
-                .RedirectStandardOutput = True
-                .RedirectStandardError = True
-                .RedirectStandardInput = True
-                .UseShellExecute = False
+                .Arguments = compdt.TARGETFRAMEWORK & conrex.SPACE & targetdir.Replace(conrex.SPACE, "@#SP#")
+                .UseShellExecute = True
                 .WindowStyle = ProcessWindowStyle.Normal
-                .CreateNoWindow = False
+                .CreateNoWindow = True
             End With
 
             bridgecoreproc.Start()
             bridgecoreproc.WaitForExit()
-            Dim resultbrigecore As String = conrex.NULL
-            For Each stdoutput In bridgecoreproc.StandardOutput.ReadToEnd().Split(vbCrLf)
-                resultbrigecore &= stdoutput
-            Next
-            '...Action
+            check_bridge_state(bridgecoreproc.ExitCode)
         Catch ex As Exception
             dserr.args.Add(ex.Message)
             dserr.new_error(conserr.errortype.DOTNETERROR, -1, Nothing, Nothing)
         End Try
+    End Sub
+
+    Private Shared Sub check_bridge_state(exitcode As Integer)
+        Dim errortext As String = "Return code interpretation not found."
+        Select Case exitcode
+            Case compdt.dotnetcorebridgestate.success
+                Return
+            Case compdt.dotnetcorebridgestate.dotnetcorenotfound
+                errortext = ".Net Core not found."
+            Case compdt.dotnetcorebridgestate.dotnetcoreversionnotfound
+                errortext = "Version " & compdt.TARGETFRAMEWORK & " of .NET Core is not installed."
+            Case Else
+                Return
+        End Select
+        dserr.args.Add(errortext)
+        dserr.new_error(conserr.errortype.BRIDGECOREERROR, -1, Nothing, Nothing)
     End Sub
 End Class
