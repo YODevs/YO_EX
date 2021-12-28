@@ -163,6 +163,9 @@ Public Class funcste
             Dim getcildatatype As String = servinterface.vb_to_cil_common_data_type(methodinfo.parameters(index).ptype)
             If (methodinfo.parameters(index).ptype <> getcildatatype OrElse servinterface.is_common_data_type(getcildatatype, getcildatatype)) AndAlso methodinfo.parameters(index).typeinf.externlib = "mscorlib" Then
                 Dim checkcommondatatype As String = methodinfo.parameters(index).typeinf.fullname
+                If checkcommondatatype <> conrex.NULL AndAlso checkcommondatatype.EndsWith(conrex.AMP) Then 'is byref
+                    checkcommondatatype = checkcommondatatype.Remove(checkcommondatatype.Length - 1)
+                End If
                 If checkcommondatatype <> conrex.NULL AndAlso servinterface.reset_cil_cdtype_without_asmextern(checkcommondatatype) = False Then
                     set_extern_assembly(_ilmethod, paramtypes, methodinfo.parameters(index), emptyparamtypes, clinecodestruc(0).line)
                     Continue For
