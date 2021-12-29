@@ -37,10 +37,12 @@ Public Class ilbodybulider
         imp_enum(ildt.enumeration)
         newline()
 
-        For index = 0 To ildt.ilmethod.Length - 1
-            newline()
-            imp_func(ildt.ilmethod(index))
-        Next
+        If IsNothing(ildt.ilmethod) = False Then
+            For index = 0 To ildt.ilmethod.Length - 1
+                newline()
+                imp_func(ildt.ilmethod(index))
+            Next
+        End If
 
         newline()
 

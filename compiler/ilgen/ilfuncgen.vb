@@ -15,6 +15,9 @@ Public Class ilfuncgen
     End Sub
 
     Public Function gen() As ilformat._ilmethodcollection()
+        If IsNothing(yoclassdt.methods) Then
+            Return Nothing
+        End If
         For index = 0 To yoclassdt.methods.Length - 1
             check_func_name(yoclassdt.methods, index)
             Dim _ilmethodslen As Integer = _ilmethods.Length
