@@ -19,14 +19,16 @@ Public Class ilgencode
             'Class Generate ...
             'Single File ;
             Dim getcfield As Integer = 0
+            Dim getcmethod As Integer = 0
             If IsNothing(classdt(index).fields) = False Then getcfield = classdt(index).fields.Length
+            If IsNothing(classdt(index).methods) = False Then getcmethod = classdt(index).methods.Length
             If classdt(index).cacheinf.active AndAlso compdt.CHECKSYNANDSEM = False AndAlso compdt.DEVMOD = False Then
-                procresult.rp_gen(classdt(index).location & " [CA] - " & classdt(index).methods.Length & " func(s) , " & getcfield & " field(s)")
+                procresult.rp_gen(classdt(index).location & " [CA] - " & getcmethod & " func(s) , " & getcfield & " field(s)")
                 Dim cachedata As String = File.ReadAllText(classdt(index).cacheinf.path)
                 import_il_gen_code(cachedata)
                 procresult.rs_set_result(True)
             Else
-                procresult.rp_gen(classdt(index).location & " - " & classdt(index).methods.Length & " func(s) , " & getcfield & " field(s)")
+                procresult.rp_gen(classdt(index).location & " - " & getcmethod & " func(s) , " & getcfield & " field(s)")
                 attribute = classdt(index).attribute
                 ilasm = New ilasmgen(ilcollection)
                 funcste.attribute = classdt(index).attribute
