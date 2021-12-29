@@ -563,6 +563,9 @@
             dserr.args.Add("}")
             dserr.new_error(conserr.errortype.EXPECTEDERROR, -1, sourceloc, "Expect to close the previous method block.(The last part of the source code)")
         End If
+        If IsNothing(xmethods) = False AndAlso xmethods.Length = 1 AndAlso xmethods(0).name = conrex.NULL Then
+            xmethods = Nothing
+        End If
         xclass(0).methods = xmethods
         xclass(0).name = conrex.NULL
         xclass(0).includelist = includelist
