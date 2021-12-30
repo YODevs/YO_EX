@@ -346,6 +346,17 @@ Public Class servinterface
                 Dim reclassname As String = String.Empty
                 Dim isvirtualmethod As Boolean = False
                 If libserv.get_extern_index_class(ilmethod, propresult.exclass, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
+                    Dim fsisvirtualmethod As Boolean = False
+                    Dim fsclassindex As Integer = funcdtproc.get_index_class(ilmethod, propresult.exclass, fsisvirtualmethod)
+                    If fsclassindex <> -1 Then
+                        Dim getcrfieldindex As Integer = funcdtproc.get_index_field(propresult.clident, fsclassindex)
+                        If getcrfieldindex <> -1 Then
+                            If servinterface.is_common_data_type(funcdtproc.get_field_info(fsclassindex, getcrfieldindex).ptype, getdatatype) = False Then
+                                getdatatype = funcdtproc.get_field_info(fsclassindex, getcrfieldindex).ptype
+                            End If
+                            Return True
+                        End If
+                    End If
                     Return False
                 End If
                 propresult.asmextern = libserv.get_extern_assembly(namespaceindex)
