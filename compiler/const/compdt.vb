@@ -38,6 +38,7 @@ Public Class compdt
     Friend Shared COMPILETIME As Boolean = False
     Friend Shared NOCACHE As Boolean = False
     Friend Shared DEVMOD As Boolean = False
+    Friend Shared BENCHMARK As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
@@ -54,6 +55,8 @@ pop"
     Friend Const PARAM_DISPLAY_COMPILE_TIME As String = "--compile_time"
     Friend Const PARAM_NOCACHE As String = "--no_cache"
     Friend Const PARAM_DEV As String = "--dev"
+    Friend Const PARAM_BENCHMARK As String = "--benchmark"
+
 
     Friend Const ACCESSIBLE_PUBLIC As String = "public"
     Friend Const ACCESSIBLE_PRIVATE As String = "private"
