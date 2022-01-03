@@ -163,13 +163,20 @@ You can type 'Help' to view commands.")
         rp_build(args)
         If ilasmconv.result Then
             compdt.EXECTIME = argstorelist.find(compdt.PARAM_DISPLAY_EXEC_TIME, True)
+            compdt.BENCHMARK = argstorelist.find(compdt.PARAM_BENCHMARK, True)
             If compdt.EXECTIME = False AndAlso compdt.MUTEPROCESS = False Then Console.WriteLine("Launching and running compiled output [" & compdt.RUNCMDDELAY & "ms] ...")
             Threading.Thread.Sleep(compdt.RUNCMDDELAY)
             Dim appproc As New Process
+            Dim performance As perfusage
             With appproc
                 .StartInfo = New ProcessStartInfo(cilcomp.get_output_loca())
                 .Start()
+                If compdt.BENCHMARK Then
+                    performance = New perfusage(appproc)
+                    performance.start()
+                End If
                 .WaitForExit()
+                If compdt.BENCHMARK Then performance.get_response()
             End With
             If compdt.EXECTIME Then exec_time(appproc)
         End If
