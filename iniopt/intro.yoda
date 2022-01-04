@@ -30,6 +30,8 @@ The Build command must be called next to labra.yoda file by the Command Prompt."
 "run" = "Compile a project and execute it.
 Usage : yoca run <options>
 *** Options ***
+--benchmark
+View benchmark and process execution status.
 --compile_time
 Display project compilation time.
 --debug
