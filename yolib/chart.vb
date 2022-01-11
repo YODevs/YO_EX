@@ -21,6 +21,25 @@ Public Class chart
             chartform.Text = value
         End Set
     End Property
+
+    Public Property asixytitle As String
+        Get
+            Return chartform.chart.ChartAreas(0).AxisY.Title
+        End Get
+        Set(ByVal value As String)
+            chartform.chart.ChartAreas(0).AxisY.Title = value
+        End Set
+    End Property
+
+    Public Property asixxtitle As String
+        Get
+            Return chartform.chart.ChartAreas(0).AxisX.Title
+        End Get
+        Set(ByVal value As String)
+            chartform.chart.ChartAreas(0).AxisX.Title = value
+        End Set
+    End Property
+
     Public Sub new_series(name As String)
         new_series(name, "Area")
     End Sub
