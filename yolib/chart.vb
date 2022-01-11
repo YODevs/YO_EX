@@ -53,14 +53,20 @@ Public Class chart
         End If
     End Sub
 
-    Public Sub add_point(name As String, xvalue As Integer, yvalue As Integer)
-        chartform.chart.Series(name).Points.AddXY(xvalue, yvalue)
+    Public Sub add_point(seriesname As String, xvalue As Integer, yvalue As Integer)
+        chartform.chart.Series(seriesname).Points.AddXY(xvalue, yvalue)
     End Sub
-    Public Sub add_point(name As String, xvalue As Double, yvalue As Double)
-        chartform.chart.Series(name).Points.AddXY(xvalue, yvalue)
+    Public Sub add_point(seriesname As String, xvalue As Double, yvalue As Double)
+        chartform.chart.Series(seriesname).Points.AddXY(xvalue, yvalue)
     End Sub
-    Public Sub add_point(name As String, xvalue As Single, yvalue As Single)
-        chartform.chart.Series(name).Points.AddXY(xvalue, yvalue)
+    Public Sub add_point(seriesname As String, xvalue As Single, yvalue As Single)
+        chartform.chart.Series(seriesname).Points.AddXY(xvalue, yvalue)
+    End Sub
+    Public Sub set_asix_label(seriesname As String, index As Integer, value As String)
+        chartform.chart.Series(seriesname).Points(index).AxisLabel = value
+    End Sub
+    Public Sub set_asix_label(index As Integer, value As String)
+        chartform.chart.Series(0).Points(index).AxisLabel = value
     End Sub
 
     Public Sub show()
