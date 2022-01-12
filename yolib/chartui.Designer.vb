@@ -24,6 +24,7 @@ Partial Class chartui
     Private Sub InitializeComponent()
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(chartui))
         Me.chart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -32,6 +33,11 @@ Partial Class chartui
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditViewPointsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DChartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EnableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.chart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -53,7 +59,7 @@ Partial Class chartui
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(644, 24)
@@ -97,6 +103,38 @@ Partial Class chartui
         Me.EditViewPointsToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.EditViewPointsToolStripMenuItem.Text = "Edit/View points"
         '
+        'ViewToolStripMenuItem
+        '
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DChartToolStripMenuItem, Me.DOptionsToolStripMenuItem})
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.ViewToolStripMenuItem.Text = "&View"
+        '
+        'DChartToolStripMenuItem
+        '
+        Me.DChartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnableToolStripMenuItem, Me.DisableToolStripMenuItem})
+        Me.DChartToolStripMenuItem.Name = "DChartToolStripMenuItem"
+        Me.DChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DChartToolStripMenuItem.Text = "3D Chart"
+        '
+        'EnableToolStripMenuItem
+        '
+        Me.EnableToolStripMenuItem.Name = "EnableToolStripMenuItem"
+        Me.EnableToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.EnableToolStripMenuItem.Text = "Enable"
+        '
+        'DisableToolStripMenuItem
+        '
+        Me.DisableToolStripMenuItem.Name = "DisableToolStripMenuItem"
+        Me.DisableToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.DisableToolStripMenuItem.Text = "Disable"
+        '
+        'DOptionsToolStripMenuItem
+        '
+        Me.DOptionsToolStripMenuItem.Name = "DOptionsToolStripMenuItem"
+        Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DOptionsToolStripMenuItem.Text = "3D Options"
+        '
         'chartui
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -106,6 +144,7 @@ Partial Class chartui
         Me.Controls.Add(Me.chart)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.Name = "chartui"
@@ -126,4 +165,9 @@ Partial Class chartui
     Friend WithEvents EditToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents EditViewPointsToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Public WithEvents chart As Windows.Forms.DataVisualization.Charting.Chart
+    Friend WithEvents ViewToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DChartToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EnableToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DisableToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DOptionsToolStripMenuItem As Windows.Forms.ToolStripMenuItem
 End Class
