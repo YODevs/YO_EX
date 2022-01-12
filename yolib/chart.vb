@@ -22,6 +22,15 @@ Public Class chart
         End Set
     End Property
 
+    Public Property enable3d() As Boolean
+        Get
+            Return chartform.chart.ChartAreas(0).Area3DStyle.Enable3D
+        End Get
+        Set(ByVal value As Boolean)
+            chartform.chart.ChartAreas(0).Area3DStyle.Enable3D = value
+        End Set
+    End Property
+
     Public Property asixytitle As String
         Get
             Return chartform.chart.ChartAreas(0).AxisY.Title
