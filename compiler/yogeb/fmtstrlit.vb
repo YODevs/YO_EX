@@ -43,6 +43,10 @@ Public Class fmtstrlit
             End If
         ElseIf servinterface.is_variable(ilmethod, varname, getdatatype) Then
             servinterface.is_common_data_type(getdatatype, getdatatype)
+            If varname.Contains(conrex.DBCLN) Then
+                cargcodestruc.value = varname
+                cargcodestruc.tokenid = tokenhared.token.IDENTIFIER
+            End If
             illdloc.ld_identifier(varname, ilmethod, cargcodestruc, Nothing, getdatatype)
             If servinterface.is_cil_common_data_type(getdatatype) Then
                 conv_to_string(ilmethod, getdatatype)
