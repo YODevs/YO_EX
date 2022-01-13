@@ -32,6 +32,7 @@ Public Class ilgencode
                 attribute = classdt(index).attribute
                 ilasm = New ilasmgen(ilcollection)
                 funcste.attribute = classdt(index).attribute
+                check_classname(classdt(index).location)
                 Dim resultdata As ilformat.resultildata = ilasm.gen(classdt(index))
                 If resultdata.result AndAlso compdt.CHECKSYNANDSEM = False Then
                     Dim bodybuilder As New ilbodybulider(resultdata.ilfmtdata, classdt(index).attribute)
@@ -46,6 +47,14 @@ Public Class ilgencode
         If compdt.CHECKSYNANDSEM = False Then write_il()
     End Sub
 
+    Private Sub check_classname(location As String)
+        Dim classname As String = funcste.attribute._app._classname
+        If classname <> String.Empty Then
+            If tokenhared.check_keyword(classname) <> 0 OrElse tokenhared.check_common_type(classname) <> 0 Then
+                dserr.new_error(conserr.errortype.ATTRIBUTEVALUEERROR, -1, location, "Classname can not be '" & funcste.attribute._app._classname & "'.")
+            End If
+        End If
+    End Sub
     Private Sub write_il()
         procresult.set_state("asm")
         procresult.rp_asm("Preparation of prerequisites and parameters")
