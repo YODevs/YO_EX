@@ -32,6 +32,7 @@ Public Class conserr
         ATTRIBUTEPROPERTYERROR
         ATTRIBUTESTRUCTERROR
         ATTRIBUTEDISABLED
+        ATTRIBUTEVALUEERROR
         ASSIGNCONVERT
         EXPRESSIONERROR
         INTEGRALOVERFLOW
@@ -122,9 +123,10 @@ You can reinstall the software or email us.")
         set_new_error(errortype.CILCOMMANDSAUTH, errorpriority.STOP, "Cil commands error", "CIL - Code block validation error.")
         set_new_error(errortype.CILLAZYERROR, errorpriority.STOP, "Cil commands error", "Intermediate grammar for injection is not valid.")
         set_new_error(errortype.ATTRIBUTECLASSERROR, errorpriority.STOP, "Attribute error", " '{0}' - This collection was not found.")
-        set_new_error(errortype.ATTRIBUTEPROPERTYERROR, errorpriority.STOP, "Attribute error", " '{0}' - This property was not found.")
         set_new_error(errortype.ATTRIBUTESTRUCTERROR, errorpriority.STOP, "Attribute error", "The structure of the attribute is unknown (note that the structure has no spaces and characters like ("") or (').")
         set_new_error(errortype.ATTRIBUTEDISABLED, errorpriority.STOP, "Attribute error", "[{0}] - Access to this feature is disabled, enable it with feature {1} if needed.")
+        set_new_error(errortype.ATTRIBUTEPROPERTYERROR, errorpriority.STOP, "Attribute error", " '{0}' - This property was not found.")
+        set_new_error(errortype.ATTRIBUTEVALUEERROR, errorpriority.STOP, "Attribute error", "Value specified for the attribute is not allowed.")
         set_new_error(errortype.ASSIGNCONVERT, errorpriority.STOP, "Assignment error", "'{0}' - Cannot be assignment to [type] -> '{1}'.")
         set_new_error(errortype.EXPRESSIONERROR, errorpriority.STOP, "Expression error", "{0}")
         set_new_error(errortype.INTEGRALOVERFLOW, errorpriority.STOP, "Integral overflow error", "'{0}' , Integral constant is too large.(overflow)")
