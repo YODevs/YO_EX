@@ -28,7 +28,7 @@ Public Class ilbodybulider
         Next
 
         If attribute._app._classname <> Nothing Then
-            imp_module(attribute._app._classname)
+            imp_module(cilkeywordchecker.get_key(attribute._app._classname))
         Else
             imp_module(compdt.YOMAINCLASS)
         End If
