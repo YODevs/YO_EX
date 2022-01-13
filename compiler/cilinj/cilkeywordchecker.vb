@@ -97,6 +97,8 @@
         import_cil_keyword("import")
         import_cil_keyword("value")
         import_cil_keyword("type")
+        import_cil_keyword("instance")
+        import_cil_keyword("static")
     End Sub
 
     Private Shared Sub import_cil_keyword(keyword As String)
