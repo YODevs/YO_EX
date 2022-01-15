@@ -16,4 +16,12 @@
         Dim thdoption As New dddoptions
         thdoption.ShowDialog()
     End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Me.Close()
+    End Sub
+
+    Private Sub SaveChartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveChartToolStripMenuItem.Click
+        chart.SaveImage(My.Application.Info.DirectoryPath & "\chart-" & New Random().Next(1000, 9999) & ".png", Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png)
+    End Sub
 End Class

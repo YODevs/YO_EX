@@ -38,6 +38,7 @@ Partial Class chartui
         Me.EnableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.savefile = New System.Windows.Forms.SaveFileDialog()
         CType(Me.chart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -76,18 +77,18 @@ Partial Class chartui
         'SaveChartToolStripMenuItem
         '
         Me.SaveChartToolStripMenuItem.Name = "SaveChartToolStripMenuItem"
-        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
+        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SaveChartToolStripMenuItem.Text = "Save chart"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(125, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'EditToolStripMenuItem
@@ -114,7 +115,7 @@ Partial Class chartui
         '
         Me.DChartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnableToolStripMenuItem, Me.DisableToolStripMenuItem})
         Me.DChartToolStripMenuItem.Name = "DChartToolStripMenuItem"
-        Me.DChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DChartToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
         Me.DChartToolStripMenuItem.Text = "3D Chart"
         '
         'EnableToolStripMenuItem
@@ -132,8 +133,14 @@ Partial Class chartui
         'DOptionsToolStripMenuItem
         '
         Me.DOptionsToolStripMenuItem.Name = "DOptionsToolStripMenuItem"
-        Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
         Me.DOptionsToolStripMenuItem.Text = "3D Options"
+        '
+        'savefile
+        '
+        Me.savefile.CheckFileExists = True
+        Me.savefile.DefaultExt = "png"
+        Me.savefile.Title = "Save Chart"
         '
         'chartui
         '
@@ -170,4 +177,5 @@ Partial Class chartui
     Friend WithEvents EnableToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents DisableToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents DOptionsToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents savefile As Windows.Forms.SaveFileDialog
 End Class
