@@ -1,6 +1,0 @@
-!![
-"assemblyname"   =   "extern_test"   ,
-"outputtype"   =   "console"   ,
-"sourcepath"   =   "\src"   ,
-"assetspath"   =   "\assets"   
-]

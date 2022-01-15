@@ -1,2 +1,0 @@
-yoca run
-pause
