@@ -1,0 +1,25 @@
+#[app::classname("myapp")]
+
+extern static_lib
+extern instance_lib
+
+include 'ystdio'
+
+func main()
+{
+  test1()
+  test2()
+}
+
+func test1()
+{
+  let s : i32 = stat::sum(10,2)
+  io::println(s)
+}
+
+func test2()
+{
+  let i : init inst()
+  let result : i32 = i::mul(5,4)
+  io::println(result)
+}
