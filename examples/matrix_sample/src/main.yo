@@ -1,0 +1,46 @@
+#[app::classname("matrix_app")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'YOLIB'
+
+public static let index : i32 = 1
+public static let mt : yolib.matrix
+
+func initialize()
+{
+  mt := init yolib.matrix(3,3)
+  mt::set_zero_matrix()
+  print_matrix('Zero matrix',mt)
+  mt::set_item(0,0,1) #>*Notice : set_item(Column,Row,Value)
+  mt::set_item(1,0,2)
+  mt::set_item(2,0,3)
+  mt::set_item(0,1,4)
+  mt::set_item(1,1,5)
+  mt::set_item(2,1,6)
+  mt::set_item(0,2,7)
+  mt::set_item(1,2,8)
+  mt::set_item(2,2,9)
+  print_matrix('Primary matrix',mt)
+}
+
+func main()
+{
+  initialize()
+  let tranmatrix : yolib.matrix = mt::transpose()
+  print_matrix('Transpose matrix',tranmatrix)
+
+  let negmatrix : yolib.matrix = mt::neg()
+  print_matrix('Negative matrix',negmatrix)
+
+  mt := mt::multiply(3)
+  print_matrix('Multiply scalar matrix',mt)
+}
+
+func print_matrix(title : str ,matrix : yolib.matrix)
+{
+  let matrixframe : str = matrix::get_matrix()
+  io::println("#{index}-#{title} #nl#{matrixframe}")
+  io::newline()
+  index += 1
+}
