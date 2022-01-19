@@ -95,4 +95,7 @@ Public Class chart
     Public Sub show()
         chartform.ShowDialog()
     End Sub
+    Public Sub save(path As String)
+        chartform.chart.SaveImage(path, ChartImageFormat.Png)
+    End Sub
 End Class
