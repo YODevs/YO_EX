@@ -15,7 +15,7 @@
     End Property
     Public ReadOnly Property rowsize() As Integer
         Get
-            Return rowsize
+            Return growsize
         End Get
     End Property
     Public Sub New(ncol As Integer, nrow As Integer)
@@ -138,7 +138,7 @@
 
     Public Function neg() As matrix
         If gisempty Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
-        Dim nmatrix As New matrix(growsize, gcolumnsize)
+        Dim nmatrix As New matrix(gcolumnsize, growsize)
         nmatrix.set_zero_matrix()
         For index = 0 To gcolumnsize - 1
             For rindex = 0 To growsize - 1
@@ -176,6 +176,33 @@
 
     Public Function multiply(val As Double) As matrix
         Return priv_multiply(val, False)
+    End Function
+
+    Public Function multiply(matrix2 As matrix) As matrix
+        If gisempty OrElse IsNothing(matrix2) Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        If columnsize <> matrix2.rowsize Then
+            Throw New Exception("A's(Matrix1) columns must equal B's(Matrix2) rows")
+        End If
+        Dim nmatrix As New matrix(matrix2.columnsize, growsize)
+        nmatrix.set_zero_matrix()
+        Dim result As New ArrayList
+        For rindex = 0 To growsize - 1
+            For pindex = 0 To matrix2.gcolumnsize - 1
+                Dim singleresult As Double = 0
+                For cindex = 0 To gcolumnsize - 1
+                    singleresult += Convert.ToDouble(dt(cindex)(rindex) * matrix2.get_item(pindex, cindex))
+                Next
+                result.Add(singleresult)
+            Next
+        Next
+        Dim counter As Integer = 0
+        For nrindex = 0 To nmatrix.growsize - 1
+            For ncindex = 0 To nmatrix.columnsize - 1
+                nmatrix.set_item(ncindex, nrindex, result(counter))
+                counter += 1
+            Next
+        Next
+        Return nmatrix
     End Function
 
     Private Function priv_multiply(val As Object, isinteger As Boolean) As matrix
