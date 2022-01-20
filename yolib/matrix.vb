@@ -170,6 +170,21 @@
         Return nmatrix
     End Function
 
+    Public Function add(matrix2 As matrix) As matrix
+        If gisempty OrElse IsNothing(matrix2) Then Throw New Exception("The matrix is empty, you must first fill in the matrix values.")
+        If columnsize <> matrix2.columnsize OrElse rowsize <> matrix2.rowsize Then
+            Throw New Exception("A's(Matrix1) and B's(Matrix2) must be the same size")
+        End If
+        Dim nmatrix As New matrix(gcolumnsize, growsize)
+        nmatrix.set_zero_matrix()
+        For index = 0 To gcolumnsize - 1
+            For rindex = 0 To growsize - 1
+                Dim item As Double = CDbl(dt(index)(rindex)) + CDbl(matrix2.get_item_f64(index, rindex))
+                nmatrix.set_item(index, rindex, item)
+            Next
+        Next
+        Return nmatrix
+    End Function
     Public Function multiply(val As Integer) As matrix
         Return priv_multiply(val, True)
     End Function
