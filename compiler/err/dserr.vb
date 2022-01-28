@@ -33,7 +33,7 @@
         print_value(ConsoleColor.Red, "*** More Detials ***", ConsoleColor.Gray, True)
         Console.WriteLine(description)
         Dim indexspace As Int16 = (consolebufferwidth - 54) / 2
-        print_value(ConsoleColor.DarkRed, Space(indexspace) & "***********************SNIPPT************************" & Space(indexspace), ConsoleColor.Green, True)
+        print_value(ConsoleColor.DarkRed, Space(indexspace) & "***********************SNIPPET************************" & Space(indexspace), ConsoleColor.Green, True)
         Console.WriteLine("Example : ")
         Console.ForegroundColor = ConsoleColor.White
         Console.WriteLine(example)
