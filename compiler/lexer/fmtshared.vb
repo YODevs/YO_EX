@@ -298,7 +298,7 @@
                     xfield(i).name = value
                     fieldstate = pbfieldstate.FIELDDTTPOPT
                 Else
-                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "let public static age : i32 = 51")
+                    dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public static let age : i32 = 51")
                 End If
             Case pbfieldstate.FIELDDTTPOPT
                 If rd_token = tokenhared.token.ASSINQ Then
@@ -306,7 +306,7 @@
                     xfield(i).initproc = False
                 Else
                     dserr.args.Add(value)
-                    dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use the ':' operator." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), "let public static age : i32 = 51")
+                    dserr.new_error(conserr.errortype.OPERATORUNKNOWN, linecinf.line, sourceloc, "Use the ':' operator." & vbCrLf & authfunc.get_line_error(sourceloc, linecinf, value), "public static let age : i32 = 51")
                 End If
             Case pbfieldstate.FIELDTYPE
                 If rd_token = tokenhared.token.INIT Then
