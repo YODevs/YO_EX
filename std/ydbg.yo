@@ -24,6 +24,15 @@ func print(map : yolib.map) : void
   }
 }
 
+func print(arr[] : str)
+{
+    let len : i32 = arr::length
+    for(index in [0..len]){
+        let val : str = arr[index]
+        io::println(val)
+    }
+}
+
 func is_i32(val:str) : bool
 {
   let i : i32
