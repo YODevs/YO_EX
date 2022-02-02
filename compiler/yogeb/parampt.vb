@@ -29,6 +29,14 @@
                         If tpinf.asminfo = params(index).typeinf.asminfo Then
                             Continue For
                         End If
+                    ElseIf cargcodestruc(index).tokenid = tokenhared.token.ARR Then
+                        Dim cargtype As String = cargcodestruc(index).value.Remove(cargcodestruc(index).value.IndexOf(conrex.BRSTART))
+                        If servinterface.is_variable(_ilmethod, cargtype, crdatatype) Then
+                            Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargtype)
+                            If tpinf.asminfo = params(index).typeinf.asminfo Then
+                                Continue For
+                            End If
+                        End If
                     ElseIf servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) AndAlso getdatatype.ToLower = crdatatype.ToLower Then
                         Continue For
                     ElseIf IsNothing(paramfullname) = False AndAlso paramfullname(index).ToString.ToLower = crdatatype.ToLower Then
@@ -69,16 +77,28 @@
                     If chbool(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
                 Case Else
                     'Other Types
-                    Dim crdatatype As String = String.Empty
-                    If servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) Then
-                        Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
-                        If tpinf.asminfo = gparameters(index).ParameterType.AssemblyQualifiedName Then
-                            Continue For
+                    If cargcodestruc(index).tokenid = tokenhared.token.IDENTIFIER Then
+                        Dim crdatatype As String = String.Empty
+                        If servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) Then
+                            Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
+                            If tpinf.asminfo = gparameters(index).ParameterType.AssemblyQualifiedName Then
+                                Continue For
+                            End If
+                        Else
+                            Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc(index))
+                            If idenresult.identvalid Then Continue For
                         End If
-                    Else
-                        Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc(index))
-                        If idenresult.identvalid Then Continue For
+                    ElseIf cargcodestruc(index).tokenid = tokenhared.token.ARR Then
+                        Dim crdatatype As String = String.Empty
+                        Dim cargtype As String = cargcodestruc(index).value.Remove(cargcodestruc(index).value.IndexOf(conrex.BRSTART))
+                        If servinterface.is_variable(_ilmethod, cargtype, crdatatype) Then
+                            Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargtype)
+                            If tpinf.asminfo = gparameters(index).ParameterType.AssemblyQualifiedName Then
+                                Continue For
+                            End If
+                        End If
                     End If
+
                     Return False
             End Select
         Next
@@ -94,6 +114,13 @@
             Case tokenhared.token.IDENTIFIER
                 Dim getdatatype As String = String.Empty
                 If servinterface.is_variable(_ilmethod, cargcodestruc.value, getdatatype) AndAlso getdatatype = conrex.STRING Then
+                    Return True
+                End If
+                Return False
+            Case tokenhared.token.ARR
+                Dim getdatatype As String = String.Empty
+                Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
+                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = "str" Then
                     Return True
                 End If
                 Return False
@@ -116,6 +143,20 @@
                     Return True
                 End If
                 Return False
+            Case tokenhared.token.ARR
+                Dim getdatatype As String = String.Empty
+                Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
+                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = datatype Then
+                    Return True
+                End If
+                Return False
+            Case tokenhared.token.ARR
+                Dim getdatatype As String = String.Empty
+                Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
+                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = datatype Then
+                    Return True
+                End If
+                Return False
             Case tokenhared.token.NULL
                 Return True
             Case tokenhared.token.EXPRESSION
@@ -134,6 +175,13 @@
             Case tokenhared.token.IDENTIFIER
                 Dim getdatatype As String = String.Empty
                 If servinterface.is_variable(_ilmethod, cargcodestruc.value, getdatatype) AndAlso getdatatype = datatype Then
+                    Return True
+                End If
+                Return False
+            Case tokenhared.token.ARR
+                Dim getdatatype As String = String.Empty
+                Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
+                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = datatype Then
                     Return True
                 End If
                 Return False
@@ -168,6 +216,13 @@
                     Return True
                 End If
                 Return False
+            Case tokenhared.token.ARR
+                Dim getdatatype As String = String.Empty
+                Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
+                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = datatype Then
+                    Return True
+                End If
+                Return False
             Case tokenhared.token.NULL
                 Return True
             Case Else
@@ -186,6 +241,13 @@
             Case tokenhared.token.IDENTIFIER
                 Dim getdatatype As String = String.Empty
                 If servinterface.is_variable(_ilmethod, cargcodestruc.value, getdatatype) AndAlso getdatatype = datatype Then
+                    Return True
+                End If
+                Return False
+            Case tokenhared.token.ARR
+                Dim getdatatype As String = String.Empty
+                Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
+                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = datatype Then
                     Return True
                 End If
                 Return False
