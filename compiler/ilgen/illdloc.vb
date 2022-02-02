@@ -110,7 +110,7 @@
 
         Return _ilmethod
     End Function
-    Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, rlinecodestruc() As xmlunpkd.linecodestruc, datatype As String) As Boolean
+    Friend Shared Function ld_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, rlinecodestruc() As xmlunpkd.linecodestruc, datatype As String, Optional ignorearraycheck As Boolean = False) As Boolean
         Dim clineprop As xmlunpkd.linecodestruc = cargcodestruc
         If IsNothing(rlinecodestruc) = False Then
             Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, rlinecodestruc)
@@ -133,17 +133,21 @@
             End If
         End If
 
+        If cargcodestruc.tokenid = tokenhared.token.ARR AndAlso nvar.EndsWith(conrex.BREND) = True AndAlso servinterface.is_cil_common_data_type(datatype) = False Then
+            var.load_arr_identifier(_ilmethod, cargcodestruc, rlinecodestruc, datatype)
+            Return True
+        End If
         If IsNothing(_ilmethod.locallinit) = False OrElse nvar.Contains(compdt.FLAGPERFIX) Then
             If ld_local(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
         If IsNothing(_ilmethod.parameter) = False Then
             If ld_argument(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
-        If IsNothing(ilasmgen.fields) = False AndAlso nvar.Contains("::") = False Then
+        If IsNothing(ilasmgen.fields) = False AndAlso nvar.Contains(conrex.DBCLN) = False Then
             If ld_field(nvar, _ilmethod, cargcodestruc, datatype) Then Return True
         End If
 
-        If nvar.Contains("::") Then
+        If nvar.Contains(conrex.DBCLN) Then
             Dim hresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(_ilmethod, cargcodestruc)
             If hresult.identvalid = True Then
                 If hresult.callintern = True Then
