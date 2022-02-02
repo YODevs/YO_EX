@@ -99,7 +99,7 @@
                             gtype = method.parameters(index).name
                         End If
                         gtype = servinterface.get_yo_byte_types(gtype)
-                        sb.Append(gparametername & conrex.SPACE & gtype)
+                        sb.Append(String.Format("{0} : {1}", gparametername, gtype))
                         If index + 1 < method.parameters.Length Then
                             sb.Append(conrex.CMA)
                         End If
