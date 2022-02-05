@@ -1,0 +1,37 @@
+#[app::classname("chart_example")]
+#[app::wait(true)]
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  let dt : init yolib.chart()
+  dt::formtitle := "Product sales statistics"
+  dt::asixxtitle := "Month"
+  dt::asixytitle := "Sales number"
+  dt::new_series("Mobile" , 'column')
+  dt::add_point("Mobile",1,14)
+  dt::add_point("Mobile",2,10)
+  dt::add_point("Mobile",3,8)
+  dt::add_point("Mobile",4,16)
+  dt::add_point("Mobile",5,14)
+  dt::new_series("Watch" , 'column')
+  dt::add_point("Watch",1,6)
+  dt::add_point("Watch",2,8)
+  dt::add_point("Watch",3,8)
+  dt::add_point("Watch",4,2)
+  dt::add_point("Watch",5,10)
+  dt::new_series("Accessory" , 'column')
+  dt::add_point("Accessory",1,20)
+  dt::add_point("Accessory",2,16)
+  dt::add_point("Accessory",3,12)
+  dt::add_point("Accessory",4,10)
+  dt::add_point("Accessory",5,16)
+
+  dt::set_asix_label("Mobile",0,"Jan")
+  dt::set_asix_label(1,"Feb")
+  dt::set_asix_label("Mobile",2,"Mar")
+  dt::set_asix_label("Mobile",3,"Apr")
+  dt::set_asix_label("Mobile",4,"May")
+  dt::show()
+}
