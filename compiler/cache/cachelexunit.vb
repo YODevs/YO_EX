@@ -30,6 +30,7 @@ Public Class cachelexunit
     End Sub
 
     Friend Shared Sub load_includes()
+        If compdt.DEVMOD = True OrElse compdt.NOCACHE = True Then Return
         Dim cacheprojectdir As String = conrex.CACHEDIR & "\fastbuild\" & servinterface.get_hash(conrex.ENVCURDIR) & "\"
         If Directory.Exists(cacheprojectdir) AndAlso File.Exists(cacheprojectdir & "includes.yoda") Then
             Dim yoda As New YODA.YODA_Format
