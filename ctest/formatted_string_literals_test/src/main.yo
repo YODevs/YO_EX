@@ -1,0 +1,76 @@
+#[app::classname("formatted_string_literals_test")]
+
+include 'ystdio'
+
+public static let job : str = "Developer"
+
+func main()
+{
+  test1()
+  test2("XXX")
+  test3()
+  test4()
+  test5()
+  test6()
+  test7("18")
+  test8("2022","02","07")
+  test9("2022","02","07")
+}
+
+func test1()
+{
+  let x : str = "xxx"
+  let y : str = "yyy"
+  io::println("#{x}#{y}")
+}
+
+func test2(x:str)
+{
+  let y : str = "YYY"
+  io::println("#{x}#{y}")
+}
+
+func test3()
+{
+  let fname : str = "Mahdi"
+  let lname : str = "Foroughi"
+  io::println("#{fname}-#{lname}")
+}
+
+func test4()
+{
+  let fname : str = "Mahdi"
+  let lname : str = "Foroughi"
+  io::println("#qu#{fname}#qu-#qu#{lname}#qu")
+}
+
+func test5()
+{
+  let fname : str = "Mahdi"
+  let lname : str = "Foroughi"
+  io::println("#{job}: #{fname} #{lname}")
+}
+
+func test6()
+{
+  let fname : str = "Mahdi"
+  let lname : str = "Foroughi"
+  io::println("#qu#{job}#qu: #{fname} #{lname}")
+}
+
+func test7(val:str)
+{
+  let age : i32 = [i32]val
+  io::println("#{age}")
+}
+
+func test8(year:str,month:str,day:str)
+{
+  io::println("#{year}/#{month}/#{day}")
+}
+
+func test9(year:str,month:str,day:str)
+{
+  let slash : str = "/"
+  io::println("#{year}#{slash}#{month}#{slash}#{day}")
+}
