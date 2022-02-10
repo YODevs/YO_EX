@@ -18,6 +18,8 @@ Public Class compdt
     Friend Shared expressionact() As String = {"+", "-", "/", "*", "%"}
     Friend Shared expressionactopt() As String = {"add", "sub", "div", "mul", "rem"}
     Friend Shared errcap() As String = {"Error:", "error code="}
+    Friend Const FLOAT32 As String = "float32"
+    Friend Const FLOAT64 As String = "float64"
     Friend Shared ptrinddata As mapstoredata
     Friend Shared byrefforbiddentoken() As tokenhared.token = {tokenhared.token.NULL, tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_CO_STR}
     Friend Shared argumentallow() As tokenhared.token = {tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_BOOL, tokenhared.token.IDENTIFIER,
