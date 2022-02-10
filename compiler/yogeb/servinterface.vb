@@ -114,6 +114,21 @@ Public Class servinterface
 
     End Sub
 
+    Friend Shared Function get_array_length(ByRef pubfield As ilformat._pubfield, lexpubfield As tknformat._pubfield) As Integer
+        pubfield.name = lexpubfield.name.Remove(lexpubfield.name.IndexOf(conrex.BRSTART))
+        Dim indexdt As String = lexpubfield.name.Remove(0, lexpubfield.name.IndexOf(conrex.BRSTART) + 1)
+        Dim len As Integer = 0
+        If indexdt.Length > 1 Then
+            indexdt = indexdt.Remove(indexdt.Length - 1)
+            If IsNumeric(indexdt) = False Then
+                len = -1
+            Else
+                len = CInt(indexdt)
+            End If
+        End If
+        Return len
+    End Function
+
     Friend Shared Sub ldc_r_checker(ByRef codes As ArrayList, value As Object, Optional convtor8 As Boolean = False)
         If convtor8 OrElse value > Single.MaxValue OrElse value < Single.MinValue Then
             cil.push_float64_onto_stack(codes, CDbl(value))
