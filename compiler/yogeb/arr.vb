@@ -42,7 +42,11 @@ Public Class arr
     Friend Shared setloc As Boolean = False
     Friend Shared Sub set_loc(ByRef ilmethod As ilformat._ilmethodcollection, illocalinit As ilformat._illocalinit, clinecodestruc As xmlunpkd.linecodestruc)
         If setloc = False Then Return
-        ilstvar.st_identifier(illocalinit.name, ilmethod, clinecodestruc, illocalinit.typeinf.fullname)
+        Dim ptype As String = illocalinit.typeinf.fullname
+        If illocalinit.typeinf.isarray = True AndAlso illocalinit.typeinf.isprimitive Then
+            ptype = illocalinit.typeinf.cdttypesymbol
+        End If
+        ilstvar.st_identifier(illocalinit.name, ilmethod, clinecodestruc, ptype)
         setloc = False
     End Sub
 

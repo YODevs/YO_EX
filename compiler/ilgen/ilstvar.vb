@@ -3,7 +3,7 @@
 Public Class ilstvar
     Friend Shared Function st_identifier(nvar As String, ByRef _ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         If iltranscore.isarrayinstack Then
-            cil.set_element(_ilmethod.codes)
+            cil.set_element(_ilmethod.codes, datatype)
             iltranscore.isarrayinstack = False
             Return True
         End If

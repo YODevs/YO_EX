@@ -81,6 +81,6 @@ Public Class var
         set_element(varname)
         load_element_in_stack(varname, privelementindex, datatype, _ilmethod, clinecodestruc, True)
 
-        cil.ldelem(_ilmethod.codes)
+        cil.ldelem(_ilmethod.codes, datatype)
     End Sub
 End Class
