@@ -58,7 +58,7 @@ Public Class tknformat
         Dim valuecinf As lexer.targetinf
         Dim valuetoken As tokenhared.token
         Dim objcontrol As fmtshared.objectcontrol
-        Dim initproc As Boolean
+        Dim initproc, isarray As Boolean
         Dim typetargetinfo As lexer.targetinf
         Dim ctorparameters() As xmlunpkd.linecodestruc
     End Structure
