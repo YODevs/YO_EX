@@ -58,6 +58,16 @@ Public Class ilasmgen
             _ilcollection.field(index).isliteral = yoclassdt.fields(index).isconstant
             _ilcollection.field(index).initproc = yoclassdt.fields(index).initproc
             _ilcollection.field(index).ctorparameter = yoclassdt.fields(index).ctorparameters
+            If yoclassdt.fields(index).isarray Then
+                _ilcollection.field(index).isarray = True
+                _ilcollection.field(index).arrlen = servinterface.get_array_length(_ilcollection.field(index), yoclassdt.fields(index))
+                If _ilcollection.field(index).arrlen = -1 Then
+                    dserr.args.Add("[Identifier] -> " & yoclassdt.fields(index).name & " - The array index must be a number.")
+                    dserr.new_error(conserr.errortype.FIELDERROR, -1, yoclassdt.location, Nothing, "public static let i[5] : i32 ")
+                End If
+                arr.set_allocation_of_space(_ilcollection, index, yoclassdt.attribute._app._classname)
+            End If
+
             Array.Resize(fields, index + 1)
             fields(index) = _ilcollection.field(index)
             Dim getlinecodestruct As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(yoclassdt.fields(index).valuecinf, yoclassdt.fields(index).value, yoclassdt.fields(index).valuetoken)
@@ -133,5 +143,6 @@ Public Class ilasmgen
         clinetypeinfostruct(2).tokenid = tokenhared.token.PREND
         clinetypeinfostruct(2).value = conrex.PREND
         pubgenfield.typeinf = yotypecreator.get_type_info(Nothing, clinetypeinfostruct, 0, publexfield.ptype)
+        pubgenfield.typeinf.isarray = publexfield.isarray
     End Sub
 End Class
