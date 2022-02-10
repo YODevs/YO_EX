@@ -45,4 +45,21 @@ Public Class arr
         ilstvar.st_identifier(illocalinit.name, ilmethod, clinecodestruc, illocalinit.typeinf.fullname)
         setloc = False
     End Sub
+
+    Friend Shared Sub set_allocation_of_space(ByRef ilcollection As ilformat.ildata, index As Integer, classname As String)
+        Dim arrlen As Integer = ilcollection.field(index).arrlen
+        If arrlen = 0 Then Return
+        arrlen += 1
+        If ilcollection.field(index).modifier = compdt.OBJECTMODTYPE_STATIC Then
+            cil.ldarg(ilcollection.staticctor, 0)
+            cil.push_int32_onto_stack(ilcollection.staticctor, arrlen)
+            cil.new_arr(ilcollection.staticctor, ilcollection.field(index).typeinf)
+            cil.set_static_field(ilcollection.staticctor, ilcollection.field(index).typeinf, ilcollection.field(index).name, classname)
+        Else
+            cil.ldarg(ilcollection.instancector, 0)
+            cil.push_int32_onto_stack(ilcollection.instancector, arrlen)
+            cil.new_arr(ilcollection.instancector, ilcollection.field(index).typeinf)
+            cil.set_field(ilcollection.instancector, ilcollection.field(index).typeinf, ilcollection.field(index).name, classname)
+        End If
+    End Sub
 End Class
