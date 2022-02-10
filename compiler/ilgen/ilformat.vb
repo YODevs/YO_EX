@@ -92,6 +92,8 @@
         Dim valuetoken As tokenhared.token
         Dim ctorparameter() As xmlunpkd.linecodestruc
         Dim initproc As Boolean
+        Dim isarray As Boolean
+        Dim arrlen As Integer
     End Structure
 
     Public Structure _arrayinfo
