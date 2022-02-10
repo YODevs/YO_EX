@@ -133,8 +133,14 @@
         name = cilkeywordchecker.get_key(name)
         codes.Add("ldsflda " & name)
     End Sub
-    Public Shared Sub ldelem(ByRef codes As ArrayList)
-        codes.Add("ldelem.ref")
+    Public Shared Sub ldelem(ByRef codes As ArrayList, Optional datatype As String = Nothing)
+        If datatype = compdt.FLOAT32 Then
+            codes.Add("ldelem.r4")
+        ElseIf datatype = compdt.FLOAT64 Then
+            codes.Add("ldelem.r8")
+        Else
+            codes.Add("ldelem.ref")
+        End If
     End Sub
     Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
         codes.Add("call string [mscorlib]System.Convert::ToString(" & ptype & ")")
@@ -277,8 +283,14 @@
         End If
     End Sub
 
-    Public Shared Sub set_element(ByRef codes As ArrayList)
-        codes.Add("stelem.i")
+    Public Shared Sub set_element(ByRef codes As ArrayList, datatype As String)
+        If datatype = compdt.FLOAT32 Then
+            codes.Add("stelem.r4")
+        ElseIf datatype = compdt.FLOAT64 Then
+            codes.Add("stelem.r8")
+        Else
+            codes.Add("stelem.i")
+        End If
     End Sub
     Public Shared Sub set_element_ref(ByRef codes As ArrayList)
         codes.Add("stelem.ref")
