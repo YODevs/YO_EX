@@ -107,16 +107,18 @@ call instance void [mscorlib]System.Object::.ctor()")
                     conrex.SPACE & ildt.field(index).ptype & conrex.SPACE & cilkeywordchecker.get_key(ildt.field(index).name) & conrex.SPACE
                 lcode &= " = " & ildt.field(index).ptype & "(" & ildt.field(index).value & ")"
             Else
+                Dim arraychars As String = Nothing
+                If ildt.field(index).isarray Then arraychars = "[]"
                 If ildt.field(index).typeinf.isprimitive Then
-                    lcode = String.Format(".field {0} {1} {2} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
-                                       ildt.field(index).typeinf.cdttypesymbol, cilkeywordchecker.get_key(ildt.field(index).name))
+                    lcode = String.Format(".field {0} {1} {2}{4} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                       ildt.field(index).typeinf.cdttypesymbol, cilkeywordchecker.get_key(ildt.field(index).name), arraychars)
                 Else
                     If ildt.field(index).typeinf.isinternalclass Then
-                        lcode = String.Format(".field {0} {1} class {2} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
-                                       cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name))
+                        lcode = String.Format(".field {0} {1} class {2}{4} {3}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                       cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name), arraychars)
                     Else
-                        lcode = String.Format(".field {0} {1} class [{2}]{3} {4}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
-                                      cilkeywordchecker.get_key(ildt.field(index).typeinf.externlib), cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name))
+                        lcode = String.Format(".field {0} {1} class [{2}]{3}{5} {4}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
+                                      cilkeywordchecker.get_key(ildt.field(index).typeinf.externlib), cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name), arraychars)
                     End If
                 End If
             End If
