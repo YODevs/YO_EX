@@ -296,6 +296,11 @@
                 objcontrol = New objectcontrol
                 If rd_token = tokenhared.token.IDENTIFIER Then
                     xfield(i).name = value
+                    xfield(i).isarray = False
+                    fieldstate = pbfieldstate.FIELDDTTPOPT
+                ElseIf rd_token = tokenhared.token.ARR Then
+                    xfield(i).name = value
+                    xfield(i).isarray = True
                     fieldstate = pbfieldstate.FIELDDTTPOPT
                 Else
                     dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, linecinf.line, sourceloc, authfunc.get_line_error(sourceloc, linecinf, value), "public static let age : i32 = 51")
