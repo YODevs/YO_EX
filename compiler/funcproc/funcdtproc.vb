@@ -206,9 +206,18 @@
         If IsNothing(reffunc(classindex).fields) Then Return -1
         identifier = identifier.ToLower
         For index = 0 To reffunc(classindex).fields.Length - 1
-            If reffunc(classindex).fields(index).name.ToLower = identifier Then
-                identifier = reffunc(classindex).fields(index).name
-                Return index
+            Dim varname As String = reffunc(classindex).fields(index).name.ToLower
+            If reffunc(classindex).fields(index).isarray Then
+                varname = varname.Remove(varname.IndexOf(conrex.BRSTART))
+                If varname = identifier Then
+                    identifier = reffunc(classindex).fields(index).name
+                    Return index
+                End If
+            Else
+                If varname = identifier Then
+                    identifier = reffunc(classindex).fields(index).name
+                    Return index
+                End If
             End If
         Next
         Return -1
