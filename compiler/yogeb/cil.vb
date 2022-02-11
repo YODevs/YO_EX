@@ -187,6 +187,25 @@
         code &= String.Format(" {0}::{1}", classname, name)
         codes.Add(code)
     End Sub
+    Public Shared Sub load_static_field(ByRef codes As ArrayList, typeinf As ilformat._typeinfo, name As String, classname As String)
+        name = cilkeywordchecker.get_key(name)
+        classname = cilkeywordchecker.get_key(classname)
+        If typeinf.isprimitive Then
+            Dim ptype As String = cilkeywordchecker.get_key(typeinf.cdttypesymbol)
+            If typeinf.isarray Then
+                ptype &= conrex.BRSTEN
+            End If
+            codes.Add(String.Format("ldsfld {0} {1}::{2}", ptype, classname, name))
+        Else
+            Dim externlib As String = cilkeywordchecker.get_key(typeinf.externlib)
+            Dim ptype As String = cilkeywordchecker.get_key(typeinf.fullname)
+            If typeinf.isarray Then
+                ptype &= conrex.BRSTEN
+            End If
+            codes.Add(String.Format("ldsfld class [{3}]{0} {1}::{2}", ptype, classname, name, externlib))
+        End If
+    End Sub
+
     Public Shared Sub load_field(ByRef codes As ArrayList, field As ilformat._pubfield, name As String, ptype As String, classname As String)
         Dim code As String = "ldfld "
         If field.typeinf.isclass Then
@@ -197,6 +216,24 @@
         End If
         code &= String.Format(" {0}::{1}", classname, name)
         codes.Add(code)
+    End Sub
+    Public Shared Sub load_field(ByRef codes As ArrayList, typeinf As ilformat._typeinfo, name As String, classname As String)
+        name = cilkeywordchecker.get_key(name)
+        classname = cilkeywordchecker.get_key(classname)
+        If typeinf.isprimitive Then
+            Dim ptype As String = cilkeywordchecker.get_key(typeinf.cdttypesymbol)
+            If typeinf.isarray Then
+                ptype &= conrex.BRSTEN
+            End If
+            codes.Add(String.Format("ldfld {0} {1}::{2}", ptype, classname, name))
+        Else
+            Dim externlib As String = cilkeywordchecker.get_key(typeinf.externlib)
+            Dim ptype As String = cilkeywordchecker.get_key(typeinf.fullname)
+            If typeinf.isarray Then
+                ptype &= conrex.BRSTEN
+            End If
+            codes.Add(String.Format("ldfld class [{3}]{0} {1}::{2}", ptype, classname, name, externlib))
+        End If
     End Sub
 
     Public Shared Sub set_static_field(ByRef codes As ArrayList, field As ilformat._pubfield, name As String, ptype As String, classname As String)
