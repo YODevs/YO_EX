@@ -55,7 +55,6 @@ Public Class arr
         If arrlen = 0 Then Return
         arrlen += 1
         If ilcollection.field(index).modifier = compdt.OBJECTMODTYPE_STATIC Then
-            cil.ldarg(ilcollection.staticctor, 0)
             cil.push_int32_onto_stack(ilcollection.staticctor, arrlen)
             cil.new_arr(ilcollection.staticctor, ilcollection.field(index).typeinf)
             cil.set_static_field(ilcollection.staticctor, ilcollection.field(index).typeinf, ilcollection.field(index).name, classname)
