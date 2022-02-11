@@ -408,7 +408,8 @@ Public Class servinterface
 
         If IsNothing(ilasmgen.classdata.fields) = False Then
             For index = 0 To ilasmgen.classdata.fields.Length - 1
-                If ilasmgen.classdata.fields(index).name.ToLower = varname Then
+                Dim varnameloop As String = ilasmgen.fields(index).name.ToLower
+                If varname = varnameloop Then
                     servinterface.is_common_data_type(ilasmgen.classdata.fields(index).ptype, getdatatype)
                     Return True
                 End If
@@ -460,7 +461,8 @@ Public Class servinterface
 
         If IsNothing(ilasmgen.fields) = False Then
             For index = 0 To ilasmgen.classdata.fields.Length - 1
-                If ilasmgen.fields(index).name.ToLower = varname Then
+                Dim varnameloop As String = ilasmgen.fields(index).name.ToLower
+                If varname = varnameloop Then
                     Return ilasmgen.fields(index).typeinf
                 End If
             Next
@@ -493,6 +495,14 @@ Public Class servinterface
                     getfield = funcdtproc.get_field_info(hresult.classindex, getfieldindex)
                     Return True
                 End If
+            End If
+        Else
+            Dim classname As String = ilgencode.attribute._app._classname
+            Dim getclassindex As Integer = funcdtproc.get_index_class(_ilmethod, classname)
+            Dim getfieldindex As Integer = funcdtproc.get_index_field(varname, getclassindex)
+            If getfieldindex <> -1 Then
+                getfield = funcdtproc.get_field_info(getclassindex, getfieldindex)
+                Return True
             End If
         End If
 
