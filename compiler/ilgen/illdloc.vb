@@ -235,13 +235,13 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_static_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         End If
                     Else
@@ -249,13 +249,13 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_field(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         End If
                     End If
@@ -267,13 +267,13 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_static_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(nactorcode, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         End If
                     Else
@@ -281,13 +281,13 @@
                             If ldindx Then
                                 cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         Else
                             If ldindx Then
                                 cil.ldflda(_ilmethod.codes, pnvar)
                             Else
-                                cil.load_field(_ilmethod.codes, ilasmgen.fields(index), pnvar, pdatatype, classname)
+                                cil.load_field(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         End If
                     End If
@@ -400,6 +400,7 @@
         If IsNothing(typeinf) = False AndAlso typeinf.isarray AndAlso resulttype.EndsWith(conrex.BRSTEN) AndAlso maintype.EndsWith(conrex.BRSTEN) = False Then
             maintype &= conrex.BRSTEN
         End If
+
         If maintype = conrex.NULL OrElse resulttype = conrex.NULL Then
             If maintype = resulttype Then
                 Return True
@@ -427,7 +428,10 @@
             Return True
         ElseIf typeinf.isenum = True AndAlso (maintype = "int32" OrElse resulttype = "int32") Then
             Return True
+        ElseIf IsNothing(typeinf) = False AndAlso maintype = typeinf.cdttypesymbol Then
+            Return True
         End If
+
 
         'Ignore check collection types.
         If resulttype.EndsWith(conrex.BRSTEN) OrElse maintype.EndsWith(conrex.BRSTEN) Then
