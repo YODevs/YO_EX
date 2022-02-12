@@ -1,9 +1,11 @@
-﻿Imports Expr2CIL
+﻿Imports System.Text.RegularExpressions
+Imports Expr2CIL
 Public Class expressiondt
     Dim _ilmethod As ilformat._ilmethodcollection
     Dim _datatype As String
     Dim _yocaexpr As Expr2CIL.Expr2CIL
     Dim _expression As String
+    Dim arrstore As mapstoredata
     Public Sub New(ilmethod As ilformat._ilmethodcollection, datatype As String)
         Me._ilmethod = ilmethod
         Me._datatype = datatype
@@ -27,6 +29,7 @@ Public Class expressiondt
             End If
 
         Else
+            remove_array_tokens(expression)
             Dim genilcode As String = _yocaexpr.CompileMsil(expression, _datatype)
             If ilasmgen.classdata.attribute._cfg._optimize_expression = True Then
                 genilcode = expressionopt.optimize_expression(genilcode)
@@ -37,6 +40,29 @@ Public Class expressiondt
                     Dim varname As String = linec.Remove(0, 1).Trim
                     Dim getdatatype As String = String.Empty
                     Dim getcildatatype As String = String.Empty
+                    If varname.StartsWith(conrex.EXPRARRNAME) Then
+                        Dim storeresult As mapstoredata.dataresult = arrstore.find(varname)
+                        If storeresult.issuccessful Then
+                            varname = storeresult.result
+                            Dim clinecodestruc As New xmlunpkd.linecodestruc
+                            clinecodestruc.tokenid = tokenhared.token.ARR
+                            clinecodestruc.name = "ARR"
+                            clinecodestruc.value = varname
+                            varname = varname.Remove(varname.IndexOf(conrex.BRSTART))
+                            'Load Array
+                            If servinterface.is_variable(_ilmethod, varname, getdatatype) Then
+                                servinterface.is_common_data_type(getdatatype, getcildatatype)
+                                If getcildatatype = String.Empty Then getcildatatype = getdatatype
+                                check_valid_dttype(getcildatatype, varname)
+                                var.load_arr_identifier(_ilmethod, clinecodestruc, Nothing, getcildatatype)
+                                Continue For
+                            Else
+                                'Set Error , Variable not founded.
+                                dserr.args.Add(varname)
+                                dserr.new_error(conserr.errortype.TYPENOTFOUND, -1, ilbodybulider.path, "Method : " & _ilmethod.name & " - Unknown identifier : " & varname)
+                            End If
+                        End If
+                    End If
                     If servinterface.is_variable(_ilmethod, varname, getdatatype) Then
                         servinterface.is_common_data_type(getdatatype, getcildatatype)
                         If getcildatatype = String.Empty Then getcildatatype = getdatatype
@@ -56,6 +82,18 @@ Public Class expressiondt
         Return _ilmethod
     End Function
 
+    Private Sub remove_array_tokens(ByRef experssion As String)
+        If experssion.Contains(conrex.BRSTART) = False OrElse experssion.Contains(conrex.BREND) = False Then Return
+        Dim matchdata As Match = Regex.Match(experssion, conrex.ARRMETHODREGEXEXPR)
+        Dim rand As New Random
+        arrstore = New mapstoredata
+        While matchdata.Success = True
+            Dim newvarname As String = conrex.EXPRARRNAME & rand.Next(1000, 9999) & rand.Next(100, 999)
+            experssion = experssion.Replace(matchdata.Value, newvarname)
+            arrstore.add(newvarname, matchdata.Value)
+            matchdata = Regex.Match(experssion, conrex.ARRMETHODREGEXEXPR)
+        End While
+    End Sub
     Private Sub check_valid_dttype(getcildatatype As String, varname As String)
         For index = 0 To compdt.cilnumerictypes.Length - 1
             If compdt.cilnumerictypes(index) = getcildatatype Then
