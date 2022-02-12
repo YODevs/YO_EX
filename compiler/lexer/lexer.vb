@@ -111,7 +111,7 @@ Public Class lexer
                             slinegrab = conrex.NULL
                         End If
                     Case targetaction.EXPRESSIONLOADER
-                        If get_expression(getch, slinegrab, chstatusaction) Then
+                        If get_expression(getch, slinegrab, chstatusaction, linec) Then
                             If IsNothing(linec) = False Then
                                 linec &= slinegrab
                                 linecinf.lend += index - 1
@@ -295,16 +295,34 @@ Public Class lexer
 
     Private Function get_compiler_attribute(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction) As Boolean
         slinegrab &= getch
-        If getch = "]" Then
+        If getch = conrex.BREND Then
             chstatus = targetaction.NOOPERATION
             Return True
         End If
         Return False
     End Function
 
-    Private Function get_expression(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction) As Boolean
+    Dim ibrstart, ibrend As Integer
+    Private Function get_expression(getch As Char, ByRef slinegrab As String, ByRef chstatus As targetaction, linec As String) As Boolean
+        If slinegrab = String.Empty Then
+            ibrstart = 0
+            ibrend = 0
+        End If
         slinegrab &= getch
-        If getch = "]" Then
+        If linec = String.Empty AndAlso slinegrab.StartsWith(conrex.BRSTART) Then 'Expression
+            Select Case getch
+                Case conrex.BRSTART
+                    ibrstart += 1
+                Case conrex.BREND
+                    ibrend += 1
+            End Select
+            If ibrstart > 0 AndAlso ibrstart = ibrend Then
+                ibrstart = 0
+                ibrend = 0
+                chstatus = targetaction.NOOPERATION
+                Return True
+            End If
+        ElseIf getch = conrex.BREND Then 'Array
             chstatus = targetaction.NOOPERATION
             Return True
         End If
