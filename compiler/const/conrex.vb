@@ -34,6 +34,8 @@ Public Class conrex
     Public Const YODAFORMAT As String = ".yoda"
     Public Const YODAEMPTYDATA As String = "![]"
     Public Const ARRMETHODREGEX As String = "^\w+\[.+\]$"
+    Public Const ARRMETHODREGEXEXPR As String = "\w+\[\w+\]"
+    Public Const EXPRARRNAME As String = "arrnameFSX"
     Public Const LEXCACHEFORMAT As String = ".yoobj"
     Public Const BOX As String = "box"
     Public Const MSCORLIB As String = "mscorlib"
