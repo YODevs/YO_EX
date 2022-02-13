@@ -41,6 +41,27 @@ Public Class fmtstrlit
             If paramcount = 4 Then
                 set_concat(ilmethod)
             End If
+        ElseIf varname.Contains(conrex.BRSTART) AndAlso varname.EndsWith(conrex.BREND) Then
+            Dim clinecodestruc As New xmlunpkd.linecodestruc
+            clinecodestruc.tokenid = tokenhared.token.ARR
+            clinecodestruc.name = "ARR"
+            clinecodestruc.value = varname
+            varname = varname.Remove(varname.IndexOf(conrex.BRSTART))
+            'Load Array
+            If servinterface.is_variable(ilmethod, varname, getdatatype) Then
+                Dim getcildatatype As String
+                servinterface.is_common_data_type(getdatatype, getcildatatype)
+                If getcildatatype = String.Empty Then getcildatatype = getdatatype
+                var.load_arr_identifier(ilmethod, clinecodestruc, Nothing, getcildatatype)
+                conv_to_string(ilmethod, getdatatype)
+                paramcount += 1
+                If paramcount = 4 Then
+                    set_concat(ilmethod)
+                End If
+            Else
+                dswar.set_warning("Formatted String Literal", "'" & varname & "'  was identified as a variable in the string but has not been previously defined in this scope.", ilbodybulider.path, cargcodestruc.line)
+                load_string(ilmethod, "#{" & varname & "}", cargcodestruc)
+            End If
         ElseIf servinterface.is_variable(ilmethod, varname, getdatatype) Then
             servinterface.is_common_data_type(getdatatype, getdatatype)
             If varname.Contains(conrex.DBCLN) Then
