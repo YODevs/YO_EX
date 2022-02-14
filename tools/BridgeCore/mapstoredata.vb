@@ -3,7 +3,7 @@
         Dim result As String
         Dim issuccessful As Boolean
     End Structure
-    Private keys, values As ArrayList
+    Public keys, values As ArrayList
     Public Sub New()
         keys = New ArrayList
         values = New ArrayList
