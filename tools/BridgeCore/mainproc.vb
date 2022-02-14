@@ -9,7 +9,6 @@ Module mainproc
         conrex.TARGETCACHEDIR = args(1).Replace("@#SP#", conrex.SPACE)
         conrex.TARGETMAJORVER = conrex.TARGETFRAMEWORK.Remove(conrex.TARGETFRAMEWORK.IndexOf("."))
         libreg.init_lib(get_targetdir())
-        Console.ReadLine()
         Environment.Exit(0)
     End Sub
     Function get_targetdir() As String
@@ -25,12 +24,4 @@ Module mainproc
         Console.Write("Version " & conrex.TARGETMAJORVER & " of .NET Core is not installed")
         Environment.Exit(-2)
     End Function
-
-    Public Sub WriteXML()
-        Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(libreg))
-        Dim file As New System.IO.StreamWriter(
-          "C:\Users\AminCoder\AppData\Local\YOLang\.NetCoreCache\6.0.100\types.xml")
-        ' writer.Serialize(file, CObj(libreg))
-        file.Close()
-    End Sub
 End Module
