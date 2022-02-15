@@ -46,7 +46,9 @@ Public Class cprojflow
     End Sub
     Public Sub load_type_of_project()
         compdt.PROJECTFRAMEWORK = cprojdt.get_val("projectframework")
-        If compdt.PROJECTFRAMEWORK = ".netcore" Then procresult.rp_init("Check .NET Core Prerequisites")
+        If compdt.PROJECTFRAMEWORK = ".netcore" Then
+            netcoreinitproc.load_framework_data()
+        End If
         If compdt.PROJECTFRAMEWORK = conrex.NULL Then compdt.PROJECTFRAMEWORK = ".netframework"
         compdt.TARGETFRAMEWORK = cprojdt.get_val("targetframework")
 
