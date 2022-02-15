@@ -44,7 +44,13 @@ Public Class ilgencode
             End If
 
         Next
-        If compdt.CHECKSYNANDSEM = False Then write_il()
+        If compdt.CHECKSYNANDSEM = False Then
+            If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
+                write_il()
+            ElseIf compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+                write_il_dotnetcore()
+            End If
+        End If
     End Sub
 
     Private Sub check_classname(location As String)
@@ -54,6 +60,24 @@ Public Class ilgencode
                 dserr.new_error(conserr.errortype.ATTRIBUTEVALUEERROR, -1, location, "Classname can not be '" & funcste.attribute._app._classname & "'.")
             End If
         End If
+    End Sub
+
+    Private Sub write_il_dotnetcore()
+        procresult.set_state("asm")
+        procresult.rp_asm("Preparation of prerequisites and parameters")
+        Dim ilasmparameter As New ilasmparam
+        ilasmparameter.add_param("build")
+        check_debug_state(ilasmparameter)
+        If compdt.DEVMOD Then coutputdata.write_file_data("msil_source.il", source)
+        Dim path As String = cilcomp.get_dotnetcore_dir
+        File.WriteAllText(path & "\main.il", source)
+        ilasmparameter.add_param("-o", "..\")
+        Dim dotnetconv As New dotnetbuild(ilasmparameter, path)
+        procresult.rs_set_result(True)
+        procresult.rp_asm("Assembly process & Linker")
+        dotnetstruct.init(path)
+        dotnetconv.compile()
+        cilcomp.set_options()
     End Sub
     Private Sub write_il()
         procresult.set_state("asm")
@@ -76,15 +100,25 @@ Public Class ilgencode
     End Sub
 
     Private Sub check_debug_state(ByRef ilasmparameter As ilasmparam)
-        If execln.argstorelist.find(compdt.PARAM_DEBUG, True) Then
-            cilcomp.debug = True
-            ilasmparameter.add_param("/DEBUG")
-        ElseIf execln.argstorelist.find(compdt.PARAM_DEBUG_IMPL, True) Then
-            cilcomp.debug = True
-            ilasmparameter.add_param("/DEBUG", "IMPL")
-        ElseIf execln.argstorelist.find(compdt.PARAM_DEBUG_OPT, True) Then
-            cilcomp.debug = True
-            ilasmparameter.add_param("/DEBUG", "OPT")
+        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
+            If execln.argstorelist.find(compdt.PARAM_DEBUG, True) Then
+                cilcomp.debug = True
+                ilasmparameter.add_param("/DEBUG")
+            ElseIf execln.argstorelist.find(compdt.PARAM_DEBUG_IMPL, True) Then
+                cilcomp.debug = True
+                ilasmparameter.add_param("/DEBUG", "IMPL")
+            ElseIf execln.argstorelist.find(compdt.PARAM_DEBUG_OPT, True) Then
+                cilcomp.debug = True
+                ilasmparameter.add_param("/DEBUG", "OPT")
+            End If
+        ElseIf compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+            If execln.argstorelist.find(compdt.PARAM_DEBUG, True) Then
+                cilcomp.debug = True
+                ilasmparameter.add_param("-c", "debug")
+            Else
+                cilcomp.debug = False
+                ilasmparameter.add_param("-c", "release")
+            End If
         End If
     End Sub
 End Class
