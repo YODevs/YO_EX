@@ -143,7 +143,7 @@
         End If
     End Sub
     Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
-        codes.Add("call string [mscorlib]System.Convert::ToString(" & ptype & ")")
+        codes.Add("call string [" & compdt.CORELIB & "]System.Convert::ToString(" & ptype & ")")
     End Sub
     Public Shared Sub concat(ByRef codes As ArrayList, ptype As String, paramcount As Integer)
         Dim params As String = String.Empty
@@ -151,7 +151,7 @@
             params &= ptype & conrex.CMA
         Next
         params = params.Remove(params.Length - 1)
-        codes.Add("call string [mscorlib]System.String::Concat(" & params & ")")
+        codes.Add("call string [" & compdt.CORELIB & "]System.String::Concat(" & params & ")")
     End Sub
     Public Shared Sub load_static_field(ByRef codes As ArrayList, name As String, ptype As String, classname As String)
         If servinterface.reset_cil_common_data_type(ptype) OrElse servinterface.is_cil_common_data_type(ptype) Then
@@ -484,7 +484,7 @@
     End Sub
 
     Public Shared Sub concat_simple(ByRef codes As ArrayList)
-        codes.Add("call string [mscorlib]System.String::Concat(string, string)")
+        codes.Add("call string [" & compdt.CORELIB & "]System.String::Concat(string, string)")
     End Sub
 
     ''' <summary>
@@ -500,7 +500,7 @@
     ''' <param name="exceptiontext"></param>
     Public Shared Sub throw_simple(ByRef codes As ArrayList, exceptiontext As Object)
         load_string(codes, exceptiontext)
-        codes.Add("newobj instance void [mscorlib]System.Exception::.ctor(string)")
+        codes.Add("newobj instance void [" & compdt.CORELIB & "]System.Exception::.ctor(string)")
         codes.Add("throw")
     End Sub
     Public Shared Sub box(ByRef codes As ArrayList, asmextern As String, classname As String)
