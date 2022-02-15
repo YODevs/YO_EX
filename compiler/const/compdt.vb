@@ -6,7 +6,14 @@
 ''' ثوابت و ارایه هایی که حین عملیات کامپایل در واحدهای آماده سازی پارامتر ها یا کد جنریت ها استفاده می شوند
 ''' </fa>
 ''' </summary>
+''' 
 Public Class compdt
+
+    Public Enum __projectframework
+        DotNetFramework = 1
+        DotNetCore = 2
+    End Enum
+    Friend Shared _PROJECTFRAMEWORK As __projectframework = __projectframework.DotNetFramework
     Friend Shared ILASMPATH As String = My.Application.Info.DirectoryPath & "\ilasm.exe"
     Friend Shared BRIDGECORE As String = conrex.APPDIR & "\.netcorefr\net6.0\BridgeCore.exe"
     Friend Shared BRIDGECORELIB As String = conrex.APPDIR & "\.netcorefr\net6.0\BridgeCore.dll"
@@ -28,6 +35,7 @@ Public Class compdt
     Friend Const FLAGPERFIX As String = "YO_Flag_"
     Friend Const YOMAINCLASS As String = "YO_Main"
     Friend Const YOILLABEL As String = "YOIL_"
+    Friend Const DOTNET As String = "dotnet"
     Friend Const RANGEFMT As String = "\[\s*\w+\s*\.\.\=?\s*\w+\s*(\s*\;\s*\-?\w+)?\s*\]"
     Friend Const ATTRIBUTEFMT As String = "\#\[\w+::\w+\(.+\)\]"
     Friend Const DISPLAYILASMOUTPUT As Boolean = False
@@ -42,7 +50,7 @@ Public Class compdt
     Friend Shared DEVMOD As Boolean = False
     Friend Shared BENCHMARK As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
-    Friend Const WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
+    Friend Shared WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
     Friend Const YOFORMATTEDSTRBYREGEX As String = "(#{\w+})|(#{\[.*?\]\})|(#{\w+::\w+})|(#{\w+\[.*?\]})"
     Friend Const PARAM_IMPASSETS As String = "--import_assets"
@@ -71,6 +79,9 @@ pop"
     Friend Const VALUETYPE As String = "valuetype"
 
     Friend Shared PROJECTFRAMEWORK, TARGETFRAMEWORK As String
+    Friend Shared DOTNETVERSDK, DOTNETNAME As String
+    Friend Shared CORELIB As String = "mscorlib"
+    Friend Const SYSTEMRUNTIMELIB As String = "System.Runtime"
     Public Enum dotnetcorebridgestate
         success = 0
         dotnetcorenotfound = -1
