@@ -72,6 +72,8 @@ Module maincr
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\intro.yoda")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\win32exceptions.yoda")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\param.yoda")
+        initessentialfiles.add_path(conrex.APPDIR & "\iniopt\dotnetconfig\global.json")
+        initessentialfiles.add_path(conrex.APPDIR & "\iniopt\dotnetconfig\main.ilproj")
         initessentialfiles.add_path(compdt.BRIDGECORE)
         initessentialfiles.add_path(compdt.BRIDGECORELIB)
     End Sub
