@@ -8,7 +8,12 @@
     End Sub
 
     Private Sub init(mdname As String)
-        add_assembly_extern("mscorlib")
+        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+            add_assembly_extern(compdt.SYSTEMRUNTIMELIB)
+            add_assembly_extern(compdt.CORELIB)
+        ElseIf compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
+            add_assembly_extern(conrex.MSCORLIB)
+        End If
         If mdname = "main" Then
             add_assembly_extern(cprojdt.get_val("assemblyname"), False, "{.ver 1:0:0:0}")
             set_module(mdname)
