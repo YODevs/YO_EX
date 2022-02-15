@@ -60,7 +60,7 @@ Public Class ilbodybulider
         If IsNothing(enumeration) Then Return
         For index = 0 To enumeration.Length - 1
             add_il_code(String.Format(".class nested public auto ansi sealed {0}
-        extends [mscorlib]System.Enum", cilkeywordchecker.get_key(enumeration(index).name)))
+        extends [" & compdt.CORELIB & "]System.Enum", cilkeywordchecker.get_key(enumeration(index).name)))
             add_st_block()
             add_il_code(".field public specialname rtspecialname int32 value__")
             For itemindex = 0 To enumeration(index).constkeys.Count - 1
@@ -77,7 +77,7 @@ Public Class ilbodybulider
                 add_il_code(".method public specialname rtspecialname instance void .ctor() cil managed ")
                 add_il_code("{")
                 add_il_code("ldarg.0
-call instance void [mscorlib]System.Object::.ctor()")
+call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
                 For index = 0 To ildt.instancector.Count - 1
                     add_il_code(ildt.instancector(index))
                 Next
@@ -161,7 +161,7 @@ call instance void [mscorlib]System.Object::.ctor()")
         End If
 
         add_il_code("ldarg.0
-call instance void [mscorlib]System.Object::.ctor()")
+call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
 
         If IsNothing(ildt.instancector) = False AndAlso ildt.instancector.Count > 0 OrElse IsNothing(ildt.staticctor) = False AndAlso ildt.staticctor.Count > 0 Then
             For index = 0 To ildt.instancector.Count - 1
@@ -225,10 +225,10 @@ call instance void [mscorlib]System.Object::.ctor()")
         End If
 
         If impretopt Then
-            If funcdt.returntype <> conrex.NULL AndAlso funcdt.returntype.ToLower <> "void" Then
+            If funcdt.returntype <> conrex.NULL AndAlso funcdt.returntype.ToLower <> conrex.VOID Then
                 add_il_code("ldnull")
             End If
-            add_il_code("ret")
+            add_il_code(conrex.ret)
         End If
         add_en_block()
     End Sub
@@ -239,7 +239,7 @@ call instance void [mscorlib]System.Object::.ctor()")
         For index = 0 To funcdt.parameter.Length - 1
             Dim cildatatype As String = String.Empty
             If servinterface.is_common_data_type(funcdt.parameter(index).datatype, cildatatype) Then
-                If funcdt.parameter(index).ispointer Then cildatatype &= "&"
+                If funcdt.parameter(index).ispointer Then cildatatype &= conrex.AMP
                 add_inline_code(cildatatype)
             Else
                 'Other Types ...
@@ -257,7 +257,7 @@ call instance void [mscorlib]System.Object::.ctor()")
                 Else
                     gcodeparam = String.Format("{0} {1}{2}/{3}", classref, dllref, funcdt.parameter(index).typeinf.valtpinf.classname, funcdt.parameter(index).typeinf.valtpinf.objectname)
                 End If
-                If funcdt.parameter(index).ispointer Then gcodeparam &= "&"
+                If funcdt.parameter(index).ispointer Then gcodeparam &= conrex.AMP
                 add_inline_code(gcodeparam)
             End If
 
@@ -310,6 +310,7 @@ call instance void [mscorlib]System.Object::.ctor()")
                 If funcdt.locallinit.Length <> index + 1 Then
                     add_inline_code(conrex.CMA)
                 End If
+
             Else
                 imp_locals_init_lgcy(funcdt, index, islot)
             End If
@@ -342,11 +343,8 @@ call instance void [mscorlib]System.Object::.ctor()")
         For index = 0 To funcdt.codes.Count - 1
             linecode = funcdt.codes(index).ToString.Trim
             If linecode = conrex.NULL Then Continue For
-            If linecode = "ret" Then
-                impretopt = False
-            Else
-                impretopt = True
-            End If
+            impretopt = (linecode <> conrex.ret)
+            If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then netcorerectifier.assembly_checking(linecode)
             add_il_code(linecode)
         Next
     End Sub
@@ -362,25 +360,33 @@ call instance void [mscorlib]System.Object::.ctor()")
         If attribute._app._issealed Then
             heri = " sealed "
         End If
-        If attribute._app._namespace <> String.Empty Then
-            add_il_code(".class public auto ansi" & heri & checkfieldinit & attribute._app._namespace & conrex.DOT & name)
+        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
+            If attribute._app._namespace <> String.Empty Then
+                add_il_code(".class public auto ansi" & heri & checkfieldinit & attribute._app._namespace & conrex.DOT & name)
+            Else
+                add_il_code(".class public auto ansi" & heri & checkfieldinit & name)
+            End If
         Else
-            add_il_code(".class public auto ansi" & heri & checkfieldinit & name)
+            If attribute._app._namespace <> String.Empty Then
+                add_il_code(".class public abstract auto ansi sealed beforefieldinit " & attribute._app._namespace & conrex.DOT & name)
+            Else
+                add_il_code(".class public abstract auto ansi sealed beforefieldinit " & name)
+            End If
         End If
-        add_il_code("extends [mscorlib]System.Object")
+        add_il_code(String.Format("extends [{0}]System.Object", compdt.CORELIB))
         add_st_block()
         imp_field()
     End Sub
 
     Public Sub add_st_block()
-        add_il_code("{")
+        add_il_code(conrex.STBLOCK)
     End Sub
     Public Sub add_en_block()
-        add_il_code("}")
+        add_il_code(conrex.ENBLOCK)
     End Sub
 
     Public Sub newline()
-        add_il_code("")
+        sbc.AppendLine()
     End Sub
     Public Sub add_assembly(assemblydt As ilformat._ilassemblyextern)
         'check uniq assembly
