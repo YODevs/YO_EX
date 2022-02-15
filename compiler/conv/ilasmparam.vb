@@ -14,10 +14,14 @@ Public Class ilasmparam
     End Sub
 
     Public Sub add_param(argument As String)
-        paramlist &= argument & Space(1)
+        paramlist &= argument & conrex.SPACE
     End Sub
     Public Sub add_param(argument As String, value As String)
-        paramlist &= argument & conrex.EQU & value & Space(1)
+        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+            paramlist &= argument & conrex.SPACE & value & conrex.SPACE
+        Else
+            paramlist &= argument & conrex.EQU & value & conrex.SPACE
+        End If
     End Sub
 
     Public Sub add_file(path As String)
