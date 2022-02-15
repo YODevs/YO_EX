@@ -5,6 +5,7 @@ Public Class cilcomp
     Friend Shared ext As String = ".exe"
     Private Shared prnum As Int16 = 562
     Private Shared optilfile As String = String.Empty
+    Private Shared temppath As String = String.Empty
 
     Friend Shared Function get_assets_loca() As String
         Dim loca As String = conrex.ENVCURDIR & cprojdt.get_val("assetspath") & "\"
@@ -21,6 +22,20 @@ Public Class cilcomp
             loca &= "debug\" & prnum & cprojdt.get_val("assemblyname") & ".il"
         End If
         optilfile = loca
+        Return loca
+    End Function
+    Friend Shared Function get_dotnetcore_dir() As String
+        Dim getrandom As New Random
+        check_route()
+        Dim loca As String = conrex.ENVCURDIR & "\target\"
+        If debug = False Then
+            loca &= "release\"
+        Else
+            loca &= "debug\"
+        End If
+        loca &= "obj" & getrandom.Next(0, 30000)
+        Directory.CreateDirectory(loca)
+        temppath = loca
         Return loca
     End Function
 
@@ -48,7 +63,11 @@ Public Class cilcomp
     End Sub
 
     Friend Shared Sub set_options()
-        File.Delete(optilfile)
+        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
+            File.Delete(optilfile)
+        ElseIf compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+            Directory.Delete(temppath, True)
+        End If
     End Sub
 
     Private Shared Sub set_extension_loca()
