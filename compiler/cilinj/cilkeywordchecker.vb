@@ -16,7 +16,7 @@
         import_cil_keyword("bgt")
         import_cil_keyword("ble")
         import_cil_keyword("blt")
-        import_cil_keyword("box")
+        import_cil_keyword("box", True)
         import_cil_keyword("br")
         import_cil_keyword("break")
         import_cil_keyword("brfalse")
@@ -24,10 +24,10 @@
         import_cil_keyword("brnull")
         import_cil_keyword("brtrue")
         import_cil_keyword("brzero")
-        import_cil_keyword("call")
-        import_cil_keyword("callvirt")
-        import_cil_keyword("calli")
-        import_cil_keyword("castclass")
+        import_cil_keyword("call", True)
+        import_cil_keyword("callvirt", True)
+        import_cil_keyword("calli", True)
+        import_cil_keyword("castclass", True)
         import_cil_keyword("ceq")
         import_cil_keyword("cgt")
         import_cil_keyword("ckfinite")
@@ -47,25 +47,25 @@
         import_cil_keyword("jmp")
         import_cil_keyword("ldelem")
         import_cil_keyword("ldelema")
-        import_cil_keyword("ldfld")
-        import_cil_keyword("ldflda")
-        import_cil_keyword("ldftn")
+        import_cil_keyword("ldfld", True)
+        import_cil_keyword("ldflda", True)
+        import_cil_keyword("ldftn", True)
         import_cil_keyword("ldlen")
         import_cil_keyword("ldloc")
         import_cil_keyword("ldnull")
-        import_cil_keyword("ldobj")
-        import_cil_keyword("ldsfld")
-        import_cil_keyword("ldsflda")
+        import_cil_keyword("ldobj", True)
+        import_cil_keyword("ldsfld", True)
+        import_cil_keyword("ldsflda", True)
         import_cil_keyword("ldstr")
-        import_cil_keyword("ldtoken")
-        import_cil_keyword("ldvirtftn")
+        import_cil_keyword("ldtoken", True)
+        import_cil_keyword("ldvirtftn", True)
         import_cil_keyword("leave")
         import_cil_keyword("localloc")
         import_cil_keyword("mkrefany")
         import_cil_keyword("mul")
         import_cil_keyword("neg")
-        import_cil_keyword("newarr")
-        import_cil_keyword("newobj")
+        import_cil_keyword("newarr", True)
+        import_cil_keyword("newobj", True)
         import_cil_keyword("no.")
         import_cil_keyword("nop")
         import_cil_keyword("not")
@@ -91,7 +91,7 @@
         import_cil_keyword("tail.")
         import_cil_keyword("throw")
         import_cil_keyword("unaligned.")
-        import_cil_keyword("unbox")
+        import_cil_keyword("unbox", True)
         import_cil_keyword("volatile")
         import_cil_keyword("xor")
         import_cil_keyword("import")
@@ -100,9 +100,10 @@
         import_cil_keyword("instance")
         import_cil_keyword("static")
         import_cil_keyword("family")
+        netcorerectifier.keychecklistcount = netcorerectifier.cilcheckassembly.Count - 1
     End Sub
 
-    Private Shared Sub import_cil_keyword(keyword As String)
+    Private Shared Sub import_cil_keyword(keyword As String, Optional checkassembly As Boolean = False)
         Select Case keyword.Length
             Case 2
                 cilkey2w.Add(keyword)
@@ -119,6 +120,9 @@
             Case Else
                 cilkeypl.Add(keyword)
         End Select
+        If checkassembly Then
+            netcorerectifier.cilcheckassembly.Add(keyword)
+        End If
         If keyword.Length > keywordmaxlen Then
             keywordmaxlen = keyword.Length
         End If
