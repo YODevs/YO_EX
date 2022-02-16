@@ -6,7 +6,7 @@ Public Class ilgencode
     Dim classdt() As tknformat._class
     Dim ilcollection As ilformat.ildata
     Dim ilasm As ilasmgen
-    Dim source As String = vbCrLf & vbCrLf
+    Friend Shared source As String = vbCrLf & vbCrLf
     Public Sub New(tknfmtclass() As tknformat._class)
         classdt = tknfmtclass
         ilcollection = New ilformat.ildata
@@ -48,6 +48,7 @@ Public Class ilgencode
             If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
                 write_il()
             ElseIf compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+                ilbodybulider.set_basic_assembly()
                 write_il_dotnetcore()
             End If
         End If
@@ -71,7 +72,14 @@ Public Class ilgencode
         If compdt.DEVMOD Then coutputdata.write_file_data("msil_source.il", source)
         Dim path As String = cilcomp.get_dotnetcore_dir
         File.WriteAllText(path & "\main.il", source)
-        ilasmparameter.add_param("-o", "..\")
+        Dim location As String = "..\..\"
+        If cilcomp.debug Then
+            location &= "debug\"
+        Else
+            location &= "release\"
+        End If
+        location &= compdt.DOTNETNAME
+        ilasmparameter.add_param("-o", location)
         Dim dotnetconv As New dotnetbuild(ilasmparameter, path)
         procresult.rs_set_result(True)
         procresult.rp_asm("Assembly process & Linker")
