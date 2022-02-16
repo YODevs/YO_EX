@@ -9,8 +9,8 @@
 
     Private Sub init(mdname As String)
         If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
-            add_assembly_extern(compdt.SYSTEMRUNTIMELIB)
-            add_assembly_extern(compdt.CORELIB)
+            ilbodybulider.dotnetcorebasicextern.Add(compdt.SYSTEMRUNTIMELIB)
+            ilbodybulider.dotnetcorebasicextern.Add(compdt.CORELIB)
         ElseIf compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
             add_assembly_extern(conrex.MSCORLIB)
         End If

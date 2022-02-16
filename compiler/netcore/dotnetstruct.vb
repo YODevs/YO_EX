@@ -20,6 +20,6 @@ Public Class dotnetstruct
             code = code.Replace("{0}", "exe")
         End If
         code = code.Replace("{1}", compdt.DOTNETNAME)
-        File.WriteAllText(path & "\main.ilproj", code)
+        File.WriteAllText(path & conrex.BKSLASH & compdt.PROJECTASSEMBLYNAME & ".ilproj", code)
     End Sub
 End Class

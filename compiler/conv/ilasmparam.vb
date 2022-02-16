@@ -29,6 +29,6 @@ Public Class ilasmparam
         paramlist = path & Space(1) & paramlist
     End Sub
     Public Function get_param_list() As String
-        Return paramlist
+        Return paramlist.Trim
     End Function
 End Class

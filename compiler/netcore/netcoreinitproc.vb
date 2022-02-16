@@ -74,7 +74,7 @@ Public Class netcoreinitproc
         procresult.rp_init("Check .NET Core Prerequisites")
         compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore
         compdt.CORELIB = "System.Private.CoreLib"
-        compdt.WAITILCODE = "call string [System.Private.CoreLib]System.Console::ReadLine()
+        compdt.WAITILCODE = "call string [System.Console]System.Console::ReadLine()
 pop"
     End Sub
 End Class
