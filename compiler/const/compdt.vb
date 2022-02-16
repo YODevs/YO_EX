@@ -24,7 +24,7 @@ Public Class compdt
     Friend Shared i8cmtypes() As String = {"int64", "uint64", "valuetype [mscorlib]System.Decimal"}
     Friend Shared expressionact() As String = {"+", "-", "/", "*", "%"}
     Friend Shared expressionactopt() As String = {"add", "sub", "div", "mul", "rem"}
-    Friend Shared errcap() As String = {"Error:", "error code="}
+    Friend Shared errcap() As String = {"Error:", "error code=", ": error :"}
     Friend Const FLOAT32 As String = "float32"
     Friend Const FLOAT64 As String = "float64"
     Friend Shared ptrinddata As mapstoredata
@@ -78,10 +78,11 @@ pop"
     Friend Const [CLASS] As String = "class"
     Friend Const VALUETYPE As String = "valuetype"
 
-    Friend Shared PROJECTFRAMEWORK, TARGETFRAMEWORK As String
+    Friend Shared PROJECTFRAMEWORK, TARGETFRAMEWORK ,  PROJECTASSEMBLYNAME As String
     Friend Shared DOTNETVERSDK, DOTNETNAME As String
     Friend Shared CORELIB As String = "mscorlib"
     Friend Const SYSTEMRUNTIMELIB As String = "System.Runtime"
+
     Public Enum dotnetcorebridgestate
         success = 0
         dotnetcorenotfound = -1
