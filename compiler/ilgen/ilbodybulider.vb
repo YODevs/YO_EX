@@ -3,6 +3,7 @@
 Public Class ilbodybulider
 
     Public ildt As ilformat.ildata
+    Friend Shared dotnetcorebasicextern As New ArrayList
     Friend Shared path As String
     Friend Shared attribute As yocaattribute.yoattribute
     Private cachesystem As Boolean = False
@@ -13,6 +14,16 @@ Public Class ilbodybulider
             Return sbc.ToString
         End Get
     End Property
+
+    Friend Shared Sub set_basic_assembly()
+        Dim externcount As Integer = ilbodybulider.dotnetcorebasicextern.Count - 1
+        Dim sb As New Text.StringBuilder
+        For i2 = 0 To externcount
+            sb.AppendLine(String.Format(".assembly extern {0}{1}", ilbodybulider.dotnetcorebasicextern(i2), "{}"))
+        Next
+        ilgencode.source = sb.ToString & vbCrLf & ilgencode.source
+    End Sub
+
     Public Sub New(ilclassdata As ilformat.ildata, attr As yocaattribute.yoattribute)
         ildt = ilclassdata
         attribute = attr
@@ -406,6 +417,15 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
     End Sub
     Public Sub set_wait_attribute()
         add_il_code(compdt.WAITILCODE)
+        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+            Dim externcount As Integer = ilbodybulider.dotnetcorebasicextern.Count - 1
+            For i2 = 0 To externcount
+                If (ilbodybulider.dotnetcorebasicextern(i2) = "System.Console") Then
+                    Return
+                End If
+            Next
+            ilbodybulider.dotnetcorebasicextern.Add("System.Console")
+        End If
     End Sub
     Public Sub check_allow_to_cache()
         If compdt.NOCACHE = False Then
