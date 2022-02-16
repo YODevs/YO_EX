@@ -45,6 +45,7 @@ Public Class cprojflow
         impfiles.import_directory(conrex.ENVCURDIR & cprojdt.get_val("sourcepath"))
     End Sub
     Public Sub load_type_of_project()
+        compdt.PROJECTASSEMBLYNAME = cprojdt.get_val("assemblyname")
         compdt.PROJECTFRAMEWORK = cprojdt.get_val("projectframework")
         If compdt.PROJECTFRAMEWORK = ".netcore" Then
             netcoreinitproc.load_framework_data()
