@@ -39,6 +39,19 @@ Public Class cilcomp
         Return loca
     End Function
 
+    Friend Shared Function get_dotnetcore_output() As String
+        Dim getrandom As New Random
+        check_route()
+        Dim loca As String = conrex.ENVCURDIR & "\target\"
+        If debug = False Then
+            loca &= "release\"
+        Else
+            loca &= "debug\"
+        End If
+        loca &= compdt.DOTNETNAME & conrex.BKSLASH & compdt.PROJECTASSEMBLYNAME & ext
+        Return loca
+    End Function
+
     Friend Shared Function get_output_loca() As String
         set_extension_loca()
         Dim loca As String = optilfile
