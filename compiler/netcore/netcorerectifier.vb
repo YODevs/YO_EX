@@ -24,12 +24,23 @@
                     End If
                     Dim assemblyname As String = fullname_checking(fullname, conrex.MSCORLIB)
                     clinecode = clinecode.Replace("[mscorlib]" & fullname, String.Format("[{0}]{1}", assemblyname, fullname))
+                    set_basic_extern(assemblyname)
                     If ibar > 10 Then Return
                     ibar += 1
                 End While
                 Return
             End If
         Next
+    End Sub
+
+    Private Shared Sub set_basic_extern(assemblyname As String)
+        Dim externcount As Integer = ilbodybulider.dotnetcorebasicextern.Count - 1
+        For i2 = 0 To externcount
+            If (ilbodybulider.dotnetcorebasicextern(i2) = assemblyname) Then
+                Return
+            End If
+        Next
+        ilbodybulider.dotnetcorebasicextern.Add(assemblyname)
     End Sub
 
     Public Shared Function fullname_checking(fullname As String, assemblyname As String) As String
