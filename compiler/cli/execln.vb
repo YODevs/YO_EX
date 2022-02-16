@@ -168,8 +168,14 @@ You can type 'Help' to view commands.")
             Threading.Thread.Sleep(compdt.RUNCMDDELAY)
             Dim appproc As New Process
             Dim performance As perfusage
+            Dim location As String = String.Empty
+            If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+                location = cilcomp.get_dotnetcore_output()
+            Else
+                location = cilcomp.get_output_loca()
+            End If
             With appproc
-                .StartInfo = New ProcessStartInfo(cilcomp.get_output_loca())
+                .StartInfo = New ProcessStartInfo(location)
                 .Start()
                 If compdt.BENCHMARK Then
                     performance = New perfusage(appproc)
