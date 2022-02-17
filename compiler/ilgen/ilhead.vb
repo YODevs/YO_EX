@@ -8,7 +8,7 @@
     End Sub
 
     Private Sub init(mdname As String)
-        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore Then
+        If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetCore AndAlso ilbodybulider.dotnetcorebasicextern.Count = 0 Then
             ilbodybulider.dotnetcorebasicextern.Add(compdt.SYSTEMRUNTIMELIB)
             ilbodybulider.dotnetcorebasicextern.Add(compdt.CORELIB)
         ElseIf compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
