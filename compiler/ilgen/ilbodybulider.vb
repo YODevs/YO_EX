@@ -129,7 +129,7 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
                                        cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name), arraychars)
                     Else
                         lcode = String.Format(".field {0} {1} class [{2}]{3}{5} {4}", ildt.field(index).accesscontrol, ildt.field(index).modifier,
-                                      cilkeywordchecker.get_key(ildt.field(index).typeinf.externlib), cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name), arraychars)
+                                      cilkeywordchecker.get_key(netcorerectifier.fullname_checking(ildt.field(index).typeinf.fullname, ildt.field(index).typeinf.externlib)), cilkeywordchecker.get_key(ildt.field(index).typeinf.fullname), cilkeywordchecker.get_key(ildt.field(index).name), arraychars)
                     End If
                 End If
             End If
@@ -261,7 +261,7 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
                 Else
                     classref = compdt.VALUETYPE
                 End If
-                If funcdt.parameter(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", funcdt.parameter(index).typeinf.externlib)
+                If funcdt.parameter(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", netcorerectifier.fullname_checking(funcdt.parameter(index).typeinf.fullname, funcdt.parameter(index).typeinf.externlib))
 
                 If classref = compdt.CLASS Then
                     gcodeparam = String.Format("{0} {1}{2}", classref, dllref, funcdt.parameter(index).typeinf.fullname)
@@ -300,7 +300,7 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
                     Else
                         classref = compdt.CLASS
                     End If
-                    If funcdt.locallinit(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", funcdt.locallinit(index).typeinf.externlib)
+                    If funcdt.locallinit(index).typeinf.externlib <> conrex.NULL Then dllref = String.Format("[{0}]", netcorerectifier.fullname_checking(funcdt.locallinit(index).typeinf.fullname, funcdt.locallinit(index).typeinf.externlib))
                 End If
                 Dim arrlgo As String = String.Empty
                 Dim fullname As String = String.Empty
