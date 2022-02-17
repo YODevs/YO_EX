@@ -173,7 +173,7 @@ Public Class crproj
         Dim dotnetproc As New System.Diagnostics.Process()
         With dotnetproc.StartInfo
             .FileName = "dotnet"
-            .Arguments = "--list-sdks"
+            .Arguments = "--list-runtimes"
             .RedirectStandardOutput = True
             .RedirectStandardError = True
             .RedirectStandardInput = True
@@ -186,9 +186,12 @@ Public Class crproj
         dotnetproc.WaitForExit()
         For Each singlesdk In dotnetproc.StandardOutput.ReadToEnd().Split(vbCrLf)
             singlesdk = singlesdk.Trim
-            If singlesdk <> conrex.NULL Then
-                singlesdk = singlesdk.Remove(singlesdk.IndexOf("["))
-                namelist.Add(singlesdk)
+            If singlesdk <> conrex.NULL AndAlso singlesdk.StartsWith("Microsoft.NETCore.App") Then
+                singlesdk = singlesdk.Remove(0, singlesdk.IndexOf(" ") + 1)
+                singlesdk = singlesdk.Remove(singlesdk.IndexOf(" "))
+                Dim lversion As Integer = singlesdk.Remove(singlesdk.IndexOf("."))
+                If lversion <= 3 Then Continue For
+                namelist.Add(singlesdk.Trim)
             End If
         Next
 
