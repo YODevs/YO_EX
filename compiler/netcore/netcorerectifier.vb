@@ -24,7 +24,6 @@
                     End If
                     Dim assemblyname As String = fullname_checking(fullname, conrex.MSCORLIB)
                     clinecode = clinecode.Replace("[mscorlib]" & fullname, String.Format("[{0}]{1}", assemblyname, fullname))
-                    set_basic_extern(assemblyname)
                     If ibar > 10 Then Return
                     ibar += 1
                 End While
@@ -61,7 +60,9 @@
         Dim asmlistcount As Integer = asmsinglelist.Count - 1
         For index = 0 To asmlistcount
             If asmsinglelist(index).ToString = fullname Then
-                Return asmlist.assemblylist(d1)(d2)(index).ToString
+                assemblyname = asmlist.assemblylist(d1)(d2)(index).ToString
+                set_basic_extern(assemblyname)
+                Return assemblyname
             End If
         Next
         Return assemblyname
