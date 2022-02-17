@@ -58,7 +58,7 @@ Public Class cprojflow
             Try
                 With dotnetproc.StartInfo
                     .FileName = "dotnet"
-                    .Arguments = "--list-sdks"
+                    .Arguments = "--list-runtimes"
                     .RedirectStandardOutput = True
                     .RedirectStandardError = True
                     .RedirectStandardInput = True
@@ -77,8 +77,9 @@ Download the latest SDK version from this link (https://dotnet.microsoft.com/dow
             Dim result As Boolean = False
             For Each singlesdk In dotnetproc.StandardOutput.ReadToEnd().Split(vbCrLf)
                 singlesdk = singlesdk.Trim
-                If singlesdk <> conrex.NULL Then
-                    singlesdk = singlesdk.Remove(singlesdk.IndexOf("[")).Trim
+                If singlesdk <> conrex.NULL AndAlso singlesdk.StartsWith("Microsoft.NETCore.App") Then
+                    singlesdk = singlesdk.Remove(0, singlesdk.IndexOf(conrex.SPACE) + 1)
+                    singlesdk = singlesdk.Remove(singlesdk.IndexOf(conrex.SPACE))
                     If singlesdk = compdt.TARGETFRAMEWORK Then
                         result = True
                         Exit For
