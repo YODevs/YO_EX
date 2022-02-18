@@ -134,13 +134,18 @@
         codes.Add("ldsflda " & name)
     End Sub
     Public Shared Sub ldelem(ByRef codes As ArrayList, Optional datatype As String = Nothing)
-        If datatype = compdt.FLOAT32 Then
-            codes.Add("ldelem.r4")
-        ElseIf datatype = compdt.FLOAT64 Then
-            codes.Add("ldelem.r8")
-        Else
-            codes.Add("ldelem.ref")
-        End If
+        Select Case datatype
+            Case compdt.INT32
+                codes.Add("ldelem.i4")
+            Case compdt.INT64
+                codes.Add("ldelem.i8")
+            Case compdt.FLOAT32
+                codes.Add("ldelem.r4")
+            Case compdt.FLOAT64
+                codes.Add("ldelem.r8")
+            Case Else
+                codes.Add("ldelem.ref")
+        End Select
     End Sub
     Public Shared Sub convert_to_string(ByRef codes As ArrayList, ptype As String)
         codes.Add("call string [" & compdt.CORELIB & "]System.Convert::ToString(" & ptype & ")")
@@ -321,13 +326,18 @@
     End Sub
 
     Public Shared Sub set_element(ByRef codes As ArrayList, datatype As String)
-        If datatype = compdt.FLOAT32 Then
-            codes.Add("stelem.r4")
-        ElseIf datatype = compdt.FLOAT64 Then
-            codes.Add("stelem.r8")
-        Else
-            codes.Add("stelem.i")
-        End If
+        Select Case datatype
+            Case compdt.INT32
+                codes.Add("stelem.i4")
+            Case compdt.INT64
+                codes.Add("stelem.i8")
+            Case compdt.FLOAT32
+                codes.Add("stelem.r4")
+            Case compdt.FLOAT64
+                codes.Add("stelem.r8")
+            Case Else
+                codes.Add("stelem.i")
+        End Select
     End Sub
     Public Shared Sub set_element_ref(ByRef codes As ArrayList)
         codes.Add("stelem.ref")
