@@ -8,32 +8,26 @@ func main()
 {
   let db : init yolib.rds()
   db::set_columns("!['id','name','score']")
-  #> Passing map items into rows
   let students : init yolib.map()
-  students::add("ana","16")
-  students::add("charlie","14")
-  students::add("john","18")
+  students::add("Ana","70")
+  students::add("Charlie","80")
+  students::add("John","95")
   let size : i32 = students::size()
-  io::println("Student : #{size}")
+  let name, score: str
   for(index in [0..size])
   {
-    let name, score: str
     students::get_map(index,name,score)
     db::insert("!['#{index}','#{name}','#{score}']"))
-    let result : str = db::get_row(index)
-    io::println(result)
   }
-  io::newline()
-
-  #> Updatig some data and using title-case format for names
-  db::update(0,"name","Ana")
-  db::update(1,"name","Charlie")
-  db::update(2,"name","John")
-  #> Passing rows into string
-  io::println("Student : #{size}")
+  db::update(1,"score","55")
+  io::println("Number of students: #{size} people")
+  let list : init yolib.list()
   for(index in [0..size])
   {
     let row : str = db::get_row(index)
-    io::println(row)
+    list::set(row)
+    name := list::get(1)
+    score := list::get(2)
+    io::println("#{index}- #{name} -> #{score}")
   }
 }
