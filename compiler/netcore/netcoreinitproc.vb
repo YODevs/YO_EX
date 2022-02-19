@@ -13,11 +13,12 @@ Public Class netcoreinitproc
 
     Private Shared Sub start_process()
         Dim targetdir As String = conrex.DOTNETCACHEDIR & "\" & compdt.TARGETFRAMEWORK
+        set_sdk()
         If (File.Exists(targetdir & "\types.yoda") = False) Then
             Dim bridgecoreproc As New System.Diagnostics.Process()
             Try
                 With bridgecoreproc.StartInfo
-                    .FileName = compdt.BRIDGECORE
+                    .FileName = compdt.BRIDGECOREDIR
                     .Arguments = compdt.TARGETFRAMEWORK & conrex.SPACE & targetdir.Replace(conrex.SPACE, "@#SP#")
                     .UseShellExecute = True
                     .WindowStyle = ProcessWindowStyle.Hidden
@@ -31,8 +32,6 @@ Public Class netcoreinitproc
                 dserr.new_error(conserr.errortype.DOTNETERROR, -1, Nothing, Nothing)
             End Try
         End If
-
-        set_sdk()
         asmlist.init(targetdir & "\types.yoda")
     End Sub
 
@@ -53,6 +52,7 @@ Public Class netcoreinitproc
             dserr.args.Add("Version " & compdt.TARGETFRAMEWORK & " of .NET Core is not installed.")
             dserr.new_error(conserr.errortype.DOTNETERROR, -1, Nothing, Nothing)
         End If
+        compdt.BRIDGECOREDIR = compdt.BRIDGECOREDIR.Replace("{0}", compdt.DOTNETNAME)
     End Sub
     Private Shared Sub check_bridge_state(exitcode As Integer)
         Dim errortext As String = "Return code interpretation not found."
