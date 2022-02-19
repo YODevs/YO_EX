@@ -17,6 +17,7 @@ Public Class compdt
     Friend Shared ILASMPATH As String = My.Application.Info.DirectoryPath & "\ilasm.exe"
     Friend Shared BRIDGECORE As String = conrex.APPDIR & "\.netcorefr\net6.0\BridgeCore.exe"
     Friend Shared BRIDGECORELIB As String = conrex.APPDIR & "\.netcorefr\net6.0\BridgeCore.dll"
+    Friend Shared BRIDGECOREDIR As String = conrex.APPDIR & "\.netcorefr\{0}\BridgeCore.exe"
     Friend Shared SYSTEMLIBPATH As String = String.Empty
     Friend Shared cilnumerictypes() As String = {"int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64", "float32", "float64"}
     Friend Shared cilintegertypes() As String = {"int8", "int16", "int32", "int64", "uint8", "uint16", "uint32", "uint64"}
@@ -27,6 +28,8 @@ Public Class compdt
     Friend Shared errcap() As String = {"Error:", "error code=", ": error :"}
     Friend Const FLOAT32 As String = "float32"
     Friend Const FLOAT64 As String = "float64"
+    Friend Const INT32 As String = "int32"
+    Friend Const INT64 As String = "int64"
     Friend Shared ptrinddata As mapstoredata
     Friend Shared byrefforbiddentoken() As tokenhared.token = {tokenhared.token.NULL, tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_CO_STR}
     Friend Shared argumentallow() As tokenhared.token = {tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_BOOL, tokenhared.token.IDENTIFIER,
