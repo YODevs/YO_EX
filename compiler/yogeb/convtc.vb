@@ -33,7 +33,7 @@
         End If
         If servinterface.is_cil_common_data_type(getdatatype) Then
             getdatatype = servinterface.cil_to_vb_common_data_type(getdatatype)
-            cil.box(_ilmethod.codes, "mscorlib", "System." & getdatatype)
+            cil.box(_ilmethod.codes, compdt.CORELIB, "System." & getdatatype)
         Else
             Throw New NotImplementedException("Boxing operation not implemented for this data.")
         End If
