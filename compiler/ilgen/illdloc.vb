@@ -428,7 +428,8 @@
             Return True
         ElseIf typeinf.isenum = True AndAlso (maintype = "int32" OrElse resulttype = "int32") Then
             Return True
-        ElseIf IsNothing(typeinf) = False AndAlso maintype = typeinf.cdttypesymbol Then
+        ElseIf IsNothing(typeinf) = False AndAlso resulttype = typeinf.cdttypesymbol Then
+            If convtc.setconvmethod = True Then Return False
             Return True
         End If
 
