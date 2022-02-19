@@ -120,7 +120,7 @@
             Case tokenhared.token.ARR
                 Dim getdatatype As String = String.Empty
                 Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
-                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = "str" Then
+                If servinterface.is_variable(_ilmethod, cargtype, getdatatype) AndAlso getdatatype = "string" Then
                     Return True
                 End If
                 Return False
