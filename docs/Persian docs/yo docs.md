@@ -690,4 +690,44 @@ func main()
  ```
   </div>
  
+  
+   
+ ### لیست ها - داده های تک بعدی
+ کلاس `list` در کتابخانه استاندارد `yolib` است که برای لیست های تک بعدی استفاده می شود.
+همچنین این کلاس می تواند از داده های خود خروجی یا ورودی های به فرمت `yoda` بگیرد.
+ 
+ 
+ 
+ 
+ 
+<div dir="ltr">
+
+ 
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+ let list : init yolib.list()
+ list::add("Item 1")
+ list::add_with_split("Item 2#Item 3#Item 4","#")
+ list::append("Item 0") #> Add to the first list
+ let countoflist : i32 = list::count()
+ for(i in [0..countoflist])
+ {
+   let foo : str = list::get(i)
+   io::println(foo)
+ }
+}
+  ```
+     
+ ```
+Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+ ```
+  </div>
+  
 [rellink]: <https://github.com/YODevs/YO/releases>
