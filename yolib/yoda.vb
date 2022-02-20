@@ -53,42 +53,44 @@ Public Class yoda
     Public Function WriteYODA(items As ArrayList, Optional compress As Boolean = True) As String
         Dim countOfItems As Integer = items.Count - 1
         If countOfItems = -1 Then Return YODA_EMP
-        Dim YODA_Format As String = ST_YODA
         Dim item As String = String.Empty
+        Dim sb As New Text.StringBuilder
+        sb.Append(ST_YODA)
         If compress = False Then
-            YODA_Format &= vbCrLf
+            sb.AppendLine()
         End If
         For index = 0 To countOfItems
             item = items(index)
             Replace_Unique_Char(item)
             If index <> countOfItems Then
                 If compress Then
-                    YODA_Format &= DBCOT & item & DBCOT & CMA
+                    sb.Append(DBCOT & item & DBCOT & CMA)
                 Else
-                    YODA_Format &= DBCOT & item & """   ," & vbCrLf
+                    sb.AppendLine(DBCOT & item & """   ,")
                 End If
             Else
                 If compress Then
-                    YODA_Format &= DBCOT & item & DBCOT & EN_YODA
+                    sb.AppendLine(DBCOT & item & DBCOT & EN_YODA)
                 Else
-                    YODA_Format &= DBCOT & item & DBCOT & vbCrLf & EN_YODA
+                    sb.AppendLine(DBCOT & item & DBCOT & vbCrLf & EN_YODA)
                 End If
 
             End If
         Next
-        Return YODA_Format
+        Return sb.ToString
     End Function
 
     Public Function WriteYODA_Map(keys As ArrayList, values As ArrayList, Optional compress As Boolean = True) As String
         Dim countOfItems As Integer = keys.Count - 1
         If countOfItems = -1 Then Return YODA_EMP
         If keys.Count <> values.Count Then Throw New Exception("The keys and values are not equal.")
-        Dim YODA_Format As String = "!!["
+        Dim sb As New Text.StringBuilder
+        sb.Append("!![")
         Dim key As String = String.Empty
         Dim value As String = String.Empty
 
         If compress = False Then
-            YODA_Format &= vbCrLf
+            sb.AppendLine()
         End If
 
         For index = 0 To countOfItems
@@ -98,19 +100,19 @@ Public Class yoda
             Replace_Unique_Char(value)
             If index <> countOfItems Then
                 If compress Then
-                    YODA_Format &= DBCOT & key & """=""" & value & DBCOT & CMA
+                    sb.Append(DBCOT & key & """=""" & value & DBCOT & CMA)
                 Else
-                    YODA_Format &= DBCOT & key & """   =   """ & value & """   ," & vbCrLf
+                    sb.AppendLine(DBCOT & key & """   =   """ & value & """   ,")
                 End If
             Else
                 If compress Then
-                    YODA_Format &= DBCOT & key & """=""" & value & DBCOT & EN_YODA
+                    sb.Append(DBCOT & key & """=""" & value & DBCOT & EN_YODA)
                 Else
-                    YODA_Format &= DBCOT & key & """   =   """ & value & """   " & vbCrLf & EN_YODA
+                    sb.AppendLine(DBCOT & key & """   =   """ & value & """   " & vbCrLf & EN_YODA)
                 End If
             End If
         Next
-        Return YODA_Format
+        Return sb.ToString
     End Function
 
 
