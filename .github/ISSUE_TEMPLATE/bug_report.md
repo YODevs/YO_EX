@@ -27,3 +27,4 @@ If applicable, add screenshots to help explain your problem.
 **Configure your system:**
  - OS: [e.g. Windows 11]
  - YO Version: [e.g. 0.1.21 ]
+ - Project Framework: [.NetFramework/.NetCore]
