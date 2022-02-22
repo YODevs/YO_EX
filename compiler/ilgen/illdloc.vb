@@ -366,7 +366,7 @@
                         Return True
                     ElseIf _ilmethod.parameter(index).ispointer Then
                         cil.load_argument(_ilmethod.codes, nvar)
-                        cil.load_pointer(_ilmethod.codes, datatype)
+                        cil.load_pointer(_ilmethod.codes, _ilmethod.parameter(index).typeinf.cdttypesymbol)
                         Return True
                     Else
                         cil.load_argument(_ilmethod.codes, nvar)
@@ -379,7 +379,7 @@
                         cil.load_local_address(_ilmethod.codes, nvar)
                     ElseIf _ilmethod.parameter(index).ispointer Then
                         cil.load_argument(_ilmethod.codes, nvar)
-                        cil.load_pointer(_ilmethod.codes, datatype)
+                        cil.load_pointer(_ilmethod.codes, _ilmethod.parameter(index).typeinf.cdttypesymbol)
                     Else
                         cil.load_argument(_ilmethod.codes, nvar)
                     End If

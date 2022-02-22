@@ -86,7 +86,7 @@ Public Class ilstvar
 
                 If illdloc.eq_data_types(datatype, getcildatatype, _ilmethod.parameter(index).typeinf) Then
                     If _ilmethod.parameter(index).ispointer Then
-                        cil.set_stack_pointer(_ilmethod.codes, datatype)
+                        cil.set_stack_pointer(_ilmethod.codes, _ilmethod.parameter(index).typeinf.cdttypesymbol)
                         Return True
                     Else
                         cil.set_stack_argument(_ilmethod.codes, nvar)
