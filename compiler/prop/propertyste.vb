@@ -113,6 +113,8 @@ Public Class propertyste
         Dim classindex, namespaceindex As Integer
         Dim reclassname As String = String.Empty
         Dim isvirtualmethod As Boolean = False
+        Dim fclass As String = propresult.exclass
+        Dim c = servinterface.get_variable_type(_ilmethod, propresult.exclass)
         If libserv.get_extern_index_class(_ilmethod, propresult.exclass, namespaceindex, classindex, isvirtualmethod, reclassname) = -1 Then
             dserr.args.Add("Class '" & propresult.exclass & "' not found.")
             dserr.new_error(conserr.errortype.PROPERTYERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
@@ -126,11 +128,12 @@ Public Class propertyste
                 fieldste.get_external_field(clinecodestruc, _ilmethod, propresult, inline, namespaceindex, classindex, retfieldinfo, isvirtualmethod)
                 Return
             End If
+            If arrprop.check_array_property(_ilmethod, propresult, fclass) Then Return
             dserr.args.Add("Property '" & propresult.clident.ToLower & "' not found.")
-            dserr.new_error(conserr.errortype.PROPERTYERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), propresult.clident))
-            Return
-        End If
-        can_read(retpropertyinfo, propresult, clinecodestruc)
+                dserr.new_error(conserr.errortype.PROPERTYERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), propresult.clident))
+                Return
+            End If
+            can_read(retpropertyinfo, propresult, clinecodestruc)
         check_access_control(retpropertyinfo.GetMethod, isvirtualmethod, clinecodestruc, propresult)
         get_property(_ilmethod, retpropertyinfo, isvirtualmethod, inline, clinecodestruc, propresult)
     End Sub
