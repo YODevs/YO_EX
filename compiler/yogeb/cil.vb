@@ -32,6 +32,10 @@
         ilmethod.codes.Add("ldstr " & conrex.DUSTR & value & conrex.DUSTR)
     End Sub
 
+    Friend Shared Sub ldlen(ByRef codes As ArrayList)
+        codes.Add("ldlen")
+    End Sub
+
     ''' <summary>
     ''' stloc [str]
     ''' </summary>
@@ -45,8 +49,9 @@
     ''' stind.ref
     ''' </summary>
     Public Shared Sub set_stack_pointer(ByRef codes As ArrayList, datatype As String)
-        Dim resultdata As mapstoredata.dataresult = compdt.ptrinddata.find(datatype, True)
-        If resultdata.issuccessful Then
+        Dim resultdata As mapstoredata.dataresult
+        If datatype <> String.Empty Then resultdata = compdt.ptrinddata.find(datatype, True)
+        If datatype <> String.Empty AndAlso resultdata.issuccessful Then
             resultdata.result = cilkeywordchecker.get_key(resultdata.result)
             codes.Add("stind." & resultdata.result)
         Else
@@ -66,8 +71,9 @@
     ''' ldind.ref
     ''' </summary>
     Public Shared Sub load_pointer(ByRef codes As ArrayList, datatype As String)
-        Dim resultdata As mapstoredata.dataresult = compdt.ptrinddata.find(datatype, True)
-        If resultdata.issuccessful Then
+        Dim resultdata As mapstoredata.dataresult
+        If datatype <> String.Empty Then resultdata = compdt.ptrinddata.find(datatype, True)
+        If datatype <> String.Empty AndAlso resultdata.issuccessful Then
             resultdata.result = cilkeywordchecker.get_key(resultdata.result)
             codes.Add("ldind." & resultdata.result)
         Else
