@@ -379,9 +379,9 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
             End If
         Else
             If attribute._app._namespace <> String.Empty Then
-                add_il_code(".class public abstract auto ansi sealed beforefieldinit " & attribute._app._namespace & conrex.DOT & name)
+                add_il_code(".class public auto ansi sealed beforefieldinit " & attribute._app._namespace & conrex.DOT & name)
             Else
-                add_il_code(".class public abstract auto ansi sealed beforefieldinit " & name)
+                add_il_code(".class public  auto ansi sealed beforefieldinit " & name)
             End If
         End If
         add_il_code(String.Format("extends [{0}]System.Object", compdt.CORELIB))
