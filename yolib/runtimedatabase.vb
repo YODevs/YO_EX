@@ -66,7 +66,7 @@
             Throw New Exception("Datastore is empty.")
         End If
         If index >= 0 AndAlso index < dt.Length Then
-            dt = dt.Skip(index).ToArray
+            dt = dt.Where(Function(item, indx) index <> indx).ToArray
         Else
             Throw New Exception("Index is not allowed, review it.")
         End If
@@ -75,7 +75,7 @@
         command_validation()
         Dim items As ArrayList = condition_exec()
         For index = 0 To items.Count - 1
-            dt = dt.Skip(items(index)).ToArray
+            dt = dt.Where(Function(item, indx) index <> items(index)).ToArray
         Next
         Return items.Count
     End Function
