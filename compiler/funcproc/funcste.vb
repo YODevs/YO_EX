@@ -228,8 +228,13 @@ Public Class funcste
                 gcodeparam = String.Format("valuetype [{0}]{1}/{2}", parameterinf.typeinf.externlib, parameterinf.typeinf.valtpinf.classname, parameterinf.typeinf.valtpinf.objectname)
             End If
         End If
-        paramtypes.Add(gcodeparam)
-        emptyparamtypes.Add(parameterinf.typeinf.fullname)
+        If parameterinf.byreference Then
+            paramtypes.Add(gcodeparam & conrex.AMP)
+            emptyparamtypes.Add(parameterinf.typeinf.fullname & conrex.AMP)
+        Else
+            paramtypes.Add(gcodeparam)
+            emptyparamtypes.Add(parameterinf.typeinf.fullname)
+        End If
     End Sub
 
     Private Shared Sub check_expression_method(clinecodestruc() As xmlunpkd.linecodestruc, methodinfo As tknformat._method)
