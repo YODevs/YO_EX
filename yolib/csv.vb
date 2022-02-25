@@ -4,10 +4,23 @@ Public Class csv
 
     Public delimiter As Char = ","
     Dim dt As rds
+
+    Public ReadOnly Property columncount() As Integer
+        Get
+            Return dt.columncount
+        End Get
+    End Property
+    Public ReadOnly Property rowcount() As Integer
+        Get
+            If IsNothing(dt) Then
+                Return 0
+            End If
+            Return dt.rowcount
+        End Get
+    End Property
     Public Sub New()
         dt = New rds
     End Sub
-
     Public Sub load_file(path As String)
         If File.Exists(path) = False Then Throw New Exception(String.Format("{0}- Datasheet file not found", path))
         Using streamdataloader As StreamReader = File.OpenText(path)
