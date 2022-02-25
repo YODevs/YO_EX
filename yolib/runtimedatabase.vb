@@ -40,6 +40,16 @@
             Throw New Exception("The columns are still empty.")
         End If
     End Sub
+    Public Sub set_columns(items As ArrayList)
+        If columns.Count > 0 Then
+            Throw New Exception("Columns have already been added to the data store.")
+            Return
+        End If
+        columns = items
+        If IsNothing(columns) OrElse columns.Count = 0 Then
+            Throw New Exception("The columns are still empty.")
+        End If
+    End Sub
     Public Sub set_command(state As commandstate, columnname As String, value As String)
         Dim index As Integer = 0
         statelist.Add(state)
@@ -58,6 +68,16 @@
         Dim getlastitemindex As Integer = rowcount
         Array.Resize(dt, getlastitemindex + 1)
         dt(getlastitemindex) = rowlist
+        Return getlastitemindex + 1
+    End Function
+    Public Function insert(items As ArrayList) As Integer
+        If IsNothing(items) OrElse items.Count <> columns.Count Then
+            Throw New Exception("Items are not equal to the number of columns[" & columns.Count & "].")
+            Return -1
+        End If
+        Dim getlastitemindex As Integer = rowcount
+        Array.Resize(dt, getlastitemindex + 1)
+        dt(getlastitemindex) = items
         Return getlastitemindex + 1
     End Function
 
