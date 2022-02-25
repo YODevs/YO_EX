@@ -20,6 +20,12 @@ Public Class csv
     Private Sub set_rows(row As String)
         Dim items As New ArrayList
         lex_row(row, items)
+        If items.Count = 0 Then Return
+        If dt.columncount = 0 Then
+            dt.set_columns(items)
+        Else
+            dt.insert(items)
+        End If
     End Sub
 
     Private Sub lex_row(row As String, ByRef items As ArrayList)
@@ -34,5 +40,6 @@ Public Class csv
                 singleitem &= row(index)
             End If
         Next
+        items.Add(singleitem)
     End Sub
 End Class
