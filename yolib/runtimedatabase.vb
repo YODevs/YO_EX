@@ -144,6 +144,23 @@
             Return Nothing
         End If
     End Function
+    Public Function [get](index As Integer) As String()
+        If IsNothing(dt) Then
+            Throw New Exception("Datastore is empty.")
+            Return Nothing
+        End If
+        If index >= 0 AndAlso index < dt.Length Then
+            Dim items(dt(index).Count - 1) As String
+            For i2 = 0 To dt(index).Count - 1
+                items(i2) = dt(index)(i2)
+            Next
+            Return items
+        Else
+            Throw New Exception("Index is not allowed, review it.")
+            Return Nothing
+        End If
+    End Function
+
 
     Private Function condition_exec() As ArrayList
         Dim items As New ArrayList
