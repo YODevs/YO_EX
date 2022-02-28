@@ -2,6 +2,7 @@
     Public _ilmethod As ilformat._ilmethodcollection
     Private Shared ldptr As Boolean = False
     Friend Shared ldindx As Boolean = False
+    Friend Shared frvarstruc As xmlunpkd.linecodestruc
     Public Sub New(_ilmethod As ilformat._ilmethodcollection)
         Me._ilmethod = _ilmethod
     End Sub
@@ -56,6 +57,7 @@
             Else
                 ldptr = False
             End If
+            frvarstruc = cargcodestruc(index)
             Select Case getdatatype
                 Case conrex.STRING
                     ldstr(cargcodestruc(index))
@@ -84,6 +86,7 @@
     End Function
 
     Public Function load_single_in_stack(datatype As String, cargcodestruc As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        frvarstruc = cargcodestruc
         Select Case datatype
             Case conrex.STRING
                 ldstr(cargcodestruc)
@@ -116,7 +119,14 @@
             Dim funcresult As funcvalid._resultfuncvaild = funcvalid.get_func_valid(_ilmethod, rlinecodestruc)
             If funcresult.funcvalid Then
                 funcste.assignmentype = datatype
+                If frvarstruc.tokenid = tokenhared.token.IDENTIFIER Then
+                    Dim typeinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, frvarstruc.value)
+                    If IsNothing(typeinf) = False AndAlso typeinf.isarray Then
+                        funcste.assignmentype = datatype & conrex.BRSTEN
+                    End If
+                End If
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
+                frvarstruc = Nothing
                 Return True
             End If
             clineprop = rlinecodestruc(0)

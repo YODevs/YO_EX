@@ -252,7 +252,7 @@
             isarrayinstack = False
             Return
         End If
-
+        illdloc.frvarstruc = clinecodestruc(0)
         Select Case tokenhared.check_sym(dtassign.optval)
             Case tokenhared.token.ASSIDB
                 pv_iden_assidb(dtassign, clinecodestruc, inline, _ilmethod)
@@ -615,6 +615,9 @@
                 _illocalinit(index).isvaluetypes = False
                 localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
                 _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, 3, _illocalinit(index).datatype)
+                If IsNothing(_illocalinit(index).arrayinf) = False AndAlso _illocalinit(index).arrayinf.isarrayref = True Then
+                    _illocalinit(index).typeinf.isarray = True
+                End If
                 If _illocalinit(index).isarrayobj Then arr.set_new_arr(ilmethod, _illocalinit(index), clinecodestruc(0))
             Else
                 'Check other type ...
