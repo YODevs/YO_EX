@@ -55,4 +55,9 @@ Public Class csv
         Next
         items.Add(singleitem)
     End Sub
+
+    Public Function [get](rowindex As Integer) As String()
+        Return dt.get(rowindex)
+    End Function
+
 End Class
