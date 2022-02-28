@@ -4,7 +4,7 @@ Public Class csv
 
     Public delimiter As Char = ","
     Dim dt As rds
-
+    Private isdblcot As Boolean = False
     Public ReadOnly Property columncount() As Integer
         Get
             Return dt.columncount
@@ -46,14 +46,34 @@ Public Class csv
         Dim rowlen As Integer = row.Length - 1
         Dim singleitem As String = String.Empty
         For index = 0 To rowlen
-            If row(index) = delimiter Then
+            If row(index) = delimiter AndAlso isdblcot = False Then
                 items.Add(singleitem)
+                isdblcot = False
                 singleitem = String.Empty
             Else
                 singleitem &= row(index)
+                If row(index) = """" Then
+                    If isdblcot = False Then
+                        isdblcot = True
+                    ElseIf isdblcot = True AndAlso row(index - 1) = """" Then
+                        singleitem = singleitem.Remove(singleitem.Length - 1)
+                    ElseIf rowlen > index + 1 AndAlso row(index + 1) = delimiter Then
+                        isdblcot = False
+                        If singleitem.StartsWith("""") AndAlso singleitem.EndsWith("""") Then
+                            singleitem = singleitem.Remove(singleitem.Length - 1)
+                            singleitem = singleitem.Remove(0, 1)
+                        End If
+                    End If
+
+                End If
             End If
         Next
+        If singleitem.StartsWith("""") AndAlso singleitem.EndsWith("""") Then
+            singleitem = singleitem.Remove(singleitem.Length - 1)
+            singleitem = singleitem.Remove(0, 1)
+        End If
         items.Add(singleitem)
+        isdblcot = False
     End Sub
 
     Public Function [get](rowindex As Integer) As String()
