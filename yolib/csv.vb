@@ -80,4 +80,12 @@ Public Class csv
         Return dt.get(rowindex)
     End Function
 
+    Public Function [get](rowindex As Integer, colindex As Integer) As String
+        Return dt.get(colindex, rowindex)
+    End Function
+
+    Public Function get_rds() As rds
+        Return dt
+    End Function
+
 End Class
