@@ -161,6 +161,18 @@
         End If
     End Function
 
+    Public Function [get](rowindex As Integer, colindex As Integer) As String
+        If IsNothing(dt) Then
+            Throw New Exception("Datastore is empty.")
+            Return Nothing
+        End If
+        If rowindex >= 0 AndAlso rowindex < dt.Length AndAlso colindex >= 0 AndAlso colindex < dt(rowindex).Count Then
+            Return dt(rowindex)(colindex)
+        Else
+            Throw New Exception("Index is not allowed, review it.")
+            Return Nothing
+        End If
+    End Function
 
     Private Function condition_exec() As ArrayList
         Dim items As New ArrayList
