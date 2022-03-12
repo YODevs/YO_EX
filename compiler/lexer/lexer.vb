@@ -561,6 +561,11 @@ Public Class lexer
                         chstatus = targetaction.COMPILERATTRIBUTELOADER
                         Return True
                 End Select
+            Case conrex.SLASH
+                If nextchar(index) = conrex.SLASH Then
+                    chstatus = targetaction.SINGLECOMMENTLOADER
+                    Return True
+                End If
             Case "["
                 chstatus = targetaction.EXPRESSIONLOADER
                 Return True
