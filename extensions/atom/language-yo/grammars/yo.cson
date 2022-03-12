@@ -73,6 +73,23 @@ patterns: [
       }
     ]
   }
+    {
+      begin: "(^[ \\t]+)?(?=\/\/)"
+      beginCaptures:
+        "1":
+          name: "punctuation.whitespace.comment.leading.yo"
+      end: "(?!\\G)"
+      patterns: [
+        {
+          begin: "\/\/"
+          beginCaptures:
+            "0":
+              name: "punctuation.definition.comment.yo"
+          end: "\\n"
+          name: "comment.line.apostrophe.yo"
+        }
+      ]
+    }
   {
     begin: "(^[ \\t]+)?(?=\#\-)"
     beginCaptures:
