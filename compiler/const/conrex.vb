@@ -58,6 +58,7 @@ Public Class conrex
     Public Const COSTR As Char = "'"
     Public Const DUSTR As Char = """"
     Public Const BKSLASH As Char = "\"
+    Public Const SLASH As Char = "/"
     Public Const BTRIG As Char = "<"
     Public Const LTLEF As Char = ">"
     Public Const CMA As Char = ","
