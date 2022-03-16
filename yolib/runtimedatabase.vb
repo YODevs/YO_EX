@@ -29,6 +29,18 @@
             Return dt.Count
         End Get
     End Property
+    Public ReadOnly Property getcolumns() As String()
+        Get
+            If columns.Count = 0 Then
+                Return Nothing
+            End If
+            Dim columnarr(columns.Count - 1) As String
+            For index = 0 To columns.Count - 1
+                columnarr(index) = columns(index)
+            Next
+            Return columnarr
+        End Get
+    End Property
     Public Sub set_columns(items As String)
         If columns.Count > 0 Then
             Throw New Exception("Columns have already been added to the data store.")
