@@ -5,6 +5,15 @@
         form = New dataframeform
     End Sub
 
+    Public Property formtitle() As String
+        Get
+            Return form.Text
+        End Get
+        Set(ByVal value As String)
+            form.Text = value
+        End Set
+    End Property
+
     Public Sub show(dt As csv)
         check_object(dt)
         show(dt.get_rds)
@@ -31,6 +40,8 @@
             Next
             form.dtg.Rows.Add(values)
         Next
+        form.typeofstruct = "rds"
+        form.dtg.RowHeadersWidthSizeMode = Windows.Forms.DataGridViewRowHeadersWidthSizeMode.EnableResizing
         form.ShowDialog()
     End Sub
 
