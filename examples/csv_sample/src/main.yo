@@ -1,0 +1,13 @@
+#[app::classname("csv")]
+
+include 'yolib'
+func main()
+{
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\YO Workout directory\csv_sample\target\release\cars.csv')
+
+ let df : init YOLIB.dataframe()
+ df::formtitle := "Cars - Information"
+ df::show(csv)
+}
