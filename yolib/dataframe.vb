@@ -58,6 +58,17 @@
         form.ShowDialog()
     End Sub
 
+    Public Sub show(dt As list)
+        check_object(dt)
+        form.dtg.Columns.Add("col_Items", "Items")
+        Dim listcount As Integer = dt.count - 1
+        For index = 0 To listcount
+            form.dtg.Rows.Add(New Object() {dt.get(index)})
+        Next
+        form.typeofstruct = "list"
+        form.ShowDialog()
+    End Sub
+
     Private Sub check_object(dt As Object)
         If IsNothing(dt) Then
             Throw New Exception("Object Reference Not Set to an instance of an object.")
