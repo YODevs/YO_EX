@@ -41,7 +41,20 @@
             form.dtg.Rows.Add(values)
         Next
         form.typeofstruct = "rds"
-        form.dtg.RowHeadersWidthSizeMode = Windows.Forms.DataGridViewRowHeadersWidthSizeMode.EnableResizing
+        form.ShowDialog()
+    End Sub
+
+    Public Sub show(dt As map)
+        check_object(dt)
+        form.dtg.Columns.Add("col_keys", "Keys")
+        form.dtg.Columns.Add("col_values", "Values")
+        Dim mapsize As Integer = dt.size - 1
+        For index = 0 To mapsize
+            Dim key, value As String
+            dt.get_map(index, key, value)
+            form.dtg.Rows.Add(New Object() {key, value})
+        Next
+        form.typeofstruct = "map"
         form.ShowDialog()
     End Sub
 
@@ -49,5 +62,6 @@
         If IsNothing(dt) Then
             Throw New Exception("Object Reference Not Set to an instance of an object.")
         End If
+        form = New dataframeform
     End Sub
 End Class
