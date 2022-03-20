@@ -27,14 +27,15 @@ Partial Class dataframeform
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(dataframeform))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.dtg = New System.Windows.Forms.DataGridView()
-        Me.dtgstructtext = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.infotimer = New System.Windows.Forms.Timer(Me.components)
-        Me.dtginfotext = New System.Windows.Forms.ToolStripStatusLabel()
         Me.exportdatalabel = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.fontlabel = New System.Windows.Forms.ToolStripLabel()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.dtginfotext = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.dtgstructtext = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.dtg = New System.Windows.Forms.DataGridView()
+        Me.infotimer = New System.Windows.Forms.Timer(Me.components)
+        Me.fontselector = New System.Windows.Forms.FontDialog()
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.dtg, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -49,6 +50,23 @@ Partial Class dataframeform
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
+        'exportdatalabel
+        '
+        Me.exportdatalabel.Name = "exportdatalabel"
+        Me.exportdatalabel.Size = New System.Drawing.Size(67, 22)
+        Me.exportdatalabel.Text = "&Export data"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
+        'fontlabel
+        '
+        Me.fontlabel.Name = "fontlabel"
+        Me.fontlabel.Size = New System.Drawing.Size(31, 22)
+        Me.fontlabel.Text = "&Font"
+        '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.dtginfotext, Me.dtgstructtext})
@@ -57,6 +75,20 @@ Partial Class dataframeform
         Me.StatusStrip1.Size = New System.Drawing.Size(507, 22)
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'dtginfotext
+        '
+        Me.dtginfotext.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.dtginfotext.Name = "dtginfotext"
+        Me.dtginfotext.Size = New System.Drawing.Size(60, 17)
+        Me.dtginfotext.Text = "Waiting ..."
+        '
+        'dtgstructtext
+        '
+        Me.dtgstructtext.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.dtgstructtext.Name = "dtgstructtext"
+        Me.dtgstructtext.Size = New System.Drawing.Size(60, 17)
+        Me.dtgstructtext.Text = "Waiting ..."
         '
         'dtg
         '
@@ -84,44 +116,16 @@ Partial Class dataframeform
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dtg.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.dtg.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Consolas", 8.0!)
         Me.dtg.Size = New System.Drawing.Size(507, 454)
         Me.dtg.TabIndex = 2
-        '
-        'dtgstructtext
-        '
-        Me.dtgstructtext.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.dtgstructtext.Name = "dtgstructtext"
-        Me.dtgstructtext.Size = New System.Drawing.Size(60, 17)
-        Me.dtgstructtext.Text = "Waiting ..."
         '
         'infotimer
         '
         Me.infotimer.Interval = 5000
         '
-        'dtginfotext
+        'fontselector
         '
-        Me.dtginfotext.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.dtginfotext.Name = "dtginfotext"
-        Me.dtginfotext.Size = New System.Drawing.Size(60, 17)
-        Me.dtginfotext.Text = "Waiting ..."
-        '
-        'exportdatalabel
-        '
-        Me.exportdatalabel.Name = "exportdatalabel"
-        Me.exportdatalabel.Size = New System.Drawing.Size(67, 22)
-        Me.exportdatalabel.Text = "&Export data"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
-        'fontlabel
-        '
-        Me.fontlabel.Name = "fontlabel"
-        Me.fontlabel.Size = New System.Drawing.Size(31, 22)
-        Me.fontlabel.Text = "&Font"
+        Me.fontselector.Font = New System.Drawing.Font("Consolas", 8.0!)
         '
         'dataframeform
         '
@@ -155,4 +159,5 @@ Partial Class dataframeform
     Friend WithEvents exportdatalabel As Windows.Forms.ToolStripLabel
     Friend WithEvents ToolStripSeparator1 As Windows.Forms.ToolStripSeparator
     Friend WithEvents fontlabel As Windows.Forms.ToolStripLabel
+    Friend WithEvents fontselector As Windows.Forms.FontDialog
 End Class
