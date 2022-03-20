@@ -81,7 +81,7 @@ Public Class csv
     End Function
 
     Public Function [get](rowindex As Integer, colindex As Integer) As String
-        Return dt.get(colindex, rowindex)
+        Return dt.get(rowindex, colindex)
     End Function
 
     Public Function get_rds() As rds
