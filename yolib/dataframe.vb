@@ -1,5 +1,6 @@
 ﻿Public Class dataframe
 
+    Dim title As String
     Dim form As dataframeform
     Public Sub New()
         form = New dataframeform
@@ -7,10 +8,10 @@
 
     Public Property formtitle() As String
         Get
-            Return form.Text
+            Return title
         End Get
         Set(ByVal value As String)
-            form.Text = value
+            title = value
         End Set
     End Property
 
@@ -74,5 +75,6 @@
             Throw New Exception("Object Reference Not Set to an instance of an object.")
         End If
         form = New dataframeform
+        form.Text = title
     End Sub
 End Class
