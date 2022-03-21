@@ -808,9 +808,65 @@ Hummer
  ```
   </div> 
   
-  برای پیمایش مقادیر قبلی از متد `previous()` استفاده می شود.
+  برای پیمایش مقادیر قبلی از متد `previous` استفاده می شود.
   
   همچنین می توان با تغییر پروپرتی `index` به صورت دستی شماره فعلی پیمایش را تغییر داد.
 
+  
+ ### ذخیره داده پویا - rds
+  کلاس `rds` در `yolib` به منظور ایجاد یک **`run-time datastore`** در نرم افزار است ، ساختار آن همانند دیتابیس های رابطه ای است که ستون و ردیف دارد.
+  
+  این کلاس از کوئری به صورت `objective` نیز پشتیبانی می کند.
+  
+  
+  
+  <div dir="ltr">
+
+ 
+```f#
+include 'yolib'
+include 'ystdio'
+
+func main()
+{
+  let db : init yolib.rds()
+  db::set_columns("!['id','name','score']")
+  let students : init yolib.map()
+  students::add("Ana","70")
+  students::add("Charlie","80")
+  students::add("John","95")
+  let size : i32 = students::size()
+  let name, score: str
+  for(index in [0..size])
+  {
+    students::get_map(index,name,score)
+    db::insert("!['#{index}','#{name}','#{score}']"))
+  }
+  db::update(1,"score","55")
+  io::println("Number of students: #{size} people")
+  let list : init yolib.list()
+  for(index in [0..size])
+  {
+    let row : str = db::get_row(index)
+    list::set(row)
+    name := list::get(1)
+    score := list::get(2)
+    io::println("#{index}- #{name} -> #{score}")
+  }
+}
+  ```
+     
+ ```
+Number of students: 3 people
+0- Ana -> 70
+1- Charlie -> 55
+2- John -> 95
+ ```
+  </div> 
+  
+  
+  
+  
+  
   
 [rellink]: <https://github.com/YODevs/YO/releases>
