@@ -865,8 +865,85 @@ Number of students: 3 people
   </div> 
   
   
+### ماتریس ها
   
+  ماتریس - `matrix` یکی از پرکاربردترین ساختارها در ریاضی ، علوم داده ، مخابرات ، هوش مصنوعی و ... است. در کتابخانه استاندارد یولنگ کلاس ماتریس وجود دارد ، که محاسبات را بسیار ساده و سرعت توسعه را افزایش می دهد.
+این کلاس از ماتریس هایی مانند `unit_matrix` , `zero_matrix`  , `scalar_matrix` و ... پشتیبانی می کند و توابعی برای چهار عمل اصلی ، ماتریس ترانهاده ، ماتریس منفی و ... را داراست.
+ 
   
-  
+<div dir="ltr"> 
+ 
+ 
+ ```f#
+public static let index : i32 = 1
+public static let mt : yolib.matrix
+
+func initialize()
+{
+  mt := init yolib.matrix(3,3)
+  mt::set_zero_matrix()
+  print_matrix('Zero matrix',mt)
+  mt::set_item(0,0,1) #>*Notice : set_item(Column,Row,Value)
+  mt::set_item(1,0,2)
+  mt::set_item(2,0,3)
+  mt::set_item(0,1,4)
+  mt::set_item(1,1,5)
+  mt::set_item(2,1,6)
+  mt::set_item(0,2,7)
+  mt::set_item(1,2,8)
+  mt::set_item(2,2,9)
+  print_matrix('Primary matrix',mt)
+}
+
+func main()
+{
+  initialize()
+  let tranmatrix : yolib.matrix = mt::transpose()
+  print_matrix('Transpose matrix',tranmatrix)
+
+  let negmatrix : yolib.matrix = mt::neg()
+  print_matrix('Negative matrix',negmatrix)
+
+  mt := mt::multiply(3)
+  print_matrix('Multiply scalar matrix',mt)
+}
+
+func print_matrix(title : str ,matrix : yolib.matrix)
+{
+  let matrixframe : str = matrix::get_matrix()
+  io::println("#{index}-#{title} #nl#{matrixframe}")
+  io::newline()
+  index += 1
+}
+  ```
+     
+ ```
+1-Zero matrix
+0  0  0
+0  0  0
+0  0  0
+
+2-Primary matrix
+1  2  3
+4  5  6
+7  8  9
+
+3-Transpose matrix
+1  4  7
+2  5  8
+3  6  9
+
+4-Negative matrix
+-1  -2  -3
+-4  -5  -6
+-7  -8  -9
+
+5-Multiply scalar matrix
+3   6   9
+12  15  18
+21  24  27
+
+ ```
+  </div>  
   
 [rellink]: <https://github.com/YODevs/YO/releases>
