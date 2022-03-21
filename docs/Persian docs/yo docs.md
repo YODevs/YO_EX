@@ -974,5 +974,29 @@ Charlie
   
 با اورلود(`overload`) دیگر متد `get` می توان کل ردیف را درون یک ارایه از جنس `str` گرفت. 
   
+  
+  ### چارچوب داده - Dataframe
+  
+  برای نمایش داده های یک ساختار می توان از کلاس `dataframe` استفاده کرد ، در یولنگ برخلاف دیگر زبان ها همانند R و Python دیتافریم را در محیط `Console` چاپ نمی کند بلکه در یک محیط گرافیکی با قابلیت عملیات `sort` و تغییر فونت پیشفرض یا گرفتن خروجی از داده ها را دارد.
+  
+  کلاس `dataframe` در یولنگ از دیگر کلاس های استاندارد مانند `rds` , `csv` , `map` , `list` نیز پشتیبانی می کند.
+  
+<div dir="ltr">
+
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\YO Workout directory\...\cars.csv')
+ let df : init YOLIB.dataframe()
+ df::show(csv)
+  ```
+
+  
+<p>
+    <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/dataframe.png?sanitize=true">
+</p>
+  
+ </div>  
  
 [rellink]: <https://github.com/YODevs/YO/releases>
