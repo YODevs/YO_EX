@@ -730,4 +730,273 @@ Item 4
  ```
   </div>
   
+  ### مپ ها
+کلاس `map` یک ساختار **`key-value`** است ، که در بسیاری از زبان ها با نام های دیگری مانند `hashmap` ، `dictionary` شناخته می شود.
+برای مثال یک map ایجاد می کنیم که مقادیر `key` آن اسامی ماشین ها و مقادیر آن کشورهای سازنده آن باشد.
+  
+<div dir="ltr">
+
+ 
+```f#
+  let map : init YOLib.map()
+  map::add('Ford Torino','UK')
+  map::add('Toyota Corolla Mark ii','Japan')
+  map::add('Audi 100 LS','Europe')
+  map::add('Mercedes-Benz 280s','Europe')
+  map::add('Ford Thunderbird','US')
+
+  let count : i32 = map::size()
+  for(index in [0..count])
+  {
+    let getcar , getorigin : str
+    map::get_map(index, getcar,getorigin)
+    io::println("Car : #{getcar} , Origin : #{getorigin}")
+  }
+  ```
+     
+ ```
+Car : Ford Torino , Origin : UK
+Car : Toyota Corolla Mark ii , Origin : Japan
+Car : Audi 100 LS , Origin : Europe
+Car : Mercedes-Benz 280s , Origin : Europe
+Car : Ford Thunderbird , Origin : US
+ ```
+  </div>  
+  همچنین می توان یک key را جستجو کنید و value را بگیرید.
+  <div dir="ltr">
+
+ 
+```f#
+  let getorigin : str = [str]map::get("Audi 100 LS")
+  io::print(getorigin)
+  ```
+     
+ ```
+Europe
+ ```
+  </div>  
+  
+  
+  ### تکرارگر - Iterator
+  با کلاس `iterator` امکان پیمایش مقادیر کلاس هایی مانند `list` ، `map` را دارید ؛ این کلاس از 4 متد ساده برای پیمایش مقادیر استفاده می کند.
+  
+  
+<div dir="ltr">
+
+ 
+```f#
+  let carbrands : init yolib.list()
+  carbrands::add_with_split('Nissan@Opel@Lexus@Kia@Honda@Jaguar@Hummer','@')
+  let iter : init yolib.iterator(carbrands)
+  let hasnext : bool = iter::has_next()
+  while(hasnext == true)
+  {
+    let item : str = iter::next()
+    io::println(item)
+    hasnext := iter::has_next()
+  }
+  ```
+     
+ ```
+Nissan
+Opel
+Lexus
+Kia
+Honda
+Jaguar
+Hummer
+ ```
+  </div> 
+  
+  برای پیمایش مقادیر قبلی از متد `previous` استفاده می شود.
+  
+  همچنین می توان با تغییر پروپرتی `index` به صورت دستی شماره فعلی پیمایش را تغییر داد.
+
+  
+ ### ذخیره داده پویا - rds
+  کلاس `rds` در `yolib` به منظور ایجاد یک **`run-time datastore`** در نرم افزار است ، ساختار آن همانند دیتابیس های رابطه ای است که ستون و ردیف دارد.
+  
+  این کلاس از کوئری به صورت `objective` نیز پشتیبانی می کند.
+  
+  
+  
+  <div dir="ltr">
+
+ 
+```f#
+include 'yolib'
+include 'ystdio'
+
+func main()
+{
+  let db : init yolib.rds()
+  db::set_columns("!['id','name','score']")
+  let students : init yolib.map()
+  students::add("Ana","70")
+  students::add("Charlie","80")
+  students::add("John","95")
+  let size : i32 = students::size()
+  let name, score: str
+  for(index in [0..size])
+  {
+    students::get_map(index,name,score)
+    db::insert("!['#{index}','#{name}','#{score}']"))
+  }
+  db::update(1,"score","55")
+  io::println("Number of students: #{size} people")
+  let list : init yolib.list()
+  for(index in [0..size])
+  {
+    let row : str = db::get_row(index)
+    list::set(row)
+    name := list::get(1)
+    score := list::get(2)
+    io::println("#{index}- #{name} -> #{score}")
+  }
+}
+  ```
+     
+ ```
+Number of students: 3 people
+0- Ana -> 70
+1- Charlie -> 55
+2- John -> 95
+ ```
+  </div> 
+  
+  
+### ماتریس ها
+  
+  ماتریس - `matrix` یکی از پرکاربردترین ساختارها در ریاضی ، علوم داده ، مخابرات ، هوش مصنوعی و ... است. در کتابخانه استاندارد یولنگ کلاس ماتریس وجود دارد ، که محاسبات را بسیار ساده و سرعت توسعه را افزایش می دهد.
+این کلاس از ماتریس هایی مانند `unit_matrix` , `zero_matrix`  , `scalar_matrix` و ... پشتیبانی می کند و توابعی برای چهار عمل اصلی ، ماتریس ترانهاده ، ماتریس منفی و ... را داراست.
+ 
+  
+<div dir="ltr"> 
+ 
+ 
+ ```f#
+public static let index : i32 = 1
+public static let mt : yolib.matrix
+
+func initialize()
+{
+  mt := init yolib.matrix(3,3)
+  mt::set_zero_matrix()
+  print_matrix('Zero matrix',mt)
+  mt::set_item(0,0,1) #>*Notice : set_item(Column,Row,Value)
+  mt::set_item(1,0,2)
+  mt::set_item(2,0,3)
+  mt::set_item(0,1,4)
+  mt::set_item(1,1,5)
+  mt::set_item(2,1,6)
+  mt::set_item(0,2,7)
+  mt::set_item(1,2,8)
+  mt::set_item(2,2,9)
+  print_matrix('Primary matrix',mt)
+}
+
+func main()
+{
+  initialize()
+  let tranmatrix : yolib.matrix = mt::transpose()
+  print_matrix('Transpose matrix',tranmatrix)
+
+  let negmatrix : yolib.matrix = mt::neg()
+  print_matrix('Negative matrix',negmatrix)
+
+  mt := mt::multiply(3)
+  print_matrix('Multiply scalar matrix',mt)
+}
+
+func print_matrix(title : str ,matrix : yolib.matrix)
+{
+  let matrixframe : str = matrix::get_matrix()
+  io::println("#{index}-#{title} #nl#{matrixframe}")
+  io::newline()
+  index += 1
+}
+  ```
+     
+ ```
+1-Zero matrix
+0  0  0
+0  0  0
+0  0  0
+
+2-Primary matrix
+1  2  3
+4  5  6
+7  8  9
+
+3-Transpose matrix
+1  4  7
+2  5  8
+3  6  9
+
+4-Negative matrix
+-1  -2  -3
+-4  -5  -6
+-7  -8  -9
+
+5-Multiply scalar matrix
+3   6   9
+12  15  18
+21  24  27
+
+ ```
+  </div>  
+  
+  
+  ### مقادیر جداشده با ویرگول - CSV
+  
+  کلاس `csv` برای کار با فایل ها و دیتاست های csv است ، امکان نوشتن و خواندن آن ها را دارد.
+ این کلاس براساس کلاس `rds` است ، بنابراین امکان ارسال کوئری های شی گرایی را دارد و می توان دسترسی کامل به مواردی مانند بروزرسانی داده ها ، دسته بندی آن ، جستجو بین داده ها و ... داشت.
+  
+  در صورتی که فایل csv از یک `delimiter` غیر از ویرگول برای جدا سازی استفاده کرده باشد ، مقدار delimiter را تغییر دهید.
+  
+  
+  
+<div dir="ltr">
+
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\...\...\data.csv')
+ let val : str = csv::get(5,2)
+ io::print(val)
+  ```
+     
+ ```
+Charlie
+ ```
+  </div> 
+  
+با اورلود(`overload`) دیگر متد `get` می توان کل ردیف را درون یک ارایه از جنس `str` گرفت. 
+  
+  
+  ### چارچوب داده - Dataframe
+  
+  برای نمایش داده های یک ساختار می توان از کلاس `dataframe` استفاده کرد ، در یولنگ برخلاف دیگر زبان ها همانند R و Python دیتافریم را در محیط `Console` چاپ نمی کند بلکه در یک محیط گرافیکی با قابلیت عملیات `sort` و تغییر فونت پیشفرض یا گرفتن خروجی از داده ها را دارد.
+  
+  کلاس `dataframe` در یولنگ از دیگر کلاس های استاندارد مانند `rds` , `csv` , `map` , `list` نیز پشتیبانی می کند.
+  
+<div dir="ltr">
+
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\YO Workout directory\...\cars.csv')
+ let df : init YOLIB.dataframe()
+ df::show(csv)
+  ```
+
+  
+<p>
+    <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/dataframe.png?sanitize=true">
+</p>
+  
+ </div>  
+ 
 [rellink]: <https://github.com/YODevs/YO/releases>

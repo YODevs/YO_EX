@@ -664,5 +664,40 @@ func main()
 ```
 
   </div>
+  
+ ### Lists - One-Dimensional Data
+ The `list` class in the `yolib` standard library is used for one-dimesional data.
+ This class also can import or export its data in`yoda` format.
+ 
+<div dir="ltr">
+
+ 
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+ let list : init yolib.list()
+ list::add("Item 1")
+ list::add_with_split("Item 2#Item 3#Item 4","#")
+ list::append("Item 0") #> Add to the first list
+ let countoflist : i32 = list::count()
+ for(i in [0..countoflist])
+ {
+   let foo : str = list::get(i)
+   io::println(foo)
+ }
+}
+  ```
+     
+ ```
+Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+ ```
+  </div>
+  
  
 [rellink]: <https://github.com/YODevs/YO/releases>
