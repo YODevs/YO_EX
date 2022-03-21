@@ -946,4 +946,33 @@ func print_matrix(title : str ,matrix : yolib.matrix)
  ```
   </div>  
   
+  
+  ### مقادیر جداشده با ویرگول - CSV
+  
+  کلاس `csv` برای کار با فایل ها و دیتاست های csv است ، امکان نوشتن و خواندن آن ها را دارد.
+ این کلاس براساس کلاس `rds` است ، بنابراین امکان ارسال کوئری های شی گرایی را دارد و می توان دسترسی کامل به مواردی مانند بروزرسانی داده ها ، دسته بندی آن ، جستجو بین داده ها و ... داشت.
+  
+  در صورتی که فایل csv از یک `delimiter` غیر از ویرگول برای جدا سازی استفاده کرده باشد ، مقدار delimiter را تغییر دهید.
+  
+  
+  
+<div dir="ltr">
+
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\...\...\data.csv')
+ let val : str = csv::get(5,2)
+ io::print(val)
+  ```
+     
+ ```
+Charlie
+ ```
+  </div> 
+  
+با اورلود(`overload`) دیگر متد `get` می توان کل ردیف را درون یک ارایه از جنس `str` گرفت. 
+  
+ 
 [rellink]: <https://github.com/YODevs/YO/releases>
