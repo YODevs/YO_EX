@@ -777,4 +777,40 @@ Europe
   </div>  
   
   
+  ### تکرارگر - Iterator
+  با کلاس `iterator` امکان پیمایش مقادیر کلاس هایی مانند `list` ، `map` را دارید ؛ این کلاس از 4 متد ساده برای پیمایش مقادیر استفاده می کند.
+  
+  
+<div dir="ltr">
+
+ 
+```f#
+  let carbrands : init yolib.list()
+  carbrands::add_with_split('Nissan@Opel@Lexus@Kia@Honda@Jaguar@Hummer','@')
+  let iter : init yolib.iterator(carbrands)
+  let hasnext : bool = iter::has_next()
+  while(hasnext == true)
+  {
+    let item : str = iter::next()
+    io::println(item)
+    hasnext := iter::has_next()
+  }
+  ```
+     
+ ```
+Nissan
+Opel
+Lexus
+Kia
+Honda
+Jaguar
+Hummer
+ ```
+  </div> 
+  
+  برای پیمایش مقادیر قبلی از متد `previous()` استفاده می شود.
+  
+  همچنین می توان با تغییر پروپرتی `index` به صورت دستی شماره فعلی پیمایش را تغییر داد.
+
+  
 [rellink]: <https://github.com/YODevs/YO/releases>
