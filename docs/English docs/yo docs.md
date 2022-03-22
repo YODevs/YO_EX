@@ -917,6 +917,31 @@ func print_matrix(title : str ,matrix : yolib.matrix)
  ```
   </div>  
   
+   
+  ### CSV (Comma-Separated Values)
+ The `csv` class is used for working with CSV files and datasets, that can write and read them.
+ 
+ This class is based on `rds` class, so it can send object-oriented queries and can have full access to items like updating data, categorizing data, searching through data and so on.
+ 
+ If the CSV file uses a `delimiter` other than a comma to separate, change the delimiter value.
+  
+  
+<div dir="ltr">
 
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\...\...\data.csv')
+ let val : str = csv::get(5,2)
+ io::print(val)
+  ```
+     
+ ```
+Charlie
+ ```
+  </div> 
+  
+Another `overload` of the `get` method can obtain whole of the row as `str` from inside of the array.  
  
 [rellink]: <https://github.com/YODevs/YO/releases>
