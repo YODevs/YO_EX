@@ -1034,7 +1034,7 @@ Item3 was selected.
   ### ProgressBar
  The `Progressbar` class similar to the `menu` class is usable in the console. In graphical environments, we can use independent progressbars.
  
- This progressbar has the ability of reverse iteration and type changing by using the field of `progresschar`.
+ This progressbar has the ability of reverse iteration and customizing shapes by using the field of `progresschar`.
   
  
 <div dir="ltr">
