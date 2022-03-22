@@ -746,5 +746,40 @@ Europe
  ```
   </div>  
   
+     
+### Iterator
+ With `iterator` class we are allowed to iterate the values of calsses like `map` or `list`. This class uses 4 simple methods for iterating the values.
+  
+  
+<div dir="ltr">
+
+ 
+```f#
+  let carbrands : init yolib.list()
+  carbrands::add_with_split('Nissan@Opel@Lexus@Kia@Honda@Jaguar@Hummer','@')
+  let iter : init yolib.iterator(carbrands)
+  let hasnext : bool = iter::has_next()
+  while(hasnext == true)
+  {
+    let item : str = iter::next()
+    io::println(item)
+    hasnext := iter::has_next()
+  }
+  ```
+     
+ ```
+Nissan
+Opel
+Lexus
+Kia
+Honda
+Jaguar
+Hummer
+ ```
+  </div> 
+  
+  For iterating previous values, the `previous` method is usable.
+  We also can change current iteration number manually by changing the `index` property.
+
  
 [rellink]: <https://github.com/YODevs/YO/releases>
