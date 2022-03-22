@@ -1,0 +1,7 @@
+!![
+"assemblyname"   =   "charts"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
