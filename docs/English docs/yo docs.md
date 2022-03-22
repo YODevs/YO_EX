@@ -944,4 +944,29 @@ Charlie
   
 Another `overload` of the `get` method can obtain whole of the row as `str` from inside of the array.  
  
+    
+  ### Dataframes
+ The `dataframe` class is usable for illustrating a structure's data. The YOLANG unlike the other languages such as R and Python, does not print the dataframe in a `Console` environment but also does in a graphical environment with some abilities like `sort` operation, changing default font, or exporting the data.
+ 
+ The `dataframe` class in YOLANG also supports other standard classes such as `list`, `map`, `csv`, `rds`, etc.
+  
+<div dir="ltr">
+
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\YO Workout directory\...\cars.csv')
+ let df : init YOLIB.dataframe()
+ df::show(csv)
+  ```
+
+  
+<p>
+    <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/dataframe.png?sanitize=true">
+</p>
+  
+ </div>  
+  
+ 
 [rellink]: <https://github.com/YODevs/YO/releases>
