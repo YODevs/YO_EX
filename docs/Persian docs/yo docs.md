@@ -1064,4 +1064,42 @@ Item3 was selected.
  ```
   </div> 
   
+  
+  ### نوار پیشرفت - Progressbar
+  
+  کلاس `progressbar` همانند `menu` فقط در کنسول قابل استفاده است ، در محیط های گرافیکی می توان از پروگرس بار های مستقل استفاده کرد.
+
+  این پروگرس بار قابلیت پیمایش معکوس و تغییر نوع را با استفاده از فیلد `progresschar` را دارد.
+  
+  
+ 
+<div dir="ltr">
+
+ 
+```f#
+  let rnd : init System.Random()
+  let ms : i32 = 0
+  let progress : init YOLIB.progressbar()
+  progress::show_progress()
+  to(100)
+  {
+    progress::increase()
+    ms := rnd::next(1,100) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+  to(100)
+  {
+    progress::decrease()
+    ms := rnd::next(1,100) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+  progress::hide_progress()
+  ```
+     
+ ```
+[==============================--------------------]- 59%
+ ```
+  </div> 
+  
+  
 [rellink]: <https://github.com/YODevs/YO/releases>
