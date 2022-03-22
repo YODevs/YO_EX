@@ -962,11 +962,43 @@ Another `overload` of the `get` method can obtain whole of the row as `str` from
   ```
 
   
-<p>
+<p align="center">
     <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/dataframe.png?sanitize=true">
 </p>
   
  </div>  
   
+     
+  ### Charts
+ In YOLANG by using the `chart` Class, more than 20 types of charts like Pie, Column, Pyramid, Funnel, Point, Line, Spline, Bar, Area and so on are available.
+ 
+  <div dir="ltr">
+
+ 
+```f#
+include 'yolib'
+func main()
+{
+  let dt : init yolib.chart()
+  let xpoint : init yolib.list("1,2,3,4,5,6",",")
+  let ypoint : init yolib.list("64.02,12.55,8.47,6.08,4.29,4.29",",")
+  let labels : init yolib.list("Chrome,Firefox,IE,Safari,Edge,Other",",")
+  dt::formtitle := "Usage Share of Desktop Browsers"
+  dt::new_series("browser" , 'pie')
+  dt::enable3d := true
+  dt::add_point('browser',xpoint,ypoint)
+  dt::set_asix_label('browser',labels)
+  dt::show()
+}
+  ```
+
+  
+<p align="center" >
+    <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/pie-chart.png?sanitize=true">
+</p>
+   
+ </div>  
+  
+ 
  
 [rellink]: <https://github.com/YODevs/YO/releases>
