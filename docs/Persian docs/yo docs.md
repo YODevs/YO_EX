@@ -1030,7 +1030,38 @@ func main()
 <p>
     <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/pie-chart.png?sanitize=true">
 </p>
-  
+   
  </div>  
+  
+  ### منوها
+  
+  کلاس `menu` ، یک لیست قابل انتخاب از آیتم ها درون کنسول نمایش می دهد (همانند ایجاد پروژه جدید در لابرا).
+  
+  <div dir="ltr">
+
+ 
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+  let items : init yolib.list('Item1,Item2,Item3,Item4',',')
+  io::print("Select an item:")
+  let result : str =  yolib.menu::show_menu(items)
+  io::newline()
+  io::print("#{result} was selected.")
+}
+  ```
+     
+ ```
+Select an item:
+Item1
+Item2
+->Item3
+Item4
+
+Item3 was selected.
+ ```
+  </div> 
   
 [rellink]: <https://github.com/YODevs/YO/releases>
