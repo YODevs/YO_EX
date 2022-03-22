@@ -1101,5 +1101,19 @@ Item3 was selected.
  ```
   </div> 
   
+### تعامل با کاربر
+  
+  برای نمایش `dialogbox` هایی مانند MessageBox یا InputBox می توان از کلاس `interaction` استفاده کرد.
+
+  
+ <div dir="ltr">
+
+ 
+```f#
+  let name : str = yolib.interaction::inputbox('Information','Enter your name:')
+  yolib.interaction::messagebox('Information',"Your name is #{name}")
+  ```
+
+  </div> 
   
 [rellink]: <https://github.com/YODevs/YO/releases>
