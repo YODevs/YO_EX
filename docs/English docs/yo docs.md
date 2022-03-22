@@ -524,7 +524,9 @@ index => 4
 
 ### Ranges:
 
-In YOLang, Ranges have important usages; for example, you can specify the conditions of a `For` loop by using a range. Below review a list of examples of `ranges`:
+In YOLang, Ranges have important usages; for example, you can specify the conditions of a `For` loop by using a range.
+ 
+ Below review a list of examples of `ranges`:
 
 <div dir="ltr">
 
@@ -667,6 +669,7 @@ func main()
   
 ### Lists - One-Dimensional Data
  The `list` class in the `yolib` standard library is used for one-dimesional data.
+ 
  This class also can import or export its data in`yoda` format.
  
 <div dir="ltr">
@@ -700,7 +703,9 @@ Item 4
   </div>
    
 ### Maps
- The `map` class is a **`key-value`** structure which in lots of languages is knows by other names such as `dictionary` or `hashmap`. For instance, we create a map which its `key` values include cars' names and its values include manufacturing countries:
+ The `map` class is a **`key-value`** structure which in lots of languages is knows by other names such as `dictionary` or `hashmap`. 
+ 
+ For instance, we create a map which its `key` values include cars' names and its values include manufacturing countries:
   
 <div dir="ltr">
 
@@ -748,7 +753,9 @@ Europe
   
      
 ### Iterator
- With `iterator` class we are allowed to iterate the values of calsses like `map` or `list`. This class uses 4 simple methods for iterating the values.
+ With `iterator` class we are allowed to iterate the values of calsses like `map` or `list`.
+ 
+ This class uses 4 simple methods for iterating the values.
   
   
 <div dir="ltr">
@@ -780,6 +787,56 @@ Hummer
   
   For iterating previous values, the `previous` method is usable.
   We also can change current iteration number manually by changing the `index` property.
+ 
+  ### RDS (Run-time Datastore)
+ The `rds` class in `yolib` is for creating a **`run-time datastore`** in the application. Its structure is similar to relational databases which have rows and columns.
+ 
+ This class also supports a query in the form of `objective`.
+  
+  <div dir="ltr">
+
+ 
+```f#
+include 'yolib'
+include 'ystdio'
+
+func main()
+{
+  let db : init yolib.rds()
+  db::set_columns("!['id','name','score']")
+  let students : init yolib.map()
+  students::add("Ana","70")
+  students::add("Charlie","80")
+  students::add("John","95")
+  let size : i32 = students::size()
+  let name, score: str
+  for(index in [0..size])
+  {
+    students::get_map(index,name,score)
+    db::insert("!['#{index}','#{name}','#{score}']"))
+  }
+  db::update(1,"score","55")
+  io::println("Number of students: #{size} people")
+  let list : init yolib.list()
+  for(index in [0..size])
+  {
+    let row : str = db::get_row(index)
+    list::set(row)
+    name := list::get(1)
+    score := list::get(2)
+    io::println("#{index}- #{name} -> #{score}")
+  }
+}
+  ```
+     
+ ```
+Number of students: 3 people
+0- Ana -> 70
+1- Charlie -> 55
+2- John -> 95
+ ```
+  </div> 
+  
 
  
 [rellink]: <https://github.com/YODevs/YO/releases>
