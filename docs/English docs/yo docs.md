@@ -998,6 +998,37 @@ func main()
 </p>
    
  </div>  
+   
+     
+  ### Menus
+ The `menu` class shows a list of selectable items in the console (Like creating a new project in Labra)
+  
+  <div dir="ltr">
+
+ 
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+  let items : init yolib.list('Item1,Item2,Item3,Item4',',')
+  io::print("Select an item:")
+  let result : str =  yolib.menu::show_menu(items)
+  io::newline()
+  io::print("#{result} was selected.")
+}
+  ```
+     
+ ```
+Select an item:
+Item1
+Item2
+->Item3
+Item4
+
+Item3 was selected.
+ ```
+  </div> 
   
  
  
