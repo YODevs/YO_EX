@@ -76,7 +76,18 @@ Public Class chart
         Dim pointid As Integer = chartform.chart.Series(seriesname).Points.AddXY(xvalue, yvalue)
         set_default_setting_point(seriesname, pointid, xvalue, yvalue)
     End Sub
-
+    Public Sub add_point(seriesname As String, xvalues As list, yvalues As list)
+        If xvalues.count <> yvalues.count Then
+            Throw New Exception("The number of points in the xvalues list is not equal to yvalues.")
+        End If
+        For index = 0 To xvalues.count - 1
+            Dim xvalue, yvalue As Double
+            xvalue = CDbl(xvalues.get(index))
+            yvalue = CDbl(yvalues.get(index))
+            Dim pointid As Integer = chartform.chart.Series(seriesname).Points.AddXY(xvalue, yvalue)
+            set_default_setting_point(seriesname, pointid, xvalue, yvalue)
+        Next
+    End Sub
     Private Sub set_default_setting_point(seriesname As String, pointid As Integer, xvalue As Object, yvalue As Object)
         chartform.chart.Series(seriesname).Points(pointid).MarkerStyle = MarkerStyle.Circle
         chartform.chart.Series(seriesname).Points(pointid).ToolTip = String.Format("{3}{1}X:{0}{1}Y:{2}", xvalue, vbCrLf, yvalue, seriesname)
@@ -88,6 +99,15 @@ Public Class chart
 
     Public Sub set_asix_label(seriesname As String, index As Integer, value As String)
         chartform.chart.Series(seriesname).Points(index).AxisLabel = value
+    End Sub
+    Public Sub set_asix_label(seriesname As String, values As list)
+        Dim gcount As Integer = chartform.chart.Series(seriesname).Points.Count - 1
+        If gcount < values.count - 1 Then
+            Throw New Exception("The number of points is more than prescribed.")
+        End If
+        For index = 0 To values.count - 1
+            chartform.chart.Series(seriesname).Points(index).AxisLabel = values.get(index)
+        Next
     End Sub
     Public Sub set_asix_label(index As Integer, value As String)
         chartform.chart.Series(0).Points(index).AxisLabel = value
