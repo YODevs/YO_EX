@@ -36,6 +36,8 @@ Public Class funcste
         End Select
 
         If isvirtualmethod Then
+            Dim setconvmethod As Boolean = convtc.setconvmethod
+            Dim ntypecast As String = convtc.ntypecast
             Dim ldloc As New illdloc(_ilmethod)
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
@@ -53,6 +55,8 @@ Public Class funcste
                 reclassname = classname
             End If
             ldloc.load_single_in_stack(reclassname, gidentifier)
+            convtc.setconvmethod = setconvmethod
+            convtc.ntypecast = ntypecast
         End If
         If clinecodestruc(0).tokenid = tokenhared.token.ARR Then var.load_element_by_method_ac(_ilmethod, clinecodestruc(0))
         Dim paramtype As ArrayList
@@ -107,6 +111,8 @@ Public Class funcste
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "Overloads :" & vbCrLf & funcdtproc.overloadlist)
         End Select
         If isvirtualmethod Then
+            Dim setconvmethod As Boolean = convtc.setconvmethod
+            Dim ntypecast As String = convtc.ntypecast
             Dim ldloc As New illdloc(_ilmethod)
             Dim gidentifier As xmlunpkd.linecodestruc = clinecodestruc(0)
             If gidentifier.value.Contains(conrex.DBCLN) Then
@@ -114,6 +120,8 @@ Public Class funcste
                 gidentifier.ile = gidentifier.value.Length
             End If
             ldloc.load_single_in_stack(classname, gidentifier)
+            convtc.setconvmethod = setconvmethod
+            convtc.ntypecast = ntypecast
         End If
 
         If clinecodestruc(0).tokenid = tokenhared.token.ARR Then var.load_element_by_method_ac(_ilmethod, clinecodestruc(0))
