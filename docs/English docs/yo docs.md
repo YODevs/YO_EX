@@ -1030,6 +1030,41 @@ Item3 was selected.
  ```
   </div> 
   
+    
+  ### ProgressBar
+ The `Progressbar` class similar to the `menu` class is usable in the console. In graphical environments, we can use independent progressbars.
+ 
+ This progressbar has the ability of reverse iteration and type changing by using the field of `progresschar`.
+  
+ 
+<div dir="ltr">
+
+ 
+```f#
+  let rnd : init System.Random()
+  let ms : i32 = 0
+  let progress : init YOLIB.progressbar()
+  progress::show_progress()
+  to(100)
+  {
+    progress::increase()
+    ms := rnd::next(1,100) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+  to(100)
+  {
+    progress::decrease()
+    ms := rnd::next(1,100) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+  progress::hide_progress()
+  ```
+     
+ ```
+[==============================--------------------]- 59%
+ ```
+  </div> 
+  
  
  
 [rellink]: <https://github.com/YODevs/YO/releases>
