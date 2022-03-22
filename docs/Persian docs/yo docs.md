@@ -998,5 +998,39 @@ Charlie
 </p>
   
  </div>  
+  
+  
+  ### نمودار ها
+  
+در یولنگ با استفاده از کلاس `chart` می توان به راحتی به بیش از 20 نوع نمودار از جمله
+  pie,column,pyramid,funnel,point,line,spline,bar,area و ... دسترسی داشته باشید.
+
  
+  <div dir="ltr">
+
+ 
+```f#
+include 'yolib'
+func main()
+{
+  let dt : init yolib.chart()
+  let xpoint : init yolib.list("1,2,3,4,5,6",",")
+  let ypoint : init yolib.list("64.02,12.55,8.47,6.08,4.29,4.29",",")
+  let labels : init yolib.list("Chrome,Firefox,IE,Safari,Edge,Other",",")
+  dt::formtitle := "Usage Share of Desktop Browsers"
+  dt::new_series("browser" , 'pie')
+  dt::enable3d := true
+  dt::add_point('browser',xpoint,ypoint)
+  dt::set_asix_label('browser',labels)
+  dt::show()
+}
+  ```
+
+  
+<p>
+    <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/pie-chart.png?sanitize=true">
+</p>
+  
+ </div>  
+  
 [rellink]: <https://github.com/YODevs/YO/releases>

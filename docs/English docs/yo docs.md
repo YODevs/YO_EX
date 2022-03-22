@@ -665,7 +665,7 @@ func main()
 
   </div>
   
- ### Lists - One-Dimensional Data
+### Lists - One-Dimensional Data
  The `list` class in the `yolib` standard library is used for one-dimesional data.
  This class also can import or export its data in`yoda` format.
  
@@ -698,6 +698,53 @@ Item 3
 Item 4
  ```
   </div>
+   
+### Maps
+ The `map` class is a **`key-value`** structure which in lots of languages is knows by other names such as `dictionary` or `hashmap`. For instance, we create a map which its `key` values include cars' names and its values include manufacturing countries:
+  
+<div dir="ltr">
+
+ 
+```f#
+  let map : init YOLib.map()
+  map::add('Ford Torino','UK')
+  map::add('Toyota Corolla Mark ii','Japan')
+  map::add('Audi 100 LS','Europe')
+  map::add('Mercedes-Benz 280s','Europe')
+  map::add('Ford Thunderbird','US')
+
+  let count : i32 = map::size()
+  for(index in [0..count])
+  {
+    let getcar , getorigin : str
+    map::get_map(index, getcar,getorigin)
+    io::println("Car : #{getcar} , Origin : #{getorigin}")
+  }
+  ```
+     
+ ```
+Car : Ford Torino , Origin : UK
+Car : Toyota Corolla Mark ii , Origin : Japan
+Car : Audi 100 LS , Origin : Europe
+Car : Mercedes-Benz 280s , Origin : Europe
+Car : Ford Thunderbird , Origin : US
+ ```
+  </div>  
+  
+ We also can search a key and get the value.
+ 
+  <div dir="ltr">
+
+ 
+```f#
+  let getorigin : str = [str]map::get("Audi 100 LS")
+  io::print(getorigin)
+  ```
+     
+ ```
+Europe
+ ```
+  </div>  
   
  
 [rellink]: <https://github.com/YODevs/YO/releases>
