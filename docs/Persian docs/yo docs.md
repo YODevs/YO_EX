@@ -1116,4 +1116,72 @@ Item3 was selected.
 
   </div> 
   
+  
+  ### تاریخ و زمان
+  
+  کلاس `date` یک کلاس از زیر مجموعه `yolib` است ، که بر پایه `System.DateTime` است و فقط از زمان حال پشتیبانی می کند.
+برای کار با زمان در آینده یا گذشته می توانید از کلاس اصلی استفاده کنید.
+  
+ | کد اختصار | مقدار زمانی | کد اختصار | مقدار زمانی | کد اختصار | مقدار زمانی |
+|:-:|:-:|:-:|---|---|---|
+| **Y** | سال | **M** | ماه |  **D** | روز  | 
+| **h** | ساعت | **m** | دقیقه |  **s** | ثانیه  |
+| **t** | میلی ثانیه | **DY** | شماره روز در سال |  **DW** | شماره روز در هفته  |
+
+
+  
+  
+ <div dir="ltr">
+
+ 
+```f#
+  let currenttime : str = yolib.date::get_now("{Y}/{M}/{D} - {h}:{m}:{s}")
+  io::println(currenttime)
+  ```
+     
+ ```
+2022/3/22 - 19:25:47
+ ```
+
+  </div>
+  
+  
+  ### کار با Environment
+  
+  این کلاس بر پایه `system.environment` است و توابعی مثل دریافت آرگومان های ورودی نرم افزار ، دریافت و ایجاد متغیرهای سیستمی ، دریافت دایرکتوری نرم افزار و پروسه و ... را شامل می شود.
+برای مثال در کد زیر `CommandLineArg` ها را از پروسه دریافت می کنیم.
+  
+  
+<div dir="ltr">
+
+ 
+```f#
+func main()
+{
+  let arglen : i32 = yolib.environment::arglen
+  if(arglen >> 1)
+  {
+    for(index in [1..arglen])
+    {
+      let param : str = yolib.environment::get_arg(index)
+      io::println("#{index} -> #{param}")
+    }
+  }else{
+    io::print("There are no parameters.")
+  }
+}
+  ```
+     
+ ```
+D:\...\...>"D:\...\...\release\environment_sample.exe" --log=ON --ignoreerror=On --executefile=Off
+
+1 -> --log=ON
+2 -> --ignoreerror=On
+3 -> --executefile=Off
+ ```
+
+  </div>
+
+  
+  
 [rellink]: <https://github.com/YODevs/YO/releases>

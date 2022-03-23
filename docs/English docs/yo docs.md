@@ -917,6 +917,154 @@ func print_matrix(title : str ,matrix : yolib.matrix)
  ```
   </div>  
   
+   
+  ### CSV (Comma-Separated Values)
+ The `csv` class is used for working with CSV files and datasets, that can write and read them.
+ 
+ This class is based on `rds` class, so it can send object-oriented queries and can have full access to items like updating data, categorizing data, searching through data and so on.
+ 
+ If the CSV file uses a `delimiter` other than a comma to separate, change the delimiter value.
+  
+  
+<div dir="ltr">
 
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\...\...\data.csv')
+ let val : str = csv::get(5,2)
+ io::print(val)
+  ```
+     
+ ```
+Charlie
+ ```
+  </div> 
+  
+Another `overload` of the `get` method can obtain whole of the row as `str` from inside of the array.  
+ 
+    
+  ### Dataframes
+ The `dataframe` class is usable for illustrating a structure's data. The YOLANG unlike the other languages such as R and Python, does not print the dataframe in a `Console` environment but also does in a graphical environment with some abilities like `sort` operation, changing default font, or exporting the data.
+ 
+ The `dataframe` class in YOLANG also supports other standard classes such as `list`, `map`, `csv`, `rds`, etc.
+  
+<div dir="ltr">
+
+ 
+```f#
+ let csv : init yolib.csv()
+ csv::delimiter := ";"
+ csv::load_file('D:\YO Workout directory\...\cars.csv')
+ let df : init YOLIB.dataframe()
+ df::show(csv)
+  ```
+
+  
+<p align="center">
+    <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/dataframe.png?sanitize=true">
+</p>
+  
+ </div>  
+  
+     
+  ### Charts
+ In YOLANG by using the `chart` Class, more than 20 types of charts like Pie, Column, Pyramid, Funnel, Point, Line, Spline, Bar, Area and so on are available.
+ 
+  <div dir="ltr">
+
+ 
+```f#
+include 'yolib'
+func main()
+{
+  let dt : init yolib.chart()
+  let xpoint : init yolib.list("1,2,3,4,5,6",",")
+  let ypoint : init yolib.list("64.02,12.55,8.47,6.08,4.29,4.29",",")
+  let labels : init yolib.list("Chrome,Firefox,IE,Safari,Edge,Other",",")
+  dt::formtitle := "Usage Share of Desktop Browsers"
+  dt::new_series("browser" , 'pie')
+  dt::enable3d := true
+  dt::add_point('browser',xpoint,ypoint)
+  dt::set_asix_label('browser',labels)
+  dt::show()
+}
+  ```
+
+  
+<p align="center" >
+    <img src="https://raw.githubusercontent.com/YODevs/YO/master/docs/pie-chart.png?sanitize=true">
+</p>
+   
+ </div>  
+   
+     
+  ### Menus
+ The `menu` class shows a list of selectable items in the console (Like creating a new project in Labra)
+  
+  <div dir="ltr">
+
+ 
+```f#
+include 'ystdio'
+include 'yolib'
+func main()
+{
+  let items : init yolib.list('Item1,Item2,Item3,Item4',',')
+  io::print("Select an item:")
+  let result : str =  yolib.menu::show_menu(items)
+  io::newline()
+  io::print("#{result} was selected.")
+}
+  ```
+     
+ ```
+Select an item:
+Item1
+Item2
+->Item3
+Item4
+
+Item3 was selected.
+ ```
+  </div> 
+  
+    
+  ### ProgressBar
+ The `Progressbar` class similar to the `menu` class is usable in the console. In graphical environments, we can use independent progressbars.
+ 
+ This progressbar has the ability of reverse iteration and customizing shapes by using the field of `progresschar`.
+  
+ 
+<div dir="ltr">
+
+ 
+```f#
+  let rnd : init System.Random()
+  let ms : i32 = 0
+  let progress : init YOLIB.progressbar()
+  progress::show_progress()
+  to(100)
+  {
+    progress::increase()
+    ms := rnd::next(1,100) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+  to(100)
+  {
+    progress::decrease()
+    ms := rnd::next(1,100) #> Random interval
+    System.Threading.Thread::sleep(ms)
+  }
+  progress::hide_progress()
+  ```
+     
+ ```
+[==============================--------------------]- 59%
+ ```
+  </div> 
+  
+ 
  
 [rellink]: <https://github.com/YODevs/YO/releases>
