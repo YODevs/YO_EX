@@ -1106,8 +1106,43 @@ Item3 was selected.
  ```
 
   </div>
+        
+  ### Environment
+ This class is based on `system.environment` and includes functions like obtaining input arguments of application, obtaining and changing systemic variables, obtaining directory of application and process, etc.
+ 
+ For instance, in the code below we obtain `CommandLineArg`s from the process.
+ 
   
-  
+<div dir="ltr">
+
+ 
+```f#
+func main()
+{
+  let arglen : i32 = yolib.environment::arglen
+  if(arglen >> 1)
+  {
+    for(index in [1..arglen])
+    {
+      let param : str = yolib.environment::get_arg(index)
+      io::println("#{index} -> #{param}")
+    }
+  }else{
+    io::print("There are no parameters.")
+  }
+}
+  ```
+     
+ ```
+D:\...\...>"D:\...\...\release\environment_sample.exe" --log=ON --ignoreerror=On --executefile=Off
+
+1 -> --log=ON
+2 -> --ignoreerror=On
+3 -> --executefile=Off
+ ```
+
+  </div>
+
   
  
  
