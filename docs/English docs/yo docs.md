@@ -1077,6 +1077,36 @@ Item3 was selected.
   ```
 
   </div> 
+       
+  ### Date & Time
+ The `date` class is a subset of `yolib` which is based on `System.DateTime` and only supports current time.
+ 
+ To work with the future or past time, The main class should be used for.
+ 
+  
+ | Summary Code | Time Value | Summary Code | Time Value | Summary Code | Time Value |
+|:-:|:-:|:-:|---|---|---|
+| **Y** | Year | **M** | Month |  **D** | Day  | 
+| **h** | Hour | **m** | Minute |  **s** | Second  |
+| **t** | Millisecond | **DY** | Day Count in Year |  **DW** | Day count in Week  |
+
+
+  
+  
+ <div dir="ltr">
+
+ 
+```f#
+  let currenttime : str = yolib.date::get_now("{Y}/{M}/{D} - {h}:{m}:{s}")
+  io::println(currenttime)
+  ```
+     
+ ```
+2022/3/22 - 19:25:47
+ ```
+
+  </div>
+  
   
   
  
