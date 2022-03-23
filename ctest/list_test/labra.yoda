@@ -1,0 +1,7 @@
+!![
+"assemblyname"   =   "list_test"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
