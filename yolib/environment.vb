@@ -77,7 +77,7 @@
         System.Environment.SetEnvironmentVariable(envname, value)
     End Sub
     Public Shared Function get_arg(index As Integer) As String
-        If System.Environment.GetCommandLineArgs.Length - 1 > index OrElse index < 0 Then Return Nothing
+        If System.Environment.GetCommandLineArgs.Length - 1 < index OrElse index <= 0 Then Return Nothing
         Return System.Environment.GetCommandLineArgs(index)
     End Function
 End Class
