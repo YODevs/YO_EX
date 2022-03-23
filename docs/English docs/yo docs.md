@@ -1064,6 +1064,20 @@ Item3 was selected.
 [==============================--------------------]- 59%
  ```
   </div> 
+     
+  ### Interaction With User
+ The `interaction` class is usable for drawing different types of `dialogbox` such as MessageBox or InputBox.
+  
+ <div dir="ltr">
+
+ 
+```f#
+  let name : str = yolib.interaction::inputbox('Information','Enter your name:')
+  yolib.interaction::messagebox('Information',"Your name is #{name}")
+  ```
+
+  </div> 
+  
   
  
  
