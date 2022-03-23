@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text
 
 Public Class csv
 
@@ -86,6 +87,25 @@ Public Class csv
 
     Public Function get_rds() As rds
         Return dt
+    End Function
+
+    Public Shared Function to_csv(data As rds) As String
+        If IsNothing(data) Then Return Nothing
+        Dim sb As New StringBuilder
+        sb.AppendLine(String.Join(",", data.getcolumns))
+        Dim count As Integer = data.rowcount - 1
+        For index = 0 To count
+            Dim row() As String = data.get(index)
+            For i2 = 0 To row.Length - 1
+                Dim item As String = row(i2)
+                If item.Contains(",") Then
+                    item = String.Format("""{0}""", item)
+                    row(i2) = item
+                End If
+            Next
+            sb.AppendLine(String.Join(",", row))
+        Next
+        Return sb.ToString
     End Function
 
 End Class
