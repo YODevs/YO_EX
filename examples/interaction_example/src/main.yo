@@ -1,0 +1,8 @@
+#[app::classname("myapp")]
+
+include 'yolib'
+func main()
+{
+  let name : str = yolib.interaction::inputbox('Information','Enter your name:')
+  yolib.interaction::messagebox('Information',"Your name is #{name}")
+}

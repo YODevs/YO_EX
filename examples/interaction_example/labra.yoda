@@ -1,0 +1,7 @@
+!![
+"assemblyname"   =   "interaction_example"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
