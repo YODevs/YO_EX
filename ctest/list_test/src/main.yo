@@ -1,0 +1,124 @@
+#[app::classname("myapp")]
+
+include 'ydbg'
+include 'ystdio'
+
+public static let list : init yolib.list()
+
+func main()
+{
+  test1(list,"1",5)
+  list := test2()
+  dbg::print(list)
+  test3(0,"1")
+  test3(1,"0")
+  test3(10,"4")
+  let number : i32 = test4()
+  io::println([number + 100])
+  test5()
+  test6(1,"F#")
+  test6(0,"C#")
+  test7("YO")
+  test8()
+  test9()
+}
+
+func test1(list:yolib.list,item:str,count:i32)
+{
+  to(count)
+  {
+    list::add(item)
+  }
+  dbg::print(list)
+}
+
+func test2() : yolib.list
+{
+  list::clear()
+  list::add("A")
+  list::add("B")
+  list::add("C")
+  return list
+}
+
+func test3(index:i32,value:str)
+{
+  list::clear()
+  list::add_with_split("1,2,3,4",",")
+  let count : i32 = list::count()
+  if(index >> count)
+  {
+    index := [count - 1]
+    let item :str = list::get(index)
+    if(value == item)
+    {
+      io::println("true")
+    }
+    else
+    {
+      io::println("false")
+    }
+  }
+  else
+  {
+    item := list::get(index)
+    if(value == item)
+    {
+      io::println("true")
+    }
+    else
+    {
+      io::println("false")
+    }
+  }
+}
+
+func test4() : i32
+{
+  list::clear()
+  list::add("10")
+  let number : i32 = [i32]list::get(0)
+  return [number * number]
+}
+
+func test5()
+{
+  list::clear()
+  list::add_with_split("!-@-#-$","-")
+  let yoda : str = list::clone()
+  io::println(yoda)
+}
+
+func test6(index:i32,value:str)
+{
+  list::clear()
+  list::add("C#")
+  list::add("VB")
+  list::add("F#")
+  list::remove_at(index)
+  list::remove(value)
+  dbg::print(list)
+}
+
+func test7(value:str)
+{
+  list::clear()
+  list::append(value)
+  dbg::print(list)
+}
+
+func test8()
+{
+  list::clear()
+  list::add_with_split("m-a-h-d-i","-")
+  list::reverse()
+  dbg::print(list)
+}
+
+func test9()
+{
+  list::clear()
+  list::add_with_split("m-a-h-d-i-i","-")
+  list::pop()
+  dbg::print(list)
+}
