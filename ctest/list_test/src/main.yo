@@ -18,9 +18,13 @@ func main()
   test5()
   test6(1,"F#")
   test6(0,"C#")
-  test7("YO")
+  test7("A")
   test8()
   test9()
+  test10()
+  test11()
+  test12()
+  test13()
 }
 
 func test1(list:yolib.list,item:str,count:i32)
@@ -103,8 +107,11 @@ func test6(index:i32,value:str)
 func test7(value:str)
 {
   list::clear()
+  list::add("B")
+  list::add("C")
   list::append(value)
-  dbg::print(list)
+  let result : str = list::get(0)
+  io::println(result)
 }
 
 func test8()
@@ -120,5 +127,43 @@ func test9()
   list::clear()
   list::add_with_split("m-a-h-d-i-i","-")
   list::pop()
+  dbg::print(list)
+}
+
+func test10()
+{
+  list::clear()
+  list::add_with_split("m-m-a-h-d-i","-")
+  list::pop_left()
+  dbg::print(list)
+}
+
+func test11()
+{
+  list::clear()
+  list::add_with_split("Y-O-","-")
+  list::pop()
+  #> pop a null value form list
+  dbg::print(list)
+}
+
+func test12()
+{
+  list::clear()
+  list::add("Red")
+  list::add("Red")
+  list::add("Blue")
+  list::add("Green")
+  let iter : i32 = list::iter("Red")
+  io::println(iter)
+}
+
+func test13()
+{
+  list::clear()
+  list::add("10 + 20")
+  list::add("20 - 10")
+  list::insert(0,"30")
+  list::insert(1,"10")
   dbg::print(list)
 }
