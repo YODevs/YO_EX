@@ -53,7 +53,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### get_enable3d
@@ -67,7 +67,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `bool` | False | False |
 
 #### get_asixytitle
@@ -81,7 +81,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### get_asixxtitle
@@ -95,7 +95,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### new_series
@@ -104,7 +104,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | name | `str` | False | False |
 
 #### new_series
@@ -113,7 +113,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | name | `str` | False | False |
 | 2 | charttypename | `str` | False | False |
 
@@ -123,7 +123,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | seriesname | `str` | False | False |
 | 2 | xvalue | `i32` | False | False |
 | 3 | yvalue | `i32` | False | False |
@@ -134,7 +134,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | seriesname | `str` | False | False |
 | 2 | xvalue | `f64` | False | False |
 | 3 | yvalue | `f64` | False | False |
@@ -145,7 +145,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | seriesname | `str` | False | False |
 | 2 | xvalue | `f32` | False | False |
 | 3 | yvalue | `f32` | False | False |
@@ -156,7 +156,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | seriesname | `str` | False | False |
 | 2 | xvalues | `YOLIB.list` | False | False |
 | 3 | yvalues | `YOLIB.list` | False | False |
@@ -167,7 +167,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | seriesname | `str` | False | False |
 | 2 | index | `i32` | False | False |
 | 3 | value | `str` | False | False |
@@ -178,7 +178,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | seriesname | `str` | False | False |
 | 2 | values | `YOLIB.list` | False | False |
 
@@ -188,7 +188,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -203,7 +203,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | path | `str` | False | False |
 
 #### GetType
@@ -249,7 +249,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | path | `str` | False | False |
 
 #### get
@@ -258,7 +258,7 @@
 - Returntype : `str[]`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | rowindex | `i32` | False | False |
 
 #### get
@@ -267,7 +267,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | rowindex | `i32` | False | False |
 | 2 | colindex | `i32` | False | False |
 
@@ -282,7 +282,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | data | `YOLIB.rds` | False | False |
 
 #### GetType
@@ -314,7 +314,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### show
@@ -323,7 +323,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | dt | `YOLIB.csv` | False | False |
 
 #### show
@@ -332,7 +332,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | dt | `YOLIB.rds` | False | False |
 
 #### show
@@ -341,7 +341,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | dt | `YOLIB.map` | False | False |
 
 #### show
@@ -350,7 +350,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | dt | `YOLIB.list` | False | False |
 
 #### GetType
@@ -372,7 +372,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | format | `str` | False | False |
 
 #### GetType
@@ -519,7 +519,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | exitcode | `i32` | False | False |
 
 #### get_env
@@ -528,7 +528,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | envname | `str` | False | False |
 
 #### set_env
@@ -537,7 +537,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | envname | `str` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -547,7 +547,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### GetType
@@ -569,7 +569,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | yodamap | `str` | False | False |
 
 #### clone
@@ -583,7 +583,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | yodamap | `str` | False | False |
 
 #### add
@@ -592,7 +592,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | key | `str` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -602,7 +602,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | key | `str` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -612,7 +612,7 @@
 - Returntype : `obj`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | key | `str` | False | False |
 
 #### contains_value
@@ -621,7 +621,7 @@
 - Returntype : `obj`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### get
@@ -630,7 +630,7 @@
 - Returntype : `obj`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | key | `str` | False | False |
 
 #### get_map
@@ -639,7 +639,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 | 2 | key | `System.String&` | False | True |
 | 3 | value | `System.String&` | False | True |
@@ -650,7 +650,7 @@
 - Returntype : `obj`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### remove
@@ -659,7 +659,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | key | `str` | False | False |
 
 #### clear
@@ -683,7 +683,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | key | `str` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -693,7 +693,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | path | `str` | False | False |
 
 #### load
@@ -702,7 +702,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | path | `str` | False | False |
 
 #### GetType
@@ -729,7 +729,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | title | `str` | False | False |
 | 2 | description | `str` | False | False |
 
@@ -739,7 +739,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | title | `str` | False | False |
 | 2 | description | `str` | False | False |
 | 3 | defaultresult | `str` | False | False |
@@ -750,7 +750,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | description | `str` | False | False |
 
 #### messagebox
@@ -759,7 +759,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | title | `str` | False | False |
 | 2 | description | `str` | False | False |
 
@@ -769,7 +769,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | title | `str` | False | False |
 | 2 | description | `str` | False | False |
 | 3 | dialogstyle | `i32` | False | False |
@@ -793,7 +793,7 @@
 - Re : Constructor
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | clonelist | `YOLIB.list` | False | False |
 
 #### get_index
@@ -807,7 +807,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `i32` | False | False |
 
 #### has_next
@@ -847,7 +847,7 @@
 - Re : Constructor
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | values | `str` | False | False |
 | 2 | pattern | `str` | False | False |
 
@@ -857,7 +857,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### add
@@ -866,7 +866,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### add_with_split
@@ -875,7 +875,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | values | `str` | False | False |
 | 2 | pattern | `str` | False | False |
 
@@ -885,7 +885,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -895,7 +895,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | yodastring | `str` | False | False |
 
 #### save
@@ -904,7 +904,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | path | `str` | False | False |
 
 #### load
@@ -913,7 +913,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | path | `str` | False | False |
 
 #### set
@@ -922,7 +922,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | yodastring | `str` | False | False |
 
 #### clone
@@ -936,7 +936,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | item | `str` | False | False |
 
 #### count
@@ -955,7 +955,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### remove_at
@@ -964,7 +964,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### sort
@@ -983,7 +983,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### starts_with
@@ -992,7 +992,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### ends_with
@@ -1001,7 +1001,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### pattern
@@ -1010,7 +1010,7 @@
 - Returntype : `bool`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | regexCode | `str` | False | False |
 
 #### get
@@ -1019,7 +1019,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### get_index
@@ -1028,7 +1028,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### pop
@@ -1070,7 +1070,7 @@
 - Re : Constructor
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | ncol | `i32` | False | False |
 | 2 | nrow | `i32` | False | False |
 
@@ -1110,7 +1110,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | val | `i32` | False | False |
 
 #### set_scalar_matrix
@@ -1119,7 +1119,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | val | `f64` | False | False |
 
 #### get_matrix
@@ -1133,7 +1133,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | columnindex | `i32` | False | False |
 | 2 | rowindex | `i32` | False | False |
 | 3 | value | `i32` | False | False |
@@ -1144,7 +1144,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | columnindex | `i32` | False | False |
 | 2 | rowindex | `i32` | False | False |
 | 3 | value | `f64` | False | False |
@@ -1155,7 +1155,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | columnindex | `i32` | False | False |
 | 2 | rowindex | `i32` | False | False |
 
@@ -1165,7 +1165,7 @@
 - Returntype : `f64`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | columnindex | `i32` | False | False |
 | 2 | rowindex | `i32` | False | False |
 
@@ -1185,7 +1185,7 @@
 - Returntype : `YOLIB.matrix`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | matrix2 | `YOLIB.matrix` | False | False |
 
 #### add
@@ -1194,7 +1194,7 @@
 - Returntype : `YOLIB.matrix`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | matrix2 | `YOLIB.matrix` | False | False |
 
 #### multiply
@@ -1203,7 +1203,7 @@
 - Returntype : `YOLIB.matrix`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | val | `i32` | False | False |
 
 #### multiply
@@ -1212,7 +1212,7 @@
 - Returntype : `YOLIB.matrix`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | val | `f64` | False | False |
 
 #### multiply
@@ -1221,7 +1221,7 @@
 - Returntype : `YOLIB.matrix`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | matrix2 | `YOLIB.matrix` | False | False |
 
 #### GetType
@@ -1253,7 +1253,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### show_menu
@@ -1262,7 +1262,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `YOLIB.list` | False | False |
 
 #### show_menu
@@ -1271,7 +1271,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `str` | False | False |
 
 #### GetType
@@ -1377,7 +1377,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `str` | False | False |
 
 #### set_columns
@@ -1386,7 +1386,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `System.Collections.ArrayList` | False | False |
 
 #### set_command
@@ -1395,7 +1395,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | state | `YOLIB.rds+commandstate` | False | False |
 | 2 | columnname | `str` | False | False |
 | 3 | value | `str` | False | False |
@@ -1406,7 +1406,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `str` | False | False |
 
 #### insert
@@ -1415,7 +1415,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `System.Collections.ArrayList` | False | False |
 
 #### delete
@@ -1424,7 +1424,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### delete
@@ -1438,7 +1438,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 | 2 | columnname | `str` | False | False |
 | 3 | value | `str` | False | False |
@@ -1449,7 +1449,7 @@
 - Returntype : `i32`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | columnname | `str` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -1459,7 +1459,7 @@
 - Returntype : `YOLIB.map`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### get_row_list
@@ -1468,7 +1468,7 @@
 - Returntype : `YOLIB.list`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### get_row
@@ -1477,7 +1477,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### get
@@ -1486,7 +1486,7 @@
 - Returntype : `str[]`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | index | `i32` | False | False |
 
 #### get
@@ -1495,7 +1495,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | rowindex | `i32` | False | False |
 | 2 | colindex | `i32` | False | False |
 
@@ -1528,7 +1528,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `bool` | False | False |
 
 #### add
@@ -1537,7 +1537,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
 #### add
@@ -1546,7 +1546,7 @@
 - Returntype : `void`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | key | `str` | False | False |
 | 2 | value | `str` | False | False |
 
@@ -1566,7 +1566,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `System.Collections.ArrayList` | False | False |
 | 2 | compress | `bool` | True | False |
 
@@ -1576,7 +1576,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | keys | `System.Collections.ArrayList` | False | False |
 | 2 | values | `System.Collections.ArrayList` | False | False |
 | 3 | compress | `bool` | True | False |
@@ -1587,7 +1587,7 @@
 - Returntype : `str`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | items | `System.Collections.ArrayList` | False | False |
 
 #### ReadYODA
@@ -1596,7 +1596,7 @@
 - Returntype : `System.Collections.ArrayList`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | YODA_F | `str` | False | False |
 
 #### ReadYODA_Map
@@ -1605,7 +1605,7 @@
 - Returntype : `YOLIB.yoda+YODAMapFormat`
 
 | # | name | type |  Is Optional | Is Byref |
-|--|--|--|--|--|--|
+|--|--|--|--|--|
 | 1 | YODA_F | `str` | False | False |
 
 #### GetType
@@ -1613,3 +1613,4 @@
 - Modifier : Instance
 - Returntype : `System.Type`
 - No Parameter
+
