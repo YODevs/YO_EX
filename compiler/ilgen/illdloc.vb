@@ -450,6 +450,24 @@
             If maintype.EndsWith(conrex.BRSTEN) Then maintype = maintype.Remove(maintype.IndexOf(conrex.BRSTART))
             If maintype.ToLower = resulttype.ToLower Then Return True
         End If
+
+        Return check_byte_datatype(maintype, resulttype)
+    End Function
+
+    Private Shared Function check_byte_datatype(maintype As String, resulttype As String) As Boolean
+        If resulttype = "system.byte" OrElse resulttype = "system.sbyte" Then
+            resulttype = resulttype.Remove(0, resulttype.IndexOf(conrex.DOT) + 1)
+            If resulttype = "byte" AndAlso maintype = "uint8" Then Return True
+            If maintype = "byte" AndAlso resulttype = "uint8" Then Return True
+            If resulttype = "sbyte" AndAlso maintype = "int8" Then Return True
+            If maintype = "sbyte" AndAlso resulttype = "int8" Then Return True
+        ElseIf maintype = "system.byte" OrElse maintype = "system.sbyte" Then
+            maintype = maintype.Remove(0, maintype.IndexOf(conrex.DOT) + 1)
+            If maintype = "byte" AndAlso resulttype = "uint8" Then Return True
+            If resulttype = "byte" AndAlso maintype = "uint8" Then Return True
+            If maintype = "sbyte" AndAlso resulttype = "int8" Then Return True
+            If resulttype = "sbyte" AndAlso maintype = "int8" Then Return True
+        End If
         Return False
     End Function
 
