@@ -14,12 +14,12 @@
     End Function
 
     Private Shared Sub get_length(ByRef ilmethod As ilformat._ilmethodcollection, propresult As identvalid._resultidentcvaild, varname As String, gtypeinfo As ilformat._typeinfo)
-        illdloc.ld_identifier(varname, ilmethod, Nothing, Nothing, "int32")
+        illdloc.ld_identifier(varname, ilmethod, Nothing, Nothing, gtypeinfo.fullname)
         cil.ldlen(ilmethod.codes)
         cil.conv_to_int32(ilmethod.codes)
     End Sub
     Private Shared Sub get_longlength(ByRef ilmethod As ilformat._ilmethodcollection, propresult As identvalid._resultidentcvaild, varname As String, gtypeinfo As ilformat._typeinfo)
-        illdloc.ld_identifier(varname, ilmethod, Nothing, Nothing, "int32")
+        illdloc.ld_identifier(varname, ilmethod, Nothing, Nothing, gtypeinfo.fullname)
         cil.ldlen(ilmethod.codes)
         cil.conv_to_int64(ilmethod.codes)
     End Sub
