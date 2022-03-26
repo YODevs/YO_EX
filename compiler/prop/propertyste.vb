@@ -128,10 +128,11 @@ Public Class propertyste
                 fieldste.get_external_field(clinecodestruc, _ilmethod, propresult, inline, namespaceindex, classindex, retfieldinfo, isvirtualmethod)
                 Return
             End If
-            If arrprop.check_array_property(_ilmethod, propresult, fclass) Then Return
+            If arrprop.check_array_property(_ilmethod,  propresult, fclass) Then Return
+            If objvirmethod.check_object_method(_ilmethod, propresult, fclass) Then Return
             dserr.args.Add("Property '" & propresult.clident.ToLower & "' not found.")
-                dserr.new_error(conserr.errortype.PROPERTYERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), propresult.clident))
-                Return
+            dserr.new_error(conserr.errortype.PROPERTYERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), propresult.clident))
+            Return
             End If
             can_read(retpropertyinfo, propresult, clinecodestruc)
         check_access_control(retpropertyinfo.GetMethod, isvirtualmethod, clinecodestruc, propresult)
