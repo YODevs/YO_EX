@@ -689,8 +689,11 @@
                 Else
                     localinit.add_local_init(_illocalinit(index).name, _illocalinit(index).datatype)
                 End If
-                Return
+                If IsNothing(_illocalinit(index).arrayinf) = False AndAlso _illocalinit(index).arrayinf.isarrayref = True Then
+                    _illocalinit(index).typeinf.isarray = True
                 End If
+                Return
+            End If
             _illocalinit(index).hasdefaultvalue = False
             If clinecodestruc.Length > 4 Then
                 If clinecodestruc(4).tokenid <> tokenhared.token.EQUALS Then
