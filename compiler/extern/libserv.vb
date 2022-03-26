@@ -118,8 +118,10 @@ Public Class libserv
         Dim funcnametolower As String = funcname.ToLower
         Dim retstate As Integer = -1
         cargldr = Nothing
-        Dim methodindex As Integer = 0
-        For Each method In libreg.types(namespaceindex)(classindex).GetMethods()
+        Dim methodinf() As MethodInfo = libreg.types(namespaceindex)(classindex).GetMethods()
+        Dim methodslen As Integer = methodinf.Length - 1
+        For methodindex = 0 To methodslen
+            Dim method As MethodInfo = libreg.types(namespaceindex)(classindex).GetMethods()(methodindex)
             If method.Name.ToLower = funcnametolower Then
                 Dim tpcasttype As String = funcste.assignmentype
                 If funcste.assignmentype <> conrex.NULL Then
@@ -139,7 +141,6 @@ Public Class libserv
                     End If
                 End If
             End If
-            methodindex += 1
         Next
         funcste.assignmentype = Nothing
         If retstate = -2 Then get_overloads_of_method(libreg.types(namespaceindex)(classindex).GetMethods, funcnametolower)
