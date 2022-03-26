@@ -13,6 +13,13 @@
         End Set
     End Property
 
+    Private Shared prselectindex As Integer = -1
+    Public Shared ReadOnly Property selectindex() As Integer
+        Get
+            Return prselectindex
+        End Get
+    End Property
+
     Public Shared Function show_menu(items As list) As String
         Dim yoda As New yoda
         Return create_menu(yoda.ReadYODA(items.clone).ToArray)
@@ -28,6 +35,7 @@
         Dim key As ConsoleKeyInfo
         Dim textfpr As String
         Dim staticcursortop As Integer = Console.CursorTop
+        prselectindex = -1
         Do
             Console.CursorTop = staticcursortop
             textfpr = String.Empty
@@ -53,6 +61,7 @@
                 End If
             End If
         Loop While key.Key.ToString <> "Enter"
+        prselectindex = menuindex
         Return menuitems(menuindex)
     End Function
 End Class
