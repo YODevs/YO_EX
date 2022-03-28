@@ -53,9 +53,6 @@ Public Class fmtstrlit
                 servinterface.is_common_data_type(getdatatype, getcildatatype)
                 If getcildatatype = String.Empty Then getcildatatype = getdatatype
                 var.load_arr_identifier(ilmethod, clinecodestruc, Nothing, getcildatatype)
-                If getdatatype.EndsWith(conrex.BRSTEN) Then
-                    getdatatype = getdatatype.Remove(getdatatype.Length - 2)
-                End If
                 conv_to_string(ilmethod, getdatatype)
                 paramcount += 1
                 If paramcount = 4 Then
