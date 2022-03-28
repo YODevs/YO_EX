@@ -179,7 +179,7 @@ Public Class funcste
                     Continue For
                 End If
 
-                If methodinfo.parameters(index).name.EndsWith(conrex.BRSTEN) Then
+                If methodinfo.parameters(index).typeinf.isarray OrElse methodinfo.parameters(index).name.EndsWith(conrex.BRSTEN) Then
                     getcildatatype &= conrex.BRSTEN
                 End If
 

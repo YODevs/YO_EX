@@ -157,7 +157,6 @@
             Dim ciltype As String = conrex.NULL
             servinterface.is_common_data_type(_method.parameters(index).ptype, ciltype)
             If ciltype = String.Empty Then ciltype = _method.parameters(index).ptype
-            paramtypes.Add(ciltype)
             If _method.parameters(index).typeinf.asminfo = conrex.NULL Then
                 Dim clinetypeinfostruct(2) As xmlunpkd.linecodestruc
                 clinetypeinfostruct(0) = servinterface.get_line_code_struct(_method.parameters(index).dtypetargetinfo, _method.parameters(index).ptype, tokenhared.token.IDENTIFIER)
@@ -170,6 +169,10 @@
                 _method.parameters(index).typeinf = yotypecreator.get_type_info(_ilmethod, clinetypeinfostruct, 0, _method.parameters(index).ptype)
                 settypeinfo = True
             End If
+            If _method.parameters(index).typeinf.isarray OrElse _method.parameters(index).name.EndsWith(conrex.BRSTEN) Then
+                ciltype &= conrex.BRSTEN
+            End If
+            paramtypes.Add(ciltype)
         Next
 
 
