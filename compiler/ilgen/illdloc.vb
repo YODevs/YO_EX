@@ -8,8 +8,14 @@
     End Sub
 
     Friend Shared Function check_integer_type(datatype As String) As String
+        Dim isarray As Boolean = False
+        If datatype.EndsWith(conrex.BRSTEN) Then
+            datatype = datatype.Remove(datatype.Length - 2)
+            isarray = True
+        End If
         For index = 0 To compdt.cilintegertypes.Length - 1
             If compdt.cilintegertypes(index) = datatype Then
+                If isarray = True Then datatype &= conrex.BRSTEN
                 Return datatype
             End If
         Next
