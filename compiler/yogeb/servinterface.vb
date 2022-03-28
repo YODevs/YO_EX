@@ -185,6 +185,12 @@ Public Class servinterface
             End If
         Next
 
+        If datatype = "byte" Then
+            datatype = "uint8"
+        ElseIf datatype = "sbyte" Then
+            datatype = "int8"
+        End If
+
         If isarray Then datatype &= conrex.BRSTEN
         If isref Then datatype &= conrex.AMP
         Return datatype
@@ -269,7 +275,7 @@ Public Class servinterface
     End Sub
 
     Friend Shared Function reset_cil_common_data_type(ByRef value As String) As Boolean
-        If value.ToString.Contains(conrex.DOT) AndAlso value.StartsWith("[mscorlib]System.") Then
+        If value.ToString.Contains(conrex.DOT) AndAlso value.StartsWith("[" & compdt.CORELIB & "]System.") Then
             Dim getcommondtype As String = value.Remove(0, value.LastIndexOf(conrex.DOT) + 1).ToLower
             getcommondtype = servinterface.vb_to_cil_common_data_type(getcommondtype)
             If is_cil_common_data_type(getcommondtype) Then
@@ -368,6 +374,9 @@ Public Class servinterface
                         If getcrfieldindex <> -1 Then
                             If servinterface.is_common_data_type(funcdtproc.get_field_info(fsclassindex, getcrfieldindex).ptype, getdatatype) = False Then
                                 getdatatype = funcdtproc.get_field_info(fsclassindex, getcrfieldindex).ptype
+                                If funcdtproc.get_field_info(fsclassindex, getcrfieldindex).isarray Then
+                                    getdatatype &= conrex.BRSTEN
+                                End If
                             End If
                             Return True
                         End If
@@ -382,6 +391,9 @@ Public Class servinterface
                 getdatatype = servinterface.vb_to_cil_common_data_type(retpropertyinfo.PropertyType.Name)
                 If servinterface.is_cil_common_data_type(getdatatype) = False Then
                     getdatatype = retpropertyinfo.PropertyType.ToString
+                    If retpropertyinfo.PropertyType.IsArray Then
+                        getdatatype &= conrex.BRSTEN
+                    End If
                 End If
                 Return True
             End If
@@ -392,6 +404,9 @@ Public Class servinterface
                 If ilmethod.parameter(index).name.ToLower = varname Then
                     getdatatype = ilmethod.parameter(index).datatype
                     is_common_data_type(getdatatype, getdatatype)
+                    If ilmethod.parameter(index).typeinf.isarray Then
+                        getdatatype &= conrex.BRSTEN
+                    End If
                     Return True
                 End If
             Next
@@ -401,6 +416,9 @@ Public Class servinterface
             For index = 0 To ilmethod.locallinit.Length - 1
                 If ilmethod.locallinit(index).name <> conrex.NULL AndAlso ilmethod.locallinit(index).name.ToLower = varname Then
                     getdatatype = ilmethod.locallinit(index).datatype
+                    If ilmethod.locallinit(index).typeinf.isarray Then
+                        getdatatype &= conrex.BRSTEN
+                    End If
                     Return True
                 End If
             Next
@@ -411,6 +429,9 @@ Public Class servinterface
                 Dim varnameloop As String = ilasmgen.fields(index).name.ToLower
                 If varname = varnameloop Then
                     servinterface.is_common_data_type(ilasmgen.classdata.fields(index).ptype, getdatatype)
+                    If ilasmgen.fields(index).isarray Then
+                        getdatatype &= conrex.BRSTEN
+                    End If
                     Return True
                 End If
             Next
