@@ -88,6 +88,7 @@
 
         ldptr = False
         ldindx = False
+        frvarstruc = Nothing
         Return _ilmethod
     End Function
 
@@ -116,6 +117,7 @@
 
         ldptr = False
         ldindx = False
+        frvarstruc = Nothing
 
         Return _ilmethod
     End Function
@@ -133,6 +135,7 @@
                 End If
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 frvarstruc = Nothing
+                funcste.assignmentype = conrex.NULL
                 Return True
             End If
             clineprop = rlinecodestruc(0)
@@ -145,6 +148,7 @@
             Else
                 propertyste.assignmentype = datatype
                 propertyste.get_inv_property(New xmlunpkd.linecodestruc() {clineprop}, _ilmethod, idenresult, 0)
+                funcste.assignmentype = conrex.NULL
                 Return True
             End If
         End If
