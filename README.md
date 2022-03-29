@@ -1,8 +1,13 @@
+- [YOLang Documentation (English)](https://github.com/YODevs/YO/blob/master/docs/English%20docs/yo%20docs.md)
+- [YOLang Documentation (Persian)](https://github.com/YODevs/YO/blob/master/docs/Persian%20docs/yo%20docs.md)
+- [YO Standard Library Documentation](https://github.com/YODevs/YO/blob/master/docs/YOLib%20docs/yolib%20documents.md)
+
+<hr>
+
 # YO Programming Language
 
 **YO** (pronounce like 'U') is an open-source, OOP , high-level, and statically typed programming language.
 YO's syntax is modern and has a structure similar to Go, Rust and C programming languages.
-
 
 <p>
     <img src="https://raw.githubusercontent.com/YODevs/YO/master/icons/github-yolang-banner.jpg?sanitize=true">
