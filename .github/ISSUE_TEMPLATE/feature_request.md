@@ -11,12 +11,13 @@ assignees: 'YODevs'
 **Description**
 
 ...
+
 **Sample code**
-```
-your code...
+
+```f#
+//your code...
 ```
 
 **References**
-1.
-2.
-....
+
+References needed to study and obtain prerequisites for the feature.
