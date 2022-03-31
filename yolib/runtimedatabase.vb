@@ -186,6 +186,24 @@
         End If
     End Function
 
+    Public Function get_column_items(colindex As Integer) As list
+        If IsNothing(dt) Then
+            Throw New Exception("Datastore is empty.")
+            Return Nothing
+        End If
+        If colindex >= 0 AndAlso colindex < dt(0).Count Then
+            Dim rowlen As Integer = rowcount - 1
+            Dim retlist As New list
+            For index = 0 To rowlen
+                retlist.add(dt(index)(colindex))
+            Next
+            Return retlist
+        Else
+            Throw New Exception("Index is not allowed, review it.")
+                Return Nothing
+        End If
+    End Function
+
     Private Function condition_exec() As ArrayList
         Dim items As New ArrayList
         Dim dtlen As Integer = dt.Length - 1
