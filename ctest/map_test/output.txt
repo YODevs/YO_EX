@@ -1,0 +1,45 @@
+Key -> 2021
+Value -> Chelsea
+Key -> 2020
+Value -> Beyern Munich
+Key -> 2021
+Value -> Chelsea
+Key -> 2020
+Value -> Beyern Munich
+Key -> 1
+Value -> A
+Key -> 2
+Value -> B
+Key -> 3
+Value -> C
+True
+Key -> 1
+Value -> A
+Key -> 3
+Value -> C
+Red
+Key -> B
+Value -> Blue
+Tehran
+Key -> 1
+Value -> A
+Key -> 2
+Value -> B
+Key -> 3
+Value -> C
+Map1:
+Key -> Y
+Value -> Yellow
+Key -> W
+Value -> White
+Key -> P
+Value -> Pink
+Map2:
+Key -> R
+Value -> Red
+Key -> G
+Value -> Green
+Key -> B
+Value -> Blue
+True
+False

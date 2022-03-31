@@ -1,0 +1,137 @@
+#[app::classname("myapp")]
+
+include 'ystdio'
+include 'ydbg'
+
+public static let map : init yolib.map()
+
+func main()
+{
+  test1(map,1,3)
+  map := test2()
+  dbg::print(map)
+  test3()
+  test4("2")
+  test5(0)
+  test6(2)
+  test7("Iran")
+  test8("3","C")
+  let map1 : init yolib.map()
+  map1::add("R","Red")
+  map1::add("G","Green")
+  map1::add("B","Blue")
+  let map2 : init yolib.map()
+  map2::add("Y","Yellow")
+  map2::add("W","White")
+  map2::add("P","Pink")
+  test9(map1,map2)
+  test10("Japan")
+  test10("Spain")
+}
+
+func test1(map:yolib.map,start:i32,end:i32)
+{
+  map::add("2021","Chelsea")
+  map::add("2020","Beyern Munich")
+  for(i in [start..end])
+  {
+    dbg::print(map)
+  }
+}
+
+func test2() : yolib.map
+{
+  map::clear()
+  map::add("1","A")
+  map::add("2","B")
+  map::add("3","C")
+  return map
+}
+
+func test3()
+{
+  map::clear()
+  let result : bool = map::is_empty()
+  io::println("#{result}")
+}
+
+func test4(key:str)
+{
+  map::clear()
+  map::add("1","A")
+  map::add("2","B")
+  map::add("3","C")
+  map::remove(key)
+  dbg::print(map)
+}
+
+func test5(index:i32)
+{
+  map::clear()
+  map::add("R","Red")
+  map::add("G","Green")
+  map::add("B","Blue")
+  let size : i32 = map::size()
+  let result : str = [str]map::get_with_index(index)
+  io::println(result)
+}
+
+func test6(index:i32)
+{
+  map::clear()
+  map::add("R","Red")
+  map::add("G","Green")
+  map::add("B","Blue")
+  let key , value : str
+  map::get_map(index,key,value)
+  io::println("Key -> #{key}#nlValue -> #{value}")
+}
+
+func test7(key:str)
+{
+  map::clear()
+  map::add("Iran","Tehran")
+  map::add("Japan","Tokyo")
+  map::add("South Korea","Seul")
+  let result : str = [str]map::get(key)
+  io::println(result)
+}
+
+func test8(key:str,value:str)
+{
+  map::clear()
+  map::add("1","A")
+  map::add("2","B")
+  map::add("3","D")
+  map::update(key,value)
+  dbg::print(map)
+}
+
+func test9(map1:yolib.map&,map2:yolib.map)
+{
+  let tempmap : init yolib.map()
+  tempmap := map1
+  map1 := map2
+  map2 := tempmap
+  io::println("Map1:")
+  dbg::print(map1)
+  io::println("Map2:")
+  dbg::print(map2)
+}
+
+func test10(key:str)
+{
+  map::clear()
+  map::add("Iran","Tehran")
+  map::add("Japan","Tokyo")
+  map::add("South Korea","Seul")
+  let result : str = [str]map::contains_key(key)
+  if(result == key)
+  {
+    io::println("True")
+  }
+  else
+  {
+    io::println("False")
+  }
+}
