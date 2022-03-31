@@ -4,6 +4,7 @@
 - [csv](#csv)
 - [dataframe](#dataframe)
 - [date](#date)
+- [encoding](#encoding)
 - [environment](#environment)
 - [map](#map)
 - [interaction](#interaction)
@@ -374,6 +375,91 @@
 | # | name | type |  Is Optional | Is Byref |
 |--|--|--|--|--|
 | 1 | format | `str` | False | False |
+
+#### GetType
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Type`
+- No Parameter
+
+<hr>
+
+### encoding
+- Fullname : YOLIB.encoding
+#### init
+- Re : Constructor
+- No Parameter
+#### utf8_get_bytes
+- Re : Method
+- Modifier : Static
+- Returntype : `System.Byte[]`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `str` | False | False |
+
+#### utf8_get_string
+- Re : Method
+- Modifier : Static
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `System.Byte[]` | False | False |
+
+#### utf32_get_bytes
+- Re : Method
+- Modifier : Static
+- Returntype : `System.Byte[]`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `str` | False | False |
+
+#### utf32_get_string
+- Re : Method
+- Modifier : Static
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `System.Byte[]` | False | False |
+
+#### ascii_get_bytes
+- Re : Method
+- Modifier : Static
+- Returntype : `System.Byte[]`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `str` | False | False |
+
+#### ascii_get_string
+- Re : Method
+- Modifier : Static
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `System.Byte[]` | False | False |
+
+#### unicode_get_bytes
+- Re : Method
+- Modifier : Static
+- Returntype : `System.Byte[]`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `str` | False | False |
+
+#### unicode_get_string
+- Re : Method
+- Modifier : Static
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `System.Byte[]` | False | False |
 
 #### GetType
 - Re : Method
@@ -1239,6 +1325,11 @@
 - Can Read : True
 - Can Write : True
 - Propertytype : `str`
+##### selectindex
+- Re : Property
+- Can Read : True
+- Can Write : False
+- Propertytype : `i32`
 #### init
 - Re : Constructor
 - No Parameter
@@ -1256,6 +1347,11 @@
 |--|--|--|--|--|
 | 1 | value | `str` | False | False |
 
+#### get_selectindex
+- Re : Method
+- Modifier : Static
+- Returntype : `i32`
+- No Parameter
 #### show_menu
 - Re : Method
 - Modifier : Static
@@ -1613,4 +1709,3 @@
 - Modifier : Instance
 - Returntype : `System.Type`
 - No Parameter
-
