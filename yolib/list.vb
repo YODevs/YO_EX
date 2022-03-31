@@ -6,13 +6,20 @@ Public Class [list]
     Public Sub New()
         items = New ArrayList
     End Sub
-    Public Sub New(values As String, pattern As String)
+    Public Sub New(value As String, pattern As String)
         Me.New()
         Dim splititems() As String
-        splititems = System.Text.RegularExpressions.Regex.Split(values, pattern)
-        Dim listSplitLength As Integer = splititems.Length - 1
-        For index = 0 To listSplitLength
+        splititems = System.Text.RegularExpressions.Regex.Split(value, pattern)
+        Dim listsplitlength As Integer = splititems.Length - 1
+        For index = 0 To listsplitlength
             items.Add(splititems(index))
+        Next
+    End Sub
+    Public Sub New(values() As String)
+        Me.New()
+        Dim len As Integer = values.Length - 1
+        For index = 0 To len
+            items.Add(items(index))
         Next
     End Sub
     Public Function append(value As String) As Integer
