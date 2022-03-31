@@ -200,4 +200,13 @@ Public Class [list]
         End If
         Return item
     End Function
+
+    Public Function to_str() As String()
+        Dim itemscount As Integer = items.Count - 1
+        Dim retstr(itemscount) As String
+        For index = 0 To itemscount
+            retstr(index) = items(index).ToString
+        Next
+        Return retstr
+    End Function
 End Class
