@@ -1,0 +1,7 @@
+!![
+"assemblyname"   =   "matrix_sample2"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
