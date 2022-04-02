@@ -25,6 +25,7 @@
         gcolumnsize = ncol
         growsize = nrow
         init_columns()
+        set_zero_matrix()
     End Sub
     Private Sub init_columns()
         Array.Resize(dt, gcolumnsize)
