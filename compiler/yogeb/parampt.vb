@@ -28,6 +28,8 @@
                         Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
                         If tpinf.asminfo = params(index).typeinf.asminfo Then
                             Continue For
+                        ElseIf tpinf.isarray AndAlso tpinf.fullname & conrex.BRSTEN = getdatatype Then
+                            Continue For
                         End If
                     ElseIf cargcodestruc(index).tokenid = tokenhared.token.ARR Then
                         Dim cargtype As String = cargcodestruc(index).value.Remove(cargcodestruc(index).value.IndexOf(conrex.BRSTART))
@@ -82,6 +84,8 @@
                         If servinterface.is_variable(_ilmethod, cargcodestruc(index).value, crdatatype) Then
                             Dim tpinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, cargcodestruc(index).value)
                             If tpinf.asminfo = gparameters(index).ParameterType.AssemblyQualifiedName Then
+                                Continue For
+                            ElseIf tpinf.isarray AndAlso tpinf.fullname & conrex.BRSTEN = gparameters(index).ParameterType.FullName Then
                                 Continue For
                             End If
                         Else
