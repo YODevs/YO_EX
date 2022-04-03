@@ -1,6 +1,6 @@
 ﻿Public Class dataframe
 
-    Dim title As String
+    Dim title As String = "Dataframe Form"
     Dim dtgrtl As Boolean = False
     Dim form As dataframeform
     Public Sub New()
