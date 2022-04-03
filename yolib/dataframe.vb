@@ -1,6 +1,7 @@
 ﻿Public Class dataframe
 
     Dim title As String
+    Dim dtgrtl As Boolean = False
     Dim form As dataframeform
     Public Sub New()
         form = New dataframeform
@@ -12,6 +13,15 @@
         End Get
         Set(ByVal value As String)
             title = value
+        End Set
+    End Property
+
+    Public Property rtl() As Boolean
+        Get
+            Return dtgrtl
+        End Get
+        Set(ByVal value As Boolean)
+            dtgrtl = value
         End Set
     End Property
 
@@ -76,5 +86,10 @@
         End If
         form = New dataframeform
         form.Text = title
+        If rtl = True Then
+            form.dtg.RightToLeft = Windows.Forms.RightToLeft.Yes
+        Else
+            form.dtg.RightToLeft = Windows.Forms.RightToLeft.No
+        End If
     End Sub
 End Class
