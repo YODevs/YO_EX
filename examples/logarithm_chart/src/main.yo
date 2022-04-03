@@ -1,0 +1,36 @@
+#[app::classname("log_chart")]
+
+include 'yolib'
+
+func main()
+{
+  let chart : init yolib.chart()
+  chart::new_series("Log 10" , 'spline')
+  chart::new_series("Log 2" , 'spline')
+  chart::new_series("Log e" , 'spline')
+  let xpoint : yolib.list
+  let ypoint : yolib.list
+  get_logs(10.0,xpoint,ypoint)
+  chart::add_point('Log 10',xpoint,ypoint)
+  get_logs(2.0,xpoint,ypoint)
+  chart::add_point('Log 2',xpoint,ypoint)
+  get_logs(2.71828,xpoint,ypoint)
+  chart::add_point('Log e',xpoint,ypoint)
+  chart::show()
+}
+
+func get_logs(base:f64 , xpoint : yolib.list& , ypoint : yolib.list&)
+{
+  xpoint := init yolib.list()
+  ypoint := init yolib.list()
+  for(index in [1..100])
+  {
+    let dbindex : f64 = [f64]index
+    let result : f64 = system.math::log(dbindex,base)
+    let y , x : str
+    x := [str]index
+    y := [str]result
+    ypoint::add(y)
+    xpoint::add(x)
+  }
+}

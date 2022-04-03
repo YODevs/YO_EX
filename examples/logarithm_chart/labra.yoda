@@ -1,0 +1,7 @@
+!![
+"assemblyname"   =   "logarithm_chart"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   
+]
