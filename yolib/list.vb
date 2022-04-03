@@ -19,7 +19,7 @@ Public Class [list]
         Me.New()
         Dim len As Integer = values.Length - 1
         For index = 0 To len
-            items.Add(items(index))
+            items.Add(values(index))
         Next
     End Sub
     Public Function append(value As String) As Integer
