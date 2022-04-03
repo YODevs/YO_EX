@@ -29,13 +29,18 @@ Partial Class dataframeform
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.exportdatalabel = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.fontlabel = New System.Windows.Forms.ToolStripLabel()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.dtginfotext = New System.Windows.Forms.ToolStripStatusLabel()
         Me.dtgstructtext = New System.Windows.Forms.ToolStripStatusLabel()
         Me.dtg = New System.Windows.Forms.DataGridView()
         Me.infotimer = New System.Windows.Forms.Timer(Me.components)
         Me.fontselector = New System.Windows.Forms.FontDialog()
+        Me.ToolStripDropDownButton1 = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ToolStripDropDownButton2 = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.SheetDirectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RTLToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LTRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FontToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.dtg, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -43,7 +48,7 @@ Partial Class dataframeform
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.exportdatalabel, Me.ToolStripSeparator1, Me.fontlabel})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.exportdatalabel, Me.ToolStripSeparator1, Me.ToolStripDropDownButton2})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(507, 25)
@@ -60,12 +65,6 @@ Partial Class dataframeform
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
-        'fontlabel
-        '
-        Me.fontlabel.Name = "fontlabel"
-        Me.fontlabel.Size = New System.Drawing.Size(31, 22)
-        Me.fontlabel.Text = "&Font"
         '
         'StatusStrip1
         '
@@ -127,6 +126,50 @@ Partial Class dataframeform
         '
         Me.fontselector.Font = New System.Drawing.Font("Consolas", 8.0!)
         '
+        'ToolStripDropDownButton1
+        '
+        Me.ToolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ToolStripDropDownButton1.Image = CType(resources.GetObject("ToolStripDropDownButton1.Image"), System.Drawing.Image)
+        Me.ToolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripDropDownButton1.Name = "ToolStripDropDownButton1"
+        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(29, 22)
+        Me.ToolStripDropDownButton1.Text = "ToolStripDropDownButton1"
+        '
+        'ToolStripDropDownButton2
+        '
+        Me.ToolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripDropDownButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SheetDirectionToolStripMenuItem, Me.FontToolStripMenuItem})
+        Me.ToolStripDropDownButton2.Image = CType(resources.GetObject("ToolStripDropDownButton2.Image"), System.Drawing.Image)
+        Me.ToolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripDropDownButton2.Name = "ToolStripDropDownButton2"
+        Me.ToolStripDropDownButton2.Size = New System.Drawing.Size(62, 22)
+        Me.ToolStripDropDownButton2.Text = "&Options"
+        '
+        'SheetDirectionToolStripMenuItem
+        '
+        Me.SheetDirectionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RTLToolStripMenuItem, Me.LTRToolStripMenuItem})
+        Me.SheetDirectionToolStripMenuItem.Name = "SheetDirectionToolStripMenuItem"
+        Me.SheetDirectionToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SheetDirectionToolStripMenuItem.Text = "Sheet Direction"
+        '
+        'RTLToolStripMenuItem
+        '
+        Me.RTLToolStripMenuItem.Name = "RTLToolStripMenuItem"
+        Me.RTLToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RTLToolStripMenuItem.Text = "RTL"
+        '
+        'LTRToolStripMenuItem
+        '
+        Me.LTRToolStripMenuItem.Name = "LTRToolStripMenuItem"
+        Me.LTRToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LTRToolStripMenuItem.Text = "LTR"
+        '
+        'FontToolStripMenuItem
+        '
+        Me.FontToolStripMenuItem.Name = "FontToolStripMenuItem"
+        Me.FontToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontToolStripMenuItem.Text = "Font"
+        '
         'dataframeform
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -158,6 +201,11 @@ Partial Class dataframeform
     Friend WithEvents dtginfotext As Windows.Forms.ToolStripStatusLabel
     Friend WithEvents exportdatalabel As Windows.Forms.ToolStripLabel
     Friend WithEvents ToolStripSeparator1 As Windows.Forms.ToolStripSeparator
-    Friend WithEvents fontlabel As Windows.Forms.ToolStripLabel
     Friend WithEvents fontselector As Windows.Forms.FontDialog
+    Friend WithEvents ToolStripDropDownButton2 As Windows.Forms.ToolStripDropDownButton
+    Friend WithEvents SheetDirectionToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RTLToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LTRToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripDropDownButton1 As Windows.Forms.ToolStripDropDownButton
+    Friend WithEvents FontToolStripMenuItem As Windows.Forms.ToolStripMenuItem
 End Class

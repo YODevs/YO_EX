@@ -11,12 +11,6 @@ Public Class dataframeform
         infotimer_Tick(Nothing, Nothing)
     End Sub
 
-    Private Sub fontlabel_Click(sender As Object, e As EventArgs) Handles fontlabel.Click
-        Dim dialogresult = fontselector.ShowDialog()
-        If dialogresult = Windows.Forms.DialogResult.OK OrElse dialogresult = Windows.Forms.DialogResult.Yes Then
-            dtg.DefaultCellStyle.Font = fontselector.Font
-        End If
-    End Sub
 
     Private Sub exportdatalabel_Click(sender As Object, e As EventArgs) Handles exportdatalabel.Click
         Dim sb As New StringBuilder
@@ -47,5 +41,20 @@ Public Class dataframeform
         IO.File.WriteAllText(environment.appdir & "\output.csv", sb.ToString)
         MsgBox("Csv output generated successfully.
 Storage location:" & environment.appdir & "\output.csv", MsgBoxStyle.Information)
+    End Sub
+
+    Private Sub RTLToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RTLToolStripMenuItem.Click
+        dtg.RightToLeft = Windows.Forms.RightToLeft.Yes
+    End Sub
+
+    Private Sub LTRToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LTRToolStripMenuItem.Click
+        dtg.RightToLeft = Windows.Forms.RightToLeft.No
+    End Sub
+
+    Private Sub FontToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FontToolStripMenuItem.Click
+        Dim dialogresult = fontselector.ShowDialog()
+        If dialogresult = Windows.Forms.DialogResult.OK OrElse dialogresult = Windows.Forms.DialogResult.Yes Then
+            dtg.DefaultCellStyle.Font = fontselector.Font
+        End If
     End Sub
 End Class
