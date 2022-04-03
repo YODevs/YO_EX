@@ -132,6 +132,8 @@
                     If IsNothing(typeinf) = False AndAlso typeinf.isarray Then
                         funcste.assignmentype = datatype & conrex.BRSTEN
                     End If
+                ElseIf frvarstruc.tokenid = tokenhared.token.ARR AndAlso datatype.EndsWith(conrex.BRSTEN) = False Then
+                    funcste.assignmentype = datatype & conrex.BRSTEN
                 End If
                 funcste.invoke_method(rlinecodestruc, _ilmethod, funcresult, False)
                 frvarstruc = Nothing

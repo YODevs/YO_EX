@@ -617,6 +617,7 @@
                 _illocalinit(index).typeinf = yotypecreator.get_type_info(ilmethod, clinecodestruc, 3, _illocalinit(index).datatype)
                 If IsNothing(_illocalinit(index).arrayinf) = False AndAlso _illocalinit(index).arrayinf.isarrayref = True Then
                     _illocalinit(index).typeinf.isarray = True
+                    _illocalinit(index).isarrayobj = True
                 End If
                 If _illocalinit(index).isarrayobj Then arr.set_new_arr(ilmethod, _illocalinit(index), clinecodestruc(0))
             Else
@@ -711,6 +712,9 @@
                     Next
                     _illocalinit(index).clocalvalue = crenvalue
                     _illocalinit(index).hasdefaultvalue = True
+                    If IsNothing(_illocalinit(index).arrayinf) = False AndAlso _illocalinit(index).arrayinf.isarrayref = True Then
+                        illdloc.frvarstruc = clinecodestruc(1)
+                    End If
                     assignprocess = True
                 Else
                     'let name : str =
