@@ -1205,4 +1205,23 @@ Hello World ! Ïˆ
 
   </div>
   
+  
+  ### فونت
+  
+  کلاس فونت برای استایل دهی به متون در محیط gui ، همانند کلاس های `dataframe` , `chart` استفاده می شود.
+
+  <div dir="ltr">
+
+ 
+```f#
+let csv : init yolib.csv()
+csv::load_file('C:\...\a.csv')
+let df : init yolib.dataframe()
+let font : init yolib.font('consolas',10,'bold')
+df::font := font
+df::show(csv)
+  ```
+
+  </div>
+  
 [rellink]: <https://github.com/YODevs/YO/releases>
