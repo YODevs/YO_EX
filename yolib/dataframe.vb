@@ -3,6 +3,7 @@
     Dim title As String = "Dataframe Form"
     Dim dtgrtl As Boolean = False
     Dim form As dataframeform
+    Dim cfont As font
     Public Sub New()
         form = New dataframeform
     End Sub
@@ -22,6 +23,15 @@
         End Get
         Set(ByVal value As Boolean)
             dtgrtl = value
+        End Set
+    End Property
+
+    Public Property [font]() As font
+        Get
+            Return cfont
+        End Get
+        Set(ByVal obj As font)
+            cfont = obj
         End Set
     End Property
 
@@ -90,6 +100,9 @@
             form.dtg.RightToLeft = Windows.Forms.RightToLeft.Yes
         Else
             form.dtg.RightToLeft = Windows.Forms.RightToLeft.No
+        End If
+        If IsNothing(cfont) = False Then
+            form.dtg.DefaultCellStyle.Font = cfont.font
         End If
     End Sub
 End Class
