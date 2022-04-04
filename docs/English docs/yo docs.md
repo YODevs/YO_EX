@@ -1142,8 +1142,29 @@ D:\...\...>"D:\...\...\release\environment_sample.exe" --log=ON --ignoreerror=On
  ```
 
   </div>
+        
+  ### Encoding
+ This class wrapped from the `System.Text.Encoding` class is developed in order to facilitate the usage in YOLANG
+ 
+ 
+<div dir="ltr">
 
-  
+ 
+```f#
+func main()
+{
+  let unicodestr : str = "Hello World ! ψ"
+  let unicodebyte[] : u8 = yolib.encoding::unicode_get_bytes(unicodestr)
+  let output : str = yolib.encoding::unicode_get_string(unicodebyte)
+  System.IO.File::writealltext("D:\...\t.txt",output)
+}
+  ```
+     
+ ```
+Hello World ! Ïˆ
+ ```
+
+  </div>
  
  
 [rellink]: <https://github.com/YODevs/YO/releases>
