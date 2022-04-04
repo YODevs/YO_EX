@@ -1182,6 +1182,27 @@ D:\...\...>"D:\...\...\release\environment_sample.exe" --log=ON --ignoreerror=On
 
   </div>
 
+ ### رمزگذاری - encoding
   
+  این کلاس ، wrapper شده ، کلاس `System.Text.Encoding` است ، که جهت سهولت استفاده در یولنگ ایجاد شده است.
+ 
+<div dir="ltr">
+
+ 
+```f#
+func main()
+{
+  let unicodestr : str = "Hello World ! ψ"
+  let unicodebyte[] : u8 = yolib.encoding::unicode_get_bytes(unicodestr)
+  let output : str = yolib.encoding::unicode_get_string(unicodebyte)
+  System.IO.File::writealltext("D:\...\t.txt",output)
+}
+  ```
+     
+ ```
+Hello World ! Ïˆ
+ ```
+
+  </div>
   
 [rellink]: <https://github.com/YODevs/YO/releases>
