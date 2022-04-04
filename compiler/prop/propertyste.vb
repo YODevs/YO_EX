@@ -63,7 +63,11 @@ Public Class propertyste
         Dim paramtype As New ArrayList
         Dim propertyclass As String = retpropertyinfo.ReflectedType.ToString
         Dim propertymethod As String = String.Format("set_{0}", retpropertyinfo.Name)
-        paramtype.Add(gdatatype)
+        If servinterface.is_cil_common_data_type(gdatatype) Then
+            paramtype.Add(gdatatype)
+        Else
+            paramtype.Add(String.Format("class [{0}]{1}", retpropertyinfo.SetMethod.GetParameters(0).ParameterType.Assembly.GetName.Name, gdatatype))
+        End If
         convtc.setconvmethod = setconvmethod
         convtc.ntypecast = ntypecast
         ldloc.load_single_in_stack(gdatatype, clinecodestruc(inline))
@@ -154,6 +158,7 @@ Public Class propertyste
         gdatatype = servinterface.vb_to_cil_common_data_type(gdatatype)
         If servinterface.is_cil_common_data_type(gdatatype) = False Then
             gdatatype = retpropertyinfo.PropertyType.ToString
+            gdatatype = String.Format("[{0}]{1}", retpropertyinfo.GetMethod.ReturnType.Assembly.GetName.Name, gdatatype)
         End If
         Dim propertyclass As String = retpropertyinfo.ReflectedType.ToString
         If isvirtualmethod AndAlso retpropertyinfo.GetMethod.IsStatic = False Then
