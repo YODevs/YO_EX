@@ -77,18 +77,18 @@ Partial Class chartui
         'SaveChartToolStripMenuItem
         '
         Me.SaveChartToolStripMenuItem.Name = "SaveChartToolStripMenuItem"
-        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
         Me.SaveChartToolStripMenuItem.Text = "Save chart"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(125, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'EditToolStripMenuItem
