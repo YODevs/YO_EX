@@ -99,6 +99,19 @@
         End If
         Return insert(items.to_arraylist)
     End Function
+    Public Function insert(items() As String) As Integer
+        If IsNothing(items) OrElse items.Length() <> columns.Count Then
+            Throw New Exception("Items are not equal to the number of columns[" & columns.Count & "].")
+            Return -1
+        End If
+        Dim getlastitemindex As Integer = rowcount
+        Array.Resize(dt, getlastitemindex + 1)
+        dt(getlastitemindex) = New ArrayList
+        For index = 0 To columns.Count - 1
+            dt(getlastitemindex).Add(items(index))
+        Next
+        Return getlastitemindex + 1
+    End Function
     Public Sub delete(index As Integer)
         If IsNothing(dt) Then
             Throw New Exception("Datastore is empty.")
