@@ -92,7 +92,13 @@
         dt(getlastitemindex) = items
         Return getlastitemindex + 1
     End Function
-
+    Public Function insert(items As list) As Integer
+        If IsNothing(items) OrElse items.count() <> columns.Count Then
+            Throw New Exception("Items are not equal to the number of columns[" & columns.Count & "].")
+            Return -1
+        End If
+        Return insert(items.to_arraylist)
+    End Function
     Public Sub delete(index As Integer)
         If IsNothing(dt) Then
             Throw New Exception("Datastore is empty.")
