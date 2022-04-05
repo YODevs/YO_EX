@@ -209,4 +209,8 @@ Public Class [list]
         Next
         Return retstr
     End Function
+
+    Public Function to_arraylist() As ArrayList
+        Return items
+    End Function
 End Class
