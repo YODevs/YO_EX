@@ -1142,8 +1142,48 @@ D:\...\...>"D:\...\...\release\environment_sample.exe" --log=ON --ignoreerror=On
  ```
 
   </div>
+        
+  ### Encoding
+ This class wrapped from the `System.Text.Encoding` class is developed in order to facilitate the usage in YOLANG
+ 
+ 
+<div dir="ltr">
 
-  
+ 
+```f#
+func main()
+{
+  let unicodestr : str = "Hello World ! ψ"
+  let unicodebyte[] : u8 = yolib.encoding::unicode_get_bytes(unicodestr)
+  let output : str = yolib.encoding::unicode_get_string(unicodebyte)
+  System.IO.File::writealltext("D:\...\t.txt",output)
+}
+  ```
+     
+ ```
+Hello World ! Ïˆ
+ ```
+
+  </div>
+           
+ 
+  ### Font
+ The Font class is usable for styling and customizing in GUI environments such as `chart`, `dataframe`, etc.
+ 
+ 
+  <div dir="ltr">
+
+ 
+```f#
+let csv : init yolib.csv()
+csv::load_file('C:\...\a.csv')
+let df : init yolib.dataframe()
+let font : init yolib.font('consolas',10,'bold')
+df::font := font
+df::show(csv)
+  ```
+
+  </div>
  
  
 [rellink]: <https://github.com/YODevs/YO/releases>
