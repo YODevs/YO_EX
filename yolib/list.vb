@@ -213,4 +213,17 @@ Public Class [list]
     Public Function to_arraylist() As ArrayList
         Return items
     End Function
+
+    Public Function remove_duplicate() As Integer
+        If items.Count = 0 Then Throw New Exception("remove from empty list.")
+        Dim uniquedlist As New ArrayList()
+        Dim itemscount As Integer = items.Count - 1
+        For index As Integer = 0 To itemscount
+            If uniquedlist.Contains(items(index)) = False Then
+                uniquedlist.Add(items(index))
+            End If
+        Next
+        items = uniquedlist
+        Return uniquedlist.Count
+    End Function
 End Class
