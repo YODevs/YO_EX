@@ -33,6 +33,12 @@ func print(arr[] : str)
     }
 }
 
+func print(matrix : yolib.matrix) : void
+{
+  let result : str = matrix::get_matrix()
+  io::println(result)
+}
+
 func is_i32(val:str) : bool
 {
   let i : i32
