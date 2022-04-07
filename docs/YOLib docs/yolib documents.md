@@ -1070,7 +1070,7 @@ get(key : str) : obj
 | 3 | value | `System.String&` | False | True |
 
 ```f#
-get_map(index : i32 ,key : System.String&& ,value : System.String&&) : void
+get_map(index : i32 ,key : System.String& ,value : System.String&) : void
 ```
 #### get_with_index
 - Re : Method
