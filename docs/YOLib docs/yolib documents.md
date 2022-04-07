@@ -6,6 +6,7 @@
 - [date](#date)
 - [encoding](#encoding)
 - [environment](#environment)
+- [font](#font)
 - [map](#map)
 - [interaction](#interaction)
 - [iterator](#iterator)
@@ -301,6 +302,16 @@
 - Can Read : True
 - Can Write : True
 - Propertytype : `str`
+##### rtl
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `bool`
+##### font
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `YOLIB.font`
 #### init
 - Re : Constructor
 - No Parameter
@@ -317,6 +328,34 @@
 | # | name | type |  Is Optional | Is Byref |
 |--|--|--|--|--|
 | 1 | value | `str` | False | False |
+
+#### get_rtl
+- Re : Method
+- Modifier : Instance
+- Returntype : `bool`
+- No Parameter
+#### set_rtl
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `bool` | False | False |
+
+#### get_font
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.font`
+- No Parameter
+#### set_font
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | obj | `YOLIB.font` | False | False |
 
 #### show
 - Re : Method
@@ -644,6 +683,69 @@
 
 <hr>
 
+### font
+- Fullname : YOLIB.font
+##### font
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `System.Drawing.Font`
+#### init
+- Re : Constructor
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | fontname | `str` | False | False |
+| 2 | fontsize | `i32` | False | False |
+
+#### init
+- Re : Constructor
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | fontname | `str` | False | False |
+| 2 | fontsize | `f32` | False | False |
+
+#### init
+- Re : Constructor
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | fontname | `str` | False | False |
+| 2 | fontsize | `f32` | False | False |
+| 3 | fontstyle | `str` | False | False |
+
+#### init
+- Re : Constructor
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | fontname | `str` | False | False |
+| 2 | fontsize | `i32` | False | False |
+| 3 | fontstyle | `str` | False | False |
+
+#### get_font
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Drawing.Font`
+- No Parameter
+#### set_font
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `System.Drawing.Font` | False | False |
+
+#### GetType
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Type`
+- No Parameter
+
+<hr>
+
 ### map
 - Fullname : YOLIB.map
 #### init
@@ -934,8 +1036,15 @@
 
 | # | name | type |  Is Optional | Is Byref |
 |--|--|--|--|--|
-| 1 | values | `str` | False | False |
+| 1 | value | `str` | False | False |
 | 2 | pattern | `str` | False | False |
+
+#### init
+- Re : Constructor
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | values | `str[]` | False | False |
 
 #### append
 - Re : Method
@@ -1126,6 +1235,21 @@
 - Re : Method
 - Modifier : Instance
 - Returntype : `str`
+- No Parameter
+#### to_str
+- Re : Method
+- Modifier : Instance
+- Returntype : `str[]`
+- No Parameter
+#### to_arraylist
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Collections.ArrayList`
+- No Parameter
+#### remove_duplicate
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
 - No Parameter
 #### GetType
 - Re : Method
@@ -1514,6 +1638,24 @@
 |--|--|--|--|--|
 | 1 | items | `System.Collections.ArrayList` | False | False |
 
+#### insert
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | items | `YOLIB.list` | False | False |
+
+#### insert
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | items | `str[]` | False | False |
+
 #### delete
 - Re : Method
 - Modifier : Instance
@@ -1594,6 +1736,15 @@
 |--|--|--|--|--|
 | 1 | rowindex | `i32` | False | False |
 | 2 | colindex | `i32` | False | False |
+
+#### get_column_items
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | colindex | `i32` | False | False |
 
 #### GetType
 - Re : Method
