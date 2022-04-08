@@ -37,7 +37,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-  <AppDesignerFolder>yodefopt</AppDesignerFolder>
+    <AppDesignerFolder>yodefopt</AppDesignerFolder>
     <OptionExplicit>On</OptionExplicit>
   </PropertyGroup>
   <PropertyGroup>
@@ -108,6 +108,7 @@
     <Compile Include="list.vb" />
     <Compile Include="matrix.vb" />
     <Compile Include="menu.vb" />
+    <Compile Include="range.vb" />
     <Compile Include="yodefopt\AssemblyInfo.vb" />
     <Compile Include="yodefopt\Application.Designer.vb">
       <AutoGen>True</AutoGen>
