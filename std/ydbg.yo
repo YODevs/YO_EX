@@ -158,3 +158,9 @@ func timerstop() : void
 {
   timer::stop()
 }
+
+func exectime() : i64
+{
+  let result : i64 = timer::elapsedmilliseconds
+  return result
+}
