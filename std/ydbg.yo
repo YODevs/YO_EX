@@ -149,23 +149,23 @@ func is_space(val:obj) : bool
   return result
 }
 
-func timerstart() : void
+func timer_start() : void
 {
   timer::start()
 }
 
-func timerstop() : void
+func timer_stop() : void
 {
   timer::stop()
 }
 
-func exectime() : i64
+func exec_time() : i64
 {
   let result : i64 = timer::elapsedmilliseconds
   return result
 }
 
-func timerstatus() : bool
+func timer_status() : bool
 {
   let status : bool = timer::isrunning
   return status
