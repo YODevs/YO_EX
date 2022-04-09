@@ -164,3 +164,9 @@ func exectime() : i64
   let result : i64 = timer::elapsedmilliseconds
   return result
 }
+
+func timerstatus() : bool
+{
+  let status : bool = timer::isrunning
+  return status
+}
