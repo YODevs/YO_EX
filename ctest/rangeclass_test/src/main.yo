@@ -1,0 +1,171 @@
+#[app::classname("myapp")]
+
+include 'ystdio'
+include 'yolib'
+include 'ydbg'
+
+func main()
+{
+
+  let ls : yolib.list = yolib.range::get_range(0,3)
+  dbg::print(ls)
+  io::println("0->2")
+  io::newline()
+
+  ls := yolib.range::get_range(0,6,2)
+  dbg::print(ls)
+  io::println("0->4")
+  io::newline()
+
+  ls := yolib.range::get_range(6,0,-2)
+  dbg::print(ls)
+  io::println("6->2")
+  io::newline()
+
+  ls := yolib.range::get_range(8,7,-2)
+  dbg::print(ls)
+  io::println("8->8")
+  io::newline()
+
+  ls := yolib.range::get_range(3,-2,-2,true)
+  dbg::print(ls)
+  io::println("3->-1")
+  io::newline()
+
+  ls := yolib.range::get_range(3,-1,-2,true)
+  dbg::print(ls)
+  io::println("3->1")
+  io::newline()
+
+  ls := yolib.range::get_range(3,3,1,true)
+  dbg::print(ls)
+  io::newline()
+
+  ls := yolib.range::get_range(1.2,5.5,0.5)
+  dbg::print(ls)
+  io::newline()
+
+  ls := yolib.range::get_range(3.2,3.5,0.1)
+  dbg::print(ls)
+  io::newline()
+
+  ls := yolib.range::get_range(3.2,3.6,0.1,false)
+  dbg::print(ls)
+  io::println("3.2->3.6")
+  io::newline()
+
+  ls := yolib.range::get_range(3.2,3.6,0.1,true)
+  dbg::print(ls)
+  io::println("3.2->3.5")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,-1.0,-0.3,true)
+  dbg::print(ls)
+  io::println("0.0->-0.9")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,-1.0,-0.2,true)
+  dbg::print(ls)
+  io::println("0.0->-0.8")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,-1.0,-0.2,false)
+  dbg::print(ls)
+  io::println("0.0->-1.0")
+  io::newline()
+
+  ls := yolib.range::get_range(-2.0,-1.0,0.2)
+  dbg::print(ls)
+  io::println("-2.0->-1.2")
+  io::newline()
+
+  ls := yolib.range::get_range(-2.0,-1.0,0.2,false)
+  dbg::print(ls)
+  io::println("-2.0->-1.0")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,2.4,1.2,false)
+  dbg::print(ls)
+  io::println("0.0->2.4")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,2.4,1.2,true)
+  dbg::print(ls)
+  io::println("0.0->1.2")
+  io::newline()
+
+  ls := yolib.range::get_range(-1,3,1,true)
+  dbg::print(ls)
+  io::println("-1->2")
+  io::newline()
+
+  ls := yolib.range::get_range(-1,3,1,false)
+  dbg::print(ls)
+  io::println("-1->3")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,2.4,1.2,true)
+  dbg::print(ls)
+  io::println("0.0->1.2")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,2.4,1.2,false)
+  dbg::print(ls)
+  io::println("0.0->2.4")
+  io::newline()
+
+  ls := yolib.range::get_range(5.05,1.01,-1.01,false)
+  dbg::print(ls)
+  io::println("5.05->1.01")
+  io::newline()
+
+  ls := yolib.range::get_range(5.05,2.02,-1.01)
+  dbg::print(ls)
+  io::println("5.05->1.01")
+  io::newline()
+
+  ls := yolib.range::get_range(-2.0,-1.0,0.2,false)
+  dbg::print(ls)
+  io::println("-2.0->-1.0")
+  io::newline()
+
+  ls := yolib.range::get_range(-2.0,-1.0,0.2,true)
+  dbg::print(ls)
+  io::println("-2.0->-1.2")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,-1.0,-0.2,true)
+  dbg::print(ls)
+  io::println("0.0->-0.8")
+  io::newline()
+
+  ls := yolib.range::get_range(0.0,-1.0,-0.2,false)
+  dbg::print(ls)
+  io::println("0.0->-1.0")
+  io::newline()
+
+  ls := yolib.range::get_range(-1.0,-1.0,-0.2,false)
+  dbg::print(ls)
+  io::println("-1.0->-1.0")
+  io::newline()
+
+  ls := yolib.range::get_range(1,1,1)
+  dbg::print(ls)
+  io::println("1->1")
+  io::newline()
+
+  ls := yolib.range::get_range(100,0,-10)
+  dbg::print(ls)
+  io::println("100->10")
+  io::newline()
+
+  ls := yolib.range::get_range(0,1000,200,false)
+  dbg::print(ls)
+  io::println("0->1000")
+  io::newline()
+
+  ls := yolib.range::get_range(10.5,50.5,10.0)
+  dbg::print(ls)
+  io::println("10.5->40.5")
+  io::newline()
+}
