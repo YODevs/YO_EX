@@ -3,6 +3,8 @@
 include 'ystdio'
 include 'yolib'
 
+private static let timer : init system.diagnostics.stopwatch()
+
 func print(list : yolib.list) : void
 {
   let count : i32 = list::count()
@@ -145,4 +147,26 @@ func is_space(val:obj) : bool
   let valtostr : str = [str]val
   let result : bool = is_space(valtostr)
   return result
+}
+
+func timer_start() : void
+{
+  timer::start()
+}
+
+func timer_stop() : void
+{
+  timer::stop()
+}
+
+func exec_time() : i64
+{
+  let result : i64 = timer::elapsedmilliseconds
+  return result
+}
+
+func timer_status() : bool
+{
+  let status : bool = timer::isrunning
+  return status
 }
