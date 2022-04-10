@@ -13,6 +13,7 @@
 - [list](#list)
 - [matrix](#matrix)
 - [menu](#menu)
+- [range](#range)
 - [progressbar](#progressbar)
 - [rds](#rds)
 - [yoda](#yoda)
@@ -1964,6 +1965,106 @@ show_menu(items : YOLIB.list) : str
 
 ```f#
 show_menu(items : str) : str
+```
+#### GetType
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Type`
+- No Parameter
+```f#
+GetType() : System.Type
+```
+
+<hr>
+
+### range
+- Fullname : YOLIB.range
+#### init
+- Re : Constructor
+- No Parameter
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | startpoint | `i32` | False | False |
+| 2 | endpoint | `i32` | False | False |
+
+```f#
+get_range(startpoint : i32 ,endpoint : i32) : YOLIB.list
+```
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | startpoint | `i32` | False | False |
+| 2 | endpoint | `i32` | False | False |
+| 3 | step | `i32` | False | False |
+
+```f#
+get_range(startpoint : i32 ,endpoint : i32 ,step : i32) : YOLIB.list
+```
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | startpoint | `i32` | False | False |
+| 2 | endpoint | `i32` | False | False |
+| 3 | step | `i32` | False | False |
+| 4 | ignorelastpoint | `bool` | False | False |
+
+```f#
+get_range(startpoint : i32 ,endpoint : i32 ,step : i32 ,ignorelastpoint : bool) : YOLIB.list
+```
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | startpoint | `f64` | False | False |
+| 2 | endpoint | `f64` | False | False |
+
+```f#
+get_range(startpoint : f64 ,endpoint : f64) : YOLIB.list
+```
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | startpoint | `f64` | False | False |
+| 2 | endpoint | `f64` | False | False |
+| 3 | step | `f64` | False | False |
+
+```f#
+get_range(startpoint : f64 ,endpoint : f64 ,step : f64) : YOLIB.list
+```
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | startpoint | `f64` | False | False |
+| 2 | endpoint | `f64` | False | False |
+| 3 | step | `f64` | False | False |
+| 4 | ignorelastpoint | `bool` | False | False |
+
+```f#
+get_range(startpoint : f64 ,endpoint : f64 ,step : f64 ,ignorelastpoint : bool) : YOLIB.list
 ```
 #### GetType
 - Re : Method
