@@ -136,10 +136,9 @@ Public Class libserv
                         get_method_info(method, methodinfo)
                         funcste.assignmentype = Nothing
                         Return methodindex
-                    Else
-                        retstate = -2
                     End If
                 End If
+                retstate = -2
             End If
         Next
         funcste.assignmentype = Nothing
