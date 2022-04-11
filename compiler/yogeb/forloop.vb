@@ -29,7 +29,7 @@
             rnginf.stepsc = 1
         End If
         looprangecodestruc = clinecodestruc(4)
-        set_flag_loop(illocalinit)
+        set_flag_loop(illocalinit, localinit)
         getbrcond = lngen.get_line_prop("cond_for_")
         getbrstep = lngen.get_line_prop("step_for_")
         getbrhead = lngen.get_line_prop("head_for_")
@@ -132,7 +132,7 @@
                 cil.ble(_ilmethod.codes, getbrhead)
         End If
     End Sub
-    Private Sub set_flag_loop(ByRef _illocalinit() As ilformat._illocalinit)
+    Private Sub set_flag_loop(ByRef _illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
         Dim locinit As New ilformat._illocalinit
         locinit.name = loopvar
         'default common data type for 'FOR' loop
@@ -154,6 +154,7 @@
             stvarloop.ien = looprangecodestruc.value.IndexOf("..")
             ldloc.load_single_in_stack("int32", stvarloop)
         End If
+        localinit.add_local_init(locinit.name, locinit.datatype)
         cil.set_stack_local(_ilmethod.codes, loopvar)
     End Sub
 
