@@ -63,7 +63,20 @@ Public Class chart
             Throw New Exception(charttypename & " - The selected chart type could not be found! You can use charts like [Pie,Line,Bar,Area,Bubble,Point,Radar,...].")
         End If
     End Sub
-
+    Public Sub add_title(titlename As String, value As String)
+        add_title(titlename, value, Nothing, Nothing)
+    End Sub
+    Public Sub add_title(titlename As String, value As String, font As font, colorname As String)
+        Dim title As Windows.Forms.DataVisualization.Charting.Title = chartform.chart.Titles.Add(titlename)
+        title.Text = value
+        title.Alignment = Drawing.ContentAlignment.MiddleCenter
+        If IsNothing(font) = False Then
+            title.Font = font.font
+        End If
+        If colorname <> String.Empty Then
+            title.ForeColor = Drawing.Color.FromName(colorname)
+        End If
+    End Sub
     Public Sub add_point(seriesname As String, xvalue As Integer, yvalue As Integer)
         Dim pointid As Integer = chartform.chart.Series(seriesname).Points.AddXY(xvalue, yvalue)
         set_default_setting_point(seriesname, pointid, xvalue, yvalue)
