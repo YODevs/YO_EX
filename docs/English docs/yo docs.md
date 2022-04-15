@@ -1185,5 +1185,62 @@ df::show(csv)
 
   </div>
  
+  
+  ### Ranges
+ We already learnt about general structure of ranges in the loops section. By using `range` class, we can produce flexible numerical ranges and obtain its output in an array or in a list.
+ 
+ 
+<div dir="ltr">
+
+ 
+```f#
+include 'yolib'
+include 'ydbg'
+func main()
+{
+  let ls : yolib.list = yolib.range::get_range(0,3)
+  dbg::print(ls)
+}
+  ```
+
+```
+0
+1
+2
+ ```
+  </div>
+  
+
+ Regarding to the above code, if the last value of the range is needed, we can set the `ignorelastpoint` parameter as `false` in order to produce a range containing values from 0 to 3.
+ 
+ As mentioned, within the YOLang, flexible domains can be produced by using this class.
+ For instance, in the below code, one can convert the centigrade temperature into the kelvin temperature.
+
+ 
+<div dir="ltr">
+
+```f#
+include 'yolib'
+include 'ydbg'
+func main()
+{
+  let ls : yolib.list = yolib.range::get_range(0,5,1,false,"x + 273")
+  dbg::print(ls)
+}
+  ```
+
+```
+273
+274
+275
+276
+277
+278
+ ```
+  </div>
+  
+  
+ In the phrase, `x` is used as current point, `y` as previous point, and `z` as a response the the previous phrase.
+ 
  
 [rellink]: <https://github.com/YODevs/YO/releases>
