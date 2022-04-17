@@ -1,4 +1,5 @@
 ﻿Public Class assignmentcommondatatype
+    Friend Shared varnamecodestruc As xmlunpkd.linecodestruc
 
     Friend Shared Sub set_value(ByRef funcdt As ilformat._ilmethodcollection, index As Integer, Optional loadatfirst As Boolean = True)
         Static indinsert As Integer = 0
@@ -9,6 +10,11 @@
         If funcdt.locallinit(index).clocalvalue.Length > 1 AndAlso funcdt.locallinit(index).clocalvalue(0).tokenid = tokenhared.token.EXPLTYPECAST Then
             convtc.is_type_casting(funcdt.locallinit(index).clocalvalue, 0)
             valindex = 1
+        End If
+
+        If funcdt.locallinit(index).isarrayobj AndAlso funcdt.locallinit(index).hasdefaultvalue AndAlso funcdt.locallinit(index).clocalvalue(0).tokenid = tokenhared.token.BLOCKOP Then
+            arr.init_all_items(funcdt, index, valindex)
+            Return
         End If
         Dim optgen As New ilopt(funcdt, servinterface.get_contain_clinecodestruc(funcdt.locallinit(index).clocalvalue, valindex))
 

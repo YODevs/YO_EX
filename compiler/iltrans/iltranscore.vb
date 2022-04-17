@@ -113,6 +113,7 @@
                     arr.set_loc(_ilmethod, _illocalinit(_illocalinit.Length - 1), clinecodestruc(1))
                 End If
                 If assignprocess Then
+                    assignmentcommondatatype.varnamecodestruc = clinecodestruc(1)
                     assignmentcommondatatype.set_value(_ilmethod, _illocalinit.Length - 1, False)
                 End If
             Case tokenhared.token.CONST
