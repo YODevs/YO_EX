@@ -26,6 +26,35 @@ Public Class arr
         Return False
     End Function
 
+    Friend Shared Sub init_all_items(ByRef ilmethod As ilformat._ilmethodcollection, index As Integer, valindex As Integer)
+        Dim arrobj As ilformat._illocalinit = ilmethod.locallinit(index)
+        If arrobj.clocalvalue(valindex).tokenid = tokenhared.token.BLOCKOP Then
+            Dim xmldata As New xmlunpkd(arrobj.clocalvalue(valindex).value, False)
+            Dim items() As xmlunpkd.linecodestruc
+            While xmldata.xmlreader.EOF = False
+                items = xmldata.get_line_tokens()
+                If items.Length = 0 Then Continue While
+                Exit While
+            End While
+            Dim reclitem() As xmlunpkd.linecodestruc = funcste.get_arr_items(items)
+            If IsNothing(reclitem) Then
+                dserr.new_error(conserr.errortype.SYNTAXERROR, arrobj.clocalvalue(valindex).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(arrobj.clocalvalue(valindex)), arrobj.clocalvalue(valindex).value), "let i[] : i32 = {10,20,30,40,50}")
+            End If
+            arrobj.typeinf.isarray = True
+            arrobj.arrayinf.isunspecifiedelements = False
+            arrobj.arrayinf.elementsp = String.Format("[{0}]", reclitem.Length)
+            set_new_arr(ilmethod, arrobj, assignmentcommondatatype.varnamecodestruc)
+            arr.set_loc(ilmethod, arrobj, assignmentcommondatatype.varnamecodestruc)
+            assign_all_items(ilmethod, arrobj, reclitem)
+        Else
+            dserr.new_error(conserr.errortype.SYNTAXERROR, arrobj.clocalvalue(valindex).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(arrobj.clocalvalue(valindex)), arrobj.clocalvalue(valindex).value), "let i[] : i32 = {10,20,30,40,50}")
+        End If
+    End Sub
+
+    Private Shared Sub assign_all_items(ilmethod As ilformat._ilmethodcollection, arrobj As ilformat._illocalinit, reclitem() As xmlunpkd.linecodestruc)
+
+    End Sub
+
     Friend Shared Sub set_new_arr(ByRef ilmethod As ilformat._ilmethodcollection, illocalinit As ilformat._illocalinit, clinecodestruc As xmlunpkd.linecodestruc)
         If illocalinit.isarrayobj = False OrElse illocalinit.arrayinf.isunspecifiedelements Then Return
         Dim elementsp As String = illocalinit.arrayinf.elementsp
