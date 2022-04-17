@@ -260,16 +260,16 @@ Public Class funcste
         Dim ldlc As New illdloc(_ilmethod)
         _ilmethod = ldlc.load_in_stack(paramtypes, cargcodestruc)
     End Sub
-    Friend Shared Function get_argument_list(clinecodestruc() As xmlunpkd.linecodestruc) As xmlunpkd.linecodestruc()
+    Friend Shared Function get_argument_list(clinecodestruc() As xmlunpkd.linecodestruc, Optional starttoken As tokenhared.token = 51, Optional endtoken As tokenhared.token = 52) As xmlunpkd.linecodestruc()
         Dim cargcodestruc() As xmlunpkd.linecodestruc
         Dim icarg As Integer = 0
         Dim stateparam As Boolean = False
         fscmawait = False
         For index = 0 To clinecodestruc.Length - 1
-            If stateparam = False AndAlso clinecodestruc(index).tokenid = tokenhared.token.PRSTART Then
+            If stateparam = False AndAlso clinecodestruc(index).tokenid = starttoken Then
                 stateparam = True
                 Continue For
-            ElseIf stateparam = True AndAlso clinecodestruc(index).tokenid = tokenhared.token.PREND Then
+            ElseIf stateparam = True AndAlso clinecodestruc(index).tokenid = endtoken Then
                 Return cargcodestruc
             ElseIf stateparam = False Then
                 Continue For
@@ -282,6 +282,24 @@ Public Class funcste
                     Array.Resize(cargcodestruc, icarg + 1)
                     cargcodestruc(icarg) = cargprtester
                 End If
+            End If
+        Next
+        Return cargcodestruc
+    End Function
+
+    Friend Shared Function get_arr_items(clinecodestruc() As xmlunpkd.linecodestruc) As xmlunpkd.linecodestruc()
+        If IsNothing(clinecodestruc) Then Return Nothing
+        Dim cargcodestruc() As xmlunpkd.linecodestruc
+        Dim icarg As Integer = 0
+        fscmawait = False
+        For index = 0 To clinecodestruc.Length - 1
+            Dim cargprtester As xmlunpkd.linecodestruc
+            If define_carg_store(clinecodestruc(index), cargprtester) Then
+                If IsNothing(cargcodestruc) = False Then
+                    icarg = cargcodestruc.Length
+                End If
+                Array.Resize(cargcodestruc, icarg + 1)
+                cargcodestruc(icarg) = cargprtester
             End If
         Next
         Return cargcodestruc
