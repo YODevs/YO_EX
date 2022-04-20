@@ -170,7 +170,7 @@ Public Class lexer
                     linecinf.lend = index - 1
                     linecinf.length = linec.Length
                 End If
-                If getch = "." AndAlso IsNumeric(linec) Then
+                If getch = conrex.DOT AndAlso IsNumeric(linec) Then
                     linec &= getch
                     Continue For
                 End If
@@ -213,14 +213,14 @@ Public Class lexer
     End Sub
 
     Private Function check_method(getch As Char, ByRef slinegrab As String, index As Integer) As Boolean
-        If getch = ":" Then
-            If nextchar(index) = ":" OrElse pervchar(index) = ":" Then
+        If getch = conrex.CLN Then
+            If nextchar(index) = conrex.CLN OrElse pervchar(index) = conrex.CLN Then
                 slinegrab &= getch
                 Return True
             Else
                 Return False
             End If
-        ElseIf getch = "." AndAlso IsNumeric(slinegrab) = False Then
+        ElseIf getch = conrex.DOT AndAlso IsNumeric(slinegrab) = False Then
             slinegrab &= getch
             Return True
         Else
@@ -352,13 +352,13 @@ Public Class lexer
 
         rd_token = tokenhared.token.UNDEFINED
 
-        If qucheck = False AndAlso linec = ":" AndAlso nextchar(index) = ":" Then
+        If qucheck = False AndAlso linec = conrex.CLN AndAlso nextchar(index) = conrex.CLN Then
             qucheck = True
             linecinf.lstart = -1
             linec = conrex.NULL
             Return
         ElseIf qucheck = True Then
-            linec &= ":"
+            linec &= conrex.CLN
             linecinf.lstart -= 1
             linecinf.length += 1
             qucheck = False
@@ -491,14 +491,14 @@ Public Class lexer
     End Function
 
     Private Function rev_compiler_attribute(ByRef value As String) As Boolean
-        If value.StartsWith("#[") AndAlso value.EndsWith("]") Then
+        If value.StartsWith("#[") AndAlso value.EndsWith(conrex.BREND) Then
             rd_token = tokenhared.token.COMPILERATTRIBUTE
             Return True
         End If
         Return False
     End Function
     Private Function rev_expression(ByRef value As String) As Boolean
-        If value.StartsWith("[") AndAlso value.EndsWith("]") Then
+        If value.StartsWith(conrex.BRSTART) AndAlso value.EndsWith(conrex.BREND) Then
             If value.Contains(conrex.DBDOT) = False Then
                 If rev_typecasting(value) Then
                     rd_token = tokenhared.token.EXPLTYPECAST
@@ -557,7 +557,7 @@ Public Class lexer
                     Case "-"
                         chstatus = targetaction.MULTILINECOMMENTLOADER
                         Return True
-                    Case "["
+                    Case conrex.BRSTART
                         chstatus = targetaction.COMPILERATTRIBUTELOADER
                         Return True
                 End Select
@@ -566,7 +566,7 @@ Public Class lexer
                     chstatus = targetaction.SINGLECOMMENTLOADER
                     Return True
                 End If
-            Case "["
+            Case conrex.BRSTART
                 chstatus = targetaction.EXPRESSIONLOADER
                 Return True
             Case conrex.COSTR
@@ -604,11 +604,11 @@ Public Class lexer
     End Function
 
     Public Sub displaytokens(token As tokenhared.token, value As String)
-        Console.WriteLine([Enum].GetName(GetType(tokenhared.token), token) & "[" & token & "]" & " ~> " & value)
+        Console.WriteLine([Enum].GetName(GetType(tokenhared.token), token) & conrex.BRSTART & token & conrex.BREND & " ~> " & value)
     End Sub
 
     Friend Shared Function is_expression(value As String) As Boolean
-        If value.StartsWith("[") AndAlso value.EndsWith("]") Then
+        If value.StartsWith(conrex.BRSTART) AndAlso value.EndsWith(conrex.BREND) Then
             If value.Contains(conrex.DBDOT) = False Then
                 For index = 0 To compdt.expressionact.Length - 1
                     If value.Contains(compdt.expressionact(index)) Then
