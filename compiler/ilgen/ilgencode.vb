@@ -80,6 +80,7 @@ Public Class ilgencode
         End If
         location &= compdt.DOTNETNAME
         ilasmparameter.add_param("-o", location)
+        set_metadata_version(ilasmparameter)
         Dim dotnetconv As New dotnetbuild(ilasmparameter, path)
         procresult.rs_set_result(True)
         procresult.rp_asm("Assembly process & Linker")
@@ -97,6 +98,7 @@ Public Class ilgencode
         File.WriteAllText(path, source)
         ilasmparameter.add_file(path)
         ilasmparameter.add_param("/OUTPUT", conrex.DUSTR & cilcomp.get_output_loca() & conrex.DUSTR)
+        set_metadata_version(ilasmparameter)
         Dim ilconv As New ilasmconv(ilasmparameter, path)
         procresult.rs_set_result(True)
         procresult.rp_asm("Assembly process & Linker")
@@ -107,6 +109,10 @@ Public Class ilgencode
         source &= codes & vbCrLf & vbCrLf
     End Sub
 
+    Private Sub set_metadata_version(ByRef ilasmparameter As ilasmparam)
+        If compdt.METADATAVERSION <> String.Empty Then ilasmparameter.add_param("/mdv", compdt.METADATAVERSION)
+        If compdt.METASTREAMVERSION <> String.Empty Then ilasmparameter.add_param("/msv", compdt.METASTREAMVERSION)
+    End Sub
     Private Sub check_debug_state(ByRef ilasmparameter As ilasmparam)
         If compdt._PROJECTFRAMEWORK = compdt.__projectframework.DotNetFramework Then
             If execln.argstorelist.find(compdt.PARAM_DEBUG, True) Then
