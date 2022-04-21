@@ -83,6 +83,7 @@ pop"
 
     Friend Shared PROJECTFRAMEWORK, TARGETFRAMEWORK ,  PROJECTASSEMBLYNAME As String
     Friend Shared DOTNETVERSDK, DOTNETNAME As String
+    Friend Shared METADATAVERSION, METASTREAMVERSION As String
     Friend Shared CORELIB As String = "mscorlib"
     Friend Const SYSTEMRUNTIMELIB As String = "System.Runtime"
 
