@@ -38,11 +38,14 @@ Public Class cprojflow
             dserr.args.Add("V3.5|4|...")
             dserr.new_error(conserr.errortype.TARGETFRAMEWORKERROR, -1, Nothing, "To solve this problem, you can go to https://dotnet.microsoft.com/download/dotnet-framework and download and install the desired version.")
         End If
+        compdt.METADATAVERSION = cprojdt.get_val("mdv")
+        compdt.METASTREAMVERSION = cprojdt.get_val("msv")
         procresult.rs_set_result(True)
 
         load_type_of_project()
         libreg.init_libraries(conrex.ENVCURDIR & cprojdt.get_val("assetspath"))
         impfiles.import_directory(conrex.ENVCURDIR & cprojdt.get_val("sourcepath"))
+
     End Sub
     Public Sub load_type_of_project()
         compdt.PROJECTASSEMBLYNAME = cprojdt.get_val("assemblyname")
