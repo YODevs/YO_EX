@@ -1,4 +1,4 @@
-# YO Standart Library
+# YO Standard Library
 ### Class List
 - [chart](#chart)
 - [csv](#csv)
