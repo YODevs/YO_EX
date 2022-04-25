@@ -18,6 +18,11 @@
             Return growsize
         End Get
     End Property
+    Public Shared Function unit_matrix(nsize As Integer) As matrix
+        Dim nmatrix As New matrix(nsize, nsize)
+        nmatrix.set_unit_matrix()
+        Return nmatrix
+    End Function
     Public Sub New(ncol As Integer, nrow As Integer)
         If ncol < 1 OrElse nrow < 1 Then
             Throw New Exception("Number of columns or rows must be more than zero.")
