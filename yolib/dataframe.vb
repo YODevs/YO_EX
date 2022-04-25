@@ -89,7 +89,23 @@
         form.typeofstruct = "list"
         form.ShowDialog()
     End Sub
-
+    Public Sub show(dt As matrix)
+        check_object(dt)
+        Dim columncount As Integer = dt.columnsize - 1
+        For index = 0 To columncount
+            form.dtg.Columns.Add(String.Format("col_{0}", index), String.Empty)
+        Next
+        Dim rowcount As Integer = dt.rowsize - 1
+        For index = 0 To rowcount
+            Dim values(columncount) As Object
+            For index2 = 0 To columncount
+                values(index2) = dt.get_item_f64(index2, index)
+            Next
+            form.dtg.Rows.Add(values)
+        Next
+        form.typeofstruct = "matrix"
+        form.ShowDialog()
+    End Sub
     Private Sub check_object(dt As Object)
         If IsNothing(dt) Then
             Throw New Exception("Object Reference Not Set to an instance of an object.")
