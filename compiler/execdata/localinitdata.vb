@@ -36,4 +36,7 @@ Public Class localinitdata
             fieldst.add(fields(index).name, fields(index).ptype)
         Next
     End Sub
+    Friend Shared Sub import_fields(varname As String, datatype As String)
+        fieldst.add(varname, datatype)
+    End Sub
 End Class
