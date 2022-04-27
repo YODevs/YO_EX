@@ -30,6 +30,7 @@ Public Class ilasmgen
         ilbodybulider.path = yoclassdt.location
         ilcollection.enumeration = yoclassdt.enums
         set_fields(yoclassdt, ilcollection)
+        set_this_field(yoclassdt, ilcollection)
         fields = ilcollection.field
         localinitdata.import_fields(yoclassdt.fields)
         ilcollection.ilmethod = _ilfunc.gen()
@@ -38,6 +39,47 @@ Public Class ilasmgen
         _ilresultcollection.result = True
         Return _ilresultcollection
     End Function
+
+    Private Sub set_this_field(ByRef yoclassdt As tknformat._class, ByRef _ilcollection As ilformat.ildata)
+        If IsNothing(_ilcollection.instancector) Then
+            _ilcollection.instancector = New ArrayList
+        End If
+        If IsNothing(_ilcollection.staticctor) Then
+            _ilcollection.staticctor = New ArrayList
+        End If
+        Dim fieldlen As Integer = 0
+        If IsNothing(_ilcollection.field) = False Then
+            fieldlen = _ilcollection.field.Length
+        End If
+        Array.Resize(yoclassdt.fields, fieldlen + 1)
+        Array.Resize(_ilcollection.field, fieldlen + 1)
+        Dim index As Integer = _ilcollection.field.Length - 1
+        Dim objctrl As New fmtshared.objectcontrol
+        objctrl.accesscontrol = tokenhared.token.PRIVATE
+        objctrl.accesscontrolval = compdt.ACCESSIBLE_PRIVATE
+        objctrl.modifier = tokenhared.token.UNDEFINED
+        objctrl.modifierval = compdt.OBJECTMODTYPE_INSTANCE
+        yoclassdt.fields(index) = New tknformat._pubfield
+        yoclassdt.fields(index).ptype = "obj"
+        yoclassdt.fields(index).objcontrol = objctrl
+        yoclassdt.fields(index).name = conrex.THIS
+        _ilcollection.field(index) = New ilformat._pubfield
+        _ilcollection.field(index).name = conrex.THIS
+        _ilcollection.field(index).accesscontrol = compdt.ACCESSIBLE_PRIVATE
+        _ilcollection.field(index).ptype = conrex.OBJECT
+        _ilcollection.field(index).typeinf = New ilformat._typeinfo
+        _ilcollection.field(index).typeinf.externlib = compdt.CORELIB
+        _ilcollection.field(index).typeinf.name = conrex.OBJECT
+        _ilcollection.field(index).typeinf.yosymbol = "obj"
+        _ilcollection.field(index).typeinf.cdttypesymbol = conrex.OBJECT
+        _ilcollection.field(index).typeinf.isprimitive = True
+        _ilcollection.field(index).initproc = True
+        cil.insert_il(_ilcollection.instancector, compdt.LOAD_FIRST_ARGUMENT)
+        cil.insert_il(_ilcollection.instancector, compdt.LOAD_FIRST_ARGUMENT)
+        cil.insert_il(_ilcollection.instancector, String.Format("stfld object {0}::this", funcste.attribute._app._classname))
+        classdata.fields = yoclassdt.fields
+    End Sub
+
     Private Sub set_fields(yoclassdt As tknformat._class, ByRef _ilcollection As ilformat.ildata)
         If IsNothing(yoclassdt.fields) Then Return
         Dim fakeobjectcontrol As New fmtshared.objectcontrol
