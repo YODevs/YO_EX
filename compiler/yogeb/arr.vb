@@ -51,10 +51,59 @@ Public Class arr
         End If
     End Sub
 
-    Private Shared Sub assign_all_items(ilmethod As ilformat._ilmethodcollection, arrobj As ilformat._illocalinit, reclitem() As xmlunpkd.linecodestruc)
-
+    Private Shared Sub assign_all_items(ByRef ilmethod As ilformat._ilmethodcollection, arrobj As ilformat._illocalinit, reclitem() As xmlunpkd.linecodestruc)
+        Dim elemenetsp As Integer = reclitem.Length - 1
+        Dim cildatatype As String = servinterface.vb_to_cil_common_data_type(arrobj.typeinf.name)
+        For index = 0 To elemenetsp
+            cil.load_local_variable(ilmethod.codes, arrobj.name)
+            cil.push_int32_onto_stack(ilmethod.codes, index)
+            pv_iden_assidb(arrobj, reclitem, index, ilmethod)
+            ilmethod.codes.RemoveAt(ilmethod.codes.Count - 1)
+            cil.set_element(ilmethod.codes, cildatatype)
+        Next
     End Sub
 
+    Private Shared Sub pv_iden_assidb(arrobj As ilformat._illocalinit, clinecodestruc() As xmlunpkd.linecodestruc, ByRef ilinc As Integer, ByRef _ilmethod As ilformat._ilmethodcollection)
+        Dim optgen As New ilopt(_ilmethod, servinterface.get_contain_clinecodestruc(clinecodestruc, ilinc))
+        Dim varname As String = arrobj.name
+        Dim commondatatype As String
+        If arrobj.typeinf.cdttypesymbol <> conrex.NULL AndAlso servinterface.get_yo_common_data_type(arrobj.typeinf.cdttypesymbol, commondatatype) Then
+            Select Case commondatatype
+                Case "str"
+                    _ilmethod = optgen.assi_str(varname, clinecodestruc(ilinc))
+                Case "obj"
+                    _ilmethod = optgen.assi_obj(varname, clinecodestruc(ilinc))
+                Case "i128"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "valuetype [mscorlib]System.Decimal")
+                Case "i64"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int64")
+                Case "i32"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int32")
+                Case "i16"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int16")
+                Case "i8"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "int8")
+                Case "u64"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "uint64")
+                Case "u32"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "uint32")
+                Case "u16"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "uint16")
+                Case "u8"
+                    _ilmethod = optgen.assi_int(varname, clinecodestruc(ilinc), "uint8")
+                Case "f32"
+                    _ilmethod = optgen.assi_float(varname, clinecodestruc(ilinc), "float32")
+                Case "f64"
+                    _ilmethod = optgen.assi_float(varname, clinecodestruc(ilinc), "float64")
+                Case "bool"
+                    _ilmethod = optgen.assi_bool(varname, clinecodestruc(ilinc), "bool")
+                Case "char"
+                    _ilmethod = optgen.assi_char(varname, clinecodestruc(ilinc), "char")
+            End Select
+        Else
+            _ilmethod = optgen.assi_identifier(varname, clinecodestruc(ilinc), arrobj.typeinf.fullname)
+        End If
+    End Sub
     Friend Shared Sub set_new_arr(ByRef ilmethod As ilformat._ilmethodcollection, illocalinit As ilformat._illocalinit, clinecodestruc As xmlunpkd.linecodestruc)
         If illocalinit.isarrayobj = False OrElse illocalinit.arrayinf.isunspecifiedelements Then Return
         Dim elementsp As String = illocalinit.arrayinf.elementsp
