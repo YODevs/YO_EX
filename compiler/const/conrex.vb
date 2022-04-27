@@ -40,6 +40,7 @@ Public Class conrex
     Public Const BOX As String = "box"
     Public Const ret As String = "ret"
     Public Const MSCORLIB As String = "mscorlib"
+    Public Const THIS As String = "this"
     Public Const [OBJECT] As String = "object"
     Public Const [STRING] As String = "string"
     Public Const NULL As String = Nothing
