@@ -21,6 +21,8 @@
                     If chchr(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
                 Case "bool"
                     If chbool(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "object"
+                    If chobj(_ilmethod, cargcodestruc(index)) = False Then Return False
                 Case Else
                     'Other Types
                     Dim crdatatype As String = String.Empty
@@ -77,6 +79,8 @@
                     If chchr(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
                 Case "bool"
                     If chbool(_ilmethod, cargcodestruc(index), getdatatype) = False Then Return False
+                Case "object"
+                    If chobj(_ilmethod, cargcodestruc(index)) = False Then Return False
                 Case Else
                     'Other Types
                     If cargcodestruc(index).tokenid = tokenhared.token.IDENTIFIER Then
@@ -139,6 +143,31 @@
         End Select
     End Function
 
+    Friend Shared Function chobj(_ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc) As Boolean
+        Select Case cargcodestruc.tokenid
+            Case tokenhared.token.IDENTIFIER
+                Dim getdatatype As String = String.Empty
+                If servinterface.is_variable(_ilmethod, cargcodestruc.value, getdatatype) AndAlso getdatatype = conrex.OBJECT Then
+                    Return True
+                End If
+                Return False
+            Case tokenhared.token.ARR
+                Dim getdatatype As String = String.Empty
+                Dim cargtype As String = cargcodestruc.value.Remove(cargcodestruc.value.IndexOf(conrex.BRSTART))
+                servinterface.is_variable(_ilmethod, cargtype, getdatatype)
+                If getdatatype.EndsWith(conrex.BRSTEN) Then
+                    getdatatype = getdatatype.Remove(getdatatype.Length - 2)
+                End If
+                If getdatatype = conrex.OBJECT Then
+                    Return True
+                End If
+                Return False
+            Case tokenhared.token.NULL
+                Return True
+            Case Else
+                Return False
+        End Select
+    End Function
     Friend Shared Function chint(_ilmethod As ilformat._ilmethodcollection, cargcodestruc As xmlunpkd.linecodestruc, datatype As String) As Boolean
         Dim convtoi8 As Boolean = servinterface.is_i8(datatype)
         servinterface.clinecodestruc = cargcodestruc
