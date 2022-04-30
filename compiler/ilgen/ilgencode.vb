@@ -71,7 +71,7 @@ Public Class ilgencode
         check_debug_state(ilasmparameter)
         If compdt.DEVMOD Then coutputdata.write_file_data("msil_source.il", source)
         Dim path As String = cilcomp.get_dotnetcore_dir
-        File.WriteAllText(path & "\main.il", source)
+        File.WriteAllText(path & "\main.il", source, System.Text.Encoding.Unicode)
         Dim location As String = "..\..\"
         If cilcomp.debug Then
             location &= "debug\"
@@ -95,7 +95,7 @@ Public Class ilgencode
         check_debug_state(ilasmparameter)
         If compdt.DEVMOD Then coutputdata.write_file_data("msil_source.il", source)
         Dim path As String = cilcomp.get_il_loca()
-        File.WriteAllText(path, source)
+        File.WriteAllText(path, source, System.Text.Encoding.Unicode)
         ilasmparameter.add_file(path)
         ilasmparameter.add_param("/OUTPUT", conrex.DUSTR & cilcomp.get_output_loca() & conrex.DUSTR)
         set_metadata_version(ilasmparameter)
