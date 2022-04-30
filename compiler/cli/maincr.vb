@@ -74,6 +74,7 @@ Module maincr
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\param.yoda")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\dotnetconfig\global.json")
         initessentialfiles.add_path(conrex.APPDIR & "\iniopt\dotnetconfig\main.ilproj")
+        initessentialfiles.add_path(conrex.APPDIR & "\iniopt\sym\symbols.yoda")
         initessentialfiles.add_path(compdt.BRIDGECORE)
         initessentialfiles.add_path(compdt.BRIDGECORELIB)
     End Sub
