@@ -664,4 +664,20 @@ Public Class servinterface
             classname = classname.Remove(classname.IndexOf(conrex.BRSTART))
         End If
     End Sub
+
+    Public Shared Sub get_decimal_accuracy(ByRef value As Object)
+        Dim getaccuracy As Integer = ilasmgen.classdata.attribute._cfg._decimal_accuracy
+        If getaccuracy <= -1 OrElse value.ToString.Contains(conrex.DOT) = False Then Return
+        Dim isection, fsection, valstr As String
+        valstr = value
+        isection = valstr.Remove(valstr.IndexOf(conrex.DOT))
+        fsection = valstr.Remove(0, valstr.IndexOf(conrex.DOT) + 1)
+
+        If getaccuracy = 0 Then
+            fsection = "0"
+        ElseIf fsection.Length > getaccuracy Then
+            fsection = fsection.Remove(getaccuracy)
+        End If
+        value = String.Format("{0}.{1}", isection, fsection)
+    End Sub
 End Class
