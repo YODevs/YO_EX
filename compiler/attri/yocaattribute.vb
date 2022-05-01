@@ -26,6 +26,9 @@ Public Class yocaattribute
         'EN : Enable or disable cache in this file 
         'FA : فعال سازی یا غیرفعال سازی کش در این فایل
         Dim _no_cache As Boolean
+
+        'FA: مقدار حساسیت به اعشار
+        Dim _decimal_accuracy As Integer
     End Structure
 
     Structure app
