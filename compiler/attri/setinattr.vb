@@ -22,6 +22,7 @@ Public Class setinattr
         yoattr._cfg._optimize_expression = True
         yoattr._cfg._disable_warnings = False
         yoattr._cfg._no_cache = False
+        yoattr._cfg._decimal_accuracy = -1
 
         yoattr._app._namespace = Nothing
         yoattr._app._classname = compdt.YOMAINCLASS
@@ -85,6 +86,19 @@ Public Class setinattr
             'Set Error
             dserr.args.Add(expression)
             dserr.args.Add("str")
+            dserr.new_error(conserr.errortype.EXPLICITCONVERSION, attr.lastlinecinf.line, path, authfunc.get_line_error(path, attr.lastlinecinf, yoattr.valueattribute))
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Function get_int_val(yoattr As yocaattribute.resultattribute, path As String) As Integer
+        If IsNumeric(yoattr.valueattribute) Then
+            Return yoattr.valueattribute
+        Else
+            'Set Error
+            dserr.args.Add(yoattr.valueattribute)
+            dserr.args.Add("i32")
             dserr.new_error(conserr.errortype.EXPLICITCONVERSION, attr.lastlinecinf.line, path, authfunc.get_line_error(path, attr.lastlinecinf, yoattr.valueattribute))
         End If
 
