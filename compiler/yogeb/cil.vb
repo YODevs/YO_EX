@@ -387,6 +387,7 @@
     ''' <param name="codes"></param>
     ''' <param name="value"></param>
     Public Shared Sub push_float32_onto_stack(ByRef codes As ArrayList, value As Object)
+        servinterface.get_decimal_accuracy(value)
         codes.Add("ldc.r4 " & value)
     End Sub
 
@@ -396,6 +397,7 @@
     ''' <param name="codes"></param>
     ''' <param name="value"></param>
     Public Shared Sub push_float64_onto_stack(ByRef codes As ArrayList, value As Object)
+        servinterface.get_decimal_accuracy(value)
         codes.Add("ldc.r8 " & value)
     End Sub
     ''' <summary>
