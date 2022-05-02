@@ -71,11 +71,17 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="chart.vb" />
-    <Compile Include="chartui.Designer.vb">
+    <Compile Include="chart\chart.vb" />
+    <Compile Include="chart\charttypeoptions.Designer.vb">
+      <DependentUpon>charttypeoptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="chart\charttypeoptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="chart\chartui.Designer.vb">
       <DependentUpon>chartui.vb</DependentUpon>
     </Compile>
-    <Compile Include="chartui.vb">
+    <Compile Include="chart\chartui.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="csv.vb" />
@@ -87,16 +93,16 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="date.vb" />
-    <Compile Include="dddoptions.Designer.vb">
+    <Compile Include="chart\dddoptions.Designer.vb">
       <DependentUpon>dddoptions.vb</DependentUpon>
     </Compile>
-    <Compile Include="dddoptions.vb">
+    <Compile Include="chart\dddoptions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="editpoint.Designer.vb">
+    <Compile Include="chart\editpoint.Designer.vb">
       <DependentUpon>editpoint.vb</DependentUpon>
     </Compile>
-    <Compile Include="editpoint.vb">
+    <Compile Include="chart\editpoint.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="encoding.vb" />
@@ -130,16 +136,19 @@
     <Compile Include="yoda.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="chartui.resx">
+    <EmbeddedResource Include="chart\charttypeoptions.resx">
+      <DependentUpon>charttypeoptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="chart\chartui.resx">
       <DependentUpon>chartui.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dataframeform.resx">
       <DependentUpon>dataframeform.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="dddoptions.resx">
+    <EmbeddedResource Include="chart\dddoptions.resx">
       <DependentUpon>dddoptions.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="editpoint.resx">
+    <EmbeddedResource Include="chart\editpoint.resx">
       <DependentUpon>editpoint.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="yodefopt\Resources.resx">
