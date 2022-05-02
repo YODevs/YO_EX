@@ -1,4 +1,5 @@
 ﻿Public Class chartui
+    Dim palletes As map
     Private Sub EditViewPointsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditViewPointsToolStripMenuItem.Click
         Dim formpoint As New editpoint
         formpoint.ShowDialog()
@@ -28,5 +29,23 @@
     Private Sub ChangeChartTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangeChartTypeToolStripMenuItem.Click
         Dim charttype As New charttypeoptions
         charttype.ShowDialog()
+    End Sub
+    Private Sub chartui_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        get_all_pallete()
+        palletecombo.SelectedIndex = palletes.get(chart.Palette.ToString)
+    End Sub
+    Private Sub get_all_pallete()
+        palletes = New map
+        Dim cpallete As Windows.Forms.DataVisualization.Charting.ChartColorPalette
+        Dim values As Array = [Enum].GetValues(cpallete.GetType)
+        Dim keys As String() = [Enum].GetNames(cpallete.GetType)
+        For index = 0 To values.Length - 1
+            palletes.add(keys(index), values(index))
+            palletecombo.Items.Add(keys(index))
+        Next
+    End Sub
+
+    Private Sub palletecombo_TextChanged(sender As Object, e As EventArgs) Handles palletecombo.TextChanged
+        chart.Palette = palletes.get(palletecombo.SelectedItem)
     End Sub
 End Class
