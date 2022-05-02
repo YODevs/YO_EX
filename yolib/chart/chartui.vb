@@ -48,4 +48,13 @@
     Private Sub palletecombo_TextChanged(sender As Object, e As EventArgs) Handles palletecombo.TextChanged
         chart.Palette = palletes.get(palletecombo.SelectedItem)
     End Sub
+
+    Private Sub PageSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PageSetupToolStripMenuItem.Click
+        chart.Printing.PageSetup()
+    End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        chart.Printing.PrintDocument.DocumentName = Me.Text
+        chart.Printing.PrintDocument.Print()
+    End Sub
 End Class
