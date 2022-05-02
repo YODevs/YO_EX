@@ -53,6 +53,23 @@
         Next
         gisempty = False
     End Sub
+    Public Sub set_range_matrix(items As list)
+        clear_matrix()
+        If items.count < columnsize * rowsize Then
+            Throw New Exception("The number of list items must be greater than or equal to the number of matrix items.")
+        End If
+        For index = 0 To gcolumnsize - 1
+            For i2 = 0 To growsize - 1
+                Dim item As String = items.pop_left
+                If IsNumeric(item) Then
+                    dt(index).Add(item)
+                Else
+                    Throw New Exception("List values must be numeric to be added to the matrix.")
+                End If
+            Next
+        Next
+        gisempty = False
+    End Sub
     Public Sub set_unit_matrix()
         priv_set_scalar_matrix(1)
     End Sub
