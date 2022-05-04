@@ -150,6 +150,34 @@ new_series(name : str) : void
 ```f#
 new_series(name : str ,charttypename : str) : void
 ```
+#### add_title
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | titlename | `str` | False | False |
+| 2 | value | `str` | False | False |
+
+```f#
+add_title(titlename : str ,value : str) : void
+```
+#### add_title
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | titlename | `str` | False | False |
+| 2 | value | `str` | False | False |
+| 3 | font | `YOLIB.font` | False | False |
+| 4 | colorname | `str` | False | False |
+
+```f#
+add_title(titlename : str ,value : str ,font : YOLIB.font ,colorname : str) : void
+```
 #### add_point
 - Re : Method
 - Modifier : Instance
@@ -507,6 +535,18 @@ show(dt : YOLIB.map) : void
 
 ```f#
 show(dt : YOLIB.list) : void
+```
+#### show
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | dt | `YOLIB.matrix` | False | False |
+
+```f#
+show(dt : YOLIB.matrix) : void
 ```
 #### GetType
 - Re : Method
@@ -1702,6 +1742,18 @@ get_columnsize() : i32
 ```f#
 get_rowsize() : i32
 ```
+#### unit_matrix
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.matrix`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | nsize | `i32` | False | False |
+
+```f#
+unit_matrix(nsize : i32) : YOLIB.matrix
+```
 #### clear_matrix
 - Re : Method
 - Modifier : Instance
@@ -1717,6 +1769,18 @@ clear_matrix() : void
 - No Parameter
 ```f#
 set_zero_matrix() : void
+```
+#### set_range_matrix
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | items | `YOLIB.list` | False | False |
+
+```f#
+set_range_matrix(items : YOLIB.list) : void
 ```
 #### set_unit_matrix
 - Re : Method
@@ -2031,6 +2095,22 @@ get_range(startpoint : i32 ,endpoint : i32 ,step : i32 ,ignorelastpoint : bool) 
 
 | # | name | type |  Is Optional | Is Byref |
 |--|--|--|--|--|
+| 1 | startpoint | `i32` | False | False |
+| 2 | endpoint | `i32` | False | False |
+| 3 | step | `i32` | False | False |
+| 4 | ignorelastpoint | `bool` | False | False |
+| 5 | expression | `str` | False | False |
+
+```f#
+get_range(startpoint : i32 ,endpoint : i32 ,step : i32 ,ignorelastpoint : bool ,expression : str) : YOLIB.list
+```
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
 | 1 | startpoint | `f64` | False | False |
 | 2 | endpoint | `f64` | False | False |
 
@@ -2065,6 +2145,22 @@ get_range(startpoint : f64 ,endpoint : f64 ,step : f64) : YOLIB.list
 
 ```f#
 get_range(startpoint : f64 ,endpoint : f64 ,step : f64 ,ignorelastpoint : bool) : YOLIB.list
+```
+#### get_range
+- Re : Method
+- Modifier : Static
+- Returntype : `YOLIB.list`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | startpoint | `f64` | False | False |
+| 2 | endpoint | `f64` | False | False |
+| 3 | step | `f64` | False | False |
+| 4 | ignorelastpoint | `bool` | False | False |
+| 5 | expression | `str` | False | False |
+
+```f#
+get_range(startpoint : f64 ,endpoint : f64 ,step : f64 ,ignorelastpoint : bool ,expression : str) : YOLIB.list
 ```
 #### GetType
 - Re : Method
