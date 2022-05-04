@@ -31,7 +31,7 @@ Public Class chart
         End Set
     End Property
 
-    Public Property asixytitle As String
+    Public Property axisytitle As String
         Get
             Return chartform.chart.ChartAreas(0).AxisY.Title
         End Get
@@ -40,7 +40,7 @@ Public Class chart
         End Set
     End Property
 
-    Public Property asixxtitle As String
+    Public Property axisxtitle As String
         Get
             Return chartform.chart.ChartAreas(0).AxisX.Title
         End Get
@@ -123,10 +123,10 @@ Public Class chart
         chartform.chart.Series(seriesname).BorderWidth = 2
     End Sub
 
-    Public Sub set_asix_label(seriesname As String, index As Integer, value As String)
+    Public Sub set_axis_label(seriesname As String, index As Integer, value As String)
         chartform.chart.Series(seriesname).Points(index).AxisLabel = value
     End Sub
-    Public Sub set_asix_label(seriesname As String, values As list)
+    Public Sub set_axis_label(seriesname As String, values As list)
         Dim gcount As Integer = chartform.chart.Series(seriesname).Points.Count - 1
         If gcount < values.count - 1 Then
             Throw New Exception("The number of points is more than prescribed.")
@@ -135,7 +135,7 @@ Public Class chart
             chartform.chart.Series(seriesname).Points(index).AxisLabel = values.get(index)
         Next
     End Sub
-    Public Sub set_asix_label(index As Integer, value As String)
+    Public Sub set_axis_label(index As Integer, value As String)
         chartform.chart.Series(0).Points(index).AxisLabel = value
     End Sub
     Public Sub show()

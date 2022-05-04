@@ -46,7 +46,6 @@ Partial Class chartui
         Me.DisableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.savefile = New System.Windows.Forms.SaveFileDialog()
         Me.RemoteControlStatusToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnableToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisableToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -54,6 +53,7 @@ Partial Class chartui
         Me.porttextbox = New System.Windows.Forms.ToolStripTextBox()
         Me.MaxPointToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.maxpointstext = New System.Windows.Forms.ToolStripTextBox()
+        Me.savefile = New System.Windows.Forms.SaveFileDialog()
         CType(Me.chart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -135,7 +135,7 @@ Partial Class chartui
         'EditViewPointsToolStripMenuItem
         '
         Me.EditViewPointsToolStripMenuItem.Name = "EditViewPointsToolStripMenuItem"
-        Me.EditViewPointsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EditViewPointsToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.EditViewPointsToolStripMenuItem.Text = "Edit/View points"
         '
         'ViewToolStripMenuItem
@@ -148,14 +148,14 @@ Partial Class chartui
         'ChangeChartTypeToolStripMenuItem
         '
         Me.ChangeChartTypeToolStripMenuItem.Name = "ChangeChartTypeToolStripMenuItem"
-        Me.ChangeChartTypeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ChangeChartTypeToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.ChangeChartTypeToolStripMenuItem.Text = "Change Chart Type"
         '
         'PalleteToolStripMenuItem
         '
         Me.PalleteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.palletecombo})
         Me.PalleteToolStripMenuItem.Name = "PalleteToolStripMenuItem"
-        Me.PalleteToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PalleteToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.PalleteToolStripMenuItem.Text = "Pallete"
         '
         'palletecombo
@@ -166,13 +166,13 @@ Partial Class chartui
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(171, 6)
         '
         'DChartToolStripMenuItem
         '
         Me.DChartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnableToolStripMenuItem, Me.DisableToolStripMenuItem})
         Me.DChartToolStripMenuItem.Name = "DChartToolStripMenuItem"
-        Me.DChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DChartToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.DChartToolStripMenuItem.Text = "3D Chart"
         '
         'EnableToolStripMenuItem
@@ -190,7 +190,7 @@ Partial Class chartui
         'DOptionsToolStripMenuItem
         '
         Me.DOptionsToolStripMenuItem.Name = "DOptionsToolStripMenuItem"
-        Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.DOptionsToolStripMenuItem.Text = "3D Options"
         '
         'RemoteToolStripMenuItem
@@ -199,12 +199,6 @@ Partial Class chartui
         Me.RemoteToolStripMenuItem.Name = "RemoteToolStripMenuItem"
         Me.RemoteToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.RemoteToolStripMenuItem.Text = "&Remote"
-        '
-        'savefile
-        '
-        Me.savefile.CheckFileExists = True
-        Me.savefile.DefaultExt = "png"
-        Me.savefile.Title = "Save Chart"
         '
         'RemoteControlStatusToolStripMenuItem
         '
@@ -218,7 +212,7 @@ Partial Class chartui
         Me.EnableToolStripMenuItem1.Name = "EnableToolStripMenuItem1"
         Me.EnableToolStripMenuItem1.ShortcutKeyDisplayString = ""
         Me.EnableToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F5
-        Me.EnableToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.EnableToolStripMenuItem1.Size = New System.Drawing.Size(163, 22)
         Me.EnableToolStripMenuItem1.Text = "Enable"
         '
         'DisableToolStripMenuItem1
@@ -227,7 +221,7 @@ Partial Class chartui
         Me.DisableToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked
         Me.DisableToolStripMenuItem1.Name = "DisableToolStripMenuItem1"
         Me.DisableToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Shift Or System.Windows.Forms.Keys.F5), System.Windows.Forms.Keys)
-        Me.DisableToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.DisableToolStripMenuItem1.Size = New System.Drawing.Size(163, 22)
         Me.DisableToolStripMenuItem1.Text = "Disable"
         '
         'PortToolStripMenuItem
@@ -264,6 +258,12 @@ Partial Class chartui
         Me.maxpointstext.Size = New System.Drawing.Size(100, 23)
         Me.maxpointstext.Text = "150"
         Me.maxpointstext.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'savefile
+        '
+        Me.savefile.CheckFileExists = True
+        Me.savefile.DefaultExt = "png"
+        Me.savefile.Title = "Save Chart"
         '
         'chartui
         '

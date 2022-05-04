@@ -121,4 +121,12 @@ Correct data format:
         DisableToolStripMenuItem1.Checked = True
         remoteactive = False
     End Sub
+
+    Private Sub chartui_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If DisableToolStripMenuItem1.Checked = False Then
+            receiveudpclient.Close()
+            receiveudpclient.Dispose()
+            Return
+        End If
+    End Sub
 End Class
