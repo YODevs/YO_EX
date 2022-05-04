@@ -29,6 +29,9 @@ Partial Class chartui
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveChartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintChartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PageSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,10 +45,15 @@ Partial Class chartui
         Me.EnableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DOptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.savefile = New System.Windows.Forms.SaveFileDialog()
-        Me.PrintChartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PageSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoteControlStatusToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EnableToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisableToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PortToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.porttextbox = New System.Windows.Forms.ToolStripTextBox()
+        Me.MaxPointToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.maxpointstext = New System.Windows.Forms.ToolStripTextBox()
         CType(Me.chart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -67,7 +75,7 @@ Partial Class chartui
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem, Me.RemoteToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(644, 24)
@@ -84,18 +92,37 @@ Partial Class chartui
         'SaveChartToolStripMenuItem
         '
         Me.SaveChartToolStripMenuItem.Name = "SaveChartToolStripMenuItem"
-        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(131, 22)
         Me.SaveChartToolStripMenuItem.Text = "Save chart"
+        '
+        'PrintChartToolStripMenuItem
+        '
+        Me.PrintChartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PageSetupToolStripMenuItem, Me.PrintToolStripMenuItem})
+        Me.PrintChartToolStripMenuItem.Name = "PrintChartToolStripMenuItem"
+        Me.PrintChartToolStripMenuItem.Size = New System.Drawing.Size(131, 22)
+        Me.PrintChartToolStripMenuItem.Text = "Print Chart"
+        '
+        'PageSetupToolStripMenuItem
+        '
+        Me.PageSetupToolStripMenuItem.Name = "PageSetupToolStripMenuItem"
+        Me.PageSetupToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.PageSetupToolStripMenuItem.Text = "Page Setup"
+        '
+        'PrintToolStripMenuItem
+        '
+        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.PrintToolStripMenuItem.Text = "Print"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(128, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(131, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'EditToolStripMenuItem
@@ -108,7 +135,7 @@ Partial Class chartui
         'EditViewPointsToolStripMenuItem
         '
         Me.EditViewPointsToolStripMenuItem.Name = "EditViewPointsToolStripMenuItem"
-        Me.EditViewPointsToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
+        Me.EditViewPointsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EditViewPointsToolStripMenuItem.Text = "Edit/View points"
         '
         'ViewToolStripMenuItem
@@ -166,30 +193,77 @@ Partial Class chartui
         Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DOptionsToolStripMenuItem.Text = "3D Options"
         '
+        'RemoteToolStripMenuItem
+        '
+        Me.RemoteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RemoteControlStatusToolStripMenuItem, Me.PortToolStripMenuItem, Me.MaxPointToolStripMenuItem})
+        Me.RemoteToolStripMenuItem.Name = "RemoteToolStripMenuItem"
+        Me.RemoteToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.RemoteToolStripMenuItem.Text = "&Remote"
+        '
         'savefile
         '
         Me.savefile.CheckFileExists = True
         Me.savefile.DefaultExt = "png"
         Me.savefile.Title = "Save Chart"
         '
-        'PrintChartToolStripMenuItem
+        'RemoteControlStatusToolStripMenuItem
         '
-        Me.PrintChartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PageSetupToolStripMenuItem, Me.PrintToolStripMenuItem})
-        Me.PrintChartToolStripMenuItem.Name = "PrintChartToolStripMenuItem"
-        Me.PrintChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PrintChartToolStripMenuItem.Text = "Print Chart"
+        Me.RemoteControlStatusToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnableToolStripMenuItem1, Me.DisableToolStripMenuItem1})
+        Me.RemoteControlStatusToolStripMenuItem.Name = "RemoteControlStatusToolStripMenuItem"
+        Me.RemoteControlStatusToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.RemoteControlStatusToolStripMenuItem.Text = "Remote Access Status"
         '
-        'PageSetupToolStripMenuItem
+        'EnableToolStripMenuItem1
         '
-        Me.PageSetupToolStripMenuItem.Name = "PageSetupToolStripMenuItem"
-        Me.PageSetupToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PageSetupToolStripMenuItem.Text = "Page Setup"
+        Me.EnableToolStripMenuItem1.Name = "EnableToolStripMenuItem1"
+        Me.EnableToolStripMenuItem1.ShortcutKeyDisplayString = ""
+        Me.EnableToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F5
+        Me.EnableToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.EnableToolStripMenuItem1.Text = "Enable"
         '
-        'PrintToolStripMenuItem
+        'DisableToolStripMenuItem1
         '
-        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PrintToolStripMenuItem.Text = "Print"
+        Me.DisableToolStripMenuItem1.Checked = True
+        Me.DisableToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.DisableToolStripMenuItem1.Name = "DisableToolStripMenuItem1"
+        Me.DisableToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Shift Or System.Windows.Forms.Keys.F5), System.Windows.Forms.Keys)
+        Me.DisableToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.DisableToolStripMenuItem1.Text = "Disable"
+        '
+        'PortToolStripMenuItem
+        '
+        Me.PortToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.porttextbox})
+        Me.PortToolStripMenuItem.Name = "PortToolStripMenuItem"
+        Me.PortToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.PortToolStripMenuItem.Text = "Port"
+        '
+        'porttextbox
+        '
+        Me.porttextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.porttextbox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.porttextbox.MaxLength = 5
+        Me.porttextbox.Name = "porttextbox"
+        Me.porttextbox.Size = New System.Drawing.Size(100, 23)
+        Me.porttextbox.Text = "4444"
+        Me.porttextbox.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.porttextbox.ToolTipText = "Port"
+        '
+        'MaxPointToolStripMenuItem
+        '
+        Me.MaxPointToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.maxpointstext})
+        Me.MaxPointToolStripMenuItem.Name = "MaxPointToolStripMenuItem"
+        Me.MaxPointToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.MaxPointToolStripMenuItem.Text = "Max Point"
+        '
+        'maxpointstext
+        '
+        Me.maxpointstext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.maxpointstext.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.maxpointstext.MaxLength = 6
+        Me.maxpointstext.Name = "maxpointstext"
+        Me.maxpointstext.Size = New System.Drawing.Size(100, 23)
+        Me.maxpointstext.Text = "150"
+        Me.maxpointstext.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'chartui
         '
@@ -234,4 +308,12 @@ Partial Class chartui
     Friend WithEvents PrintChartToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents PageSetupToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents PrintToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RemoteToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RemoteControlStatusToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EnableToolStripMenuItem1 As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DisableToolStripMenuItem1 As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PortToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents porttextbox As Windows.Forms.ToolStripTextBox
+    Friend WithEvents MaxPointToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents maxpointstext As Windows.Forms.ToolStripTextBox
 End Class
