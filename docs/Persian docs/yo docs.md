@@ -1021,7 +1021,7 @@ func main()
   dt::new_series("browser" , 'pie')
   dt::enable3d := true
   dt::add_point('browser',xpoint,ypoint)
-  dt::set_asix_label('browser',labels)
+  dt::set_axis_label('browser',labels)
   dt::show()
 }
   ```
