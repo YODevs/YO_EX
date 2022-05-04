@@ -49,6 +49,19 @@ Public Class chart
         End Set
     End Property
 
+    Public Property remoteaccess As Boolean
+        Get
+            Return chartform.remoteactive
+        End Get
+        Set(value As Boolean)
+            chartform.remoteactive = value
+        End Set
+    End Property
+
+    Public Sub set_remote(port As Integer, maxpoints As Integer)
+        chartform.porttextbox.Text = port
+        chartform.maxpointstext.Text = maxpoints
+    End Sub
     Public Sub new_series(name As String)
         new_series(name, "Area")
         set_default_setting_series(name)
