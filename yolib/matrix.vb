@@ -289,4 +289,22 @@
         Return list
     End Function
 
+    Private Function dt_to_matrix() As matrix
+        Dim nmatrix As New matrix(gcolumnsize, growsize)
+        nmatrix.set_zero_matrix()
+        For index = 0 To gcolumnsize - 1
+            For rindex = 0 To growsize - 1
+                Dim item As Double = CDbl(dt(index)(rindex))
+                nmatrix.set_item(index, rindex, item)
+            Next
+        Next
+        Return nmatrix
+    End Function
+    Public Function avg() As Double
+        Dim nmatrix As YOLIB.matrix = dt_to_matrix()
+        Dim list As YOLIB.list = nmatrix.get_list()
+        Dim result As Double = list.avg()
+        Return result
+    End Function
+
 End Class
