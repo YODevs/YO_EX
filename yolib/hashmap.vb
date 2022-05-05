@@ -116,6 +116,12 @@ Public Class map
         End If
         Return Nothing
     End Function
+    Public Function get_all_keys() As list
+        Return New list(keys)
+    End Function
+    Public Function get_all_values() As list
+        Return New list(values)
+    End Function
     Public Function [remove](key As String) As Boolean
         If key = Nothing Then
             Throw New Exception("Key is empty.")
