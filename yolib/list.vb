@@ -22,6 +22,13 @@ Public Class [list]
             items.Add(values(index))
         Next
     End Sub
+    Public Sub New(values As ArrayList)
+        Me.New()
+        Dim len As Integer = values.Count - 1
+        For index = 0 To len
+            items.Add(values(index))
+        Next
+    End Sub
     Public Function append(value As String) As Integer
         If items.Count = 0 Then
             Return items.Add(value)
@@ -95,6 +102,20 @@ Public Class [list]
             End If
         Next
         Return numofiter
+    End Function
+
+    Public Function avg() As Double
+        Dim result As Double = 0
+        Dim accnumber As Integer = 0
+        Dim listcount As Integer = items.Count - 1
+        For index = 0 To listcount
+            Dim item As Object = items(index)
+            If IsNumeric(item) Then
+                accnumber += 1
+                result += item
+            End If
+        Next
+        Return (result / accnumber)
     End Function
 
     Public Function count() As Integer
