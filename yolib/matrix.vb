@@ -288,5 +288,15 @@
         Next
         Return list
     End Function
+    Public Function avg() As Double
+        Dim result As Double = 0
+        For rindex = 0 To growsize - 1
+            For cindex = 0 To gcolumnsize - 1
+                result += CDbl(dt(cindex)(rindex))
+            Next
+        Next
+        If result = 0 Then Return 0.0
+        Return (result / (growsize * gcolumnsize))
+    End Function
 
 End Class
