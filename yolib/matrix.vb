@@ -257,6 +257,15 @@
         Next
         Return nmatrix
     End Function
+    Public Function get_list() As YOLIB.list
+        Dim list As New YOLIB.list
+        For rindex = 0 To growsize - 1
+            For cindex = 0 To gcolumnsize - 1
+                list.add(dt(cindex)(rindex))
+            Next
+        Next
+        Return list
+    End Function
 
     Public Sub set_list(list As YOLIB.list)
         If growsize * gcolumnsize <> list.count Then Throw New Exception("The number of list items is not equal to matrix items.")
