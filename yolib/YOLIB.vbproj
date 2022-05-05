@@ -112,6 +112,7 @@
     <Compile Include="interaction.vb" />
     <Compile Include="iterator.vb" />
     <Compile Include="list.vb" />
+    <Compile Include="mathematics\math.vb" />
     <Compile Include="matrix.vb" />
     <Compile Include="menu.vb" />
     <Compile Include="range.vb" />
