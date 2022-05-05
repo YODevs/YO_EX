@@ -281,8 +281,8 @@
     End Function
     Public Function get_list() As YOLIB.list
         Dim list As New YOLIB.list
-        For rindex = 0 To growsize - 1
-            For cindex = 0 To gcolumnsize - 1
+        For cindex = 0 To gcolumnsize - 1
+            For rindex = 0 To growsize - 1
                 list.add(dt(cindex)(rindex))
             Next
         Next
@@ -298,5 +298,4 @@
         If result = 0 Then Return 0.0
         Return (result / (growsize * gcolumnsize))
     End Function
-
 End Class
