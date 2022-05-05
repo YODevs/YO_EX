@@ -58,6 +58,17 @@ Public Class chart
         End Set
     End Property
 
+    Dim privborderwidth As Integer = 2
+    Public Property borderwidth As Integer
+        Get
+            Return privborderwidth
+        End Get
+        Set(value As Integer)
+            privborderwidth = value
+        End Set
+    End Property
+
+
     Public Sub set_remote(port As Integer, maxpoints As Integer)
         chartform.porttextbox.Text = port
         chartform.maxpointstext.Text = maxpoints
@@ -120,7 +131,7 @@ Public Class chart
     End Sub
 
     Private Sub set_default_setting_series(seriesname As String)
-        chartform.chart.Series(seriesname).BorderWidth = 2
+        chartform.chart.Series(seriesname).BorderWidth = privborderwidth
     End Sub
 
     Public Sub set_axis_label(seriesname As String, index As Integer, value As String)
