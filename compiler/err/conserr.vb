@@ -72,6 +72,7 @@ Public Class conserr
         BYREFERENCEERROR
         DOTNETERROR
         BRIDGECOREERROR
+        NULLSAFETYMODE
     End Enum
 
     Enum errorpriority
@@ -166,5 +167,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.BYREFERENCEERROR, errorpriority.STOP, "ByReference error", "'{0}' The parameter is of 'ByReference' type, it is not possible to pass literal arguments.")
         set_new_error(errortype.DOTNETERROR, errorpriority.STOP, ".NetCore error", "{0}")
         set_new_error(errortype.BRIDGECOREERROR, errorpriority.STOP, "BridgeCore error", "{0}")
+        set_new_error(errortype.NULLSAFETYMODE, errorpriority.STOP, "NullSafetyMode error", "It is not possible to use the 'NULL' keyword in [Null-Safety] mode.")
     End Sub
 End Class
