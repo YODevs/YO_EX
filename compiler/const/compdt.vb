@@ -52,6 +52,7 @@ Public Class compdt
     Friend Shared NOCACHE As Boolean = False
     Friend Shared DEVMOD As Boolean = False
     Friend Shared BENCHMARK As Boolean = False
+    Friend Shared NULLSAFETYMODE As Boolean = False
     Friend Const RUNCMDDELAY As Integer = 500
     Friend Shared WAITILCODE As String = "call string [mscorlib]System.Console::ReadLine()
 pop"
