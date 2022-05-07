@@ -40,6 +40,10 @@ Public Class cprojflow
         End If
         compdt.METADATAVERSION = cprojdt.get_val("mdv")
         compdt.METASTREAMVERSION = cprojdt.get_val("msv")
+        If cprojdt.get_val("nullsafetymode") <> conrex.NULL AndAlso cprojdt.get_val("nullsafetymode").ToLower.Trim = "true" Then
+            compdt.NULLSAFETYMODE = True
+        End If
+
         procresult.rs_set_result(True)
 
         load_type_of_project()
