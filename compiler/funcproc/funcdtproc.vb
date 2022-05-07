@@ -55,17 +55,17 @@
                 If reffunc(classindex).methods(index).returnarray Then
                     resulttype = resulttype.Remove(resulttype.Length - 2)
                 End If
-            If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, resulttype) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, funcste.assignmentype) Then
-                If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc, settypeinfo) Then
-                    funcname = reffunc(classindex).methods(index).name
-                    If settypeinfo Then
-                        set_type_info(classindex, index, reffunc(classindex).methods(index))
+                If leftassign OrElse illdloc.eq_data_types(funcste.assignmentype, resulttype) OrElse convtc.setconvmethod AndAlso illdloc.eq_data_types(convtc.ntypecast, funcste.assignmentype) Then
+                    If check_overloading(_ilmethod, reffunc(classindex).methods(index), cargcodestruc, settypeinfo) Then
+                        funcname = reffunc(classindex).methods(index).name
+                        If settypeinfo Then
+                            set_type_info(classindex, index, reffunc(classindex).methods(index))
+                        End If
+                        funcste.assignmentype = Nothing
+                        Return index
                     End If
-                    funcste.assignmentype = Nothing
-                    Return index
                 End If
-            End If
-            retstate = -2
+                retstate = -2
             End If
         Next
         funcste.assignmentype = Nothing
