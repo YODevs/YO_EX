@@ -73,6 +73,7 @@ Public Class conserr
         DOTNETERROR
         BRIDGECOREERROR
         NULLSAFETYMODE
+        NULLSAFETYMODEINIT
     End Enum
 
     Enum errorpriority
@@ -168,5 +169,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.DOTNETERROR, errorpriority.STOP, ".NetCore error", "{0}")
         set_new_error(errortype.BRIDGECOREERROR, errorpriority.STOP, "BridgeCore error", "{0}")
         set_new_error(errortype.NULLSAFETYMODE, errorpriority.STOP, "NullSafetyMode error", "It is not possible to use the 'NULL' keyword in [Null-Safety] mode.")
+        set_new_error(errortype.NULLSAFETYMODEINIT, errorpriority.STOP, "NullSafetyMode error", "Variable '{0}' must be initialized.")
     End Sub
 End Class
