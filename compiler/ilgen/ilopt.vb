@@ -474,6 +474,7 @@ Public Class ilopt
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, type)
             'let value : str = NULL
             Case tokenhared.token.NULL
+                check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.INIT
                 Dim ctor As New ilctor(_ilmethod)
@@ -501,6 +502,7 @@ Public Class ilopt
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
             'let value : str = NULL
             Case tokenhared.token.NULL
+                check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
                 'Set Error 
@@ -530,6 +532,7 @@ Public Class ilopt
                 servinterface.ldc_r_checker(_ilmethod.codes, clinecodestruc.value, True)
             'let value : obj = NULL
             Case tokenhared.token.NULL
+                check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
                 'Set Error 
@@ -554,6 +557,7 @@ Public Class ilopt
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
+                check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
                 Dim expr As New expressiondt(_ilmethod, "i32")
@@ -592,6 +596,7 @@ Public Class ilopt
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
+                check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
                 'Set Error 
@@ -629,6 +634,7 @@ Public Class ilopt
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
                 'let value : str = NULL
             Case tokenhared.token.NULL
+                check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
             Case Else
                 'Set Error 
@@ -655,6 +661,7 @@ Public Class ilopt
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             'let value : str = NULL
             Case tokenhared.token.NULL
+                check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
             Case tokenhared.token.EXPRESSION
                 Dim expr As New expressiondt(_ilmethod, "f32")
@@ -676,5 +683,8 @@ Public Class ilopt
         Return _ilmethod
     End Function
 
-
+    Private Sub check_null_safe_mode(clinecodestruc As xmlunpkd.linecodestruc)
+        If compdt.NULLSAFETYMODE = False Then Return
+        dserr.new_error(conserr.errortype.NULLSAFETYMODE, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value), "Null Safety mode is to prevent NullReferenceException error, you can disable it from the labra.yoda file.")
+    End Sub
 End Class
