@@ -676,6 +676,11 @@
                             'let name : str =
                             dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected")
                         End If
+                    Else
+                        If compdt.NULLSAFETYMODE Then
+                            dserr.args.Add(_illocalinit(index).name)
+                            dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value), "let ls : init yolib.list()" & vbCrLf & "let sb : init system.text.stringbuilder()")
+                        End If
                     End If
                 End If
                 If _illocalinit(index).isvaluetypes = False Then
@@ -719,10 +724,14 @@
                     assignprocess = True
                 Else
                     'let name : str =
-                    dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected")
+                    dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(4).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(4)), clinecodestruc(4).value) & vbCrLf & "The initial value is expected.")
                 End If
             End If
             'TODO : Check init value .
+            If _illocalinit(index).hasdefaultvalue = False AndAlso compdt.NULLSAFETYMODE Then
+                dserr.args.Add(_illocalinit(index).name)
+                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "The initial value is expected.", "let s : str = 'James'" & vbCrLf & "let i : i32 = 0" & vbCrLf & "let f : f32 = 3.2436")
+            End If
             localinit.add_local_init(_illocalinit(index).name, clinecodestruc(3).value)
 #End Region
 
