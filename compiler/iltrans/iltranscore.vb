@@ -729,8 +729,12 @@
             End If
             'TODO : Check init value .
             If _illocalinit(index).hasdefaultvalue = False AndAlso compdt.NULLSAFETYMODE Then
+                Dim examplecode As String = "let s : str = 'James'" & vbCrLf & "let i : i32 = 0" & vbCrLf & "let f : f32 = 3.2436"
+                If (_illocalinit(index).isarrayobj) Then
+                    examplecode = "let s[] : str = {'James','John','Tom'}" & vbCrLf & "let i[] : i32 = {5,6,7,8,9,10}"
+                End If
                 dserr.args.Add(_illocalinit(index).name)
-                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "The initial value is expected.", "let s : str = 'James'" & vbCrLf & "let i : i32 = 0" & vbCrLf & "let f : f32 = 3.2436")
+                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "The initial value is expected.", examplecode)
             End If
             localinit.add_local_init(_illocalinit(index).name, clinecodestruc(3).value)
 #End Region
