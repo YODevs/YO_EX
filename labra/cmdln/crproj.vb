@@ -9,6 +9,7 @@ Public Class crproj
         Dim createbatchfile As Boolean
         Dim targetframework As String
         Dim projectframework As String
+        Dim nullsafetymode As Boolean
     End Structure
 
     Dim dotnetcoreroot As String = conrex.PROGRAMFILEDIR & "\dotnet\shared\Microsoft.NETCore.App"
@@ -33,6 +34,7 @@ Public Class crproj
         If proj.projectframework = ".netcore" Then
             proj.targetframework = set_dotnetcore_target_framwork()
         End If
+        proj.nullsafetymode = set_null_safety()
         proj.createbatchfile = set_batch_file()
         create_prerequisites()
     End Sub
@@ -104,6 +106,8 @@ Public Class crproj
         key.Add("assetspath")
         value.Add("\assets")
 
+        key.Add("nullsafetymode")
+        value.Add(proj.nullsafetymode.ToString.ToLower)
         Return yoda.WriteYODA_Map(key, value, False)
     End Function
 
@@ -202,6 +206,18 @@ Public Class crproj
     End Function
     Private Function set_batch_file() As Boolean
         Console.Write(vbLf & "# Need a bash file to compile and run fast?[y/N] > ")
+        Select Case Console.ReadKey.KeyChar.ToString.ToLower
+            Case "y"
+                Console.Write(vbLf)
+                Return True
+            Case Else
+                Console.Write(vbLf)
+                Return False
+        End Select
+    End Function
+
+    Private Function set_null_safety() As Boolean
+        Console.Write(vbLf & "# Do you want to run Null-Safety mode?[y/N] > ")
         Select Case Console.ReadKey.KeyChar.ToString.ToLower
             Case "y"
                 Console.Write(vbLf)
