@@ -1,0 +1,16 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+extern YOLIB
+func main()
+{
+  let b2[] : i32
+  let a[] : str = {'Hello','Hemm',NULL}
+  let a[] : str = {'Hello','Hemm',''}
+  let b[] : str
+  let ls : yolib.list
+  let range : yolib.list = yolib.range::get_range(0,10,1)
+  let f : f32
+  let p : i32 = 0
+  let s : str = null
+  system.console::write(s::length)
+}
