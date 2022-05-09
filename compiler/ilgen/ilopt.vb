@@ -684,7 +684,7 @@ Public Class ilopt
     End Function
 
     Private Sub check_null_safe_mode(clinecodestruc As xmlunpkd.linecodestruc)
-        If compdt.NULLSAFETYMODE = False Then Return
+        If ilgencode.attribute._cfg._null_safety = False Then Return
         dserr.new_error(conserr.errortype.NULLSAFETYMODE, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value), "Null Safety mode is to prevent NullReferenceException error, you can disable it from the labra.yoda file.")
     End Sub
 End Class
