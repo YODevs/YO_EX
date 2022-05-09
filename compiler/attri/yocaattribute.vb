@@ -29,6 +29,9 @@ Public Class yocaattribute
 
         'FA: مقدار حساسیت به اعشار
         Dim _decimal_accuracy As Integer
+
+        'FA: حالت ایمنی در برابر نال
+        Dim _null_safety As Boolean
     End Structure
 
     Structure app

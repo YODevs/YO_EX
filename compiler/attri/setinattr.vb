@@ -22,6 +22,7 @@ Public Class setinattr
         yoattr._cfg._optimize_expression = True
         yoattr._cfg._disable_warnings = False
         yoattr._cfg._no_cache = False
+        yoattr._cfg._null_safety = compdt.NULLSAFETYMODE
         yoattr._cfg._decimal_accuracy = -1
 
         yoattr._app._namespace = Nothing

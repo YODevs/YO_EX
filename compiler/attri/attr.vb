@@ -105,6 +105,8 @@ Public Class attr
                 attribute._cfg._disable_warnings = setinattr.get_bool_val(resultattr, path)
             Case "decimal_accuracy"
                 attribute._cfg._decimal_accuracy = setinattr.get_int_val(resultattr, path)
+            Case "null_safety"
+                attribute._cfg._null_safety = setinattr.get_bool_val(resultattr, path)
             Case Else
                 'Set Error
                 dserr.args.Add(resultattr.fieldattribute)
