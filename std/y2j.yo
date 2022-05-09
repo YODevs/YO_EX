@@ -1,4 +1,5 @@
 #[app::classname("y2j")]
+#[cfg::null_safety(false)]
 
 include 'yolib'
 

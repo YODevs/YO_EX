@@ -1,4 +1,5 @@
 #[app::classname("log")]
+#[cfg::null_safety(false)]
 
 extern yolib
 include 'ystdio'

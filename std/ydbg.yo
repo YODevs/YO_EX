@@ -1,4 +1,5 @@
 #[app::classname("dbg")]
+#[cfg::null_safety(false)]
 
 include 'ystdio'
 include 'yolib'
