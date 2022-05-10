@@ -1,11 +1,13 @@
 #[app::classname("y2j")]
-#[cfg::null_safety(false)]
+#[cfg::null_safety(true)]
 
 include 'yolib'
 
 func get_map(source:str) : str
 {
-  let key , val , result : str
+  let key : str = ""
+  let val : str = ""
+  let result : str = ""
   let map : init yolib.map()
   let sb : init system.text.stringbuilder(result)
   map::import(source)
@@ -32,7 +34,7 @@ func get_map(source:str) : str
 
 func get_list(source:str) : str
 {
-  let result : str
+  let result : str = ""
   let list : init yolib.list()
   let sb : init system.text.stringbuilder(result)
   list::import(source)
