@@ -116,7 +116,7 @@ An identifier cannot start with a number.")
         set_new_error(errortype.FUNCOPBRACKETEXPECTED, errorpriority.STOP, "Critical error", "Syntax error.")
         set_new_error(errortype.MISSINGESSENTIALFILES, errorpriority.STOP, "Missing essential files", "Some software files were not found.
 You can reinstall the software or email us.")
-        set_new_error(errortype.DECLARINGERROR, errorpriority.STOP, "Declaring error", "This local variable is already declared in the current block.")
+        set_new_error(errortype.DECLARINGERROR, errorpriority.STOP, "Declaring error", "This local variable is already declared in the current block Or fields.")
         set_new_error(errortype.TYPENOTFOUND, errorpriority.STOP, "Identifier unknown", "'{0}' is not declared. It may be inaccessible due to its protection level.")
         set_new_error(errortype.ERRORINCONVERT, errorpriority.STOP, "Assignment error", "Constant value '{0}' cannot be converted to a '{1}'.")
         set_new_error(errortype.EXPLICITCONVERSION, errorpriority.STOP, "Explicit conversion error", "Cannot implicitly convert type '{0}' to '{1}'.")

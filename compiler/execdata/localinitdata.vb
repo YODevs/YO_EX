@@ -10,6 +10,7 @@ Public Class localinitdata
     End Sub
 
     Public Function check_local_init(name As String) As Boolean
+        If fieldst.find(name.ToLower, True).issuccessful Then Return True
         Return datatypelocal.find(name.ToLower, True).issuccessful
     End Function
 
