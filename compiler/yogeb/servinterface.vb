@@ -20,7 +20,9 @@ Public Class servinterface
                 End If
             Case "int32"
                 If CDec(value) > Int32.MaxValue Or CDec(value) < Int32.MinValue Then
-                    cil.push_int64_onto_stack(codes, CDec(value))
+                    dserr.args.Add(value)
+                    dserr.args.Add("i32")
+                    dserr.new_error(conserr.errortype.ERRORINCONVERT, clinecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc), clinecodestruc.value))
                 Else
                     cil.push_int32_onto_stack(codes, CDec(value))
                     If convtoi8 Then
