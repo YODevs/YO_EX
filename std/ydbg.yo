@@ -1,5 +1,5 @@
 #[app::classname("dbg")]
-#[cfg::null_safety(false)]
+#[cfg::null_safety(true)]
 
 include 'ystdio'
 include 'yolib'
@@ -21,7 +21,8 @@ func print(map : yolib.map) : void
   let size : i32 = map::size()
   for(index in [0..size])
   {
-    let key, value: str
+    let key : str = ""
+    let value : str = ""
     map::get_map(index,key,value)
     io::println("Key -> #{key}#nlValue -> #{value}")
   }
@@ -44,7 +45,7 @@ func print(matrix : yolib.matrix) : void
 
 func is_i32(val:str) : bool
 {
-  let i : i32
+  let i : i32 = 0
   let result : bool = val::contains(" ")
   if(result == true)
   {
@@ -99,7 +100,7 @@ func is_f32(val:str) : bool
     result := val::contains(".")
     if(result == true)
     {
-      let f : f32
+      let f : f32 = 0.0
       result := system.single::tryparse(val,f)
       return result
     }
@@ -123,7 +124,7 @@ func is_f32(val:obj) : bool
 
 func is_space(val:str) : bool
 {
-  let result : bool
+  let result : bool = false
   let length : i32 = val::length
   if(val::length >> 0)
   {
