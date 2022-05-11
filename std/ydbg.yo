@@ -185,6 +185,24 @@ func is_null(val : obj , nullvalstr : bool) : bool
   return false
 }
 
+func is_empty(val : str) : bool
+{
+  let length : i32 = val::length
+  if(length == 0)
+  {
+    return true
+  }
+  return false
+}
+
+func is_empty(val : obj) : bool
+{
+  let valtostr : str = [str]val
+  let length : i32 = valtostr::length
+  let result : bool = is_empty(valtostr)
+  return result
+}
+
 func timer_start() : void
 {
   timer::start()
