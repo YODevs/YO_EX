@@ -151,17 +151,8 @@ func is_space(val:obj) : bool
   return result
 }
 
-func is_null(val : str , nullvalstr : bool) : bool
+func is_null(val : str) : bool
 {
-  if(nullvalstr == true)
-  {
-    val := val::tolower()
-    if(val == "null")
-    {
-      return true
-    }
-    return false
-  }
   if(val == null)
   {
     return true
@@ -169,15 +160,8 @@ func is_null(val : str , nullvalstr : bool) : bool
   return false
 }
 
-func is_null(val : obj , nullvalstr : bool) : bool
+func is_null(val : obj) : bool
 {
-  let valtostr : str = [str]val
-  let result : bool = false
-  if(nullvalstr == true)
-  {
-    result := is_null(valtostr,true)
-    return result
-  }
   if(val == null)
   {
     return true
@@ -185,22 +169,23 @@ func is_null(val : obj , nullvalstr : bool) : bool
   return false
 }
 
-func is_empty(val : str) : bool
+func is_empty(val : str) : bool ? (val <> null)
 {
   let length : i32 = val::length
   if(length == 0)
   {
     return true
   }
-  return false
 }
 
-func is_empty(val : obj) : bool
+func is_empty(val : obj) : bool ? (val <> null)
 {
   let valtostr : str = [str]val
   let length : i32 = valtostr::length
-  let result : bool = is_empty(valtostr)
-  return result
+  if(length == 0)
+  {
+    return true
+  }
 }
 
 func timer_start() : void
