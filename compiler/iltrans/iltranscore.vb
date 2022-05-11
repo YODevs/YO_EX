@@ -578,6 +578,10 @@
 
         ilinc += 1
         If multideclare Then
+            If ilgencode.attribute._cfg._null_safety Then
+                dserr.args.Add(clinecodestruc(1).value)
+                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "It is not possible to define multiple variables!")
+            End If
 #Region "Multi Declaring"
             Array.Resize(_illocalinit, _illocalinit.Length + mulitdclarelistinf.Count - 1)
             For iname = 0 To mulitdclarelistinf.Count - 1
