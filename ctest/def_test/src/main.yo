@@ -1,0 +1,60 @@
+#[app::classname("myapp")]
+include 'ystdio'
+
+func main()
+{
+  test6()
+  test5()
+  test4()
+  test3()
+  test2()
+  test1()
+}
+
+func test6()
+{
+  let boo : bool = def
+  if(boo == false){io::println("True")}
+  else{io::println("False")}
+}
+
+func test5()
+{
+  let f1 : f32 = def
+  let f2 : f64 = def
+  io::println("#{f1} - #{f2}")
+}
+
+func test4()
+{
+  let chr : char = def
+  let val : str = [str]chr
+  io::println(val)
+}
+
+func test3()
+{
+  let u : u8 = def
+  let u2 : u8 = 5
+  let result : i32 = [u + u2]
+  io::println(result)
+}
+
+func test2()
+{
+  let i : i64 = def
+  if(i == 0)
+  {
+    io::println("True")
+  }else{
+    io::println("False")
+  }
+}
+
+func test1()
+{
+  let num : i32 = def
+  num := 1
+  num := def
+  io::println(num)
+}
