@@ -44,6 +44,7 @@
         _token.Add(token.ENUM, "enum")
         _token.Add(token.INSTANCE, "instance")
         _token.Add(token.OPT, "opt")
+        _token.Add(token.DEF, "def")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -238,5 +239,6 @@
         INSTANCE = 95
         ARR = 96
         OPT = 97
+        DEF = 98
     End Enum
 End Class
