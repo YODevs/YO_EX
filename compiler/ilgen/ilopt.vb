@@ -500,6 +500,8 @@ Public Class ilopt
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
             Case tokenhared.token.ARR
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, conrex.STRING)
+            Case tokenhared.token.DEF
+                cil.load_string(_ilmethod.codes, String.Empty)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 check_null_safe_mode(clinecodestruc)
@@ -559,6 +561,12 @@ Public Class ilopt
             Case tokenhared.token.NULL
                 check_null_safe_mode(clinecodestruc)
                 cil.push_null_reference(_ilmethod.codes)
+            Case tokenhared.token.DEF
+                If convtoi8 Then
+                    cil.push_int64_onto_stack(_ilmethod.codes, 0)
+                Else
+                    cil.push_int32_onto_stack(_ilmethod.codes, 0)
+                End If
             Case tokenhared.token.EXPRESSION
                 Dim expr As New expressiondt(_ilmethod, "i32")
                 Try
@@ -594,6 +602,8 @@ Public Class ilopt
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.TYPE_INT
                 servinterface.ldc_i_checker(_ilmethod.codes, clinecodestruc.value, convtoi8, datatype)
+            Case tokenhared.token.DEF
+                cil.push_int32_onto_stack(_ilmethod.codes, 0)
             'let value : str = NULL
             Case tokenhared.token.NULL
                 check_null_safe_mode(clinecodestruc)
@@ -619,6 +629,7 @@ Public Class ilopt
                     cil.push_int32_onto_stack(_ilmethod.codes, AscW(clinecodestruc.value(1)))
                 Else
                     'example : value := ""
+                    check_null_safe_mode(clinecodestruc)
                     cil.push_null_reference(_ilmethod.codes)
                 End If
             Case tokenhared.token.TYPE_CO_STR
@@ -626,12 +637,15 @@ Public Class ilopt
                     cil.push_int32_onto_stack(_ilmethod.codes, AscW(clinecodestruc.value(1)))
                 Else
                     'example : value := ''
+                    check_null_safe_mode(clinecodestruc)
                     cil.push_null_reference(_ilmethod.codes)
                 End If
             Case tokenhared.token.IDENTIFIER
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.ARR
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.DEF
+                cil.push_int32_onto_stack(_ilmethod.codes, 0)
                 'let value : str = NULL
             Case tokenhared.token.NULL
                 check_null_safe_mode(clinecodestruc)
@@ -659,6 +673,12 @@ Public Class ilopt
                 illdloc.ld_identifier(clinecodestruc.value, _ilmethod, clinecodestruc, rlinecodestruc, datatype)
             Case tokenhared.token.ARR
                 var.load_arr_identifier(_ilmethod, clinecodestruc, rlinecodestruc, datatype)
+            Case tokenhared.token.DEF
+                If convtor8 Then
+                    cil.push_float64_onto_stack(_ilmethod.codes, 0.0)
+                Else
+                    cil.push_float32_onto_stack(_ilmethod.codes, 0.0)
+                End If
             'let value : str = NULL
             Case tokenhared.token.NULL
                 check_null_safe_mode(clinecodestruc)
