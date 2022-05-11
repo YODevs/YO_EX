@@ -47,6 +47,7 @@ Public Class yocaproc
                     Console.ForegroundColor = ConsoleColor.DarkRed
                     Console.Write("[FAILURE]")
                     Console.ResetColor()
+                    File.WriteAllText(dirs(index) & "\target\release\output.txt", execoutput)
                 End If
             Else
                 ncompilefailed += 1
