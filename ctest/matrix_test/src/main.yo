@@ -1,0 +1,97 @@
+#[app::classname("myapp")]
+
+include 'ystdio'
+include 'yolib'
+include 'ydbg'
+
+public static let mt : yolib.matrix
+public static let nt : yolib.matrix
+
+func main()
+{
+  initialize_mt()
+  initialize_nt()
+  test1()
+  test2()
+  test3()
+  test4(12)
+  test5()
+  test6()
+  test7()
+  test8()
+}
+
+func test1()
+{
+  dbg::print(mt)
+}
+
+func test2()
+{
+  let result : yolib.matrix = mt::add(nt)
+  dbg::print(result)
+}
+
+func test3()
+{
+  let mt_sub : yolib.matrix = mt::sub(nt)
+  dbg::print(mt_sub)
+}
+
+func test4(val : i32)
+{
+  let mt_multi : yolib.matrix = mt::multiply(val)
+  dbg::print(mt_multi)
+}
+
+func test5()
+{
+  mt::clear_matrix()
+  let result : bool = mt::isempty
+  if (result == True){
+    io::println("Empty")
+    initialize_mt()
+  }else{
+    dbg::print(mt)
+  }
+}
+
+func test6()
+{
+  let transpose_mt: yolib.matrix = mt::transpose()
+  dbg::print(transpose_mt)
+}
+
+func test7()
+{
+  let negative_mt : yolib.matrix = mt::neg()
+  dbg::print(negative_mt)
+}
+
+func test8()
+{
+  let columnsize_mt : i32 = mt::get_columnsize()
+  let  rowsize_mt : i32 = mt::get_rowsize()
+  io::println("The mt matrix has #{columnsize_mt} columns and #{rowsize_mt} rows")
+}
+
+
+func initialize_mt()
+{
+  mt := init yolib.matrix(2, 2)
+  mt::set_zero_matrix()
+  mt::set_item(0, 0, 1)
+  mt::set_item(1, 0, 4)
+  mt::set_item(0, 1, 6)
+  mt::set_item(1, 1, 8)
+}
+
+func initialize_nt()
+{
+  nt := init yolib.matrix(2, 2)
+  nt::set_zero_matrix()
+  nt::set_item(0, 0, 0)
+  nt::set_item(1, 0, 8)
+  nt::set_item(0, 1, 12)
+  nt::set_item(1, 1, 2)
+}
