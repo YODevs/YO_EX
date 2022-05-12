@@ -1,0 +1,14 @@
+1  4  
+6  8  
+1   12  
+18  10  
+1   -4  
+-6  6   
+12  48  
+72  96  
+Empty
+1  6  
+4  8  
+-1  -4  
+-6  -8  
+The mt matrix has 2 columns and 2 rows
