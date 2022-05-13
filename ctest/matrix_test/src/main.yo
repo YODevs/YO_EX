@@ -34,14 +34,14 @@ func test2()
 
 func test3()
 {
-  let mt_sub : yolib.matrix = mt::sub(nt)
-  dbg::print(mt_sub)
+  let sub : yolib.matrix = mt::sub(nt)
+  dbg::print(sub)
 }
 
 func test4(val : i32)
 {
-  let mt_multi : yolib.matrix = mt::multiply(val)
-  dbg::print(mt_multi)
+  let multi : yolib.matrix = mt::multiply(val)
+  dbg::print(multi)
 }
 
 func test5()
@@ -58,28 +58,27 @@ func test5()
 
 func test6()
 {
-  let transpose_mt: yolib.matrix = mt::transpose()
-  dbg::print(transpose_mt)
+  let transpose: yolib.matrix = mt::transpose()
+  dbg::print(transpose)
 }
 
 func test7()
 {
-  let negative_mt : yolib.matrix = mt::neg()
-  dbg::print(negative_mt)
+  let negative : yolib.matrix = mt::neg()
+  dbg::print(negative)
 }
 
 func test8()
 {
-  let columnsize_mt : i32 = mt::get_columnsize()
-  let  rowsize_mt : i32 = mt::get_rowsize()
-  io::println("The mt matrix has #{columnsize_mt} columns and #{rowsize_mt} rows")
+  let columnsize : i32 = mt::get_columnsize()
+  let  rowsize : i32 = mt::get_rowsize()
+  io::println("The mt matrix has #{columnsize} columns and #{rowsize} rows")
 }
 
 
 func initialize_mt()
 {
   mt := init yolib.matrix(2, 2)
-  mt::set_zero_matrix()
   mt::set_item(0, 0, 1)
   mt::set_item(1, 0, 4)
   mt::set_item(0, 1, 6)
@@ -89,7 +88,6 @@ func initialize_mt()
 func initialize_nt()
 {
   nt := init yolib.matrix(2, 2)
-  nt::set_zero_matrix()
   nt::set_item(0, 0, 0)
   nt::set_item(1, 0, 8)
   nt::set_item(0, 1, 12)
