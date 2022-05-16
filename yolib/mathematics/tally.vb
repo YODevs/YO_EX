@@ -50,6 +50,39 @@
         Return 0
     End Function
 
+    Public Function sort() As map
+        Dim data As New map
+        Dim iter As New ArrayList
+        Dim valiter As New ArrayList
+        Dim count As Integer = items.Count - 1
+        For index = 0 To count
+            Dim nrep As Integer = countlist(index)
+            If iter.Count = 0 Then
+                iter.Add(nrep)
+                valiter.Add(items(index))
+            Else
+                Dim setitem As Boolean = True
+                For i2 = 0 To iter.Count - 1
+                    If CInt(iter(i2)) < nrep Then
+                        iter.Insert(i2, nrep)
+                        valiter.Insert(i2, items(index))
+                        setitem = False
+                        Exit For
+                    End If
+                Next
+                If setitem Then
+                    iter.Add(nrep)
+                    valiter.Add(items(index))
+                End If
+            End If
+        Next
+
+        For isort = 0 To count
+            data.add(valiter(isort), iter(isort))
+        Next
+        Return data
+    End Function
+
     Private Function check_item_repetition(item As String, ByRef indexref As Integer) As Boolean
         Dim count As Integer = items.Count - 1
         If count = -1 Then Return False
