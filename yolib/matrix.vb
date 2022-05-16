@@ -58,14 +58,16 @@
         If items.count < columnsize * rowsize Then
             Throw New Exception("The number of list items must be greater than or equal to the number of matrix items.")
         End If
+        Dim ibar As Integer = 0
         For index = 0 To gcolumnsize - 1
             For i2 = 0 To growsize - 1
-                Dim item As String = items.pop_left
+                Dim item As String = items.get(ibar)
                 If IsNumeric(item) Then
                     dt(index).Add(item)
                 Else
                     Throw New Exception("List values must be numeric to be added to the matrix.")
                 End If
+                ibar += 1
             Next
         Next
         gisempty = False
