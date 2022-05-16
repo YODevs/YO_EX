@@ -41,6 +41,15 @@
         Return 0.0
     End Function
 
+    Public Function get_single(item As String) As Integer
+        Dim indexref As Integer = 0
+        If check_item_repetition(item, indexref) Then
+            Dim itemcount As Single = ((countlist(indexref)) / privgrouprange) - System.Math.Floor((countlist(indexref)) / privgrouprange)
+            Return itemcount * privgrouprange
+        End If
+        Return 0
+    End Function
+
     Private Function check_item_repetition(item As String, ByRef indexref As Integer) As Boolean
         Dim count As Integer = items.Count - 1
         If count = -1 Then Return False
