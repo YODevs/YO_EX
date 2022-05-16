@@ -33,6 +33,24 @@
         Return 0
     End Function
 
+    Public Function get_percentage(item As String) As Single
+        Dim count As Integer = items.Count - 1
+        Dim iter As Integer = 0
+        Dim allcalc As Long = 0
+        If count = -1 Then Return False
+        For index = 0 To count
+            If items(index).ToString = item Then
+                iter = countlist(index)
+            End If
+            allcalc += CLng(countlist(index))
+        Next
+
+        If iter = 0 Then
+            Return 0.0
+        Else
+            Return CSng((iter / allcalc) * 100)
+        End If
+    End Function
     Public Function get_group(item As String) As Single
         Dim indexref As Integer = 0
         If check_item_repetition(item, indexref) Then
@@ -57,23 +75,58 @@
         Dim count As Integer = items.Count - 1
         For index = 0 To count
             Dim nrep As Integer = countlist(index)
+            Dim item As String = items(index)
             If iter.Count = 0 Then
                 iter.Add(nrep)
-                valiter.Add(items(index))
+                valiter.Add(item)
             Else
                 Dim setitem As Boolean = True
                 For i2 = 0 To iter.Count - 1
                     If CInt(iter(i2)) < nrep Then
                         iter.Insert(i2, nrep)
-                        valiter.Insert(i2, items(index))
+                        valiter.Insert(i2, item)
                         setitem = False
                         Exit For
                     End If
                 Next
                 If setitem Then
                     iter.Add(nrep)
-                    valiter.Add(items(index))
+                    valiter.Add(item)
                 End If
+            End If
+        Next
+
+        For isort = 0 To count
+            data.add(valiter(isort), iter(isort))
+        Next
+        Return data
+    End Function
+
+    Public Function sort_by_percentage() As map
+        Dim data As New map
+        Dim iter As New ArrayList
+        Dim valiter As New ArrayList
+        Dim count As Integer = items.Count - 1
+        Dim allcalc As Long = 0
+        For index = 0 To count
+            allcalc += CLng(countlist(index))
+        Next
+        For index = 0 To count
+            Dim nrep As Integer = countlist(index)
+            Dim item As String = items(index)
+            Dim setitem As Boolean = True
+            For i2 = 0 To iter.Count - 1
+                Dim percent As Single = CSng((nrep / allcalc) * 100)
+                If CSng(iter(i2)) < percent Then
+                    iter.Insert(i2, percent)
+                    valiter.Insert(i2, item)
+                    setitem = False
+                    Exit For
+                End If
+            Next
+            If setitem Then
+                iter.Add(CSng((nrep / allcalc) * 100))
+                valiter.Add(item)
             End If
         Next
 
