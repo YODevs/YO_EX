@@ -135,12 +135,14 @@ Public Class libserv
                         funcname = method.Name
                         get_method_info(method, methodinfo)
                         funcste.assignmentype = Nothing
+                        illdloc.frvarstruc = Nothing
                         Return methodindex
                     End If
                 End If
                 retstate = -2
             End If
         Next
+        illdloc.frvarstruc = Nothing
         funcste.assignmentype = Nothing
         If retstate = -2 Then get_overloads_of_method(libreg.types(namespaceindex)(classindex).GetMethods, funcnametolower)
         Return retstate

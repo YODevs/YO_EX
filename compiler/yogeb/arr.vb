@@ -103,6 +103,7 @@ Public Class arr
         Else
             _ilmethod = optgen.assi_identifier(varname, clinecodestruc(ilinc), arrobj.typeinf.fullname)
         End If
+        illdloc.frvarstruc = Nothing
     End Sub
     Friend Shared Sub set_new_arr(ByRef ilmethod As ilformat._ilmethodcollection, illocalinit As ilformat._illocalinit, clinecodestruc As xmlunpkd.linecodestruc)
         If illocalinit.isarrayobj = False OrElse illocalinit.arrayinf.isunspecifiedelements Then Return
