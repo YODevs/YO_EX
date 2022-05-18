@@ -68,6 +68,16 @@
         Return 0
     End Function
 
+    Public Function get_average() As Single
+        Dim count As Integer = items.Count - 1
+        If count < 0 Then Return 0.0
+        Dim allcalc As Long = 0
+        For index = 0 To count
+            allcalc += CLng(countlist(index))
+        Next
+        Return CSng(allcalc / items.Count)
+    End Function
+
     Public Function sort() As map
         Dim data As New map
         Dim iter As New ArrayList
