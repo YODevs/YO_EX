@@ -1,0 +1,8 @@
+!![
+"assemblyname"   =   "dice_prob"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   ,
+"nullsafetymode"   =   "true"   
+]

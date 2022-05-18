@@ -1,0 +1,20 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'yolib'
+include 'ydbg'
+
+
+func main()
+{
+ let rnd : init system.random()
+ let dice[] : str = {'One','Two','Three','Four','Five','Six'}
+ let t : init yolib.tally()
+ to(1000000)
+ {
+   let i : i32 = rnd::next(0,6)
+   t::add(dice[i])
+ }
+ let m : yolib.map = t::sort_by_percentage()
+ dbg::print(m)
+}
