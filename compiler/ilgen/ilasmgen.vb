@@ -100,6 +100,7 @@ Public Class ilasmgen
             _ilcollection.field(index).isliteral = yoclassdt.fields(index).isconstant
             _ilcollection.field(index).initproc = yoclassdt.fields(index).initproc
             _ilcollection.field(index).ctorparameter = yoclassdt.fields(index).ctorparameters
+            _ilcollection.field(index).value = yoclassdt.fields(index).value
             If yoclassdt.fields(index).isarray Then
                 _ilcollection.field(index).isarray = True
                 _ilcollection.field(index).arrlen = servinterface.get_array_length(_ilcollection.field(index), yoclassdt.fields(index))
@@ -146,8 +147,25 @@ Public Class ilasmgen
             If _ilcollection.field(index).initproc Then
                 set_ctor(_ilcollection, _ilcollection.field(index), yoclassdt.fields(index), getdatatype)
             End If
+            check_null_safe_mode(_ilcollection.field(index))
+
         Next
         iltranscore.set_object_control(Nothing)
+    End Sub
+
+    Private Sub check_null_safe_mode(_pubfield As ilformat._pubfield)
+        If ilgencode.attribute._cfg._null_safety = False Then Return
+        If _pubfield.typeinf.isprimitive Then
+            If _pubfield.value = conrex.NULL Then
+                dserr.args.Add(_pubfield.name)
+                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, -1, ilbodybulider.path, String.Format("The '{0}' field requires initialization.", _pubfield.name), "public static let pi : f32 = 3.14" & vbCrLf & "Null Safety mode is to prevent NullReferenceException error, you can disable it from the labra.yoda file.")
+            End If
+        Else
+            If _pubfield.initproc = False Then
+                dserr.args.Add(_pubfield.name)
+                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, -1, ilbodybulider.path, String.Format("The '{0}' field requires initialization.", _pubfield.name), "public static let rnd : system.random()" & vbCrLf & "Null Safety mode is to prevent NullReferenceException error, you can disable it from the labra.yoda file.")
+            End If
+        End If
     End Sub
 
     Private Sub set_ctor(ByRef _ilcollection As ilformat.ildata, pubfield As ilformat._pubfield, lexfield As tknformat._pubfield, getdatatype As String)
