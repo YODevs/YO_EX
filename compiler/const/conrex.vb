@@ -14,6 +14,7 @@ Public Class conrex
     Public Shared specificxmlchar() As Char = {">", "<", "'", """", "&"}
     Public Shared spdustrcommand() As String = {"#nl", "#bs", "#tb", "#lf", "#cr", "#qu", "#co"}
     Public Shared spdustrreact() As String = {"\r\n", Chr(8), Chr(9), "\n", "\r", "\""", "\'"}
+    Public Shared forbiddenvariablenames() As String = {"object", "string", "int", "float"}
     Public Shared accesscontrol() As tokenhared.token = {tokenhared.token.PUBLIC, tokenhared.token.PRIVATE}
     Public Shared modifier() As tokenhared.token = {tokenhared.token.INSTANCE, tokenhared.token.STATIC}
     Public Shared ignoretokencontrol() As tokenhared.token = {tokenhared.token.FUNC, tokenhared.token.EXPR, tokenhared.token.EXTERN, tokenhared.token.ENUM, tokenhared.token.CONST, tokenhared.token.INCLUDE, tokenhared.token.LET}
