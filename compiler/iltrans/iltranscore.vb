@@ -560,7 +560,7 @@
             dserr.new_error(conserr.errortype.IDENTIFIEREXPECTED, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value), "let name : str = ""Amin""")
 
             'TODO : Check Global Types.
-        ElseIf localinit.check_local_init(singleidentifiername) Then
+        ElseIf localinit.check_local_init(singleidentifiername, clinecodestruc(1)) Then
             'DECLARING ERROR
             dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(1).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(1)), clinecodestruc(1).value) & vbCrLf & "Choose another name.")
         End If
@@ -585,7 +585,7 @@
 #Region "Multi Declaring"
             Array.Resize(_illocalinit, _illocalinit.Length + mulitdclarelistinf.Count - 1)
             For iname = 0 To mulitdclarelistinf.Count - 1
-                If localinit.check_local_init(mulitdclarelistinf(iname)) Then
+                If localinit.check_local_init(mulitdclarelistinf(iname), clinecodestruc(ilinc)) Then
                     'DECLARING ERROR
                     dserr.new_error(conserr.errortype.DECLARINGERROR, clinecodestruc(ilinc).line, path, authfunc.get_line_error(path, get_target_info(clinecodestruc(ilinc)), mulitdclarelistinf(iname)) & vbCrLf & "Choose another name.")
                 End If
