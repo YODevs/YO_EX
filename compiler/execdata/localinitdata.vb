@@ -46,10 +46,15 @@ Public Class localinitdata
 
     Friend Shared Sub check_type_name(name As String, linecodestruc As xmlunpkd.linecodestruc)
         name = name.ToLower
+        If IsNumeric(name(0).ToString) Then
+            dserr.args.Add("The name of an object or variable should not start with a number.")
+            dserr.new_error(conserr.errortype.DECLARINGNEWOBJECTERROR, linecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(linecodestruc), linecodestruc.value))
+        End If
         Dim arrlen As Integer = conrex.forbiddenvariablenames.Length - 1
         For index = 0 To arrlen
             If conrex.forbiddenvariablenames(index) = name Then
-                dserr.new_error(conserr.errortype.DECLARINGERROR, linecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(linecodestruc), linecodestruc.value) & vbCrLf & "The name of this object is in the forbidden list, choose another name.")
+                dserr.args.Add("The name of this object is in the forbidden list, choose another name.")
+                dserr.new_error(conserr.errortype.DECLARINGNEWOBJECTERROR, linecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(linecodestruc), linecodestruc.value))
             End If
         Next
     End Sub
@@ -59,7 +64,8 @@ Public Class localinitdata
         For index = 0 To arrlen
             If conrex.forbiddenvariablenames(index) = name Then
                 Dim linecodestruc As xmlunpkd.linecodestruc = servinterface.get_line_code_struct(typetargetinfo, name, tokenhared.token.IDENTIFIER)
-                dserr.new_error(conserr.errortype.DECLARINGERROR, linecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(linecodestruc), linecodestruc.value) & vbCrLf & "The name of this object is in the forbidden list, choose another name.")
+                dserr.args.Add("The name of this object is in the forbidden list, choose another name.")
+                dserr.new_error(conserr.errortype.DECLARINGNEWOBJECTERROR, linecodestruc.line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(linecodestruc), linecodestruc.value))
             End If
         Next
     End Sub
