@@ -39,7 +39,7 @@ Partial Class chartui
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChangeChartTypeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PalleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.palletecombo = New System.Windows.Forms.ToolStripComboBox()
+        Me.palettecombo = New System.Windows.Forms.ToolStripComboBox()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.DChartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -92,14 +92,14 @@ Partial Class chartui
         'SaveChartToolStripMenuItem
         '
         Me.SaveChartToolStripMenuItem.Name = "SaveChartToolStripMenuItem"
-        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(131, 22)
+        Me.SaveChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SaveChartToolStripMenuItem.Text = "Save chart"
         '
         'PrintChartToolStripMenuItem
         '
         Me.PrintChartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PageSetupToolStripMenuItem, Me.PrintToolStripMenuItem})
         Me.PrintChartToolStripMenuItem.Name = "PrintChartToolStripMenuItem"
-        Me.PrintChartToolStripMenuItem.Size = New System.Drawing.Size(131, 22)
+        Me.PrintChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PrintChartToolStripMenuItem.Text = "Print Chart"
         '
         'PageSetupToolStripMenuItem
@@ -117,12 +117,12 @@ Partial Class chartui
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(128, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(131, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'EditToolStripMenuItem
@@ -135,7 +135,7 @@ Partial Class chartui
         'EditViewPointsToolStripMenuItem
         '
         Me.EditViewPointsToolStripMenuItem.Name = "EditViewPointsToolStripMenuItem"
-        Me.EditViewPointsToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
+        Me.EditViewPointsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.EditViewPointsToolStripMenuItem.Text = "Edit/View points"
         '
         'ViewToolStripMenuItem
@@ -148,31 +148,31 @@ Partial Class chartui
         'ChangeChartTypeToolStripMenuItem
         '
         Me.ChangeChartTypeToolStripMenuItem.Name = "ChangeChartTypeToolStripMenuItem"
-        Me.ChangeChartTypeToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.ChangeChartTypeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ChangeChartTypeToolStripMenuItem.Text = "Change Chart Type"
         '
         'PalleteToolStripMenuItem
         '
-        Me.PalleteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.palletecombo})
+        Me.PalleteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.palettecombo})
         Me.PalleteToolStripMenuItem.Name = "PalleteToolStripMenuItem"
-        Me.PalleteToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
-        Me.PalleteToolStripMenuItem.Text = "Pallete"
+        Me.PalleteToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PalleteToolStripMenuItem.Text = "Palettes"
         '
-        'palletecombo
+        'palettecombo
         '
-        Me.palletecombo.Name = "palletecombo"
-        Me.palletecombo.Size = New System.Drawing.Size(121, 23)
+        Me.palettecombo.Name = "palettecombo"
+        Me.palettecombo.Size = New System.Drawing.Size(121, 23)
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(171, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'DChartToolStripMenuItem
         '
         Me.DChartToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnableToolStripMenuItem, Me.DisableToolStripMenuItem})
         Me.DChartToolStripMenuItem.Name = "DChartToolStripMenuItem"
-        Me.DChartToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.DChartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DChartToolStripMenuItem.Text = "3D Chart"
         '
         'EnableToolStripMenuItem
@@ -190,7 +190,7 @@ Partial Class chartui
         'DOptionsToolStripMenuItem
         '
         Me.DOptionsToolStripMenuItem.Name = "DOptionsToolStripMenuItem"
-        Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.DOptionsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.DOptionsToolStripMenuItem.Text = "3D Options"
         '
         'RemoteToolStripMenuItem
@@ -304,7 +304,7 @@ Partial Class chartui
     Friend WithEvents ChangeChartTypeToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As Windows.Forms.ToolStripSeparator
     Friend WithEvents PalleteToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents palletecombo As Windows.Forms.ToolStripComboBox
+    Friend WithEvents palettecombo As Windows.Forms.ToolStripComboBox
     Friend WithEvents PrintChartToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents PageSetupToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents PrintToolStripMenuItem As Windows.Forms.ToolStripMenuItem

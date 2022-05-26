@@ -73,6 +73,19 @@ Public Class chart
         chartform.porttextbox.Text = port
         chartform.maxpointstext.Text = maxpoints
     End Sub
+    Public Sub set_custom_palette(colors() As String)
+        Dim count As Integer = colors.Length - 1
+        If count = -1 Then Return
+        Dim palette(count) As Drawing.Color
+        For index = 0 To count
+            If colors(index).StartsWith("#") Then
+                palette(index) = System.Drawing.ColorTranslator.FromHtml(colors(index))
+            Else
+                palette(index) = Drawing.Color.FromName(colors(index))
+            End If
+        Next
+        chartform.chart.PaletteCustomColors = palette
+    End Sub
     Public Sub new_series(name As String)
         new_series(name, "Area")
         set_default_setting_series(name)

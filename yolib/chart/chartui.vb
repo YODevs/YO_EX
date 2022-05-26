@@ -4,7 +4,7 @@ Imports System.Windows.Forms
 
 Public Class chartui
     Friend remoteactive As Boolean
-    Dim palletes As map
+    Dim palettes As map
     Private receiveudpclient As UdpClient
     Private threadrecive As System.Threading.Thread
     Private remoteipendpoint As New System.Net.IPEndPoint(System.Net.IPAddress.Any, 0)
@@ -40,25 +40,29 @@ Public Class chartui
         charttype.ShowDialog()
     End Sub
     Private Sub chartui_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        get_all_pallete()
-        palletecombo.SelectedIndex = palletes.get(chart.Palette.ToString)
+        get_all_palettes()
+        If chart.PaletteCustomColors.Length = 0 Then
+            palettecombo.SelectedIndex = palettes.get(chart.Palette.ToString)
+        Else
+            chart.Palette = DataVisualization.Charting.ChartColorPalette.None
+        End If
         If remoteactive Then
             EnableToolStripMenuItem1_Click(Nothing, Nothing)
         End If
     End Sub
-    Private Sub get_all_pallete()
-        palletes = New map
-        Dim cpallete As Windows.Forms.DataVisualization.Charting.ChartColorPalette
-        Dim values As Array = [Enum].GetValues(cpallete.GetType)
-        Dim keys As String() = [Enum].GetNames(cpallete.GetType)
+    Private Sub get_all_palettes()
+        palettes = New map
+        Dim cpalette As Windows.Forms.DataVisualization.Charting.ChartColorPalette
+        Dim values As Array = [Enum].GetValues(cpalette.GetType)
+        Dim keys As String() = [Enum].GetNames(cpalette.GetType)
         For index = 0 To values.Length - 1
-            palletes.add(keys(index), values(index))
-            palletecombo.Items.Add(keys(index))
+            palettes.add(keys(index), values(index))
+            palettecombo.Items.Add(keys(index))
         Next
     End Sub
 
-    Private Sub palletecombo_TextChanged(sender As Object, e As EventArgs) Handles palletecombo.TextChanged
-        chart.Palette = palletes.get(palletecombo.SelectedItem)
+    Private Sub palettecombo_TextChanged(sender As Object, e As EventArgs) Handles palettecombo.TextChanged
+        chart.Palette = palettes.get(palettecombo.SelectedItem)
     End Sub
 
     Private Sub PageSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PageSetupToolStripMenuItem.Click
