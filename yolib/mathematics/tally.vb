@@ -78,6 +78,20 @@
         Return CSng(allcalc / items.Count)
     End Function
 
+    Public Function number_of_variations() As Integer
+        Return items.Count
+    End Function
+
+    Public Function number_of_records() As Integer
+        Dim count As Integer = items.Count - 1
+        If count < 0 Then Return 0
+        Dim allcalc As Integer = 0
+        For index = 0 To count
+            allcalc += countlist(index)
+        Next
+        Return allcalc
+    End Function
+
     Public Function sort() As map
         Dim data As New map
         Dim iter As New ArrayList
