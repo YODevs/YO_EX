@@ -11,6 +11,8 @@
 - [interaction](#interaction)
 - [iterator](#iterator)
 - [list](#list)
+- [math](#math)
+- [tally](#tally)
 - [matrix](#matrix)
 - [menu](#menu)
 - [range](#range)
@@ -32,16 +34,26 @@
 - Can Read : True
 - Can Write : True
 - Propertytype : `bool`
-##### asixytitle
+##### axisytitle
 - Re : Property
 - Can Read : True
 - Can Write : True
 - Propertytype : `str`
-##### asixxtitle
+##### axisxtitle
 - Re : Property
 - Can Read : True
 - Can Write : True
 - Propertytype : `str`
+##### remoteaccess
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `bool`
+##### borderwidth
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `i32`
 #### init
 - Re : Constructor
 - No Parameter
@@ -85,15 +97,15 @@ get_enable3d() : bool
 ```f#
 set_enable3d(value : bool) : void
 ```
-#### get_asixytitle
+#### get_axisytitle
 - Re : Method
 - Modifier : Instance
 - Returntype : `str`
 - No Parameter
 ```f#
-get_asixytitle() : str
+get_axisytitle() : str
 ```
-#### set_asixytitle
+#### set_axisytitle
 - Re : Method
 - Modifier : Instance
 - Returntype : `void`
@@ -103,17 +115,17 @@ get_asixytitle() : str
 | 1 | value | `str` | False | False |
 
 ```f#
-set_asixytitle(value : str) : void
+set_axisytitle(value : str) : void
 ```
-#### get_asixxtitle
+#### get_axisxtitle
 - Re : Method
 - Modifier : Instance
 - Returntype : `str`
 - No Parameter
 ```f#
-get_asixxtitle() : str
+get_axisxtitle() : str
 ```
-#### set_asixxtitle
+#### set_axisxtitle
 - Re : Method
 - Modifier : Instance
 - Returntype : `void`
@@ -123,7 +135,72 @@ get_asixxtitle() : str
 | 1 | value | `str` | False | False |
 
 ```f#
-set_asixxtitle(value : str) : void
+set_axisxtitle(value : str) : void
+```
+#### get_remoteaccess
+- Re : Method
+- Modifier : Instance
+- Returntype : `bool`
+- No Parameter
+```f#
+get_remoteaccess() : bool
+```
+#### set_remoteaccess
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `bool` | False | False |
+
+```f#
+set_remoteaccess(value : bool) : void
+```
+#### get_borderwidth
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+- No Parameter
+```f#
+get_borderwidth() : i32
+```
+#### set_borderwidth
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `i32` | False | False |
+
+```f#
+set_borderwidth(value : i32) : void
+```
+#### set_remote
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | port | `i32` | False | False |
+| 2 | maxpoints | `i32` | False | False |
+
+```f#
+set_remote(port : i32 ,maxpoints : i32) : void
+```
+#### set_custom_palette
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | colors | `str[]` | False | False |
+
+```f#
+set_custom_palette(colors : str[]) : void
 ```
 #### new_series
 - Re : Method
@@ -234,7 +311,7 @@ add_point(seriesname : str ,xvalue : f32 ,yvalue : f32) : void
 ```f#
 add_point(seriesname : str ,xvalues : YOLIB.list ,yvalues : YOLIB.list) : void
 ```
-#### set_asix_label
+#### set_axis_label
 - Re : Method
 - Modifier : Instance
 - Returntype : `void`
@@ -246,9 +323,9 @@ add_point(seriesname : str ,xvalues : YOLIB.list ,yvalues : YOLIB.list) : void
 | 3 | value | `str` | False | False |
 
 ```f#
-set_asix_label(seriesname : str ,index : i32 ,value : str) : void
+set_axis_label(seriesname : str ,index : i32 ,value : str) : void
 ```
-#### set_asix_label
+#### set_axis_label
 - Re : Method
 - Modifier : Instance
 - Returntype : `void`
@@ -259,9 +336,9 @@ set_asix_label(seriesname : str ,index : i32 ,value : str) : void
 | 2 | values | `YOLIB.list` | False | False |
 
 ```f#
-set_asix_label(seriesname : str ,values : YOLIB.list) : void
+set_axis_label(seriesname : str ,values : YOLIB.list) : void
 ```
-#### set_asix_label
+#### set_axis_label
 - Re : Method
 - Modifier : Instance
 - Returntype : `void`
@@ -272,7 +349,7 @@ set_asix_label(seriesname : str ,values : YOLIB.list) : void
 | 2 | value | `str` | False | False |
 
 ```f#
-set_asix_label(index : i32 ,value : str) : void
+set_axis_label(index : i32 ,value : str) : void
 ```
 #### show
 - Re : Method
@@ -1125,6 +1202,22 @@ get_map(index : i32 ,key : System.String& ,value : System.String&) : void
 ```f#
 get_with_index(index : i32) : obj
 ```
+#### get_all_keys
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.list`
+- No Parameter
+```f#
+get_all_keys() : YOLIB.list
+```
+#### get_all_values
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.list`
+- No Parameter
+```f#
+get_all_values() : YOLIB.list
+```
 #### remove
 - Re : Method
 - Modifier : Instance
@@ -1396,6 +1489,13 @@ GetType() : System.Type
 |--|--|--|--|--|
 | 1 | values | `str[]` | False | False |
 
+#### init
+- Re : Constructor
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | values | `System.Collections.ArrayList` | False | False |
+
 #### append
 - Re : Method
 - Modifier : Instance
@@ -1513,6 +1613,14 @@ clone() : str
 
 ```f#
 iter(item : str) : i32
+```
+#### avg
+- Re : Method
+- Modifier : Instance
+- Returntype : `f64`
+- No Parameter
+```f#
+avg() : f64
 ```
 #### count
 - Re : Method
@@ -1681,6 +1789,349 @@ to_arraylist() : System.Collections.ArrayList
 - No Parameter
 ```f#
 remove_duplicate() : i32
+```
+#### GetType
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Type`
+- No Parameter
+```f#
+GetType() : System.Type
+```
+
+<hr>
+
+### math
+- Fullname : YOLIB.math
+##### PI
+- Re : Property
+- Can Read : True
+- Can Write : False
+- Propertytype : `f64`
+##### TUA
+- Re : Property
+- Can Read : True
+- Can Write : False
+- Propertytype : `f64`
+##### E
+- Re : Property
+- Can Read : True
+- Can Write : False
+- Propertytype : `f64`
+#### init
+- Re : Constructor
+- No Parameter
+#### get_PI
+- Re : Method
+- Modifier : Static
+- Returntype : `f64`
+- No Parameter
+```f#
+get_PI() : f64
+```
+#### get_TUA
+- Re : Method
+- Modifier : Static
+- Returntype : `f64`
+- No Parameter
+```f#
+get_TUA() : f64
+```
+#### get_E
+- Re : Method
+- Modifier : Static
+- Returntype : `f64`
+- No Parameter
+```f#
+get_E() : f64
+```
+#### factorial
+- Re : Method
+- Modifier : Static
+- Returntype : `i64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `i32` | False | False |
+
+```f#
+factorial(number : i32) : i64
+```
+#### factorial_i32
+- Re : Method
+- Modifier : Static
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `i32` | False | False |
+
+```f#
+factorial_i32(number : i32) : i32
+```
+#### abs
+- Re : Method
+- Modifier : Static
+- Returntype : `i128`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `i128` | False | False |
+
+```f#
+abs(value : i128) : i128
+```
+#### abs
+- Re : Method
+- Modifier : Static
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `i32` | False | False |
+
+```f#
+abs(value : i32) : i32
+```
+#### abs
+- Re : Method
+- Modifier : Static
+- Returntype : `f32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `f32` | False | False |
+
+```f#
+abs(value : f32) : f32
+```
+#### abs
+- Re : Method
+- Modifier : Static
+- Returntype : `f64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `f64` | False | False |
+
+```f#
+abs(value : f64) : f64
+```
+#### log
+- Re : Method
+- Modifier : Static
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `i32` | False | False |
+
+```f#
+log(number : i32) : i32
+```
+#### log
+- Re : Method
+- Modifier : Static
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `i32` | False | False |
+| 2 | base | `i32` | False | False |
+
+```f#
+log(number : i32 ,base : i32) : i32
+```
+#### log
+- Re : Method
+- Modifier : Static
+- Returntype : `f32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `f32` | False | False |
+
+```f#
+log(number : f32) : f32
+```
+#### log
+- Re : Method
+- Modifier : Static
+- Returntype : `f32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `f32` | False | False |
+| 2 | base | `f32` | False | False |
+
+```f#
+log(number : f32 ,base : f32) : f32
+```
+#### log
+- Re : Method
+- Modifier : Static
+- Returntype : `f64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `f64` | False | False |
+
+```f#
+log(number : f64) : f64
+```
+#### log
+- Re : Method
+- Modifier : Static
+- Returntype : `f64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | number | `f64` | False | False |
+| 2 | base | `f64` | False | False |
+
+```f#
+log(number : f64 ,base : f64) : f64
+```
+#### GetType
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Type`
+- No Parameter
+```f#
+GetType() : System.Type
+```
+
+<hr>
+
+### tally
+- Fullname : YOLIB.tally
+##### grouprange
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `i32`
+#### init
+- Re : Constructor
+- No Parameter
+#### get_grouprange
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+- No Parameter
+```f#
+get_grouprange() : i32
+```
+#### set_grouprange
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `i32` | False | False |
+
+```f#
+set_grouprange(value : i32) : void
+```
+#### add
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | item | `str` | False | False |
+
+```f#
+add(item : str) : void
+```
+#### get
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | item | `str` | False | False |
+
+```f#
+get(item : str) : i32
+```
+#### get_percentage
+- Re : Method
+- Modifier : Instance
+- Returntype : `f32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | item | `str` | False | False |
+
+```f#
+get_percentage(item : str) : f32
+```
+#### get_group
+- Re : Method
+- Modifier : Instance
+- Returntype : `f32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | item | `str` | False | False |
+
+```f#
+get_group(item : str) : f32
+```
+#### get_single
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | item | `str` | False | False |
+
+```f#
+get_single(item : str) : i32
+```
+#### get_average
+- Re : Method
+- Modifier : Instance
+- Returntype : `f32`
+- No Parameter
+```f#
+get_average() : f32
+```
+#### number_of_variations
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+- No Parameter
+```f#
+number_of_variations() : i32
+```
+#### number_of_records
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+- No Parameter
+```f#
+number_of_records() : i32
+```
+#### sort
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.map`
+- No Parameter
+```f#
+sort() : YOLIB.map
+```
+#### sort_by_percentage
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.map`
+- No Parameter
+```f#
+sort_by_percentage() : YOLIB.map
 ```
 #### GetType
 - Re : Method
@@ -1951,6 +2402,22 @@ multiply(val : f64) : YOLIB.matrix
 
 ```f#
 multiply(matrix2 : YOLIB.matrix) : YOLIB.matrix
+```
+#### get_list
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.list`
+- No Parameter
+```f#
+get_list() : YOLIB.list
+```
+#### avg
+- Re : Method
+- Modifier : Instance
+- Returntype : `f64`
+- No Parameter
+```f#
+avg() : f64
 ```
 #### GetType
 - Re : Method
