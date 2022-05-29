@@ -49,6 +49,27 @@ public instance func br()
   sbmd::appendline()
 }
 
+public instance func list(items[] : str)
+{
+  let len : i32 = items::length
+  for(index in [0..len])
+  {
+   let val : str = items[index]
+   sbmd::appendline("* #{val}")
+  }
+}
+
+
+public instance func ordered_list(items[] : str)
+{
+  let len : i32 = items::length
+  for(index in [0..len])
+  {
+   let val : str = items[index]
+   sbmd::appendline("1. #{val}")
+  }
+}
+
 public instance func save_md(path:str)
 {
   let data : str = sbmd::tostring()
