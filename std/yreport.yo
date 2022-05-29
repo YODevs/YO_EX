@@ -75,6 +75,12 @@ public instance func text(text : str)
   sbmd::append(text)
 }
 
+public instance func quote(text : str)
+{
+  sbmd::appendline("> #{text}")
+}
+
+#> Link
 public instance func link(url : str , text : str , alt : str)
 {
   sbmd::appendline("[#{text}](#{url} '#{alt}')")
