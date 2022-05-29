@@ -49,6 +49,7 @@ public instance func br()
   sbmd::appendline()
 }
 
+#>Unorderedlist & Orderedlist
 public instance func list(items[] : str)
 {
   let len : i32 = items::length
@@ -59,7 +60,6 @@ public instance func list(items[] : str)
   }
 }
 
-
 public instance func ordered_list(items[] : str)
 {
   let len : i32 = items::length
@@ -69,6 +69,25 @@ public instance func ordered_list(items[] : str)
    sbmd::appendline("1. #{val}")
   }
 }
+
+public instance func text(text : str)
+{
+  sbmd::append(text)
+}
+
+public instance func link(url : str , text : str , alt : str)
+{
+  sbmd::appendline("[#{text}](#{url} '#{alt}')")
+}
+public instance func link(url : str , text : str)
+{
+  sbmd::appendline("[#{text}](#{url} '#{text}')")
+}
+public instance func link(url : str)
+{
+  sbmd::appendline("[#{url}](#{url})")
+}
+
 
 public instance func save_md(path:str)
 {
