@@ -1,0 +1,56 @@
+#[app::classname("report")]
+
+private instance let sbmd : init system.text.stringbuilder()
+private instance let sbhtml : init system.text.stringbuilder()
+public instance func ctor()
+{
+
+}
+
+#> H1..H6
+public instance func h1(text : str)
+{
+  sbmd::appendline("# #{text}")
+}
+public instance func h2(text : str)
+{
+  sbmd::appendline("## #{text}")
+}
+public instance func h3(text : str)
+{
+  sbmd::appendline("### #{text}")
+}
+public instance func h4(text : str)
+{
+  sbmd::appendline("#### #{text}")
+}
+public instance func h5(text : str)
+{
+  sbmd::appendline("##### #{text}")
+}
+public instance func h6(text : str)
+{
+  sbmd::appendline("###### #{text}")
+}
+
+
+public instance func bold(text : str)
+{
+  sbmd::appendline("**#{text}**")
+}
+
+public instance func italic(text : str)
+{
+  sbmd::appendline("*#{text}*")
+}
+
+public instance func br()
+{
+  sbmd::appendline()
+}
+
+public instance func save_md(path:str)
+{
+  let data : str = sbmd::tostring()
+  system.io.file::writealltext(path,data)
+}
