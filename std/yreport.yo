@@ -107,6 +107,19 @@ public instance func image(url : str)
   sbmd::appendline("![#{url}](#{url})")
 }
 
+public instance func code(text : str , language : str)
+{
+  sbmd::appendline("```#{language}#nl#{text}#nl```")
+}
+public instance func code(text : str)
+{
+  sbmd::appendline("```#nl#{text}#nl```")
+}
+public instance func inline_code(text : str)
+{
+  sbmd::append("`#{text}`")
+}
+
 public instance func save_md(path:str)
 {
   let data : str = sbmd::tostring()
