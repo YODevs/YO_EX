@@ -94,6 +94,18 @@ public instance func link(url : str)
   sbmd::appendline("[#{url}](#{url})")
 }
 
+public instance func image(url : str , text : str , alt : str)
+{
+  sbmd::appendline("![#{text}](#{url} '#{alt}')")
+}
+public instance func image(url : str , text : str)
+{
+  sbmd::appendline("![#{text}](#{url} '#{text}')")
+}
+public instance func image(url : str)
+{
+  sbmd::appendline("![#{url}](#{url})")
+}
 
 public instance func save_md(path:str)
 {
