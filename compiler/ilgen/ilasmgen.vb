@@ -163,7 +163,7 @@ Public Class ilasmgen
         Else
             If _pubfield.initproc = False Then
                 dserr.args.Add(_pubfield.name)
-                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, -1, ilbodybulider.path, String.Format("The '{0}' field requires initialization.", _pubfield.name), "public static let rnd : system.random()" & vbCrLf & "Null Safety mode is to prevent NullReferenceException error, you can disable it from the labra.yoda file.")
+                dserr.new_error(conserr.errortype.NULLSAFETYMODEINIT, -1, ilbodybulider.path, String.Format("The '{0}' field requires initialization.", _pubfield.name), "public static let rnd : init system.random()" & vbCrLf & "Null Safety mode is to prevent NullReferenceException error, you can disable it from the labra.yoda file.")
             End If
         End If
     End Sub
