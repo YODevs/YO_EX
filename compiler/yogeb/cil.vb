@@ -554,13 +554,15 @@
         codes.Add(code)
     End Sub
 
-    Public Shared Sub call_intern_method(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList, Optional isvirtualmethod As Boolean = False)
+    Public Shared Sub call_intern_method(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList, Optional isvirtualmethod As Boolean = False, Optional setinstance As Boolean = False)
         methodname = cilkeywordchecker.get_key(methodname)
         classprop = cilkeywordchecker.get_key(classprop)
         returntype = cilkeywordchecker.get_key(returntype)
         Dim code As String = "call "
         If isvirtualmethod Then
             code = "callvirt instance "
+        ElseIf setinstance Then
+            code &= " instance "
         End If
         If returntype = Nothing Then
             code &= "void"
