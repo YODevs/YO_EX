@@ -110,6 +110,9 @@ Public Class funcste
                 dserr.args.Add("Method " & funcresult.clmethod & "(...) , The parameters of the called function do not match its original function.")
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(2)), clinecodestruc(2).value), "Overloads :" & vbCrLf & funcdtproc.overloadlist)
         End Select
+
+        Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
+        Dim isinstance As Boolean = check_instance_method(methodinfo, _ilmethod, funcresult)
         If isvirtualmethod Then
             Dim setconvmethod As Boolean = convtc.setconvmethod
             Dim ntypecast As String = convtc.ntypecast
@@ -125,7 +128,6 @@ Public Class funcste
         End If
 
         If clinecodestruc(0).tokenid = tokenhared.token.ARR Then var.load_element_by_method_ac(_ilmethod, clinecodestruc(0))
-        Dim methodinfo As tknformat._method = funcdtproc.get_method_info(classindex, methodindex)
         Dim paramtype As ArrayList
         If IsNothing(methodinfo.parameters) = False Then
             load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
@@ -140,9 +142,9 @@ Public Class funcste
                 dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
             End If
             Dim freturntype As String = String.Format("class [{0}]{1}", libserv.get_extern_assembly(retnamespaceindex), getdatatype)
-            cil.call_intern_method(_ilmethod.codes, freturntype, classname, funcresult.clmethod, paramtype, isvirtualmethod)
+            cil.call_intern_method(_ilmethod.codes, freturntype, classname, funcresult.clmethod, paramtype, isvirtualmethod, isinstance)
         Else
-            cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype, isvirtualmethod)
+            cil.call_intern_method(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, paramtype, isvirtualmethod, isinstance)
         End If
         If convtc.setconvmethod Then convtc.set_type_cast(_ilmethod, methodinfo.returntype, funcresult.clmethod, clinecodestruc(0))
 
@@ -150,6 +152,14 @@ Public Class funcste
             cil.pop(_ilmethod.codes)
         End If
     End Sub
+
+    Private Shared Function check_instance_method(methodinfo As tknformat._method, ByRef ilmethod As ilformat._ilmethodcollection, funcresult As funcvalid._resultfuncvaild) As Boolean
+        If methodinfo.objcontrol.modifier = tokenhared.token.INSTANCE AndAlso ilasmgen.classdata.attribute._app._classname = funcresult.exclass Then
+            cil.ldarg(ilmethod.codes, 0)
+            Return True
+        End If
+        Return False
+    End Function
 
     Friend Shared Sub load_param_in_stack(clinecodestruc() As xmlunpkd.linecodestruc, ByRef _ilmethod As ilformat._ilmethodcollection, methodinfo As tknformat._method, funcresult As funcvalid._resultfuncvaild, ByRef paramtypes As ArrayList, Optional cargcodestruc() As xmlunpkd.linecodestruc = Nothing)
         Dim setconvmethod As Boolean = convtc.setconvmethod
