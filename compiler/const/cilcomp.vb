@@ -40,6 +40,9 @@ Public Class cilcomp
     End Function
 
     Friend Shared Function get_dotnetcore_output() As String
+        If cprojdt.get_val("outputpath") <> conrex.NULL Then
+            dswar.set_warning("Lack of feature support", "The ability to output to a custom address for .NET Core is disabled.")
+        End If
         Dim getrandom As New Random
         check_route()
         Dim loca As String = conrex.ENVCURDIR & "\target\"
@@ -55,7 +58,12 @@ Public Class cilcomp
     Friend Shared Function get_output_loca() As String
         set_extension_loca()
         Dim loca As String = optilfile
-        loca = loca.Remove(loca.LastIndexOf("\") + 1)
+        If cprojdt.get_val("outputpath") <> conrex.NULL Then
+            loca = cprojdt.get_val("outputpath")
+            If loca.EndsWith("\") = False Then loca &= "\"
+        Else
+                loca = loca.Remove(loca.LastIndexOf("\") + 1)
+        End If
         loca &= cprojdt.get_val("assemblyname") & ext
         Return loca
     End Function
