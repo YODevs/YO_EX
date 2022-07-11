@@ -315,7 +315,7 @@ Public Class funcste
         Return cargcodestruc
     End Function
 
-    Private Shared fscmawait As Boolean = False
+    Public Shared fscmawait As Boolean = False
     Private Shared Function define_carg_store(clinecodestruc As xmlunpkd.linecodestruc, ByRef cargcodestruc As xmlunpkd.linecodestruc) As Boolean
         If fscmawait Then
             If clinecodestruc.tokenid = tokenhared.token.CMA Then
