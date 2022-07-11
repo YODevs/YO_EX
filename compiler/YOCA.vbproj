@@ -178,6 +178,7 @@
     <Compile Include="lexer\tknformat.vb" />
     <Compile Include="lexer\tokenshared.vb" />
     <Compile Include="cli\maincr.vb" />
+    <Compile Include="mthread\branching.vb" />
     <Compile Include="yodefopt\AssemblyInfo.vb" />
     <Compile Include="yodefopt\Application.Designer.vb">
       <AutoGen>True</AutoGen>
