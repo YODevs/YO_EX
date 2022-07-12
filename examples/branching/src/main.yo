@@ -1,0 +1,32 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+
+func main()
+{
+  io::println("Start Process ...")
+  br method1()
+  br method2()
+  io::println("End ...")
+}
+
+func method2()
+{
+  to(5)
+  {
+    io::println("Hello")
+    system.threading.thread::sleep(1)
+  }
+}
+
+func method1()
+{
+  let i : i32 = def
+  to(5)
+  {
+    i += 10
+    io::println(i)
+    system.threading.thread::sleep(1)
+  }
+}
