@@ -30,9 +30,8 @@
         If funcresult.funcvalid Then
             inv_internal_method(clinecodestruc, _ilmethod, funcresult.exclass, funcresult, True, illocalinit, localinit)
         Else
-            'Method error
+            dserr.new_error(conserr.errortype.SYNTAXERROR, clinecodestruc(0).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value), "br foo()")
         End If
-
     End Sub
 
 
@@ -73,20 +72,13 @@
 
         servinterface.remove_br_in_class(classname)
         Dim getdatatype As String = methodinfo.returntype
-        If getdatatype <> Nothing AndAlso getdatatype <> conrex.VOID AndAlso servinterface.is_cil_common_data_type(getdatatype) = False Then
-            '... Must be void
-        Else
-            cil.push_pointer_to_methodref(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, isinstance)
-        End If
-
+        cil.push_pointer_to_methodref(_ilmethod.codes, getdatatype, classname, funcresult.clmethod, isinstance)
         init_thread_system(_ilmethod, illocalinit)
-
-        Dim paramtype As New ArrayList
         If IsNothing(methodinfo.parameters) = False Then
-            funcste.load_param_in_stack(clinecodestruc, _ilmethod, methodinfo, funcresult, paramtype)
+            dserr.args.Add("Method " & methodinfo.name & "(...) , Branching functions should not have parameters.")
+            dserr.new_error(conserr.errortype.BRANCHINGERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value))
         End If
-
-        callvirt_thread_class(_ilmethod, paramtype)
+        callvirt_thread_class(_ilmethod)
     End Sub
 
     Private Sub init_thread_system(ByRef _ilmethod As ilformat._ilmethodcollection, ByRef illocalinit() As ilformat._illocalinit)
@@ -106,11 +98,9 @@
         locinit.typeinf.name = "Thread"
         locinit.typeinf.fullname = "System.Threading.Thread"
         locinit.typeinf.asminfo = "System.Threading.Thread"
-
         'Array.Resize(locinit.clocalvalue, 1)
         'illocalsinit.set_local_init(illocalinit, locinit)
         '_ilmethod.locallinit = illocalinit
-
         threadname = locinit.name
         set_newobj_thread(_ilmethod)
     End Sub
@@ -118,22 +108,10 @@
     Private Sub set_newobj_thread(ByRef _ilmethod As ilformat._ilmethodcollection)
         cil.insert_il(_ilmethod.codes, String.Format("newobj instance void [{0}]System.Threading.ThreadStart::.ctor(object, native int)", externlib))
         cil.insert_il(_ilmethod.codes, String.Format("newobj instance void [{0}]System.Threading.Thread::.ctor(class [{0}]System.Threading.ThreadStart)", externlib))
-        '   cil.set_stack_local(_ilmethod.codes, threadname)
     End Sub
 
-    Private Sub callvirt_thread_class(ByRef _ilmethod As ilformat._ilmethodcollection, paramtype As ArrayList)
-        ' cil.ldloca(_ilmethod.codes, threadname)
-        Select Case paramtype.Count
-            Case 0
-                cil.insert_il(_ilmethod.codes, String.Format("callvirt instance void [{0}]System.Threading.Thread::Start()", externlib))
-            Case 1
-                Dim datatype As String = paramtype(0)
-                If datatype.ToLower <> conrex.OBJECT Then
-                End If
-                cil.insert_il(_ilmethod.codes, String.Format("callvirt instance void [{0}]System.Threading.Thread::Start(object)", externlib))
-            Case Else
-
-        End Select
+    Private Sub callvirt_thread_class(ByRef _ilmethod As ilformat._ilmethodcollection)
+        cil.insert_il(_ilmethod.codes, String.Format("callvirt instance void [{0}]System.Threading.Thread::Start()", externlib))
         cil.nop(_ilmethod.codes)
     End Sub
 
