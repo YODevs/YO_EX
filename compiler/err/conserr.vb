@@ -75,6 +75,7 @@ Public Class conserr
         NULLSAFETYMODE
         NULLSAFETYMODEINIT
         DECLARINGNEWOBJECTERROR
+        BRANCHINGERROR
     End Enum
 
     Enum errorpriority
@@ -172,5 +173,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.NULLSAFETYMODE, errorpriority.STOP, "NullSafetyMode error", "It is not possible to use the 'NULL' keyword in [Null-Safety] mode.")
         set_new_error(errortype.NULLSAFETYMODEINIT, errorpriority.STOP, "NullSafetyMode error", "Variable '{0}' must be initialized.")
         set_new_error(errortype.DECLARINGERROR, errorpriority.STOP, "Declaring error", "{0}")
+        set_new_error(errortype.BRANCHINGERROR, errorpriority.STOP, "Branching error", "{0}")
     End Sub
 End Class
