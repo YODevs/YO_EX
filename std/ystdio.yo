@@ -81,3 +81,8 @@ func getnum() : f32
   let result : f32 = [f32]system.console::readline()
   return result
 }
+
+func sleep(i:i32) : void
+{
+  system.threading.thread::sleep(i)
+}
