@@ -2,6 +2,10 @@
     Private _ilmethod As ilformat._ilmethodcollection
     Private threadname As String = String.Empty
     Private externlib As String = "mscorlib"
+    Private Shared threadlist As ArrayList
+    Friend Shared Sub init()
+        threadlist = New ArrayList
+    End Sub
     Public Sub New(ilmethod As ilformat._ilmethodcollection)
         _ilmethod = ilmethod
         If compdt.PROJECTFRAMEWORK = ".netcore" Then
@@ -83,7 +87,7 @@
 
     Private Sub init_thread_system(ByRef _ilmethod As ilformat._ilmethodcollection, ByRef illocalinit() As ilformat._illocalinit)
         Dim locinit As New ilformat._illocalinit
-        locinit.name = lngen.get_flag()
+        locinit.name = lngen.get_varname("br")
         locinit.datatype = "System.Threading.Thread"
         locinit.asmextern = externlib
         locinit.iscommondatatype = False
@@ -98,9 +102,9 @@
         locinit.typeinf.name = "Thread"
         locinit.typeinf.fullname = "System.Threading.Thread"
         locinit.typeinf.asminfo = "System.Threading.Thread"
-        'Array.Resize(locinit.clocalvalue, 1)
-        'illocalsinit.set_local_init(illocalinit, locinit)
-        '_ilmethod.locallinit = illocalinit
+        Array.Resize(locinit.clocalvalue, 1)
+        illocalsinit.set_local_init(illocalinit, locinit)
+        _ilmethod.locallinit = illocalinit
         threadname = locinit.name
         set_newobj_thread(_ilmethod)
     End Sub
@@ -108,9 +112,11 @@
     Private Sub set_newobj_thread(ByRef _ilmethod As ilformat._ilmethodcollection)
         cil.insert_il(_ilmethod.codes, String.Format("newobj instance void [{0}]System.Threading.ThreadStart::.ctor(object, native int)", externlib))
         cil.insert_il(_ilmethod.codes, String.Format("newobj instance void [{0}]System.Threading.Thread::.ctor(class [{0}]System.Threading.ThreadStart)", externlib))
+        cil.set_stack_local(_ilmethod.codes, threadname)
     End Sub
 
     Private Sub callvirt_thread_class(ByRef _ilmethod As ilformat._ilmethodcollection)
+        cil.load_local_variable(_ilmethod.codes, threadname)
         cil.insert_il(_ilmethod.codes, String.Format("callvirt instance void [{0}]System.Threading.Thread::Start()", externlib))
         cil.nop(_ilmethod.codes)
     End Sub
