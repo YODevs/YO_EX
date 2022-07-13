@@ -28,6 +28,7 @@
         localinit = New localinitdata
         localinit.import_parameter(method)
         stjmper.init()
+        branching.init()
         jmp.init(ilbodybulider.path)
     End Sub
 
