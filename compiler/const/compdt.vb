@@ -36,6 +36,7 @@ Public Class compdt
         tokenhared.token.EXPRESSION, tokenhared.token.NULL, tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.ARR}
     Friend Shared blockopallow() As tokenhared.token = {tokenhared.token.ENUM, tokenhared.token.FOR, tokenhared.token.UL, tokenhared.token.ELSEIF, tokenhared.token.ELSE, tokenhared.token.IF, tokenhared.token.WHILE, tokenhared.token.DEFAULT, tokenhared.token.CASE, tokenhared.token.MATCH, tokenhared.token.TO, tokenhared.token.LOOP, tokenhared.token.TRY, tokenhared.token.CATCH, tokenhared.token.LET}
     Friend Const FLAGPERFIX As String = "YO_Flag_"
+    Friend Const VARPERFIX As String = "YO_"
     Friend Const YOMAINCLASS As String = "YO_Main"
     Friend Const YOILLABEL As String = "YOIL_"
     Friend Const DOTNET As String = "dotnet"
