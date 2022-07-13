@@ -1,6 +1,7 @@
 ﻿Public Class lngen
     Private Shared lines As ArrayList
     Private Shared flags As ArrayList
+    Private Shared privlocalinit As ArrayList
     Private Shared rand As New Random
 
     Public Shared Function get_line_prop(perfix As String) As String
@@ -32,8 +33,14 @@
         flags.Add(flag)
         Return flag
     End Function
+    Public Shared Function get_varname(varname As String) As String
+        Dim name As String = compdt.VARPERFIX & varname & rand.Next(100000, 9999999) & "_" & privlocalinit.Count
+        privlocalinit.Add(name)
+        Return name
+    End Function
     Public Shared Sub init_lines()
         lines = New ArrayList
         flags = New ArrayList
+        privlocalinit = New ArrayList
     End Sub
 End Class
