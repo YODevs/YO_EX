@@ -106,8 +106,24 @@
         illocalsinit.set_local_init(illocalinit, locinit)
         _ilmethod.locallinit = illocalinit
         threadname = locinit.name
+        threadlist.Add(threadname)
         set_newobj_thread(_ilmethod)
     End Sub
+
+    Friend Function wait_for_all(clinecodestruc() As xmlunpkd.linecodestruc) As ilformat._ilmethodcollection
+        If threadlist.Count = 0 Then
+            dswar.set_warning("Await Statement", "No waiting threads were detected.", ilbodybulider.path, clinecodestruc(0).line)
+            Return _ilmethod
+        End If
+
+        For index = 0 To threadlist.Count - 1
+            cil.load_local_variable(_ilmethod.codes, threadlist(index).ToString)
+            cil.call_virtual_method(_ilmethod.codes, conrex.VOID, externlib, "System.Threading.Thread", "Join", Nothing)
+            cil.nop(_ilmethod.codes)
+        Next
+        threadlist.Clear()
+        Return _ilmethod
+    End Function
 
     Private Sub set_newobj_thread(ByRef _ilmethod As ilformat._ilmethodcollection)
         cil.insert_il(_ilmethod.codes, String.Format("newobj instance void [{0}]System.Threading.ThreadStart::.ctor(object, native int)", externlib))
