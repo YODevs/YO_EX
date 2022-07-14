@@ -137,6 +137,9 @@
             Case tokenhared.token.br
                 Dim br As New branching(_ilmethod)
                 _ilmethod = br.set_new_branch(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.AWAIT
+                Dim br As New branching(_ilmethod)
+                _ilmethod = br.wait_for_all(clinecodestruc)
             Case tokenhared.token.UL
                 Dim cond As New ulcond(_ilmethod)
                 _ilmethod = cond.set_ul_statement(clinecodestruc, _illocalinit, localinit)

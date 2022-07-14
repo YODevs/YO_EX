@@ -46,6 +46,7 @@
         _token.Add(token.OPT, "opt")
         _token.Add(token.DEF, "def")
         _token.Add(token.br, "br")
+        _token.Add(token.AWAIT, "await")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -241,6 +242,7 @@
         ARR = 96
         OPT = 97
         DEF = 98
-        br = 99
+        BR = 99
+        AWAIT = 100
     End Enum
 End Class
