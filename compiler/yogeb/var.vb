@@ -81,6 +81,25 @@ Public Class var
         set_element(varname)
         load_element_in_stack(varname, privelementindex, datatype, _ilmethod, clinecodestruc, True)
 
+        If datatype = conrex.CHAR OrElse datatype = conrex.STRING Then
+            Dim typeinf As ilformat._typeinfo = servinterface.get_variable_type(_ilmethod, varname)
+            If typeinf.isarray = False Then
+                get_char_of_string(_ilmethod, clinecodestruc, typeinf, varname, datatype)
+                Return
+            End If
+        End If
+
         cil.ldelem(_ilmethod.codes, datatype)
+    End Sub
+
+    Private Shared Sub get_char_of_string(ByRef ilmethod As ilformat._ilmethodcollection, clinecodestruc As xmlunpkd.linecodestruc, typeinf As ilformat._typeinfo, varname As String, datatype As String)
+        Dim paramlist As New ArrayList
+        paramlist.Add("int32")
+        cil.call_virtual_method(ilmethod.codes, "char", compdt.CORELIB, "System.String", "get_Chars", paramlist)
+        If datatype = conrex.STRING Then
+            paramlist = New ArrayList
+            paramlist.Add("char")
+            cil.call_method(ilmethod.codes, "string", compdt.CORELIB, "System.Convert", "ToString", paramlist)
+        End If
     End Sub
 End Class
