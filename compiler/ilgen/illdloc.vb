@@ -450,6 +450,8 @@
             Return True
         ElseIf typeinf.isenum = True AndAlso (maintype = "int32" OrElse resulttype = "int32") Then
             Return True
+        ElseIf (maintype = conrex.CHAR OrElse maintype = conrex.STRING) AndAlso (resulttype = conrex.CHAR OrElse resulttype = conrex.STRING) Then
+            Return True
         ElseIf IsNothing(typeinf) = False AndAlso resulttype = typeinf.cdttypesymbol Then
             If convtc.setconvmethod = True Then Return False
             Return True
