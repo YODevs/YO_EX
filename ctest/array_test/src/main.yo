@@ -20,6 +20,7 @@ func main()
   snval := val[0]
   io::println(snval)
   test11()
+  test12("Hello World !")
 }
 
 func test1()
@@ -158,4 +159,14 @@ func test11()
   let v : str
   v := sb[0]::tostring()
   io::println(v)
+}
+
+func test12(val:str)
+{
+  let len : i32 = val::length
+  for(i in len)
+  {
+    let ch : char = val[i]
+    system.console::Write(ch)
+  }
 }
