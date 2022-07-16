@@ -270,8 +270,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon-2.ico" />
-    <Content Include="icon.ico" />
-    <Content Include="yocalogo2we3.ico" />
     <None Include="yodefopt\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
