@@ -44,6 +44,7 @@ Public Class conrex
     Public Const THIS As String = "this"
     Public Const [OBJECT] As String = "object"
     Public Const [STRING] As String = "string"
+    Public Const [CHAR] As String = "char"
     Public Const NULL As String = Nothing
     Public Const SPACE As Char = " "
     Public Const DOT As Char = "."
