@@ -1,0 +1,34 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+
+func main()
+{
+  io::println("Threads started here.")
+
+  br print_alphabet()
+  br print_numbers()
+  await
+
+  io::println("Threads ended here.")
+}
+
+func print_alphabet()
+{
+  let letters : str = "abcdefghijklmnopqrstuvwxyz"
+  for(i in [0..=25])
+  {
+    let count : i32 = [i + 1]
+    let result : str = letters::substring(i,1)
+    io::println(result)
+  }
+}
+
+func print_numbers()
+{
+  for(i in [1..=26])
+  {
+    io::println(i)
+  }
+}
