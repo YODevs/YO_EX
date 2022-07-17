@@ -443,9 +443,11 @@
         If resulttype.StartsWith("system.") Then
             Dim mptype As String = resulttype.Remove(0, resulttype.IndexOf(conrex.DOT) + 1)
             If maintype = mptype Then Return True
+            If servinterface.vb_to_cil_common_data_type(mptype) = maintype Then Return True
         ElseIf maintype.StartsWith("system.") Then
             Dim mptype As String = maintype.Remove(0, maintype.IndexOf(conrex.DOT) + 1)
             If resulttype = mptype Then Return True
+            If servinterface.vb_to_cil_common_data_type(mptype) = resulttype Then Return True
         ElseIf (maintype = conrex.OBJECT OrElse maintype = conrex.STRING) AndAlso (resulttype = conrex.OBJECT OrElse resulttype = conrex.STRING) Then
             Return True
         ElseIf typeinf.isenum = True AndAlso (maintype = "int32" OrElse resulttype = "int32") Then
