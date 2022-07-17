@@ -227,6 +227,7 @@
     <Compile Include="yogeb\convtc.vb" />
     <Compile Include="yogeb\exceptioninner.vb" />
     <Compile Include="yogeb\fmtstrlit.vb" />
+    <Compile Include="yogeb\foreachloop.vb" />
     <Compile Include="yogeb\forloop.vb" />
     <Compile Include="yogeb\ifcond.vb" />
     <Compile Include="yogeb\infloop.vb" />
