@@ -27,6 +27,11 @@
             rnginf.endpoint = clinecodestruc(4).value
             rnginf.ignorelastpoint = False
             rnginf.stepsc = 1
+            Dim typeinf = servinterface.get_variable_type(_ilmethod, clinecodestruc(4).value)
+            If typeinf.isarray Then
+                Dim foreachclass As New foreachloop(_ilmethod, typeinf)
+                Return foreachclass.set_foreach_st(clinecodestruc, illocalinit, localinit)
+            End If
         End If
         looprangecodestruc = clinecodestruc(4)
         set_flag_loop(illocalinit, localinit)
