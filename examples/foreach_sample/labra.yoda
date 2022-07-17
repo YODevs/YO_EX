@@ -1,0 +1,8 @@
+!![
+"assemblyname"   =   "foreach_sample"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   ,
+"nullsafetymode"   =   "true"   
+]

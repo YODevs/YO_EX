@@ -1,0 +1,11 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+include 'ystdio'
+func main()
+{
+  let colors[] : str = {'Red','Green','Blue','Black','White','Yellow'}
+  for(color in colors)
+  {
+    io::println(color)
+  }
+}
