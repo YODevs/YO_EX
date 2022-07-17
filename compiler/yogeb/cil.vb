@@ -36,6 +36,10 @@
         codes.Add("ldlen")
     End Sub
 
+    Friend Shared Sub clt(ByRef codes As ArrayList)
+        codes.Add("clt")
+    End Sub
+
     ''' <summary>
     ''' stloc [str]
     ''' </summary>
