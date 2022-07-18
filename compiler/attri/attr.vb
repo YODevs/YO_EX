@@ -80,6 +80,8 @@ Public Class attr
         Select Case resultattr.fieldattribute.ToLower
             Case "namespace"
                 attribute._app._namespace = setinattr.get_str_val(resultattr, path)
+            Case "title"
+                attribute._app._title = setinattr.get_str_val(resultattr, path)
             Case "classname"
                 attribute._app._classname = setinattr.get_str_val(resultattr, path)
             Case "wait"

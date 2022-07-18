@@ -26,6 +26,7 @@ Public Class setinattr
         yoattr._cfg._decimal_accuracy = -1
 
         yoattr._app._namespace = Nothing
+        yoattr._app._title = Nothing
         yoattr._app._classname = compdt.YOMAINCLASS
         yoattr._app._wait = False
         yoattr._app._issealed = False

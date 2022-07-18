@@ -50,6 +50,9 @@ Public Class yocaattribute
         'EN : With this feature a class can be sealed. In other words, it won't be printed
         'FA : با این خاصیت می توان یک کلاس را مهر و موم یا به اصطلاح از پرنت شدن آن جلوگیری کنیم
         Dim _issealed As Boolean
+
+        'FA : سربرگ پیشفرض نرم افزار
+        Dim _title As String
     End Structure
 
     ''' <summary>
