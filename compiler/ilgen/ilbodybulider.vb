@@ -350,6 +350,20 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
         End If
     End Sub
     Private Sub imp_body(funcdt As ilformat._ilmethodcollection, ByRef impretopt As Boolean)
+        If funcdt.entrypoint Then
+            If attribute._app._title <> String.Empty Then
+                Dim externlib As String = String.Empty
+                Select Case compdt._PROJECTFRAMEWORK
+                    Case compdt.__projectframework.DotNetCore
+                        externlib = "System.Console"
+                    Case compdt.__projectframework.DotNetFramework
+                        externlib = conrex.MSCORLIB
+                End Select
+
+                add_il_code(String.Format("ldstr ""{0}""
+call void [{1}]System.Console::set_Title(string)", attribute._app._title, externlib))
+            End If
+        End If
         Dim linecode As String = String.Empty
         For index = 0 To funcdt.codes.Count - 1
             linecode = funcdt.codes(index).ToString.Trim
