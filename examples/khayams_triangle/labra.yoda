@@ -1,0 +1,8 @@
+!![
+"assemblyname"   =   "khayams_triangle"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   ,
+"nullsafetymode"   =   "true"   
+]

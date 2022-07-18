@@ -1,0 +1,23 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+func main()
+{
+  let num : i32 = 8
+  for(row in [0..num])
+  {
+    let column : i32 = 1
+    let crow : i32 = [num - row]
+    for(i in [0..crow])
+    {
+      io::print("   ")
+    }
+    for(j in [0..=row])
+    {
+      io::print("   #{column} ")
+      column := [column * (row - j) / (j + 1)]
+    }
+    io::newline()
+  }
+}
