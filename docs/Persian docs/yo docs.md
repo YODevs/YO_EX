@@ -539,6 +539,39 @@ index => 4
         
   </div>
   
+  
+  ### حلقه Foreach
+  
+  ساختار این حلقه برخلاف دیگر زبان ها با دستور `for` نوشته می شود .از این حلقه برای گردش و تکرار بین مجموعه ها و آرایه ها استفاده می شود.
+  
+  
+  
+  
+<div dir="ltr">
+
+  ```f#
+  let colors[] : str = {'Red','Green','Blue','Black','White','Yellow'}
+  for(color in colors)
+  {
+    io::println(color)
+  }
+
+ ```
+    
+
+   
+ ```f#   
+Red
+Green
+Blue
+Black
+White
+Yellow
+  ```
+        
+  </div>
+  
+  
    ### بازه‌ها - Range
   
     
