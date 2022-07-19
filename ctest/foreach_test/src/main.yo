@@ -1,0 +1,91 @@
+#[app::classname("myapp")]
+
+include 'ystdio'
+
+func main()
+{
+  test1()
+  test2()
+  test3()
+  test4()
+  test5()
+  test6()
+  test7()
+}
+
+func test1()
+{
+  let colors[] : str = {'Red','Green','Blue','Black','White','Yellow'}
+  for(color in colors)
+  {
+    io::println(color)
+  }
+}
+
+func test2()
+{
+  let scores[] : f32 = {10.5 , 15.75 , 19.0 , 13.25}
+  for(score in scores)
+  {
+    io::println(score)
+  }
+}
+
+func test3()
+{
+  let name[] : char = {'A' , 'n' , 'a'}
+  for(letter in name)
+  {
+    system.console::write(letter)
+  }
+  io::newline()
+}
+
+func test4()
+{
+  let colors[] : char = {'Red' , 'Green' , 'Blue'}
+  for(letter in colors)
+  {
+    system.console::write(letter)
+  }
+  io::newline()
+}
+
+func test5()
+{
+  let letters[] : str = {'A' , 'B' , 'C' , 'D'}
+  let length : i32 = letters::length
+  to(length)
+  {
+    for(letter in letters)
+    {
+      io::println(letter)
+    }
+  }
+}
+
+func test6()
+{
+  let names[] : str = {'Ana' , 'Jim' , 'Bill'}
+  for(name in names)
+  {
+    if(name == "Bill")
+    {
+      break for
+    }
+    io::println(name)
+  }
+}
+
+func test7()
+{
+  let numbers[] : i32 = {10 , 45 , 15 , 1 , 3}
+  for(number in numbers)
+  {
+    if(number >> 5)
+    {
+      continue for
+    }
+    io::println(number)
+  }
+}
