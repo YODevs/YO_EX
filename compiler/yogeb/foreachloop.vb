@@ -51,7 +51,6 @@
         getbrexit = lngen.get_line_prop("exit_foreach_")
         cil.branch_to_target(_ilmethod.codes, getbrcond)
         lngen.set_direct_label(getbrhead, _ilmethod.codes)
-
     End Sub
 
     Private Sub set_body_loop(bodycodestruc As xmlunpkd.linecodestruc, ByRef illocalinit() As ilformat._illocalinit, ByRef localinit As localinitdata)
@@ -85,6 +84,7 @@
     End Sub
 
     Private Sub set_step_loop()
+        lngen.set_direct_label(getbrstep, _ilmethod.codes)
         cil.nop(_ilmethod.codes)
         cil.load_local_variable(_ilmethod.codes, indexvarname)
         cil.push_int32_onto_stack(_ilmethod.codes, 1)
