@@ -518,8 +518,41 @@ index => 4
 
 ```
 
+    
   </div>
 
+ 
+ 
+### Foreach loop:
+
+Unlike other languages, the structure of this loop is written with the `for` statement. This loop is used for circulation and repetition between collections and arrays.
+
+   <div dir="ltr">
+
+```f#
+
+let colors[] : str = {'Red','Green','Blue','Black','White','Yellow'}
+for(color in colors)
+{
+  io::println(color)
+}
+
+```
+
+```f#
+
+Red
+Green
+Blue
+Black
+White
+Yellow
+
+```
+
+    
+  </div>
+ 
 ### Ranges:
 
 In YOLang, Ranges have important usages; for example, you can specify the conditions of a `For` loop by using a range.
