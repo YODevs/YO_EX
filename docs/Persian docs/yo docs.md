@@ -638,6 +638,78 @@ Yellow
   </div>
   
   
+  
+   ### برنچینگ - Branching
+  
+  برچنینگ ساده ترین روش برای ایجاد یک نرم افزار مولتی تردینگ است ، با استفاده از این دستور با ایجاد یک برنچ،  می توان یک متد را به صورت ترد جدید اجرا کرد.
+  
+  
+توابع برای این فراخانی نباید پارامتری داشته باشد و از تایپ برگشتی نیز پشتیبانی نمی کند.
+  
+<div dir="ltr">
+
+ 
+  ```f#
+ 
+ func main()
+{
+  io::println("Start Process ...")
+  br method1()
+  br method2()
+  io::println("End ...")
+}
+
+func method2()
+{
+  to(10)
+  {
+    io::println("Hello")
+    io::sleep(5)
+  }
+}
+
+func method1()
+{
+  to(10)
+  {
+    io::println("Bye")
+    io::sleep(5)
+  }
+}
+ 
+  ```
+ 
+ 
+ ```
+Start Process ...
+End ...
+Bye
+Hello
+Bye
+Hello
+Hello
+Bye
+Bye
+Hello
+Hello
+Bye
+Hello
+Bye
+Bye
+Hello
+Hello
+Bye
+Bye
+Hello
+Hello
+Bye
+ ```
+ 
+ 
+  </div>
+ 
+  
+  
   ### فرمت ساختاری یودا - YODA
   
   یودا یا YO Data Format یک ساختار داده است ، که در کلاس‌های یولنگ مثل `list` , `map` , `rds` , `menu` , ... استفاده می شود.
