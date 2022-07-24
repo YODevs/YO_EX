@@ -615,6 +615,70 @@ $endprocess:
 
   </div>
 
+ 
+   
+ ### Branching - Multi-thread
+  
+Branching is the easiest way to create multi-thread software. Using this command, by creating a branch, one can execute a method as a thread.
+It does not support return type, and functions for this call must not have parameters.
+  
+  ```f#
+ 
+ func main()
+{
+  io::println("Start Process ...")
+  br method1()
+  br method2()
+  io::println("End ...")
+}
+
+func method2()
+{
+  to(10)
+  {
+    io::println("Hello")
+    io::sleep(5)
+  }
+}
+
+func method1()
+{
+  to(10)
+  {
+    io::println("Bye")
+    io::sleep(5)
+  }
+}
+ 
+  ```
+ 
+ 
+ ```
+Start Process ...
+End ...
+Bye
+Hello
+Bye
+Hello
+Hello
+Bye
+Bye
+Hello
+Hello
+Bye
+Hello
+Bye
+Bye
+Hello
+Hello
+Bye
+Bye
+Hello
+Hello
+Bye
+ ```
+ 
+ 
 ### YODA data format:
 
 YODA or YO Data Format is a data structure which is used in YOLang's classes such as `list`, `map`, `rds`, `menu`, `etc`.
