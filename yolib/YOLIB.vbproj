@@ -116,6 +116,7 @@
     <Compile Include="mathematics\tally.vb" />
     <Compile Include="matrix.vb" />
     <Compile Include="menu.vb" />
+    <Compile Include="net\http.vb" />
     <Compile Include="range.vb" />
     <Compile Include="yodefopt\AssemblyInfo.vb" />
     <Compile Include="yodefopt\Application.Designer.vb">
