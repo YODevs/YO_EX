@@ -388,7 +388,18 @@ Public Class servinterface
                 propresult.asmextern = libserv.get_extern_assembly(namespaceindex)
                 Dim retpropertyinfo As PropertyInfo
                 If libserv.get_extern_index_property(propresult.clident, namespaceindex, classindex, retpropertyinfo) = -1 Then
-                    Return False
+                    Dim retfieldinfo As FieldInfo
+                    If libserv.get_extern_index_field(propresult.clident, namespaceindex, classindex, retfieldinfo) = -1 Then
+                        Return False
+                    End If
+                    getdatatype = servinterface.vb_to_cil_common_data_type(retfieldinfo.FieldType.Name)
+                    If servinterface.is_cil_common_data_type(getdatatype) = False Then
+                        getdatatype = retfieldinfo.FieldType.ToString
+                        If retfieldinfo.FieldType.IsArray Then
+                            getdatatype &= conrex.BRSTEN
+                        End If
+                    End If
+                    Return True
                 End If
                 getdatatype = servinterface.vb_to_cil_common_data_type(retpropertyinfo.PropertyType.Name)
                 If servinterface.is_cil_common_data_type(getdatatype) = False Then
@@ -457,7 +468,11 @@ Public Class servinterface
                 propresult.asmextern = libserv.get_extern_assembly(namespaceindex)
                 Dim retpropertyinfo As PropertyInfo
                 If libserv.get_extern_index_property(propresult.clident, namespaceindex, classindex, retpropertyinfo) = -1 Then
-                    Return Nothing
+                    Dim retfieldinfo As FieldInfo
+                    If libserv.get_extern_index_field(propresult.clident, namespaceindex, classindex, retfieldinfo) = -1 Then
+                        Return Nothing
+                    End If
+                    Return yotypecreator.convert_to_type_info(retfieldinfo.FieldType)
                 End If
 
                 Return yotypecreator.convert_to_type_info(retpropertyinfo.PropertyType)
