@@ -3,21 +3,33 @@ Imports System.Net
 
 Public Class http
 
+    Public backupwebreq As HttpWebRequest
     Public webreq As HttpWebRequest
     Public webres As WebResponse
     Public statuscode As Int32
     Public charset, contentencoding, contentlength, contenttype, method, server, protocolversion, status, isfromcache As String
     Public Sub New()
         ServicePointManager.SecurityProtocol = DirectCast(3072, SecurityProtocolType)
+        backupwebreq = HttpWebRequest.Create("http://localhost/")
     End Sub
 
     Public Function send(url As String) As String
         webreq = HttpWebRequest.Create(url)
+        set_properties()
         Return get_response_stream(webreq.GetResponse())
     End Function
 
+    Private Sub set_properties()
+        webreq.Referer = backupwebreq.Referer
+        webreq.UserAgent = backupwebreq.UserAgent
+        webreq.AllowAutoRedirect = backupwebreq.AllowAutoRedirect
+        webreq.Timeout = backupwebreq.Timeout
+        webreq.KeepAlive = backupwebreq.KeepAlive
+    End Sub
+
     Public Function send(uri As Uri) As String
         webreq = HttpWebRequest.Create(uri)
+        set_properties()
         Return get_response_stream(webreq.GetResponse())
     End Function
 
@@ -46,46 +58,47 @@ Public Class http
 
     Public Property referer() As String
         Get
-            Return webreq.Referer
+            Return backupwebreq.Referer
         End Get
         Set(ByVal value As String)
-            webreq.Referer = value
+            backupwebreq.Referer = value
         End Set
     End Property
 
     Public Property useragent() As String
         Get
-            Return webreq.UserAgent
+            Return backupwebreq.UserAgent
         End Get
         Set(ByVal value As String)
-            webreq.UserAgent = value
+            backupwebreq.UserAgent = value
         End Set
     End Property
 
     Public Property allowautorediret() As String
         Get
-            Return webreq.AllowAutoRedirect
+            Return backupwebreq.AllowAutoRedirect
         End Get
         Set(ByVal value As String)
-            webreq.AllowAutoRedirect = value
+            backupwebreq.AllowAutoRedirect = value
+            Dim e As System.Diagnostics.Process
         End Set
     End Property
 
     Public Property timeout() As Integer
         Get
-            Return webreq.Timeout
+            Return backupwebreq.Timeout
         End Get
         Set(ByVal value As Integer)
-            webreq.Timeout = value
+            backupwebreq.Timeout = value
         End Set
     End Property
 
     Public Property keepalive() As Boolean
         Get
-            Return webreq.KeepAlive
+            Return backupwebreq.KeepAlive
         End Get
         Set(ByVal value As Boolean)
-            webreq.KeepAlive = value
+            backupwebreq.KeepAlive = value
         End Set
     End Property
 
