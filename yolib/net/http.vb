@@ -40,4 +40,55 @@ Public Class http
             Return String.Empty
         End If
     End Function
+
+
+#Region "Properties"
+
+    Public Property referer() As String
+        Get
+            Return webreq.Referer
+        End Get
+        Set(ByVal value As String)
+            webreq.Referer = value
+        End Set
+    End Property
+
+    Public Property useragent() As String
+        Get
+            Return webreq.UserAgent
+        End Get
+        Set(ByVal value As String)
+            webreq.UserAgent = value
+        End Set
+    End Property
+
+    Public Property allowautorediret() As String
+        Get
+            Return webreq.AllowAutoRedirect
+        End Get
+        Set(ByVal value As String)
+            webreq.AllowAutoRedirect = value
+        End Set
+    End Property
+
+    Public Property timeout() As Integer
+        Get
+            Return webreq.Timeout
+        End Get
+        Set(ByVal value As Integer)
+            webreq.Timeout = value
+        End Set
+    End Property
+
+    Public Property keepalive() As Boolean
+        Get
+            Return webreq.KeepAlive
+        End Get
+        Set(ByVal value As Boolean)
+            webreq.KeepAlive = value
+        End Set
+    End Property
+
+#End Region
+
 End Class
