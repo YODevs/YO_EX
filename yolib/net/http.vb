@@ -11,6 +11,20 @@ Public Class http
     Public Sub New()
         ServicePointManager.SecurityProtocol = DirectCast(3072, SecurityProtocolType)
         backupwebreq = HttpWebRequest.Create("http://localhost/")
+        backupwebreq.Headers = New WebHeaderCollection
+    End Sub
+
+    Public Sub add_header(headers As map)
+        Dim size As Integer = headers.size - 1
+        For index = 0 To size
+            Dim key, value As String
+            headers.get_map(index, key, value)
+            add_header(key, value)
+        Next
+    End Sub
+
+    Public Sub add_header(key As String, value As String)
+        backupwebreq.Headers.Add(key, value)
     End Sub
 
     Public Function send(url As String) As String
