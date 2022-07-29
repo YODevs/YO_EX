@@ -146,6 +146,21 @@
         Next
         Return items.Count
     End Function
+    Public Function [select]() As rdsresult
+        command_validation()
+        Dim items As ArrayList = condition_exec()
+        Dim colcount As Integer = columns.Count - 1
+        Dim itemcount As Integer = items.Count - 1
+        Dim data(itemcount) As ArrayList
+        For index = 0 To itemcount
+            data(index) = New ArrayList
+            Dim itindex As Integer = items(index)
+            For icol = 0 To colcount
+                data(index).Add(dt(itindex)(icol))
+            Next
+        Next
+        Return New rdsresult(data, columns)
+    End Function
     Public Function get_row_map(index As Integer) As map
         Dim yodastr As String = get_row(index)
         Dim mp As New map
@@ -275,19 +290,16 @@
         Return (realresult <> idealresult)
     End Function
     Private Function ch_greater_method(realresult As Object, idealresult As Object) As Boolean
-        Return (realresult > idealresult)
+        Return (CDbl(realresult) > CDbl(idealresult))
     End Function
-
     Private Function ch_greater_equal_method(realresult As Object, idealresult As Object) As Boolean
-        Return (realresult >= idealresult)
+        Return (CDbl(realresult) >= CDbl(idealresult))
     End Function
-
     Private Function ch_less_method(realresult As Object, idealresult As Object) As Boolean
-        Return (realresult < idealresult)
+        Return (CDbl(realresult) < CDbl(idealresult))
     End Function
-
     Private Function ch_less_equal_method(realresult As Object, idealresult As Object) As Boolean
-        Return (realresult <= idealresult)
+        Return (CDbl(realresult) <= CDbl(idealresult))
     End Function
 
     Private Sub command_validation()
