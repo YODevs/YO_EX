@@ -1,0 +1,27 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+func main()
+{
+  let csv : init yolib.csv()
+  let path : str = yolib.environment::appdir
+  path &= '\players.csv'
+  csv::load_file(path)
+
+  let playersdata : yolib.rds = csv::get_rds()
+  playersdata::set_command(playersdata.commandstate::GREATEEQ,'Av Rat','7.5')
+  let result : yolib.rdsresult = playersdata::select()
+
+  io::println(result::count)
+  while(result::read == true)
+  {
+    let name : str = result::get(1)
+    let apps : i32 = result::get_i32(2)
+    let mins : i32 = result::get_i32(3)
+    let goals : i32 = result::get_i32(9)
+    let rate : f32 = result::get_f32(8)
+    io::println("#{name} , #{apps} Apps , #{mins} Mins , #{rate} Rate , #{goals} Goal(s)")
+  }
+}

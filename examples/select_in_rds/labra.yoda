@@ -1,0 +1,8 @@
+!![
+"assemblyname"   =   "select_in_rds"   ,
+"outputtype"   =   "console"   ,
+"projectframework"   =   ".netframework"   ,
+"sourcepath"   =   "\src"   ,
+"assetspath"   =   "\assets"   ,
+"nullsafetymode"   =   "true"   
+]
