@@ -41,6 +41,23 @@
             Return columnarr
         End Get
     End Property
+
+    Public Sub remove_column(index As Integer)
+        remove_column(index, 1)
+    End Sub
+
+    Public Sub remove_column(index As Integer, count As Integer)
+        If index + 1 >= columns.Count OrElse index < 0 Then
+            Throw New Exception("The desired column was not found.")
+            Return
+        End If
+        Dim dtlen As Integer = dt.Length - 1
+        columns.RemoveRange(index, count)
+        For i = 0 To dtlen
+            dt(i).RemoveRange(index, count)
+        Next
+    End Sub
+
     Public Sub set_columns(items As String)
         If columns.Count > 0 Then
             Throw New Exception("Columns have already been added to the data store.")
