@@ -65,6 +65,30 @@
         form.ShowDialog()
     End Sub
 
+    Public Sub show(dt As rdsresult)
+        check_object(dt)
+        Dim columns() As String = dt.columnslist.to_str
+        If IsNothing(columns) Then
+            Throw New Exception("No column found.")
+        End If
+
+        Dim columncount As Integer = columns.Length - 1
+        For index = 0 To columncount
+            form.dtg.Columns.Add(String.Format("col_{0}", index), columns(index))
+        Next
+
+        While dt.read
+            Dim values(columncount) As Object
+            For index = 0 To columncount
+                values(index) = dt.get(index)
+            Next
+            form.dtg.Rows.Add(values)
+        End While
+
+        form.typeofstruct = "rds"
+        form.ShowDialog()
+    End Sub
+
     Public Sub show(dt As map)
         check_object(dt)
         form.dtg.Columns.Add("col_keys", "Keys")
