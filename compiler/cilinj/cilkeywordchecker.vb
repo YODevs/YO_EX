@@ -101,6 +101,7 @@
         import_cil_keyword("static")
         import_cil_keyword("family")
         import_cil_keyword("array")
+        import_cil_keyword("as")
         netcorerectifier.keychecklistcount = netcorerectifier.cilcheckassembly.Count - 1
     End Sub
 
