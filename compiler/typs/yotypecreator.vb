@@ -26,7 +26,7 @@ Public Class yotypecreator
         tpinf.asminfo = asmtype.AssemblyQualifiedName
         tpinf.isprimitive = False
         tpinf.isclass = True
-        tpinf.isarray = False
+        tpinf.isarray = asmtype.IsArray
         tpinf.isinternalclass = False
         tpinf.isenum = asmtype.IsEnum
         If tpinf.isenum Then

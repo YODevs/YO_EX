@@ -84,6 +84,23 @@ Public Class fmtstrlit
                 dserr.new_error(conserr.errortype.EXPLICITCONVERSION, cargcodestruc.line, ilbodybulider.path, "Method : " & ilmethod.name & " - identifier : " & varname & vbCrLf & authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(cargcodestruc), cargcodestruc.value))
             End If
         Else
+            Dim clinecodestruc As xmlunpkd.linecodestruc = cargcodestruc
+            If varname.Contains(conrex.DBCLN) Then
+                clinecodestruc.value = varname
+                clinecodestruc.tokenid = tokenhared.token.IDENTIFIER
+                clinecodestruc.ile = varname.Length
+                Dim idenresult As identvalid._resultidentcvaild = identvalid.get_identifier_valid(ilmethod, clinecodestruc)
+                If idenresult.identvalid AndAlso arrprop.check_array_property(ilmethod, clinecodestruc, idenresult, varname.Remove(varname.IndexOf(conrex.DBCLN))) Then
+                    conv_to_string(ilmethod, arrprop.datatype)
+                    arrprop.reset_datatype()
+                    paramcount += 1
+                    If paramcount = 4 Then
+                        set_concat(ilmethod)
+                    End If
+                    Return
+                End If
+            End If
+
             dswar.set_warning("Formatted String Literal", "'" & varname & "'  was identified as a variable in the string but has not been previously defined in this scope.", ilbodybulider.path, cargcodestruc.line)
             load_string(ilmethod, "#{" & varname & "}", cargcodestruc)
         End If
