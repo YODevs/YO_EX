@@ -15,7 +15,9 @@
 - [tally](#tally)
 - [matrix](#matrix)
 - [menu](#menu)
+- [http](#http)
 - [range](#range)
+- [rdsresult](#rdsresult)
 - [progressbar](#progressbar)
 - [rds](#rds)
 - [yoda](#yoda)
@@ -588,6 +590,18 @@ show(dt : YOLIB.csv) : void
 
 ```f#
 show(dt : YOLIB.rds) : void
+```
+#### show
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | dt | `YOLIB.rdsresult` | False | False |
+
+```f#
+show(dt : YOLIB.rdsresult) : void
 ```
 #### show
 - Re : Method
@@ -2508,6 +2522,248 @@ GetType() : System.Type
 
 <hr>
 
+### http
+- Fullname : YOLIB.http
+##### backupwebreq
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `System.Net.HttpWebRequest`
+##### webreq
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `System.Net.HttpWebRequest`
+##### webres
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `System.Net.WebResponse`
+##### statuscode
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `i32`
+##### charset
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### contentencoding
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### contentlength
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### contenttype
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### method
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### server
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### protocolversion
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### status
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### isfromcache
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `str`
+##### referer
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `str`
+##### useragent
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `str`
+##### allowautorediret
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `str`
+##### timeout
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `i32`
+##### keepalive
+- Re : Property
+- Can Read : True
+- Can Write : True
+- Propertytype : `bool`
+#### init
+- Re : Constructor
+- No Parameter
+#### add_header
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | headers | `YOLIB.map` | False | False |
+
+```f#
+add_header(headers : YOLIB.map) : void
+```
+#### add_header
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | key | `str` | False | False |
+| 2 | value | `str` | False | False |
+
+```f#
+add_header(key : str ,value : str) : void
+```
+#### send
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | url | `str` | False | False |
+
+```f#
+send(url : str) : str
+```
+#### send
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | uri | `System.Uri` | False | False |
+
+```f#
+send(uri : System.Uri) : str
+```
+#### get_referer
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+- No Parameter
+```f#
+get_referer() : str
+```
+#### set_referer
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `str` | False | False |
+
+```f#
+set_referer(value : str) : void
+```
+#### get_useragent
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+- No Parameter
+```f#
+get_useragent() : str
+```
+#### set_useragent
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `str` | False | False |
+
+```f#
+set_useragent(value : str) : void
+```
+#### get_allowautorediret
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+- No Parameter
+```f#
+get_allowautorediret() : str
+```
+#### set_allowautorediret
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `str` | False | False |
+
+```f#
+set_allowautorediret(value : str) : void
+```
+#### get_timeout
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+- No Parameter
+```f#
+get_timeout() : i32
+```
+#### set_timeout
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `i32` | False | False |
+
+```f#
+set_timeout(value : i32) : void
+```
+#### get_keepalive
+- Re : Method
+- Modifier : Instance
+- Returntype : `bool`
+- No Parameter
+```f#
+get_keepalive() : bool
+```
+#### set_keepalive
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | value | `bool` | False | False |
+
+```f#
+set_keepalive(value : bool) : void
+```
+#### GetType
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Type`
+- No Parameter
+```f#
+GetType() : System.Type
+```
+
+<hr>
+
 ### range
 - Fullname : YOLIB.range
 #### init
@@ -2640,6 +2896,233 @@ GetType() : System.Type
 
 <hr>
 
+### rdsresult
+- Fullname : YOLIB.rdsresult
+##### columnslist
+- Re : Field
+- Modifier : Instance
+- Fieldtype : `YOLIB.list`
+##### count
+- Re : Property
+- Can Read : True
+- Can Write : False
+- Propertytype : `i32`
+##### read
+- Re : Property
+- Can Read : True
+- Can Write : False
+- Propertytype : `bool`
+#### init
+- Re : Constructor
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | data | `System.Collections.ArrayList[]` | False | False |
+| 2 | columns | `System.Collections.ArrayList` | False | False |
+
+#### get_count
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+- No Parameter
+```f#
+get_count() : i32
+```
+#### get_read
+- Re : Method
+- Modifier : Instance
+- Returntype : `bool`
+- No Parameter
+```f#
+get_read() : bool
+```
+#### next
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+- No Parameter
+```f#
+next() : void
+```
+#### get
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | name | `str` | False | False |
+
+```f#
+get(name : str) : str
+```
+#### get
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+get(index : i32) : str
+```
+#### get_i64
+- Re : Method
+- Modifier : Instance
+- Returntype : `i64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | name | `str` | False | False |
+
+```f#
+get_i64(name : str) : i64
+```
+#### get_i64
+- Re : Method
+- Modifier : Instance
+- Returntype : `i64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+get_i64(index : i32) : i64
+```
+#### get_i32
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | name | `str` | False | False |
+
+```f#
+get_i32(name : str) : i32
+```
+#### get_i32
+- Re : Method
+- Modifier : Instance
+- Returntype : `i32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+get_i32(index : i32) : i32
+```
+#### get_f64
+- Re : Method
+- Modifier : Instance
+- Returntype : `f64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | name | `str` | False | False |
+
+```f#
+get_f64(name : str) : f64
+```
+#### get_f64
+- Re : Method
+- Modifier : Instance
+- Returntype : `f64`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+get_f64(index : i32) : f64
+```
+#### get_f32
+- Re : Method
+- Modifier : Instance
+- Returntype : `f32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | name | `str` | False | False |
+
+```f#
+get_f32(name : str) : f32
+```
+#### get_f32
+- Re : Method
+- Modifier : Instance
+- Returntype : `f32`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+get_f32(index : i32) : f32
+```
+#### get_bool
+- Re : Method
+- Modifier : Instance
+- Returntype : `bool`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | name | `str` | False | False |
+
+```f#
+get_bool(name : str) : bool
+```
+#### get_bool
+- Re : Method
+- Modifier : Instance
+- Returntype : `bool`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+get_bool(index : i32) : bool
+```
+#### get_obj
+- Re : Method
+- Modifier : Instance
+- Returntype : `obj`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | name | `str` | False | False |
+
+```f#
+get_obj(name : str) : obj
+```
+#### get_obj
+- Re : Method
+- Modifier : Instance
+- Returntype : `obj`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+get_obj(index : i32) : obj
+```
+#### GetType
+- Re : Method
+- Modifier : Instance
+- Returntype : `System.Type`
+- No Parameter
+```f#
+GetType() : System.Type
+```
+
+<hr>
+
 ### progressbar
 - Fullname : YOLIB.progressbar
 ##### progress
@@ -2755,6 +3238,31 @@ get_rowcount() : i32
 - No Parameter
 ```f#
 get_getcolumns() : str[]
+```
+#### remove_column
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+
+```f#
+remove_column(index : i32) : void
+```
+#### remove_column
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | index | `i32` | False | False |
+| 2 | count | `i32` | False | False |
+
+```f#
+remove_column(index : i32 ,count : i32) : void
 ```
 #### set_columns
 - Re : Method
@@ -2888,6 +3396,14 @@ update(index : i32 ,columnname : str ,value : str) : void
 
 ```f#
 update(columnname : str ,value : str) : i32
+```
+#### select
+- Re : Method
+- Modifier : Instance
+- Returntype : `YOLIB.rdsresult`
+- No Parameter
+```f#
+select() : YOLIB.rdsresult
 ```
 #### get_row_map
 - Re : Method
