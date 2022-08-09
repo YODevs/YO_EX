@@ -33,6 +33,23 @@ Public Class http
         Return get_response_stream(webreq.GetResponse())
     End Function
 
+    Public Function send_post(url As String, postdata As String) As String
+        Dim postdatabyte As Byte() = encoding.utf8_get_bytes(postdata)
+        Return send_post(url, postdatabyte)
+    End Function
+
+    Public Function send_post(url As String, postdata() As Byte) As String
+        webreq = HttpWebRequest.Create(url)
+        set_properties()
+        webreq.Method = "POST"
+        webreq.ContentType = "application/x-www-form-urlencoded"
+        webreq.ContentLength = postdata.Length
+        Dim stream As Stream = webreq.GetRequestStream()
+        stream.Write(postdata, 0, postdata.Length)
+        stream.Close()
+        Return get_response_stream(webreq.GetResponse())
+    End Function
+
     Private Sub set_properties()
         webreq.Referer = backupwebreq.Referer
         webreq.UserAgent = backupwebreq.UserAgent
