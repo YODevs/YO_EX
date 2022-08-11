@@ -183,9 +183,28 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
         add_il_code("ret")
         add_en_block()
     End Sub
+
+    Private Sub set_destructor(funcdt As ilformat._ilmethodcollection)
+        add_inline_code(".method family hidebysig strict virtual instance void Finalize()  cil managed")
+        If IsNothing(funcdt.parameter) = False Then
+            dserr.args.Add(String.Format("The destructor method in {0} class does not support parameters.", attribute._app._classname))
+            dserr.new_error(conserr.errortype.DESTRUCTERROR, -1, Nothing, Nothing, Nothing)
+        End If
+        add_st_block()
+        If funcdt.locallinit.Length > 0 Then
+            imp_locals_init(funcdt)
+        End If
+        imp_body(funcdt, Nothing)
+        add_il_code("ret")
+        add_en_block()
+    End Sub
+
     Public Sub imp_func(funcdt As ilformat._ilmethodcollection)
         If funcdt.name.ToLower = "ctor" AndAlso funcdt.methodmodtype = ilformat._modifiertype.INSTANCE AndAlso funcdt.accessible = ilformat._accessiblemethod.PUBLIC Then
             set_constructor(funcdt)
+            Return
+        ElseIf funcdt.name.ToLower = "destruct" Then
+            set_destructor(funcdt)
             Return
         End If
         Dim headfuncdt As String = String.Format(".method {1} {0} ", get_cil_modifier_type(funcdt.methodmodtype), get_cil_access_control(funcdt.accessible))
@@ -205,7 +224,7 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
             If funcdt.isretarray Then headfuncdt &= conrex.BRSTEN
         End If
 
-            headfuncdt &= conrex.SPACE & cilkeywordchecker.get_key(funcdt.name)
+        headfuncdt &= conrex.SPACE & cilkeywordchecker.get_key(funcdt.name)
         If IsNothing(funcdt.parameter) Then
             headfuncdt &= "()"
             add_il_code(headfuncdt)
