@@ -1,0 +1,18 @@
+#[app::classname("myapp")]
+
+include 'ystdio'
+func main()
+{
+ let foo : init myclass()
+ foo::sum(10,15)
+ system.gc::collect()
+ io::sleep(5)
+ other_invoke()
+}
+
+//The destructor will invoke automatically, whenever an instance of a class is no longer needed.
+func other_invoke()
+{
+  let foo : init myclass()
+  foo::sum(30,30)
+}

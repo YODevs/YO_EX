@@ -1,0 +1,16 @@
+#[app::classname("myclass")]
+
+public instance func ctor()
+{
+ io::println("An Instance of class created .")
+}
+
+public instance func sum(i:i32,ii:i32)
+{
+ io::println("#{i} + #{ii} = #{[i+ii]}")
+}
+
+public instance func destruct()
+{
+ io::println("An Instance of class destroyed !")
+}
