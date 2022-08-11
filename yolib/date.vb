@@ -8,6 +8,7 @@
     Private Const MINUTE As String = "m"
     Private Const SECOND As String = "s"
     Private Const MILLISECOND As String = "t"
+    Private Const TICKS As String = "ti"
     Private Const STARG As String = "{"
     Private Const ENARG As String = "}"
 
@@ -68,6 +69,8 @@
                 setdate = DateTime.Now.Second
             Case MILLISECOND
                 setdate = DateTime.Now.Millisecond
+            Case TICKS
+                setdate = DateTime.Now.Ticks
         End Select
         Return setdate
     End Function
