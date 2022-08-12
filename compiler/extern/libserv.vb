@@ -154,31 +154,34 @@ Public Class libserv
             If method.Name.ToLower = funcname Then
                 sb.Append(method.Name)
                 sb.Append(conrex.PRSTART)
-                For index = 0 To method.GetParameters.Length - 1
-                    Dim isbyref As Boolean = False
-                    Dim gparametername As String = method.GetParameters(index).Name
-                    Dim gtype As String = method.GetParameters(index).ParameterType.Name
-                    If method.GetParameters(index).ParameterType.IsArray Then
-                        gtype = gtype.Remove(gtype.Length - 2)
-                    End If
-                    If gtype.EndsWith("*") Then
-                        gtype = gtype.Remove(gtype.Length - 1)
-                        isbyref = True
-                    End If
-                    gtype = servinterface.vb_to_cil_common_data_type(gtype)
-                    servinterface.get_yo_common_data_type(gtype, gtype)
-                    If method.GetParameters(index).ParameterType.IsArray Then gtype &= conrex.BRSTEN
-                    If isbyref Then gtype &= conrex.AMP
-                    If gtype = method.GetParameters(index).ParameterType.Name.ToLower Then
-                        gtype = method.GetParameters(index).ParameterType.Name
-                    End If
-                    gtype = servinterface.get_yo_byte_types(gtype)
-                    sb.Append(gparametername & conrex.SPACE & gtype)
+                If IsNothing(method.GetParameters) = False Then
+                    For index = 0 To method.GetParameters.Length - 1
+                        Dim isbyref As Boolean = False
+                        Dim gparametername As String = method.GetParameters(index).Name
+                        Dim gtype As String = method.GetParameters(index).ParameterType.Name
+                        If method.GetParameters(index).ParameterType.IsArray Then
+                            gtype = gtype.Remove(gtype.Length - 2)
+                        End If
+                        If gtype.EndsWith("*") Then
+                            gtype = gtype.Remove(gtype.Length - 1)
+                            isbyref = True
+                        End If
+                        gtype = servinterface.vb_to_cil_common_data_type(gtype)
+                        servinterface.get_yo_common_data_type(gtype, gtype)
+                        If method.GetParameters(index).ParameterType.IsArray Then gtype &= conrex.BRSTEN
+                        If isbyref Then gtype &= conrex.AMP
+                        If gtype = method.GetParameters(index).ParameterType.Name.ToLower Then
+                            gtype = method.GetParameters(index).ParameterType.Name
+                        End If
+                        gtype = servinterface.get_yo_byte_types(gtype)
+                        sb.Append(gparametername & conrex.SPACE & gtype)
 
-                    If index + 1 < method.GetParameters.Length Then
-                        sb.Append(conrex.CMA)
-                    End If
-                Next
+                        If index + 1 < method.GetParameters.Length Then
+                            sb.Append(conrex.CMA)
+                        End If
+                    Next
+                End If
+
                 sb.Append(conrex.PREND)
                 Dim rettype As String = method.ReturnType.Name
                 If method.ReturnType.IsArray Then
@@ -193,7 +196,7 @@ Public Class libserv
                 rettype = servinterface.get_yo_byte_types(rettype)
                 sb.Append(conrex.SPACE & conrex.CLN & conrex.SPACE & rettype)
                 sb.AppendLine()
-            End If
+                End If
         Next
         overloadlist = sb.ToString
     End Sub
