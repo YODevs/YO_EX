@@ -102,6 +102,7 @@
         import_cil_keyword("family")
         import_cil_keyword("array")
         import_cil_keyword("as")
+        import_cil_keyword("date")
         netcorerectifier.keychecklistcount = netcorerectifier.cilcheckassembly.Count - 1
     End Sub
 
