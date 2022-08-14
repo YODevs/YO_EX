@@ -19,9 +19,20 @@
     ''' <returns>String</returns>
     Public Shared Function get_now(format As String) As String
         If format = Nothing Then Return DateTime.Now 'Return with default format
+        Return lex_format(format, "getnow")
+    End Function
+
+    Public Shared Function utc_now(format As String) As String
+        If format = Nothing Then Return DateTime.UtcNow 'Return with default format
+        Return lex_format(format, "utcnow")
+    End Function
+
+    Private Shared Function lex_format(format As String, typeofdate As String)
         Dim activechargrabber As Boolean = False
         Dim getsingleformat As String = String.Empty
         Dim formatteddate As String = format
+        Dim fdate As Date = DateTime.Now
+        If typeofdate = "utcnow" Then fdate = DateTime.UtcNow
         For Each getch As Char In format
             Select Case getch
                 Case STARG
@@ -31,7 +42,7 @@
                     activechargrabber = False
                     getsingleformat &= getch
                     'Validation and replacement in elementary history format
-                    formatteddate = formatteddate.Replace(getsingleformat, check_single_format(getsingleformat))
+                    formatteddate = formatteddate.Replace(getsingleformat, check_single_format(getsingleformat, fdate))
                     getsingleformat = String.Empty
                 Case Else
                     If activechargrabber Then
@@ -43,7 +54,7 @@
         Return formatteddate
     End Function
 
-    Private Shared Function check_single_format(singleformat As String) As String
+    Private Shared Function check_single_format(singleformat As String, fdate As Date) As String
         Dim setdate As String = singleformat
         singleformat = singleformat.Remove(0, 1)
         singleformat = singleformat.Remove(singleformat.Length - 1)
@@ -52,25 +63,25 @@
         'Identify constant expressions in string
         Select Case singleformat
             Case YEAR
-                setdate = DateTime.Now.Year
+                setdate = fdate.Year
             Case MONTH
-                setdate = DateTime.Now.Month
+                setdate = fdate.Month
             Case DAY
-                setdate = DateTime.Now.Day
+                setdate = fdate.Day
             Case DAYOFWEEK
-                setdate = DateTime.Now.DayOfWeek
+                setdate = fdate.DayOfWeek
             Case DAYOFYEAR
-                setdate = DateTime.Now.DayOfYear
+                setdate = fdate.DayOfYear
             Case HOUR
-                setdate = DateTime.Now.Hour
+                setdate = fdate.Hour
             Case MINUTE
-                setdate = DateTime.Now.Minute
+                setdate = fdate.Minute
             Case SECOND
-                setdate = DateTime.Now.Second
+                setdate = fdate.Second
             Case MILLISECOND
-                setdate = DateTime.Now.Millisecond
+                setdate = fdate.Millisecond
             Case TICKS
-                setdate = DateTime.Now.Ticks
+                setdate = fdate.Ticks
         End Select
         Return setdate
     End Function
