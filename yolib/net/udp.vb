@@ -43,6 +43,10 @@ Public Class udp
         thgetdatagram.Start()
     End Sub
 
+    Public Sub close()
+        udp.Close()
+    End Sub
+
     Public ReadOnly Property has_data() As Boolean
         Get
             If IsNothing(udp) Then Return False
