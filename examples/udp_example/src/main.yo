@@ -1,0 +1,32 @@
+#[app::title("UDP Send and Receive Using Threads")]
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+public static let port : i32 = 8001
+let udp : init yolib.udp('127.0.0.1',port)
+
+func main()
+{
+  br receive_datagram()
+  loop{
+    let message : str = io::getln("Your Message : ")
+    udp::send(message)
+    io::sleep(100)
+    io::newline()
+  }
+
+}
+
+func receive_datagram() : void
+{
+  udp::listen(port)
+  loop{
+    if(udp::has_data == true)
+    {
+      io::println("New Message : #{udp::latest_data}")
+    }
+  }
+}
