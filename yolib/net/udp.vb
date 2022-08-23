@@ -64,4 +64,11 @@ Public Class udp
             End If
         End Get
     End Property
+
+    Public Function get_list_data() As YOLIB.list
+        If IsNothing(datalist) Then datalist = New list()
+        Dim retlist As list = datalist
+        datalist.clear()
+        Return retlist
+    End Function
 End Class
