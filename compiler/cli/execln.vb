@@ -191,12 +191,12 @@ You can type 'Help' to view commands.")
         Console.Write(constcli.DEVQES)
         Select Case Console.ReadKey.KeyChar.ToString.ToLower
             Case "y"
-                If File.Exists(conrex.APPDIR & "\iniopt\dev") = False Then
-                    File.WriteAllText(conrex.APPDIR & "\iniopt\dev", conrex.NULL)
+                If File.Exists(conrex.CACHEDIR & "\dev") = False Then
+                    File.WriteAllText(conrex.CACHEDIR & "\dev", conrex.NULL)
                 End If
             Case "n"
-                If File.Exists(conrex.APPDIR & "\iniopt\dev") Then
-                    File.Delete(conrex.APPDIR & "\iniopt\dev")
+                If File.Exists(conrex.CACHEDIR & "\dev") Then
+                    File.Delete(conrex.CACHEDIR & "\dev")
                 End If
             Case Else
                 Console.WriteLine(vbCrLf & constcli.DEVCHARERROR)

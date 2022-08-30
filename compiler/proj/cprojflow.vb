@@ -104,7 +104,7 @@ Download the latest SDK version from this link (https://dotnet.microsoft.com/dow
     End Sub
     Public Sub load_cproj_data()
         If compdt.DEVMOD = False Then
-            If File.Exists(conrex.APPDIR & "\iniopt\dev") Then compdt.DEVMOD = True
+            If File.Exists(conrex.CACHEDIR & "\dev") Then compdt.DEVMOD = True
         End If
         Dim getlabrasetting As String = File.ReadAllText(conrex.ENVCURDIR & "\labra.yoda")
         Dim labradt As YODA_Format.YODAMapFormat = yodagen.ReadYODA_Map(getlabrasetting)
