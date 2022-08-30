@@ -350,6 +350,7 @@ Public Class lexer
             Return
         End If
 
+        linec = linec.Trim
         rd_token = tokenhared.token.UNDEFINED
 
         If qucheck = False AndAlso linec = conrex.CLN AndAlso nextchar(index) = conrex.CLN Then
