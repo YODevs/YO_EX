@@ -11,6 +11,7 @@
     Private Const TICKS As String = "ti"
     Private Const STARG As String = "{"
     Private Const ENARG As String = "}"
+    Private xdate As DateTime
 
     ''' <summary>
     ''' Return date and time in arbitrary format.
@@ -27,12 +28,13 @@
         Return lex_format(format, "utcnow")
     End Function
 
-    Private Shared Function lex_format(format As String, typeofdate As String)
+    Private Shared Function lex_format(format As String, typeofdate As String, Optional customdate As DateTime = Nothing)
         Dim activechargrabber As Boolean = False
         Dim getsingleformat As String = String.Empty
         Dim formatteddate As String = format
         Dim fdate As Date = DateTime.Now
         If typeofdate = "utcnow" Then fdate = DateTime.UtcNow
+        If IsNothing(customdate) = False AndAlso typeofdate = String.Empty Then fdate = customdate
         For Each getch As Char In format
             Select Case getch
                 Case STARG
@@ -84,5 +86,41 @@
                 setdate = fdate.Ticks
         End Select
         Return setdate
+    End Function
+
+    Public Sub New(utcdate As Boolean)
+        xdate = New DateTime
+        If utcdate Then
+            xdate = DateTime.UtcNow
+        Else
+            xdate = DateTime.Now
+        End If
+    End Sub
+    Public Sub add_years(val As Integer)
+        xdate = xdate.AddYears(val)
+    End Sub
+    Public Sub add_months(val As Integer)
+        xdate = xdate.AddMonths(val)
+    End Sub
+    Public Sub add_days(val As Integer)
+        xdate = xdate.AddDays(val)
+    End Sub
+    Public Sub add_hours(val As Integer)
+        xdate = xdate.AddHours(val)
+    End Sub
+    Public Sub add_minutes(val As Integer)
+        xdate = xdate.AddMinutes(val)
+    End Sub
+    Public Sub add_seconds(val As Integer)
+        xdate = xdate.AddSeconds(val)
+    End Sub
+    Public Sub add_milliseconds(val As Integer)
+        xdate = xdate.AddMilliseconds(val)
+    End Sub
+    Public Sub add_ticks(val As Integer)
+        xdate = xdate.AddTicks(val)
+    End Sub
+    Public Function [get](format As String) As String
+        Return lex_format(format, String.Empty, xdate)
     End Function
 End Class
