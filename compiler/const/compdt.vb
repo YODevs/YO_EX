@@ -30,6 +30,7 @@ Public Class compdt
     Friend Const FLOAT64 As String = "float64"
     Friend Const INT32 As String = "int32"
     Friend Const INT64 As String = "int64"
+    Friend Const [BOOLEAN_UPPER] As String = "Boolean"
     Friend Shared ptrinddata As mapstoredata
     Friend Shared byrefforbiddentoken() As tokenhared.token = {tokenhared.token.NULL, tokenhared.token.TRUE, tokenhared.token.FALSE, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_CO_STR}
     Friend Shared argumentallow() As tokenhared.token = {tokenhared.token.TYPE_CO_STR, tokenhared.token.TYPE_DU_STR, tokenhared.token.TYPE_INT, tokenhared.token.TYPE_FLOAT, tokenhared.token.TYPE_BOOL, tokenhared.token.IDENTIFIER,
