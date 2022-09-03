@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="Office2019DarkTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="x.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdGYXN0Q29sb3JlZFRleHRCb3gsIFZlcnNpb249Mi4xNi4yNi4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWZiOGFhMTJiOTk0ZWY2MWIMAwAAAFFTeXN0
+        ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2Vu
+        PWIwM2Y1ZjdmMTFkNTBhM2EFAQAAACJGYXN0Q29sb3JlZFRleHRCb3hOUy5TZXJ2aWNlQ29sb3JzBgAA
+        ACg8Q29sbGFwc2VNYXJrZXJGb3JlQ29sb3I+a19fQmFja2luZ0ZpZWxkKDxDb2xsYXBzZU1hcmtlckJh
+        Y2tDb2xvcj5rX19CYWNraW5nRmllbGQqPENvbGxhcHNlTWFya2VyQm9yZGVyQ29sb3I+a19fQmFja2lu
+        Z0ZpZWxkJjxFeHBhbmRNYXJrZXJGb3JlQ29sb3I+a19fQmFja2luZ0ZpZWxkJjxFeHBhbmRNYXJrZXJC
+        YWNrQ29sb3I+a19fQmFja2luZ0ZpZWxkKDxFeHBhbmRNYXJrZXJCb3JkZXJDb2xvcj5rX19CYWNraW5n
+        RmllbGQEBAQEBAQUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAFFN5c3RlbS5EcmF3aW5nLkNvbG9yAwAA
+        ABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAFFN5c3RlbS5E
+        cmF3aW5nLkNvbG9yAwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAACAAAABfz///8UU3lzdGVtLkRy
+        YXdpbmcuQ29sb3IEAAAABG5hbWUFdmFsdWUKa25vd25Db2xvcgVzdGF0ZQEAAAAJBwcDAAAACgAAAAAA
+        AAAAlgABAAH7/////P///woAAAAAAAAAAKQAAQAB+v////z///8KAAAAAAAAAACWAAEAAfn////8////
+        CgAAAAAAAAAAjQABAAH4/////P///woAAAAAAAAAAKQAAQAB9/////z///8KAAAAAAAAAACWAAEACw==
+</value>
+  </data>
+  <data name="x.Text" xml:space="preserve">
+    <value>    
+
+
+.assembly extern mscorlib{}
+.assembly yo_test2{.ver 1:0:0:0}
+.class public auto ansi beforefieldinit myapp
+extends [mscorlib]System.Object
+{
+
+.field private  object this
+
+
+
+
+.method public static void main() cil managed
+{
+.entrypoint
+call void myapp::say_hello()
+call string [mscorlib]System.Console::ReadLine()
+pop
+ret
+}
+
+.method public static void say_hello() cil managed
+{
+ldstr "Welcome to myapp ."
+call void io::print(string)
+ret
+}
+
+.method public specialname rtspecialname instance void .ctor() cil managed 
+{
+ldarg.0
+call instance void [mscorlib]System.Object::.ctor()
+ldarg.0
+ldarg.0
+stfld object myapp::this
+ret
+}
+
+}
+
+
+.assembly extern mscorlib{}
+.class public auto ansi beforefieldinit class2
+extends [mscorlib]System.Object
+{
+
+.field private  object this
+
+
+
+.method public specialname rtspecialname instance void .ctor() cil managed
+{
+.locals init(
+[0] class [mscorlib]System.Threading.Thread YO_br8480113_0
+)
+ldarg.0
+call instance void [mscorlib]System.Object::.ctor()
+ldarg.0
+ldarg.0
+stfld object class2::this
+ldstr "JJJ"
+call void [mscorlib]System.Console::WriteLine(string)
+ldarg.0
+ldftn  instance void class2::code()
+newobj instance void [mscorlib]System.Threading.ThreadStart::.ctor(object, native int)
+newobj instance void [mscorlib]System.Threading.Thread::.ctor(class [mscorlib]System.Threading.ThreadStart)
+stloc YO_br8480113_0
+ldloc YO_br8480113_0
+callvirt instance void [mscorlib]System.Threading.Thread::Start()
+nop
+ret
+}
+
+.method public instance void code(
+string text,
+string language
+) cil managed
+{
+ret
+}
+
+.method public instance void code(
+string text
+) cil managed
+{
+ldarg.0
+ldstr "fg"
+call  instance void class2::code2(string)
+ret
+}
+
+.method public instance void code2(
+string text
+) cil managed
+{
+ldstr "rer"
+call void [mscorlib]System.Console::WriteLine(string)
+ret
+}
+
+.method public instance void code() cil managed
+{
+ldstr "rerrtrteter"
+call void [mscorlib]System.Console::WriteLine(string)
+ret
+}
+
+.method public static void codex() cil managed
+{
+ldstr "rerrtrteter"
+call void [mscorlib]System.Console::WriteLine(string)
+ret
+}
+
+
+}
+
+
+.assembly extern mscorlib{}
+.class public auto ansi beforefieldinit io
+extends [mscorlib]System.Object
+{
+
+.field private  object this
+
+
+
+
+.method public static void print(
+string val
+) cil managed
+{
+ldarg val
+call void [mscorlib]System.Console::Write(string)
+ret
+}
+
+.method public static void print(
+float32 val
+) cil managed
+{
+ldarg val
+call void [mscorlib]System.Console::Write(float32)
+ret
+}
+
+.method public static void println(
+string val
+) cil managed
+{
+ldarg val
+call void [mscorlib]System.Console::WriteLine(string)
+ret
+}
+
+.method public static void print(
+int32 val
+) cil managed
+{
+ldarg val
+call void [mscorlib]System.Console::Write(int32)
+ret
+}
+
+.method public static void println(
+float32 val
+) cil managed
+{
+ldarg val
+call void [mscorlib]System.Console::WriteLine(float32)
+ret
+}
+
+.method public static void println(
+int32 val
+) cil managed
+{
+ldarg val
+call void [mscorlib]System.Console::WriteLine(int32)
+ret
+}
+
+.method public static void newline() cil managed
+{
+call void [mscorlib]System.Console::WriteLine()
+ret
+}
+
+.method public static void wait() cil managed
+{
+call string [mscorlib]System.Console::ReadLine()
+pop
+ret
+}
+
+.method public static void clear() cil managed
+{
+call void [mscorlib]System.Console::Clear()
+ret
+}
+
+.method public static void setin(
+string&amp; result,
+string description
+) cil managed
+{
+ldarg description
+ldnull
+beq YOIL_en_if_71915
+YOIL_st_if_13252:
+ldarg description
+call void io::print(string)
+br YOIL_enifcond_11401
+YOIL_en_if_71915:
+YOIL_enifcond_11401:
+ldarg result
+call string io::getln()
+stind.ref
+ret
+}
+
+.method public static string getln() cil managed
+{
+.locals init(
+[0]  string result
+)
+call string [mscorlib]System.Console::ReadLine()
+stloc result
+ldloc result
+ret
+}
+
+.method public static string getln(
+string description
+) cil managed
+{
+.locals init(
+[0]  string result
+)
+ldarg description
+ldnull
+beq YOIL_en_if_70370
+YOIL_st_if_20873:
+ldarg description
+call void io::print(string)
+br YOIL_enifcond_84312
+YOIL_en_if_70370:
+YOIL_enifcond_84312:
+call string [mscorlib]System.Console::ReadLine()
+stloc result
+ldloc result
+ret
+}
+
+.method public static int32 getnum() cil managed
+{
+.locals init(
+[0]  int32 result
+)
+call string [mscorlib]System.Console::ReadLine()
+call int32 [mscorlib]System.Convert::ToInt32(string)
+stloc result
+ldloc result
+ret
+}
+
+.method public static float32 getnum() cil managed
+{
+.locals init(
+[0]  float32 result
+)
+call string [mscorlib]System.Console::ReadLine()
+call float32 [mscorlib]System.Convert::ToSingle(string)
+stloc result
+ldloc result
+ret
+}
+
+.method public static void sleep(
+int32 i
+) cil managed
+{
+ldarg i
+call void [mscorlib]System.Threading.Thread::Sleep(int32)
+ret
+}
+
+.method public specialname rtspecialname instance void .ctor() cil managed 
+{
+ldarg.0
+call instance void [mscorlib]System.Object::.ctor()
+ldarg.0
+ldarg.0
+stfld object io::this
+ret
+}
+
+}
+
+
+.assembly extern mscorlib{}
+.assembly extern YOLIB{}
+.class public auto ansi beforefieldinit std
+extends [mscorlib]System.Object
+{
+
+.field private  object this
+
+
+
+
+.method public static string ping() cil managed
+{
+ldstr "pong"
+ret
+}
+
+.method public specialname rtspecialname instance void .ctor() cil managed 
+{
+ldarg.0
+call instance void [mscorlib]System.Object::.ctor()
+ldarg.0
+ldarg.0
+stfld object std::this
+ret
+}
+
+}
+</value>
+  </data>
+</root>
