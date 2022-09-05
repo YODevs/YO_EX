@@ -37,7 +37,7 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
-      <AppDesignerFolder>yodefopt</AppDesignerFolder>
+    <AppDesignerFolder>yodefopt</AppDesignerFolder>
     <OptionExplicit>On</OptionExplicit>
   </PropertyGroup>
   <PropertyGroup>
@@ -53,12 +53,15 @@
     <Reference Include="FastColoredTextBox">
       <HintPath>C:\Users\Ruzes\Desktop\FastColoredTextBox-master\Binary\FastColoredTextBox.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +69,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="Telerik.WinControls, Version=2022.1.222.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
     <Reference Include="Telerik.WinControls.RadDock, Version=2022.1.222.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RichTextEditor, Version=2022.1.222.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.Office2019, Version=2022.1.222.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.VisualStudio2012Dark, Version=2022.1.222.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.VisualStudio2022, Version=2022.1.222.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
@@ -73,6 +77,7 @@
       <HintPath>Z:\Telerik\Bin40\Telerik.WinControls.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.Windows.Documents.Core, Version=2022.1.217.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7" />
     <Reference Include="TelerikCommon, Version=2022.1.222.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <HintPath>Z:\Telerik\Bin40\TelerikCommon.dll</HintPath>
       <Private>True</Private>
