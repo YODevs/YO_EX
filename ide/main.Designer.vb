@@ -348,6 +348,7 @@ Partial Class main
         '
         Me.tabs.Controls.Add(Me.startuptabpage)
         Me.tabs.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabs.ImageList = Me.imagelist
         Me.tabs.Location = New System.Drawing.Point(0, 0)
         Me.tabs.Name = "tabs"
         Me.tabs.SelectedPage = Me.startuptabpage

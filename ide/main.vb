@@ -52,6 +52,10 @@ Public Class main
         rdpage.Text = e.Node.Text
         rdpage.Tag = path
         If codeopt.is_file_open(path, rdpage) = False Then
+            Dim iconkey As String = proj.get_def_icon(e.Node.Text.Remove(0, e.Node.Text.LastIndexOf(".") + 1))
+            If iconkey <> String.Empty Then
+                rdpage.Image = imagelist.Images(imagelist.Images.IndexOfKey(iconkey))
+            End If
             tabs.Pages.Add(rdpage)
             Dim fscode As New FastColoredTextBoxNS.FastColoredTextBox
             codeopt.fscode_customization(fscode, path)
