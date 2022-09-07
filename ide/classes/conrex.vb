@@ -4,5 +4,6 @@
     Public Shared VER As String = My.Application.Info.Version.ToString
     Public Shared APPDIR As String = My.Application.Info.DirectoryPath
     Public Shared ENVCURDIR As String = Environment.CurrentDirectory
+    Public Shared EXTENSIONDIR As String = APPDIR & "\extension\"
     Public Const PROJECTOPTIONSNAME As String = "labra.yoda"
 End Class
