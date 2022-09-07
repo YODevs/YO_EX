@@ -498,7 +498,7 @@ Public Class servinterface
         End If
 
         If IsNothing(ilasmgen.fields) = False Then
-            For index = 0 To ilasmgen.classdata.fields.Length - 1
+            For index = 0 To ilasmgen.fields.Length - 1
                 Dim varnameloop As String = ilasmgen.fields(index).name.ToLower
                 If varname = varnameloop Then
                     Return ilasmgen.fields(index).typeinf
