@@ -24,6 +24,8 @@ View and track details of compiler problems at runtime.
 Hide all logs and do not show the process when compiling.
 --disable_warnings
 Hide all compiler warnings and notifications.
+--disable_assertion
+Disabling all assertions during compilation
 *** Hints ***
 The Build command must be called next to labra.yoda file by the Command Prompt."
 ,
@@ -56,6 +58,8 @@ View and track details of compiler problems at runtime.
 Hide all logs and do not show the process when compiling.
 --disable_warnings
 Hide all compiler warnings and notifications.
+--disable_assertion
+Disabling all assertions during compilation
 *** Hints ***
 The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
@@ -83,18 +87,18 @@ The Run command must be called next to labra.yoda file by the Command Prompt."
 ,
 "init" = "Preparation and installation of compiler prerequisites, including statistics, set environment variable, etc.
 Usage : yoca init"
-, 
+,
 "cacleaner" = "Delete all caches created by the compiler.
 Usage : yoca cacleaner
 *** Hints ***
 Caches are created to optimize RAM and CPU usage as well as dramatically increase compilation speed.
-Of course, the compiler also cleans old cache files." 
+Of course, the compiler also cleans old cache files."
 ,
 "dev" = "Change to development mode or return to normal mode.
 Usage : yoca dev
 *** Hints ***
 In development mode, the cache system is disabled and debugging is performed.
-You also have the ability to output IL codes." 
+You also have the ability to output IL codes."
 ,
 "version" = "Print yoca compiler version.
 Usage : yoca version"
