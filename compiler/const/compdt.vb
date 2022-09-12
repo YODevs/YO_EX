@@ -49,6 +49,7 @@ Public Class compdt
     Friend Shared CHECKSYNANDSEM As Boolean = False
     Friend Shared MUTEPROCESS As Boolean = False
     Friend Shared DISABLEWARNINGS As Boolean = False
+    Friend Shared DISABLEASSERTION As Boolean = False
     Friend Shared EXECTIME As Boolean = False
     Friend Shared COMPILETIME As Boolean = False
     Friend Shared NOCACHE As Boolean = False
@@ -68,6 +69,7 @@ pop"
     Friend Const PARAM_DISPLAYSTACKTRACE As String = "--stack_trace"
     Friend Const PARAM_MUTE_PROCESS As String = "--mute_process"
     Friend Const PARAM_DISABLE_WARNINGS As String = "--disable_warnings"
+    Friend Const PARAM_DISABLE_ASSERTION As String = "--disable_assertion"
     Friend Const PARAM_DISPLAY_EXEC_TIME As String = "--execution_time"
     Friend Const PARAM_DISPLAY_COMPILE_TIME As String = "--compile_time"
     Friend Const PARAM_NOCACHE As String = "--no_cache"
