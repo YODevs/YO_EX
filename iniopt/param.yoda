@@ -1,7 +1,7 @@
 !![
-"build" = "debug,debug_impl,debug_opt,import_assets,display_token,stack_trace,mute_process,disable_warnings,app_container,compile_time,no_cache,dev"
+"build" = "debug,debug_impl,debug_opt,import_assets,display_token,stack_trace,mute_process,disable_warnings,disable_assertion,app_container,compile_time,no_cache,dev"
 ,
-"run"= "benchmark,debug,debug_impl,debug_opt,import_assets,execution_time,display_token,stack_trace,mute_process,disable_warnings,compile_time,no_cache,dev"
+"run"= "benchmark,debug,debug_impl,debug_opt,import_assets,execution_time,display_token,stack_trace,mute_process,disable_warnings,disable_assertion,compile_time,no_cache,dev"
 ,
 "check"= "debug,debug_impl,debug_opt,display_token,stack_trace,mute_process,disable_warnings,compile_time,dev"
 ]
