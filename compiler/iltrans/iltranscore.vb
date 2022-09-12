@@ -180,8 +180,10 @@
             Case tokenhared.token.REPEAT
                 stjmper.repeat_jmper(clinecodestruc, _ilmethod)
             Case tokenhared.token.ASSERT
-                Dim assertion As New assert(_ilmethod)
-                _ilmethod = assertion.set_assertion_st(clinecodestruc)
+                If compdt.DISABLEASSERTION = False Then
+                    Dim assertion As New assert(_ilmethod)
+                    _ilmethod = assertion.set_assertion_st(clinecodestruc)
+                End If
             Case Else
                 If clinecodestruc(0).tokenid = tokenhared.token.EXPRESSION AndAlso _ilmethod.isexpr Then
                     nv_expr_method(clinecodestruc, _ilmethod)
