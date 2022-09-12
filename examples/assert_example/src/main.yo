@@ -1,0 +1,19 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  let date : str = yolib.date::get_now("{Y}/{M}/{D} {h}:{m}:{s}")
+  let date2 : str = yolib.date::utc_now("{Y}/{M}/{D} {h}:{m}:{s}")
+  assert(date2 == date)
+
+  let x : i32 = 5
+  let y : i32 = 6
+  assert(x << y && x >> 5)
+
+  assert(x == NULL)
+  assert("T#[69]XT" == 'TEXT')
+}
