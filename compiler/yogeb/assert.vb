@@ -23,7 +23,7 @@
         Dim path As String = ilbodybulider.path.Remove(0, Environment.CurrentDirectory.Length + 1)
         Dim assertcode As String = authfunc.get_line_code(ilbodybulider.path, clinecodestruc(0).line + 1)
         errortext = String.Format("\nAssertion Error {0} Path: {1} - Line [{2}]{0} Code:{3}\n\n", "\n", path, clinecodestruc(0).line, assertcode)
-        errortext = errortext.Replace("\", "\\").Replace("\\n", "\n")
+        errortext = errortext.Replace("\", "\\").Replace("\\n", "\n").Replace("""", "\""")
         cil.load_string(_ilmethod.codes, errortext)
         cil.insert_il(_ilmethod.codes, "call void [" & compdt.CORELIB & "]System.Console::Write(string)")
         lngen.set_direct_label(nbranch.truebranch, _ilmethod.codes)
