@@ -77,6 +77,7 @@ Public Class conserr
         DECLARINGNEWOBJECTERROR
         BRANCHINGERROR
         DESTRUCTERROR
+        METHODATTRIBUTEERROR
     End Enum
 
     Enum errorpriority
@@ -176,5 +177,6 @@ You can reinstall the software or email us.")
         set_new_error(errortype.DECLARINGERROR, errorpriority.STOP, "Declaring error", "{0}")
         set_new_error(errortype.BRANCHINGERROR, errorpriority.STOP, "Branching error", "{0}")
         set_new_error(errortype.DESTRUCTERROR, errorpriority.STOP, "Destruct error", "{0}")
+        set_new_error(errortype.METHODATTRIBUTEERROR, errorpriority.STOP, "MethodAttribute error", "{0}")
     End Sub
 End Class
