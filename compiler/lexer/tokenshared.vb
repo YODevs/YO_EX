@@ -246,5 +246,6 @@
         BR = 99
         AWAIT = 100
         ASSERT = 101
+        METHODATTRIBUTE = 102
     End Enum
 End Class
