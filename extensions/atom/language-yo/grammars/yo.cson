@@ -110,7 +110,7 @@ patterns: [
 
 
   {
-    match: "(?i:\\b(let|const|await|br|new|func|enum|to|loop|while|match|return|break|repeat|continue|elseif|else|if|for|in|init)\\b)"
+    match: "(?i:\\b(let|const|new|func|enum|to|loop|while|match|return|break|repeat|continue|elseif|else|if|for|in|init)\\b)"
     name: "keyword.control.yo"
   }
 
@@ -126,7 +126,7 @@ patterns: [
     name: "variable.other.dim.yo"
   }
   {
-    match: "(?i:\\s*\\b(let|const|new|func|expr|include|to|loop|break|continue|repeat|jmp|try|catch|extern|err|match|case|for|in|box)\\b\\s*)"
+    match: "(?i:\\s*\\b(let|const|new|func|expr|include|to|loop|break|continue|repeat|jmp|try|catch|extern|err|match|case|for|in|box|assert)\\b\\s*)"
     name: "storage.type.yo"
   }
   {
