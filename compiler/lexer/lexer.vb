@@ -449,7 +449,11 @@ Public Class lexer
         rd_token = tokenhared.check_keyword(value.ToLower)
         If rd_token = tokenhared.token.UNDEFINED Then
             If authfunc.check_identifier_vaild(value.ToLower) Then
-                rd_token = tokenhared.token.IDENTIFIER
+                If value.StartsWith(conrex.DOT) Then
+                    rd_token = tokenhared.token.METHODATTRIBUTE
+                Else
+                    rd_token = tokenhared.token.IDENTIFIER
+                End If
                 Return True
             ElseIf authfunc.check_arriden_vaild(value.ToLower) Then
                 rd_token = tokenhared.token.ARR

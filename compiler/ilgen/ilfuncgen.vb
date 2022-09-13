@@ -37,6 +37,7 @@ Public Class ilfuncgen
         'Check name rules ...
         'Check uniq names
         _ilmethods(ilmethodsindex).name = yomethod.name
+        _ilmethods(ilmethodsindex).attributes = yomethod.attributes
         If yomethod.name = "init" Then
             setinitialization = True
         End If

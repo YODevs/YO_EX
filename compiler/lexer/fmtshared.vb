@@ -378,6 +378,8 @@
     End Sub
     Private Sub _rev_func(value As String, rd_token As tokenhared.token, linecinf As lexer.targetinf, Optional isexpr As Boolean = False)
         Static Dim i As Integer = 0
+        Static Dim waitforattribute As Boolean = False
+        Static Dim attributename As String = String.Empty
         Select Case funcstate
             Case funcstatecursor.OUT
                 If rd_token = tokenhared.token.FUNC OrElse isexpr Then
@@ -386,6 +388,7 @@
                     End If
                     xmethods(i).isexpr = isexpr
                     xmethods(i).objcontrol = objcontrol
+                    xmethods(i).attributes = New YOLIB.map
                     objcontrol = New objectcontrol
                     funcstate = funcstatecursor.FUNCNAME
                     paraitemstate = funcparaitemstate.WAITFORIDENTIFIER
@@ -511,15 +514,25 @@
                 End If
 
             Case funcstatecursor.FUNCBODY
-                If rd_token = tokenhared.token.FUNC Then
-                    dserr.args.Add("}")
-                    dserr.new_error(conserr.errortype.EXPECTEDERROR, linecinf.line, sourceloc, "Expect to close the previous method block.")
-                ElseIf bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
-                    xmethods(i).bodyxmlfmt = bdyformatter.xmlresult
-                    If xmethods(i).returntype = conrex.NULL Then xmethods(i).returntype = conrex.VOID
-                    i += 1
-                    _settingup()
-                End If
+                Select Case rd_token
+                    Case tokenhared.token.FUNC
+                        dserr.args.Add("}")
+                        dserr.new_error(conserr.errortype.EXPECTEDERROR, linecinf.line, sourceloc, "Expect to close the previous method block.")
+                    Case tokenhared.token.METHODATTRIBUTE
+                        waitforattribute = True
+                        attributename = value
+                    Case Else
+                        If waitforattribute Then
+                            xmethods(i).attributes.add_unique(attributename.ToLower, methodattr.attribute_value_refinement(value, rd_token, linecinf, sourceloc))
+                            Return
+                        End If
+                        If bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
+                            xmethods(i).bodyxmlfmt = bdyformatter.xmlresult
+                            If xmethods(i).returntype = conrex.NULL Then xmethods(i).returntype = conrex.VOID
+                            i += 1
+                            _settingup()
+                        End If
+                End Select
         End Select
 
     End Sub
