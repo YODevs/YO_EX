@@ -32,6 +32,7 @@
         Dim line As ArrayList
         Dim isexpr As Boolean
         Dim isretarray As Boolean
+        Dim attributes As YOLIB.map
     End Structure
     Public Structure _returninfo
         Dim asmextern As String

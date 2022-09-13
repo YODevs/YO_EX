@@ -40,6 +40,7 @@ Public Class tknformat
         Dim bodyxmlfmt As String
         Dim isexpr As Boolean
         Dim objcontrol As fmtshared.objectcontrol
+        Dim attributes As YOLIB.map
     End Structure
 
     Structure _parameter
