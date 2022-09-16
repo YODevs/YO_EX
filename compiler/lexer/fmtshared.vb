@@ -524,6 +524,8 @@
                     Case Else
                         If waitforattribute Then
                             xmethods(i).attributes.add_unique(attributename.ToLower, methodattr.attribute_value_refinement(value, rd_token, linecinf, sourceloc))
+                            waitforattribute = False
+                            attributename = String.Empty
                             Return
                         End If
                         If bdyformatter.new_token_shared(value, rd_token, linecinf) = True Then
