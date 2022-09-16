@@ -66,6 +66,19 @@ Public Class libserv
             Next
         End If
     End Sub
+
+    Friend Shared Function get_direct_value_of_enum(enumname As String, namespaceindex As Integer, classindex As Integer) As Object
+        Dim enumtolower As String = enumname.ToLower
+        Dim enumnames() As String = libreg.types(namespaceindex)(classindex).GetEnumNames()
+        Dim enumvalues As Array = libreg.types(namespaceindex)(classindex).GetEnumValues
+        For index = 0 To enumnames.Length - 1
+            If enumnames(index).ToLower = enumtolower Then
+                Return enumvalues(index)
+            End If
+        Next
+        Return Nothing
+    End Function
+
     Friend Shared Function get_nested_type(nestedtypeindex As Integer, namespaceindex As Integer, classindex As Integer) As Type
         Return libreg.types(namespaceindex)(classindex).GetNestedTypes()(nestedtypeindex)
     End Function
