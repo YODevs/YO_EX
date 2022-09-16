@@ -40,6 +40,11 @@ Public Class enumeration
     Private Shared Function load_extern_enum(ByRef ilmethod As ilformat._ilmethodcollection, classname As String, enumname As String, idenresult As identvalid._resultidentcvaild, cargcodestruc As xmlunpkd.linecodestruc, classindex As Integer, namespaceindex As Integer) As Boolean
         Dim enumindex As Integer = libserv.get_index_enum(enumname, namespaceindex, classindex)
         If enumindex = -1 Then
+            Dim getvalue As Object = libserv.get_direct_value_of_enum(idenresult.clident, namespaceindex, classindex)
+            If IsNothing(getvalue) = False Then
+                cil.push_int32_onto_stack(ilmethod.codes, getvalue)
+                Return True
+            End If
             Return False
         End If
         Dim enumtp As Type = libserv.get_nested_type(enumindex, namespaceindex, classindex)
