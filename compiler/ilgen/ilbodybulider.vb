@@ -437,7 +437,17 @@ call void [{1}]System.Console::set_Title(string)", attribute._app._title, extern
         'check names
         assemblydt.name = cilkeywordchecker.get_key(assemblydt.name)
         If assemblydt.isextern Then
-            add_il_code(".assembly extern " & assemblydt.name & assemblydt.assemblyproperty)
+            Try
+                Dim asm As Reflection.Assembly = Reflection.Assembly.LoadFrom(libreg.assemblymap.find(assemblydt.name).result)
+                Dim publickey As String = String.Empty
+                For Each mbyte In asm.GetName.GetPublicKeyToken
+                    publickey &= String.Format("{0:x}", mbyte)
+                Next
+                add_il_code(".assembly extern " & assemblydt.name & " { .publickeytoken = (" & publickey & ") .ver " & asm.GetName.Version.ToString.Replace(".", ":") & "}")
+            Catch ex As Exception
+                add_il_code(".assembly extern " & assemblydt.name & assemblydt.assemblyproperty)
+            End Try
+
         Else
             add_il_code(".assembly " & assemblydt.name & assemblydt.assemblyproperty)
         End If
