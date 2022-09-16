@@ -239,6 +239,11 @@ call instance void [" & compdt.CORELIB & "]System.Object::.ctor()")
             add_il_code(".entrypoint")
         End If
 
+        Dim maxstack As Integer = methodattr.get_attribute_by_i32(funcdt, ".maxstack", 8)
+        If maxstack <> 8 Then
+            add_il_code(".maxstack " & maxstack)
+        End If
+
         'Test import_locals_init()
         'imp_cil_code.import_test_local_init(funcdt)
         If funcdt.locallinit.Length > 0 Then
