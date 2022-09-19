@@ -93,6 +93,14 @@ pop"
     Friend Shared CORELIB As String = "mscorlib"
     Friend Const SYSTEMRUNTIMELIB As String = "System.Runtime"
 
+#Region "Method Attributes"
+    Friend Const SETTIMER As String = ".settimer"
+    Friend Const DEFVALSETTIMER As Boolean = False
+
+    Friend Const INTERVAL As String = ".interval"
+    Friend Const DEFVALINTERVAL As Integer = 1000
+#End Region
+
     Public Enum dotnetcorebridgestate
         success = 0
         dotnetcorenotfound = -1
