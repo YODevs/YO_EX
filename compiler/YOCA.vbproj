@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="attri\attr.vb" />
+    <Compile Include="attri\methodattr.vb" />
     <Compile Include="attri\setinattr.vb" />
     <Compile Include="attri\yocaattribute.vb" />
     <Compile Include="cache\cachegtr.vb" />
@@ -179,6 +180,7 @@
     <Compile Include="lexer\tokenshared.vb" />
     <Compile Include="cli\maincr.vb" />
     <Compile Include="mthread\branching.vb" />
+    <Compile Include="mthread\timer.vb" />
     <Compile Include="yodefopt\AssemblyInfo.vb" />
     <Compile Include="yodefopt\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -221,6 +223,7 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="yogeb\arr.vb" />
+    <Compile Include="yogeb\assert.vb" />
     <Compile Include="yogeb\assignmentcommondatatype.vb" />
     <Compile Include="yogeb\cil.vb" />
     <Compile Include="yogeb\condproc.vb" />
