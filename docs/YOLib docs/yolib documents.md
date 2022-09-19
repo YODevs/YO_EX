@@ -654,7 +654,11 @@ GetType() : System.Type
 - Fullname : YOLIB.date
 #### init
 - Re : Constructor
-- No Parameter
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | utcdate | `bool` | False | False |
+
 #### get_now
 - Re : Method
 - Modifier : Static
@@ -666,6 +670,126 @@ GetType() : System.Type
 
 ```f#
 get_now(format : str) : str
+```
+#### utc_now
+- Re : Method
+- Modifier : Static
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | format | `str` | False | False |
+
+```f#
+utc_now(format : str) : str
+```
+#### add_years
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_years(val : i32) : void
+```
+#### add_months
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_months(val : i32) : void
+```
+#### add_days
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_days(val : i32) : void
+```
+#### add_hours
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_hours(val : i32) : void
+```
+#### add_minutes
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_minutes(val : i32) : void
+```
+#### add_seconds
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_seconds(val : i32) : void
+```
+#### add_milliseconds
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_milliseconds(val : i32) : void
+```
+#### add_ticks
+- Re : Method
+- Modifier : Instance
+- Returntype : `void`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | val | `i32` | False | False |
+
+```f#
+add_ticks(val : i32) : void
+```
+#### get
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | format | `str` | False | False |
+
+```f#
+get(format : str) : str
 ```
 #### GetType
 - Re : Method
@@ -2640,6 +2764,32 @@ add_header(key : str ,value : str) : void
 
 ```f#
 send(url : str) : str
+```
+#### send_post
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | url | `str` | False | False |
+| 2 | postdata | `str` | False | False |
+
+```f#
+send_post(url : str ,postdata : str) : str
+```
+#### send_post
+- Re : Method
+- Modifier : Instance
+- Returntype : `str`
+
+| # | name | type |  Is Optional | Is Byref |
+|--|--|--|--|--|
+| 1 | url | `str` | False | False |
+| 2 | postdata | `u8[]` | False | False |
+
+```f#
+send_post(url : str ,postdata : u8[]) : str
 ```
 #### send
 - Re : Method
