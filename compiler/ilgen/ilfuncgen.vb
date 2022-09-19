@@ -67,6 +67,9 @@ Public Class ilfuncgen
         set_parameter(yomethod, ilmethodsindex)
         Dim iltrans As New iltranscore(yomethod)
         iltrans.gen_transpile_code(_ilmethods(ilmethodsindex))
+        If methodattr.get_attribute_by_bool(_ilmethods(ilmethodsindex), compdt.SETTIMER, compdt.DEFVALSETTIMER) Then
+            timer.set_new_timer(_ilmethods(ilmethodsindex))
+        End If
         If yomethod.isexpr Then
             set_customization_expression(_ilmethods(ilmethodsindex))
         End If
