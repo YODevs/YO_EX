@@ -1,0 +1,18 @@
+#[app::classname("clock")]
+#[app::title("My Clock")]
+
+include "ystdio"
+include "yolib"
+func main()
+{
+ display_time()
+}
+
+func display_time()
+{
+  .settimer true
+  .interval 1000
+  system.console::clear()
+  let currenttime : str = yolib.date::get_now("{Y}/{M}/{D} - {h}:{m}:{s}")
+  io::println(currenttime)
+}
