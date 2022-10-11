@@ -2,7 +2,7 @@
 Imports Telerik.WinControls.UI
 
 Public Class proj
-    Friend Shared projectlist As ArrayList
+    Friend Shared projectlist, fileopenlist As ArrayList
     Friend Shared yodaprojectlist As YOLIB.yoda
     Public Shared Sub import_a_project(location As String) '...\labra.yoda
         If File.Exists(location) = False Then
@@ -14,6 +14,7 @@ Public Class proj
 
     Friend Shared Sub load_project()
         yodaprojectlist = New YOLIB.yoda
+        fileopenlist = yodaprojectlist.ReadYODA(File.ReadAllText(conrex.FILEOPENLIST))
         projectlist = yodaprojectlist.ReadYODA(File.ReadAllText(conrex.PROJECTLISTFILE))
         For index = 0 To projectlist.Count - 1
             load_treeview_of_project(projectlist(index))
@@ -73,6 +74,17 @@ Public Class proj
             rditemsc.ImageKey = get_def_icon(filename.Remove(0, filename.LastIndexOf(".") + 1))
             rditem.Nodes.Add(rditemsc)
         Next
+    End Sub
+
+    Friend Shared Sub check_open_tabs()
+        Dim yodaf As New YOLIB.yoda
+        For index = 0 To main.tabs.Pages.Count - 1
+            Dim path As String = main.tabs.Pages(index).Tag
+            If path <> String.Empty AndAlso File.Exists(path) Then
+                yodaf.add(path)
+            End If
+        Next
+        File.WriteAllText(conrex.FILEOPENLIST, yodaf.get_list)
     End Sub
 
     Friend Shared Function get_def_icon(ext As String) As String
