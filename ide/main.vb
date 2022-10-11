@@ -1,11 +1,49 @@
 ﻿Imports System.IO
+Imports FastColoredTextBoxNS
 Imports Telerik.WinControls.UI
 
 Public Class main
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tabs.SelectedPage.Visible = False
         check_init()
+        range.init()
         import_projects()
+        import_files()
+    End Sub
+
+    Private Sub import_files()
+        Me.waitbar.StartWaiting()
+        Me.waitbar.Text = "Launch the avaiable files"
+        For index = 0 To proj.fileopenlist.Count - 1
+            Dim path As String = proj.fileopenlist(index)
+            Dim filename As String = path.Remove(0, path.LastIndexOf("\") + 1)
+            If File.GetAttributes(path).HasFlag(FileAttributes.Directory) Then Return
+            Dim rdpage As New RadPageViewPage
+            rdpage.Title = filename
+            rdpage.Text = filename
+            rdpage.Tag = path
+            If codeopt.is_file_open(path, rdpage) = False Then
+                Dim iconkey As String = proj.get_def_icon(filename.Remove(0, filename.LastIndexOf(".") + 1))
+                If iconkey <> String.Empty Then
+                    rdpage.Image = imagelist.Images(imagelist.Images.IndexOfKey(iconkey))
+                End If
+                tabs.Pages.Add(rdpage)
+                Dim fscode As New FastColoredTextBoxNS.FastColoredTextBox
+                codeopt.fscode_customization(fscode, path)
+                range.set_extension(fscode)
+                fscode.Selection.Start = Place.Empty
+                fscode.DoCaretVisible()
+                fscode.IsChanged = False
+                fscode.ClearUndo()
+                rdpage.Controls.Add(fscode)
+                AddHandler fscode.TextChanged, AddressOf fscode_textchanged
+            End If
+            tabs.SelectedPage = rdpage
+
+        Next
+        Me.waitbar.StopWaiting()
+        waitbar.Visibility = Telerik.WinControls.ElementVisibility.Collapsed
+        waitbar.Text = String.Empty
     End Sub
 
     Private Sub import_projects()
@@ -59,16 +97,36 @@ Public Class main
             tabs.Pages.Add(rdpage)
             Dim fscode As New FastColoredTextBoxNS.FastColoredTextBox
             codeopt.fscode_customization(fscode, path)
+            range.set_extension(fscode)
+            fscode.Selection.Start = Place.Empty
+            fscode.DoCaretVisible()
+            fscode.IsChanged = False
+            fscode.ClearUndo()
             rdpage.Controls.Add(fscode)
+            AddHandler fscode.TextChanged, AddressOf fscode_textchanged
+            proj.check_open_tabs()
         End If
         tabs.SelectedPage = rdpage
         Me.waitbar.StopWaiting()
         waitbar.Visibility = Telerik.WinControls.ElementVisibility.Collapsed
         waitbar.Text = String.Empty
     End Sub
+    Dim GreenStyle As TextStyle = New TextStyle(Brushes.Green, Nothing, FontStyle.Italic)
+    Public s As Integer = 0
+    Private Sub fscode_textchanged(sender As Object, ByVal e As TextChangedEventArgs)
+        range.set_extension(e.ChangedRange)
+    End Sub
 
     Private Sub RadMenuItem6_Click(sender As Object, e As EventArgs) Handles RadMenuItem6.Click
-        Dim options As New fromoptions
+        Dim options As New formoptions
         options.ShowDialog()
+    End Sub
+
+    Private Sub tabs_ItemDropped(sender As Object, e As RadPageViewItemDroppedEventArgs) Handles tabs.ItemDropped
+        proj.check_open_tabs()
+    End Sub
+
+    Private Sub tabs_PageRemoved(sender As Object, e As RadPageViewEventArgs) Handles tabs.PageRemoved
+        proj.check_open_tabs()
     End Sub
 End Class

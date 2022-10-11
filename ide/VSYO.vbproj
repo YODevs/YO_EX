@@ -103,10 +103,11 @@
     <Compile Include="classes\codeopt.vb" />
     <Compile Include="classes\conrex.vb" />
     <Compile Include="classes\proj.vb" />
-    <Compile Include="forms\fromoptions.Designer.vb">
-      <DependentUpon>fromoptions.vb</DependentUpon>
+    <Compile Include="classes\range.vb" />
+    <Compile Include="forms\formoptions.Designer.vb">
+      <DependentUpon>formoptions.vb</DependentUpon>
     </Compile>
-    <Compile Include="forms\fromoptions.vb">
+    <Compile Include="forms\formoptions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="init\chreqinit.vb" />
@@ -146,8 +147,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="forms\fromoptions.resx">
-      <DependentUpon>fromoptions.vb</DependentUpon>
+    <EmbeddedResource Include="forms\formoptions.resx">
+      <DependentUpon>formoptions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="init\formcodeenv.resx">
       <DependentUpon>formcodeenv.vb</DependentUpon>

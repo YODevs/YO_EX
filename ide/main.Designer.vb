@@ -363,6 +363,7 @@ Partial Class main
         '
         'startuptabpage
         '
+        Me.startuptabpage.BackColor = System.Drawing.Color.FromArgb(CType(CType(47, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(47, Byte), Integer))
         Me.startuptabpage.ItemSize = New System.Drawing.SizeF(143.0!, 25.0!)
         Me.startuptabpage.Location = New System.Drawing.Point(6, 32)
         Me.startuptabpage.Name = "startuptabpage"
@@ -387,8 +388,8 @@ Partial Class main
         'x
         '
         Me.x.AutoCompleteBracketsList = New Char() {Global.Microsoft.VisualBasic.ChrW(40), Global.Microsoft.VisualBasic.ChrW(41), Global.Microsoft.VisualBasic.ChrW(123), Global.Microsoft.VisualBasic.ChrW(125), Global.Microsoft.VisualBasic.ChrW(91), Global.Microsoft.VisualBasic.ChrW(93), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(34), Global.Microsoft.VisualBasic.ChrW(39), Global.Microsoft.VisualBasic.ChrW(39)}
-        Me.x.AutoIndentCharsPatterns = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "^\s*[\w\.]+(\s\w+)?\s*(?<range>=)\s*(?<range>[^;=]+);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "^\s*(case|default)\s*[^:" &
-    "]*(?<range>:)\s*(?<range>[^;]+);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.x.AutoIndentCharsPatterns = "" & Global.Microsoft.VisualBasic.ChrW(10) & "^\s*[\w\.]+(\s\w+)?\s*(?<range>=)\s*(?<range>[^;=]+);" & Global.Microsoft.VisualBasic.ChrW(10) & "^\s*(case|default)\s*[^:]*" &
+    "(?<range>:)\s*(?<range>[^;]+);" & Global.Microsoft.VisualBasic.ChrW(10)
         Me.x.AutoScrollMinSize = New System.Drawing.Size(868, 6289)
         Me.x.BackBrush = Nothing
         Me.x.BackColor = System.Drawing.Color.Transparent
@@ -397,6 +398,7 @@ Partial Class main
         Me.x.CharWidth = 8
         Me.x.CurrentLineColor = System.Drawing.Color.Gainsboro
         Me.x.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.x.DefaultMarkerSize = 8
         Me.x.DelayedEventsInterval = 20
         Me.x.DelayedTextChangedInterval = 20
         Me.x.DisabledColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
