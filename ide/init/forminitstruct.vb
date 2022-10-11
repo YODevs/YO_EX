@@ -8,8 +8,19 @@ Public Class forminitstruct
         create_localappdata()
         progress = 20
         create_projectlistfile()
+        progress = 30
+        create_fileopenlist()
         progress = 100
         Me.Close()
+    End Sub
+
+    Private Sub create_fileopenlist()
+        progressbarlabel = "Creating fileopenlist"
+        labelprogressinfo.Text = conrex.FILEOPENLIST
+        If File.Exists(conrex.FILEOPENLIST) = False Then
+            File.WriteAllText(conrex.FILEOPENLIST, "![]")
+        End If
+        set_sleep()
     End Sub
 
     Private Sub create_projectlistfile()
