@@ -24,6 +24,8 @@ Partial Class main
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
+        Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Me.VisualStudio2022LightTheme1 = New Telerik.WinControls.Themes.VisualStudio2022LightTheme()
         Me.Office2019DarkTheme1 = New Telerik.WinControls.Themes.Office2019DarkTheme()
         Me.RadStatusStrip1 = New Telerik.WinControls.UI.RadStatusStrip()
@@ -36,12 +38,6 @@ Partial Class main
         Me.RadMenuItem5 = New Telerik.WinControls.UI.RadMenuItem()
         Me.RadMenuItem6 = New Telerik.WinControls.UI.RadMenuItem()
         Me.RadMenuItem7 = New Telerik.WinControls.UI.RadMenuItem()
-        Me.RadCommandBar1 = New Telerik.WinControls.UI.RadCommandBar()
-        Me.CommandBarRowElement1 = New Telerik.WinControls.UI.CommandBarRowElement()
-        Me.CommandBarStripElement1 = New Telerik.WinControls.UI.CommandBarStripElement()
-        Me.CommandBarTextBox1 = New Telerik.WinControls.UI.CommandBarTextBox()
-        Me.CommandBarStripElement2 = New Telerik.WinControls.UI.CommandBarStripElement()
-        Me.CommandBarLabel1 = New Telerik.WinControls.UI.CommandBarLabel()
         Me.RadSplitContainer1 = New Telerik.WinControls.UI.RadSplitContainer()
         Me.projectpanel = New Telerik.WinControls.UI.SplitPanel()
         Me.projecttab = New Telerik.WinControls.UI.Docking.RadDock()
@@ -60,9 +56,22 @@ Partial Class main
         Me.x = New FastColoredTextBoxNS.FastColoredTextBox()
         Me.DotsSpinnerWaitingBarIndicatorElement1 = New Telerik.WinControls.UI.DotsSpinnerWaitingBarIndicatorElement()
         Me.fdaddproject = New System.Windows.Forms.OpenFileDialog()
+        Me.commandbarrow = New Telerik.WinControls.UI.CommandBarRowElement()
+        Me.CommandBarStripElement1 = New Telerik.WinControls.UI.CommandBarStripElement()
+        Me.cmdbtnnewproject = New Telerik.WinControls.UI.CommandBarButton()
+        Me.cmdbtnimportproject = New Telerik.WinControls.UI.CommandBarButton()
+        Me.cmdsep1 = New Telerik.WinControls.UI.CommandBarSeparator()
+        Me.cmdbtnsave = New Telerik.WinControls.UI.CommandBarButton()
+        Me.cmdbtnsaveall = New Telerik.WinControls.UI.CommandBarButton()
+        Me.CommandBarStripElement2 = New Telerik.WinControls.UI.CommandBarStripElement()
+        Me.cmddropprojectlist = New Telerik.WinControls.UI.CommandBarDropDownList()
+        Me.cmddroptypeofcompile = New Telerik.WinControls.UI.CommandBarDropDownList()
+        Me.cmdbtnaction = New Telerik.WinControls.UI.CommandBarButton()
+        Me.cmdbtnbuild = New Telerik.WinControls.UI.CommandBarButton()
+        Me.RadCommandBar1 = New Telerik.WinControls.UI.RadCommandBar()
+        Me.iconslist = New System.Windows.Forms.ImageList(Me.components)
         CType(Me.RadStatusStrip1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadMenu1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadSplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadSplitContainer1.SuspendLayout()
         CType(Me.projectpanel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -81,6 +90,7 @@ Partial Class main
         Me.tabs.SuspendLayout()
         CType(Me.viewpanel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.x, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -156,46 +166,6 @@ Partial Class main
         '
         Me.RadMenuItem7.Name = "RadMenuItem7"
         Me.RadMenuItem7.Text = "&Help"
-        '
-        'RadCommandBar1
-        '
-        Me.RadCommandBar1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.RadCommandBar1.Location = New System.Drawing.Point(0, 25)
-        Me.RadCommandBar1.Name = "RadCommandBar1"
-        Me.RadCommandBar1.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.CommandBarRowElement1})
-        Me.RadCommandBar1.Size = New System.Drawing.Size(1318, 30)
-        Me.RadCommandBar1.TabIndex = 2
-        Me.RadCommandBar1.ThemeName = "Office2019Dark"
-        '
-        'CommandBarRowElement1
-        '
-        Me.CommandBarRowElement1.MinSize = New System.Drawing.Size(25, 25)
-        Me.CommandBarRowElement1.Name = "CommandBarRowElement1"
-        Me.CommandBarRowElement1.Strips.AddRange(New Telerik.WinControls.UI.CommandBarStripElement() {Me.CommandBarStripElement1, Me.CommandBarStripElement2})
-        '
-        'CommandBarStripElement1
-        '
-        Me.CommandBarStripElement1.DisplayName = "CommandBarStripElement1"
-        Me.CommandBarStripElement1.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.CommandBarTextBox1})
-        Me.CommandBarStripElement1.Name = "CommandBarStripElement1"
-        '
-        'CommandBarTextBox1
-        '
-        Me.CommandBarTextBox1.DisplayName = "CommandBarTextBox1"
-        Me.CommandBarTextBox1.Name = "CommandBarTextBox1"
-        Me.CommandBarTextBox1.Text = "CommandBarTextBox1"
-        '
-        'CommandBarStripElement2
-        '
-        Me.CommandBarStripElement2.DisplayName = "CommandBarStripElement2"
-        Me.CommandBarStripElement2.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.CommandBarLabel1})
-        Me.CommandBarStripElement2.Name = "CommandBarStripElement2"
-        '
-        'CommandBarLabel1
-        '
-        Me.CommandBarLabel1.DisplayName = "CommandBarLabel1"
-        Me.CommandBarLabel1.Name = "CommandBarLabel1"
-        Me.CommandBarLabel1.Text = "CommandBarLabel1"
         '
         'RadSplitContainer1
         '
@@ -437,6 +407,123 @@ Partial Class main
         Me.fdaddproject.FileName = "labra.yoda"
         Me.fdaddproject.Title = "Add a Project to Visual YO"
         '
+        'commandbarrow
+        '
+        Me.commandbarrow.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+        Me.commandbarrow.MinSize = New System.Drawing.Size(25, 25)
+        Me.commandbarrow.Name = "commandbarrow"
+        Me.commandbarrow.Strips.AddRange(New Telerik.WinControls.UI.CommandBarStripElement() {Me.CommandBarStripElement1, Me.CommandBarStripElement2})
+        Me.commandbarrow.Text = ""
+        Me.commandbarrow.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+        Me.commandbarrow.UseCompatibleTextRendering = False
+        '
+        'CommandBarStripElement1
+        '
+        Me.CommandBarStripElement1.DisabledTextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+        Me.CommandBarStripElement1.DisplayName = "CommandBarStripElement1"
+        Me.CommandBarStripElement1.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.cmdbtnnewproject, Me.cmdbtnimportproject, Me.cmdsep1, Me.cmdbtnsave, Me.cmdbtnsaveall})
+        Me.CommandBarStripElement1.Name = "CommandBarStripElement1"
+        Me.CommandBarStripElement1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault
+        Me.CommandBarStripElement1.UseCompatibleTextRendering = False
+        '
+        'cmdbtnnewproject
+        '
+        Me.cmdbtnnewproject.DisplayName = "New Project"
+        Me.cmdbtnnewproject.Image = Global.VSYO.My.Resources.Resources.main_newproject
+        Me.cmdbtnnewproject.ImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.cmdbtnnewproject.Name = "cmdbtnnewproject"
+        Me.cmdbtnnewproject.Text = "New Project"
+        '
+        'cmdbtnimportproject
+        '
+        Me.cmdbtnimportproject.DisplayName = "Import Project"
+        Me.cmdbtnimportproject.Image = Global.VSYO.My.Resources.Resources.main_importproject1
+        Me.cmdbtnimportproject.Name = "cmdbtnimportproject"
+        Me.cmdbtnimportproject.Text = "Import Project"
+        '
+        'cmdsep1
+        '
+        Me.cmdsep1.DisplayName = "CommandBarSeparator1"
+        Me.cmdsep1.Name = "cmdsep1"
+        Me.cmdsep1.VisibleInOverflowMenu = False
+        '
+        'cmdbtnsave
+        '
+        Me.cmdbtnsave.DisplayName = "Save File"
+        Me.cmdbtnsave.Image = Global.VSYO.My.Resources.Resources.main_savefile
+        Me.cmdbtnsave.ImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.cmdbtnsave.Name = "cmdbtnsave"
+        Me.cmdbtnsave.Text = "Save File"
+        '
+        'cmdbtnsaveall
+        '
+        Me.cmdbtnsaveall.DisplayName = "Save All File"
+        Me.cmdbtnsaveall.Image = Global.VSYO.My.Resources.Resources.main_saveallfile
+        Me.cmdbtnsaveall.Name = "cmdbtnsaveall"
+        Me.cmdbtnsaveall.Text = "Save All File"
+        '
+        'CommandBarStripElement2
+        '
+        Me.CommandBarStripElement2.DisplayName = "CommandBarStripElement2"
+        Me.CommandBarStripElement2.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.cmddropprojectlist, Me.cmddroptypeofcompile, Me.cmdbtnaction, Me.cmdbtnbuild})
+        Me.CommandBarStripElement2.Name = "CommandBarStripElement2"
+        '
+        'cmddropprojectlist
+        '
+        Me.cmddropprojectlist.AccessibleDescription = "cmddropprojectlist"
+        Me.cmddropprojectlist.DisplayName = "Project (s)"
+        Me.cmddropprojectlist.DropDownAnimationEnabled = True
+        Me.cmddropprojectlist.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList
+        Me.cmddropprojectlist.MaxDropDownItems = 0
+        Me.cmddropprojectlist.Name = "cmddropprojectlist"
+        Me.cmddropprojectlist.Text = "Project (s)"
+        '
+        'cmddroptypeofcompile
+        '
+        Me.cmddroptypeofcompile.DisplayName = "Compile Mode"
+        Me.cmddroptypeofcompile.DropDownAnimationEnabled = True
+        Me.cmddroptypeofcompile.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList
+        RadListDataItem5.Text = "Release"
+        RadListDataItem6.Text = "Debug"
+        Me.cmddroptypeofcompile.Items.Add(RadListDataItem5)
+        Me.cmddroptypeofcompile.Items.Add(RadListDataItem6)
+        Me.cmddroptypeofcompile.MaxDropDownItems = 0
+        Me.cmddroptypeofcompile.Name = "cmddroptypeofcompile"
+        Me.cmddroptypeofcompile.NullText = "Release"
+        Me.cmddroptypeofcompile.Text = "Release"
+        '
+        'cmdbtnaction
+        '
+        Me.cmdbtnaction.DisplayName = "Action"
+        Me.cmdbtnaction.Image = Global.VSYO.My.Resources.Resources.main_action
+        Me.cmdbtnaction.Name = "cmdbtnaction"
+        Me.cmdbtnaction.Text = "CommandBarButton1"
+        '
+        'cmdbtnbuild
+        '
+        Me.cmdbtnbuild.DisplayName = "Build"
+        Me.cmdbtnbuild.Image = Global.VSYO.My.Resources.Resources.main_build
+        Me.cmdbtnbuild.ImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.cmdbtnbuild.Name = "cmdbtnbuild"
+        Me.cmdbtnbuild.Text = "Build"
+        '
+        'RadCommandBar1
+        '
+        Me.RadCommandBar1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.RadCommandBar1.Location = New System.Drawing.Point(0, 25)
+        Me.RadCommandBar1.Name = "RadCommandBar1"
+        Me.RadCommandBar1.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.commandbarrow})
+        Me.RadCommandBar1.Size = New System.Drawing.Size(1318, 30)
+        Me.RadCommandBar1.TabIndex = 2
+        Me.RadCommandBar1.ThemeName = "Office2019Dark"
+        '
+        'iconslist
+        '
+        Me.iconslist.ImageStream = CType(resources.GetObject("iconslist.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.iconslist.TransparentColor = System.Drawing.Color.Transparent
+        Me.iconslist.Images.SetKeyName(0, "main-newproject.png")
+        Me.iconslist.Images.SetKeyName(1, "main-import.png")
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -458,7 +545,6 @@ Partial Class main
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.RadStatusStrip1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadMenu1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadSplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RadSplitContainer1.ResumeLayout(False)
         CType(Me.projectpanel, System.ComponentModel.ISupportInitialize).EndInit()
@@ -477,6 +563,7 @@ Partial Class main
         Me.tabs.ResumeLayout(False)
         CType(Me.viewpanel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.x, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -487,12 +574,6 @@ Partial Class main
     Friend WithEvents Office2019DarkTheme1 As Telerik.WinControls.Themes.Office2019DarkTheme
     Friend WithEvents RadStatusStrip1 As Telerik.WinControls.UI.RadStatusStrip
     Friend WithEvents RadMenu1 As Telerik.WinControls.UI.RadMenu
-    Friend WithEvents RadCommandBar1 As Telerik.WinControls.UI.RadCommandBar
-    Friend WithEvents CommandBarRowElement1 As Telerik.WinControls.UI.CommandBarRowElement
-    Friend WithEvents CommandBarStripElement1 As Telerik.WinControls.UI.CommandBarStripElement
-    Friend WithEvents CommandBarTextBox1 As Telerik.WinControls.UI.CommandBarTextBox
-    Friend WithEvents CommandBarStripElement2 As Telerik.WinControls.UI.CommandBarStripElement
-    Friend WithEvents CommandBarLabel1 As Telerik.WinControls.UI.CommandBarLabel
     Friend WithEvents RadSplitContainer1 As Telerik.WinControls.UI.RadSplitContainer
     Friend WithEvents projectpanel As Telerik.WinControls.UI.SplitPanel
     Friend WithEvents SplitPanel2 As Telerik.WinControls.UI.SplitPanel
@@ -520,5 +601,19 @@ Partial Class main
     Friend WithEvents contextresetproject As Telerik.WinControls.UI.RadMenuItem
     Friend WithEvents fdaddproject As OpenFileDialog
     Friend WithEvents imagelist As ImageList
+    Friend WithEvents commandbarrow As Telerik.WinControls.UI.CommandBarRowElement
+    Friend WithEvents CommandBarStripElement1 As Telerik.WinControls.UI.CommandBarStripElement
+    Friend WithEvents RadCommandBar1 As Telerik.WinControls.UI.RadCommandBar
+    Friend WithEvents iconslist As ImageList
+    Friend WithEvents cmdbtnnewproject As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents cmdbtnimportproject As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents cmdsep1 As Telerik.WinControls.UI.CommandBarSeparator
+    Friend WithEvents cmdbtnsave As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents cmdbtnsaveall As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents CommandBarStripElement2 As Telerik.WinControls.UI.CommandBarStripElement
+    Friend WithEvents cmddropprojectlist As Telerik.WinControls.UI.CommandBarDropDownList
+    Friend WithEvents cmddroptypeofcompile As Telerik.WinControls.UI.CommandBarDropDownList
+    Friend WithEvents cmdbtnaction As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents cmdbtnbuild As Telerik.WinControls.UI.CommandBarButton
 End Class
 
