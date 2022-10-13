@@ -59,5 +59,85 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_action() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-action", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_build() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-build", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_import() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-import", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_importproject() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-importproject", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_importproject1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-importproject1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_newproject() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-newproject", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_saveallfile() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-saveallfile", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property main_savefile() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("main-savefile", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
     End Module
 End Namespace
