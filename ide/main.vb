@@ -111,8 +111,6 @@ Public Class main
         waitbar.Visibility = Telerik.WinControls.ElementVisibility.Collapsed
         waitbar.Text = String.Empty
     End Sub
-    Dim GreenStyle As TextStyle = New TextStyle(Brushes.Green, Nothing, FontStyle.Italic)
-    Public s As Integer = 0
     Private Sub fscode_textchanged(sender As Object, ByVal e As TextChangedEventArgs)
         range.set_extension(e.ChangedRange)
     End Sub
@@ -128,5 +126,13 @@ Public Class main
 
     Private Sub tabs_PageRemoved(sender As Object, e As RadPageViewEventArgs) Handles tabs.PageRemoved
         proj.check_open_tabs()
+    End Sub
+
+    Private Sub cmdbtnaction_Click(sender As Object, e As EventArgs) Handles cmdbtnaction.Click
+        If IsNothing(cmddropprojectlist.SelectedItem) Then
+            MsgBox("First, select a project to compile.", MsgBoxStyle.Critical, "Compile Error")
+            Return
+        End If
+        gen.execute(cmddropprojectlist.SelectedItem.Value)
     End Sub
 End Class
