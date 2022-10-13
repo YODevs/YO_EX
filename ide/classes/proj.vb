@@ -10,6 +10,7 @@ Public Class proj
         End If
         projectlist.Add(location)
         File.WriteAllText(conrex.PROJECTLISTFILE, yodaprojectlist.WriteYODA(projectlist, True))
+        load_treeview_of_project(location)
     End Sub
 
     Friend Shared Sub load_project()
@@ -23,6 +24,9 @@ Public Class proj
 
     Friend Shared Sub load_treeview_of_project(ylocation As String)
         Dim projlocation As String = ylocation.Remove(ylocation.LastIndexOf("\"))
+        Dim dirname As String = projlocation.Remove(0, projlocation.LastIndexOf("\") + 1)
+        main.cmddropprojectlist.Items.Add(New RadListDataItem(dirname, projlocation))
+        main.cmddropprojectlist.SelectedIndex = main.cmddropprojectlist.Items.Count - 1
         get_directories(projlocation)
     End Sub
 
