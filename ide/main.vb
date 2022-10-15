@@ -135,4 +135,12 @@ Public Class main
         End If
         gen.execute(cmddropprojectlist.SelectedItem.Value)
     End Sub
+
+    Private Sub cmdbtnbuild_Click(sender As Object, e As EventArgs) Handles cmdbtnbuild.Click
+        If IsNothing(cmddropprojectlist.SelectedItem) Then
+            MsgBox("First, select a project to compile.", MsgBoxStyle.Critical, "Compile Error")
+            Return
+        End If
+        gen.execute(cmddropprojectlist.SelectedItem.Value, True)
+    End Sub
 End Class

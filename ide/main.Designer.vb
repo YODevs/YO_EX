@@ -24,8 +24,8 @@ Partial Class main
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
-        Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem1 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem2 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Me.VisualStudio2022LightTheme1 = New Telerik.WinControls.Themes.VisualStudio2022LightTheme()
         Me.Office2019DarkTheme1 = New Telerik.WinControls.Themes.Office2019DarkTheme()
         Me.RadStatusStrip1 = New Telerik.WinControls.UI.RadStatusStrip()
@@ -173,13 +173,13 @@ Partial Class main
         Me.RadSplitContainer1.Controls.Add(Me.SplitPanel2)
         Me.RadSplitContainer1.Controls.Add(Me.viewpanel)
         Me.RadSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RadSplitContainer1.Location = New System.Drawing.Point(0, 55)
+        Me.RadSplitContainer1.Location = New System.Drawing.Point(0, 80)
         Me.RadSplitContainer1.Name = "RadSplitContainer1"
         '
         '
         '
         Me.RadSplitContainer1.RootElement.MinSize = New System.Drawing.Size(25, 25)
-        Me.RadSplitContainer1.Size = New System.Drawing.Size(1318, 667)
+        Me.RadSplitContainer1.Size = New System.Drawing.Size(1318, 642)
         Me.RadSplitContainer1.SplitterWidth = 8
         Me.RadSplitContainer1.TabIndex = 3
         Me.RadSplitContainer1.TabStop = False
@@ -194,7 +194,7 @@ Partial Class main
         '
         '
         Me.projectpanel.RootElement.MinSize = New System.Drawing.Size(25, 25)
-        Me.projectpanel.Size = New System.Drawing.Size(183, 667)
+        Me.projectpanel.Size = New System.Drawing.Size(183, 642)
         Me.projectpanel.SizeInfo.AutoSizeScale = New System.Drawing.SizeF(-0.1927803!, 0!)
         Me.projectpanel.SizeInfo.SplitterCorrection = New System.Drawing.Size(-252, 0)
         Me.projectpanel.TabIndex = 0
@@ -216,7 +216,7 @@ Partial Class main
         '
         '
         Me.projecttab.RootElement.MinSize = New System.Drawing.Size(25, 25)
-        Me.projecttab.Size = New System.Drawing.Size(183, 667)
+        Me.projecttab.Size = New System.Drawing.Size(183, 642)
         Me.projecttab.SplitterWidth = 8
         Me.projecttab.TabIndex = 3
         Me.projecttab.TabStop = False
@@ -229,7 +229,7 @@ Partial Class main
         Me.projecttabch.Location = New System.Drawing.Point(4, 30)
         Me.projecttabch.Name = "projecttabch"
         Me.projecttabch.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument
-        Me.projecttabch.Size = New System.Drawing.Size(175, 633)
+        Me.projecttabch.Size = New System.Drawing.Size(175, 608)
         Me.projecttabch.Text = "Project"
         '
         'treeproject
@@ -243,7 +243,7 @@ Partial Class main
         Me.treeproject.Location = New System.Drawing.Point(0, 0)
         Me.treeproject.Name = "treeproject"
         Me.treeproject.RadContextMenu = Me.projectlistcontextmenu
-        Me.treeproject.Size = New System.Drawing.Size(175, 633)
+        Me.treeproject.Size = New System.Drawing.Size(175, 608)
         Me.treeproject.TabIndex = 0
         Me.treeproject.ThemeName = "Office2019Dark"
         '
@@ -292,7 +292,7 @@ Partial Class main
         '
         Me.DocumentTabStrip1.RootElement.MinSize = New System.Drawing.Size(25, 25)
         Me.DocumentTabStrip1.SelectedIndex = 0
-        Me.DocumentTabStrip1.Size = New System.Drawing.Size(183, 667)
+        Me.DocumentTabStrip1.Size = New System.Drawing.Size(183, 642)
         Me.DocumentTabStrip1.TabIndex = 0
         Me.DocumentTabStrip1.TabStop = False
         Me.DocumentTabStrip1.ThemeName = "Office2019Dark"
@@ -306,7 +306,7 @@ Partial Class main
         '
         '
         Me.SplitPanel2.RootElement.MinSize = New System.Drawing.Size(25, 25)
-        Me.SplitPanel2.Size = New System.Drawing.Size(864, 667)
+        Me.SplitPanel2.Size = New System.Drawing.Size(864, 642)
         Me.SplitPanel2.SizeInfo.AutoSizeScale = New System.Drawing.SizeF(0.3302611!, 0!)
         Me.SplitPanel2.SizeInfo.SplitterCorrection = New System.Drawing.Size(432, 0)
         Me.SplitPanel2.TabIndex = 1
@@ -322,7 +322,7 @@ Partial Class main
         Me.tabs.Location = New System.Drawing.Point(0, 0)
         Me.tabs.Name = "tabs"
         Me.tabs.SelectedPage = Me.startuptabpage
-        Me.tabs.Size = New System.Drawing.Size(864, 667)
+        Me.tabs.Size = New System.Drawing.Size(864, 642)
         Me.tabs.TabIndex = 0
         Me.tabs.ThemeName = "Office2019Dark"
         CType(Me.tabs.GetChildAt(0), Telerik.WinControls.UI.RadPageViewStripElement).ShowItemPinButton = True
@@ -337,7 +337,7 @@ Partial Class main
         Me.startuptabpage.ItemSize = New System.Drawing.SizeF(143.0!, 25.0!)
         Me.startuptabpage.Location = New System.Drawing.Point(6, 32)
         Me.startuptabpage.Name = "startuptabpage"
-        Me.startuptabpage.Size = New System.Drawing.Size(852, 629)
+        Me.startuptabpage.Size = New System.Drawing.Size(852, 604)
         Me.startuptabpage.Text = "Welcome To VSYO"
         '
         'viewpanel
@@ -348,7 +348,7 @@ Partial Class main
         '
         '
         Me.viewpanel.RootElement.MinSize = New System.Drawing.Size(25, 25)
-        Me.viewpanel.Size = New System.Drawing.Size(255, 667)
+        Me.viewpanel.Size = New System.Drawing.Size(255, 642)
         Me.viewpanel.SizeInfo.AutoSizeScale = New System.Drawing.SizeF(-0.1374808!, 0!)
         Me.viewpanel.SizeInfo.SplitterCorrection = New System.Drawing.Size(-180, 0)
         Me.viewpanel.TabIndex = 2
@@ -483,10 +483,10 @@ Partial Class main
         Me.cmddroptypeofcompile.DisplayName = "Compile Mode"
         Me.cmddroptypeofcompile.DropDownAnimationEnabled = True
         Me.cmddroptypeofcompile.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList
-        RadListDataItem5.Text = "Release"
-        RadListDataItem6.Text = "Debug"
-        Me.cmddroptypeofcompile.Items.Add(RadListDataItem5)
-        Me.cmddroptypeofcompile.Items.Add(RadListDataItem6)
+        RadListDataItem1.Text = "Release"
+        RadListDataItem2.Text = "Debug"
+        Me.cmddroptypeofcompile.Items.Add(RadListDataItem1)
+        Me.cmddroptypeofcompile.Items.Add(RadListDataItem2)
         Me.cmddroptypeofcompile.MaxDropDownItems = 0
         Me.cmddroptypeofcompile.Name = "cmddroptypeofcompile"
         Me.cmddroptypeofcompile.NullText = "Release"
@@ -513,7 +513,7 @@ Partial Class main
         Me.RadCommandBar1.Location = New System.Drawing.Point(0, 25)
         Me.RadCommandBar1.Name = "RadCommandBar1"
         Me.RadCommandBar1.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.commandbarrow})
-        Me.RadCommandBar1.Size = New System.Drawing.Size(1318, 30)
+        Me.RadCommandBar1.Size = New System.Drawing.Size(1318, 55)
         Me.RadCommandBar1.TabIndex = 2
         Me.RadCommandBar1.ThemeName = "Office2019Dark"
         '
