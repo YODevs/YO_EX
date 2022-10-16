@@ -13,6 +13,57 @@ Public Class proj
         load_treeview_of_project(location)
     End Sub
 
+    Friend Shared Sub remove_a_project(path As String)
+        Dim projectname As String = String.Empty
+        For index = 0 To main.treeproject.Nodes.Count - 1
+            If main.treeproject.Nodes(index).Tag = path Then
+                projectname = main.treeproject.Nodes(index).Text
+                main.treeproject.Nodes(index).Remove()
+                Exit For
+            End If
+        Next
+
+        If projectname = String.Empty Then Return
+        remove_project_at_projectlist(projectname)
+        close_tabs_of_project(path)
+        check_open_tabs()
+        remove_a_project_inlist(path)
+    End Sub
+
+    Friend Shared Sub remove_project_at_projectlist(projectname As String)
+        For index = 0 To main.cmddropprojectlist.Items.Count - 1
+            If main.cmddropprojectlist.Items(index).Text = projectname Then
+                main.cmddropprojectlist.Items.RemoveAt(index)
+                Exit For
+            End If
+        Next
+    End Sub
+
+    Friend Shared Sub close_tabs_of_project(path As String)
+        Dim lspage As New YOLIB.list
+        For index = 0 To main.tabs.Pages.Count - 1
+            Dim pagetag As String = main.tabs.Pages(index).Tag
+            If pagetag = String.Empty Then Continue For
+            If pagetag.StartsWith(path) Then
+                lspage.add(index)
+            End If
+        Next
+
+        For index = 0 To lspage.count - 1
+            main.tabs.Pages.RemoveAt(lspage.get(index))
+        Next
+    End Sub
+
+    Friend Shared Sub remove_a_project_inlist(path As String)
+        For index = 0 To projectlist.Count - 1
+            If projectlist(index) = path & "\labra.yoda" Then
+                projectlist.RemoveAt(index)
+                Exit For
+            End If
+        Next
+        File.WriteAllText(conrex.PROJECTLISTFILE, yodaprojectlist.WriteYODA(projectlist, True))
+    End Sub
+
     Friend Shared Sub load_project()
         yodaprojectlist = New YOLIB.yoda
         fileopenlist = yodaprojectlist.ReadYODA(File.ReadAllText(conrex.FILEOPENLIST))
