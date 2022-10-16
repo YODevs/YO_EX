@@ -24,8 +24,8 @@ Partial Class main
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
-        Dim RadListDataItem1 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem2 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Me.VisualStudio2022LightTheme1 = New Telerik.WinControls.Themes.VisualStudio2022LightTheme()
         Me.Office2019DarkTheme1 = New Telerik.WinControls.Themes.Office2019DarkTheme()
         Me.RadStatusStrip1 = New Telerik.WinControls.UI.RadStatusStrip()
@@ -70,6 +70,7 @@ Partial Class main
         Me.cmdbtnbuild = New Telerik.WinControls.UI.CommandBarButton()
         Me.RadCommandBar1 = New Telerik.WinControls.UI.RadCommandBar()
         Me.iconslist = New System.Windows.Forms.ImageList(Me.components)
+        Me.contextremoveproject = New Telerik.WinControls.UI.RadMenuItem()
         CType(Me.RadStatusStrip1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadMenu1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadSplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -257,7 +258,8 @@ Partial Class main
         '
         'projectlistcontextmenu
         '
-        Me.projectlistcontextmenu.Items.AddRange(New Telerik.WinControls.RadItem() {Me.contextaddproject, Me.contextresetproject})
+        Me.projectlistcontextmenu.Items.AddRange(New Telerik.WinControls.RadItem() {Me.contextaddproject, Me.contextremoveproject, Me.contextresetproject})
+        Me.projectlistcontextmenu.ThemeName = "VisualStudio2022Light"
         '
         'contextaddproject
         '
@@ -483,10 +485,10 @@ Partial Class main
         Me.cmddroptypeofcompile.DisplayName = "Compile Mode"
         Me.cmddroptypeofcompile.DropDownAnimationEnabled = True
         Me.cmddroptypeofcompile.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList
-        RadListDataItem1.Text = "Release"
-        RadListDataItem2.Text = "Debug"
-        Me.cmddroptypeofcompile.Items.Add(RadListDataItem1)
-        Me.cmddroptypeofcompile.Items.Add(RadListDataItem2)
+        RadListDataItem5.Text = "Release"
+        RadListDataItem6.Text = "Debug"
+        Me.cmddroptypeofcompile.Items.Add(RadListDataItem5)
+        Me.cmddroptypeofcompile.Items.Add(RadListDataItem6)
         Me.cmddroptypeofcompile.MaxDropDownItems = 0
         Me.cmddroptypeofcompile.Name = "cmddroptypeofcompile"
         Me.cmddroptypeofcompile.NullText = "Release"
@@ -523,6 +525,11 @@ Partial Class main
         Me.iconslist.TransparentColor = System.Drawing.Color.Transparent
         Me.iconslist.Images.SetKeyName(0, "main-newproject.png")
         Me.iconslist.Images.SetKeyName(1, "main-import.png")
+        '
+        'contextremoveproject
+        '
+        Me.contextremoveproject.Name = "contextremoveproject"
+        Me.contextremoveproject.Text = "Remove Project Folder"
         '
         'main
         '
@@ -615,5 +622,6 @@ Partial Class main
     Friend WithEvents cmddroptypeofcompile As Telerik.WinControls.UI.CommandBarDropDownList
     Friend WithEvents cmdbtnaction As Telerik.WinControls.UI.CommandBarButton
     Friend WithEvents cmdbtnbuild As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents contextremoveproject As Telerik.WinControls.UI.RadMenuItem
 End Class
 

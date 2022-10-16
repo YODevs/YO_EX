@@ -143,4 +143,14 @@ Public Class main
         End If
         gen.execute(cmddropprojectlist.SelectedItem.Value, True)
     End Sub
+
+    Private Sub contextremoveproject_Click(sender As Object, e As EventArgs) Handles contextremoveproject.Click
+        Try
+            If treeproject.SelectedNode.FullPath.Contains("\") = False Then
+                proj.remove_a_project(treeproject.SelectedNode.Tag)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class
