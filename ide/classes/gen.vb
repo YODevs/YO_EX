@@ -9,6 +9,7 @@ Public Class gen
         show_report_form()
         Dim command As String = "run"
         If justbuild Then command = "build"
+        load_def_params(command)
         Dim yocaproc As New System.Diagnostics.Process()
         With yocaproc.StartInfo
             .FileName = "yoca.exe"
@@ -30,6 +31,24 @@ Public Class gen
         yocaproc.WaitForExit()
         report.get_update("-end")
     End Sub
+
+    Private Shared Sub load_def_params(ByRef command As String)
+        If command = "run" Then
+            command &= load_params("runparams")
+        ElseIf command = "build" Then
+            command &= load_params("buildparams")
+        Else
+            Return
+        End If
+    End Sub
+
+    Private Shared Function load_params(filename As String) As String
+        Dim fileloc As String = conrex.EXTENSIONDIR & filename
+        If File.Exists(fileloc) Then
+            Return " " & File.ReadAllText(fileloc)
+        End If
+        Return String.Empty
+    End Function
 
     Public Shared Sub show_report_form()
         Dim repthread As New System.Threading.Thread(AddressOf thread_start_report)
