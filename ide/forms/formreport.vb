@@ -15,7 +15,10 @@
     Private Sub update_progressbar_value(val As String)
         If val.Trim = String.Empty Then Return
         If val = "-end" Then
-            If isfail = False Then Return
+            If isfail = False Then
+                Me.Close()
+                Return
+            End If
             progressbar.Text = "Error !"
         End If
         Select Case val.Trim
