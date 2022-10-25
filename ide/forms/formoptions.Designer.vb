@@ -24,6 +24,26 @@ Partial Class formoptions
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(formoptions))
+        Dim ListViewDataItem1 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--benchmark | [Run] View benchmark and process execution status")
+        Dim ListViewDataItem2 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--compile_time | Display project compilation time")
+        Dim ListViewDataItem3 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--import_assets | Copy dependencies and assets from the assets folder to the outp" &
+        "ut")
+        Dim ListViewDataItem4 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--execution_time | [Run]  Measuring the execution time of the called process")
+        Dim ListViewDataItem5 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--dev | Enable compiler development mode, which disables the cache unit and gener" &
+        "ates IL codes and more")
+        Dim ListViewDataItem6 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--no_cache | Disable the use of project caches in the compiler(YOCA)")
+        Dim ListViewDataItem7 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--stack_trace | View and track details of compiler problems at runtime")
+        Dim ListViewDataItem8 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--disable_warnings | Hide all compiler warnings and notifications")
+        Dim ListViewDataItem9 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--disable_assertion | Disabling all assertions during compilation")
+        Dim ListViewDataItem10 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--display_token | Display and print tokens while analyzing source code (lexical a" &
+        "nalysis)")
+        Dim ListViewDataItem11 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--debug | Disable JIT optimization, create PDB file, use sequence points from PDB" &
+        "")
+        Dim ListViewDataItem12 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--debug_impl | Disable JIT optimization, create PDB file, use implicit sequence p" &
+        "oints")
+        Dim ListViewDataItem13 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--debug_opt | Enable JIT optimization, create PDB file, use implicit sequence poi" &
+        "nts")
+        Dim ListViewDataItem14 As Telerik.WinControls.UI.ListViewDataItem = New Telerik.WinControls.UI.ListViewDataItem("--mute_process | Hide all logs and do not show the process when compiling")
         Me.Office2019DarkTheme1 = New Telerik.WinControls.Themes.Office2019DarkTheme()
         Me.tabs = New Telerik.WinControls.UI.RadPageView()
         Me.textension = New Telerik.WinControls.UI.RadPageViewPage()
@@ -48,7 +68,14 @@ Partial Class formoptions
         Me.rlistofconstant = New FastColoredTextBoxNS.FastColoredTextBox()
         Me.RadLabel4 = New Telerik.WinControls.UI.RadLabel()
         Me.RadButton4 = New Telerik.WinControls.UI.RadButton()
-        Me.RadPageViewPage1 = New Telerik.WinControls.UI.RadPageViewPage()
+        Me.tparameters = New Telerik.WinControls.UI.RadPageViewPage()
+        Me.RadGroupBox1 = New Telerik.WinControls.UI.RadGroupBox()
+        Me.RadButton6 = New Telerik.WinControls.UI.RadButton()
+        Me.buildparamtext = New Telerik.WinControls.UI.RadTextBox()
+        Me.RadLabel6 = New Telerik.WinControls.UI.RadLabel()
+        Me.chlistparameters = New Telerik.WinControls.UI.RadCheckedListBox()
+        Me.runparamtext = New Telerik.WinControls.UI.RadTextBox()
+        Me.RadLabel7 = New Telerik.WinControls.UI.RadLabel()
         CType(Me.tabs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabs.SuspendLayout()
         Me.textension.SuspendLayout()
@@ -74,19 +101,28 @@ Partial Class formoptions
         CType(Me.rlistofconstant, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadButton4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tparameters.SuspendLayout()
+        CType(Me.RadGroupBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.RadGroupBox1.SuspendLayout()
+        CType(Me.RadButton6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.buildparamtext, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chlistparameters, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.runparamtext, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tabs
         '
         Me.tabs.Controls.Add(Me.textension)
-        Me.tabs.Controls.Add(Me.RadPageViewPage1)
+        Me.tabs.Controls.Add(Me.tparameters)
         Me.tabs.DefaultPage = Me.textension
         Me.tabs.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tabs.Location = New System.Drawing.Point(0, 0)
         Me.tabs.Margin = New System.Windows.Forms.Padding(0)
         Me.tabs.Name = "tabs"
-        Me.tabs.SelectedPage = Me.textension
+        Me.tabs.SelectedPage = Me.tparameters
         Me.tabs.Size = New System.Drawing.Size(827, 527)
         Me.tabs.TabIndex = 0
         Me.tabs.ThemeName = "Office2019Dark"
@@ -105,7 +141,7 @@ Partial Class formoptions
         '
         Me.textension.Controls.Add(Me.tab2)
         Me.textension.Description = Nothing
-        Me.textension.ItemSize = New System.Drawing.SizeF(69.0!, 29.0!)
+        Me.textension.ItemSize = New System.Drawing.SizeF(78.0!, 29.0!)
         Me.textension.Location = New System.Drawing.Point(133, 37)
         Me.textension.Name = "textension"
         Me.textension.Size = New System.Drawing.Size(692, 488)
@@ -479,13 +515,108 @@ Partial Class formoptions
         Me.RadButton4.Text = "Save Data"
         Me.RadButton4.ThemeName = "Office2019Dark"
         '
-        'RadPageViewPage1
+        'tparameters
         '
-        Me.RadPageViewPage1.ItemSize = New System.Drawing.SizeF(69.0!, 29.0!)
-        Me.RadPageViewPage1.Location = New System.Drawing.Point(133, 37)
-        Me.RadPageViewPage1.Name = "RadPageViewPage1"
-        Me.RadPageViewPage1.Size = New System.Drawing.Size(698, 516)
-        Me.RadPageViewPage1.Text = "More ..."
+        Me.tparameters.Controls.Add(Me.RadGroupBox1)
+        Me.tparameters.Controls.Add(Me.chlistparameters)
+        Me.tparameters.ItemSize = New System.Drawing.SizeF(78.0!, 29.0!)
+        Me.tparameters.Location = New System.Drawing.Point(133, 37)
+        Me.tparameters.Name = "tparameters"
+        Me.tparameters.Size = New System.Drawing.Size(692, 488)
+        Me.tparameters.Text = "Parameters"
+        '
+        'RadGroupBox1
+        '
+        Me.RadGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping
+        Me.RadGroupBox1.Controls.Add(Me.runparamtext)
+        Me.RadGroupBox1.Controls.Add(Me.RadLabel7)
+        Me.RadGroupBox1.Controls.Add(Me.RadButton6)
+        Me.RadGroupBox1.Controls.Add(Me.buildparamtext)
+        Me.RadGroupBox1.Controls.Add(Me.RadLabel6)
+        Me.RadGroupBox1.HeaderMargin = New System.Windows.Forms.Padding(1)
+        Me.RadGroupBox1.HeaderText = "Outputs"
+        Me.RadGroupBox1.Location = New System.Drawing.Point(7, 20)
+        Me.RadGroupBox1.Name = "RadGroupBox1"
+        Me.RadGroupBox1.Size = New System.Drawing.Size(679, 100)
+        Me.RadGroupBox1.TabIndex = 3
+        Me.RadGroupBox1.Text = "Outputs"
+        Me.RadGroupBox1.ThemeName = "Office2019Dark"
+        '
+        'RadButton6
+        '
+        Me.RadButton6.Location = New System.Drawing.Point(572, 42)
+        Me.RadButton6.Name = "RadButton6"
+        Me.RadButton6.Size = New System.Drawing.Size(88, 24)
+        Me.RadButton6.TabIndex = 10
+        Me.RadButton6.Text = "Save Data"
+        Me.RadButton6.ThemeName = "Office2019Dark"
+        '
+        'buildparamtext
+        '
+        Me.buildparamtext.Location = New System.Drawing.Point(98, 30)
+        Me.buildparamtext.Name = "buildparamtext"
+        Me.buildparamtext.NullText = "Ex: --no_cache"
+        Me.buildparamtext.Size = New System.Drawing.Size(452, 22)
+        Me.buildparamtext.TabIndex = 2
+        Me.buildparamtext.ThemeName = "Office2019Dark"
+        '
+        'RadLabel6
+        '
+        Me.RadLabel6.Location = New System.Drawing.Point(28, 31)
+        Me.RadLabel6.Name = "RadLabel6"
+        Me.RadLabel6.Size = New System.Drawing.Size(63, 19)
+        Me.RadLabel6.TabIndex = 1
+        Me.RadLabel6.Text = "yoca build"
+        Me.RadLabel6.ThemeName = "Office2019Dark"
+        '
+        'chlistparameters
+        '
+        Me.chlistparameters.GroupItemSize = New System.Drawing.Size(200, 24)
+        ListViewDataItem1.Text = "--benchmark | [Run] View benchmark and process execution status"
+        ListViewDataItem2.Text = "--compile_time | Display project compilation time"
+        ListViewDataItem3.Text = "--import_assets | Copy dependencies and assets from the assets folder to the outp" &
+    "ut"
+        ListViewDataItem4.Text = "--execution_time | [Run]  Measuring the execution time of the called process"
+        ListViewDataItem5.Text = "--dev | Enable compiler development mode, which disables the cache unit and gener" &
+    "ates IL codes and more"
+        ListViewDataItem6.Text = "--no_cache | Disable the use of project caches in the compiler(YOCA)"
+        ListViewDataItem7.Text = "--stack_trace | View and track details of compiler problems at runtime"
+        ListViewDataItem8.Text = "--disable_warnings | Hide all compiler warnings and notifications"
+        ListViewDataItem9.Text = "--disable_assertion | Disabling all assertions during compilation"
+        ListViewDataItem10.Text = "--display_token | Display and print tokens while analyzing source code (lexical a" &
+    "nalysis)"
+        ListViewDataItem11.Text = "--debug | Disable JIT optimization, create PDB file, use sequence points from PDB" &
+    ""
+        ListViewDataItem12.Text = "--debug_impl | Disable JIT optimization, create PDB file, use implicit sequence p" &
+    "oints"
+        ListViewDataItem13.Text = "--debug_opt | Enable JIT optimization, create PDB file, use implicit sequence poi" &
+    "nts"
+        ListViewDataItem14.Text = "--mute_process | Hide all logs and do not show the process when compiling"
+        Me.chlistparameters.Items.AddRange(New Telerik.WinControls.UI.ListViewDataItem() {ListViewDataItem1, ListViewDataItem2, ListViewDataItem3, ListViewDataItem4, ListViewDataItem5, ListViewDataItem6, ListViewDataItem7, ListViewDataItem8, ListViewDataItem9, ListViewDataItem10, ListViewDataItem11, ListViewDataItem12, ListViewDataItem13, ListViewDataItem14})
+        Me.chlistparameters.ItemSize = New System.Drawing.Size(200, 24)
+        Me.chlistparameters.Location = New System.Drawing.Point(7, 138)
+        Me.chlistparameters.Name = "chlistparameters"
+        Me.chlistparameters.Size = New System.Drawing.Size(679, 340)
+        Me.chlistparameters.TabIndex = 0
+        Me.chlistparameters.ThemeName = "Office2019Dark"
+        '
+        'runparamtext
+        '
+        Me.runparamtext.Location = New System.Drawing.Point(98, 58)
+        Me.runparamtext.Name = "runparamtext"
+        Me.runparamtext.NullText = "Ex: --no_cache"
+        Me.runparamtext.Size = New System.Drawing.Size(452, 22)
+        Me.runparamtext.TabIndex = 4
+        Me.runparamtext.ThemeName = "Office2019Dark"
+        '
+        'RadLabel7
+        '
+        Me.RadLabel7.Location = New System.Drawing.Point(28, 59)
+        Me.RadLabel7.Name = "RadLabel7"
+        Me.RadLabel7.Size = New System.Drawing.Size(53, 19)
+        Me.RadLabel7.TabIndex = 3
+        Me.RadLabel7.Text = "yoca run"
+        Me.RadLabel7.ThemeName = "Office2019Dark"
         '
         'formoptions
         '
@@ -527,6 +658,16 @@ Partial Class formoptions
         CType(Me.rlistofconstant, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadButton4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tparameters.ResumeLayout(False)
+        CType(Me.RadGroupBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.RadGroupBox1.ResumeLayout(False)
+        Me.RadGroupBox1.PerformLayout()
+        CType(Me.RadButton6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.buildparamtext, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chlistparameters, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.runparamtext, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -535,7 +676,7 @@ Partial Class formoptions
     Friend WithEvents Office2019DarkTheme1 As Telerik.WinControls.Themes.Office2019DarkTheme
     Friend WithEvents tabs As Telerik.WinControls.UI.RadPageView
     Friend WithEvents textension As Telerik.WinControls.UI.RadPageViewPage
-    Friend WithEvents RadPageViewPage1 As Telerik.WinControls.UI.RadPageViewPage
+    Friend WithEvents tparameters As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents tab2 As Telerik.WinControls.UI.RadPageView
     Friend WithEvents tkeywords As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents tdatatype As Telerik.WinControls.UI.RadPageViewPage
@@ -557,5 +698,12 @@ Partial Class formoptions
     Friend WithEvents rlistofmodifiers As FastColoredTextBoxNS.FastColoredTextBox
     Friend WithEvents RadLabel5 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents RadButton5 As Telerik.WinControls.UI.RadButton
+    Friend WithEvents chlistparameters As Telerik.WinControls.UI.RadCheckedListBox
+    Friend WithEvents buildparamtext As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents RadLabel6 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents RadGroupBox1 As Telerik.WinControls.UI.RadGroupBox
+    Friend WithEvents RadButton6 As Telerik.WinControls.UI.RadButton
+    Friend WithEvents runparamtext As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents RadLabel7 As Telerik.WinControls.UI.RadLabel
 End Class
 

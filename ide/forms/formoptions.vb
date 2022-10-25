@@ -70,4 +70,31 @@ Public Class formoptions
     Private Sub fromoptions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         load_extension()
     End Sub
+
+    Private Sub chlistparameters_ItemCheckedChanged(sender As Object, e As Telerik.WinControls.UI.ListViewItemEventArgs) Handles chlistparameters.ItemCheckedChanged
+        buildparamtext.Text = String.Empty
+        runparamtext.Text = String.Empty
+        For index = 0 To chlistparameters.Items.Count - 1
+            If chlistparameters.Items(index).CheckState = Telerik.WinControls.Enumerations.ToggleState.On Then
+                Dim val As String = chlistparameters.Items(index).Value
+                If val.Contains("| [Run] ") Then
+                    val = val.Remove(val.IndexOf("|")).Trim
+                    runparamtext.Text &= val & " "
+                ElseIf val.Contains("| [Build] ") Then
+                    val = val.Remove(val.IndexOf("|")).Trim
+                    buildparamtext.Text &= val & " "
+                Else
+                    val = val.Remove(val.IndexOf("|")).Trim
+                    buildparamtext.Text &= val & " "
+                    runparamtext.Text &= val & " "
+                End If
+            End If
+        Next
+    End Sub
+
+    Private Sub RadButton6_Click(sender As Object, e As EventArgs) Handles RadButton6.Click
+        File.WriteAllText(conrex.EXTENSIONDIR & "runparams", runparamtext.Text)
+        File.WriteAllText(conrex.EXTENSIONDIR & "buildparams", buildparamtext.Text)
+        MsgBox("Data has been saved successfully.", MsgBoxStyle.Information)
+    End Sub
 End Class
