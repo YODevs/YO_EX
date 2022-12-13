@@ -79,6 +79,9 @@ Public Class libserv
         Return Nothing
     End Function
 
+    Friend Shared Function get_event_type(eventindex As Integer, namespaceindex As Integer, classindex As Integer) As EventInfo
+        Return libreg.types(namespaceindex)(classindex).GetEvents()(eventindex)
+    End Function
     Friend Shared Function get_nested_type(nestedtypeindex As Integer, namespaceindex As Integer, classindex As Integer) As Type
         Return libreg.types(namespaceindex)(classindex).GetNestedTypes()(nestedtypeindex)
     End Function
@@ -226,6 +229,19 @@ Public Class libserv
             retcode = 0
         Next
         Return retcode
+    End Function
+
+    Friend Shared Function get_index_event(ByRef eventname As String, namespaceindex As Integer, classindex As Integer) As Integer
+        Dim eventtolower As String = eventname.ToLower
+        Dim index As Integer = 0
+        For Each gmember In libreg.types(namespaceindex)(classindex).GetEvents
+            If eventtolower = gmember.Name.ToLower Then
+                eventname = gmember.Name
+                Return index
+            End If
+            index += 1
+        Next
+        Return -1
     End Function
 
     Friend Shared Function get_index_enum(ByRef enumname As String, namespaceindex As Integer, classindex As Integer) As Integer
