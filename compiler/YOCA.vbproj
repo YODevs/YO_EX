@@ -228,6 +228,7 @@
     <Compile Include="yogeb\cil.vb" />
     <Compile Include="yogeb\condproc.vb" />
     <Compile Include="yogeb\convtc.vb" />
+    <Compile Include="yogeb\eventst.vb" />
     <Compile Include="yogeb\exceptioninner.vb" />
     <Compile Include="yogeb\fmtstrlit.vb" />
     <Compile Include="yogeb\foreachloop.vb" />
