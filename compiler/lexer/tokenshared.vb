@@ -48,6 +48,7 @@
         _token.Add(token.br, "br")
         _token.Add(token.AWAIT, "await")
         _token.Add(token.ASSERT, "assert")
+        _token.Add(token.ADDHANDLER, "addhandler")
 
         _tokensym.Add(token.ASSIDB, ":=")
         _tokensym.Add(token.R2KO, "<<")
@@ -247,5 +248,6 @@
         AWAIT = 100
         ASSERT = 101
         METHODATTRIBUTE = 102
+        [ADDHANDLER] = 103
     End Enum
 End Class

@@ -158,6 +158,9 @@
             Case tokenhared.token.LOOP
                 Dim infinityloop As New infloop(_ilmethod)
                 _ilmethod = infinityloop.set_infinity_loop(clinecodestruc, _illocalinit, localinit)
+            Case tokenhared.token.ADDHANDLER
+                Dim eventclass As New eventst(_ilmethod)
+                _ilmethod = eventclass.set_event_st(clinecodestruc, _illocalinit, localinit)
             Case tokenhared.token.TRY
                 Dim trysys As New exceptioninner(_ilmethod)
                 _ilmethod = trysys.set_try_block(clinecodestruc, _illocalinit, localinit)
