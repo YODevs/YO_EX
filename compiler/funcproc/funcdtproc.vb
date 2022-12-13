@@ -204,6 +204,16 @@
     Friend Shared Function get_method_info(classindex As Integer, methodindex As Integer) As tknformat._method
         Return reffunc(classindex).methods(methodindex)
     End Function
+    Friend Shared Function get_method_info(classindex As Integer, methodname As String) As tknformat._method
+        If IsNothing(reffunc(classindex).methods) Then Return Nothing
+        methodname = methodname.ToLower
+        For index = 0 To reffunc(classindex).methods.Length - 1
+            If reffunc(classindex).methods(index).name.ToLower = methodname Then
+                Return reffunc(classindex).methods(index)
+            End If
+        Next
+        Return Nothing
+    End Function
 
     Friend Shared Function get_index_field(ByRef identifier As String, classindex As Integer) As Integer
         If IsNothing(reffunc(classindex).fields) Then Return -1
