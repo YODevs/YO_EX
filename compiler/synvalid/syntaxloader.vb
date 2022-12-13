@@ -17,6 +17,7 @@
         [ELSE]
         [FOR]
         REPEAT
+        [EVENT]
     End Enum
 
     Structure syntaxtypesloader
@@ -73,6 +74,17 @@
         st_for()
         'Repeat Statement
         st_repeat()
+        'Event Handler
+        st_event()
+    End Sub
+
+    Private Shared Sub st_event()
+        Dim exptokenslist As New ArrayList
+        add_token(exptokenslist, tokenhared.token.ADDHANDLER)
+        add_token(exptokenslist, tokenhared.token.IDENTIFIER)
+        add_token(exptokenslist, tokenhared.token.CMA)
+        add_token(exptokenslist, tokenhared.token.IDENTIFIER)
+        set_syntax_loader(statements.EVENT, "Event Handler", exptokenslist, "addhandler myobj::event , yourfuncname ")
     End Sub
 
     Private Shared Sub st_repeat()
