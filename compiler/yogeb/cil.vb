@@ -158,6 +158,36 @@
         codes.Add(code)
     End Sub
 
+    Friend Shared Sub push_pointer_to_methodref(ByRef codes As ArrayList, returntype As String, classprop As String, methodname As String, paramtypes As ArrayList, Optional setinstance As Boolean = False)
+        methodname = cilkeywordchecker.get_key(methodname)
+        classprop = cilkeywordchecker.get_key(classprop)
+        returntype = cilkeywordchecker.get_key(returntype)
+        Dim code As String = "ldftn "
+        If setinstance Then
+            code &= " instance "
+        End If
+        If returntype = Nothing Then
+            code &= "void"
+        Else
+            code &= returntype
+        End If
+        code &= conrex.SPACE
+        code &= String.Format("{0}::{1}", classprop, methodname)
+        If IsNothing(paramtypes) OrElse paramtypes.Count = 0 Then
+            code &= "()"
+        Else
+            code &= conrex.PRSTART
+            For index = 0 To paramtypes.Count - 1
+                If index = paramtypes.Count - 1 Then
+                    code &= paramtypes(index) & conrex.PREND
+                Else
+                    code &= paramtypes(index) & conrex.CMA
+                End If
+            Next
+        End If
+        codes.Add(code)
+    End Sub
+
     Public Shared Sub ldsflda(ByRef codes As ArrayList, name As String)
         name = cilkeywordchecker.get_key(name)
         codes.Add("ldsflda " & name)
