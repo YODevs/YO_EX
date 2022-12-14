@@ -117,6 +117,9 @@
     <Compile Include="matrix.vb" />
     <Compile Include="menu.vb" />
     <Compile Include="net\http.vb" />
+    <Compile Include="net\tcp.vb" />
+    <Compile Include="net\tcplistener.vb" />
+    <Compile Include="net\udp.vb" />
     <Compile Include="range.vb" />
     <Compile Include="rdsresult.vb" />
     <Compile Include="yodefopt\AssemblyInfo.vb" />
