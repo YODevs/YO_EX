@@ -1,0 +1,47 @@
+#[app::classname("tcpexample")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yolib'
+
+public static let port : i32 = 0
+public static let imsg : i32 = 0
+func main()
+{
+  port := [i32] io::getln("Port: ")
+  let command : str = yolib.menu::show_menu("!['TCP Client','TCP Server']")
+  if(command == "TCP Client")
+  {
+    tcp_client()
+  }else{
+    tcp_server()
+  }
+}
+
+func tcp_client()
+{
+  loop{
+   let tcp : init yolib.tcp(port)
+   let message : str = io::getln("Message: ")
+   let response : str = tcp::send(message)
+   io::println(response)
+  }
+}
+
+
+func tcp_server()
+{
+  let srv : init yolib.tcplistener(port)
+  srv::start()
+  addhandler srv::on_message , on_message
+  io::clear()
+  io::println("Listening ... ")
+}
+
+func on_message(data : str , response : str&)
+{
+  imsg += 1
+  let date : str = yolib.date::get_now("{Y}/{M}/{D} - {h}:{m}.{s}")
+  io::println("#{imsg} , #{date}  ~> #{data}")
+  response := "#{imsg}~> OK !"
+}
