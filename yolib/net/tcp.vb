@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports System.Net.Sockets
+Imports System.Text
 
 Public Class tcp
     Dim stcpclient As System.Net.Sockets.TcpClient
@@ -15,6 +16,9 @@ Public Class tcp
     End Sub
 
     Public Function send(text As String) As String
+        If connected = False Then
+            stcpclient.Connect(host, port)
+        End If
         Dim networkstream As NetworkStream = stcpclient.GetStream()
         If networkstream.CanRead = False Then
             stcpclient.Close()
@@ -25,9 +29,12 @@ Public Class tcp
         End If
         Dim sbytes As [Byte]() = encoding.ascii_get_bytes(text)
         networkstream.Write(sbytes, 0, sbytes.Length)
-        Dim bytes(stcpclient.ReceiveBufferSize) As Byte
-        networkstream.Read(bytes, 0, CInt(stcpclient.ReceiveBufferSize))
-        Return encoding.ascii_get_string(bytes)
+        Dim streader As New IO.StreamReader(networkstream)
+        Dim sbuilder As New StringBuilder
+        While streader.Peek > -1
+            sbuilder.Append(Convert.ToChar(streader.Read()).ToString)
+        End While
+        Return sbuilder.ToString
     End Function
 
     Public Sub close()
