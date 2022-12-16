@@ -255,13 +255,15 @@
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
-                                cil.ldsflda(_ilmethod.codes, pnvar)
+                                cil.ldsflda(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
+                                '  cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
                                 cil.load_static_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         Else
                             If ldindx Then
-                                cil.ldflda(_ilmethod.codes, pnvar)
+                                cil.ldsflda(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
+                                '  cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
                                 cil.load_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
@@ -269,7 +271,8 @@
                     Else
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
-                                cil.ldsflda(_ilmethod.codes, pnvar)
+                                cil.ldsflda(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
+                                '  cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
                                 cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
@@ -287,13 +290,15 @@
                     If IsNothing(nactorcode) = False Then
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
-                                cil.ldsflda(_ilmethod.codes, pnvar)
+                                cil.ldsflda(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
+                                '  cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
                                 cil.load_static_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         Else
                             If ldindx Then
-                                cil.ldflda(_ilmethod.codes, pnvar)
+                                cil.ldsflda(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
+                                '  cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
                                 cil.load_field(nactorcode, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
@@ -301,13 +306,15 @@
                     Else
                         If ilasmgen.classdata.fields(index).objcontrol.modifier = tokenhared.token.STATIC Then
                             If ldindx Then
-                                cil.ldsflda(_ilmethod.codes, pnvar)
+                                cil.ldsflda(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
+                                '  cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
                                 cil.load_static_field(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If
                         Else
                             If ldindx Then
-                                cil.ldflda(_ilmethod.codes, pnvar)
+                                cil.ldsflda(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
+                                '  cil.ldsflda(_ilmethod.codes, pnvar)
                             Else
                                 cil.load_field(_ilmethod.codes, ilasmgen.fields(index).typeinf, pnvar, classname)
                             End If

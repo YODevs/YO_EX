@@ -192,6 +192,24 @@
         name = cilkeywordchecker.get_key(name)
         codes.Add("ldsflda " & name)
     End Sub
+    Public Shared Sub ldsflda(ByRef codes As ArrayList, typeinf As ilformat._typeinfo, name As String, classname As String)
+        name = cilkeywordchecker.get_key(name)
+        classname = cilkeywordchecker.get_key(classname)
+        If typeinf.isprimitive Then
+            Dim ptype As String = cilkeywordchecker.get_key(typeinf.cdttypesymbol)
+            If typeinf.isarray Then
+                ptype &= conrex.BRSTEN
+            End If
+            codes.Add(String.Format("ldsflda {0} {1}::{2}", ptype, classname, name))
+        Else
+            Dim externlib As String = cilkeywordchecker.get_key(typeinf.externlib)
+            Dim ptype As String = cilkeywordchecker.get_key(typeinf.fullname)
+            If typeinf.isarray Then
+                ptype &= conrex.BRSTEN
+            End If
+            codes.Add(String.Format("ldsflda class [{3}]{0} {1}::{2}", ptype, classname, name, externlib))
+        End If
+    End Sub
     Public Shared Sub ldelem(ByRef codes As ArrayList, Optional datatype As String = Nothing)
         Select Case datatype
             Case compdt.INT32
