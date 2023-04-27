@@ -2,12 +2,13 @@
 Imports System.Net
 
 Public Class http
-
+    Private subthread As System.Threading.Thread
     Public backupwebreq As HttpWebRequest
     Public webreq As HttpWebRequest
     Public webres As WebResponse
     Public statuscode As Int32
     Public charset, contentencoding, contentlength, contenttype, method, server, protocolversion, status, isfromcache As String
+    Public Event on_response(responsedata As String)
     Public Sub New()
         ServicePointManager.SecurityProtocol = DirectCast(3072, SecurityProtocolType)
         backupwebreq = HttpWebRequest.Create("http://localhost/")
@@ -33,10 +34,30 @@ Public Class http
         Return get_response_stream(webreq.GetResponse())
     End Function
 
+    Public Sub send2(url As String)
+        subthread = New System.Threading.Thread(AddressOf send_async)
+        subthread.Start(url)
+    End Sub
+
+    Private Sub send_async(url As String)
+        RaiseEvent on_response(send(url))
+    End Sub
+
     Public Function send_post(url As String, postdata As String) As String
         Dim postdatabyte As Byte() = encoding.utf8_get_bytes(postdata)
         Return send_post(url, postdatabyte)
     End Function
+    Public Sub send_post2(url As String, postdata As String)
+        Dim param(2) As Object
+        param(0) = url
+        param(1) = postdata
+        subthread = New System.Threading.Thread(AddressOf send_post_async)
+        subthread.Start(param)
+    End Sub
+
+    Private Sub send_post_async(param() As Object)
+        RaiseEvent on_response(send_post(param(0).ToString, param(1).ToString))
+    End Sub
 
     Public Function send_post(url As String, postdata() As Byte) As String
         webreq = HttpWebRequest.Create(url)
