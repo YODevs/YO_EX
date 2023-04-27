@@ -1,0 +1,18 @@
+#[app::classname("http_req")]
+#[app::wait(true)]
+include 'ystdio'
+include 'yolib'
+
+func main()
+{
+  let req : init yolib.http()
+  addhandler req::on_response , get_response
+  req::send2("http://worldtimeapi.org/api/ip")
+  io::println("Wait for request ...")
+}
+
+func get_response(res:str)
+{
+  io::clear()
+  io::print(res)
+}
