@@ -1,0 +1,37 @@
+#[app::classname("xmlserializer")]
+extern System.Xml
+
+public static func serialize(uobj : obj , path : str )
+{
+  let type : system.type = uobj::gettype
+  let xmlserialzer : init system.xml.serialization.xmlserializer(type)
+  let sw : init system.io.streamwriter(path)
+  let stream : system.io.stream = sw::basestream
+  xmlserialzer::serialize(stream,uobj)
+  sw::close()
+}
+
+public static func deserialize(uobj : obj& , path : str )
+{
+  let type : system.type = uobj::gettype
+  let xmlserialzer : init system.xml.serialization.xmlserializer(type)
+  let sr : init system.io.streamreader(path)
+  let stream : system.io.stream = sr::basestream
+  uobj := xmlserialzer::deserialize(stream)
+  sr::close()
+}
+
+
+#- Example :
+let ud : init userdata()
+ud::name := "Jimmy"
+ud::theme := "Dark"
+ud::plan := 5
+let ob : obj = [box]ud
+myserializer::serialize(ob,"C:\...\data.xml")
+
+let ud2 : init userdata()
+myserializer::deserialize(ob,"C:\...\data.xml")
+ud2 := [box]ob
+io::println(" Name : #{ud2::name} #nl Theme : #{ud2::theme} #nl Plan : #{ud2::plan}")
+-#
