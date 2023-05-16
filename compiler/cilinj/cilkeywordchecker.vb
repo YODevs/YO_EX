@@ -103,6 +103,7 @@
         import_cil_keyword("array")
         import_cil_keyword("as")
         import_cil_keyword("date")
+        import_cil_keyword("stream")
         netcorerectifier.keychecklistcount = netcorerectifier.cilcheckassembly.Count - 1
     End Sub
 
