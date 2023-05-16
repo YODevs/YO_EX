@@ -598,7 +598,12 @@
     Public Shared Sub box(ByRef codes As ArrayList, asmextern As String, classname As String)
         asmextern = cilkeywordchecker.get_key(asmextern)
         classname = cilkeywordchecker.get_key(classname)
-        Dim lcode As String = String.Format("box [{0}]{1}", asmextern, [classname])
+        Dim lcode As String = "box "
+        If asmextern = conrex.NULL Then
+            lcode &= String.Format("{0}", [classname])
+        Else
+            lcode &= String.Format("[{0}]{1}", asmextern, [classname])
+        End If
         codes.Add(lcode)
     End Sub
     Public Shared Sub call_method(ByRef codes As ArrayList, returntype As String, asmextern As String, classprop As String, methodname As String, paramtypes As ArrayList)
