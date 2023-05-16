@@ -38,7 +38,7 @@ Public Class libreg
         Next
     End Sub
 
-    Private Shared Sub extract_dt_info_to_map(asm As Assembly)
+    Friend Shared Sub extract_dt_info_to_map(asm As Assembly)
         assemblymap.add(asm.GetName.Name, asm.Location)
         Static Dim indexarray As Int16 = 0
         Array.Resize(types, indexarray + 1)
