@@ -1,4 +1,5 @@
-﻿Imports YOCA
+﻿Imports System.Reflection
+Imports YOCA
 
 Public Class ilasmgen
 
@@ -16,11 +17,17 @@ Public Class ilasmgen
         classdata = yoclassdt
         _ilhead = New ilhead(ilcollection, yoclassdt)
         For index = 0 To classdata.externlist.Count - 1
+recheck:
             If libserv.find_extern_name(yoclassdt.externlist(index)) Then
                 _ilhead.add_assembly_extern(yoclassdt.externlist(index))
             Else
+                Dim asm As Assembly = [Assembly].LoadWithPartialName(yoclassdt.externlist(index))
+                If (IsNothing(asm) = False) Then
+                    libreg.extract_dt_info_to_map(asm)
+                    GoTo recheck
+                End If
                 dserr.new_error(conserr.errortype.ASMERROR, -1, Nothing, "'" & yoclassdt.externlist(index) & "' Assembly not found.")
-            End If
+                End If
         Next
         ilcollection.assemblyextern = _ilhead.asmheader
         Array.Resize(ilcollection.assemblyextern, ilcollection.assemblyextern.Length - 1)
