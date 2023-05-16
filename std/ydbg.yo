@@ -198,6 +198,16 @@ func timer_stop() : void
   timer::stop()
 }
 
+func timer_reset() : void
+{
+  timer::reset()
+}
+
+func timer_restart() : void
+{
+  timer::restart()
+}
+
 func exec_time() : i64
 {
   let result : i64 = timer::elapsedmilliseconds
