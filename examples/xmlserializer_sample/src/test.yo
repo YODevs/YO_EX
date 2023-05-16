@@ -1,0 +1,9 @@
+#[app::classname("userdata")]
+#[cfg::null_safety(false)]
+public instance let name : str
+public instance let theme : str
+public instance let plan : i32 
+public instance func ctor()
+{
+
+}

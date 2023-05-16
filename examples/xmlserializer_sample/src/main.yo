@@ -1,0 +1,19 @@
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yxmlserializer'
+func main()
+{
+  let ud : init userdata()
+  ud::name := "Jimmy"
+  ud::theme := "Dark"
+  ud::plan := 5
+  let ob : obj = [box]ud
+  xmlserializer::serialize(ob,"C:\Users\Ruzes\Desktop\test\data.xml")
+
+  let ud2 : init userdata()
+  xmlserializer::deserialize(ob,"C:\Users\Ruzes\Desktop\test\data.xml")
+  ud2 := [box]ob
+  io::println(" Name : #{ud2::name} #nl Theme : #{ud2::theme} #nl Plan : #{ud2::plan}")
+}
