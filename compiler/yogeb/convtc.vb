@@ -35,7 +35,8 @@
             getdatatype = servinterface.cil_to_vb_common_data_type(getdatatype)
             cil.box(_ilmethod.codes, compdt.CORELIB, "System." & getdatatype)
         Else
-            Throw New NotImplementedException("Boxing operation not implemented for this data.")
+            Dim tpinfo As ilformat._typeinfo = yotypecreator.get_type_info(_ilmethod, New xmlunpkd.linecodestruc() {cargcodestruc}, 0, getdatatype)
+            cil.box(_ilmethod.codes, tpinfo.externlib, getdatatype)
         End If
     End Sub
     Friend Shared Sub set_type_cast(ByRef _ilmethod As ilformat._ilmethodcollection, newdtype As String, crdtype As String, nvar As String, cargcodestruc As xmlunpkd.linecodestruc)
