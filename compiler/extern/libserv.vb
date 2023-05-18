@@ -295,6 +295,13 @@ Public Class libserv
     Friend Shared Sub get_method_info(method As Reflection.MethodInfo, ByRef methodinfo As tknformat._method)
         methodinfo.name = method.Name
         methodinfo.isexpr = False
+        If method.IsStatic Then
+            methodinfo.objcontrol.modifier = tokenhared.token.STATIC
+            methodinfo.objcontrol.modifierval = "static"
+        Else
+            methodinfo.objcontrol.modifier = tokenhared.token.INSTANCE
+            methodinfo.objcontrol.modifierval = "instance"
+        End If
         If method.ReturnType.Name = "Void" Then
             methodinfo.returntype = "void"
         Else

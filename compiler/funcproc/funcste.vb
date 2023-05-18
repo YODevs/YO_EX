@@ -58,6 +58,15 @@ Public Class funcste
             convtc.setconvmethod = setconvmethod
             convtc.ntypecast = ntypecast
         End If
+
+        If isvirtualmethod = False AndAlso methodinfo.objcontrol.modifier = tokenhared.token.INSTANCE Then
+            dserr.args.Add("Method " & funcresult.clmethod & "(...) ,  Reference to a non-shared member requires an object reference.")
+            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value), "Overloads :" & vbCrLf & libserv.overloadlist)
+        ElseIf isvirtualmethod AndAlso methodinfo.objcontrol.modifier = tokenhared.token.STATIC Then
+            dserr.args.Add("Method " & funcresult.clmethod & "(...) ,  Access of shared member, constant member, enum member or nested type through an instance; qualifying expression will not be evaluated.")
+            dserr.new_error(conserr.errortype.METHODERROR, clinecodestruc(1).line, ilbodybulider.path, authfunc.get_line_error(ilbodybulider.path, servinterface.get_target_info(clinecodestruc(0)), clinecodestruc(0).value), "Overloads :" & vbCrLf & libserv.overloadlist)
+        End If
+
         If clinecodestruc(0).tokenid = tokenhared.token.ARR Then var.load_element_by_method_ac(_ilmethod, clinecodestruc(0))
         Dim paramtype As ArrayList
         Dim cargcodestruc() As xmlunpkd.linecodestruc = libserv.cargldr
