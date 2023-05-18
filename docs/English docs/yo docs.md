@@ -1338,4 +1338,51 @@ func main()
  In the phrase, `x` is used as current point, `y` as previous point, and `z` as a response the the previous phrase.
  
  
+
+ ### yxmlserializer
+Class XMLSerializer can convert class data to XML format and then it can be retrieved by using the deserialize function. This method is useful for cases such as storing and retrieving data in databases.
+ 
+<div dir="ltr">
+
+```f#
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yxmlserializer'
+func main()
+{
+  let ud : init userdata()
+  ud::name := "Jimmy"
+  ud::theme := "Dark"
+  ud::plan := 5
+  let ob : obj = [box]ud
+  xmlserializer::serialize(ob,"C:\...\data.xml")
+
+  let ud2 : init userdata()
+  xmlserializer::deserialize(ob,"C:\...\data.xml")
+  ud2 := [box]ob
+  io::println(" Name : #{ud2::name} #nl Theme : #{ud2::theme} #nl Plan : #{ud2::plan}")
+}
+ ```
+
+```f#
+#[app::classname("userdata")]
+#[cfg::null_safety(false)]
+public instance let name : str
+public instance let theme : str
+public instance let plan : i32 
+public instance func ctor()
+{
+
+}
+```
+ 
+```
+ Name : Jimmy
+ Theme : Dark
+ Plan : 5
+ ```
+  </div> 
+ 
 [rellink]: <https://github.com/YODevs/YO/releases>
