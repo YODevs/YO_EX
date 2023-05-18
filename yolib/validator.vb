@@ -30,6 +30,7 @@
         If str.Length = 0 Then Return True Else Return False
     End Function
     Public Shared Function is_whitespace(str As String) As Boolean
+        If str.Length = 0 Then Return False
         For i = 0 To str.Length - 1
             If str(i) = " " Then Continue For Else Return False
         Next
