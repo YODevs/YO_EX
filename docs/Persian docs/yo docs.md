@@ -1382,4 +1382,51 @@ func main()
   
   در عبارت از `x` به عنوان نقطه فعلی ، `y` به عنوان نقطه قبلی و `z` به عنوان پاسخ عبارت قبل استفاده می شود.
   
-[rellink]: <https://github.com/YODevs/YO/releases>
+
+### کلاس yxmlserializer 
+  کلاس XMLSerializer قابلیت تبدیل داده‌های یک کلاس به فرمت XML را دارد، و با استفاده از تابع deserialize می‌توانیم داده‌های XML را بازیابی کرده و به فرمت اولیه کلاس برگردانیم. این روش در مواردی مانند ذخیره و بازیابی اطلاعات در پایگاه داده، به کار می‌رود.
+
+<div dir="ltr">
+
+```f#
+#[app::classname("myapp")]
+#[app::wait(true)]
+
+include 'ystdio'
+include 'yxmlserializer'
+func main()
+{
+  let ud : init userdata()
+  ud::name := "Jimmy"
+  ud::theme := "Dark"
+  ud::plan := 5
+  let ob : obj = [box]ud
+  xmlserializer::serialize(ob,"C:\...\data.xml")
+
+  let ud2 : init userdata()
+  xmlserializer::deserialize(ob,"C:\...\data.xml")
+  ud2 := [box]ob
+  io::println(" Name : #{ud2::name} #nl Theme : #{ud2::theme} #nl Plan : #{ud2::plan}")
+}
+ ```
+
+```f#
+#[app::classname("userdata")]
+#[cfg::null_safety(false)]
+public instance let name : str
+public instance let theme : str
+public instance let plan : i32 
+public instance func ctor()
+{
+
+}
+```
+ 
+```
+ Name : Jimmy
+ Theme : Dark
+ Plan : 5
+ ```
+  </div>
+  
+  [rellink]: <https://github.com/YODevs/YO/releases>
