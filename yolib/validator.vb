@@ -53,9 +53,9 @@
     End Function
     Public Shared Function is_lowercase(str As String) As Boolean
         If str.Length = 0 Then Return False
-        Dim loweredstr As String = str.ToUpper
+        Dim upperedstr As String = str.ToUpper
         For i = 0 To str.Length - 1
-            If str(i) = loweredstr(i) And str(i) <> " " Then Return False Else Continue For
+            If str(i) = upperedstr(i) And str(i) <> " " Then Return False Else Continue For
         Next
         Return True
     End Function
