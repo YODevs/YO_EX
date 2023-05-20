@@ -78,4 +78,51 @@
         Dim result As DateTime
         Return DateTime.TryParse(str, result)
     End Function
+    Public Shared Function is_integer32(str As String) As Boolean
+        If str.Length = 0 Then Return False
+        If str.Contains(" ") = True Then Return False
+        Dim i As Integer
+        Return System.Int32.TryParse(str, i)
+    End Function
+    Public Shared Function is_integer64(str As String) As Boolean
+        If str.Length = 0 Then Return False
+        If str.Contains(" ") = True Then Return False
+        Dim i As Int64
+        Return System.Int64.TryParse(str, i)
+    End Function
+    Public Shared Function is_float32(str As String) As Boolean
+        If str.Length = 0 Then Return False
+        If str.Contains(" ") = True Then Return False
+        Dim s As Single
+        Return System.Single.TryParse(str, s)
+    End Function
+    Public Shared Function is_bool(str As String) As Boolean
+        If str.Length = 0 Then Return False
+        If str.Contains(" ") = True Then Return False
+        If str.ToLower() = "true" Or str.ToLower() = "false" Then Return True Else Return False
+    End Function
+    Public Shared Function is_strong_password(str As String) As Boolean
+        Dim minlength As Integer = 8
+        Dim hasnum, hassymbol, hasletter As Boolean
+        If str.Length < minlength Then Return False
+        If str.Length >= minlength Then
+            Dim symbols As list = New list()
+            symbols.add_with_split("!,@,#,$,%,^,&,*,(,),~,\,|,<,>,/,?,+,=,-", ",")
+            For i = 0 To str.Length - 1
+                For listindex = 0 To symbols.count - 1
+                    If str(i) = symbols.get(listindex) Then hassymbol = True Else Continue For
+                    If hassymbol = True Then Exit For Else Continue For
+                Next
+            Next
+            For i = 0 To str.Length - 1
+                If Char.IsNumber(str(i)) = True Then hasnum = True Else Continue For
+                If hasnum = True Then Exit For Else Continue For
+            Next
+            For i = 0 To str.Length - 1
+                If Char.IsLetter(str(i)) = True Then hasletter = True Else Continue For
+                If hasletter = True Then Exit For Else Continue For
+            Next
+            If hasnum And hasletter And hassymbol = True Then Return True Else Return False
+        End If
+    End Function
 End Class
