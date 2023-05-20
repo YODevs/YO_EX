@@ -1,0 +1,53 @@
+#[app::classname("fstr")]
+
+public static func len(var:str) : i32
+{
+  let strlen : i32 = var::length
+  return strlen
+}
+
+public static func pad_left(var:str,padstr:str,padrepeat:i32) : str
+{
+ var := pad_core(var,padstr,padrepeat,'left')
+ return var
+}
+
+public static func pad_right(var:str,padstr:str,padrepeat:i32) : str
+{
+ var := pad_core(var,padstr,padrepeat,'right')
+ return var
+}
+
+public static func pad_both(var:str,padstr:str,padrepeat:i32) : str
+{
+ var := pad_core(var,padstr,padrepeat,'both')
+ return var
+}
+
+private static func pad_core(var:str,padstr:str,padrepeat:i32,padaction:str) : str
+{
+  if(padrepeat << 1 || padstr == NULL)
+  {
+    return var
+  }
+  let sb : init system.text.stringbuilder()
+  to(padrepeat)
+  {
+    sb::append(padstr)
+  }
+  match(padaction)
+  {
+    case 'left' {
+      var .= sb::ToString()
+    }
+    case 'right'{
+      var &= sb::ToString()
+    }
+    case 'both'  {
+      var .= sb::ToString()
+      var &= sb::ToString()
+    }
+
+  }
+  return var
+}
