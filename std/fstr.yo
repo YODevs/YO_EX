@@ -1,5 +1,5 @@
 #[app::classname("fstr")]
-
+#[cfg::null_safety(false)]
 public static func len(var:str) : i32
 {
   let strlen : i32 = var::length
@@ -50,4 +50,16 @@ private static func pad_core(var:str,padstr:str,padrepeat:i32,padaction:str) : s
 
   }
   return var
+}
+
+
+public static func to_char(var:str) : char[]
+{
+  let varlen : i32 = len(var)
+  let chars[varlen] : char
+  for(i in [0..varlen])
+  {
+    chars[i] := [char]var[i]
+  }
+  return chars
 }
