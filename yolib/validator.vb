@@ -125,4 +125,19 @@
             If hasnum And hasletter And hassymbol = True Then Return True Else Return False
         End If
     End Function
+    Public Shared Function is_time(str As String) As Boolean
+        If str.Length <> 8 Then Return False
+        If str.Contains(" ") = True Then Return False
+        For i = 0 To str.Length - 1
+            If i = 2 Or i = 5 Then
+                If str(i) <> ":" Then Return False Else Continue For
+            Else
+                If Char.IsNumber(str(i)) = False Then Return False Else Continue For
+            End If
+        Next
+        Dim hours As Integer = Convert.ToInt32(str(0) + str(1))
+        Dim minutes As Integer = Convert.ToInt32(str(3) + str(4))
+        Dim seconds As Integer = Convert.ToInt32(str(6) + str(7))
+        If hours <= 23 AndAlso minutes <= 59 AndAlso seconds <= 59 = True Then Return True Else Return False
+    End Function
 End Class
