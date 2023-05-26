@@ -75,3 +75,22 @@ public static func sub_str(var:str,startindex:i32,length:i32) : str
   result := sb::ToString()
   return result
 }
+
+public static func count_char(var1:str,var2:char) : i32
+{
+  if(var1 == null)
+  {
+    return 0
+  }
+  let result : i32 = 0
+  let length : i32 = len(var1)
+  let var2tostr : str = var2::tostring()
+  for(i in [0..length])
+  {
+    if(var1[i] == var2tostr)
+    {
+      result += 1
+    }
+  }
+  return result
+}
