@@ -94,3 +94,13 @@ public static func count_char(var1:str,var2:char) : i32
   }
   return result
 }
+
+public static func iteration(var:str,count:i32) : str
+{
+  let result : str
+  to(count)
+  {
+    result := string::concat(result , var)
+  }
+  return result
+}
