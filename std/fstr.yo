@@ -52,7 +52,6 @@ private static func pad_core(var:str,padstr:str,padrepeat:i32,padaction:str) : s
   return var
 }
 
-
 public static func to_char(var:str) : char[]
 {
   let varlen : i32 = len(var)
@@ -62,4 +61,17 @@ public static func to_char(var:str) : char[]
     chars[i] := [char]var[i]
   }
   return chars
+}
+
+public static func sub_str(var:str,startindex:i32,length:i32) : str
+{
+  let sb : init system.text.stringbuilder()
+  let result : str = ""
+  let endindex : i32 = [startindex + length]
+  for(i in [startindex..=endindex])
+  {
+    sb::append(var[i])
+  }
+  result := sb::ToString()
+  return result
 }
