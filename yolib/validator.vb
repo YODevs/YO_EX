@@ -140,14 +140,4 @@
         Dim seconds As Integer = Convert.ToInt32(str(6) + str(7))
         If hours <= 23 AndAlso minutes <= 59 AndAlso seconds <= 59 = True Then Return True Else Return False
     End Function
-    Public Shared Function is_valid_path(str As String) As Boolean
-        If str.Length = 0 Then Return False
-        If str.Contains(" ") = True Then Return False
-        Return System.IO.Directory.Exists(str)
-    End Function
-    Public Shared Function is_valid_file(str As String) As Boolean
-        If str.Length = 0 Then Return False
-        If str.Contains(" ") = True Then Return False
-        Return System.IO.File.Exists(str)
-    End Function
 End Class
